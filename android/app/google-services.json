@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "860805576914",
+    "project_id": "davetcim-ffe9f",
+    "storage_bucket": "davetcim-ffe9f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860805576914:android:d3f323261d962897f5d50b",
+        "android_client_info": {
+          "package_name": "com.eybsoft.davetcim"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "860805576914-etvl4opar6jsnk52p8dho31fnaebfotv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYruTTTI3ml-I9uPdhnBAE6yKwOg8lYvI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "860805576914-etvl4opar6jsnk52p8dho31fnaebfotv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "860805576914-sv7klammbfmbntk6ipnkc45146h1sesp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.eybsoft.davetcim"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
