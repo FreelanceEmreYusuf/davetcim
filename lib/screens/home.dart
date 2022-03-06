@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/util/foods.dart';
-import 'package:davetcim/util/utils.dart';
+import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/widgets/slider_item.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/dishes.dart';
@@ -23,25 +24,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
     return result;
   }
 
-  String name = "";
-  void initState() {
-    print("listlistlistlistlistlistlistlistlistlistlistlistlist");
-    fillQuestionList();
-  }
-
-  void fillQuestionList() async {
-    print("listlistlistlistlistlistlistlistlistlistlistlistlist");
-    CollectionReference docsRef = Utils.getCollectionRef("Role");
-    var response = await docsRef.where('id', isEqualTo: 1).get();
-    var list = response.docs;
-    Map item = list[0].data();
-
-    print(list);
-    setState(() {
-      name = item["roleName"];
-    });
-  }
-
   int _current = 0;
 
   @override
@@ -56,7 +38,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  name,
+                  ApplicationSession.userSession.username,
                   style: TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.w800,
@@ -72,7 +54,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                     ),
                   ),
                   onPressed: () {
-                    print(name);
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (BuildContext context) {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:davetcim/util/const.dart';
+import 'package:davetcim/environments/const.dart';
 import 'package:davetcim/util/foods.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 

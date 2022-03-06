@@ -6,7 +6,7 @@ import 'package:davetcim/screens/home.dart';
 import 'package:davetcim/screens/notifications.dart';
 import 'package:davetcim/screens/profile.dart';
 import 'package:davetcim/screens/search.dart';
-import 'package:davetcim/util/const.dart';
+import 'package:davetcim/environments/const.dart';
 import 'package:davetcim/widgets/badge.dart';
 
 class MainScreen extends StatefulWidget {

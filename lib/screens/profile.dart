@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:davetcim/providers/app_provider.dart';
 import 'package:davetcim/screens/splash.dart';
-import 'package:davetcim/util/const.dart';
+import 'package:davetcim/environments/const.dart';
 
 class Profile extends StatefulWidget {
   @override
