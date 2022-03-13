@@ -22,7 +22,7 @@ class Constants {
     scaffoldBackgroundColor: lightBG,
     appBarTheme: AppBarTheme(
       textTheme: TextTheme(
-        title: TextStyle(
+        subtitle1: TextStyle(
           color: darkBG,
           fontSize: 18.0,
           fontWeight: FontWeight.w800,
@@ -43,7 +43,7 @@ class Constants {
     cursorColor: darkAccent,
     appBarTheme: AppBarTheme(
       textTheme: TextTheme(
-        title: TextStyle(
+        subtitle1: TextStyle(
           color: lightBG,
           fontSize: 18.0,
           fontWeight: FontWeight.w800,
