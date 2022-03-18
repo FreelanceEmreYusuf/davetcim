@@ -1,6 +1,6 @@
 import 'package:davetcim/src/join/login/login_view.dart';
 import 'package:flutter/material.dart';
-import 'package:davetcim/screens/register.dart';
+import 'package:davetcim/src/join/register/register_view.dart';
 import 'package:flutter/services.dart';
 
 class JoinApp extends StatefulWidget {
@@ -14,7 +14,7 @@ class _JoinAppState extends State<JoinApp> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, initialIndex: 1, length: 2);
+    _tabController = TabController(vsync: this, initialIndex: 0, length: 2);
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
 
@@ -56,7 +56,7 @@ class _JoinAppState extends State<JoinApp> with SingleTickerProviderStateMixin {
         controller: _tabController,
         children: <Widget>[
           LoginView(),
-          RegisterScreen(),
+          RegisterView(),
         ],
       ),
     );

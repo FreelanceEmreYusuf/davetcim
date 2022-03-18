@@ -37,14 +37,14 @@ class LoginViewModel extends ChangeNotifier {
 
   void fillUserSession(Customer customer) {
     ApplicationSession.userSession = UserSession(
-      customer.id,
-      customer.name,
-      customer.surname,
-      customer.gsmNo,
-      customer.corporationId,
-      customer.roleId,
-      customer.isActive,
-      customer.username,
-    );
+        customer.id,
+        customer.name,
+        customer.surname,
+        customer.gsmNo,
+        customer.corporationId,
+        customer.roleId,
+        customer.isActive,
+        customer.username,
+        customer.eMail);
   }
 }

@@ -7,8 +7,16 @@ class UserSession {
   final int roleId;
   final bool isActive;
   final String username;
+  final String eMail;
 
-  const UserSession(this.id, this.name, this.surname, this.gsmNo, this.corporationId, this.roleId, this.isActive, this.username);
-
-
+  const UserSession(
+      this.id,
+      this.name,
+      this.surname,
+      this.gsmNo,
+      this.corporationId,
+      this.roleId,
+      this.isActive,
+      this.username,
+      this.eMail);
 }
