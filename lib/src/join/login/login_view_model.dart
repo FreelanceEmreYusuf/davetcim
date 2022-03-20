@@ -22,7 +22,7 @@ class LoginViewModel extends ChangeNotifier {
 
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
-      Customer customer = Customer.fromMap(list[0].data());
+      CustomerModel customer = CustomerModel.fromMap(list[0].data());
       fillUserSession(customer);
       Utils.navigateToPage(context, childPage);
     } else {
@@ -35,7 +35,7 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
-  void fillUserSession(Customer customer) {
+  void fillUserSession(CustomerModel customer) {
     ApplicationSession.userSession = UserSession(
         customer.id,
         customer.name,

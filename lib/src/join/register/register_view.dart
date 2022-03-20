@@ -1,13 +1,16 @@
-import 'package:davetcim/screens/join.dart';
+import 'package:davetcim/shared/models/secret_questions_model.dart';
 import 'package:davetcim/src/join/register/register_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:davetcim/screens/main_screen.dart';
 
 class RegisterView extends StatefulWidget {
   @override
   _RegisterViewState createState() => _RegisterViewState();
+
+  RegisterView() {
+    print("constructor girdi 1");
+    _RegisterViewState.initState2();
+  }
 }
 
 class _RegisterViewState extends State<RegisterView> {
@@ -17,9 +20,24 @@ class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _phoneControl = new TextEditingController();
   final TextEditingController _nameControl = new TextEditingController();
   final TextEditingController _surnameControl = new TextEditingController();
+  final TextEditingController _secretQuestionAnswerControl =
+      new TextEditingController();
+  static List<SecretQuestionsModel> secretQuestionList = [];
+  static void initState2() async {
+    print("constructor girdi 2");
+    RegisterViewModel rm = RegisterViewModel();
+    secretQuestionList = await rm.fillQuestionList();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    SecretQuestionsModel selectedQuestion;
+
     return Padding(
       padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
       child: ListView(
@@ -307,6 +325,82 @@ class _RegisterViewState extends State<RegisterView> {
               ),
             ),
           ),
+          SizedBox(height: 10.0),
+          Card(
+            elevation: 3.0,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5.0),
+                ),
+              ),
+              child: new DropdownButton<SecretQuestionsModel>(
+                isExpanded: true,
+                value: selectedQuestion,
+                hint: Text("Secret Question"),
+                onChanged: (SecretQuestionsModel newValue) {
+                  setState(() {
+                    selectedQuestion = newValue;
+                  });
+                  print("selected question: " + selectedQuestion.questionText);
+                },
+                items: secretQuestionList.map((SecretQuestionsModel question) {
+                  return new DropdownMenuItem<SecretQuestionsModel>(
+                    value: question,
+                    child: new Text(
+                      question.questionText,
+                      style: new TextStyle(color: Colors.black),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ),
+          SizedBox(height: 10.0),
+          Card(
+            elevation: 3.0,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(5.0),
+                ),
+              ),
+              child: TextField(
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(10.0),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                  hintText: "Secret Answer",
+                  prefixIcon: Icon(
+                    Icons.question_answer,
+                    color: Colors.black,
+                  ),
+                  hintStyle: TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.black,
+                  ),
+                ),
+                maxLines: 1,
+                controller: _secretQuestionAnswerControl,
+              ),
+            ),
+          ),
           SizedBox(height: 40.0),
           Container(
             height: 50.0,
@@ -326,19 +420,12 @@ class _RegisterViewState extends State<RegisterView> {
                     _phoneControl.text,
                     _nameControl.text,
                     _surnameControl.text);
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return JoinApp();
-                    },
-                  ),
-                );
               },
               color: Theme.of(context).accentColor,
             ),
           ),
           SizedBox(height: 10.0),
-          Divider(
+          /*Divider(
             color: Theme.of(context).accentColor,
           ),
           SizedBox(height: 10.0),
@@ -378,7 +465,7 @@ class _RegisterViewState extends State<RegisterView> {
                 ],
               ),
             ),
-          ),
+          ),*/
           SizedBox(height: 20.0),
         ],
       ),

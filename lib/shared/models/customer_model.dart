@@ -1,6 +1,6 @@
 import 'dart:math';
 
-class Customer {
+class CustomerModel {
   final int id;
   final String name;
   final String surname;
@@ -12,7 +12,7 @@ class Customer {
   final String password;
   final String eMail;
 
-  Customer(
+  CustomerModel(
       {this.id,
       this.name,
       this.surname,
@@ -39,7 +39,7 @@ class Customer {
       };
 
   ///Map to object
-  factory Customer.fromMap(Map map) => Customer(
+  factory CustomerModel.fromMap(Map map) => CustomerModel(
       id: map['id'],
       name: map['name'],
       surname: map['surname'],
