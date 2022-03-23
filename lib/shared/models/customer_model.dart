@@ -11,6 +11,8 @@ class CustomerModel {
   final String username;
   final String password;
   final String eMail;
+  final int secretQuestionId;
+  final String secretQuestionAnswer;
 
   CustomerModel(
       {this.id,
@@ -22,7 +24,9 @@ class CustomerModel {
       this.isActive,
       this.username,
       this.password,
-      this.eMail});
+      this.eMail,
+      this.secretQuestionId,
+      this.secretQuestionAnswer});
 
   ///Object to map
   Map<String, dynamic> toMap() => {
@@ -35,7 +39,9 @@ class CustomerModel {
         'isActive': isActive,
         'username': username,
         'password': password,
-        'eMail': eMail
+        'eMail': eMail,
+        'secretQuestionId': secretQuestionId,
+        'secretQuestionAnswer': secretQuestionAnswer,
       };
 
   ///Map to object
@@ -49,5 +55,7 @@ class CustomerModel {
       isActive: map['isActive'],
       username: map['username'],
       password: map['password'],
-      eMail: map['eMail']);
+      eMail: map['eMail'],
+      secretQuestionId: map['secretQuestionId'],
+      secretQuestionAnswer: map['secretQuestionAnswer']);
 }
