@@ -6,11 +6,6 @@ import 'package:flutter/material.dart';
 class RegisterView extends StatefulWidget {
   @override
   _RegisterViewState createState() => _RegisterViewState();
-
-  RegisterView() {
-    print("constructor girdi 1");
-    _RegisterViewState.initState2();
-  }
 }
 
 class _RegisterViewState extends State<RegisterView> {
@@ -23,21 +18,24 @@ class _RegisterViewState extends State<RegisterView> {
   final TextEditingController _secretQuestionAnswerControl =
       new TextEditingController();
   static List<SecretQuestionsModel> secretQuestionList = [];
-  static void initState2() async {
-    print("constructor girdi 2");
-    RegisterViewModel rm = RegisterViewModel();
-    secretQuestionList = await rm.fillQuestionList();
-  }
+  SecretQuestionsModel selectedQuestion;
 
   @override
   void initState() {
-    super.initState();
+    callSecretQuestionList();
+  }
+
+  void callSecretQuestionList() async{
+    RegisterViewModel rm = RegisterViewModel();
+    secretQuestionList = await rm.fillQuestionList();
+
+    setState(() {
+      secretQuestionList = secretQuestionList;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    SecretQuestionsModel selectedQuestion;
-
     return Padding(
       padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
       child: ListView(
@@ -413,13 +411,17 @@ class _RegisterViewState extends State<RegisterView> {
               ),
               onPressed: () {
                 RegisterViewModel rvm = RegisterViewModel();
-                rvm.createCustomer(
+                rvm.customerUserRegisterFlow(
+                     context,
                     _usernameControl.text,
-                    _emailControl.text,
                     _passwordControl.text,
-                    _phoneControl.text,
                     _nameControl.text,
-                    _surnameControl.text);
+                    _surnameControl.text,
+                    _phoneControl.text,
+                    _emailControl.text,
+                    _secretQuestionAnswerControl.text,
+                    selectedQuestion,
+                );
               },
               color: Theme.of(context).accentColor,
             ),
