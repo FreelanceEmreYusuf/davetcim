@@ -543,9 +543,16 @@ class LanguageConstants {
     3: 'Для этого вам необходимо войти в систему. Хотите перейти на страницу входа?'
   };
 
-  static final Map<int, String> dialogRegisterUnSuccessUserNameMessage = {
+  static final Map<int, String> dialogRegisterExistUserNameMessage = {
     0: 'Bu kullanıcı adı zaten mevcut',
     1: 'This username already exists',
+    2: 'اسم المستخدم هذا موجود بالفعل',
+    3: 'Такое имя пользователя уже существует'
+  };
+
+  static final Map<int, String> dialogRegisterExistEmailMessage = {
+    0: 'Bu e-posta ile kayıtlı kullanıcı zaten bulunmaktadır!',
+    1: 'This email already exists',
     2: 'اسم المستخدم هذا موجود بالفعل',
     3: 'Такое имя пользователя уже существует'
   };
@@ -560,6 +567,13 @@ class LanguageConstants {
   static final Map<int, String> dialogRegisterUnSuccessFullNameMessage = {
     0: 'İsim bilgisini giriniz',
     1: 'Enter the name information',
+    2: 'أدخل معلومات الاسم',
+    3: 'Введите информацию об имени'
+  };
+
+  static final Map<int, String> dialogRegisterUnSuccessFullUserNameMessage = {
+    0: 'Kullanıcı Adı bilgisini giriniz',
+    1: 'Enter the username information',
     2: 'أدخل معلومات الاسم',
     3: 'Введите информацию об имени'
   };
