@@ -557,16 +557,44 @@ class LanguageConstants {
     3: 'Такое имя пользователя уже существует'
   };
 
-  static final Map<int, String> dialogRegisterUnSuccessPasswordMessage = {
+  static final Map<int, String> passwordLengthMustBe8Message = {
     0: 'Parola en az 8 hane olmalıdır',
     1: 'Password must be at least 8 digits',
     2: 'يجب أن تتكون كلمة المرور من 8 أرقام على الأقل',
     3: 'Пароль должен состоять не менее чем из 8 цифр.'
   };
 
-  static final Map<int, String> dialogRegisterUnSuccessFullNameMessage = {
-    0: 'İsim bilgisini giriniz',
+  static final Map<int, String> passwordIncorrectMessage = {
+    0: 'Parola en az 8 hane olmalıdır',
+    1: 'Password must be at least 8 digits',
+    2: 'يجب أن تتكون كلمة المرور من 8 أرقام على الأقل',
+    3: 'Пароль должен состоять не менее чем из 8 цифр.'
+  };
+
+  static final Map<int, String> cannotNullNameMessage = {
+    0: 'İsim bilgisi giriniz',
     1: 'Enter the name information',
+    2: 'أدخل معلومات الاسم',
+    3: 'Введите информацию об имени'
+  };
+
+  static final Map<int, String> nameLengthMustBe3And70Message = {
+    0: 'İsim bilgisi an az 3 en fazla 70 karakter olmalı giriniz',
+    1: 'Name Length Must Be 3 And 70',
+    2: 'أدخل معلومات الاسم',
+    3: 'Введите информацию об имени'
+  };
+
+  static final Map<int, String> cannotNullSurnameMessage = {
+    0: 'Soy İsim bilgisi giriniz',
+    1: 'Enter the name information',
+    2: 'أدخل معلومات الاسم',
+    3: 'Введите информацию об имени'
+  };
+
+  static final Map<int, String> surnameLengthMustBe3And70Message = {
+    0: 'Soy İsim bilgisi an az 3 en fazla 70 karakter olmalı giriniz',
+    1: 'Name Length Must Be 3 And 70',
     2: 'أدخل معلومات الاسم',
     3: 'Введите информацию об имени'
   };
