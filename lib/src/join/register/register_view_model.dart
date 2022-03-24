@@ -29,7 +29,7 @@ class RegisterViewModel extends ChangeNotifier {
       String questionAnswer,
       SecretQuestionsModel selectedQuestion) async {
     FormControlExtention formControlExtention= FormControlExtention();
-    if (await formControlExtention.getRegisterFormElementsControl(context,username, password,name,surname,
+    if (await formControlExtention.getFormElementsControl(context,username, password,name,surname,
       phoneNumber,email,questionAnswer,selectedQuestion)) {
       await createCustomer(username, email, password, phoneNumber, name, surname,selectedQuestion,questionAnswer);
       showSucessMessage(context);

@@ -48,7 +48,7 @@ class _RegisterViewState extends State<RegisterView> {
               top: 25.0,
             ),
             child: Text(
-              "Create an account",
+              "Yeni Hesap Oluştur",
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w700,
@@ -85,7 +85,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  hintText: "Name",
+                  hintText: "İsim",
                   prefixIcon: Icon(
                     Icons.perm_identity,
                     color: Colors.black,
@@ -129,7 +129,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  hintText: "Surname",
+                  hintText: "Soyisim",
                   prefixIcon: Icon(
                     Icons.perm_identity,
                     color: Colors.black,
@@ -173,7 +173,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  hintText: "Username",
+                  hintText: "Kullanıcı Adı",
                   prefixIcon: Icon(
                     Icons.perm_identity,
                     color: Colors.black,
@@ -217,7 +217,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  hintText: "Email",
+                  hintText: "E-Posta",
                   prefixIcon: Icon(
                     Icons.mail_outline,
                     color: Colors.black,
@@ -262,7 +262,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  hintText: "Phone Number",
+                  hintText: "Telefon Numarası (5XXXXXXXXX)",
                   prefixIcon: Icon(
                     Icons.phone,
                     color: Colors.black,
@@ -307,7 +307,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  hintText: "Password",
+                  hintText: "Kullanıcı Şifresi",
                   prefixIcon: Icon(
                     Icons.lock_outline,
                     color: Colors.black,
@@ -336,12 +336,11 @@ class _RegisterViewState extends State<RegisterView> {
               child: new DropdownButton<SecretQuestionsModel>(
                 isExpanded: true,
                 value: selectedQuestion,
-                hint: Text("Secret Question"),
+                hint: Text("Gizli Soru"),
                 onChanged: (SecretQuestionsModel newValue) {
                   setState(() {
                     selectedQuestion = newValue;
                   });
-                  print("selected question: " + selectedQuestion.questionText);
                 },
                 items: secretQuestionList.map((SecretQuestionsModel question) {
                   return new DropdownMenuItem<SecretQuestionsModel>(
@@ -384,7 +383,7 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  hintText: "Secret Answer",
+                  hintText: "Cevap",
                   prefixIcon: Icon(
                     Icons.question_answer,
                     color: Colors.black,
@@ -404,7 +403,7 @@ class _RegisterViewState extends State<RegisterView> {
             height: 50.0,
             child: RaisedButton(
               child: Text(
-                "Register".toUpperCase(),
+                "Kaydet".toUpperCase(),
                 style: TextStyle(
                   color: Colors.white,
                 ),
