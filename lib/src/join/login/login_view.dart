@@ -1,12 +1,9 @@
 import 'package:davetcim/screens/home.dart';
-import 'package:davetcim/src/join/register/register_view.dart';
+import 'package:davetcim/src/join/forgotPasswd/forgot_passwd_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 import 'login_view_model.dart';
-
-
 
 class LoginView extends StatefulWidget {
   @override
@@ -14,19 +11,16 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-
   final TextEditingController _usernameControl = new TextEditingController();
   final TextEditingController _passwordControl = new TextEditingController();
-
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(20.0,0,20,0),
+      padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
       child: ListView(
         shrinkWrap: true,
         children: <Widget>[
-
           SizedBox(height: 10.0),
           Container(
             alignment: Alignment.center,
@@ -34,7 +28,7 @@ class _LoginViewState extends State<LoginView> {
               top: 25.0,
             ),
             child: Text(
-              "Log in to your account",
+              "Hesabına Giriş Yap",
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.w700,
@@ -42,9 +36,7 @@ class _LoginViewState extends State<LoginView> {
               ),
             ),
           ),
-
           SizedBox(height: 30.0),
-
           Card(
             elevation: 3.0,
             child: Container(
@@ -63,13 +55,17 @@ class _LoginViewState extends State<LoginView> {
                   contentPadding: EdgeInsets.all(10.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(color: Colors.white,),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white,),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  hintText: "Username",
+                  hintText: "Kullanıcı Adı",
                   hintStyle: TextStyle(
                     fontSize: 15.0,
                     color: Colors.black,
@@ -84,9 +80,7 @@ class _LoginViewState extends State<LoginView> {
               ),
             ),
           ),
-
           SizedBox(height: 10.0),
-
           Card(
             elevation: 3.0,
             child: Container(
@@ -105,13 +99,17 @@ class _LoginViewState extends State<LoginView> {
                   contentPadding: EdgeInsets.all(10.0),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(color: Colors.white,),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.white,),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  hintText: "Password",
+                  hintText: "Parola",
                   prefixIcon: Icon(
                     Icons.lock_outline,
                     color: Colors.black,
@@ -127,36 +125,40 @@ class _LoginViewState extends State<LoginView> {
               ),
             ),
           ),
-
           SizedBox(height: 10.0),
-
           Container(
             alignment: Alignment.centerRight,
             child: FlatButton(
               child: Text(
-                "Forgot Password?",
+                "Şifremi Unuttum",
                 style: TextStyle(
                   fontSize: 14.0,
                   fontWeight: FontWeight.w500,
                   color: Theme.of(context).accentColor,
                 ),
               ),
-              onPressed: (){},
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (BuildContext context) {
+                      return ForgotPasswdView();
+                    },
+                  ),
+                );
+              },
             ),
           ),
-
           SizedBox(height: 30.0),
-
           Container(
             height: 50.0,
             child: RaisedButton(
               child: Text(
-                "LOGIN".toUpperCase(),
+                "GİRİŞ".toUpperCase(),
                 style: TextStyle(
                   color: Colors.white,
                 ),
               ),
-              onPressed: () async{
+              onPressed: () async {
                 LoginViewModel vm = LoginViewModel();
                 await vm.userLoginFlow(context, Home(), _usernameControl.text,
                     _passwordControl.text);
@@ -164,19 +166,19 @@ class _LoginViewState extends State<LoginView> {
               color: Theme.of(context).accentColor,
             ),
           ),
-
           SizedBox(height: 10.0),
-          Divider(color: Theme.of(context).accentColor,),
+          /*
+          Divider(
+            color: Theme.of(context).accentColor,
+          ),
           SizedBox(height: 10.0),
-
-
           Center(
             child: Container(
-              width: MediaQuery.of(context).size.width/2,
+              width: MediaQuery.of(context).size.width / 2,
               child: Row(
                 children: <Widget>[
                   RawMaterialButton(
-                    onPressed: (){},
+                    onPressed: () {},
                     fillColor: Colors.blue[800],
                     shape: CircleBorder(),
                     elevation: 4.0,
@@ -189,9 +191,8 @@ class _LoginViewState extends State<LoginView> {
                       ),
                     ),
                   ),
-
                   RawMaterialButton(
-                    onPressed: (){},
+                    onPressed: () {},
                     fillColor: Colors.white,
                     shape: CircleBorder(),
                     elevation: 4.0,
@@ -207,10 +208,8 @@ class _LoginViewState extends State<LoginView> {
                 ],
               ),
             ),
-          ),
-
+          ),*/
           SizedBox(height: 20.0),
-
         ],
       ),
     );
