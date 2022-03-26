@@ -606,6 +606,14 @@ class LanguageConstants {
     3: 'Введите информацию об имени'
   };
 
+
+  static final Map<int, String> formElementValueBetween3and70Message = {
+    0: 'Bu alan en az 3 en fazla 70 karakterden oluşmalıdır!',
+    1: 'This area....',
+    2: 'أدخل معلومات الاسم',
+    3: 'Введите информацию об имени'
+  };
+
   static final Map<int, String> dialogRegisterUnSuccessRegionCodeMessage = {
     0: 'Ülke kodunu giriniz',
     1: 'Enter country code',
@@ -644,6 +652,13 @@ class LanguageConstants {
   static final Map<int, String> dialogRegisterUnSuccessQuestionAnswerMessage = {
     0: 'Lütfen gizli soru cevabınızı giriniz',
     1: 'Please enter your secret question answer',
+    2: 'الرجاء إدخال إجابة السؤال السري الخاص بك',
+    3: 'Пожалуйста, введите ответ на секретный вопрос'
+  };
+
+  static final Map<int, String> formElementNullValueMessage = {
+    0: 'Bu Alan Boş Bırakılamaz',
+    1: 'This Area Cannot Be Null',
     2: 'الرجاء إدخال إجابة السؤال السري الخاص بك',
     3: 'Пожалуйста, введите ответ на секретный вопрос'
   };

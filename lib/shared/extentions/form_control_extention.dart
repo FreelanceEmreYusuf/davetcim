@@ -127,7 +127,7 @@ class FormControlExtention{
       errorMessage = LanguageConstants.cannotNullNameMessage[LanguageConstants.languageFlag].toString();
     }
 
-    if(!(name.length > 2 && name.length < 71)){
+    if(errorMessage.isEmpty && !(name.length > 2 && name.length < 71)){
       errorMessage = LanguageConstants.nameLengthMustBe3And70Message[LanguageConstants.languageFlag].toString();
     }
 
@@ -187,6 +187,25 @@ class FormControlExtention{
     if(selectedQuestion == null){
       errorMessage = LanguageConstants.dialogRegisterUnSuccessQuestionAnswerMessage[LanguageConstants.languageFlag];
     }
+    return errorMessage;
+  }
+
+  String getNullControl(String value){
+    String errorMessage = '';
+
+    if(value.isEmpty){
+      errorMessage = LanguageConstants.formElementNullValueMessage[LanguageConstants.languageFlag];
+    }
+    return errorMessage;
+  }
+
+  String getValueBetween3and70Control(String value){
+    String errorMessage = '';
+
+    if(!(value.length > 2 && value.length < 71)){
+      errorMessage = LanguageConstants.formElementValueBetween3and70Message[LanguageConstants.languageFlag].toString();
+    }
+
     return errorMessage;
   }
 }
