@@ -109,6 +109,29 @@ class _LoginViewState extends State<LoginView> {
                 },
                 maxLines: 1,
               ),
+              SizedBox(height: 10.0),
+              Container(
+                alignment: Alignment.centerRight,
+                child: FlatButton(
+                  child: Text(
+                    "Şifremi Unuttum",
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).accentColor,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return ForgotPasswdView();
+                        },
+                      ),
+                    );
+                  },
+                ),
+              ),
               SizedBox(height: 30.0),
               Container(
                 height: 50.0,
@@ -137,4 +160,4 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
-  }
+}
