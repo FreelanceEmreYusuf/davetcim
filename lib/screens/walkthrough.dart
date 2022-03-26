@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:davetcim/screens/join.dart';
+import 'package:davetcim/src/join/join_view.dart';
 
 class Walkthrough extends StatefulWidget {
   @override
@@ -52,7 +52,7 @@ class _WalkthroughState extends State<Walkthrough> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (BuildContext context) {
-                    return JoinApp();
+                    return JoinView();
                   },
                 ),
               );
@@ -61,7 +61,7 @@ class _WalkthroughState extends State<Walkthrough> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (BuildContext context) {
-                    return JoinApp();
+                    return JoinView();
                   },
                 ),
               );

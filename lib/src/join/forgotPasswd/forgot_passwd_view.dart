@@ -1,20 +1,20 @@
-import 'package:davetcim/src/join/login/login_view.dart';
+import 'package:davetcim/src/join/forgotPasswd/reset_password_view.dart';
 import 'package:flutter/material.dart';
-import 'package:davetcim/src/join/register/register_view.dart';
 import 'package:flutter/services.dart';
 
-class JoinApp extends StatefulWidget {
+class ForgotPasswdView extends StatefulWidget {
   @override
-  _JoinAppState createState() => _JoinAppState();
+  _ForgotPasswdViewState createState() => _ForgotPasswdViewState();
 }
 
-class _JoinAppState extends State<JoinApp> with SingleTickerProviderStateMixin {
+class _ForgotPasswdViewState extends State<ForgotPasswdView>
+    with SingleTickerProviderStateMixin {
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, initialIndex: 0, length: 2);
+    _tabController = TabController(vsync: this, initialIndex: 0, length: 1);
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
 
@@ -44,10 +44,7 @@ class _JoinAppState extends State<JoinApp> with SingleTickerProviderStateMixin {
           ),
           tabs: <Widget>[
             Tab(
-              text: "Login",
-            ),
-            Tab(
-              text: "Register",
+              text: "Şifremi Unuttum",
             ),
           ],
         ),
@@ -55,8 +52,7 @@ class _JoinAppState extends State<JoinApp> with SingleTickerProviderStateMixin {
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          LoginView(),
-          RegisterView(),
+          ResetPasswordView(),
         ],
       ),
     );

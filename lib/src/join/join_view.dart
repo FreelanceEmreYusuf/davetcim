@@ -1,18 +1,15 @@
 import 'package:davetcim/src/join/login/login_view.dart';
-import 'package:davetcim/src/join/register/register_view.dart';
 import 'package:flutter/material.dart';
+import 'package:davetcim/src/join/register/register_view.dart';
 import 'package:flutter/services.dart';
-
 
 class JoinView extends StatefulWidget {
   @override
   _JoinViewState createState() => _JoinViewState();
 }
 
-
-
-class _JoinViewState extends State<JoinView> with SingleTickerProviderStateMixin{
-
+class _JoinViewState extends State<JoinView>
+    with SingleTickerProviderStateMixin {
   TabController _tabController;
 
   @override
@@ -21,7 +18,6 @@ class _JoinViewState extends State<JoinView> with SingleTickerProviderStateMixin
     _tabController = TabController(vsync: this, initialIndex: 0, length: 2);
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +28,7 @@ class _JoinViewState extends State<JoinView> with SingleTickerProviderStateMixin
           icon: Icon(
             Icons.keyboard_backspace,
           ),
-          onPressed: ()=>Navigator.pop(context),
+          onPressed: () => Navigator.pop(context),
         ),
         bottom: TabBar(
           controller: _tabController,
@@ -49,15 +45,14 @@ class _JoinViewState extends State<JoinView> with SingleTickerProviderStateMixin
           ),
           tabs: <Widget>[
             Tab(
-              text: "Login",
+              text: "Giriş Yap",
             ),
             Tab(
-              text: "Register",
+              text: "Kaydol",
             ),
           ],
         ),
       ),
-
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
@@ -65,8 +60,6 @@ class _JoinViewState extends State<JoinView> with SingleTickerProviderStateMixin
           RegisterView(),
         ],
       ),
-
-
     );
   }
 }
