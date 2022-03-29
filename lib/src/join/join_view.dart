@@ -48,7 +48,7 @@ class _JoinViewState extends State<JoinView>
               text: "Giriş Yap",
             ),
             Tab(
-              text: "Kaydol",
+              text: "Kayıt Ol",
             ),
           ],
         ),
