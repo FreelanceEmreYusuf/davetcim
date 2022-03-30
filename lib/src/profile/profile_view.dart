@@ -24,7 +24,6 @@ class _ProfileState extends State<Profile> {
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0),
                   child: Image.asset(
-
                     "assets/avatar.jpg",
                     fit: BoxFit.cover,
                     width: 100.0,
