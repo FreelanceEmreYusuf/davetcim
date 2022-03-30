@@ -24,7 +24,7 @@ class _RegisterViewState extends State<RegisterView> {
       new TextEditingController();
   static List<SecretQuestionsModel> secretQuestionList = [];
   SecretQuestionsModel selectedQuestion;
-  final registerFormKey = GlobalKey <FormState> ();
+  final registerFormKey = GlobalKey<FormState>();
   FormControlExtention formControlExtention = FormControlExtention();
   String formException = "";
   @override
@@ -32,7 +32,7 @@ class _RegisterViewState extends State<RegisterView> {
     callSecretQuestionList();
   }
 
-  void callSecretQuestionList() async{
+  void callSecretQuestionList() async {
     RegisterViewModel rm = RegisterViewModel();
     secretQuestionList = await rm.fillQuestionList();
 
@@ -41,12 +41,10 @@ class _RegisterViewState extends State<RegisterView> {
     });
   }
 
-
   @override
-  Widget build(BuildContext contex){
+  Widget build(BuildContext contex) {
     return Scaffold(
-      body:
-      Padding(
+      body: Padding(
         padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
         child: Form(
           key: registerFormKey,
@@ -92,14 +90,14 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 controller: _nameControl,
                 validator: (name) {
-                  if(FormControlUtil.getDefaultFormValueControl(name).isEmpty)
+                  if (FormControlUtil.getDefaultFormValueControl(name).isEmpty)
                     return null;
-                  else{
+                  else {
                     return FormControlUtil.getDefaultFormValueControl(name);
                   }
                 },
                 maxLines: 1,
-              ),//İsim
+              ), //İsim
               SizedBox(height: 15.0),
               TextFormField(
                 style: TextStyle(
@@ -124,14 +122,15 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 controller: _surnameControl,
                 validator: (surname) {
-                  if(FormControlUtil.getDefaultFormValueControl(surname).isEmpty)
+                  if (FormControlUtil.getDefaultFormValueControl(surname)
+                      .isEmpty)
                     return null;
-                  else{
+                  else {
                     return FormControlUtil.getDefaultFormValueControl(surname);
                   }
                 },
                 maxLines: 1,
-              ),//Soyisim
+              ), //Soyisim
               SizedBox(height: 15.0),
               TextFormField(
                 style: TextStyle(
@@ -144,7 +143,7 @@ class _RegisterViewState extends State<RegisterView> {
                   fillColor: Colors.white,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
-                    Icons.perm_identity,
+                    Icons.supervised_user_circle,
                     color: Colors.black,
                   ),
                   border: OutlineInputBorder(
@@ -156,49 +155,54 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 controller: _usernameControl,
                 validator: (userName) {
-                  if(FormControlUtil.getDefaultFormValueControl(userName).isEmpty)
+                  if (FormControlUtil.getDefaultFormValueControl(userName)
+                      .isEmpty)
                     return null;
-                  else{
+                  else {
                     return FormControlUtil.getDefaultFormValueControl(userName);
                   }
                 },
                 maxLines: 1,
-              ),//Kullanıcı Adı
+              ), //Kullanıcı Adı
               SizedBox(height: 15.0),
               TextFormField(
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                ),
-                decoration: InputDecoration(
-                  labelText: "E-Posta",
-                  filled: true,
-                  fillColor: Colors.white,
-                  focusColor: Colors.blue,
-                  prefixIcon: Icon(
-                    Icons.mail_outline,
+                  style: TextStyle(
+                    fontSize: 15.0,
                     color: Colors.black,
                   ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
+                  decoration: InputDecoration(
+                    labelText: "E-Posta",
+                    filled: true,
+                    fillColor: Colors.white,
+                    focusColor: Colors.blue,
+                    prefixIcon: Icon(
+                      Icons.mail_outline,
+                      color: Colors.black,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                      borderSide: BorderSide(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
-                ),
-                controller: _emailControl,
-                validator: (email) {
-                  String defaultValueControl=FormControlUtil.getDefaultFormValueControl(email);
-                  String emailValueControl=FormControlUtil.getEmailAdressControl(email);
-                  if(defaultValueControl.isEmpty && emailValueControl.isEmpty)
-                    return null;
-                  else{
-                    return !defaultValueControl.isEmpty ? defaultValueControl:emailValueControl;
-                  }
-                },
-                maxLines: 1,
-                keyboardType: TextInputType.emailAddress
-              ),//E-Posta
+                  controller: _emailControl,
+                  validator: (email) {
+                    String defaultValueControl =
+                        FormControlUtil.getDefaultFormValueControl(email);
+                    String emailValueControl =
+                        FormControlUtil.getEmailAdressControl(email);
+                    if (defaultValueControl.isEmpty &&
+                        emailValueControl.isEmpty)
+                      return null;
+                    else {
+                      return !defaultValueControl.isEmpty
+                          ? defaultValueControl
+                          : emailValueControl;
+                    }
+                  },
+                  maxLines: 1,
+                  keyboardType: TextInputType.emailAddress), //E-Posta
               SizedBox(height: 15.0),
               TextFormField(
                   style: TextStyle(
@@ -211,7 +215,7 @@ class _RegisterViewState extends State<RegisterView> {
                     fillColor: Colors.white,
                     focusColor: Colors.blue,
                     prefixIcon: Icon(
-                      Icons.mail_outline,
+                      Icons.phone,
                       color: Colors.black,
                     ),
                     border: OutlineInputBorder(
@@ -223,48 +227,49 @@ class _RegisterViewState extends State<RegisterView> {
                   ),
                   controller: _phoneControl,
                   validator: (phoneNumber) {
-                    if(FormControlUtil.getPhoneNumberControl(phoneNumber).isEmpty)
+                    if (FormControlUtil.getPhoneNumberControl(phoneNumber)
+                        .isEmpty)
                       return null;
-                    else{
+                    else {
                       return FormControlUtil.getPhoneNumberControl(phoneNumber);
                     }
                   },
                   maxLines: 1,
-                  keyboardType: TextInputType.number
-              ),//Telefon Numarası
+                  keyboardType: TextInputType.number), //Telefon Numarası
               SizedBox(height: 15.0),
               TextFormField(
-                  style: TextStyle(
-                    fontSize: 15.0,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  labelText: "Şifre",
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusColor: Colors.blue,
+                  prefixIcon: Icon(
+                    Icons.security,
                     color: Colors.black,
                   ),
-                  decoration: InputDecoration(
-                    labelText: "Şifre",
-                    filled: true,
-                    fillColor: Colors.white,
-                    focusColor: Colors.blue,
-                    prefixIcon: Icon(
-                      Icons.mail_outline,
-                      color: Colors.black,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                      ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
                     ),
                   ),
-                  controller: _passwordControl,
-                  validator: (passwordControl) {
-                    if(FormControlUtil.getPasswordControl(passwordControl).isEmpty)
-                      return null;
-                    else{
-                      return FormControlUtil.getPasswordControl(passwordControl);
-                    }
-                  },
-                  obscureText: true,
-                  maxLines: 1,
-              ),//Şifre
+                ),
+                controller: _passwordControl,
+                validator: (passwordControl) {
+                  if (FormControlUtil.getPasswordControl(passwordControl)
+                      .isEmpty)
+                    return null;
+                  else {
+                    return FormControlUtil.getPasswordControl(passwordControl);
+                  }
+                },
+                obscureText: true,
+                maxLines: 1,
+              ), //Şifre
               SizedBox(height: 15.0),
               DropdownButtonFormField(
                 style: TextStyle(
@@ -303,12 +308,10 @@ class _RegisterViewState extends State<RegisterView> {
                     ),
                   );
                 }).toList(),
-                validator: (selectedQuestionValue){
-                  if(selectedQuestionValue == null)
-                  {
+                validator: (selectedQuestionValue) {
+                  if (selectedQuestionValue == null) {
                     return FormControlUtil.getStringEmptyValueControl("");
-                  }
-                  else{
+                  } else {
                     return null;
                   }
                 },
@@ -338,16 +341,17 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 controller: _secretQuestionAnswerControl,
                 validator: (secretQuestionAnswer) {
-                  if(FormControlUtil.getDefaultFormValueControl(secretQuestionAnswer).isEmpty)
-                  {
+                  if (FormControlUtil.getDefaultFormValueControl(
+                          secretQuestionAnswer)
+                      .isEmpty) {
                     return null;
-                  }
-                  else{
-                    return FormControlUtil.getDefaultFormValueControl(secretQuestionAnswer);
+                  } else {
+                    return FormControlUtil.getDefaultFormValueControl(
+                        secretQuestionAnswer);
                   }
                 },
                 maxLines: 1,
-              ),//Cevap
+              ), //Cevap
               SizedBox(height: 15.0),
               Container(
                 height: 50.0,
@@ -761,15 +765,15 @@ class _RegisterViewState extends State<RegisterView> {
               onPressed: () {
                 RegisterViewModel rvm = RegisterViewModel();
                 rvm.customerUserRegisterFlow(
-                     context,
-                    _usernameControl.text,
-                    _passwordControl.text,
-                    _nameControl.text,
-                    _surnameControl.text,
-                    _phoneControl.text,
-                    _emailControl.text,
-                    _secretQuestionAnswerControl.text,
-                    selectedQuestion,
+                  context,
+                  _usernameControl.text,
+                  _passwordControl.text,
+                  _nameControl.text,
+                  _surnameControl.text,
+                  _phoneControl.text,
+                  _emailControl.text,
+                  _secretQuestionAnswerControl.text,
+                  selectedQuestion,
                 );
               },
               color: Theme.of(context).accentColor,

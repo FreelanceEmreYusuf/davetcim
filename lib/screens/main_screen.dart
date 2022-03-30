@@ -4,7 +4,7 @@ import 'package:davetcim/screens/cart.dart';
 import 'package:davetcim/screens/favorite_screen.dart';
 import 'package:davetcim/screens/home.dart';
 import 'package:davetcim/screens/notifications.dart';
-import 'package:davetcim/screens/profile.dart';
+import 'package:davetcim/src/profile/profile_view.dart';
 import 'package:davetcim/screens/search.dart';
 import 'package:davetcim/environments/const.dart';
 import 'package:davetcim/widgets/badge.dart';
