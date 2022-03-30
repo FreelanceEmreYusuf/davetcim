@@ -26,12 +26,9 @@ class LoginViewModel extends ChangeNotifier {
       fillUserSession(customer);
       Utils.navigateToPage(context, childPage);
     } else {
-      Dialogs.showAlertMessage(
-          context,
-          LanguageConstants
-              .dialogUnSuccessHeader[LanguageConstants.languageFlag],
-          LanguageConstants
-              .kullaniciAdiYaDaParolaYanlis[LanguageConstants.languageFlag]);
+      Dialogs.showAlertMessage(context,
+          LanguageConstants.dialogUnSuccessHeader[LanguageConstants.languageFlag],
+          LanguageConstants.kullaniciAdiYaDaParolaYanlis[LanguageConstants.languageFlag]);
     }
   }
 

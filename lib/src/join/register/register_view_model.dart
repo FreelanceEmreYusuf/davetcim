@@ -1,14 +1,10 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/environments/const.dart';
 import 'package:davetcim/environments/db_constants.dart';
-import 'package:davetcim/shared/extentions/form_control_extention.dart';
+import 'package:davetcim/shared/helpers/customer_helper.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/models/secret_questions_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
-import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -28,17 +24,15 @@ class RegisterViewModel extends ChangeNotifier {
       String email,
       String questionAnswer,
       SecretQuestionsModel selectedQuestion) async {
-    FormControlExtention formControlExtention= FormControlExtention();
-    String userExistControlWithUserName = await formControlExtention.getUserExistingControl(username);
-    String userExistControlWithEmail = await formControlExtention.getUserExistingControl(email);
+    String userExistControlWithUserName = await CustomerHelper.getUserExistingControlWithUserName(username);
+    String userExistControlWithEmail = await CustomerHelper.getUserExistingControlWithEmail(email);
     String errorMessage = userExistControlWithUserName.isNotEmpty ? userExistControlWithUserName : userExistControlWithEmail;
-
-    if (!userExistControlWithUserName.isEmpty && !userExistControlWithEmail.isEmpty) {
+    if (errorMessage.isEmpty) {
       await createCustomer(username, email, password, phoneNumber, name, surname,selectedQuestion,questionAnswer);
       showSucessMessage(context);
     }
     else{
-      Dialogs.showAlertMessage(context, "Hata", errorMessage);
+      Dialogs.showAlertMessage(context, "Bilgilendirme!", errorMessage);
     }
   }
 
