@@ -3,6 +3,13 @@ import 'dart:developer';
 import 'language.dart';
 
 class FormControlUtil{
+  static String getErrorControl(String errorMessage){
+    if(errorMessage.isEmpty || errorMessage == null)
+      return null;
+
+    return errorMessage;
+  }
+
   static String getDefaultFormValueControl(String value){
     String errorMessage = getStringEmptyValueControl(value);
 
@@ -42,7 +49,7 @@ class FormControlUtil{
   }
 
   static String getPasswordControl(String password){
-    String errorMessage = null;
+    String errorMessage = "";
 
     if(password.length < 8){
       errorMessage = LanguageConstants.passwordLengthMustBe8Message[LanguageConstants.languageFlag];
