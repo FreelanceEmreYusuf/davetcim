@@ -10,7 +10,7 @@ class Walkthrough extends StatefulWidget {
 class _WalkthroughState extends State<Walkthrough> {
   List pageInfos = [
     {
-      "title": "Fresh Food",
+      "title": "Düğün Salonları",
       "body":
           "Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus."
               " Vestibulum ac diam sit amet quam vehicula elementum sed sit amet "
@@ -18,19 +18,19 @@ class _WalkthroughState extends State<Walkthrough> {
       "img": "assets/on1.png",
     },
     {
-      "title": "Fast Delivery",
+      "title": "Paket Seçimi",
       "body":
-          "Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus."
-              " Vestibulum ac diam sit amet quam vehicula elementum sed sit amet "
+          "Cebinize uygun evlilik paketini seçebilirsiniz"
+              " Düğün davet balo gibi organizasyonlarınıza özel paket seçeneklerimizle "
               "dui. Nulla porttitor accumsan tincidunt.",
       "img": "assets/on2.png",
     },
     {
-      "title": "Easy Payment",
+      "title": "Fiyat Teklifi",
       "body":
-          "Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus."
-              " Vestibulum ac diam sit amet quam vehicula elementum sed sit amet "
-              "dui. Nulla porttitor accumsan tincidunt.",
+          "Hızlı bir şekilde salon sahibinin size ulaşmasını sağlayıp"
+              " Uygun fiyat teklifleri alabilirsiniz "
+              "Evlilikten geçen yolda bize uğramadan geçmeyin!",
       "img": "assets/on3.png",
     },
   ];
@@ -67,9 +67,9 @@ class _WalkthroughState extends State<Walkthrough> {
               );
             },
             showSkipButton: true,
-            skip: Text("Skip"),
+            skip: Text("Hızlı Geç"),
             next: Text(
-              "Next",
+              "Devam",
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 color: Theme.of(context).accentColor,

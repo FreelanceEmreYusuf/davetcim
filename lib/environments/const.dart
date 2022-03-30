@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Constants {
-  static String appName = "Restaurant App UI KIT";
+  static String appName = "Davetcim";
 
   //Colors for theme
 //  Color(0xfffcfcff);
