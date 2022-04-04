@@ -61,6 +61,29 @@ class FormControlUtil{
     return errorMessage;
   }
 
+  static String getPasswordCompareControl(String password, String passwordAgain){
+    String errorMessage = "";
+
+    errorMessage = getPasswordControl(password);
+    if (errorMessage.length > 0) {
+      return errorMessage;
+    }
+
+    errorMessage = getPasswordControl(passwordAgain);
+    if (errorMessage.length > 0) {
+      return errorMessage;
+    }
+
+    print(password);
+    print(passwordAgain);
+    if (password != passwordAgain) {
+      errorMessage = LanguageConstants.dialogResetPasswordUnSuccessPasswordMessage[LanguageConstants.languageFlag];
+    }
+
+    print(errorMessage);
+    return errorMessage;
+  }
+
   static getStringEmptyValueControl(String value){
     String errorMessage = '';
     if(value.isEmpty || value == null){
