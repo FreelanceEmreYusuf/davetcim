@@ -130,6 +130,7 @@ class _MainScreenState extends State<MainScreen> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         //floatingActionButton: AnimatedFab(),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.redAccent,
           elevation: 4.0,
           child: Icon(
             Icons.search,

@@ -31,6 +31,41 @@ const List<String> district = const <String>[
   'ATAŞEHİR',
 ];
 
+const List<String> organizationType = const <String>[
+  'DÜĞÜN',
+  'KINA',
+  'NİŞAN',
+  'DOĞUM GÜNÜ',
+  'EVLİLİK TEKLİFİ',
+  'BABYSHOWER',
+  'CİNSİYET PARTİSİ',
+  'İFTAR',
+  'TOPLANTI',
+  'SEMPOZYUM',
+  'KORONA PARTİ',
+  'ALTIN GÜNÜ',
+];
+
+const List<String> venueType = const <String>[
+  'OTEL',
+  'BALO SALONU',
+  'DÜĞÜN SALONU',
+  'RESTAURANT',
+  'CAFE',
+  'PUB',
+  'BAR',
+  'HEPSİ',
+];
+
+const List<String> seatingArrangement = const <String>[
+  'SIRA DÜZENİ',
+  'BALO DÜZENİ',
+  'YUVARLAK DÜZEN',
+  'ŞARK KÖŞESİ',
+  'DİKEY DÜZEN',
+  'YATAY DÜZEN',
+];
+
 class SearchViewModel extends ChangeNotifier {
   Database db = Database();
 }
