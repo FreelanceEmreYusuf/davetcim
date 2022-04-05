@@ -1,8 +1,8 @@
 import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/shared/utils/language.dart';
+import 'package:davetcim/src/join/forgotPasswd/reset_password_view_model.dart';
 import 'package:davetcim/src/join/join_view.dart';
 import 'package:davetcim/shared/models/secret_questions_model.dart';
-import 'package:davetcim/src/join/forgotPasswd/forgot_passwd_view_mode.dart';
 import 'package:flutter/material.dart';
 
 class ResetPasswordView extends StatefulWidget {
@@ -29,7 +29,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   }
 
   void callSecretQuestionList() async {
-    ForgotPasswdViewModel fp = ForgotPasswdViewModel();
+    ResetPasswdViewModel fp = ResetPasswdViewModel();
     secretQuestionList = await fp.fillQuestionList();
 
     setState(() {
@@ -144,7 +144,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
           ),
           controller: _passwordControl,
           validator: (email) {
-            return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(email));
+            return FormControlUtil.getErrorControl(FormControlUtil.getPasswordCompareControl(_passwordControl.text, _passwordAgainControl.text));
           },
           maxLines: 1,
           obscureText: true,
@@ -175,7 +175,9 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
           ),
           controller: _passwordAgainControl,
           validator: (email) {
-            return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(email));
+            return FormControlUtil.getErrorControl(
+                FormControlUtil.getPasswordCompareControl(
+                    _passwordControl.text, _passwordAgainControl.text));
           },
           maxLines: 1,
           obscureText: true,
@@ -272,7 +274,13 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             onPressed: () async {
               if (forgotPasswordForm.currentState.validate())
               {
-                  
+                ResetPasswdViewModel rpvm = ResetPasswdViewModel();
+                rpvm.userResetPasswordFlow(context,
+                    _usernameControl.text,
+                    _emailControl.text,
+                    _passwordControl.text,
+                    selectedQuestion.id,
+                    _secretQuestionControl.text);
               }
             },
             color: Theme.of(context).accentColor,

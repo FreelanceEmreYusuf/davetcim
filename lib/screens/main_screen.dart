@@ -1,3 +1,6 @@
+import 'package:davetcim/screens/search.dart';
+import 'package:davetcim/src/search/search_view_1.dart';
+import 'package:davetcim/widgets/animated_fab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/cart.dart';
@@ -5,7 +8,6 @@ import 'package:davetcim/screens/favorite_screen.dart';
 import 'package:davetcim/screens/home.dart';
 import 'package:davetcim/screens/notifications.dart';
 import 'package:davetcim/src/profile/profile_view.dart';
-import 'package:davetcim/screens/search.dart';
 import 'package:davetcim/environments/const.dart';
 import 'package:davetcim/widgets/badge.dart';
 
@@ -56,7 +58,7 @@ class _MainScreenState extends State<MainScreen> {
           children: <Widget>[
             Home(),
             FavoriteScreen(),
-            SearchScreen(),
+            SearchScreen1(),
             CartScreen(),
             Profile(),
           ],
@@ -126,7 +128,9 @@ class _MainScreenState extends State<MainScreen> {
         ),
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        //floatingActionButton: AnimatedFab(),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.redAccent,
           elevation: 4.0,
           child: Icon(
             Icons.search,

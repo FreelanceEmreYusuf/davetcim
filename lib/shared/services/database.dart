@@ -14,15 +14,17 @@ class Database {
     await Constants.fireStore.collection(collectionName).doc(id).delete();
   }
 
-  Future<void> addCollectionRef(
+  Future<void> editCollectionRef(
       String collectionName, Map<String, dynamic> dataAsMap) async {
     await Constants.fireStore
         .collection(collectionName)
-        .add(dataAsMap)
-        .then((value) => print("Veri " + collectionName + " tablosuna eklendi"))
+        .doc(dataAsMap["id"].toString())
+        .set(dataAsMap)
+        .then((value) => print("Veri " + collectionName + " tablosuna eklendi/guncellendi"))
         .catchError((error) => print("Veri " +
             collectionName +
-            " tablosuna eklenirken hata oluştu: $error"));
+            " tablosuna eklenirken/guncellenirken hata oluştu: $error"));
     ;
   }
+
 }

@@ -60,7 +60,7 @@ class RegisterViewModel extends ChangeNotifier {
       secretQuestionAnswer: selectedQuestionAnswer
     );
 
-    db.addCollectionRef("Customer", _customer.toMap());
+    db.editCollectionRef("Customer", _customer.toMap());
 
   }
 
