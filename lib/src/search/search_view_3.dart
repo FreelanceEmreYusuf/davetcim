@@ -1,9 +1,10 @@
+import 'package:davetcim/src/search/search_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/environments/const.dart';
 import 'package:davetcim/util/foods.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
-
+/*
 class SearchScreen extends StatefulWidget {
   @override
   _SearchScreenState createState() => _SearchScreenState();
@@ -14,61 +15,12 @@ class _SearchScreenState extends State<SearchScreen>
   final TextEditingController _searchControl = new TextEditingController();
 
   static TextStyle kStyle =
-      TextStyle(color: Colors.blue, fontWeight: FontWeight.w500);
+      TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
 
-  List<String> sehirlist = [
-    "İSTANBUL",
-    "ANKARA",
-    "İZMİR",
-    "ORDU",
-  ];
-
-  List<String> ilcelist = [
-    "ESENLER",
-    "TUZLA",
-    "KAĞITHANE",
-  ];
-
-  List<String> colors = [
-    "Blue",
-    "Purple",
-    "Red",
-  ];
-
-  List<Text> addlist(List<String> lists) {
-    List<Text> manufacturers = [];
-    lists.forEach((element) {
-      manufacturers.add(Text(
-        element,
-        style: kStyle,
-      ));
-    });
-    return manufacturers;
-  }
-
-  int _selectedValue = 0;
-  int _selectedIndex = 0;
+  int _selectedCountry = 0;
+  int _selectedDistrict = 0;
   int _selectedHour = 0, _selectedMinute = 0;
   int _changedNumber = 0, _selectedNumber = 1;
-  void _showPicker(BuildContext ctx, List<String> list) {
-    showCupertinoModalPopup(
-        context: ctx,
-        builder: (_) => Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.7,
-              child: CupertinoPicker(
-                backgroundColor: Colors.white,
-                itemExtent: 25,
-                scrollController: FixedExtentScrollController(initialItem: 1),
-                children: addlist(list),
-                onSelectedItemChanged: (value) {
-                  setState(() {
-                    _selectedValue = value;
-                  });
-                },
-              ),
-            ));
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -79,20 +31,45 @@ class _SearchScreenState extends State<SearchScreen>
       child: ListView(
         children: <Widget>[
           Container(
-            child: Card(
-              child: Column(
-                children: [
-                  Text(
-                    "Normal Cupertino Picker",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
+            child: Column(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.07,
+                  child: Card(
+                    elevation: 5,
+                    margin: EdgeInsets.all(5),
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(8), // if you need this
+                      side: BorderSide(
+                        color: Colors.red.withOpacity(0.2),
+                        width: 1,
+                      ),
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Organizasyon Filtrele",
+                        style: TextStyle(
+                            color: Colors.redAccent,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 22,
+                            wordSpacing: 2),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                  Row(
+                ),
+                Card(
+                  child: Row(
                     children: <Widget>[
                       CupertinoButton(
-                          child: Text("Select Color :"),
+                          child: Text(
+                            "Şehir Seçiniz:",
+                            style: kStyle,
+                            textAlign: TextAlign.center,
+                          ),
                           onPressed: () {
                             showModalBottomSheet(
                                 context: context,
@@ -103,20 +80,21 @@ class _SearchScreenState extends State<SearchScreen>
                                         itemExtent: 32.0,
                                         onSelectedItemChanged: (int index) {
                                           setState(() {
-                                            _selectedIndex = index;
+                                            _selectedCountry = index;
                                           });
                                         },
                                         children: new List<Widget>.generate(
-                                            colors.length, (int index) {
+                                            country.length, (int index) {
                                           return new Center(
-                                            child: new Text(colors[index]),
+                                            child: new Text(country[index],
+                                                style: kStyle),
                                           );
                                         })),
                                   );
                                 });
                           }),
                       Text(
-                        colors[_selectedIndex],
+                        country[_selectedCountry],
                         style: TextStyle(fontSize: 18.0),
                       ),
                       SizedBox(
@@ -124,17 +102,56 @@ class _SearchScreenState extends State<SearchScreen>
                       ),
                     ],
                   ),
-                  Text(
-                    "MutiSelect Cupertino Picker",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  Row(
+                ),
+                Card(
+                  child: Row(
                     children: <Widget>[
                       CupertinoButton(
-                          child: Text("Select Time:"),
+                          child: Text(
+                            "İlçe Seçiniz:",
+                            style: kStyle,
+                          ),
+                          onPressed: () {
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return Container(
+                                    height: 200.0,
+                                    child: CupertinoPicker(
+                                        itemExtent: 32.0,
+                                        onSelectedItemChanged: (int index) {
+                                          setState(() {
+                                            _selectedDistrict = index;
+                                          });
+                                        },
+                                        children: new List<Widget>.generate(
+                                            district.length, (int index) {
+                                          return new Center(
+                                            child: new Text(district[index],
+                                                style: kStyle),
+                                          );
+                                        })),
+                                  );
+                                });
+                          }),
+                      Text(
+                        district[_selectedDistrict],
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                      SizedBox(
+                        height: 20.0,
+                      ),
+                    ],
+                  ),
+                ),
+                Card(
+                  child: Row(
+                    children: <Widget>[
+                      CupertinoButton(
+                          child: Text(
+                            "Select Time:",
+                            style: kStyle,
+                          ),
                           onPressed: () {
                             showModalBottomSheet(
                                 context: context,
@@ -164,8 +181,10 @@ class _SearchScreenState extends State<SearchScreen>
                                                   new List<Widget>.generate(24,
                                                       (int index) {
                                                 return new Center(
-                                                  child:
-                                                      new Text('${index + 1}'),
+                                                  child: new Text(
+                                                    '${index + 1}',
+                                                    style: kStyle,
+                                                  ),
                                                 );
                                               })),
                                         ),
@@ -187,8 +206,9 @@ class _SearchScreenState extends State<SearchScreen>
                                                   new List<Widget>.generate(60,
                                                       (int index) {
                                                 return new Center(
-                                                  child:
-                                                      new Text('${index + 1}'),
+                                                  child: new Text(
+                                                      '${index + 1}',
+                                                      style: kStyle),
                                                 );
                                               })),
                                         ),
@@ -203,17 +223,15 @@ class _SearchScreenState extends State<SearchScreen>
                       ),
                     ],
                   ),
-                  Text(
-                    "Cupertino Picker with Actions",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  Row(
+                ),
+                Card(
+                  child: Row(
                     children: <Widget>[
                       CupertinoButton(
-                          child: Text("Select Number :"),
+                          child: Text(
+                            "Select Number :",
+                            style: kStyle,
+                          ),
                           onPressed: () {
                             showModalBottomSheet(
                                 context: context,
@@ -226,7 +244,7 @@ class _SearchScreenState extends State<SearchScreen>
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
                                         CupertinoButton(
-                                          child: Text("Cancel"),
+                                          child: Text("Cancel", style: kStyle),
                                           onPressed: () {
                                             Navigator.pop(context);
                                           },
@@ -247,13 +265,14 @@ class _SearchScreenState extends State<SearchScreen>
                                                   new List<Widget>.generate(100,
                                                       (int index) {
                                                 return new Center(
-                                                  child:
-                                                      new Text('${index + 1}'),
+                                                  child: new Text(
+                                                      '${index + 1}',
+                                                      style: kStyle),
                                                 );
                                               })),
                                         ),
                                         CupertinoButton(
-                                          child: Text("Ok"),
+                                          child: Text("Ok", style: kStyle),
                                           onPressed: () {
                                             setState(() {
                                               _selectedNumber = _changedNumber;
@@ -275,18 +294,8 @@ class _SearchScreenState extends State<SearchScreen>
                       ),
                     ],
                   ),
-                  CupertinoButton(
-                    child: Text('Şehir'),
-                    onPressed: () => _showPicker(context, sehirlist),
-                  ),
-                  Text(sehirlist[_selectedValue]),
-                  CupertinoButton(
-                    child: Text('İlçe'),
-                    onPressed: () => _showPicker(context, ilcelist),
-                  ),
-                  Text(ilcelist[_selectedValue]),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           SizedBox(height: 10.0),
@@ -387,3 +396,4 @@ class _SearchScreenState extends State<SearchScreen>
   @override
   bool get wantKeepAlive => true;
 }
+*/

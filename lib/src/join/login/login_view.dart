@@ -1,5 +1,5 @@
 import 'package:davetcim/screens/home.dart';
-import 'package:davetcim/screens/main_screen.dart';
+import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/src/join/forgotPasswd/forgot_passwd_view.dart';
 import 'package:flutter/material.dart';

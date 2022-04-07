@@ -1,0 +1,27 @@
+import 'dart:math';
+
+class DistrictModel {
+  final int id;
+  final String name;
+  final int regionId;
+
+  DistrictModel({
+    this.id,
+    this.name,
+    this.regionId,
+  });
+
+  ///Object to map
+  Map<String, dynamic> toMap() => {
+    'id': id,
+    'name': name,
+    'regionId': regionId,
+  };
+
+  ///Map to object
+  factory DistrictModel.fromMap(Map map) => DistrictModel(
+    id: map['id'],
+    name: map['name'],
+    regionId: map['regionId'],
+  );
+}
