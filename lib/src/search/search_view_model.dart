@@ -19,9 +19,11 @@ List<InvitationTypeModel> invitationList =
     ApplicationSession.filterScreenSession.invitationTypeList;
 List<DistrictModel> districtList = [
   DistrictModel(
-  id: 0,
-  name: 'İl Seçiniz',
-  regionId: 0,
+    id: 0,
+    name: 'Tümü',
+    regionId: 0,
+    filteringStatus: 0,
+    sortingIndex: 1
 )];
 
 

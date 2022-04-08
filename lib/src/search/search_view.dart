@@ -504,7 +504,6 @@ class _SearchScreenState extends State<SearchScreen>
   void callFillDistrict(int regionCode) async{
     SearchViewModel rm = SearchViewModel();
     districtList = await rm.fillDistrictlist(regionCode);
-
     setState(() {
       districtList = districtList;
     });

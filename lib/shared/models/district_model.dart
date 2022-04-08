@@ -4,11 +4,15 @@ class DistrictModel {
   final int id;
   final String name;
   final int regionId;
+  final int filteringStatus;
+  final int sortingIndex;
 
   DistrictModel({
     this.id,
     this.name,
     this.regionId,
+    this.filteringStatus,
+    this.sortingIndex,
   });
 
   ///Object to map
@@ -16,6 +20,8 @@ class DistrictModel {
     'id': id,
     'name': name,
     'regionId': regionId,
+    'filteringStatus': filteringStatus,
+    'sortingIndex': sortingIndex,
   };
 
   ///Map to object
@@ -23,5 +29,7 @@ class DistrictModel {
     id: map['id'],
     name: map['name'],
     regionId: map['regionId'],
+    filteringStatus: map['filteringStatus'],
+    sortingIndex: map['sortingIndex'],
   );
 }
