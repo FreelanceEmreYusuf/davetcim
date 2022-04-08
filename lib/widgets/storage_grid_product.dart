@@ -29,16 +29,21 @@ class StorageGridProduct extends StatelessWidget {
           Stack(
             children: <Widget>[],
           ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 2.0, top: 8.0),
-            child: Center(
-              child: Text(
-                "$surname",
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.w900,
+          Card(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            elevation: 4.0,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 2.0, top: 8.0),
+              child: Center(
+                child: Text(
+                  "$surname",
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.w900,
+                  ),
+                  maxLines: 2,
                 ),
-                maxLines: 2,
               ),
             ),
           ),

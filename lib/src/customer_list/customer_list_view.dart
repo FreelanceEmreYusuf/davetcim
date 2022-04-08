@@ -111,20 +111,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemCount: items.length,
                 itemBuilder: (context, index) {
                   //    Map cat = items[index];
-                  return ListTile(
-                    onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            filteredCategoryItem = filterDynamicLists(
-                                listCustomers, "username", '${items[index]}');
-                            return FilteredCustomersScreenState(
-                                filteredCategoryItem[0]["id"]);
-                          },
-                        ),
-                      );
-                    },
-                    title: Text('${items[index]}'),
+                  return Card(
+                    shadowColor: Colors.blueGrey,
+                    elevation: 5,
+                    child: ListTile(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) {
+                              filteredCategoryItem = filterDynamicLists(
+                                  listCustomers, "username", '${items[index]}');
+                              return FilteredCustomersScreenState(
+                                  filteredCategoryItem[0]["id"]);
+                            },
+                          ),
+                        );
+                      },
+                      title: Text('${items[index]}'),
+                    ),
                   );
                 },
               ),
