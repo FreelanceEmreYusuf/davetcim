@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 class Constants {
   static String appName = "Davetcim";
+  static String errorImg = "assets/errorimage.jpeg";
 
   //Colors for theme
 //  Color(0xfffcfcff);

@@ -1,4 +1,5 @@
 import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/src/customer_list/customer_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:davetcim/providers/app_provider.dart';
@@ -121,7 +122,15 @@ class _ProfileState extends State<Profile> {
                   Icons.edit,
                   size: 20.0,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return CustomerListScreen();
+                      },
+                    ),
+                  );
+                },
                 tooltip: "Düzenle",
               ),
             ),
