@@ -1,5 +1,4 @@
-import 'package:davetcim/screens/search.dart';
-import 'package:davetcim/src/search/search_view_1.dart';
+import 'package:davetcim/src/search/search_view.dart';
 import 'package:davetcim/widgets/animated_fab.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +9,8 @@ import 'package:davetcim/screens/notifications.dart';
 import 'package:davetcim/src/profile/profile_view.dart';
 import 'package:davetcim/environments/const.dart';
 import 'package:davetcim/widgets/badge.dart';
+
+import 'main_screen_view_model.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -29,7 +30,8 @@ class _MainScreenState extends State<MainScreen> {
           automaticallyImplyLeading: false,
           centerTitle: true,
           title: Text(
-            Constants.appName,
+            //Constants.appName,
+            'emre',
           ),
           elevation: 0.0,
           actions: <Widget>[
@@ -58,7 +60,7 @@ class _MainScreenState extends State<MainScreen> {
           children: <Widget>[
             Home(),
             FavoriteScreen(),
-            SearchScreen1(),
+            SearchScreen(),
             CartScreen(),
             Profile(),
           ],
@@ -149,6 +151,12 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _pageController = PageController();
+    callFillFilterScreenSession();
+  }
+
+  void callFillFilterScreenSession() async{
+    MainScreenViewModel rm = MainScreenViewModel();
+    rm.fillFilterScreenSession();
   }
 
   @override

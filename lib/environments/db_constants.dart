@@ -11,5 +11,10 @@ class DBConstants {
   static String basketDetailDb = "BasketDetail";
   static String contactInfoDb = "ContactInfo";
   static String usersFavProductsDb = "UsersFavProducts";
+  static String invitationTypeDb = "InvitationType";
+  static String sequenceOrderDb = "SequenceOrder";
+  static String organizationTypeDb = "OrganizationType";
+  static String regionDb = "Region";
+  static String districtDb = "District";
 
 }

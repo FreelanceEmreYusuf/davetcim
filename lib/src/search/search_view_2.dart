@@ -1,7 +1,7 @@
 import 'package:davetcim/src/search/search_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+/*
 class SearchScreen2 extends StatefulWidget {
   @override
   _SearchScreen2State createState() => _SearchScreen2State();
@@ -137,3 +137,4 @@ class _SearchScreen2State extends State<SearchScreen2>
   @override
   bool get wantKeepAlive => true;
 }
+*/
