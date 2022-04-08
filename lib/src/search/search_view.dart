@@ -268,6 +268,7 @@ class _SearchScreenState extends State<SearchScreen>
                                 SearchViewModel rm = SearchViewModel();
                                 setState(() {
                                   selectedRegion = index;
+                                  selectedDistrict = 0;
                                 });
                               },
                               children: new List<Widget>.generate(
