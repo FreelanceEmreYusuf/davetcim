@@ -500,11 +500,6 @@ class _SearchScreenState extends State<SearchScreen>
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    callFillDistrict(0);
-  }
 
   void callFillDistrict(int regionCode) async{
     SearchViewModel rm = SearchViewModel();

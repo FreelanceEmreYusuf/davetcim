@@ -17,7 +17,12 @@ List<SequenceOrderModel> sequenceOrderList =
     ApplicationSession.filterScreenSession.sequenceOrderList;
 List<InvitationTypeModel> invitationList =
     ApplicationSession.filterScreenSession.invitationTypeList;
-List<DistrictModel> districtList = [];
+List<DistrictModel> districtList = [
+  DistrictModel(
+  id: 0,
+  name: 'İl Seçiniz',
+  regionId: 0,
+)];
 
 
 class SearchViewModel extends ChangeNotifier {
@@ -29,28 +34,12 @@ class SearchViewModel extends ChangeNotifier {
     var response = await docsRef.where('regionId', isEqualTo: regionCode).get();
 
     var list = response.docs;
-    print('Length : '+ list.length.toString());
     List<DistrictModel> districtList = [];
-    if (regionCode == 0) {
-      districtList.add(DistrictModel(
-        id: 0,
-        name: 'İl Seçiniz',
-        regionId: 0,
-      ));
-    } else {
-      print('Region Code :' + regionCode.toString());
-      list.forEach((district) {
-        print(district.id);
-        Map item = district.data();
-        districtList.add(DistrictModel.fromMap(item));
-      });
-    }
+    list.forEach((district) {
+      Map item = district.data();
+      districtList.add(DistrictModel.fromMap(item));
+    });
 
     return districtList;
   }
-
-
-
-
-
 }

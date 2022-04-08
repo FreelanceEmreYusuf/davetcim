@@ -13,11 +13,13 @@ class MainScreenViewModel extends ChangeNotifier {
   Database db = Database();
 
   Future<void> fillFilterScreenSession() async {
-    ApplicationSession.filterScreenSession = FilterScreenSession(
-        await fillOrganizationTypeList(),
-        await fillInvitationTypeList(),
-        await fillSequenceOrderList(),
-        await fillRegionList());
+    if (ApplicationSession.filterScreenSession == null) {
+      ApplicationSession.filterScreenSession = FilterScreenSession(
+          await fillOrganizationTypeList(),
+          await fillInvitationTypeList(),
+          await fillSequenceOrderList(),
+          await fillRegionList());
+    }
   }
 
   Future<List<OrganizationTypeModel>> fillOrganizationTypeList() async {
