@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/environments/const.dart';
 import 'package:davetcim/shared/utils/utils.dart';
-import 'package:davetcim/widgets/filtered_customer_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(CustomerListScreen());
@@ -116,6 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     elevation: 5,
                     child: ListTile(
                       onTap: () {
+                        /*
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (BuildContext context) {
@@ -125,9 +125,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                   filteredCategoryItem[0]["id"]);
                             },
                           ),
-                        );
+                        );*/
                       },
                       title: Text('${items[index]}'),
+                      subtitle: Text('Admin'),
                     ),
                   );
                 },

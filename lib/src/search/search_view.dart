@@ -162,7 +162,8 @@ class _SearchScreenState extends State<SearchScreen>
                               children: new List<Widget>.generate(
                                   organizationTypeList.length, (int index) {
                                 return new Center(
-                                  child: new Text(organizationTypeList[index].name),
+                                  child: new Text(
+                                      organizationTypeList[index].name),
                                 );
                               })),
                         );
@@ -216,7 +217,8 @@ class _SearchScreenState extends State<SearchScreen>
                               children: new List<Widget>.generate(
                                   sequenceOrderList.length, (int index) {
                                 return new Center(
-                                  child: new Text(sequenceOrderList[index].name),
+                                  child:
+                                      new Text(sequenceOrderList[index].name),
                                 );
                               })),
                         );
@@ -501,8 +503,7 @@ class _SearchScreenState extends State<SearchScreen>
     );
   }
 
-
-  void callFillDistrict(int regionCode) async{
+  void callFillDistrict(int regionCode) async {
     SearchViewModel rm = SearchViewModel();
     districtList = await rm.fillDistrictlist(regionCode);
     setState(() {
