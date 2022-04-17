@@ -1,3 +1,5 @@
+import 'package:davetcim/shared/utils/utils.dart';
+import 'package:davetcim/src/entrance_page/entrance_view.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:davetcim/src/join/join_view.dart';
@@ -49,22 +51,10 @@ class _WalkthroughState extends State<Walkthrough> {
           child: IntroductionScreen(
             pages: pages,
             onDone: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return JoinView();
-                  },
-                ),
-              );
+              Utils.navigateToPage(context, EntrancePage());
             },
             onSkip: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return JoinView();
-                  },
-                ),
-              );
+              Utils.navigateToPage(context, EntrancePage());
             },
             showSkipButton: true,
             skip: Text("Hızlı Geç"),

@@ -1,7 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/src/home/home_model.dart';
 import 'package:davetcim/util/foods.dart';
-import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/widgets/slider_item.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/dishes.dart';
@@ -28,6 +26,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
 
   @override
   Widget build(BuildContext context) {
+    HomeModel mdl = new HomeModel();
     super.build(context);
     return Scaffold(
       body: Padding(
@@ -38,7 +37,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  ApplicationSession.userSession.username,
+                  mdl.getUserName(),
                   style: TextStyle(
                     fontSize: 23,
                     fontWeight: FontWeight.w800,

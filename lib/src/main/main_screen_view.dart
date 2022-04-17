@@ -1,13 +1,12 @@
-import 'package:davetcim/src/search/search_view.dart';
-import 'package:davetcim/widgets/animated_fab.dart';
+import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/src/search/search_wihthout_appbar_view.dart';
+import 'package:davetcim/src/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/cart.dart';
 import 'package:davetcim/screens/favorite_screen.dart';
-import 'package:davetcim/screens/home.dart';
-import 'package:davetcim/screens/notifications.dart';
+import 'package:davetcim/src/home/home.dart';
 import 'package:davetcim/src/profile/profile_view.dart';
-import 'package:davetcim/environments/const.dart';
 import 'package:davetcim/widgets/badge.dart';
 
 import 'main_screen_view_model.dart';
@@ -23,36 +22,11 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
+    MainScreenViewModel mdl = MainScreenViewModel();
     return WillPopScope(
       onWillPop: () => Future.value(false),
       child: Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          title: Text(
-            //Constants.appName,
-            'emre',
-          ),
-          elevation: 0.0,
-          actions: <Widget>[
-            IconButton(
-              icon: IconBadge(
-                icon: Icons.notifications,
-                size: 22.0,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return Notifications();
-                    },
-                  ),
-                );
-              },
-              tooltip: "Notifications",
-            ),
-          ],
-        ),
+        appBar: AppBarMenu(pageName: 'Anasayfa'),
         body: PageView(
           physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
@@ -60,7 +34,7 @@ class _MainScreenState extends State<MainScreen> {
           children: <Widget>[
             Home(),
             FavoriteScreen(),
-            SearchScreen(),
+            SearchWithoutAppBarScreen(),
             CartScreen(),
             Profile(),
           ],
@@ -120,7 +94,13 @@ class _MainScreenState extends State<MainScreen> {
                 color: _page == 4
                     ? Theme.of(context).accentColor
                     : Theme.of(context).textTheme.caption.color,
-                onPressed: () => _pageController.jumpToPage(4),
+                onPressed: () => {
+                  if (ApplicationSession.userSession == null) {
+                    mdl.navigateToLogin(context),
+                  } else {
+                    _pageController.jumpToPage(4),
+                  }
+                }
               ),
               SizedBox(width: 7),
             ],
@@ -151,12 +131,6 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _pageController = PageController();
-    callFillFilterScreenSession();
-  }
-
-  void callFillFilterScreenSession() async{
-    MainScreenViewModel rm = MainScreenViewModel();
-    rm.fillFilterScreenSession();
   }
 
   @override

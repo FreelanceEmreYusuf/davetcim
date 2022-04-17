@@ -6,8 +6,11 @@ import '../../environments/const.dart';
 
 class Database {
   CollectionReference getCollectionRef(String collectionName) {
-    // Constants.fireStore.clearPersistence();
     return Constants.fireStore.collection(collectionName);
+  }
+
+  Stream<QuerySnapshot> getCollectionQuerySnapshots(String collectionName) {
+    return Constants.fireStore.collection(collectionName).snapshots();
   }
 
   Future<void> deleteDocument({String collectionName, String id}) async {

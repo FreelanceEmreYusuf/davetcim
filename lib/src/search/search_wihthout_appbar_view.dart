@@ -1,17 +1,16 @@
 import 'package:davetcim/src/search/search_view_model.dart';
-import 'package:davetcim/src/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchWithoutAppBarScreen extends StatefulWidget {
   @override
-  _SearchScreenState createState() => _SearchScreenState();
+  _SearchWithoutAppBarScreenState createState() => _SearchWithoutAppBarScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen>
-    with AutomaticKeepAliveClientMixin<SearchScreen> {
+class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
+    with AutomaticKeepAliveClientMixin<SearchWithoutAppBarScreen> {
   static TextStyle kStyle =
-      TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
+  TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
 
   int selectedRegion = 0;
   int selectedDistrict = 0;
@@ -29,20 +28,20 @@ class _SearchScreenState extends State<SearchScreen>
     showCupertinoModalPopup<void>(
         context: context,
         builder: (BuildContext context) => Container(
-              height: 216,
-              padding: const EdgeInsets.only(top: 6.0),
-              // The Bottom margin is provided to align the popup above the system navigation bar.
-              margin: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom,
-              ),
-              // Provide a background color for the popup.
-              color: CupertinoColors.systemBackground.resolveFrom(context),
-              // Use a SafeArea widget to avoid system overlaps.
-              child: SafeArea(
-                top: false,
-                child: child,
-              ),
-            ));
+          height: 216,
+          padding: const EdgeInsets.only(top: 6.0),
+          // The Bottom margin is provided to align the popup above the system navigation bar.
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          // Provide a background color for the popup.
+          color: CupertinoColors.systemBackground.resolveFrom(context),
+          // Use a SafeArea widget to avoid system overlaps.
+          child: SafeArea(
+            top: false,
+            child: child,
+          ),
+        ));
   }
 
   @override
@@ -56,7 +55,6 @@ class _SearchScreenState extends State<SearchScreen>
         icon: const Icon(Icons.filter_list),
         backgroundColor: Colors.redAccent,
       ),
-      appBar: AppBarMenu(pageName: 'Filtrele'),
       body: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -220,7 +218,7 @@ class _SearchScreenState extends State<SearchScreen>
                                   sequenceOrderList.length, (int index) {
                                 return new Center(
                                   child:
-                                      new Text(sequenceOrderList[index].name),
+                                  new Text(sequenceOrderList[index].name),
                                 );
                               })),
                         );

@@ -1,5 +1,6 @@
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/src/customer_list/customer_list_view.dart';
+import 'package:davetcim/src/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:davetcim/providers/app_provider.dart';
@@ -15,6 +16,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBarMenu(pageName: 'Profilim'),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(
