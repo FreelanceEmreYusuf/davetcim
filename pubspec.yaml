@@ -37,10 +37,13 @@ dependencies:
   provider: ^4.0.1
   cloud_firestore: ^3.1.8
   firebase_storage: ^8.1.2
+  device_info: ^2.0.3
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

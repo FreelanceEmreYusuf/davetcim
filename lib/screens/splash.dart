@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:davetcim/screens/walkthrough.dart';
+import 'package:davetcim/src/walkthrough/walkthrough_view.dart';
 import 'package:davetcim/environments/const.dart';
 
 class SplashScreen extends StatefulWidget {

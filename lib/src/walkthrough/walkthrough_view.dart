@@ -1,5 +1,6 @@
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/src/entrance_page/entrance_view.dart';
+import 'package:davetcim/src/walkthrough/walkthrough_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:davetcim/src/join/join_view.dart';
@@ -38,6 +39,7 @@ class _WalkthroughState extends State<Walkthrough> {
   ];
   @override
   Widget build(BuildContext context) {
+    WalkthroughModel model = WalkthroughModel();
     List<PageViewModel> pages = [
       for (int i = 0; i < pageInfos.length; i++) _buildPageModel(pageInfos[i])
     ];
@@ -54,10 +56,11 @@ class _WalkthroughState extends State<Walkthrough> {
               Utils.navigateToPage(context, EntrancePage());
             },
             onSkip: () {
+              model.createBypassInfoData();
               Utils.navigateToPage(context, EntrancePage());
             },
             showSkipButton: true,
-            skip: Text("Hızlı Geç"),
+            skip: Text("Birdaha Gösterme"),
             next: Text(
               "Devam",
               style: TextStyle(
@@ -100,5 +103,17 @@ class _WalkthroughState extends State<Walkthrough> {
         pageColor: Theme.of(context).primaryColor,
       ),
     );
+  }
+
+  @override
+  void initState() {
+    callwillDemoShowed();
+  }
+
+  void callwillDemoShowed() async{
+    WalkthroughModel rm = WalkthroughModel();
+    if (!await rm.willDemoShowed()) {
+      Utils.navigateToPage(context, EntrancePage());
+    }
   }
 }

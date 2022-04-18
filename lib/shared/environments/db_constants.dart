@@ -16,5 +16,5 @@ class DBConstants {
   static String organizationTypeDb = "OrganizationType";
   static String regionDb = "Region";
   static String districtDb = "District";
-
+  static String bypassInfoPageDb = "BypassInfoPage";
 }

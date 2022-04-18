@@ -1,4 +1,3 @@
-import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
