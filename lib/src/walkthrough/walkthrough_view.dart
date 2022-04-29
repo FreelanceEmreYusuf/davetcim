@@ -15,25 +15,23 @@ class _WalkthroughState extends State<Walkthrough> {
     {
       "title": "Düğün Salonları",
       "body":
-          "Vivamus magna justo, lacinia eget consectetur sed, convallis at tellus."
-              " Vestibulum ac diam sit amet quam vehicula elementum sed sit amet "
-              "dui. Nulla porttitor accumsan tincidunt.",
+          "En güzel gecene ev sahipliği yapacak olan düğün salonuna karar vermeden önce,"
+              "  düğün salonu galerilerine göz at,  "
+              "en güzel düğün salonu dekorasyonu örneklerini incele!.",
       "img": "assets/on1.png",
     },
     {
       "title": "Paket Seçimi",
-      "body":
-          "Cebinize uygun evlilik paketini seçebilirsiniz"
-              " Düğün davet balo gibi organizasyonlarınıza özel paket seçeneklerimizle "
-              "dui. Nulla porttitor accumsan tincidunt.",
+      "body": "Cebinize uygun evlilik paketini seçebilirsiniz"
+          " Düğün davet balo gibi organizasyonlarınıza özel paket seçeneklerimizle "
+          "dui. Nulla porttitor accumsan tincidunt.",
       "img": "assets/on2.png",
     },
     {
       "title": "Fiyat Teklifi",
-      "body":
-          "Hızlı bir şekilde salon sahibinin size ulaşmasını sağlayıp"
-              " Uygun fiyat teklifleri alabilirsiniz "
-              "Evlilikten geçen yolda bize uğramadan geçmeyin!",
+      "body": "Hızlı bir şekilde salon sahibinin size ulaşmasını sağlayıp"
+          " Uygun fiyat teklifleri alabilirsiniz "
+          "Evlilikten geçen yolda bize uğramadan geçmeyin!",
       "img": "assets/on3.png",
     },
   ];
@@ -110,7 +108,7 @@ class _WalkthroughState extends State<Walkthrough> {
     callwillDemoShowed();
   }
 
-  void callwillDemoShowed() async{
+  void callwillDemoShowed() async {
     WalkthroughModel rm = WalkthroughModel();
     if (!await rm.willDemoShowed()) {
       Utils.navigateToPage(context, EntrancePage());
