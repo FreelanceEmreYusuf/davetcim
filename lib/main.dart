@@ -1,5 +1,5 @@
 import 'package:davetcim/screens/splash.dart';
-import 'package:davetcim/environments/const.dart';
+import 'package:davetcim/shared/environments/const.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

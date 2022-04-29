@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../../environments/const.dart';
+import '../../shared/environments/const.dart';
 
 class Database {
   CollectionReference getCollectionRef(String collectionName) {
@@ -23,11 +23,11 @@ class Database {
         .collection(collectionName)
         .doc(dataAsMap["id"].toString())
         .set(dataAsMap)
-        .then((value) => print("Veri " + collectionName + " tablosuna eklendi/guncellendi"))
+        .then((value) =>
+            print("Veri " + collectionName + " tablosuna eklendi/guncellendi"))
         .catchError((error) => print("Veri " +
             collectionName +
             " tablosuna eklenirken/guncellenirken hata oluştu: $error"));
     ;
   }
-
 }

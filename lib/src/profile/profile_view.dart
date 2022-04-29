@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:davetcim/providers/app_provider.dart';
 import 'package:davetcim/screens/splash.dart';
-import 'package:davetcim/environments/const.dart';
+import 'package:davetcim/shared/environments/const.dart';
 
 class Profile extends StatefulWidget {
   @override

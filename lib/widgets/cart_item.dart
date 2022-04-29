@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/details.dart';
-import 'package:davetcim/environments/const.dart';
+import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
 class CartItem extends StatelessWidget {

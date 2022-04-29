@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/environments/db_constants.dart';
+import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/invitation_type_model.dart';
 import 'package:davetcim/shared/models/organization_type_model.dart';
 import 'package:davetcim/shared/models/region_model.dart';
@@ -24,7 +24,7 @@ class EntrancePageModel extends ChangeNotifier {
 
   Future<List<OrganizationTypeModel>> fillOrganizationTypeList() async {
     CollectionReference docsRef =
-    db.getCollectionRef(DBConstants.organizationTypeDb);
+        db.getCollectionRef(DBConstants.organizationTypeDb);
     var response = await docsRef.orderBy('sortingIndex').get();
 
     var list = response.docs;
@@ -39,7 +39,7 @@ class EntrancePageModel extends ChangeNotifier {
 
   Future<List<InvitationTypeModel>> fillInvitationTypeList() async {
     CollectionReference docsRef =
-    db.getCollectionRef(DBConstants.invitationTypeDb);
+        db.getCollectionRef(DBConstants.invitationTypeDb);
     var response = await docsRef.orderBy('sortingIndex').get();
 
     var list = response.docs;
@@ -54,7 +54,7 @@ class EntrancePageModel extends ChangeNotifier {
 
   Future<List<SequenceOrderModel>> fillSequenceOrderList() async {
     CollectionReference docsRef =
-    db.getCollectionRef(DBConstants.sequenceOrderDb);
+        db.getCollectionRef(DBConstants.sequenceOrderDb);
     var response = await docsRef.orderBy('sortingIndex').get();
 
     var list = response.docs;
@@ -68,8 +68,7 @@ class EntrancePageModel extends ChangeNotifier {
   }
 
   Future<List<RegionModel>> fillRegionList() async {
-    CollectionReference docsRef =
-    db.getCollectionRef(DBConstants.regionDb);
+    CollectionReference docsRef = db.getCollectionRef(DBConstants.regionDb);
     var response = await docsRef.get();
 
     var list = response.docs;
@@ -81,6 +80,4 @@ class EntrancePageModel extends ChangeNotifier {
 
     return regionList;
   }
-
-
 }

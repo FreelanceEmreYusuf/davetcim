@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/notifications.dart';
 import 'package:davetcim/util/comments.dart';
-import 'package:davetcim/environments/const.dart';
+import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/util/foods.dart';
 import 'package:davetcim/widgets/badge.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';

@@ -1,18 +1,16 @@
-import 'package:davetcim/environments/db_constants.dart';
+import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/bypass_info_page_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/utils/device_info.dart';
 import 'package:flutter/cupertino.dart';
 
 class WalkthroughModel extends ChangeNotifier {
-
   Database db = Database();
 
   Future<void> createBypassInfoData() async {
     BypassInfoPageModel model = new BypassInfoPageModel(
-      id: new DateTime.now().millisecondsSinceEpoch,
-      imeiCode: await DeviceInfo.getDeviceImeiNumber()
-    );
+        id: new DateTime.now().millisecondsSinceEpoch,
+        imeiCode: await DeviceInfo.getDeviceImeiNumber());
     db.editCollectionRef(DBConstants.bypassInfoPageDb, model.toMap());
   }
 
@@ -28,5 +26,4 @@ class WalkthroughModel extends ChangeNotifier {
 
     return true;
   }
-
 }

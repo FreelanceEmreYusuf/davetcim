@@ -1,4 +1,4 @@
-import 'package:davetcim/environments/const.dart';
+import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/src/join/join_view.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/search/search_view.dart';
@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 
 import 'entrance_view_model.dart';
-
 
 class EntrancePage extends StatefulWidget {
   @override
@@ -19,12 +18,12 @@ class _EntrancePageState extends State<EntrancePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: Text(
-        //Constants.appName,
-        'Davetçim',
-        )),
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            title: Text(
+              //Constants.appName,
+              'Davetçim',
+            )),
         body: Padding(
             padding: EdgeInsets.all(10),
             child: ListView(
@@ -79,7 +78,7 @@ class _EntrancePageState extends State<EntrancePage> {
     callFillFilterScreenSession();
   }
 
-  void callFillFilterScreenSession() async{
+  void callFillFilterScreenSession() async {
     EntrancePageModel rm = EntrancePageModel();
     rm.fillFilterScreenSession();
   }

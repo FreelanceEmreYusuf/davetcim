@@ -1,4 +1,4 @@
-import 'package:davetcim/environments/const.dart';
+import 'package:davetcim/shared/environments/const.dart';
 import 'package:flutter/material.dart';
 
 class SomethingWentWrongScreen extends StatelessWidget {

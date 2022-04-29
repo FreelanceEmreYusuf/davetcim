@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/environments/const.dart';
+import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/src/widgets/on_error/somethingWentWrong.dart';
 import 'package:davetcim/widgets/storage_grid_product.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/environments/db_constants.dart';
+import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/helpers/customer_helper.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/models/secret_questions_model.dart';
@@ -24,14 +24,18 @@ class RegisterViewModel extends ChangeNotifier {
       String email,
       String questionAnswer,
       SecretQuestionsModel selectedQuestion) async {
-    String userExistControlWithUserName = await CustomerHelper.getUserExistingControlWithUserName(username);
-    String userExistControlWithEmail = await CustomerHelper.getUserExistingControlWithEmail(email);
-    String errorMessage = userExistControlWithUserName.isNotEmpty ? userExistControlWithUserName : userExistControlWithEmail;
+    String userExistControlWithUserName =
+        await CustomerHelper.getUserExistingControlWithUserName(username);
+    String userExistControlWithEmail =
+        await CustomerHelper.getUserExistingControlWithEmail(email);
+    String errorMessage = userExistControlWithUserName.isNotEmpty
+        ? userExistControlWithUserName
+        : userExistControlWithEmail;
     if (errorMessage.isEmpty) {
-      await createCustomer(username, email, password, phoneNumber, name, surname,selectedQuestion,questionAnswer);
+      await createCustomer(username, email, password, phoneNumber, name,
+          surname, selectedQuestion, questionAnswer);
       showSucessMessage(context);
-    }
-    else{
+    } else {
       Dialogs.showAlertMessage(context, "Bilgilendirme!", errorMessage);
     }
   }
@@ -46,22 +50,20 @@ class RegisterViewModel extends ChangeNotifier {
       SecretQuestionsModel selectedQuestion,
       String selectedQuestionAnswer) async {
     CustomerModel _customer = new CustomerModel(
-      username: _usernameControl,
-      id: new DateTime.now().millisecondsSinceEpoch,
-      corporationId: 1,
-      gsmNo: _phoneControl,
-      isActive: true,
-      name: _nameControl,
-      password: _passwordControl,
-      roleId: 2,
-      surname: _surnameControl,
-      eMail: _emailControl,
-      secretQuestionId: selectedQuestion.id,
-      secretQuestionAnswer: selectedQuestionAnswer
-    );
+        username: _usernameControl,
+        id: new DateTime.now().millisecondsSinceEpoch,
+        corporationId: 1,
+        gsmNo: _phoneControl,
+        isActive: true,
+        name: _nameControl,
+        password: _passwordControl,
+        roleId: 2,
+        surname: _surnameControl,
+        eMail: _emailControl,
+        secretQuestionId: selectedQuestion.id,
+        secretQuestionAnswer: selectedQuestionAnswer);
 
     db.editCollectionRef("Customer", _customer.toMap());
-
   }
 
   void showSucessMessage(BuildContext context) {

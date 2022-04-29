@@ -1,4 +1,4 @@
-import 'package:davetcim/environments/const.dart';
+import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/widgets/on_error/somethingWentWrong.dart';
@@ -22,7 +22,6 @@ class AppBarMenu extends StatefulWidget implements PreferredSizeWidget {
 
 class _AppBarMenu extends State<AppBarMenu> {
   @override
-
   @override
   Widget build(BuildContext context) {
     double fontSize = 20;
@@ -183,6 +182,5 @@ class _AppBarMenu extends State<AppBarMenu> {
 
 
         );*/
-
   }
 }

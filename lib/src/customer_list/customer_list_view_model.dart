@@ -1,4 +1,4 @@
-import 'package:davetcim/environments/db_constants.dart';
+import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
