@@ -5,6 +5,7 @@ import 'package:davetcim/src/search/search_view.dart';
 import 'package:davetcim/widgets/animated_fab.dart';
 import 'package:davetcim/widgets/badge.dart';
 import 'package:davetcim/widgets/fancy_fab.dart';
+import 'package:davetcim/widgets/util_cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 
@@ -33,121 +34,36 @@ class _EntrancePageState extends State<EntrancePage> {
                 horizontal: MediaQuery.of(context).size.width / 20),
             child: ListView(
               children: <Widget>[
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    child: Card(
-                      elevation: 4.0,
-                      child: ListTile(
-                        tileColor: Constants.darkAccent,
-                        leading: IconButton(
-                          tooltip: "Organizasyon için en uygun mekanı bul",
-                          iconSize: MediaQuery.of(context).size.width / 8,
-                          icon: Icon(
-                            Icons.search,
-                            color: Colors.white,
-                          ),
-                        ),
-                        title: Text(
-                          "Mekan Filtreleme Robotu",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
-                        subtitle: Text(
-                          "Düğün, Kına, Doğum Günü ve daha birçok organizasyon için kriterlerinize uygun mekanı biz sizin için bulalım.",
-                          style: TextStyle(
-                            color: Colors.white60,
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
-                        onTap: () {
-                          Utils.navigateToPage(context, SearchScreen());
-                        },
-                      ),
-                    ),
-                  ),
+                UtilCartItem(
+                  icon: Icons.search,
+                  tooltip: "Organizasyon için en uygun mekanı bul",
+                  img:
+                      'https://www.lifepark.com.tr/wp-content/uploads/2018/03/qubbe-bahce-15.jpg',
+                  title: "Mekan Filtreleme Robotu",
+                  subtitle:
+                      "Düğün, Kına, Doğum Günü ve daha birçok organizasyon için kriterlerinize uygun mekanı biz sizin için bulalım.",
+                  screen: SearchScreen(),
                 ),
-                //SizedBox(height: 20.0),
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    child: Card(
-                      elevation: 4.0,
-                      child: ListTile(
-                        tileColor: Constants.darkAccent,
-                        leading: IconButton(
-                          tooltip: "Ana Sayfaya git",
-                          iconSize: MediaQuery.of(context).size.width / 8,
-                          icon: Icon(
-                            Icons.home,
-                            color: Colors.white,
-                          ),
-                        ),
-                        title: Text(
-                          "Ana Sayfa",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
-                        subtitle: Text(
-                          "Uygulamamızın ana sayfasına gider, burada öne çıkan mekanları görebilir avantajlı teklifler alabilirsiniz.",
-                          style: TextStyle(
-                            color: Colors.white60,
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
-                        onTap: () {
-                          Utils.navigateToPage(context, MainScreen());
-                        },
-                      ),
-                    ),
-                  ),
+                UtilCartItem(
+                  icon: Icons.home,
+                  tooltip: "Ana Sayfaya git",
+                  img:
+                      'https://focuspg.com.au/wp-content/uploads/2019/08/home-loan-grid-img-1-new.jpg',
+                  title: "Ana Sayfa",
+                  subtitle:
+                      "Uygulamamızın ana sayfasına gider, burada öne çıkan mekanları görebilir avantajlı teklifler alabilirsiniz.",
+                  screen: MainScreen(),
                 ),
-                //SizedBox(height: 20.0),
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    child: Card(
-                      elevation: 4.0,
-                      child: ListTile(
-                        tileColor: Constants.darkAccent,
-                        leading: IconButton(
-                          tooltip: "Üye Grişi",
-                          iconSize: MediaQuery.of(context).size.width / 8,
-                          icon: Icon(
-                            Icons.person,
-                            color: Colors.white,
-                          ),
-                        ),
-                        title: Text(
-                          "Üye Girişi / Yeni Üyelik",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
-                        subtitle: Text(
-                          "Avantajlı tekliflerden yararlanabilmek, favorilerinizi seçebilmek ve sepetinizi doldurabilmek için üye girişi yapabilirsiniz. Ayrıca üye değilseniz yeni üyelik oluşturabilirsiniz",
-                          style: TextStyle(
-                            color: Colors.white60,
-                          ),
-                          textAlign: TextAlign.right,
-                        ),
-                        onTap: () {
-                          Utils.navigateToPage(context, JoinView());
-                        },
-                      ),
-                    ),
-                  ),
+                UtilCartItem(
+                  icon: Icons.person,
+                  tooltip:
+                      "Üye Grişi yapmak veya yeni üyelik oluşturmak için dokunun",
+                  img:
+                      'https://image.freepik.com/free-vector/login-concept-illustration_114360-739.jpg',
+                  title: "Üye Girişi / Yeni Üyelik",
+                  subtitle:
+                      "Avantajlı tekliflerden yararlanabilmek, favorilerinizi seçebilmek ve sepetinizi doldurabilmek için üye girişi yapabilirsiniz. Ayrıca üye değilseniz yeni üyelik oluşturabilirsiniz",
+                  screen: JoinView(),
                 ),
               ],
             )));
