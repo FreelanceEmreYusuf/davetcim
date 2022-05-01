@@ -24,9 +24,11 @@ class _EntrancePageState extends State<EntrancePage> {
         appBar: AppBar(
             automaticallyImplyLeading: false,
             centerTitle: true,
+            backgroundColor: Colors.redAccent,
             title: Text(
               //Constants.appName,
               'Davetçim',
+              style: TextStyle(color: Colors.white),
             )),
         body: Padding(
             padding: EdgeInsets.symmetric(

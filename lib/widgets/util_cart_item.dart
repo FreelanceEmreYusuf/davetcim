@@ -41,7 +41,7 @@ class UtilCartItem extends StatelessWidget {
                 ),
                 Center(
                   child: ListTile(
-                    tileColor: Colors.white60,
+                    tileColor: Colors.white70,
                     leading: IconButton(
                       tooltip: tooltip,
                       iconSize: MediaQuery.of(context).size.width / 8,
