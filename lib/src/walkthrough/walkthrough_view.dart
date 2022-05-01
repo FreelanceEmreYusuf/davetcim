@@ -18,21 +18,21 @@ class _WalkthroughState extends State<Walkthrough> {
           "En güzel gecene ev sahipliği yapacak olan düğün salonuna karar vermeden önce,"
               "  düğün salonu galerilerine göz at,  "
               "en güzel düğün salonu dekorasyonu örneklerini incele!.",
-      "img": "assets/on1.png",
+      "img": "https://placeimg.com/640/480/1",
     },
     {
       "title": "Paket Seçimi",
       "body": "Cebinize uygun evlilik paketini seçebilirsiniz"
           " Düğün davet balo gibi organizasyonlarınıza özel paket seçeneklerimizle "
           "dui. Nulla porttitor accumsan tincidunt.",
-      "img": "assets/on2.png",
+      "img": "https://placeimg.com/640/480/2",
     },
     {
       "title": "Fiyat Teklifi",
       "body": "Hızlı bir şekilde salon sahibinin size ulaşmasını sağlayıp"
           " Uygun fiyat teklifleri alabilirsiniz "
           "Evlilikten geçen yolda bize uğramadan geçmeyin!",
-      "img": "assets/on3.png",
+      "img": "https://placeimg.com/640/480/3",
     },
   ];
   @override
@@ -83,7 +83,7 @@ class _WalkthroughState extends State<Walkthrough> {
     return PageViewModel(
       title: item['title'],
       body: item['body'],
-      image: Image.asset(
+      image: Image.network(
         item['img'],
         height: 185.0,
       ),
