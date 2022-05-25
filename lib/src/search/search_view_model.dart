@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
+import 'package:davetcim/shared/models/corporation_card_model.dart';
+import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/models/district_model.dart';
 import 'package:davetcim/shared/models/invitation_type_model.dart';
 import 'package:davetcim/shared/models/organization_type_model.dart';
@@ -38,4 +40,58 @@ class SearchViewModel extends ChangeNotifier {
 
     return districtList;
   }
+
+
+  Future<CorporationCardModel> getCorporationCard(int corporationId) async {
+    CorporationModel mdl = await getCorporationModel(1);
+    String imageURL = await  getImageURL(mdl.corporationId);
+    return CorporationCardModel(corporationName: mdl.corporationName, image: imageURL);
+  }
+
+  Future<CorporationModel> getCorporationModel(int corporationId) async {
+    var response = await db
+        .getCollectionRef(DBConstants.corporationDb)
+        .where('id', isEqualTo: corporationId)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+
+      Map corpMap = list[0].data();
+      return CorporationModel(corporationId: corpMap["id"], corporationName: corpMap["corporationName"] );
+    }
+
+    return null;
+  }
+
+  Future<String> getImageURL(int corporationId) async {
+    var response = await db
+        .getCollectionRef(DBConstants.imagesDb)
+        .where('corporationId', isEqualTo: corporationId)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+
+      Map item = list[0].data();
+      return item['imageUrl'];
+
+    } else {
+      return "";
+    }
+  }
+/*
+  @override
+  void initState() {
+    fillCorporationCardModel();
+  }
+
+  void fillCorporationCardModel() async {
+    SearchViewModel rm = SearchViewModel();
+    corpCardMdl = await rm.getCorporationCard(1);
+    setState(() {
+      corpCardMdl = corpCardMdl;
+    });
+  }*/
+
 }

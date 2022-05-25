@@ -17,4 +17,6 @@ class DBConstants {
   static String regionDb = "Region";
   static String districtDb = "District";
   static String bypassInfoPageDb = "BypassInfoPage";
+  static String corporationDb = "Corporation";
+  static String imagesDb = "Images";
 }
