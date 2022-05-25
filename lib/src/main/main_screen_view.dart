@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/cart.dart';
 import 'package:davetcim/screens/favorite_screen.dart';
-import 'package:davetcim/src/home/home.dart';
+import 'package:davetcim/src/home/home_view.dart';
 import 'package:davetcim/src/profile/profile_view.dart';
 import 'package:davetcim/widgets/badge.dart';
 

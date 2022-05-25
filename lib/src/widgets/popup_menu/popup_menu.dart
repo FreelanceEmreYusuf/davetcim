@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
-import 'package:davetcim/src/home/home.dart';
+import 'package:davetcim/src/home/home_view.dart';
 import 'package:davetcim/src/info/about_application.dart';
 import 'package:davetcim/src/info/about_us.dart';
 import 'package:davetcim/src/join/join_view.dart';
