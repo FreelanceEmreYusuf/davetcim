@@ -1,4 +1,7 @@
 import 'dart:async';
+import 'package:davetcim/shared/utils/utils.dart';
+import 'package:davetcim/src/entrance_page/entrance_view.dart';
+import 'package:davetcim/src/walkthrough/walkthrough_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:davetcim/src/walkthrough/walkthrough_view.dart';
@@ -15,20 +18,23 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   changeScreen() async {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (BuildContext context) {
-          return Walkthrough();
-        },
-      ),
-    );
+    Utils.navigateToPage(context, Walkthrough());
   }
 
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
-    startTimeout();
+    callNextFlow();
+  }
+
+  void callNextFlow() async {
+    WalkthroughModel rm = WalkthroughModel();
+    if (!await rm.willDemoShowed()) {
+      Utils.navigateToPage(context, EntrancePage());
+    } else {
+      startTimeout();
+    }
   }
 
   @override

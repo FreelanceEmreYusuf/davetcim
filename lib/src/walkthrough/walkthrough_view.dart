@@ -102,16 +102,4 @@ class _WalkthroughState extends State<Walkthrough> {
       ),
     );
   }
-
-  @override
-  void initState() {
-    callwillDemoShowed();
-  }
-
-  void callwillDemoShowed() async {
-    WalkthroughModel rm = WalkthroughModel();
-    if (!await rm.willDemoShowed()) {
-      Utils.navigateToPage(context, EntrancePage());
-    }
-  }
 }
