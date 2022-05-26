@@ -40,7 +40,7 @@ class _EntrancePageState extends State<EntrancePage> {
                   icon: Icons.search,
                   tooltip: "Organizasyon için en uygun mekanı bul",
                   img:
-                      'https://www.lifepark.com.tr/wp-content/uploads/2018/03/qubbe-bahce-15.jpg',
+                      'https://img.freepik.com/free-vector/search-engine-optimization-with-cute-robot_257056-620.jpg?w=740',
                   title: "Mekan Filtreleme Robotu",
                   subtitle:
                       "Düğün, Kına, Doğum Günü ve daha birçok organizasyon için kriterlerinize uygun mekanı biz sizin için bulalım.",
