@@ -55,7 +55,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                         fontWeight: FontWeight.w800,
                       ),
                     ),
-                    FlatButton(
+                 /*   FlatButton(
                       child: Text(
                         "View More",
                         style: TextStyle(
@@ -73,7 +73,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                           ),
                         );
                       },
-                    ),
+                    ),*/
                   ],
                 ),
 
@@ -84,13 +84,13 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                 CarouselSlider(
                   height: MediaQuery.of(context).size.height / 2.4,
                   items: map<Widget>(
-                    foods,
+                    corporationList,
                         (index, i) {
-                      Map food = foods[index];
+                      CorporationModel model = corporationList[index];
                       return SliderItem(
-                        img: food['img'],
+                        img: model.imageUrl,
                         isFav: false,
-                        name: food['name'],
+                        name: model.corporationName,
                         rating: 5.0,
                         raters: 23,
                       );
@@ -107,7 +107,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                   },
                 ),
                 SizedBox(height: 20.0),
-
+/*
                 Text(
                   "Food Categories",
                   style: TextStyle(
@@ -136,18 +136,18 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                 ),
 
                 SizedBox(height: 20.0),
-
+*/
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text(
-                      "Popular Items",
+                      "Öne Çıkanlar",
                       style: TextStyle(
                         fontSize: 23,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
-                    FlatButton(
+               /*     FlatButton(
                       child: Text(
                         "View More",
                         style: TextStyle(
@@ -157,7 +157,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                         ),
                       ),
                       onPressed: () {},
-                    ),
+                    ),*/
                   ],
                 ),
                 SizedBox(height: 10.0),
@@ -169,7 +169,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: MediaQuery.of(context).size.width /
-                        (MediaQuery.of(context).size.height / 1.25),
+                        (MediaQuery.of(context).size.height / 1.15),
                   ),
                   itemCount: corporationList == null ? 0 : corporationList.length,
                   itemBuilder: (BuildContext context, int index) {
