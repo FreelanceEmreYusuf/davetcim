@@ -35,11 +35,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
       create: (_)=>HomeViewModel(),
     builder: (context,child) => StreamBuilder<List<CorporationModel>>(
       stream: Provider.of<HomeViewModel>(context, listen: false).getHomeCorporationList(),
-    builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
+    builder: (context, asyncSnapshot) {
       if (asyncSnapshot.hasError) {
         return SomethingWentWrongScreen();
       }else if (asyncSnapshot.hasData) {
-        List<CorporationModel> corporationList = asyncSnapshot.data.docs;
+        List<CorporationModel> corporationList = asyncSnapshot.data;
         return Scaffold(
           body: Padding(
             padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),

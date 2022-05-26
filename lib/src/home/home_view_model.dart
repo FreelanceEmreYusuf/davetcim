@@ -23,10 +23,18 @@ class HomeViewModel extends ChangeNotifier {
           .map((event) => event.docs);
 
       Stream<List<CorporationModel>> corporationList = corporationDocList
-          .map((event) => event.map((e) => CorporationModel.fromMap(e.data())));
+          .map((event) => event.map((e) => CorporationModel.fromMap(e.data())).toList());
 
       return corporationList;
 
     }
+/*
+  Stream<List<CorporationModel>> streamProducts() {
+    var ref = db.getCollectionRef("Corporation")
+        .where('isPopularCorporation', isEqualTo: true).snapshots();
+
+    return ref
+        .map((list) => list.documents.map((doc) => CorporationModel.fromMap(doc))).toList(); // <= here
+  }*/
 }
 
