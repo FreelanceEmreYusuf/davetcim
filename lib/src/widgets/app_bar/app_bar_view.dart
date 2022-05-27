@@ -28,6 +28,7 @@ class _AppBarMenu extends State<AppBarMenu> {
     AppBarViewModel mdl = new AppBarViewModel();
 
     return AppBar(
+      centerTitle: true,
       backgroundColor: Constants.darkAccent,
       automaticallyImplyLeading: false,
       leading: IconButton(

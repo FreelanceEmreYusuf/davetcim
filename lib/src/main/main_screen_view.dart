@@ -26,7 +26,7 @@ class _MainScreenState extends State<MainScreen> {
     return WillPopScope(
       onWillPop: () => Future.value(false),
       child: Scaffold(
-        appBar: AppBarMenu(pageName: 'Anasayfa'),
+        appBar: AppBarMenu(pageName: 'Davetçim'),
         body: PageView(
           physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
@@ -87,21 +87,23 @@ class _MainScreenState extends State<MainScreen> {
                 onPressed: () => _pageController.jumpToPage(3),
               ),
               IconButton(
-                icon: Icon(
-                  Icons.person,
-                  size: 24.0,
-                ),
-                color: _page == 4
-                    ? Theme.of(context).accentColor
-                    : Theme.of(context).textTheme.caption.color,
-                onPressed: () => {
-                  if (ApplicationSession.userSession == null) {
-                    mdl.navigateToLogin(context),
-                  } else {
-                    _pageController.jumpToPage(4),
-                  }
-                }
-              ),
+                  icon: Icon(
+                    Icons.person,
+                    size: 24.0,
+                  ),
+                  color: _page == 4
+                      ? Theme.of(context).accentColor
+                      : Theme.of(context).textTheme.caption.color,
+                  onPressed: () => {
+                        if (ApplicationSession.userSession == null)
+                          {
+                            mdl.navigateToLogin(context),
+                          }
+                        else
+                          {
+                            _pageController.jumpToPage(4),
+                          }
+                      }),
               SizedBox(width: 7),
             ],
           ),

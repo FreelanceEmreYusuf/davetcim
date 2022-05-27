@@ -32,30 +32,31 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
     HomeViewModel mdl = new HomeViewModel();
     super.build(context);
     return ChangeNotifierProvider<HomeViewModel>(
-      create: (_)=>HomeViewModel(),
-    builder: (context,child) => StreamBuilder<List<CorporationModel>>(
-      stream: Provider.of<HomeViewModel>(context, listen: false).getHomeCorporationList(),
-    builder: (context, asyncSnapshot) {
-      if (asyncSnapshot.hasError) {
-        return SomethingWentWrongScreen();
-      }else if (asyncSnapshot.hasData) {
-        List<CorporationModel> corporationList = asyncSnapshot.data;
-        return Scaffold(
-          body: Padding(
-            padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-            child: ListView(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      mdl.getUserName(),
-                      style: TextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-                 /*   FlatButton(
+      create: (_) => HomeViewModel(),
+      builder: (context, child) => StreamBuilder<List<CorporationModel>>(
+          stream: Provider.of<HomeViewModel>(context, listen: false)
+              .getHomeCorporationList(),
+          builder: (context, asyncSnapshot) {
+            if (asyncSnapshot.hasError) {
+              return SomethingWentWrongScreen();
+            } else if (asyncSnapshot.hasData) {
+              List<CorporationModel> corporationList = asyncSnapshot.data;
+              return Scaffold(
+                body: Padding(
+                  padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+                  child: ListView(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            mdl.getUserName(),
+                            style: TextStyle(
+                              fontSize: 23,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          /*   FlatButton(
                       child: Text(
                         "View More",
                         style: TextStyle(
@@ -74,39 +75,39 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                         );
                       },
                     ),*/
-                  ],
-                ),
+                        ],
+                      ),
 
-                SizedBox(height: 10.0),
+                      SizedBox(height: 10.0),
 
-                //Slider Here
+                      //Slider Here
 
-                CarouselSlider(
-                  height: MediaQuery.of(context).size.height / 2.4,
-                  items: map<Widget>(
-                    corporationList,
-                        (index, i) {
-                      CorporationModel model = corporationList[index];
-                      return SliderItem(
-                        img: model.imageUrl,
-                        isFav: false,
-                        name: model.corporationName,
-                        rating: 5.0,
-                        raters: 23,
-                      );
-                    },
-                  ).toList(),
-                  autoPlay: true,
+                      CarouselSlider(
+                        height: MediaQuery.of(context).size.height / 2.4,
+                        items: map<Widget>(
+                          corporationList,
+                          (index, i) {
+                            CorporationModel model = corporationList[index];
+                            return SliderItem(
+                              img: model.imageUrl,
+                              isFav: false,
+                              name: model.corporationName,
+                              rating: 5.0,
+                              raters: 23,
+                            );
+                          },
+                        ).toList(),
+                        autoPlay: true,
 //                enlargeCenterPage: true,
-                  viewportFraction: 1.0,
+                        viewportFraction: 1.0,
 //              aspectRatio: 2.0,
-                  onPageChanged: (index) {
-                    setState(() {
-                      _current = index;
-                    });
-                  },
-                ),
-                SizedBox(height: 20.0),
+                        onPageChanged: (index) {
+                          setState(() {
+                            _current = index;
+                          });
+                        },
+                      ),
+                      SizedBox(height: 20.0),
 /*
                 Text(
                   "Food Categories",
@@ -137,17 +138,17 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
 
                 SizedBox(height: 20.0),
 */
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Text(
-                      "Öne Çıkanlar",
-                      style: TextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w800,
-                      ),
-                    ),
-               /*     FlatButton(
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            "Öne Çıkanlar",
+                            style: TextStyle(
+                              fontSize: 23,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          /*     FlatButton(
                       child: Text(
                         "View More",
                         style: TextStyle(
@@ -158,46 +159,46 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                       ),
                       onPressed: () {},
                     ),*/
-                  ],
-                ),
-                SizedBox(height: 10.0),
+                        ],
+                      ),
+                      SizedBox(height: 10.0),
 
-                GridView.builder(
-                  shrinkWrap: true,
-                  primary: false,
-                  physics: NeverScrollableScrollPhysics(),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    childAspectRatio: MediaQuery.of(context).size.width /
-                        (MediaQuery.of(context).size.height / 1.15),
-                  ),
-                  itemCount: corporationList == null ? 0 : corporationList.length,
-                  itemBuilder: (BuildContext context, int index) {
+                      GridView.builder(
+                        shrinkWrap: true,
+                        primary: false,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          childAspectRatio: MediaQuery.of(context).size.width /
+                              (MediaQuery.of(context).size.height / 1.15),
+                        ),
+                        itemCount: corporationList == null
+                            ? 0
+                            : corporationList.length,
+                        itemBuilder: (BuildContext context, int index) {
 //                Food food = Food.fromJson(foods[index]);
-                    CorporationModel item = corporationList[index];
-                    return GridProduct(
-                      img: item.imageUrl,
-                      isFav: false,
-                      name: item.corporationName,
-                      rating: 5.0,
-                      raters: 23,
-                    );
-                  },
+                          CorporationModel item = corporationList[index];
+                          return GridProduct(
+                            img: item.imageUrl,
+                            isFav: false,
+                            name: item.corporationName,
+                            rating: 5.0,
+                            raters: 23,
+                          );
+                        },
+                      ),
+
+                      SizedBox(height: 30),
+                    ],
+                  ),
                 ),
-
-                SizedBox(height: 30),
-              ],
-            ),
-          ),
-        );
-      } else {
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      }
-    }
-    ),
-
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          }),
     );
   }
 
