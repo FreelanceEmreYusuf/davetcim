@@ -27,7 +27,12 @@ class CartItem extends StatelessWidget {
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return ProductDetails();
+                return ProductDetails(
+                    img: img,
+                    raters: raters,
+                    isFav: isFav,
+                    name: name,
+                    rating: rating);
               },
             ),
           );

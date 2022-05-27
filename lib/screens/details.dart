@@ -9,6 +9,20 @@ import 'package:davetcim/widgets/smooth_star_rating.dart';
 class ProductDetails extends StatefulWidget {
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
+  final String name;
+  final String img;
+  final bool isFav;
+  final double rating;
+  final int raters;
+
+  ProductDetails(
+      {Key key,
+      @required this.name,
+      @required this.img,
+      @required this.isFav,
+      @required this.rating,
+      @required this.raters})
+      : super(key: key);
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
@@ -26,7 +40,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         ),
         centerTitle: true,
         title: Text(
-          "Item Details",
+          widget.name,
         ),
         elevation: 0.0,
         actions: <Widget>[
@@ -59,8 +73,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                   width: MediaQuery.of(context).size.width,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
-                      "${foods[1]['img']}",
+                    child: Image.network(
+                      widget.img,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -87,7 +101,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             SizedBox(height: 10.0),
             Text(
-              "${foods[1]['name']}",
+              widget.name,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w800,
@@ -107,7 +121,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                   SizedBox(width: 10.0),
                   Text(
-                    "5.0 (23 Reviews)",
+                    "5.0 (23 Yorum)",
                     style: TextStyle(
                       fontSize: 11.0,
                     ),
@@ -120,7 +134,7 @@ class _ProductDetailsState extends State<ProductDetails> {
               child: Row(
                 children: <Widget>[
                   Text(
-                    "20 Pieces",
+                    "Kapasite 500",
                     style: TextStyle(
                       fontSize: 11.0,
                       fontWeight: FontWeight.w300,
@@ -140,7 +154,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             SizedBox(height: 20.0),
             Text(
-              "Product Description",
+              "Hakkında",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w800,
@@ -167,7 +181,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             SizedBox(height: 20.0),
             Text(
-              "Reviews",
+              "Yorumlar",
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w800,
@@ -228,7 +242,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         height: 50.0,
         child: RaisedButton(
           child: Text(
-            "ADD TO CART",
+            "SEPETE EKLE",
             style: TextStyle(
               color: Colors.white,
             ),
