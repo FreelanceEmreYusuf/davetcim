@@ -28,13 +28,5 @@ class HomeViewModel extends ChangeNotifier {
       return corporationList;
 
     }
-/*
-  Stream<List<CorporationModel>> streamProducts() {
-    var ref = db.getCollectionRef("Corporation")
-        .where('isPopularCorporation', isEqualTo: true).snapshots();
-
-    return ref
-        .map((list) => list.documents.map((doc) => CorporationModel.fromMap(doc))).toList(); // <= here
-  }*/
 }
 

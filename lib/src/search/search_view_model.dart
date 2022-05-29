@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:davetcim/shared/dto/product_filterer.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/corporation_card_model.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
@@ -9,6 +10,8 @@ import 'package:davetcim/shared/models/region_model.dart';
 import 'package:davetcim/shared/models/sequence_order_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/utils/utils.dart';
+import 'package:davetcim/src/products/products_view.dart';
 import 'package:flutter/cupertino.dart';
 
 List<RegionModel> regionList =
@@ -40,6 +43,21 @@ class SearchViewModel extends ChangeNotifier {
 
     return districtList;
   }
+
+  void goToFilterPage(BuildContext context, String region, String district, int invitationId,
+      int organizationId, int sequenceOrderId) {
+    ProductFilterer filter = ProductFilterer(
+      region,
+      district,
+      invitationId,
+      organizationId,
+      sequenceOrderId,
+    );
+
+    Utils.navigateToPage(context, ProductsScreen(filter));
+  }
+
+
 
 
   Future<CorporationCardModel> getCorporationCard(int corporationId) async {

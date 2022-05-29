@@ -52,7 +52,14 @@ class _SearchScreenState extends State<SearchScreen>
     callFillDistrict(regionList[selectedRegion].id);
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {},
+        onPressed: () {
+          SearchViewModel rm = SearchViewModel();
+          rm.goToFilterPage(context, regionList[selectedRegion].id.toString(),
+              districtList[selectedDistrict].id.toString(),
+              invitationList[selectedInvitationIndex].id,
+              organizationTypeList[selectedOrganizationIndex].id,
+              sequenceOrderList[selectedSeatingArrangement].id);
+        },
         label: const Text('Filtrele'),
         icon: const Icon(Icons.filter_list),
         backgroundColor: Colors.redAccent,

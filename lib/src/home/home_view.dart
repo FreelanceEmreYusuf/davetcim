@@ -4,7 +4,6 @@ import 'package:davetcim/src/widgets/on_error/somethingWentWrong.dart';
 import 'package:davetcim/util/foods.dart';
 import 'package:davetcim/widgets/slider_item.dart';
 import 'package:flutter/material.dart';
-import 'package:davetcim/screens/dishes.dart';
 import 'package:davetcim/widgets/grid_product.dart';
 import 'package:davetcim/widgets/home_category.dart';
 import 'package:davetcim/util/categories.dart';
@@ -176,7 +175,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                             ? 0
                             : corporationList.length,
                         itemBuilder: (BuildContext context, int index) {
-//                Food food = Food.fromJson(foods[index]);
                           CorporationModel item = corporationList[index];
                           return GridProduct(
                             img: item.imageUrl,

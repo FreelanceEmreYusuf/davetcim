@@ -2,7 +2,7 @@ import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
-import 'package:davetcim/shared/sessions/user_session.dart';
+import 'package:davetcim/shared/dto/user_session.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
