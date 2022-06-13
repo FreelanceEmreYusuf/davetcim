@@ -44,14 +44,16 @@ class SearchViewModel extends ChangeNotifier {
     return districtList;
   }
 
-  void goToFilterPage(BuildContext context, String region, String district, int invitationId,
-      int organizationId, int sequenceOrderId) {
+  void goToFilterPage(BuildContext context, String region, String district,
+      String invitationUniqueIdentifier,
+      String organizationUniqueIdentifier,
+      String sequenceOrderUniqueIdentifier) {
     ProductFilterer filter = ProductFilterer(
       region,
       district,
-      invitationId,
-      organizationId,
-      sequenceOrderId,
+      invitationUniqueIdentifier,
+      organizationUniqueIdentifier,
+      sequenceOrderUniqueIdentifier,
     );
 
     Utils.navigateToPage(context, ProductsScreen(filter));

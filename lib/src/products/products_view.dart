@@ -74,7 +74,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           childAspectRatio: MediaQuery.of(context).size.width /
-                              (MediaQuery.of(context).size.height / 1.25),
+                              (MediaQuery.of(context).size.height / 1.15),
                         ),
                         itemCount: corporationList == null
                             ? 0

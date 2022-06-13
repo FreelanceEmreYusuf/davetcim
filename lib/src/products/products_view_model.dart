@@ -16,14 +16,14 @@ class ProductsViewModel extends ChangeNotifier {
     if (!filter.district.contains('00')) {
       list = list.where('district', isEqualTo: filter.district);
     }
-    if (filter.invitationId > 0) {
-      list = list.where('invitationId', isEqualTo: filter.invitationId);
+    if (filter.invitationUniqueIdentifier != "0") {
+      list = list.where('invitationUniqueIdentifier',  arrayContains: filter.invitationUniqueIdentifier);
     }
-    if (filter.sequenceOrderId > 0) {
-      list = list.where('sequenceOrderId', isEqualTo: filter.sequenceOrderId);
+    if (filter.sequenceOrderUniqueIdentifier != "0") {
+      list = list.where('sequenceOrderUniqueIdentifier', arrayContains: filter.sequenceOrderUniqueIdentifier);
     }
-    if (filter.organizationId > 0) {
-      list = list.where('organizationId', isEqualTo: filter.organizationId);
+    if (filter.organizationUniqueIdentifier != "0") {
+      list = list.where('organizationUniqueIdentifier', arrayContains: filter.organizationUniqueIdentifier);
     }
 
     Stream<List<DocumentSnapshot>> corporationDocList =

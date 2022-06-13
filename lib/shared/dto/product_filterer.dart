@@ -1,15 +1,15 @@
 class ProductFilterer {
   final String region;
   final String district;
-  final int invitationId;
-  final int organizationId;
-  final int sequenceOrderId;
+  final String invitationUniqueIdentifier;
+  final String organizationUniqueIdentifier;
+  final String sequenceOrderUniqueIdentifier;
 
   const ProductFilterer(
       this.region,
       this.district,
-      this.invitationId,
-      this.organizationId,
-      this.sequenceOrderId,
+      this.invitationUniqueIdentifier,
+      this.organizationUniqueIdentifier,
+      this.sequenceOrderUniqueIdentifier,
       );
 }

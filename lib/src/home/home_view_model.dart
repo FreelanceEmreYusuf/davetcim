@@ -3,7 +3,6 @@ import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeViewModel extends ChangeNotifier {
 
