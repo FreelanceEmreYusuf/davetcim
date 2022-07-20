@@ -92,12 +92,27 @@ class ProductsViewModel extends ChangeNotifier {
     return resultIdList;
   }
 
-  Future<List<CorporationModel>> filterCorporationListForReservations(ProductFilterer filter) async {
+  Future<List<int>> filterCorporationListForReservations(ProductFilterer filter) async {
     var response = await db
         .getCollectionRef("CorporationReservations")
-        .where('date', isEqualTo: DateUtils.getCurrentDateAsInt())
-       // .where('corporationId', whereNotIn: corporationIds)
+        .where('date', isEqualTo: DateUtils.getCurrentDateAsInt(filter.date))
+        .where('startTime', isLessThanOrEqualTo:  DateUtils.getCurrentTimeAsInt(filter.startHour))
+        .where('endTime', isGreaterThanOrEqualTo:  DateUtils.getCurrentTimeAsInt(filter.endHour))
         .get();
+
+    List<CorporationModel> corpModelList = [];
+    List<int> corpModelListIDs = [];
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        corpModelList.add(CorporationModel.fromMap(list[i].data()));
+      }
+      for (int i = 0; i < corpModelList.length; i++) {
+        corpModelListIDs.add(corpModelList[i].corporationId);
+      }
+    }
+
+    return corpModelListIDs;
   }
 
 
@@ -121,6 +136,13 @@ class ProductsViewModel extends ChangeNotifier {
 
     if (filter.sequenceOrderUniqueIdentifier != "0") {
       list = list.where('sequenceOrderUniqueIdentifier', arrayContains: filter.sequenceOrderUniqueIdentifier);
+    }
+
+    if (filter.isTimeFilterEnabled) {
+      List<int> resList = await filterCorporationListForReservations(filter);
+      if (resList.length > 0) {
+        list = list.where('id', whereNotIn: resList);
+      }
     }
 
     var response = await list.get();

@@ -23,7 +23,9 @@ class _SearchScreenState extends State<SearchScreen>
 
   DateTime date = DateTime.now().toLocal();
   DateTime time = DateTime.now().toLocal();
-  DateTime endTime = DateTime.now().toLocal();
+  bool checkedValue = false;
+
+  DateTime endTime = DateTime.now().toLocal().add(new Duration(hours: 2));
 
   // This shows a CupertinoModalPopup with a reasonable fixed height which hosts CupertinoDatePicker.
   void _showDialog(Widget child) {
@@ -60,8 +62,10 @@ class _SearchScreenState extends State<SearchScreen>
               organizationTypeList[selectedOrganizationIndex].id.toString(),
               sequenceOrderList[selectedSeatingArrangement].id.toString(),
               _searchControl.text,
-              time.toString(),
-              endTime.toString());
+              checkedValue,
+              date,
+              time,
+              endTime);
         },
         label: const Text('Filtrele'),
         icon: const Icon(Icons.filter_list),
@@ -177,158 +181,174 @@ class _SearchScreenState extends State<SearchScreen>
                   ),
                 ),
               ),
-              CupertinoPageScaffold(
-                child: Center(
-                  child: Column(
-                    children: <Widget>[
-                      GestureDetector(
-                        onTap: () {
-                          _showDialog(
-                            CupertinoDatePicker(
-                              initialDateTime: date,
-                              mode: CupertinoDatePickerMode.date,
-                              use24hFormat: true,
-                              // This is called when the user changes the date.
-                              onDateTimeChanged: (DateTime newDate) {
-                                setState(() => date = newDate);
-                              },
+              Card(
+                  elevation: 3.0,
+                  child: CheckboxListTile(
+                    title: Text("Tarih ve saat filtrelensin mi?"),
+                    value: checkedValue,
+                    onChanged: (newValue) {
+                      setState(() {
+                        checkedValue = newValue;
+                      });
+                    },
+                    controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+                  )
+              ),
+              Visibility(
+                visible: checkedValue,
+                child: CupertinoPageScaffold(
+                  child: Center(
+                    child: Column(
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            _showDialog(
+                              CupertinoDatePicker(
+                                initialDateTime: date,
+                                mode: CupertinoDatePickerMode.date,
+                                use24hFormat: true,
+                                // This is called when the user changes the date.
+                                onDateTimeChanged: (DateTime newDate) {
+                                  setState(() => date = newDate);
+                                },
+                              ),
+                            );
+                          },
+                          child: Card(
+                            elevation: 3.0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                CupertinoButton(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      MediaQuery.of(context).size.height /
+                                          _cardDivisionSize,
+                                      MediaQuery.of(context).size.height /
+                                          _cardDivisionSize,
+                                      MediaQuery.of(context).size.height /
+                                          _cardDivisionSize,
+                                      MediaQuery.of(context).size.height /
+                                          _cardDivisionSize),
+                                  child: Text(
+                                    'Tarih',
+                                    style: kStyle,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Text(
+                                  '${date.month}-${date.day}-${date.year}',
+                                  style: const TextStyle(
+                                    fontSize: 18.0,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20.0,
+                                ),
+                              ],
                             ),
-                          );
-                        },
-                        child: Card(
-                          elevation: 3.0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              CupertinoButton(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    MediaQuery.of(context).size.height /
-                                        _cardDivisionSize,
-                                    MediaQuery.of(context).size.height /
-                                        _cardDivisionSize,
-                                    MediaQuery.of(context).size.height /
-                                        _cardDivisionSize,
-                                    MediaQuery.of(context).size.height /
-                                        _cardDivisionSize),
-                                child: Text(
-                                  'Tarih',
-                                  style: kStyle,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Text(
-                                '${date.month}-${date.day}-${date.year}',
-                                style: const TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                            ],
                           ),
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _showDialog(
-                            CupertinoDatePicker(
-                              initialDateTime: time,
-                              mode: CupertinoDatePickerMode.time,
-                              use24hFormat: true,
-                              // This is called when the user changes the time.
-                              onDateTimeChanged: (DateTime newTime) {
-                                setState(() => time = newTime);
-                              },
+                        GestureDetector(
+                          onTap: () {
+                            _showDialog(
+                              CupertinoDatePicker(
+                                initialDateTime: time,
+                                mode: CupertinoDatePickerMode.time,
+                                use24hFormat: true,
+                                // This is called when the user changes the time.
+                                onDateTimeChanged: (DateTime newTime) {
+                                  setState(() => time = newTime);
+                                },
+                              ),
+                            );
+                          },
+                          child: Card(
+                            elevation: 3.0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                CupertinoButton(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      MediaQuery.of(context).size.height /
+                                          _cardDivisionSize,
+                                      MediaQuery.of(context).size.height /
+                                          _cardDivisionSize,
+                                      MediaQuery.of(context).size.height /
+                                          _cardDivisionSize,
+                                      MediaQuery.of(context).size.height /
+                                          _cardDivisionSize),
+                                  child: Text(
+                                    'Başlangıç Saati',
+                                    style: kStyle,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Text(
+                                  '${time.hour}:${time.minute}',
+                                  style: const TextStyle(
+                                    fontSize: 18.0,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20.0,
+                                ),
+                              ],
                             ),
-                          );
-                        },
-                        child: Card(
-                          elevation: 3.0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              CupertinoButton(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    MediaQuery.of(context).size.height /
-                                        _cardDivisionSize,
-                                    MediaQuery.of(context).size.height /
-                                        _cardDivisionSize,
-                                    MediaQuery.of(context).size.height /
-                                        _cardDivisionSize,
-                                    MediaQuery.of(context).size.height /
-                                        _cardDivisionSize),
-                                child: Text(
-                                  'Başlangıç Saati',
-                                  style: kStyle,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Text(
-                                '${time.hour}:${time.minute}',
-                                style: const TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                            ],
                           ),
                         ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _showDialog(
-                            CupertinoDatePicker(
-                              initialDateTime: endTime,
-                              mode: CupertinoDatePickerMode.time,
-                              use24hFormat: true,
-                              // This is called when the user changes the time.
-                              onDateTimeChanged: (DateTime newTime) {
-                                setState(() => endTime = newTime);
-                              },
+                        GestureDetector(
+                          onTap: () {
+                            _showDialog(
+                              CupertinoDatePicker(
+                                initialDateTime: endTime,
+                                mode: CupertinoDatePickerMode.time,
+                                use24hFormat: true,
+                                // This is called when the user changes the time.
+                                onDateTimeChanged: (DateTime newTime) {
+                                  setState(() => endTime = newTime);
+                                },
+                              ),
+                            );
+                          },
+                          child: Card(
+                            elevation: 3.0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                CupertinoButton(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      MediaQuery.of(context).size.height /
+                                          _cardDivisionSize,
+                                      MediaQuery.of(context).size.height /
+                                          _cardDivisionSize,
+                                      MediaQuery.of(context).size.height /
+                                          _cardDivisionSize,
+                                      MediaQuery.of(context).size.height /
+                                          _cardDivisionSize),
+                                  child: Text(
+                                    'Bitiş Saati',
+                                    style: kStyle,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Text(
+                                  '${endTime.hour}:${endTime.minute}',
+                                  style: const TextStyle(
+                                    fontSize: 18.0,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 20.0,
+                                ),
+                              ],
                             ),
-                          );
-                        },
-                        child: Card(
-                          elevation: 3.0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              CupertinoButton(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    MediaQuery.of(context).size.height /
-                                        _cardDivisionSize,
-                                    MediaQuery.of(context).size.height /
-                                        _cardDivisionSize,
-                                    MediaQuery.of(context).size.height /
-                                        _cardDivisionSize,
-                                    MediaQuery.of(context).size.height /
-                                        _cardDivisionSize),
-                                child: Text(
-                                  'Bitiş Saati',
-                                  style: kStyle,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Text(
-                                '${endTime.hour}:${endTime.minute}',
-                                style: const TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              SizedBox(
-                                height: 20.0,
-                              ),
-                            ],
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

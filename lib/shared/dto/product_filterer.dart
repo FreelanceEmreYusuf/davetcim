@@ -5,8 +5,10 @@ class ProductFilterer {
   final String organizationUniqueIdentifier;
   final String sequenceOrderUniqueIdentifier;
   final String maxPopulation;
-  final String startHour;
-  final String endHour;
+  final bool isTimeFilterEnabled;
+  final DateTime date;
+  final DateTime startHour;
+  final DateTime endHour;
 
   const ProductFilterer(
       this.region,
@@ -15,6 +17,8 @@ class ProductFilterer {
       this.organizationUniqueIdentifier,
       this.sequenceOrderUniqueIdentifier,
       this.maxPopulation,
+      this.isTimeFilterEnabled,
+      this.date,
       this.startHour,
       this.endHour,
       );

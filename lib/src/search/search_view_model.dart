@@ -49,8 +49,10 @@ class SearchViewModel extends ChangeNotifier {
       String organizationUniqueIdentifier,
       String sequenceOrderUniqueIdentifier,
       String maxPopulation,
-      String startHour,
-      String endHour) {
+      bool isTimeFilterEnabled,
+      DateTime date,
+      DateTime startHour,
+      DateTime endHour) {
     ProductFilterer filter = ProductFilterer(
       region,
       district,
@@ -58,6 +60,8 @@ class SearchViewModel extends ChangeNotifier {
       organizationUniqueIdentifier,
       sequenceOrderUniqueIdentifier,
       maxPopulation,
+      isTimeFilterEnabled,
+      date,
       startHour,
       endHour,
     );
