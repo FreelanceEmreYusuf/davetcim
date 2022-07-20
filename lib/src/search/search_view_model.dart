@@ -48,7 +48,9 @@ class SearchViewModel extends ChangeNotifier {
       String invitationUniqueIdentifier,
       String organizationUniqueIdentifier,
       String sequenceOrderUniqueIdentifier,
-      String maxPopulation) {
+      String maxPopulation,
+      String startHour,
+      String endHour) {
     ProductFilterer filter = ProductFilterer(
       region,
       district,
@@ -56,6 +58,8 @@ class SearchViewModel extends ChangeNotifier {
       organizationUniqueIdentifier,
       sequenceOrderUniqueIdentifier,
       maxPopulation,
+      startHour,
+      endHour,
     );
 
     Utils.navigateToPage(context, ProductsScreen(filter));

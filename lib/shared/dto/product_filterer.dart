@@ -5,6 +5,8 @@ class ProductFilterer {
   final String organizationUniqueIdentifier;
   final String sequenceOrderUniqueIdentifier;
   final String maxPopulation;
+  final String startHour;
+  final String endHour;
 
   const ProductFilterer(
       this.region,
@@ -13,5 +15,7 @@ class ProductFilterer {
       this.organizationUniqueIdentifier,
       this.sequenceOrderUniqueIdentifier,
       this.maxPopulation,
+      this.startHour,
+      this.endHour,
       );
 }

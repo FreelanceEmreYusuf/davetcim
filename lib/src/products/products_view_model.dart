@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/dto/product_filterer.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/services/database.dart';
+import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/cupertino.dart';
 
 class ProductsViewModel extends ChangeNotifier {
@@ -91,6 +92,14 @@ class ProductsViewModel extends ChangeNotifier {
     return resultIdList;
   }
 
+  Future<List<CorporationModel>> filterCorporationListForReservations(ProductFilterer filter) async {
+    var response = await db
+        .getCollectionRef("CorporationReservations")
+        .where('date', isEqualTo: DateUtils.getCurrentDateAsInt())
+       // .where('corporationId', whereNotIn: corporationIds)
+        .get();
+  }
+
 
   Future<List<CorporationModel>> getCorporationList(ProductFilterer filter) async {
 
@@ -102,7 +111,7 @@ class ProductsViewModel extends ChangeNotifier {
       list = list.where('district', isEqualTo: filter.district);
     }
     if (filter.maxPopulation.isNotEmpty) {
-      list = list.where('maxPopulation', isLessThanOrEqualTo:  int.parse(filter.maxPopulation));
+      list = list.where('maxPopulation', isGreaterThanOrEqualTo:  int.parse(filter.maxPopulation));
     }
 
     List<int> unqList = await getFilteredCompanyIds(filter);

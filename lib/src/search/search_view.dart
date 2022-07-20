@@ -59,7 +59,9 @@ class _SearchScreenState extends State<SearchScreen>
               invitationList[selectedInvitationIndex].id.toString(),
               organizationTypeList[selectedOrganizationIndex].id.toString(),
               sequenceOrderList[selectedSeatingArrangement].id.toString(),
-              _searchControl.text);
+              _searchControl.text,
+              time.toString(),
+              endTime.toString());
         },
         label: const Text('Filtrele'),
         icon: const Icon(Icons.filter_list),
