@@ -4,6 +4,7 @@ class ProductFilterer {
   final String invitationUniqueIdentifier;
   final String organizationUniqueIdentifier;
   final String sequenceOrderUniqueIdentifier;
+  final String maxPopulation;
 
   const ProductFilterer(
       this.region,
@@ -11,5 +12,6 @@ class ProductFilterer {
       this.invitationUniqueIdentifier,
       this.organizationUniqueIdentifier,
       this.sequenceOrderUniqueIdentifier,
+      this.maxPopulation,
       );
 }

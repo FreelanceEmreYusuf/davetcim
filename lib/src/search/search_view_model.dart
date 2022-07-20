@@ -47,13 +47,15 @@ class SearchViewModel extends ChangeNotifier {
   void goToFilterPage(BuildContext context, String region, String district,
       String invitationUniqueIdentifier,
       String organizationUniqueIdentifier,
-      String sequenceOrderUniqueIdentifier) {
+      String sequenceOrderUniqueIdentifier,
+      String maxPopulation) {
     ProductFilterer filter = ProductFilterer(
       region,
       district,
       invitationUniqueIdentifier,
       organizationUniqueIdentifier,
       sequenceOrderUniqueIdentifier,
+      maxPopulation,
     );
 
     Utils.navigateToPage(context, ProductsScreen(filter));

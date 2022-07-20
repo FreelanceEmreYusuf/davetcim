@@ -13,14 +13,14 @@ class CorporationModel {
 
   ///Object to map
   Map<String, dynamic> toMap() => {
-    'corporationId': corporationId,
+    'id': corporationId,
     'corporationName': corporationName,
     'imageUrl': imageUrl,
   };
 
   ///Map to object
   factory CorporationModel.fromMap(Map map) => CorporationModel(
-    corporationId: map['corporationId'],
+    corporationId: map['id'],
     corporationName: map['corporationName'],
     imageUrl: map['imageUrl'],
   );

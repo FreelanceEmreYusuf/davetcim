@@ -56,9 +56,10 @@ class _SearchScreenState extends State<SearchScreen>
           SearchViewModel rm = SearchViewModel();
           rm.goToFilterPage(context, regionList[selectedRegion].id.toString(),
               districtList[selectedDistrict].id.toString(),
-              invitationList[selectedInvitationIndex].uniqueIdentifier,
-              organizationTypeList[selectedOrganizationIndex].uniqueIdentifier,
-              sequenceOrderList[selectedSeatingArrangement].uniqueIdentifier);
+              invitationList[selectedInvitationIndex].id.toString(),
+              organizationTypeList[selectedOrganizationIndex].id.toString(),
+              sequenceOrderList[selectedSeatingArrangement].id.toString(),
+              _searchControl.text);
         },
         label: const Text('Filtrele'),
         icon: const Icon(Icons.filter_list),

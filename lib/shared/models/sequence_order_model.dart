@@ -5,14 +5,12 @@ class SequenceOrderModel {
   final String name;
   final int filteringStatus;
   final int sortingIndex;
-  final String uniqueIdentifier;
 
   SequenceOrderModel({
     this.id,
     this.name,
     this.filteringStatus,
     this.sortingIndex,
-    this.uniqueIdentifier,
   });
 
   ///Object to map
@@ -21,7 +19,6 @@ class SequenceOrderModel {
     'name': name,
     'filteringStatus': filteringStatus,
     'sortingIndex': sortingIndex,
-    'uniqueIdentifier': uniqueIdentifier,
   };
 
   ///Map to object
@@ -30,6 +27,5 @@ class SequenceOrderModel {
     name: map['name'],
     filteringStatus: map['filteringStatus'],
     sortingIndex: map['sortingIndex'],
-    uniqueIdentifier: map['uniqueIdentifier'],
   );
 }

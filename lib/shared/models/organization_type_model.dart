@@ -5,14 +5,12 @@ class OrganizationTypeModel {
   final String name;
   final int filteringStatus;
   final int sortingIndex;
-  final String uniqueIdentifier;
 
   OrganizationTypeModel({
     this.id,
     this.name,
     this.filteringStatus,
     this.sortingIndex,
-    this.uniqueIdentifier,
   });
 
   ///Object to map
@@ -21,7 +19,6 @@ class OrganizationTypeModel {
     'name': name,
     'filteringStatus': filteringStatus,
     'sortingIndex': sortingIndex,
-    'uniqueIdentifier': uniqueIdentifier,
   };
 
   ///Map to object
@@ -30,6 +27,5 @@ class OrganizationTypeModel {
     name: map['name'],
     filteringStatus: map['filteringStatus'],
     sortingIndex: map['sortingIndex'],
-    uniqueIdentifier: map['uniqueIdentifier'],
   );
 }
