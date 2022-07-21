@@ -96,19 +96,17 @@ class ProductsViewModel extends ChangeNotifier {
     var response = await db
         .getCollectionRef("CorporationReservations")
         .where('date', isEqualTo: DateUtils.getCurrentDateAsInt(filter.date))
-        .where('startTime', isLessThanOrEqualTo:  DateUtils.getCurrentTimeAsInt(filter.startHour))
-        .where('endTime', isGreaterThanOrEqualTo:  DateUtils.getCurrentTimeAsInt(filter.endHour))
         .get();
 
-    List<CorporationModel> corpModelList = [];
     List<int> corpModelListIDs = [];
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
       for (int i = 0; i < list.length; i++) {
-        corpModelList.add(CorporationModel.fromMap(list[i].data()));
-      }
-      for (int i = 0; i < corpModelList.length; i++) {
-        corpModelListIDs.add(corpModelList[i].corporationId);
+        Map item = list[i].data();
+        if (int.parse(item['startTime'].toString()) <= DateUtils.getCurrentTimeAsInt(filter.startHour)
+          && int.parse(item['endTime'].toString()) >= DateUtils.getCurrentTimeAsInt(filter.endHour)) {
+          corpModelListIDs.add(int.parse(item['corporationId'].toString()));
+        }
       }
     }
 
@@ -138,11 +136,9 @@ class ProductsViewModel extends ChangeNotifier {
       list = list.where('sequenceOrderUniqueIdentifier', arrayContains: filter.sequenceOrderUniqueIdentifier);
     }
 
+    List<int> resList = [];
     if (filter.isTimeFilterEnabled) {
-      List<int> resList = await filterCorporationListForReservations(filter);
-      if (resList.length > 0) {
-        list = list.where('id', whereNotIn: resList);
-      }
+      resList = await filterCorporationListForReservations(filter);
     }
 
     var response = await list.get();
@@ -150,7 +146,24 @@ class ProductsViewModel extends ChangeNotifier {
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
       for (int i = 0; i < list.length; i++) {
-        corpModelList.add(CorporationModel.fromMap(list[i].data()));
+        bool existsInReservation = false;
+        Map item = list[i].data();
+        for (int j = 0; j < resList.length; j++) {
+          if (int.parse(item["id"].toString()) == resList[j]) {
+            existsInReservation = true;
+            break;
+          }
+        }
+        if (!existsInReservation) {
+          if (filter.isTimeFilterEnabled) {
+            if (int.parse(item['organizationStart'].toString()) <= DateUtils.getCurrentTimeAsInt(filter.startHour)
+                && int.parse(item['organizationEnd'].toString()) >= DateUtils.getCurrentTimeAsInt(filter.endHour)) {
+              corpModelList.add(CorporationModel.fromMap(list[i].data()));
+            }
+          } else {
+            corpModelList.add(CorporationModel.fromMap(list[i].data()));
+          }
+        }
       }
     }
 
