@@ -85,6 +85,8 @@ class _ProductsScreenState extends State<ProductsScreen>  {
                       name: item.corporationName,
                       rating: 5.0,
                       raters: 23,
+                      description: item.description,
+                      corporationId: item.corporationId,
                     );
                   },
                 ),

@@ -1,7 +1,7 @@
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/src/search/search_view.dart';
 import 'package:flutter/material.dart';
-import 'package:davetcim/screens/details.dart';
+import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 

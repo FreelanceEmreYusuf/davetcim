@@ -1,32 +1,81 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:davetcim/src/products/product_detail_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/notifications.dart';
 import 'package:davetcim/util/comments.dart';
 import 'package:davetcim/shared/environments/const.dart';
-import 'package:davetcim/util/foods.dart';
 import 'package:davetcim/widgets/badge.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
+
+import '../../shared/models/reservation_model.dart';
+import '../../widgets/carousel_calender_widget.dart';
+import '../../widgets/slider_image_item.dart';
+import '../../widgets/slider_item.dart';
+import '../reservation/reservation_view_model.dart';
 
 class ProductDetails extends StatefulWidget {
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
+  final int corporationId;
   final String name;
   final String img;
   final bool isFav;
   final double rating;
   final int raters;
+  final String description;
 
   ProductDetails(
       {Key key,
+      @required this.corporationId,
       @required this.name,
       @required this.img,
       @required this.isFav,
       @required this.rating,
-      @required this.raters})
+      @required this.raters,
+      @required this.description})
       : super(key: key);
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
   bool isFav = false;
+  List<String> imageList = [];
+  List<ReservationModel> reservationList = [];
+
+  List<T> map<T>(List list, Function handler) {
+    List<T> result = [];
+    for (var i = 0; i < list.length; i++) {
+      result.add(handler(i, list[i]));
+    }
+    return result;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    callGetImageList();
+    callGetReservationList();
+  }
+
+  void callGetImageList() async {
+    ProductsViewDetailModel rm = ProductsViewDetailModel();
+    imageList = await rm.getImagesList(widget.corporationId);
+
+    setState(() {
+      imageList = imageList;
+    });
+  }
+
+  void callGetReservationList() async{
+    ReservationViewModel rm = ReservationViewModel();
+    reservationList = await rm.getReservationlist(widget.corporationId);
+
+    setState(() {
+      reservationList = reservationList;
+    });
+  }
+
+  int _current = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,9 +122,29 @@ class _ProductDetailsState extends State<ProductDetails> {
                   width: MediaQuery.of(context).size.width,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.network(
-                      widget.img,
-                      fit: BoxFit.cover,
+               //       !loading ? HomeCarousel(homeManager) : Center(child:ProgressIndicator())
+                    child: CarouselSlider(
+                      height: MediaQuery.of(context).size.height / 2.4,
+                      items: map<Widget>(
+                        imageList,
+                            (index, i) {
+                              return SliderImageItem(
+                                img: imageList[index],
+                              );
+
+                        },
+                      ).toList(),
+                      autoPlay: true,
+//                enlargeCenterPage: true,
+                      viewportFraction: 1.0,
+                      enableInfiniteScroll: true,
+                      autoPlayInterval: const Duration(seconds: 2),
+//              aspectRatio: 2.0,
+                      onPageChanged: (index) {
+                        setState(() {
+                          _current = index;
+                        });
+                      },
                     ),
                   ),
                 ),
@@ -120,6 +189,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     size: 10.0,
                   ),
                   SizedBox(width: 10.0),
+
+
                   Text(
                     "5.0 (23 Yorum)",
                     style: TextStyle(
@@ -153,6 +224,14 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
             SizedBox(height: 20.0),
+
+
+            SizedBox(height: 20.0),
+
+
+
+
+
             Text(
               "Hakkında",
               style: TextStyle(
@@ -163,23 +242,15 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             SizedBox(height: 10.0),
             Text(
-              "Nulla quis lorem ut libero malesuada feugiat. Lorem ipsum dolor "
-              "sit amet, consectetur adipiscing elit. Curabitur aliquet quam "
-              "id dui posuere blandit. Pellentesque in ipsum id orci porta "
-              "dapibus. Vestibulum ante ipsum primis in faucibus orci luctus "
-              "et ultrices posuere cubilia Curae; Donec velit neque, auctor "
-              "sit amet aliquam vel, ullamcorper sit amet ligula. Donec"
-              " rutrum congue leo eget malesuada. Vivamus magna justo,"
-              " lacinia eget consectetur sed, convallis at tellus."
-              " Vivamus suscipit tortor eget felis porttitor volutpat."
-              " Donec rutrum congue leo eget malesuada."
-              " Pellentesque in ipsum id orci porta dapibus.",
+              widget.description,
               style: TextStyle(
                 fontSize: 13,
                 fontWeight: FontWeight.w300,
               ),
             ),
             SizedBox(height: 20.0),
+            CalenderCarousel(reservationList: reservationList,),
+            SizedBox(width: 10.0),
             Text(
               "Yorumlar",
               style: TextStyle(

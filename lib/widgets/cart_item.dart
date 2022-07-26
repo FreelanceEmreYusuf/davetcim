@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:davetcim/screens/details.dart';
+import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
@@ -9,6 +9,8 @@ class CartItem extends StatelessWidget {
   final bool isFav;
   final double rating;
   final int raters;
+  final String description;
+  final int corporationId;
 
   CartItem(
       {Key key,
@@ -16,7 +18,9 @@ class CartItem extends StatelessWidget {
       @required this.img,
       @required this.isFav,
       @required this.rating,
-      @required this.raters})
+      @required this.raters,
+      @required this.description,
+      @required this.corporationId})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -32,7 +36,9 @@ class CartItem extends StatelessWidget {
                     raters: raters,
                     isFav: isFav,
                     name: name,
-                    rating: rating);
+                    rating: rating,
+                    description: description,
+                    corporationId: corporationId,);
               },
             ),
           );

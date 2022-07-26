@@ -4,11 +4,13 @@ class CorporationModel {
   final int corporationId;
   final String corporationName;
   final String imageUrl;
+  final String description;
 
   CorporationModel({
     this.corporationId,
     this.corporationName,
     this.imageUrl,
+    this.description,
   });
 
   ///Object to map
@@ -16,6 +18,7 @@ class CorporationModel {
     'id': corporationId,
     'corporationName': corporationName,
     'imageUrl': imageUrl,
+    'description': description,
   };
 
   ///Map to object
@@ -23,5 +26,6 @@ class CorporationModel {
     corporationId: map['id'],
     corporationName: map['corporationName'],
     imageUrl: map['imageUrl'],
+    description: map['description'],
   );
 }

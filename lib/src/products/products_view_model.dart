@@ -95,7 +95,7 @@ class ProductsViewModel extends ChangeNotifier {
   Future<List<int>> filterCorporationListForReservations(ProductFilterer filter) async {
     var response = await db
         .getCollectionRef("CorporationReservations")
-        .where('date', isEqualTo: DateUtils.getCurrentDateAsInt(filter.date))
+        .where('date', isEqualTo: DateConversionUtils.getCurrentDateAsInt(filter.date))
         .get();
 
     List<int> corpModelListIDs = [];
@@ -103,8 +103,8 @@ class ProductsViewModel extends ChangeNotifier {
       var list = response.docs;
       for (int i = 0; i < list.length; i++) {
         Map item = list[i].data();
-        if (int.parse(item['startTime'].toString()) <= DateUtils.getCurrentTimeAsInt(filter.startHour)
-          && int.parse(item['endTime'].toString()) >= DateUtils.getCurrentTimeAsInt(filter.endHour)) {
+        if (int.parse(item['startTime'].toString()) <= DateConversionUtils.getCurrentTimeAsInt(filter.startHour)
+          && int.parse(item['endTime'].toString()) >= DateConversionUtils.getCurrentTimeAsInt(filter.endHour)) {
           corpModelListIDs.add(int.parse(item['corporationId'].toString()));
         }
       }
@@ -156,8 +156,8 @@ class ProductsViewModel extends ChangeNotifier {
         }
         if (!existsInReservation) {
           if (filter.isTimeFilterEnabled) {
-            if (int.parse(item['organizationStart'].toString()) <= DateUtils.getCurrentTimeAsInt(filter.startHour)
-                && int.parse(item['organizationEnd'].toString()) >= DateUtils.getCurrentTimeAsInt(filter.endHour)) {
+            if (int.parse(item['organizationStart'].toString()) <= DateConversionUtils.getCurrentTimeAsInt(filter.startHour)
+                && int.parse(item['organizationEnd'].toString()) >= DateConversionUtils.getCurrentTimeAsInt(filter.endHour)) {
               corpModelList.add(CorporationModel.fromMap(list[i].data()));
             }
           } else {
