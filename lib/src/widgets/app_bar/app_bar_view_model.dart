@@ -41,7 +41,7 @@ class AppBarViewModel extends ChangeNotifier {
         .map((event) => event.docs);
 
     Stream<List<CustomerModel>> customerModellist = userListInfo
-        .map((event) => event.map((e) => CustomerModel.fromMap(e.data())));
+        .map((event) => event.map((e) => CustomerModel.fromMap(e.data())).toList());
 
     return customerModellist;
   }

@@ -17,5 +17,9 @@ class DateConversionUtils {
     );
   }
 
+  static String convertIntTimeToString(int timeInt) {
+    String timeStr = timeInt.toString().padLeft(4, '0');
+    return timeStr.substring(0, 2) + ":" + timeStr.substring(2, 4);
+  }
 
 }

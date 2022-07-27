@@ -4,13 +4,16 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 import '../shared/models/reservation_model.dart';
+import '../shared/utils/utils.dart';
+import '../src/reservation/reservation_view.dart';
 
 class CalenderCarousel extends StatefulWidget {
 
   //final IconData icon;
   final List<ReservationModel> reservationList;
+  final int corporationId;
 
-  CalenderCarousel({Key key, @required this.reservationList})
+  CalenderCarousel({Key key, @required this.reservationList, this.corporationId})
   : super(key: key);
 
   @override
@@ -72,8 +75,8 @@ class _CalenderCarouselState extends State<CalenderCarousel> {
         margin: EdgeInsets.symmetric(horizontal: 16.0),
     child: CalendarCarousel<Event>(
     onDayPressed: (DateTime date, List<Event> events) {
-    this.setState(() => _currentDate = date);
-    print("_currentDate : "+ _currentDate.toString());
+      this.setState(() => _currentDate = date);
+      Utils.navigateToPage(context, ReservationViewScreen(widget.corporationId, date));
     },
     weekendTextStyle: TextStyle(
     color: Colors.red,
