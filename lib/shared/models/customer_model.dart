@@ -13,6 +13,7 @@ class CustomerModel {
   final String eMail;
   final int secretQuestionId;
   final String secretQuestionAnswer;
+  final int notificationCount;
 
   CustomerModel(
       {this.id,
@@ -26,7 +27,8 @@ class CustomerModel {
       this.password,
       this.eMail,
       this.secretQuestionId,
-      this.secretQuestionAnswer});
+      this.secretQuestionAnswer,
+      this.notificationCount});
 
   ///Object to map
   Map<String, dynamic> toMap() => {
@@ -42,6 +44,7 @@ class CustomerModel {
         'eMail': eMail,
         'secretQuestionId': secretQuestionId,
         'secretQuestionAnswer': secretQuestionAnswer,
+        'notificationCount': notificationCount,
       };
 
   ///Map to object
@@ -57,5 +60,6 @@ class CustomerModel {
       password: map['password'],
       eMail: map['eMail'],
       secretQuestionId: map['secretQuestionId'],
-      secretQuestionAnswer: map['secretQuestionAnswer']);
+      secretQuestionAnswer: map['secretQuestionAnswer'],
+      notificationCount: map['notificationCount']);
 }

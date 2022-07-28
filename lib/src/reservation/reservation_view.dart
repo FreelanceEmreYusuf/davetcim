@@ -1,4 +1,5 @@
 import 'package:davetcim/src/reservation/reservation_view_model.dart';
+import 'package:davetcim/widgets/empty_reservation_list.dart';
 import 'package:davetcim/widgets/grid_reservation.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/notifications.dart';
@@ -8,6 +9,8 @@ import 'package:provider/provider.dart';
 import '../../screens/notifications.dart';
 import '../../shared/environments/const.dart';
 import '../../shared/models/reservation_model.dart';
+import '../../shared/utils/date_utils.dart';
+import '../../widgets/cart_reservation_item.dart';
 import '../widgets/on_error/somethingWentWrong.dart';
 
 class ReservationViewScreen extends StatefulWidget {
@@ -35,92 +38,70 @@ class _ReservationViewScreenState extends State<ReservationViewScreen>  {
                 return SomethingWentWrongScreen();
               } else if (asyncSnapshot.hasData) {
                 List<ReservationModel> reservationList = asyncSnapshot.data;
-
-                return Scaffold(
-                  appBar: AppBar(
-                    automaticallyImplyLeading: false,
-                    leading: IconButton(
-                      icon: Icon(
-                        Icons.keyboard_backspace,
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    centerTitle: true,
-                    title: Text(
-                      "Rezervasyon Bilgileri (" + widget.dateTime.toString() + ")",
-                    ),
-                    elevation: 0.0,
-                    actions: <Widget>[
-                      IconButton(
-                        icon: IconBadge(
-                          icon: Icons.notifications,
-                          size: 22.0,
+                if (reservationList.length > 0) {
+                  return Scaffold(
+                    appBar: AppBar(
+                      backgroundColor: Colors.redAccent,
+                      automaticallyImplyLeading: false,
+                      leading: IconButton(
+                        icon: Icon(
+                          Icons.keyboard_backspace,
                         ),
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) {
-                                return Notifications();
-                              },
-                            ),
-                          );
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                      centerTitle: true,
+                      title: Text(
+                        widget.dateTime.toString().substring(0,10)+" Rezervasyonları",
+                      ),
+                      elevation: 0.0,
+                      actions: <Widget>[
+                        IconButton(
+                          icon: IconBadge(
+                            icon: Icons.notifications,
+                            size: 22.0,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) {
+                                  return Notifications();
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+
+                    body: Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+                      child: GridView.builder(
+                        shrinkWrap: true,
+                        primary: false,
+                        physics: NeverScrollableScrollPhysics(),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1,
+                          childAspectRatio: 1.0,
+                          crossAxisSpacing: 0.0,
+                          mainAxisSpacing: 5,
+                          mainAxisExtent: MediaQuery.of(context).size.height / 4.7,
+                        ),
+                        itemCount: reservationList == null
+                            ? 0
+                            : reservationList.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          ReservationModel item = reservationList[index];
+                          return CartReservationItem(startTime: DateConversionUtils.convertIntTimeToString(item.startTime),
+                              endTime: DateConversionUtils.convertIntTimeToString(item.endTime));
                         },
                       ),
-                    ],
-                  ),
-
-                    body: Container(
-
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                      ),
-                      margin: EdgeInsets.all(5),
-                      padding: EdgeInsets.all(5),
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-                        child: ListView(
-                          children: <Widget>[
-                            GridView.builder(
-                              shrinkWrap: true,
-                              primary: false,
-                              physics: NeverScrollableScrollPhysics(),
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 1,
-                                childAspectRatio: 1.0,
-                                crossAxisSpacing: 0.0,
-                                mainAxisSpacing: 5,
-                                mainAxisExtent: 264,
-                              ),
-                              itemCount: reservationList == null
-                                  ? 0
-                                  : reservationList.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                ReservationModel item = reservationList[index];
-                                return Container(
-                                  decoration: BoxDecoration(
-                                    border: Border.all(
-                                      color: Colors.black,
-                                      width: 1,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                             //       height: 50,
-                                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                    // ignore: deprecated_member_use
-                                    child: RaisedButton(
-
-                                      textColor: Colors.white,
-                                      child: GridReservation(startTime :item.startTime, endTime: item.endTime),
-                                    ));
-                              },
-                            ),
-                            SizedBox(height: 20.0),
-                          ],
-                        ),
-                      ),
                     ),
 
-                );
+                  );
+                } else {
+                  return EmptyReservationList(widget.dateTime);
+                }
+
               } else {
                 return Center(
                   child: CircularProgressIndicator(),

@@ -16,32 +16,28 @@ class CartReservationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
-      child: InkWell(
-        onTap: () {
-
-        },
-        child: Row(
+      child: Card(
+        elevation: 8.0,
+        child: ListView(
           children: <Widget>[
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  "Başlangıç Saati :" + "$startTime",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w900,
-                  ),
+            ListTile(
+              title: Text(
+                "Başlangıç Saati :" + "$startTime",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w900,
                 ),
-                SizedBox(height: 10.0),
-                Text(
-                  "Bitiş Saati :" + "$endTime",
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w900,
-                  ),
+              ),
+            ),
+            SizedBox(height: 5.0),
+            ListTile(
+              title: Text(
+                "Bitiş Saati :" + "$endTime",
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w900,
                 ),
-              ],
+              ),
             ),
           ],
         ),

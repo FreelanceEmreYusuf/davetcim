@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../src/join/join_view.dart';
 import 'language.dart';
 
 class Dialogs {
@@ -213,4 +214,45 @@ class Dialogs {
       },
     );
   }*/
+
+  static showLoginDialogMessage(BuildContext context, Widget callerPage) {
+    // set up the buttons
+    Widget cancelButton = FlatButton(
+      child: Text(LanguageConstants.hayir[LanguageConstants.languageFlag]),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop();
+      },
+    );
+    Widget continueButton = FlatButton(
+      child: Text(LanguageConstants.evet[LanguageConstants.languageFlag]),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) {
+            return JoinView();
+          },
+        ));
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(LanguageConstants
+          .processApproveHeader[LanguageConstants.languageFlag]),
+      content: Text(LanguageConstants
+          .userMustBeLoginToContinueMessage[LanguageConstants.languageFlag]),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }

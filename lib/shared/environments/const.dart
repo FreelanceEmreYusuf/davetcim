@@ -65,10 +65,12 @@ class Constants {
   static String configurationDb = "Configuration";
   static String userDb = "User";
   static String secretQuestionsDb = "SecretQuestions";
-  static String productCommentsDb = "ProductComments";
+  static String productCommentsDb = "Comments";
   static String notificationsDb = "Notifications";
   static String basketDb = "Basket";
   static String basketDetailDb = "BasketDetail";
   static String contactInfoDb = "ContactInfo";
   static String usersFavProductsDb = "UsersFavProducts";
+
+  static double ratePoint = 3.0;
 }

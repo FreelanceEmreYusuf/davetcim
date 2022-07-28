@@ -1,5 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:davetcim/src/comments/comments_view_model.dart';
 import 'package:davetcim/src/products/product_detail_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/notifications.dart';
@@ -9,9 +9,10 @@ import 'package:davetcim/widgets/badge.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
 import '../../shared/models/reservation_model.dart';
+import '../../shared/utils/language.dart';
 import '../../widgets/carousel_calender_widget.dart';
-import '../../widgets/slider_image_item.dart';
-import '../../widgets/slider_item.dart';
+import '../../widgets/hashtag_widget.dart';
+import '../../widgets/star_and_comment.dart';
 import '../reservation/reservation_view_model.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -41,6 +42,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   bool isFav = false;
   List<String> imageList = [];
   List<ReservationModel> reservationList = [];
+  List<Widget> commentList = [];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -54,6 +56,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   void initState() {
     callGetImageList();
     callGetReservationList();
+    callGetProductComments();
     super.initState();
   }
 
@@ -75,12 +78,32 @@ class _ProductDetailsState extends State<ProductDetails> {
     });
   }
 
+  void callGetProductComments() async {
+    CommentsViewModel commentsViewModel = CommentsViewModel();
+    commentList = await commentsViewModel.getCorporationComments(widget.corporationId);
+
+    setState(() {
+      commentList = commentList;
+    });
+  }
+
+  List<Widget> _getListings(List _listings) {
+    // <<<<< Note this change for the return type
+    List<Widget> listings = [];
+
+    for (int i = 0; i < _listings.length; i++) {
+      listings.add(_listings[i]);
+    }
+    return listings;
+  }
+
   int _current = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.redAccent,
           automaticallyImplyLeading: false,
           leading: IconButton(
             icon: Icon(
@@ -164,6 +187,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
                 maxLines: 2,
               ),
+              HashtagWidget(hashtagList: ["#deneme1", "#deneme17", "#deneme21", "#deneme2", "#deneme15", "#deneme1", "#deneme17", "#deneme21", "#deneme2", "#deneme15",]),
               Padding(
                 padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
                 child: Row(
@@ -244,51 +268,28 @@ class _ProductDetailsState extends State<ProductDetails> {
                 maxLines: 2,
               ),
               SizedBox(height: 20.0),
-              ListView.builder(
-                shrinkWrap: true,
-                primary: false,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: comments == null ? 0 : comments.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Map comment = comments[index];
-                  return ListTile(
-                    leading: CircleAvatar(
-                      radius: 25.0,
-                      backgroundImage: AssetImage(
-                        "${comment['img']}",
-                      ),
-                    ),
-                    title: Text("${comment['name']}"),
-                    subtitle: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            SmoothStarRating(
-                              starCount: 5,
-                              color: Constants.ratingBG,
-                              allowHalfRating: true,
-                              rating: 5.0,
-                              size: 12.0,
-                            ),
-                            SizedBox(width: 6.0),
-                            Text(
-                              "February 14, 2020",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                          ],
+
+
+
+
+              SafeArea(
+                  child: Container(
+                      child: Column(children: <Widget>[
+                        InkWell(
+                          child: StarAndComment(
+                            starCount: widget.rating.round(),
+                            rating: widget.rating,
+                            raters: widget.raters,
+                          ),
                         ),
-                        SizedBox(height: 7.0),
-                        Text(
-                          "${comment["comment"]}",
-                        ),
-                      ],
-                    ),
-                  );
-                },
-              ),
+                        Expanded(
+                          child: ListView(
+                            padding: const EdgeInsets.all(10.0),
+                            children: _getListings(
+                                commentList), // <<<<< Note this change for the return type
+                          ),
+                        )
+                      ]))),
               SizedBox(height: 10.0),
             ],
           ),

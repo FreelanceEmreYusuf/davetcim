@@ -52,7 +52,7 @@ class RegisterViewModel extends ChangeNotifier {
     CustomerModel _customer = new CustomerModel(
         username: _usernameControl,
         id: new DateTime.now().millisecondsSinceEpoch,
-        corporationId: 1,
+        corporationId: 0,
         gsmNo: _phoneControl,
         isActive: true,
         name: _nameControl,
@@ -61,7 +61,8 @@ class RegisterViewModel extends ChangeNotifier {
         surname: _surnameControl,
         eMail: _emailControl,
         secretQuestionId: selectedQuestion.id,
-        secretQuestionAnswer: selectedQuestionAnswer);
+        secretQuestionAnswer: selectedQuestionAnswer,
+        notificationCount: 0);
 
     db.editCollectionRef("Customer", _customer.toMap());
   }

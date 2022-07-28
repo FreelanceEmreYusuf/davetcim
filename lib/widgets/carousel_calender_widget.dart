@@ -72,53 +72,31 @@ class _CalenderCarouselState extends State<CalenderCarousel> {
     DateTime _currentDate = DateTime.now();
     loadDates();
     return Container(
-        margin: EdgeInsets.symmetric(horizontal: 16.0),
-    child: CalendarCarousel<Event>(
-    onDayPressed: (DateTime date, List<Event> events) {
-      this.setState(() => _currentDate = date);
-      Utils.navigateToPage(context, ReservationViewScreen(widget.corporationId, date));
-    },
-    weekendTextStyle: TextStyle(
-    color: Colors.red,
-    ),
-    locale:  "tr",
-    thisMonthDayBorderColor: Colors.transparent,
-    daysTextStyle: TextStyle(color: Colors.redAccent),
-    headerTextStyle: TextStyle(color: Colors.redAccent, fontSize: 20),
-    leftButtonIcon: Icon(Icons.arrow_left, color: Colors.redAccent),
-    rightButtonIcon: Icon(Icons.arrow_right, color: Colors.redAccent),
-    selectedDayButtonColor: Colors.redAccent,
-    selectedDayTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 15),
-    selectedDayBorderColor: Colors.redAccent,
-    /*customDayBuilder: (   /// you can provide your own build function to make custom day containers
-            bool isSelectable,
-            int index,
-            bool isSelectedDay,
-            bool isToday,
-            bool isPrevMonthDay,
-            TextStyle textStyle,
-            bool isNextMonthDay,
-            bool isThisMonthDay,
-            DateTime day,
-            ) {*/
-    /// If you return null, [CalendarCarousel] will build container for current [day] with default function.
-    /// This way you can build custom containers for specific days only, leaving rest as default.
-
-    // Example: every 15th of month, we have a flight, we can place an icon in the container like that:
-    /*if (day.day == 15) {
-            return Center(
-              child: Icon(Icons.access_alarms, color: Colors.red),
-            );
-          } else {
-            return null;
-
-  },  }*/
-  weekFormat: false,
-  markedDatesMap: _markedDateMap,
-  height:  MediaQuery.of(context).size.height / 1.7,
-  selectedDateTime: _currentDate,
-  daysHaveCircularBorder: true, /// null for not rendering any border, true for circular border, false for rectangular border
-  ),
-  );
+      margin: EdgeInsets.symmetric(horizontal: 16.0),
+      child: CalendarCarousel<Event>(
+        onDayPressed: (DateTime date, List<Event> events) {
+          this.setState(() => _currentDate = date);
+          Utils.navigateToPage(context, ReservationViewScreen(widget.corporationId, date));
+        },
+        weekendTextStyle: TextStyle(
+          color: Colors.red,
+        ),
+        locale:  "tr",
+        thisMonthDayBorderColor: Colors.transparent,
+        daysTextStyle: TextStyle(color: Colors.redAccent),
+        headerTextStyle: TextStyle(color: Colors.redAccent, fontSize: 20),
+        leftButtonIcon: Icon(Icons.arrow_left, color: Colors.redAccent),
+        rightButtonIcon: Icon(Icons.arrow_right, color: Colors.redAccent),
+        selectedDayButtonColor: Colors.redAccent,
+        selectedDayTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 15),
+        selectedDayBorderColor: Colors.redAccent,
+        weekFormat: false,
+        markedDatesMap: _markedDateMap,
+        height:  MediaQuery.of(context).size.height / 1.6,
+        isScrollable: true,
+        selectedDateTime: _currentDate,
+        daysHaveCircularBorder: true, /// null for not rendering any border, true for circular border, false for rectangular border
+      ),
+    );
 }
 }

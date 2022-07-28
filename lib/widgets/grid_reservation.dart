@@ -13,15 +13,42 @@ class GridReservation extends StatelessWidget {
 
   GridReservation(
       {Key key,
-      @required this.startTime,
-      @required this.endTime,
-      @required this.dateTime,
+        this.startTime,
+        this.endTime,
+        this.dateTime,
       })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CartReservationItem(startTime: DateConversionUtils.convertIntTimeToString(startTime),
-          endTime: DateConversionUtils.convertIntTimeToString(endTime));
+    return Padding(
+      padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
+      child: Card(
+        elevation: 8.0,
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text(
+                "Başlangıç Saati :" + DateConversionUtils.convertIntTimeToString(startTime),
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            SizedBox(height: 10.0),
+            ListTile(
+              title: Text(
+                "Bitiş Saati :" + DateConversionUtils.convertIntTimeToString(endTime),
+                style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
