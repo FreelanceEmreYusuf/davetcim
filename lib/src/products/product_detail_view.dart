@@ -3,13 +3,11 @@ import 'package:davetcim/src/comments/comments_view_model.dart';
 import 'package:davetcim/src/products/product_detail_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/notifications.dart';
-import 'package:davetcim/util/comments.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/badge.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
 import '../../shared/models/reservation_model.dart';
-import '../../shared/utils/language.dart';
 import '../../widgets/carousel_calender_widget.dart';
 import '../../widgets/hashtag_widget.dart';
 import '../../widgets/star_and_comment.dart';
@@ -24,6 +22,7 @@ class ProductDetails extends StatefulWidget {
   final bool isFav;
   final double rating;
   final int raters;
+  final int maxPopulation;
   final String description;
 
   ProductDetails(
@@ -34,6 +33,7 @@ class ProductDetails extends StatefulWidget {
       @required this.isFav,
       @required this.rating,
       @required this.raters,
+      @required this.maxPopulation,
       @required this.description})
       : super(key: key);
 }
@@ -41,6 +41,7 @@ class ProductDetails extends StatefulWidget {
 class _ProductDetailsState extends State<ProductDetails> {
   bool isFav = false;
   List<String> imageList = [];
+  List<String> hashtagList = [];
   List<ReservationModel> reservationList = [];
   List<Widget> commentList = [];
 
@@ -55,6 +56,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   @override
   void initState() {
     callGetImageList();
+    callGetHashtagListList();
     callGetReservationList();
     callGetProductComments();
     super.initState();
@@ -66,6 +68,15 @@ class _ProductDetailsState extends State<ProductDetails> {
 
     setState(() {
       imageList = imageList;
+    });
+  }
+
+  void callGetHashtagListList() async {
+    ProductsViewDetailModel rm = ProductsViewDetailModel();
+    hashtagList = await rm.getHashtagList(widget.corporationId);
+
+    setState(() {
+      hashtagList = hashtagList;
     });
   }
 
@@ -187,7 +198,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 ),
                 maxLines: 2,
               ),
-              HashtagWidget(hashtagList: ["#deneme1", "#deneme17", "#deneme21", "#deneme2", "#deneme15", "#deneme1", "#deneme17", "#deneme21", "#deneme2", "#deneme15",]),
+              HashtagWidget(hashtagList: hashtagList),
               Padding(
                 padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
                 child: Row(
@@ -203,7 +214,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
                     Text(
-                      "5.0 (23 Yorum)",
+                      widget.rating.toString() + '(' + widget.raters.toString() + ' Yorum)',
                       style: TextStyle(
                         fontSize: 11.0,
                       ),
@@ -216,30 +227,16 @@ class _ProductDetailsState extends State<ProductDetails> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      "Kapasite 500",
+                      "Kapasite " +  widget.maxPopulation.toString(),
                       style: TextStyle(
                         fontSize: 11.0,
                         fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    SizedBox(width: 10.0),
-                    Text(
-                      r"$90",
-                      style: TextStyle(
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w900,
-                        color: Theme.of(context).accentColor,
                       ),
                     ),
                   ],
                 ),
               ),
               SizedBox(height: 20.0),
-
-
-
-
-
               Text(
                 "Hakkında",
                 style: TextStyle(

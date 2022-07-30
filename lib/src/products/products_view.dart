@@ -83,10 +83,11 @@ class _ProductsScreenState extends State<ProductsScreen>  {
                       img: item.imageUrl,
                       isFav: false,
                       name: item.corporationName,
-                      rating: 5.0,
-                      raters: 23,
+                      rating: item.averageRating,
+                      raters: item.ratingCount,
                       description: item.description,
                       corporationId: item.corporationId,
+                      maxPopulation: item.maxPopulation,
                     );
                   },
                 ),

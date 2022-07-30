@@ -34,8 +34,7 @@ class _HashtagWidgetState extends State<HashtagWidget> {
 
   List<Widget> listWidget = [];
 
-  @override
-  void initState() {
+  void loadHashtags() {
     if(widget.hashtagList.length>0){
       for(int i=0; i<widget.hashtagList.length; i++){
         listWidget.add(
@@ -50,12 +49,11 @@ class _HashtagWidgetState extends State<HashtagWidget> {
       listWidget.add(
           Text(" ", style: normalTextStyle,)
       );
-
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    loadHashtags();
     return   SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(

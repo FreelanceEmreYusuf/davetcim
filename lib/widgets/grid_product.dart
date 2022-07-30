@@ -11,6 +11,7 @@ class GridProduct extends StatelessWidget {
   final int raters;
   final String description;
   final int corporationId;
+  final int maxPopulation;
 
   GridProduct(
       {Key key,
@@ -21,6 +22,7 @@ class GridProduct extends StatelessWidget {
       @required this.raters,
       @required this.description,
       @required this.corporationId,
+      @required this.maxPopulation,
       })
       : super(key: key);
 
@@ -108,7 +110,8 @@ class GridProduct extends StatelessWidget {
                   name: name,
                   rating: rating,
                   description: description,
-                  corporationId: corporationId,);
+                  corporationId: corporationId,
+                  maxPopulation: maxPopulation,);
             },
           ),
         );

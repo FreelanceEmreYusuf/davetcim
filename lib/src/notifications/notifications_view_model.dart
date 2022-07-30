@@ -14,14 +14,14 @@ class NotificationsViewModel extends ChangeNotifier {
       int corporationId, int commentId, String text) async {
     String offerMessage = "Konu: Yeni bir yorum onayınız var" +
         "\n" +
-        "Yorum Mesajı: " +
+        " Yorum Mesajı: " +
         text +
         "\n" +
-        "Gönderen: " +
+        " Gönderen: " +
         ApplicationSession.userSession.username +
         "\n" +
-        "İşlem Tarihi :" +
-        Timestamp.now().toString().substring(0, 10);
+        " İşlem Tarihi :" +
+        DateTime.now().toString().substring(0, 10);
 
     CollectionReference docsRef =
       db.getCollectionRef(DBConstants.customerDB);
