@@ -9,6 +9,7 @@ import 'package:davetcim/src/home/home_view.dart';
 import 'package:davetcim/src/profile/profile_view.dart';
 import 'package:davetcim/widgets/badge.dart';
 
+import '../search/search_view.dart';
 import 'main_screen_view_model.dart';
 
 class MainScreen extends StatefulWidget {
@@ -35,6 +36,7 @@ class _MainScreenState extends State<MainScreen> {
             Home(),
             FavoriteScreen(),
             SearchWithoutAppBarScreen(),
+          //  SearchScreen(),
             CartScreen(),
             Profile(),
           ],

@@ -17,7 +17,7 @@ class CorporationModel {
   final int ratingCount;
   final String region;
   final String telephoneNo;
-  final List<String>invitationUniqueIdentifier;
+  final List<String> invitationUniqueIdentifier;
   final List<String> organizationUniqueIdentifier;
   final List<String> sequenceOrderUniqueIdentifier;
 
@@ -84,8 +84,8 @@ class CorporationModel {
     ratingCount: map['ratingCount'],
     region: map['region'],
     telephoneNo: map['telephoneNo'],
-    invitationUniqueIdentifier: map['invitationUniqueIdentifier'],
-    organizationUniqueIdentifier: map['organizationUniqueIdentifier'],
-    sequenceOrderUniqueIdentifier: map['sequenceOrderUniqueIdentifier'],
+    invitationUniqueIdentifier: List.from(map['invitationUniqueIdentifier']) ,
+    organizationUniqueIdentifier: List.from(map['organizationUniqueIdentifier']),
+    sequenceOrderUniqueIdentifier: List.from(map['sequenceOrderUniqueIdentifier']),
   );
 }

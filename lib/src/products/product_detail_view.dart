@@ -272,24 +272,25 @@ class _ProductDetailsState extends State<ProductDetails> {
 
 
 
-              SafeArea(
-                  child: Container(
-                      child: Column(children: <Widget>[
-                        InkWell(
-                          child: StarAndComment(
-                            starCount: widget.rating.round(),
-                            rating: widget.rating,
-                            raters: widget.raters,
-                          ),
-                        ),
-                        Expanded(
-                          child: ListView(
-                            padding: const EdgeInsets.all(10.0),
-                            children: _getListings(
-                                commentList), // <<<<< Note this change for the return type
-                          ),
-                        )
-                      ]))),
+              Container(
+                  child:
+                    InkWell(
+                      child: StarAndComment(
+                        starCount: widget.rating.round(),
+                        rating: widget.rating,
+                        raters: widget.raters,
+                      ),
+                    ),
+                  ),
+              Container(
+                  height: 216,
+                  child:
+                    ListView(
+                      padding: const EdgeInsets.all(10.0),
+                      children: _getListings(
+                          commentList), // <<<<< Note this change for the return type
+                    )
+                  ),
               SizedBox(height: 10.0),
             ],
           ),
