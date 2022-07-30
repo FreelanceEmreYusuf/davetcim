@@ -108,7 +108,7 @@ class CommentsViewModel extends ChangeNotifier {
     commentList.add(Divider(
       thickness: 3,
     ));
-
+/*
     if (ApplicationSession.userSession != null && list.length > 0) {
       list.forEach((element) {
         Map item = element.data();
@@ -150,7 +150,7 @@ class CommentsViewModel extends ChangeNotifier {
               )));
         }
       });
-    }
+    }*/
     //////////////////////////////////////////
 
     for (int i = 0; i < list.length; i++) {

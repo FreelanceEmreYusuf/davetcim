@@ -145,153 +145,161 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
           ],
         ),
-        body: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-          child: ListView(
-            children: <Widget>[
-              SizedBox(height: 10.0),
-              Stack(
+      body: SingleChildScrollView(
+        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+        child: Stack(
+          children: <Widget>[
+            new Column(
                 children: <Widget>[
-                  Container(
-                    height: MediaQuery.of(context).size.height / 3.2,
-                    width: MediaQuery.of(context).size.width,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      //       !loading ? HomeCarousel(homeManager) : Center(child:ProgressIndicator())
-                      child: Swiper(
-                        itemBuilder: (BuildContext context,int index){
-                          return Image.network(imageList[index],fit: BoxFit.fill,);
-                        },
-                        itemCount: imageList.length,
-                        pagination: SwiperPagination(),
-                        control: SwiperControl(),
-                        autoplay: true,
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    right: -10.0,
-                    bottom: 3.0,
-                    child: RawMaterialButton(
-                      onPressed: () {},
-                      fillColor: Colors.white,
-                      shape: CircleBorder(),
-                      elevation: 4.0,
-                      child: Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Icon(
-                          isFav ? Icons.favorite : Icons.favorite_border,
-                          color: Colors.red,
-                          size: 17,
+                  SizedBox(height: 10.0),
+                  new Stack(
+                    children: <Widget>[
+                      Container(
+                        height: MediaQuery.of(context).size.height / 3.2,
+                        width: MediaQuery.of(context).size.width,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          //       !loading ? HomeCarousel(homeManager) : Center(child:ProgressIndicator())
+                          child: Swiper(
+                            itemBuilder: (BuildContext context,int index){
+                              return Image.network(imageList[index],fit: BoxFit.fill,);
+                            },
+                            itemCount: imageList.length,
+                            pagination: SwiperPagination(),
+                            control: SwiperControl(),
+                            autoplay: true,
+                          ),
                         ),
                       ),
+                      Positioned(
+                        right: -10.0,
+                        bottom: 3.0,
+                        child: RawMaterialButton(
+                          onPressed: () {},
+                          fillColor: Colors.white,
+                          shape: CircleBorder(),
+                          elevation: 4.0,
+                          child: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: Icon(
+                              isFav ? Icons.favorite : Icons.favorite_border,
+                              color: Colors.red,
+                              size: 17,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  new SizedBox(height: 10.0),
+                  new Text(
+                    widget.name,
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                    ),
+                    maxLines: 2,
+                  ),
+                  new HashtagWidget(hashtagList: hashtagList),
+                  new Padding(
+                    padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
+                    child: Row(
+                      children: <Widget>[
+                        SmoothStarRating(
+                          starCount: 5,
+                          color: Constants.ratingBG,
+                          allowHalfRating: true,
+                          rating: 5.0,
+                          size: 10.0,
+                        ),
+                        SizedBox(width: 10.0),
+                        Text(
+                          widget.rating.toString() + '(' + widget.raters.toString() + ' Yorum)',
+                          style: TextStyle(
+                            fontSize: 11.0,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-              SizedBox(height: 10.0),
-              Text(
-                widget.name,
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w800,
-                ),
-                maxLines: 2,
-              ),
-              HashtagWidget(hashtagList: hashtagList),
-              Padding(
-                padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
-                child: Row(
-                  children: <Widget>[
-                    SmoothStarRating(
-                      starCount: 5,
-                      color: Constants.ratingBG,
-                      allowHalfRating: true,
-                      rating: 5.0,
-                      size: 10.0,
+                  new Padding(
+                    padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          "Kapasite " +  widget.maxPopulation.toString(),
+                          style: TextStyle(
+                            fontSize: 11.0,
+                            fontWeight: FontWeight.w300,
+                          ),
+                        ),
+                      ],
                     ),
-                    SizedBox(width: 10.0),
-
-
-                    Text(
-                      widget.rating.toString() + '(' + widget.raters.toString() + ' Yorum)',
+                  ),
+                  new SizedBox(height: 20.0),
+                  new Text(
+                    "Hakkında",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w800,
+                    ),
+                    maxLines: 2,
+                  ),
+                  new SizedBox(height: 10.0),
+                  new Text(
+                    widget.description,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w300,
+                    ),
+                  ),
+                  new SizedBox(height: 20.0),
+                  new Padding(child: CalenderCarousel(reservationList: reservationList,), padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))),
+                  new SizedBox(width: 10.0),
+                  new Container(
+                    alignment: AlignmentDirectional.center,
+                    child: Text(
+                      "Yorumlar",
                       style: TextStyle(
-                        fontSize: 11.0,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      "Kapasite " +  widget.maxPopulation.toString(),
-                      style: TextStyle(
-                        fontSize: 11.0,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20.0),
-              Text(
-                "Hakkında",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                ),
-                maxLines: 2,
-              ),
-              SizedBox(height: 10.0),
-              Text(
-                widget.description,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-              SizedBox(height: 20.0),
-              CalenderCarousel(reservationList: reservationList,),
-              SizedBox(width: 10.0),
-              Text(
-                "Yorumlar",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w800,
-                ),
-                maxLines: 2,
-              ),
-              SizedBox(height: 20.0),
-
-
-
-
-              Container(
-                  child:
-                    InkWell(
-                      child: StarAndComment(
-                        starCount: widget.rating.round(),
-                        rating: widget.rating,
-                        raters: widget.raters,
-                      ),
+                      maxLines: 2,
                     ),
                   ),
-              Container(
-                  height: 216,
-                  child:
-                    ListView(
-                      padding: const EdgeInsets.all(10.0),
-                      children: _getListings(
-                          commentList), // <<<<< Note this change for the return type
-                    )
+                  new SizedBox(height: 20.0),
+                  new SingleChildScrollView(
+                    padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 12)),
+                    child: Column(
+                        children: <Widget>[
+                          Container(
+                            child:
+                            InkWell(
+                              child: StarAndComment(
+                                starCount: widget.rating.round(),
+                                rating: widget.rating,
+                                raters: widget.raters,
+                              ),
+                            ),
+                          ),
+                          Container(
+                              height: MediaQuery.of(context).size.height,
+                              child:
+                              ListView(
+                                padding: const EdgeInsets.all(10.0),
+                                children: _getListings(
+                                    commentList), // <<<<< Note this change for the return type
+                              )
+                          ),
+                        ]
+                    ),
                   ),
-              SizedBox(height: 10.0),
-            ],
-          ),
+                  SizedBox(height: 10.0),
+                ]
+            ),
+          ],
         ),
+      ),
         bottomNavigationBar: Container(
           height: 50.0,
           child: RaisedButton(
