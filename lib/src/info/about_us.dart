@@ -1,7 +1,8 @@
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/shared/utils/language.dart';
-import 'package:davetcim/src/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/material.dart';
+
+import '../../widgets/app_bar/app_bar_view.dart';
 
 class AboutUsPage extends StatelessWidget {
   @override

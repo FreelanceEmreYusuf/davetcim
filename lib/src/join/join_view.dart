@@ -4,6 +4,11 @@ import 'package:davetcim/src/join/register/register_view.dart';
 import 'package:flutter/services.dart';
 
 class JoinView extends StatefulWidget {
+  final Widget childPage;
+  JoinView({
+    Key key,
+    this.childPage,
+  }) : super(key: key);
   @override
   _JoinViewState createState() => _JoinViewState();
 }
@@ -56,7 +61,7 @@ class _JoinViewState extends State<JoinView>
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[
-          LoginView(),
+          LoginView(childPage: widget.childPage,),
           RegisterView(),
         ],
       ),

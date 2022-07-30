@@ -1,14 +1,13 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/src/home/home_view_model.dart';
-import 'package:davetcim/src/widgets/on_error/somethingWentWrong.dart';
-import 'package:davetcim/util/foods.dart';
 import 'package:davetcim/widgets/slider_item.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/widgets/grid_product.dart';
-import 'package:davetcim/widgets/home_category.dart';
-import 'package:davetcim/util/categories.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
+
+import '../../widgets/on_error/somethingWentWrong.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -25,6 +24,9 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
   }
 
   int _current = 0;
+  bool isFav = false;
+  String sliderCorporationName = "";
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,25 +57,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                               fontWeight: FontWeight.w800,
                             ),
                           ),
-                          /*   FlatButton(
-                      child: Text(
-                        "View More",
-                        style: TextStyle(
-//                      fontSize: 22,
-//                      fontWeight: FontWeight.w800,
-                          color: Theme.of(context).accentColor,
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) {
-                              return DishesScreen();
-                            },
-                          ),
-                        );
-                      },
-                    ),*/
                         ],
                       ),
 
@@ -81,63 +64,39 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
 
                       //Slider Here
 
-                      CarouselSlider(
-                        height: MediaQuery.of(context).size.height / 2.4,
-                        items: map<Widget>(
-                          corporationList,
-                          (index, i) {
-                            CorporationModel model = corporationList[index];
-                            return SliderItem(
-                              img: model.imageUrl,
-                              isFav: false,
-                              name: model.corporationName,
-                              rating: 5.0,
-                              raters: 23,
-                              description: model.description,
-                            );
-                          },
-                        ).toList(),
-                        autoPlay: true,
-//                enlargeCenterPage: true,
-                        viewportFraction: 1.0,
-//              aspectRatio: 2.0,
-                        onPageChanged: (index) {
-                          setState(() {
-                            _current = index;
-                          });
-                        },
+                      Stack(
+                        children: <Widget>[
+                          Container(
+                            height: MediaQuery.of(context).size.height / 2.4,
+                            width: MediaQuery.of(context).size.width,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(8.0),
+                              //       !loading ? HomeCarousel(homeManager) : Center(child:ProgressIndicator())
+                              child: Swiper(
+                                itemBuilder: (BuildContext context,int index){
+                                  CorporationModel model = corporationList[index];
+                                  return SliderItem(
+                                    corporationId: model.corporationId,
+                                    img: model.imageUrl,
+                                    isFav: false,
+                                    name: model.corporationName,
+                                    rating: model.averageRating,
+                                    raters: model.ratingCount,
+                                    description: model.description,
+                                    maxPopulation: model.maxPopulation,
+                                  );
+                                  //Image.network(corporationList[index].imageUrl,fit: BoxFit.fill,);
+                                },
+                                itemCount: corporationList.length,
+                                pagination: SwiperPagination(),
+                                control: SwiperControl(),
+                                autoplay: false,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(height: 20.0),
-/*
-                Text(
-                  "Food Categories",
-                  style: TextStyle(
-                    fontSize: 23,
-                    fontWeight: FontWeight.w800,
-                  ),
-                ),
-                SizedBox(height: 10.0),
-
-                Container(
-                  height: 65.0,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: categories == null ? 0 : categories.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      Map cat = categories[index];
-                      return HomeCategory(
-                        icon: cat['icon'],
-                        title: cat['name'],
-                        items: cat['items'].toString(),
-                        isHome: true,
-                      );
-                    },
-                  ),
-                ),
-
-                SizedBox(height: 20.0),
-*/
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -148,17 +107,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                               fontWeight: FontWeight.w800,
                             ),
                           ),
-                          /*     FlatButton(
-                      child: Text(
-                        "View More",
-                        style: TextStyle(
-//                      fontSize: 22,
-//                      fontWeight: FontWeight.w800,
-                          color: Theme.of(context).accentColor,
-                        ),
-                      ),
-                      onPressed: () {},
-                    ),*/
                         ],
                       ),
                       SizedBox(height: 10.0),
@@ -178,11 +126,14 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                         itemBuilder: (BuildContext context, int index) {
                           CorporationModel item = corporationList[index];
                           return GridProduct(
+                            corporationId: item.corporationId,
+                            description: item.description,
+                            maxPopulation: item.maxPopulation,
                             img: item.imageUrl,
                             isFav: false,
                             name: item.corporationName,
-                            rating: 5.0,
-                            raters: 23,
+                            rating: item.averageRating,
+                            raters: item.ratingCount,
                           );
                         },
                       ),

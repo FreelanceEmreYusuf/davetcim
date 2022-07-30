@@ -46,5 +46,7 @@ class CustomerListViewModel extends ChangeNotifier {
         customer.isActive,
         customer.username,
         customer.eMail);
+
+     ApplicationSession.notificationCount = customer.notificationCount;
   }
 }

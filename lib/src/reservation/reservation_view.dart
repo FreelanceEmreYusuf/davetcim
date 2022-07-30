@@ -11,7 +11,7 @@ import '../../shared/environments/const.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/utils/date_utils.dart';
 import '../../widgets/cart_reservation_item.dart';
-import '../widgets/on_error/somethingWentWrong.dart';
+import '../../widgets/on_error/somethingWentWrong.dart';
 
 class ReservationViewScreen extends StatefulWidget {
   @override

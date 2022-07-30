@@ -4,21 +4,25 @@ import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
 class SliderItem extends StatelessWidget {
+  final int corporationId;
   final String name;
   final String img;
   final bool isFav;
   final double rating;
   final int raters;
   final String description;
+  final int maxPopulation;
 
   SliderItem(
       {Key key,
-      @required this.name,
-      @required this.img,
-      @required this.isFav,
-      @required this.rating,
-      @required this.raters,
-      @required this.description})
+        @required this.corporationId,
+        @required this.name,
+        @required this.img,
+        @required this.isFav,
+        @required this.rating,
+        @required this.raters,
+        @required this.description,
+        @required this.maxPopulation})
       : super(key: key);
 
   @override
@@ -99,12 +103,14 @@ class SliderItem extends StatelessWidget {
           MaterialPageRoute(
             builder: (BuildContext context) {
               return ProductDetails(
+                  corporationId: corporationId,
                   img: img,
                   raters: raters,
                   isFav: isFav,
                   name: name,
                   rating: rating,
-                  description: description);
+                  description: description,
+                  maxPopulation: maxPopulation);
             },
           ),
         );

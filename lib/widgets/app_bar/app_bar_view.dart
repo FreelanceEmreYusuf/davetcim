@@ -1,11 +1,18 @@
 import 'package:davetcim/shared/environments/const.dart';
-import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
-import 'package:davetcim/src/widgets/on_error/somethingWentWrong.dart';
-import 'package:davetcim/src/widgets/popup_menu/popup_menu.dart';
+import 'package:davetcim/widgets/badge.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../screens/notifications.dart';
+import '../../shared/models/customer_model.dart';
+import '../../shared/sessions/application_session.dart';
+import '../../shared/utils/dialogs.dart';
+import '../../shared/utils/language.dart';
+import '../../shared/utils/utils.dart';
+import '../../src/join/join_view.dart';
+import '../on_error/somethingWentWrong.dart';
+import '../popup_menu/popup_menu.dart';
 import 'app_bar_view_model.dart';
 
 class AppBarMenu extends StatefulWidget implements PreferredSizeWidget {
@@ -22,6 +29,19 @@ class AppBarMenu extends StatefulWidget implements PreferredSizeWidget {
 
 class _AppBarMenu extends State<AppBarMenu> {
   @override
+  static void showSucessMessage(BuildContext context) {
+    Dialogs.showAlertMessageWithAction(
+        context,
+        "",
+        LanguageConstants
+            .dialogGoToLoginFromNotification[LanguageConstants.languageFlag],
+        pushToJoinPage);
+  }
+
+  static void pushToJoinPage(BuildContext context) {
+    Utils.navigateToPage(context, JoinView(childPage: new Notifications()));
+  }
+
   @override
   Widget build(BuildContext context) {
     double fontSize = 20;
@@ -96,7 +116,7 @@ class _AppBarMenu extends State<AppBarMenu> {
                         onPressed: () => Navigator.pop(context),
                       ),
                       actions: <Widget>[
-                      /*  IconButton(
+                        IconButton(
                           icon: IconBadge(
                             icon: Icons.notifications,
                             size: 22.0,
@@ -106,7 +126,7 @@ class _AppBarMenu extends State<AppBarMenu> {
                             textColor: Colors.white,
                           ),
                           onPressed: () {
-                            if (ApplicationSessions.userSession == null) {
+                            if (ApplicationSession.userSession == null) {
                               showSucessMessage(context);
                             } else {
                               Navigator.of(context).push(
@@ -131,7 +151,8 @@ class _AppBarMenu extends State<AppBarMenu> {
                             textColor: Colors.white,
                           ),
                           onPressed: () {
-                            if (ApplicationSessions.userSession == null) {
+                            /*
+                            if (ApplicationSession.userSession == null) {
                               showSucessMessage(context);
                             } else {
                               Navigator.of(context).push(
@@ -141,11 +162,11 @@ class _AppBarMenu extends State<AppBarMenu> {
                                   },
                                 ),
                               );
-                            }
+                            }*/
                           },
                           tooltip: LanguageConstants
                               .bildirimler[LanguageConstants.languageFlag],
-                        ),*/
+                        ),
                         IconButton(
                           icon: Icon(
                             Icons.home,

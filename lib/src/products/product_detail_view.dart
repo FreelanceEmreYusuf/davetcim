@@ -206,7 +206,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: Row(
                       children: <Widget>[
                         SmoothStarRating(
-                          starCount: 5,
+                          starCount: widget.rating.round(),
                           color: Constants.ratingBG,
                           allowHalfRating: true,
                           rating: 5.0,

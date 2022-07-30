@@ -1,6 +1,5 @@
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/src/search/search_wihthout_appbar_view.dart';
-import 'package:davetcim/src/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/cart.dart';
@@ -9,6 +8,7 @@ import 'package:davetcim/src/home/home_view.dart';
 import 'package:davetcim/src/profile/profile_view.dart';
 import 'package:davetcim/widgets/badge.dart';
 
+import '../../widgets/app_bar/app_bar_view.dart';
 import '../search/search_view.dart';
 import 'main_screen_view_model.dart';
 

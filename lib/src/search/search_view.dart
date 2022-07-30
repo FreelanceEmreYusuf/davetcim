@@ -1,7 +1,8 @@
 import 'package:davetcim/src/search/search_view_model.dart';
-import 'package:davetcim/src/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../widgets/app_bar/app_bar_view.dart';
 
 class SearchScreen extends StatefulWidget {
   @override

@@ -7,6 +7,11 @@ import 'package:flutter/material.dart';
 import 'login_view_model.dart';
 
 class LoginView extends StatefulWidget {
+  final Widget childPage;
+  LoginView({
+    Key key,
+    this.childPage,
+  }) : super(key: key);
   @override
   _LoginViewState createState() => _LoginViewState();
 }
@@ -138,7 +143,8 @@ class _LoginViewState extends State<LoginView> {
                   onPressed: () async {
                     LoginViewModel vm = LoginViewModel();
                     if (loginFormKey.currentState.validate()) {
-                      await vm.userLoginFlow(context, MainScreen(),
+                      await vm.userLoginFlow(context,
+                          widget.childPage == null ? MainScreen() : widget.childPage,
                           _usernameControl.text, _passwordControl.text);
                       // use the email provided here
                     }
