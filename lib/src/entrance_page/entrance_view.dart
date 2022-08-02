@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 
 import '../../widgets/app_bar/app_bar_view.dart';
+import '../../widgets/app_bar/app_bar_without_previous_icon_view.dart';
 import 'entrance_view_model.dart';
 
 class EntrancePage extends StatefulWidget {
@@ -22,7 +23,7 @@ class _EntrancePageState extends State<EntrancePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarMenu(pageName: "Davetcim", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
+        appBar: AppBarMenuWithOutPreviousPageIcon(pageName: "Davetcim", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
         body: Padding(
             padding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).size.width / 15,

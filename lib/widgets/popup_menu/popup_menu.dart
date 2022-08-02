@@ -29,6 +29,11 @@ class _PopUpMenu extends State<PopUpMenu> {
 
   PopupMenuButton getForAuthenticatedUser() {
     return PopupMenuButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
       icon: Icon(Icons.more_vert),
       itemBuilder: (BuildContext context) =>
       <PopupMenuEntry>[
@@ -101,6 +106,11 @@ class _PopUpMenu extends State<PopUpMenu> {
 
   PopupMenuButton getForUnauthenticatedUser() {
     return PopupMenuButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
       icon: Icon(Icons.more_vert),
       itemBuilder: (BuildContext context) =>
       <PopupMenuEntry>[
