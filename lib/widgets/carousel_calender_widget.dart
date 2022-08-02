@@ -25,17 +25,6 @@ class _CalenderCarouselState extends State<CalenderCarousel> {
   EventList<Event> _markedDateMap = new EventList<Event>(
     events: {
       new DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day): [
-        /*new Event(
-          date: new DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
-          title: 'Event 1',
-          //icon: Icon(Icons.access_alarms, color: Colors.blueAccent),
-          dot: Container(
-            margin: EdgeInsets.symmetric(horizontal: 1.0),
-            color: Colors.blueAccent,
-            height: 5.0,
-            width: 5.0,
-          ),
-        ),*/
       ],
     },
   );

@@ -8,9 +8,9 @@ class AboutUsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarMenu(
-            pageName:
-                LanguageConstants.hakkinda[LanguageConstants.languageFlag]),
+
+        appBar: AppBarMenu(pageName: LanguageConstants.hakkinda[LanguageConstants.languageFlag], isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+
         body: Padding(
             padding: EdgeInsets.all(10),
             child: ListView(

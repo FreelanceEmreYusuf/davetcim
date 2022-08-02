@@ -2,6 +2,8 @@ import 'package:davetcim/src/join/forgotPasswd/reset_password_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../widgets/app_bar/app_bar_view.dart';
+
 class ForgotPasswdView extends StatefulWidget {
   @override
   _ForgotPasswdViewState createState() => _ForgotPasswdViewState();
@@ -21,34 +23,7 @@ class _ForgotPasswdViewState extends State<ForgotPasswdView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: Icon(
-            Icons.keyboard_backspace,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
-        bottom: TabBar(
-          controller: _tabController,
-          indicatorColor: Theme.of(context).accentColor,
-          labelColor: Theme.of(context).accentColor,
-          unselectedLabelColor: Colors.grey,
-          labelStyle: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.w800,
-          ),
-          unselectedLabelStyle: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.w800,
-          ),
-          tabs: <Widget>[
-            Tab(
-              text: "Şifremi Unuttum",
-            ),
-          ],
-        ),
-      ),
+      appBar: AppBarMenu(pageName: "Şifremi Unuttum", isHomnePageIconVisible: true, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[

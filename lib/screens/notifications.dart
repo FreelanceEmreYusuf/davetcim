@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/app_bar/app_bar_view.dart';
+
 class Notifications extends StatefulWidget {
   @override
   _NotificationsState createState() => _NotificationsState();
@@ -9,20 +11,7 @@ class _NotificationsState extends State<Notifications> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: Icon(
-            Icons.keyboard_backspace,
-          ),
-          onPressed: ()=>Navigator.pop(context),
-        ),
-        centerTitle: true,
-        title: Text(
-          "Notifications",
-        ),
-        elevation: 0.0,
-      ),
+      appBar: AppBarMenu(pageName: "Notifications", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
 
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0,0,10.0,0),

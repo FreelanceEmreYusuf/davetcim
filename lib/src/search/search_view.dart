@@ -72,7 +72,7 @@ class _SearchScreenState extends State<SearchScreen>
         icon: const Icon(Icons.filter_list),
         backgroundColor: Colors.redAccent,
       ),
-      appBar: AppBarMenu(pageName: 'Filtrele'),
+      appBar: AppBarMenu(pageName: "Filtrele", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Container(
         child: SingleChildScrollView(
           child: Column(

@@ -2,6 +2,7 @@ import 'package:davetcim/shared/environments/const.dart';
 import 'package:flutter/material.dart';
 
 import '../screens/notifications.dart';
+import 'app_bar/app_bar_view.dart';
 import 'badge.dart';
 
 class EmptyReservationList extends StatefulWidget {
@@ -16,38 +17,7 @@ class _EmptyReservationListState extends State<EmptyReservationList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.redAccent,
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: Icon(
-              Icons.keyboard_backspace,
-            ),
-            onPressed: () => Navigator.pop(context),
-          ),
-          centerTitle: true,
-          title: Text(
-            widget.dateTime.toString().substring(0,10)+" Rezervasyonları",
-          ),
-          elevation: 0.0,
-          actions: <Widget>[
-            IconButton(
-              icon: IconBadge(
-                icon: Icons.notifications,
-                size: 22.0,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return Notifications();
-                    },
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
+        appBar: AppBarMenu(pageName: widget.dateTime.toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
           padding: EdgeInsets.all(10),
           child: ListView(

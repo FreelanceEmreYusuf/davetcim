@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../shared/sessions/application_session.dart';
 import '../../shared/utils/language.dart';
+import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/list_tile_notifications_editing.dart';
 import '../../widgets/no_found_notification_screen.dart';
 import '../../widgets/popup_menu/popup_menu.dart';
@@ -45,39 +46,7 @@ class _NotificationsViewState extends State<NotificationsView> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: Icon(
-              Icons.keyboard_backspace,
-            ),
-            onPressed: () => Navigator.pop(context),
-          ),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.home,
-              ),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return MainScreen();
-                    },
-                  ),
-                );
-              },
-              tooltip:
-              LanguageConstants.bildirimler[LanguageConstants.languageFlag],
-            ),
-            new PopUpMenu(),
-          ],
-          centerTitle: true,
-          title: Text(
-            LanguageConstants.bildirimler[LanguageConstants.languageFlag],
-          ),
-          elevation: 0.0,
-        ),
+        appBar: AppBarMenu(pageName: "Bildirimler", isHomnePageIconVisible: true, isNotificationsIconVisible: false, isPopUpMenuActive: true),
         body: SafeArea(
             child: Container(
                 child: Column(children: <Widget>[

@@ -14,11 +14,15 @@ import '../../src/join/join_view.dart';
 import '../on_error/somethingWentWrong.dart';
 import '../popup_menu/popup_menu.dart';
 import 'app_bar_view_model.dart';
+import 'icon_badge.dart';
 
 class AppBarMenu extends StatefulWidget implements PreferredSizeWidget {
   final String pageName;
+  final bool isHomnePageIconVisible;
+  final bool isNotificationsIconVisible;
+  final bool isPopUpMenuActive;
 
-  AppBarMenu({Key key, @required this.pageName}) : super(key: key);
+  AppBarMenu({Key key, @required this.pageName, @required this.isHomnePageIconVisible, @required this.isNotificationsIconVisible, @required this.isPopUpMenuActive}) : super(key: key);
 
   @override
   _AppBarMenu createState() => _AppBarMenu();
@@ -44,7 +48,7 @@ class _AppBarMenu extends State<AppBarMenu> {
 
   @override
   Widget build(BuildContext context) {
-    double fontSize = 20;
+    double fontSize = 18;
     AppBarViewModel mdl = new AppBarViewModel();
 
     return AppBar(
@@ -58,6 +62,7 @@ class _AppBarMenu extends State<AppBarMenu> {
         onPressed: () => Navigator.pop(context),
       ),
       actions: <Widget>[
+        if(widget.isHomnePageIconVisible)
         IconButton(
           icon: Icon(
             Icons.home,
@@ -72,6 +77,33 @@ class _AppBarMenu extends State<AppBarMenu> {
             );
           },
         ),
+        if(widget.isNotificationsIconVisible)
+        IconButton(
+          icon: AppBarIconBadge(
+            icon: Icons.notifications,
+            size: 22.0,
+            count: "0",//notificationCount.toString(),
+            backgroundColor: Colors.redAccent,
+            fontSize: 10.0,
+            textColor: Colors.white,
+          ),
+          onPressed: () {
+            if (ApplicationSession.userSession == null) {
+              showSucessMessage(context);
+            } else {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context) {
+                    return Notifications();
+                  },
+                ),
+              );
+            }
+          },
+          tooltip: LanguageConstants
+              .bildirimler[LanguageConstants.languageFlag],
+        ),
+        if(widget.isPopUpMenuActive)
         new PopUpMenu(),
       ],
       //   centerTitle: true,

@@ -7,6 +7,7 @@ import 'package:davetcim/widgets/badge.dart';
 import 'package:davetcim/widgets/grid_product.dart';
 
 import '../../screens/notifications.dart';
+import '../../widgets/app_bar/app_bar_view.dart';
 
 class ProductsScreen extends StatefulWidget {
   @override
@@ -30,37 +31,7 @@ class _ProductsScreenState extends State<ProductsScreen>  {
     return FutureBuilder(
       builder: (context, projectSnap) {
         return Scaffold(
-          appBar: AppBar(
-            automaticallyImplyLeading: false,
-            leading: IconButton(
-              icon: Icon(
-                Icons.keyboard_backspace,
-              ),
-              onPressed: () => Navigator.pop(context),
-            ),
-            centerTitle: true,
-            title: Text(
-              "Salonlar",
-            ),
-            elevation: 0.0,
-            actions: <Widget>[
-              IconButton(
-                icon: IconBadge(
-                  icon: Icons.notifications,
-                  size: 22.0,
-                ),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return Notifications();
-                      },
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
+          appBar: AppBarMenu(pageName: "Salonlar", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
             padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
             child: ListView(

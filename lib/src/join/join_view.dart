@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:davetcim/src/join/register/register_view.dart';
 import 'package:flutter/services.dart';
 
+import '../main/main_screen_view.dart';
+
 class JoinView extends StatefulWidget {
   final Widget childPage;
   JoinView({
@@ -28,6 +30,7 @@ class _JoinViewState extends State<JoinView>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.redAccent,
         automaticallyImplyLeading: false,
         leading: IconButton(
           icon: Icon(
@@ -35,11 +38,27 @@ class _JoinViewState extends State<JoinView>
           ),
           onPressed: () => Navigator.pop(context),
         ),
+        elevation: 8.0,
+        title: IconButton(
+          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/1.4),
+          icon: Icon(
+            Icons.home,
+          ),
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (BuildContext context) {
+                  return MainScreen();
+                },
+              ),
+            );
+          },
+        ),
         bottom: TabBar(
           controller: _tabController,
-          indicatorColor: Theme.of(context).accentColor,
-          labelColor: Theme.of(context).accentColor,
-          unselectedLabelColor: Colors.grey,
+          indicatorColor: Colors.white,
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.white38,
           labelStyle: TextStyle(
             fontSize: 20.0,
             fontWeight: FontWeight.w800,

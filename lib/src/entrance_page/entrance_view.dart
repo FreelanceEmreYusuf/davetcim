@@ -9,6 +9,7 @@ import 'package:davetcim/widgets/util_cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 
+import '../../widgets/app_bar/app_bar_view.dart';
 import 'entrance_view_model.dart';
 
 class EntrancePage extends StatefulWidget {
@@ -21,15 +22,7 @@ class _EntrancePageState extends State<EntrancePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            automaticallyImplyLeading: false,
-            centerTitle: true,
-            backgroundColor: Colors.redAccent,
-            title: Text(
-              //Constants.appName,
-              'Davetçim',
-              style: TextStyle(color: Colors.white),
-            )),
+        appBar: AppBarMenu(pageName: "Davetcim", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
         body: Padding(
             padding: EdgeInsets.symmetric(
                 vertical: MediaQuery.of(context).size.width / 15,

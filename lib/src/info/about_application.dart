@@ -8,9 +8,7 @@ class AboutApplicationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarMenu(
-            pageName: LanguageConstants
-                .uygulamaHakkinda[LanguageConstants.languageFlag]),
+        appBar: AppBarMenu(pageName: LanguageConstants.uygulamaHakkinda[LanguageConstants.languageFlag], isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
         body: Padding(
             padding: EdgeInsets.all(10),
             child: ListView(

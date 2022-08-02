@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:davetcim/util/foods.dart';
 import 'package:davetcim/widgets/cart_item.dart';
 
+import '../widgets/app_bar/app_bar_view.dart';
+
 class Checkout extends StatefulWidget {
   @override
   _CheckoutState createState() => _CheckoutState();
@@ -19,27 +21,7 @@ class _CheckoutState extends State<Checkout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          "Checkout",
-          style: TextStyle(
-            fontSize: 23,
-            fontWeight: FontWeight.w800,
-          ),
-        ),
-        elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-            tooltip: "Back",
-            icon: Icon(
-              Icons.clear,
-              color: Theme.of(context).accentColor,
-            ),
-            onPressed: () => Navigator.pop(context),
-          ),
-        ],
-      ),
+      appBar: AppBarMenu(pageName: "Checkout", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 130),
         child: ListView(

@@ -10,6 +10,7 @@ import '../../screens/notifications.dart';
 import '../../shared/environments/const.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/utils/date_utils.dart';
+import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/cart_reservation_item.dart';
 import '../../widgets/on_error/somethingWentWrong.dart';
 
@@ -40,39 +41,7 @@ class _ReservationViewScreenState extends State<ReservationViewScreen>  {
                 List<ReservationModel> reservationList = asyncSnapshot.data;
                 if (reservationList.length > 0) {
                   return Scaffold(
-                    appBar: AppBar(
-                      backgroundColor: Colors.redAccent,
-                      automaticallyImplyLeading: false,
-                      leading: IconButton(
-                        icon: Icon(
-                          Icons.keyboard_backspace,
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                      centerTitle: true,
-                      title: Text(
-                        widget.dateTime.toString().substring(0,10)+" Rezervasyonları",
-                      ),
-                      elevation: 0.0,
-                      actions: <Widget>[
-                        IconButton(
-                          icon: IconBadge(
-                            icon: Icons.notifications,
-                            size: 22.0,
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return Notifications();
-                                },
-                              ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-
+                    appBar: AppBarMenu(pageName: widget.dateTime.toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
                     body: Padding(
                       padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
                       child: GridView.builder(
