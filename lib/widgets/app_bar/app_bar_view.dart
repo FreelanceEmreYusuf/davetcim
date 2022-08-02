@@ -76,7 +76,7 @@ class _AppBarMenu extends State<AppBarMenu> {
       ],
       //   centerTitle: true,
       title: Text(
-        widget.pageName,
+        widget.pageName+"asd",
         style: TextStyle(
           fontSize: fontSize,
           color: Color(0xffffffff),
