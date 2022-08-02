@@ -61,7 +61,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                       ),
 
                       SizedBox(height: 10.0),
-
+                      SizedBox(height: 10.0),
                       //Slider Here
 
                       Stack(
