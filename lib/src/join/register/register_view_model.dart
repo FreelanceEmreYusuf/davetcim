@@ -62,7 +62,8 @@ class RegisterViewModel extends ChangeNotifier {
         eMail: _emailControl,
         secretQuestionId: selectedQuestion.id,
         secretQuestionAnswer: selectedQuestionAnswer,
-        notificationCount: 0);
+        notificationCount: 0,
+        basketCount: 0);
 
     db.editCollectionRef("Customer", _customer.toMap());
   }

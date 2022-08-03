@@ -14,6 +14,7 @@ class CustomerModel {
   final int secretQuestionId;
   final String secretQuestionAnswer;
   final int notificationCount;
+  final int basketCount;
 
   CustomerModel(
       {this.id,
@@ -28,7 +29,8 @@ class CustomerModel {
       this.eMail,
       this.secretQuestionId,
       this.secretQuestionAnswer,
-      this.notificationCount});
+      this.notificationCount,
+      this.basketCount});
 
   ///Object to map
   Map<String, dynamic> toMap() => {
@@ -45,6 +47,7 @@ class CustomerModel {
         'secretQuestionId': secretQuestionId,
         'secretQuestionAnswer': secretQuestionAnswer,
         'notificationCount': notificationCount,
+        'basketCount': basketCount,
       };
 
   ///Map to object
@@ -61,5 +64,6 @@ class CustomerModel {
       eMail: map['eMail'],
       secretQuestionId: map['secretQuestionId'],
       secretQuestionAnswer: map['secretQuestionAnswer'],
-      notificationCount: map['notificationCount']);
+      notificationCount: map['notificationCount'],
+      basketCount: map['basketCount']);
 }

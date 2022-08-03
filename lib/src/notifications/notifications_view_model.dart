@@ -20,7 +20,7 @@ class NotificationsViewModel extends ChangeNotifier {
     CollectionReference notRef =
     db.getCollectionRef(DBConstants.notificationsDb);
     var response = await notRef
-        .where('userId', isEqualTo: ApplicationSession.userSession.id)
+        .where('customerId', isEqualTo: ApplicationSession.userSession.id)
         .orderBy('notificationCreateDate', descending: true)
         .orderBy('id', descending: true)
         .get();

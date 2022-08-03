@@ -27,10 +27,10 @@ class AppBarViewModel extends ChangeNotifier {
   }
 
   int getUserId() {
-    int userId = 0;
     if (ApplicationSession.userSession != null) {
-      userId = ApplicationSession.userSession.id;
+      return ApplicationSession.userSession.id;
     }
+    return 0;
   }
 
   Stream<List<CustomerModel>> getUserInfo() {

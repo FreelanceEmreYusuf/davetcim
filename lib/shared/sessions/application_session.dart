@@ -5,6 +5,7 @@ import 'filter_screen_session.dart';
 class ApplicationSession {
   static UserSession userSession;
   static int notificationCount;
+  static int basketCount;
   static FilterScreenSession filterScreenSession;
 
 }

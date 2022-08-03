@@ -48,5 +48,6 @@ class CustomerListViewModel extends ChangeNotifier {
         customer.eMail);
 
      ApplicationSession.notificationCount = customer.notificationCount;
+     ApplicationSession.basketCount = customer.basketCount;
   }
 }
