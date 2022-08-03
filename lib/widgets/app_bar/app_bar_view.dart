@@ -1,21 +1,15 @@
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/widgets/app_bar/icon_badge_widget.dart';
-import 'package:davetcim/widgets/badge.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../screens/notifications.dart';
-import '../../shared/models/customer_model.dart';
 import '../../shared/sessions/application_session.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/language.dart';
 import '../../shared/utils/utils.dart';
 import '../../src/join/join_view.dart';
-import '../on_error/somethingWentWrong.dart';
 import '../popup_menu/popup_menu.dart';
 import 'app_bar_view_model.dart';
-import 'icon_badge.dart';
 
 class AppBarMenu extends StatefulWidget implements PreferredSizeWidget {
   final String pageName;
