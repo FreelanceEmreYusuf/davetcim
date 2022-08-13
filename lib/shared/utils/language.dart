@@ -1113,7 +1113,7 @@ class LanguageConstants {
   };
 
   static final Map<int, String> dialogGoToLoginForFavoriteProduct = {
-    0: 'Favori ürün olarak ekleyebilmek İçin Öncelikle Giriş Yapın.',
+    0: 'Favori ürün olarak ekleyebilmek için öncelikle üye girişi yapın.',
     1: 'First Login to add as a favorite product.',
     2: 'قم بتسجيل الدخول أولاً لإضافته كمنتج مفضل.',
     3: 'Сначала войдите, чтобы добавить продукт в избранное.',

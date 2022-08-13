@@ -9,6 +9,8 @@ import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../fav_products/fav_products_view_model.dart';
+
 class LoginViewModel extends ChangeNotifier {
   Database db = Database();
 
@@ -23,7 +25,7 @@ class LoginViewModel extends ChangeNotifier {
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
       CustomerModel customer = CustomerModel.fromMap(list[0].data());
-      fillUserSession(customer);
+      await fillUserSession(customer);
       Utils.navigateToPage(context, childPage);
     } else {
       Dialogs.showAlertMessage(
@@ -35,7 +37,7 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
-  void fillUserSession(CustomerModel customer) {
+  Future<void> fillUserSession(CustomerModel customer) async{
     ApplicationSession.userSession = UserSession(
         customer.id,
         customer.name,
@@ -48,5 +50,8 @@ class LoginViewModel extends ChangeNotifier {
         customer.eMail);
     ApplicationSession.notificationCount = customer.notificationCount;
     ApplicationSession.basketCount = customer.basketCount;
+
+    FavProductsViewModel favMdl = FavProductsViewModel();
+    ApplicationSession.favoriteCorporationList = await favMdl.getFavProductsList();
   }
 }

@@ -144,7 +144,7 @@ class _LoginViewState extends State<LoginView> {
                     LoginViewModel vm = LoginViewModel();
                     if (loginFormKey.currentState.validate()) {
                       await vm.userLoginFlow(context,
-                          widget.childPage == null ? MainScreen() : widget.childPage,
+                          widget.childPage == null ? new MainScreen() : widget.childPage,
                           _usernameControl.text, _passwordControl.text);
                       // use the email provided here
                     }

@@ -3,7 +3,7 @@ import 'package:davetcim/src/search/search_wihthout_appbar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/cart.dart';
-import 'package:davetcim/screens/favorite_screen.dart';
+import 'package:davetcim/src/fav_products/favorite_screen.dart';
 import 'package:davetcim/src/home/home_view.dart';
 import 'package:davetcim/src/profile/profile_view.dart';
 import 'package:davetcim/widgets/badge.dart';
@@ -14,6 +14,7 @@ import '../search/search_view.dart';
 import 'main_screen_view_model.dart';
 
 class MainScreen extends StatefulWidget {
+
   @override
   _MainScreenState createState() => _MainScreenState();
 }
@@ -21,6 +22,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   PageController _pageController;
   int _page = 0;
+
+
 
   @override
   Widget build(BuildContext context) {

@@ -66,7 +66,7 @@ class SearchViewModel extends ChangeNotifier {
       endHour,
     );
 
-    Utils.navigateToPage(context, ProductsScreen(filter));
+    Utils.navigateToPage(context, ProductsScreen(filter, null));
   }
 
 

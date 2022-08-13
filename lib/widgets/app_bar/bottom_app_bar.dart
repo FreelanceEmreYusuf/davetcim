@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../shared/models/customer_model.dart';
 import '../../shared/sessions/application_session.dart';
+import '../../shared/utils/dialogs.dart';
+import '../../shared/utils/language.dart';
 import '../../src/main/main_screen_view_model.dart';
 import '../badge.dart';
 import '../on_error/somethingWentWrong.dart';
@@ -68,7 +70,16 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                         color: widget.page == 1
                             ? Theme.of(context).accentColor
                             : Theme.of(context).textTheme.caption.color,
-                        onPressed: () => widget.pageController.jumpToPage(1),
+                        onPressed: () {
+                          if (ApplicationSession.userSession == null) {
+                            Dialogs.showAlertMessage(
+                                context,
+                                "",
+                                "Favori ürünlerinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız.");
+                          } else {
+                            widget.pageController.jumpToPage(1);
+                          }
+                        }
                       ),
                       IconButton(
                         icon: Icon(
@@ -102,7 +113,10 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                               : Theme.of(context).textTheme.caption.color,
                           onPressed: () => {
                             if (ApplicationSession.userSession == null) {
-                                MainScreenViewModel().navigateToLogin(context),
+                                Dialogs.showAlertMessage(
+                                context,
+                                "",
+                                "Profilinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
                               } else {
                                 widget.pageController.jumpToPage(4),
                               }

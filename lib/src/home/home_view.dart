@@ -1,6 +1,8 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
+import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/src/home/home_view_model.dart';
+import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/widgets/slider_item.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/widgets/grid_product.dart';
@@ -24,9 +26,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
   }
 
   int _current = 0;
-  bool isFav = false;
   String sliderCorporationName = "";
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,15 +74,17 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                               child: Swiper(
                                 itemBuilder: (BuildContext context,int index){
                                   CorporationModel model = corporationList[index];
+
                                   return SliderItem(
                                     corporationId: model.corporationId,
                                     img: model.imageUrl,
-                                    isFav: false,
+                                    isFav: ApplicationSession.isCorporationFavorite(model.corporationId),
                                     name: model.corporationName,
                                     rating: model.averageRating,
                                     raters: model.ratingCount,
                                     description: model.description,
                                     maxPopulation: model.maxPopulation,
+                                    callerPage: MainScreen(),
                                   );
                                   //Image.network(corporationList[index].imageUrl,fit: BoxFit.fill,);
                                 },
@@ -129,10 +131,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                             description: item.description,
                             maxPopulation: item.maxPopulation,
                             img: item.imageUrl,
-                            isFav: false,
+                            isFav: ApplicationSession.isCorporationFavorite(item.corporationId),
                             name: item.corporationName,
                             rating: item.averageRating,
                             raters: item.ratingCount,
+                            callerPage: MainScreen(),
                           );
                         },
                       ),

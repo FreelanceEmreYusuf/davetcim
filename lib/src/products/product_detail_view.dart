@@ -8,10 +8,12 @@ import 'package:davetcim/widgets/badge.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
 import '../../shared/models/reservation_model.dart';
+import '../../shared/sessions/application_session.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/carousel_calender_widget.dart';
 import '../../widgets/hashtag_widget.dart';
 import '../../widgets/star_and_comment.dart';
+import '../fav_products/fav_products_view_model.dart';
 import '../reservation/reservation_view_model.dart';
 
 class ProductDetails extends StatefulWidget {
@@ -40,7 +42,6 @@ class ProductDetails extends StatefulWidget {
 }
 
 class _ProductDetailsState extends State<ProductDetails> {
-  bool isFav = false;
   List<String> imageList = [];
   List<String> hashtagList = [];
   List<ReservationModel> reservationList = [];
@@ -113,6 +114,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
+    bool isFav = ApplicationSession.isCorporationFavorite(widget.corporationId);
     return Scaffold(
         appBar: AppBarMenu(pageName: widget.name, isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: SingleChildScrollView(
@@ -145,7 +147,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                         right: -10.0,
                         bottom: 3.0,
                         child: RawMaterialButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            FavProductsViewModel mdl = FavProductsViewModel();
+                            mdl.editFavoriteProductPage(widget.corporationId, widget.img, context,
+                                ProductDetails(corporationId: widget.corporationId, name: widget.name, img: widget.img, isFav: widget.isFav,
+                                    rating: widget.rating, raters: widget.raters, maxPopulation: widget.maxPopulation, description:
+                                    widget.description));
+                          },
                           fillColor: Colors.white,
                           shape: CircleBorder(),
                           elevation: 4.0,

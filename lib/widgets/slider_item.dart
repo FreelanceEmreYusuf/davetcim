@@ -3,6 +3,8 @@ import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
+import '../src/fav_products/fav_products_view_model.dart';
+
 class SliderItem extends StatelessWidget {
   final int corporationId;
   final String name;
@@ -12,6 +14,7 @@ class SliderItem extends StatelessWidget {
   final int raters;
   final String description;
   final int maxPopulation;
+  final Widget callerPage;
 
   SliderItem(
       {Key key,
@@ -22,7 +25,8 @@ class SliderItem extends StatelessWidget {
         @required this.rating,
         @required this.raters,
         @required this.description,
-        @required this.maxPopulation})
+        @required this.maxPopulation,
+        @required this.callerPage})
       : super(key: key);
 
   @override
@@ -49,7 +53,10 @@ class SliderItem extends StatelessWidget {
                 right: -10.0,
                 bottom: 3.0,
                 child: RawMaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    FavProductsViewModel mdl = FavProductsViewModel();
+                    mdl.editFavoriteProductPage(corporationId, img, context, callerPage);
+                  },
                   fillColor: Colors.white,
                   shape: CircleBorder(),
                   elevation: 4.0,

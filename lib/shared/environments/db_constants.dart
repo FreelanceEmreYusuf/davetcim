@@ -7,6 +7,7 @@ class DBConstants {
   static String secretQuestionsDb = "SecretQuestions";
   static String productCommentsDb = "Comments";
   static String notificationsDb = "Notifications";
+  static String favProductsDb = "UserFavProducts";
   static String basketDb = "Basket";
   static String basketDetailDb = "BasketDetail";
   static String contactInfoDb = "ContactInfo";

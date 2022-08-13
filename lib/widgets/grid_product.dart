@@ -1,7 +1,10 @@
+import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
+
+import '../src/fav_products/fav_products_view_model.dart';
 
 class GridProduct extends StatelessWidget {
   final String name;
@@ -12,6 +15,7 @@ class GridProduct extends StatelessWidget {
   final String description;
   final int corporationId;
   final int maxPopulation;
+  final Widget callerPage;
 
   GridProduct(
       {Key key,
@@ -23,6 +27,7 @@ class GridProduct extends StatelessWidget {
       @required this.description,
       @required this.corporationId,
       @required this.maxPopulation,
+      @required this.callerPage,
       })
       : super(key: key);
 
@@ -50,7 +55,10 @@ class GridProduct extends StatelessWidget {
                 right: -10.0,
                 bottom: 3.0,
                 child: RawMaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    FavProductsViewModel mdl = FavProductsViewModel();
+                    mdl.editFavoriteProductPage(corporationId, img, context, callerPage);
+                  },
                   fillColor: Colors.white,
                   shape: CircleBorder(),
                   elevation: 4.0,

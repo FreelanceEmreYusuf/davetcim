@@ -1,6 +1,12 @@
+import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/util/foods.dart';
 import 'package:davetcim/widgets/grid_product.dart';
+
+import '../../shared/models/corporation_model.dart';
+import '../../shared/sessions/application_session.dart';
+import 'fav_products_view_model.dart';
+import 'favorite_screen_with_appbar.dart';
 
 class FavoriteScreen extends StatefulWidget {
   @override
@@ -9,6 +15,24 @@ class FavoriteScreen extends StatefulWidget {
 
 class _FavoriteScreenState extends State<FavoriteScreen>
     with AutomaticKeepAliveClientMixin<FavoriteScreen> {
+
+  List<CorporationModel> corpModelList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    callFillFavoriteCorporations();
+  }
+
+  void callFillFavoriteCorporations() async {
+    FavProductsViewModel rm = FavProductsViewModel();
+    corpModelList = await rm.getFavProductDetailedList();
+
+    setState(() {
+      corpModelList = corpModelList;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -19,7 +43,7 @@ class _FavoriteScreenState extends State<FavoriteScreen>
           children: <Widget>[
             SizedBox(height: 10.0),
             Text(
-              "My Favorite Items",
+              "Favori Salonlarım",
               style: TextStyle(
                 fontSize: 23,
                 fontWeight: FontWeight.w800,
@@ -33,20 +57,21 @@ class _FavoriteScreenState extends State<FavoriteScreen>
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 1.25),
+                    (MediaQuery.of(context).size.height / 1.15),
               ),
-              itemCount: foods == null ? 0 : foods.length,
+              itemCount: corpModelList == null ? 0 : corpModelList.length,
               itemBuilder: (BuildContext context, int index) {
-//                Food food = Food.fromJson(foods[index]);
-                Map food = foods[index];
-//                print(foods);
-//                print(foods.length);
+                  CorporationModel corp = corpModelList[index];
                 return GridProduct(
-                  img: food['img'],
-                  isFav: true,
-                  name: food['name'],
-                  rating: 5.0,
-                  raters: 23,
+                  img: corp.imageUrl,
+                  isFav: ApplicationSession.isCorporationFavorite(corp.corporationId),
+                  name: corp.corporationName,
+                  rating: corp.averageRating,
+                  raters: corp.ratingCount,
+                  callerPage: FavoriteScreenWithAppBar(),
+                  maxPopulation: corp.maxPopulation,
+                  corporationId: corp.corporationId,
+                  description: corp.description,
                 );
               },
             ),

@@ -7,6 +7,7 @@ import 'package:davetcim/widgets/badge.dart';
 import 'package:davetcim/widgets/grid_product.dart';
 
 import '../../screens/notifications.dart';
+import '../../shared/sessions/application_session.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 
 class ProductsScreen extends StatefulWidget {
@@ -14,7 +15,8 @@ class ProductsScreen extends StatefulWidget {
   _ProductsScreenState createState() => _ProductsScreenState();
 
   final ProductFilterer filter;
-  const ProductsScreen(this.filter);
+  final List<CorporationModel> corporationInputList;
+  const ProductsScreen(this.filter, this.corporationInputList);
 }
 
 class _ProductsScreenState extends State<ProductsScreen>  {
@@ -22,8 +24,12 @@ class _ProductsScreenState extends State<ProductsScreen>  {
   List<CorporationModel> corporationList = [];
 
   Future getCorporationList() async {
-    ProductsViewModel mdl = new ProductsViewModel();
-    corporationList = await mdl.getCorporationList(widget.filter);
+    if (widget.corporationInputList != null) {
+      corporationList = widget.corporationInputList;
+    } else {
+      ProductsViewModel mdl = new ProductsViewModel();
+      corporationList = await mdl.getCorporationList(widget.filter);
+    }
   }
 
   @override
@@ -52,13 +58,14 @@ class _ProductsScreenState extends State<ProductsScreen>  {
                     CorporationModel item = corporationList[index];
                     return GridProduct(
                       img: item.imageUrl,
-                      isFav: false,
+                      isFav: ApplicationSession.isCorporationFavorite(item.corporationId),
                       name: item.corporationName,
                       rating: item.averageRating,
                       raters: item.ratingCount,
                       description: item.description,
                       corporationId: item.corporationId,
                       maxPopulation: item.maxPopulation,
+                      callerPage: ProductsScreen(widget.filter, corporationList),
                     );
                   },
                 ),
