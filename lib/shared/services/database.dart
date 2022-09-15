@@ -28,6 +28,5 @@ class Database {
         .catchError((error) => print("Veri " +
             collectionName +
             " tablosuna eklenirken/guncellenirken hata oluştu: $error"));
-    ;
   }
 }

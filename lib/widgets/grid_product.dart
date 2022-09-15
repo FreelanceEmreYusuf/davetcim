@@ -4,9 +4,10 @@ import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
+import '../shared/sessions/application_session.dart';
 import '../src/fav_products/fav_products_view_model.dart';
 
-class GridProduct extends StatelessWidget {
+class GridProduct extends StatefulWidget {
   final String name;
   final String img;
   final bool isFav;
@@ -32,7 +33,24 @@ class GridProduct extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<GridProduct> createState() => _GridProductState();
+}
+
+class _GridProductState extends State<GridProduct> {
+
+  bool isFavorite;
+
+  void editUserFavProduct() async {
+    FavProductsViewModel mdl = FavProductsViewModel();
+    await mdl.editFavoriteProductPage(widget.corporationId, widget.img, context, null);
+    setState(() {
+      isFavorite = ApplicationSession.isCorporationFavorite(widget.corporationId);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    isFavorite =  ApplicationSession.isCorporationFavorite(widget.corporationId);
     return InkWell(
       child: ListView(
         shrinkWrap: true,
@@ -46,7 +64,7 @@ class GridProduct extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
                   child: Image.network(
-                    "$img",
+                    "${widget.img}",
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -56,8 +74,7 @@ class GridProduct extends StatelessWidget {
                 bottom: 3.0,
                 child: RawMaterialButton(
                   onPressed: () {
-                    FavProductsViewModel mdl = FavProductsViewModel();
-                    mdl.editFavoriteProductPage(corporationId, img, context, callerPage);
+                    editUserFavProduct();
                   },
                   fillColor: Colors.white,
                   shape: CircleBorder(),
@@ -65,7 +82,7 @@ class GridProduct extends StatelessWidget {
                   child: Padding(
                     padding: EdgeInsets.all(5),
                     child: Icon(
-                      isFav ? Icons.favorite : Icons.favorite_border,
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
                       color: Colors.red,
                       size: 17,
                     ),
@@ -77,7 +94,7 @@ class GridProduct extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 2.0, top: 8.0),
             child: Text(
-              "$name",
+              "${widget.name}",
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w900,
@@ -93,11 +110,11 @@ class GridProduct extends StatelessWidget {
                   starCount: 5,
                   color: Constants.ratingBG,
                   allowHalfRating: true,
-                  rating: rating,
+                  rating: widget.rating,
                   size: 10.0,
                 ),
                 Text(
-                  " $rating ($raters Reviews)",
+                  " ${widget.rating} (${widget.raters} Reviews)",
                   style: TextStyle(
                     fontSize: 11.0,
                   ),
@@ -112,14 +129,14 @@ class GridProduct extends StatelessWidget {
           MaterialPageRoute(
             builder: (BuildContext context) {
               return ProductDetails(
-                  img: img,
-                  raters: raters,
-                  isFav: isFav,
-                  name: name,
-                  rating: rating,
-                  description: description,
-                  corporationId: corporationId,
-                  maxPopulation: maxPopulation,);
+                  img: widget.img,
+                  raters: widget.raters,
+                  isFav: widget.isFav,
+                  name: widget.name,
+                  rating: widget.rating,
+                  description: widget.description,
+                  corporationId: widget.corporationId,
+                  maxPopulation: widget.maxPopulation,);
             },
           ),
         );

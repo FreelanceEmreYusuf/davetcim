@@ -49,7 +49,7 @@ class FavProductsViewModel extends ChangeNotifier {
     return corpModelList;
   }
 
-  void editFavoriteProductPage(int corporationId, String img, BuildContext context, Widget callerPage) async {
+  Future<void> editFavoriteProductPage(int corporationId, String img, BuildContext context, Widget callerPage) async {
 
     if (ApplicationSession.userSession == null) {
       Dialogs.showAlertMessage(
@@ -77,7 +77,7 @@ class FavProductsViewModel extends ChangeNotifier {
             customerId: ApplicationSession.userSession.id,
             image: img);
 
-        db.editCollectionRef(DBConstants.favProductsDb, favProductsModel.toMap());
+       db.editCollectionRef(DBConstants.favProductsDb, favProductsModel.toMap());
       }
 
       FavProductsViewModel favMdl = FavProductsViewModel();

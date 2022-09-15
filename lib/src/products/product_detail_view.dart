@@ -46,6 +46,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   List<String> hashtagList = [];
   List<ReservationModel> reservationList = [];
   List<Widget> commentList = [];
+  bool isFavorite;
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -100,6 +101,14 @@ class _ProductDetailsState extends State<ProductDetails> {
     });
   }
 
+  void editUserFavProduct() async {
+    FavProductsViewModel mdl = FavProductsViewModel();
+    await mdl.editFavoriteProductPage(widget.corporationId, widget.img, context, null);
+    setState(() {
+      isFavorite = ApplicationSession.isCorporationFavorite(widget.corporationId);
+    });
+  }
+
   List<Widget> _getListings(List _listings) {
     // <<<<< Note this change for the return type
     List<Widget> listings = [];
@@ -114,7 +123,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
-    bool isFav = ApplicationSession.isCorporationFavorite(widget.corporationId);
+    isFavorite = ApplicationSession.isCorporationFavorite(widget.corporationId);
     return Scaffold(
         appBar: AppBarMenu(pageName: widget.name, isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: SingleChildScrollView(
@@ -148,11 +157,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         bottom: 3.0,
                         child: RawMaterialButton(
                           onPressed: () {
-                            FavProductsViewModel mdl = FavProductsViewModel();
-                            mdl.editFavoriteProductPage(widget.corporationId, widget.img, context,
-                                ProductDetails(corporationId: widget.corporationId, name: widget.name, img: widget.img, isFav: widget.isFav,
-                                    rating: widget.rating, raters: widget.raters, maxPopulation: widget.maxPopulation, description:
-                                    widget.description));
+                            editUserFavProduct();
                           },
                           fillColor: Colors.white,
                           shape: CircleBorder(),
@@ -160,7 +165,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           child: Padding(
                             padding: EdgeInsets.all(5),
                             child: Icon(
-                              isFav ? Icons.favorite : Icons.favorite_border,
+                              isFavorite ? Icons.favorite : Icons.favorite_border,
                               color: Colors.red,
                               size: 17,
                             ),
