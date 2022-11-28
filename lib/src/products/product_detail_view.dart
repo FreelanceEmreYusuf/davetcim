@@ -9,12 +9,14 @@ import 'package:davetcim/widgets/smooth_star_rating.dart';
 
 import '../../shared/models/reservation_model.dart';
 import '../../shared/sessions/application_session.dart';
+import '../../shared/utils/utils.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/carousel_calender_widget.dart';
 import '../../widgets/hashtag_widget.dart';
 import '../../widgets/star_and_comment.dart';
 import '../fav_products/fav_products_view_model.dart';
 import '../reservation/reservation_view_model.dart';
+import '../select-orders/order_view.dart';
 
 class ProductDetails extends StatefulWidget {
   @override
@@ -293,7 +295,9 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
             color: Theme.of(context).accentColor,
-            onPressed: () {},
+            onPressed: () {
+              Utils.navigateToPage(context, OrderScreen(corporationId: widget.corporationId));
+            },
           ),
         ),
       );
