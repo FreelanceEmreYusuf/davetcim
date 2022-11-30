@@ -34,7 +34,7 @@ class _EntrancePageState extends State<EntrancePage> {
                   icon: Icons.search,
                   tooltip: "Organizasyon için en uygun mekanı bul",
                   img:
-                      'https://img.freepik.com/free-vector/search-engine-optimization-with-cute-robot_257056-620.jpg?w=740',
+                      'https://i.pinimg.com/564x/6c/b1/69/6cb16913d2e46c32ef46989145f5900d.jpg',
                   title: "Mekan Filtreleme Robotu",
                   subtitle:
                       "Düğün, Kına, Doğum Günü ve daha birçok organizasyon için kriterlerinize uygun mekanı biz sizin için bulalım.",
@@ -55,7 +55,7 @@ class _EntrancePageState extends State<EntrancePage> {
                   tooltip:
                       "Üye Grişi yapmak veya yeni üyelik oluşturmak için dokunun",
                   img:
-                      'https://image.freepik.com/free-vector/login-concept-illustration_114360-739.jpg',
+                      'https://carta.v-card.es/assets/images/user/login.png',
                   title: "Üye Girişi / Yeni Üyelik",
                   subtitle:
                       "Avantajlı tekliflerden yararlanabilmek, favorilerinizi seçebilmek ve sepetinizi doldurabilmek için üye girişi yapabilirsiniz. Ayrıca üye değilseniz yeni üyelik oluşturabilirsiniz",
