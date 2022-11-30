@@ -264,7 +264,8 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
         SizedBox(height: 40.0),
         Container(
           height: 50.0,
-          child: RaisedButton(
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).accentColor,),
             child: Text(
               "Parolayı Yenile".toUpperCase(),
               style: TextStyle(
@@ -283,7 +284,6 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                     _secretQuestionControl.text);
               }
             },
-            color: Theme.of(context).accentColor,
           ),
         ),
         SizedBox(height: 40.0),

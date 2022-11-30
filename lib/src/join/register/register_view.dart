@@ -322,7 +322,8 @@ class _RegisterViewState extends State<RegisterView> {
               SizedBox(height: 15.0),
               Container(
                 height: 40.0,
-                child: RaisedButton(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).accentColor,),
                   child: Text(
                     "Kaydet".toUpperCase(),
                     style: TextStyle(
@@ -345,7 +346,6 @@ class _RegisterViewState extends State<RegisterView> {
                       );
                     }
                   },
-                  color: Theme.of(context).accentColor,
                 ),
               ),
             ],

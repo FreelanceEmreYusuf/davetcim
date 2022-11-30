@@ -19,7 +19,7 @@ class Constants {
     backgroundColor: lightBG,
     primaryColor: lightPrimary,
     accentColor: lightAccent,
-    cursorColor: lightAccent,
+    //cursorColor: lightAccent,
     scaffoldBackgroundColor: lightBG,
     appBarTheme: AppBarTheme(
       textTheme: TextTheme(
@@ -41,7 +41,7 @@ class Constants {
     primaryColor: darkPrimary,
     accentColor: darkAccent,
     scaffoldBackgroundColor: darkBG,
-    cursorColor: darkAccent,
+    //cursorColor: darkAccent,
     appBarTheme: AppBarTheme(
       textTheme: TextTheme(
         subtitle1: TextStyle(

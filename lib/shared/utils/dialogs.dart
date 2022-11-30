@@ -9,7 +9,7 @@ class Dialogs {
   static showAlertMessage(BuildContext context, String title, String message) {
     // set up the button
     // ignore: deprecated_member_use
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text(LanguageConstants.tamam[LanguageConstants.languageFlag]),
       onPressed: () {
         Navigator.of(context).pop();
@@ -38,7 +38,7 @@ class Dialogs {
       BuildContext context, String title, String message, Function method) {
     // set up the button
     // ignore: deprecated_member_use
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text(LanguageConstants.tamam[LanguageConstants.languageFlag]),
       onPressed: () {
         Navigator.of(context).pop();
@@ -68,7 +68,7 @@ class Dialogs {
       String title, String message, Function method, Widget childPage) {
     // set up the button
     // ignore: deprecated_member_use
-    Widget okButton = FlatButton(
+    Widget okButton = TextButton(
       child: Text(LanguageConstants.tamam[LanguageConstants.languageFlag]),
       onPressed: () {
         Navigator.of(context).pop();
@@ -97,13 +97,13 @@ class Dialogs {
   static showDialogMessage(BuildContext context, String title, String message,
       Function method, String functionInput) {
     // set up the buttons
-    Widget cancelButton = FlatButton(
+    Widget cancelButton = TextButton(
       child: Text(LanguageConstants.hayir[LanguageConstants.languageFlag]),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
       },
     );
-    Widget continueButton = FlatButton(
+    Widget continueButton = TextButton(
       child: Text(LanguageConstants.evet[LanguageConstants.languageFlag]),
       onPressed: () {
         method(functionInput);
@@ -141,13 +141,13 @@ class Dialogs {
       double input4,
       String input5) {
     // set up the buttons
-    Widget cancelButton = FlatButton(
+    Widget cancelButton = TextButton(
       child: Text(LanguageConstants.hayir[LanguageConstants.languageFlag]),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
       },
     );
-    Widget continueButton = FlatButton(
+    Widget continueButton = TextButton(
       child: Text(LanguageConstants.evet[LanguageConstants.languageFlag]),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
@@ -217,13 +217,13 @@ class Dialogs {
 
   static showLoginDialogMessage(BuildContext context, Widget callerPage) {
     // set up the buttons
-    Widget cancelButton = FlatButton(
+    Widget cancelButton = TextButton(
       child: Text(LanguageConstants.hayir[LanguageConstants.languageFlag]),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
       },
     );
-    Widget continueButton = FlatButton(
+    Widget continueButton = TextButton(
       child: Text(LanguageConstants.evet[LanguageConstants.languageFlag]),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();

@@ -17,10 +17,9 @@ class SomethingWentWrongScreen extends StatelessWidget {
             left: MediaQuery.of(context).size.width * 0.3,
             right: MediaQuery.of(context).size.width * 0.3,
             // ignore: deprecated_member_use
-            child: FlatButton(
-              color: Color(0xFF70DAAD),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50)),
+            child: TextButton(
+              style: TextButton.styleFrom(backgroundColor: Color(0xFF70DAAD), shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(50)),),
               onPressed: () {
                 Navigator.pop(context);
                 /*Navigator.of(context).push(

@@ -110,7 +110,7 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(height: 10.0),
               Container(
                 alignment: Alignment.centerRight,
-                child: FlatButton(
+                child: TextButton(
                   child: Text(
                     "Şifremi Unuttum",
                     style: TextStyle(
@@ -133,7 +133,8 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(height: 30.0),
               Container(
                 height: 50.0,
-                child: RaisedButton(
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).accentColor,),
                   child: Text(
                     "GİRİŞ".toUpperCase(),
                     style: TextStyle(
@@ -149,7 +150,6 @@ class _LoginViewState extends State<LoginView> {
                       // use the email provided here
                     }
                   },
-                  color: Theme.of(context).accentColor,
                 ),
               ),
             ],
