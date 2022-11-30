@@ -133,8 +133,8 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(height: 30.0),
               Container(
                 height: 50.0,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(backgroundColor: Theme.of(context).accentColor,),
+                child: TextButton(
+                  style: TextButton.styleFrom(backgroundColor: Theme.of(context).accentColor,),
                   child: Text(
                     "GİRİŞ".toUpperCase(),
                     style: TextStyle(

@@ -25,9 +25,12 @@ class _State extends State<AdminPanelPage> {
                     height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     // ignore: deprecated_member_use
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("SALON EKLE"),
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
+                      child: Text("SALON EKLE",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
@@ -41,9 +44,12 @@ class _State extends State<AdminPanelPage> {
                     height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     // ignore: deprecated_member_use
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("SALON GÜNCELLE"),
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
+                      child: Text("SALON GÜNCELLE",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
@@ -57,9 +63,12 @@ class _State extends State<AdminPanelPage> {
                     height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     // ignore: deprecated_member_use
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("SALON SİL"),
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
+                      child: Text("SALON SİL",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
@@ -73,9 +82,12 @@ class _State extends State<AdminPanelPage> {
                     height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     // ignore: deprecated_member_use
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("BİLDİRİM GÖNDER"),
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
+                      child: Text("BİLDİRİM GÖNDER",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
@@ -89,9 +101,12 @@ class _State extends State<AdminPanelPage> {
                     height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                     // ignore: deprecated_member_use
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("HİZMET HAVUZU"),
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                      child: Text("HİZMET HAVUZU",
+                        style: TextStyle(
+                        color: Colors.white,
+                      ),),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
