@@ -1,5 +1,4 @@
 import 'package:davetcim/shared/models/combo_generic_model.dart';
-import 'package:davetcim/src/search/search_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,10 +9,17 @@ class OrderScreen extends StatefulWidget {
   @override
   _OrderScreenState createState() => _OrderScreenState();
   final int corporationId;
+  final List<ComboGenericModel> organizationTypeList;
+  final List<ComboGenericModel> sequenceOrderList;
+  final List<ComboGenericModel> invitationList;
 
   OrderScreen(
       {Key key,
-        @required this.corporationId})
+        @required this.corporationId,
+        @required this.organizationTypeList,
+        @required this.sequenceOrderList,
+        @required this.invitationList,
+      })
       : super(key: key);
 
 }
@@ -23,9 +29,7 @@ class _OrderScreenState extends State<OrderScreen>
   static TextStyle kStyle =
       TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
 
-  List<ComboGenericModel> organizationTypeList = [];
-  List<ComboGenericModel> sequenceOrderList = [];
-  List<ComboGenericModel> invitationList = [];
+
 
   int selectedSeatingArrangement = 0;
   int selectedInvitationIndex = 0;
@@ -39,40 +43,6 @@ class _OrderScreenState extends State<OrderScreen>
 
   DateTime endTime = DateTime.now().toLocal().add(new Duration(hours: 2));
 
-  @override
-  void initState() {
-    callGetReservationList();
-    callGetInvitationList();
-    callGetSequenceList();
-    super.initState();
-  }
-
-  void callGetReservationList() async{
-    OrderViewModel rm = OrderViewModel();
-    organizationTypeList = await rm.getOrganizationUniqueIdentifiers(widget.corporationId);
-
-    setState(() {
-      organizationTypeList = organizationTypeList;
-    });
-  }
-
-  void callGetInvitationList() async{
-    OrderViewModel rm = OrderViewModel();
-    invitationList = await rm.getInvitationIdentifiers(widget.corporationId);
-
-    setState(() {
-      invitationList = invitationList;
-    });
-  }
-
-  void callGetSequenceList() async{
-    OrderViewModel rm = OrderViewModel();
-    sequenceOrderList = await rm.getSequenceOrderIdentifiers(widget.corporationId);
-
-    setState(() {
-      sequenceOrderList = sequenceOrderList;
-    });
-  }
 
   // This shows a CupertinoModalPopup with a reasonable fixed height which hosts CupertinoDatePicker.
   void _showDialog(Widget child) {
@@ -98,6 +68,8 @@ class _OrderScreenState extends State<OrderScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+
+
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -134,7 +106,7 @@ class _OrderScreenState extends State<OrderScreen>
                                 _cardDivisionSize),
                       ),
                       Text(
-                        invitationList[selectedInvitationIndex].text,
+                        widget.invitationList[selectedInvitationIndex].text,
                         style: TextStyle(fontSize: 18.0),
                       ),
                       SizedBox(
@@ -157,9 +129,9 @@ class _OrderScreenState extends State<OrderScreen>
                                 });
                               },
                               children: new List<Widget>.generate(
-                                  invitationList.length, (int index) {
+                                  widget.invitationList.length, (int index) {
                                 return new Center(
-                                  child: new Text(invitationList[index].text),
+                                  child: new Text(widget.invitationList[index].text),
                                 );
                               })),
                         );
@@ -397,7 +369,7 @@ class _OrderScreenState extends State<OrderScreen>
                                 _cardDivisionSize),
                       ),
                       Text(
-                        organizationTypeList[selectedOrganizationIndex].text,
+                        widget.organizationTypeList[selectedOrganizationIndex].text,
                         style: TextStyle(fontSize: 18.0),
                       ),
                       SizedBox(
@@ -420,10 +392,10 @@ class _OrderScreenState extends State<OrderScreen>
                                 });
                               },
                               children: new List<Widget>.generate(
-                                  organizationTypeList.length, (int index) {
+                                  widget.organizationTypeList.length, (int index) {
                                 return new Center(
                                   child: new Text(
-                                      organizationTypeList[index].text),
+                                      widget.organizationTypeList[index].text),
                                 );
                               })),
                         );
@@ -452,7 +424,7 @@ class _OrderScreenState extends State<OrderScreen>
                                 _cardDivisionSize),
                       ),
                       Text(
-                        sequenceOrderList[selectedSeatingArrangement].text,
+                        widget.sequenceOrderList[selectedSeatingArrangement].text,
                         style: TextStyle(fontSize: 18.0),
                       ),
                       SizedBox(
@@ -475,10 +447,10 @@ class _OrderScreenState extends State<OrderScreen>
                                 });
                               },
                               children: new List<Widget>.generate(
-                                  sequenceOrderList.length, (int index) {
+                                  widget.sequenceOrderList.length, (int index) {
                                 return new Center(
                                   child:
-                                      new Text(sequenceOrderList[index].text),
+                                      new Text(widget.sequenceOrderList[index].text),
                                 );
                               })),
                         );
@@ -493,14 +465,6 @@ class _OrderScreenState extends State<OrderScreen>
         ),
       ),
     );
-  }
-
-  void callFillDistrict(int regionCode) async {
-    SearchViewModel rm = SearchViewModel();
-    districtList = await rm.fillDistrictlist(regionCode);
-    setState(() {
-      districtList = districtList;
-    });
   }
 
   @override

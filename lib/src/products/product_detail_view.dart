@@ -7,6 +7,7 @@ import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/badge.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
+import '../../shared/models/combo_generic_model.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/sessions/application_session.dart';
 import '../../shared/utils/utils.dart';
@@ -17,6 +18,7 @@ import '../../widgets/star_and_comment.dart';
 import '../fav_products/fav_products_view_model.dart';
 import '../reservation/reservation_view_model.dart';
 import '../select-orders/order_view.dart';
+import '../select-orders/order_view_model.dart';
 
 class ProductDetails extends StatefulWidget {
   @override
@@ -50,6 +52,10 @@ class _ProductDetailsState extends State<ProductDetails> {
   List<Widget> commentList = [];
   bool isFavorite;
 
+  List<ComboGenericModel> organizationTypeList = [];
+  List<ComboGenericModel> sequenceOrderList = [];
+  List<ComboGenericModel> invitationList = [];
+
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
     for (var i = 0; i < list.length; i++) {
@@ -64,7 +70,21 @@ class _ProductDetailsState extends State<ProductDetails> {
     callGetHashtagListList();
     callGetReservationList();
     callGetProductComments();
+    fillOrderViewParams();
     super.initState();
+  }
+
+  void fillOrderViewParams() async {
+    OrderViewModel rm = OrderViewModel();
+    organizationTypeList = await rm.getOrganizationUniqueIdentifiers(widget.corporationId);
+    invitationList = await rm.getInvitationIdentifiers(widget.corporationId);
+    sequenceOrderList = await rm.getSequenceOrderIdentifiers(widget.corporationId);
+
+    setState(() {
+      organizationTypeList = organizationTypeList;
+      invitationList = invitationList;
+      sequenceOrderList = sequenceOrderList;
+    });
   }
 
   void callGetImageList() async {
@@ -296,7 +316,10 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
             onPressed: () {
-              Utils.navigateToPage(context, OrderScreen(corporationId: widget.corporationId));
+              Utils.navigateToPage(context, OrderScreen(corporationId: widget.corporationId,
+              invitationList: invitationList,
+                organizationTypeList: organizationTypeList,
+                sequenceOrderList: sequenceOrderList,));
             },
           ),
         ),
