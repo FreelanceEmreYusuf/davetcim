@@ -20,4 +20,5 @@ class DBConstants {
   static String bypassInfoPageDb = "BypassInfoPage";
   static String corporationDb = "Corporation";
   static String imagesDb = "Images";
+  static String servicesDb = "Services";
 }

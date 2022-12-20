@@ -1,3 +1,4 @@
+import 'package:davetcim/src/admin_panel/service/service_view.dart';
 import 'package:davetcim/src/home/home_view.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/widgets/app_bar/app_bar_view.dart';
@@ -110,7 +111,7 @@ class _State extends State<AdminPanelPage> {
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return MainScreen();
+                            return AdminServicePoolManager();
                           },
                         ));
                       },
