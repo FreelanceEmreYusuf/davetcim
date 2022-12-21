@@ -5,6 +5,7 @@ class ServicePoolModel {
   final int parentId;
   String serviceName;
   final bool hasChild;
+  final bool isActive;
   List<ServicePoolModel> childrenList;
 
   ServicePoolModel({
@@ -12,6 +13,7 @@ class ServicePoolModel {
     this.parentId,
     this.serviceName,
     this.hasChild,
+    this.isActive,
     this.childrenList,
   });
 
@@ -21,7 +23,7 @@ class ServicePoolModel {
     'parentId': parentId,
     'serviceName': serviceName,
     'hasChild': hasChild,
-    'childrenList': childrenList,
+    'isActive': isActive,
   };
 
   ///Map to object
@@ -30,6 +32,6 @@ class ServicePoolModel {
     parentId: map['parentId'],
     serviceName: map['serviceName'],
     hasChild: map['hasChild'],
-    childrenList: map['childrenList'],
+    isActive: map['isActive'],
   );
 }

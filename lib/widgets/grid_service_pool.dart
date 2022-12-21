@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../shared/models/service_pool_model.dart';
+import '../shared/utils/utils.dart';
+import '../src/admin_panel/service/service_add_view.dart';
+import '../src/admin_panel/service/service_view.dart';
+import '../src/admin_panel/service/service_view_model.dart';
 
 class GridServicePool extends StatefulWidget {
   final ServicePoolModel servicePoolModel;
@@ -44,7 +48,9 @@ class _GridServicePoolState
                 color: Colors.red, // button color
                 child: InkWell(
                   splashColor: Colors.green, // splash color
-                  onTap: () {}, // button pressed
+                  onTap: () {
+                    Utils.navigateToPage(context, ServiceAddView(servicePoolModel : widget.servicePoolModel));
+                  }, // button pressed
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -63,7 +69,11 @@ class _GridServicePoolState
                 color: Colors.red, // button color
                 child: InkWell(
                   splashColor: Colors.lightBlue, // splash color
-                  onTap: () {}, // button pressed
+                  onTap: () async{
+                    ServicePoolViewModel service = ServicePoolViewModel();
+                    await service.deleteService(widget.servicePoolModel);
+                    Utils.navigateToPage(context, AdminServicePoolManager());
+                  }, // button pressed
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[

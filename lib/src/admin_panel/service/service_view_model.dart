@@ -17,7 +17,7 @@ class ServicePoolViewModel extends ChangeNotifier {
     for (int i = 0; i < treeList.length; i++) {
       ServicePoolModel item = treeList[i];
       viewList.add(item);
-      viewList = addChildrenToList(viewList, item, "-");
+      viewList = addChildrenToList(viewList, item, "");
 
     }
     return viewList;
@@ -75,7 +75,8 @@ class ServicePoolViewModel extends ChangeNotifier {
   Future<List<ServicePoolModel>> getServicesList() async {
     CollectionReference servicesListRef =
     db.getCollectionRef(DBConstants.servicesDb);
-    var response = await servicesListRef.get();
+    var response = await servicesListRef
+        .where('isActive', isEqualTo: true).get();
 
     List<ServicePoolModel> servicesList = [];
     var list = response.docs;
@@ -87,9 +88,26 @@ class ServicePoolViewModel extends ChangeNotifier {
     return servicesList;
   }
 
+  Future<void> addNewService(String serviceName, bool hasChild, int parentId) async {
+    ServicePoolModel servicePool = new ServicePoolModel(
+      id: new DateTime.now().millisecondsSinceEpoch,
+      serviceName: serviceName,
+      parentId: parentId,
+      hasChild: hasChild,
+      isActive: true
+    );
+    db.editCollectionRef(DBConstants.servicesDb, servicePool.toMap());
+  }
 
-
-
-
+  Future<void> deleteService(ServicePoolModel servicePoolModel) async {
+    ServicePoolModel servicePool = new ServicePoolModel(
+        id: servicePoolModel.id,
+        serviceName: servicePoolModel.serviceName.replaceAll("-", ""),
+        parentId: servicePoolModel.parentId,
+        hasChild: servicePoolModel.hasChild,
+        isActive: false
+    );
+    db.editCollectionRef(DBConstants.servicesDb, servicePool.toMap());
+  }
 
 }

@@ -13,7 +13,7 @@ class Database {
     return Constants.fireStore.collection(collectionName).snapshots();
   }
 
-  Future<void> deleteDocument({String collectionName, String id}) async {
+  Future<void> deleteDocument(String collectionName, String id) async {
     await Constants.fireStore.collection(collectionName).doc(id).delete();
   }
 
