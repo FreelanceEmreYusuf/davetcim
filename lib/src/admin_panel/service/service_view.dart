@@ -48,8 +48,8 @@ class _AdminServicePoolManagerState extends State<AdminServicePoolManager> {
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 1,
-              /*  childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 0.95),*/
+                childAspectRatio: MediaQuery.of(context).size.width /
+                    (MediaQuery.of(context).size.height / 12),
               ),
               itemCount: serviceList == null
                   ? 0
@@ -62,14 +62,6 @@ class _AdminServicePoolManagerState extends State<AdminServicePoolManager> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        tooltip: "Yeni Hizmet Ekle",
-        onPressed: () {
-
-        },
-        child: Text('Hizmet Ekle'),
-        heroTag: Object(),
       ),
     );
   }
