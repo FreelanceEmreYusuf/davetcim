@@ -21,4 +21,5 @@ class DBConstants {
   static String corporationDb = "Corporation";
   static String imagesDb = "Images";
   static String servicesDb = "Services";
+  static String corporationServicesDb = "CorporationServices";
 }

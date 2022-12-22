@@ -13,6 +13,8 @@ import 'package:davetcim/src/search/search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../src/admin_corporate_panel/AdminCorporatePanel.dart';
+
 class PopUpMenu extends StatefulWidget {
   @override
   _PopUpMenu createState() => _PopUpMenu();
@@ -24,7 +26,9 @@ class _PopUpMenu extends State<PopUpMenu> {
     if (ApplicationSession.userSession != null) {
       if (ApplicationSession.userSession.roleId == 3) {
         return getForAdmin();
-      } else {
+      } else if (ApplicationSession.userSession.roleId == 1) {
+        return getForCorporateAdmin();
+      }else {
         return getForAuthenticatedUser();
       }
     } else {
@@ -105,6 +109,93 @@ class _PopUpMenu extends State<PopUpMenu> {
           Utils.navigateToPage(context, AboutApplicationPage());
         } else if (value == 3) {
           Utils.navigateToPage(context, AdminPanelPage());
+        } else if (value == 4) {
+          ApplicationSession.userSession = null;
+          Utils.navigateToPage(context, MainScreen());
+        } else if (value == 5) {
+          if (Platform.isAndroid) {
+            SystemNavigator.pop();
+          } else if (Platform.isIOS) {
+            exit(0);
+          }
+        }
+      },
+    );
+  }
+
+  PopupMenuButton getForCorporateAdmin() {
+    return PopupMenuButton(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(20.0),
+        ),
+      ),
+      icon: Icon(Icons.more_vert),
+      itemBuilder: (BuildContext context) =>
+      <PopupMenuEntry>[
+        PopupMenuItem(
+          value: 0,
+          child: ListTile(
+            leading: Icon(Icons.home),
+            title: Text(
+                LanguageConstants.anaSayfa[LanguageConstants.languageFlag]),
+          ),
+        ),
+        PopupMenuDivider(),
+        PopupMenuItem(
+          value: 1,
+          child: ListTile(
+            leading: Icon(Icons.info),
+            title: Text(
+                LanguageConstants.hakkinda[LanguageConstants.languageFlag]),
+          ),
+        ),
+        PopupMenuDivider(),
+        PopupMenuItem(
+          value: 2,
+          child: ListTile(
+            leading: Icon(Icons.info),
+            title: Text(LanguageConstants
+                .uygulamaHakkinda[LanguageConstants.languageFlag]),
+          ),
+        ),
+        PopupMenuDivider(),
+        PopupMenuItem(
+          value: 3,
+          child: ListTile(
+            leading: Icon(Icons.admin_panel_settings),
+            title: Text(
+                LanguageConstants.adminPaneli[LanguageConstants.languageFlag]),
+          ),
+        ),
+        PopupMenuDivider(),
+        PopupMenuItem(
+          value: 4,
+          child: ListTile(
+            leading: Icon(Icons.logout),
+            title:
+            Text(LanguageConstants.cikis[LanguageConstants.languageFlag]),
+          ),
+        ),
+        PopupMenuDivider(),
+        PopupMenuItem(
+          value: 5,
+          child: ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text(LanguageConstants
+                .uygulamayiKapat[LanguageConstants.languageFlag]),
+          ),
+        ),
+      ],
+      onSelected: (value) {
+        if (value == 0) {
+          Utils.navigateToPage(context, MainScreen());
+        } else if (value == 1) {
+          Utils.navigateToPage(context, AboutUsPage());
+        } else if (value == 2) {
+          Utils.navigateToPage(context, AboutApplicationPage());
+        } else if (value == 3) {
+          Utils.navigateToPage(context, AdminCorporatePanelPage());
         } else if (value == 4) {
           ApplicationSession.userSession = null;
           Utils.navigateToPage(context, MainScreen());

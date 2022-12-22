@@ -6,6 +6,7 @@ class ServicePoolModel {
   String serviceName;
   final bool hasChild;
   final bool isActive;
+  bool companyHasService;
   List<ServicePoolModel> childrenList;
 
   ServicePoolModel({
@@ -14,6 +15,7 @@ class ServicePoolModel {
     this.serviceName,
     this.hasChild,
     this.isActive,
+    this.companyHasService,
     this.childrenList,
   });
 
