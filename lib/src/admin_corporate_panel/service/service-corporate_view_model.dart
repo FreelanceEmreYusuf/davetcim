@@ -18,9 +18,11 @@ class ServiceCorporatePoolViewModel extends ChangeNotifier {
     List<ServicePoolModel> serviceList = await mdl.getServices();
     List<ServiceCorporatePoolModel> serviceCorporateList = await getCorporateServiceList();
 
+    for(int j = 0; j < serviceList.length; j++) {
+      serviceList[j].companyHasService = false;
+    }
     for (int i = 0; i < serviceCorporateList.length; i++) {
       for(int j = 0; j < serviceList.length; j++) {
-        serviceList[j].companyHasService = false;
         if (serviceList[j].id == serviceCorporateList[i].serviceId)  {
           serviceList[j].companyHasService = true;
         }
@@ -44,6 +46,32 @@ class ServiceCorporatePoolViewModel extends ChangeNotifier {
     }
 
     return servicesList;
+  }
+
+  Future<void> addNewService(ServicePoolModel servicePoolModel, int price, bool priceChangedForCount) async {
+    bool hasPrice = price == 0 ? false: true;
+    ServiceCorporatePoolModel servicePool = new ServiceCorporatePoolModel(
+        id: new DateTime.now().millisecondsSinceEpoch,
+        serviceId: servicePoolModel.id,
+        corporateId: ApplicationSession.userSession.corporationId,
+        price: price,
+        priceChangedForCount: priceChangedForCount,
+        hasPrice: hasPrice
+    );
+    db.editCollectionRef(DBConstants.corporationServicesDb, servicePool.toMap());
+  }
+
+  Future<void> deleteService(ServicePoolModel servicePoolModel) async {
+    CollectionReference servicesListRef =
+    db.getCollectionRef(DBConstants.corporationServicesDb);
+    var response = await servicesListRef
+        .where('corporateId', isEqualTo: ApplicationSession.userSession.corporationId)
+        .where('serviceId', isEqualTo: servicePoolModel.id).get();
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      Map item = list[0].data();
+      db.deleteDocument(DBConstants.corporationServicesDb, item['id'].toString());
+    }
   }
 
 }

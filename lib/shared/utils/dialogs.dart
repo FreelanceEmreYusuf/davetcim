@@ -106,7 +106,11 @@ class Dialogs {
     Widget continueButton = TextButton(
       child: Text(LanguageConstants.evet[LanguageConstants.languageFlag]),
       onPressed: () {
-        method(functionInput);
+        if (functionInput == '') {
+          method();
+        } else {
+          method(functionInput);
+        }
         Navigator.of(context, rootNavigator: true).pop();
       },
     );

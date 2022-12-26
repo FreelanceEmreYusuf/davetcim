@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../shared/models/service_pool_model.dart';
+import '../shared/utils/dialogs.dart';
+import '../shared/utils/language.dart';
 import '../shared/utils/utils.dart';
+import '../src/admin_corporate_panel/service/service-corporate_view_model.dart';
+import '../src/admin_corporate_panel/service/service_corporate_add_view.dart';
+import '../src/admin_corporate_panel/service/service_corporate_view.dart';
 import '../src/admin_panel/service/service_add_view.dart';
 import '../src/admin_panel/service/service_view.dart';
 import '../src/admin_panel/service/service_view_model.dart';
@@ -50,7 +55,7 @@ class _GridCorporateServicePoolState
                   child: InkWell(
                     splashColor: Colors.green, // splash color
                     onTap: () {
-                      Utils.navigateToPage(context, ServiceAddView(servicePoolModel : widget.servicePoolModel));
+                      Utils.navigateToPage(context, ServiceCorporateAddView(servicePoolModel : widget.servicePoolModel));
                     }, // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -71,9 +76,14 @@ class _GridCorporateServicePoolState
                   child: InkWell(
                     splashColor: Colors.lightBlue, // splash color
                     onTap: () async{
-                      ServicePoolViewModel service = ServicePoolViewModel();
-                      await service.deleteService(widget.servicePoolModel);
-                      Utils.navigateToPage(context, AdminServicePoolManager());
+                      await Dialogs.showDialogMessage(
+                          context,
+                          LanguageConstants
+                              .processApproveHeader[LanguageConstants.languageFlag],
+                          LanguageConstants.processApproveDeleteMessage[
+                          LanguageConstants.languageFlag],
+                          deleteService, '');
+
                     }, // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +110,9 @@ class _GridCorporateServicePoolState
                   color: Colors.red, // button color
                   child: InkWell(
                     splashColor: Colors.lightBlue, // splash color
-                    onTap: () {}, // button pressed
+                    onTap: () async {
+                     Utils.navigateToPage(context, ServiceCorporateAddView(servicePoolModel: widget.servicePoolModel));
+                    }, // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
@@ -145,6 +157,10 @@ class _GridCorporateServicePoolState
       ),
     );
   }
-
+  Future<void> deleteService() async {
+    ServiceCorporatePoolViewModel service = ServiceCorporatePoolViewModel();
+    await service.deleteService(widget.servicePoolModel);
+    Utils.navigateToPage(context, AdminCorporateServicePoolManager());
+  }
 
 }

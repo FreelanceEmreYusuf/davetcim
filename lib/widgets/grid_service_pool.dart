@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../shared/models/service_pool_model.dart';
+import '../shared/utils/dialogs.dart';
+import '../shared/utils/language.dart';
 import '../shared/utils/utils.dart';
 import '../src/admin_panel/service/service_add_view.dart';
 import '../src/admin_panel/service/service_view.dart';
@@ -70,9 +72,14 @@ class _GridServicePoolState
                 child: InkWell(
                   splashColor: Colors.lightBlue, // splash color
                   onTap: () async{
-                    ServicePoolViewModel service = ServicePoolViewModel();
-                    await service.deleteService(widget.servicePoolModel);
-                    Utils.navigateToPage(context, AdminServicePoolManager());
+                    await Dialogs.showDialogMessage(
+                        context,
+                        LanguageConstants
+                            .processApproveHeader[LanguageConstants.languageFlag],
+                        LanguageConstants.processApproveDeleteMessage[
+                        LanguageConstants.languageFlag],
+                        deleteService, '');
+
                   }, // button pressed
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +107,15 @@ class _GridServicePoolState
                 color: Colors.red, // button color
                 child: InkWell(
                   splashColor: Colors.lightBlue, // splash color
-                  onTap: () {}, // button pressed
+                  onTap: () async {
+                    await Dialogs.showDialogMessage(
+                        context,
+                        LanguageConstants
+                            .processApproveHeader[LanguageConstants.languageFlag],
+                        LanguageConstants.processApproveDeleteMessage[
+                        LanguageConstants.languageFlag],
+                        deleteService, '');
+                  }, // button pressed
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -135,6 +150,10 @@ class _GridServicePoolState
       ),
     );
   }
-
+  Future<void> deleteService() async {
+    ServicePoolViewModel service = ServicePoolViewModel();
+    await service.deleteService(widget.servicePoolModel);
+    Utils.navigateToPage(context, AdminServicePoolManager());
+  }
 
 }
