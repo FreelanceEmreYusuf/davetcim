@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../shared/models/service_corporate_pool_model.dart';
 import '../shared/models/service_pool_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/language.dart';
 import '../shared/utils/utils.dart';
 import '../src/admin_corporate_panel/service/service-corporate_view_model.dart';
 import '../src/admin_corporate_panel/service/service_corporate_add_view.dart';
+import '../src/admin_corporate_panel/service/service_corporate_update_view.dart';
 import '../src/admin_corporate_panel/service/service_corporate_view.dart';
 import '../src/admin_panel/service/service_add_view.dart';
 import '../src/admin_panel/service/service_view.dart';
@@ -54,8 +56,11 @@ class _GridCorporateServicePoolState
                   color: Colors.red, // button color
                   child: InkWell(
                     splashColor: Colors.green, // splash color
-                    onTap: () {
-                      Utils.navigateToPage(context, ServiceCorporateAddView(servicePoolModel : widget.servicePoolModel));
+                    onTap: () async{
+                      //getServiceCorporateObject
+                      ServiceCorporatePoolViewModel service = ServiceCorporatePoolViewModel();
+                      ServiceCorporatePoolModel model = await service.getServiceCorporateObject(widget.servicePoolModel.id);
+                      Utils.navigateToPage(context, ServiceCorporateUpdateView(serviceCorporatePoolModel : model));
                     }, // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,

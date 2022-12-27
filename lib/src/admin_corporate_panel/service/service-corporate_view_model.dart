@@ -61,6 +61,19 @@ class ServiceCorporatePoolViewModel extends ChangeNotifier {
     db.editCollectionRef(DBConstants.corporationServicesDb, servicePool.toMap());
   }
 
+  Future<void> updateService(ServiceCorporatePoolModel serviceCorporatePoolModel, int price, bool priceChangedForCount) async {
+    bool hasPrice = price == 0 ? false: true;
+    ServiceCorporatePoolModel servicePool = new ServiceCorporatePoolModel(
+        id: serviceCorporatePoolModel.id,
+        serviceId: serviceCorporatePoolModel.serviceId,
+        corporateId: ApplicationSession.userSession.corporationId,
+        price: price,
+        priceChangedForCount: priceChangedForCount,
+        hasPrice: hasPrice
+    );
+    db.editCollectionRef(DBConstants.corporationServicesDb, servicePool.toMap());
+  }
+
   Future<void> deleteService(ServicePoolModel servicePoolModel) async {
     CollectionReference servicesListRef =
     db.getCollectionRef(DBConstants.corporationServicesDb);
@@ -72,6 +85,21 @@ class ServiceCorporatePoolViewModel extends ChangeNotifier {
       Map item = list[0].data();
       db.deleteDocument(DBConstants.corporationServicesDb, item['id'].toString());
     }
+  }
+
+  Future<ServiceCorporatePoolModel> getServiceCorporateObject(int serviceId) async {
+    CollectionReference servicesListRef =
+    db.getCollectionRef(DBConstants.corporationServicesDb);
+    var response = await servicesListRef
+        .where('corporateId', isEqualTo: ApplicationSession.userSession.corporationId)
+        .where('serviceId', isEqualTo: serviceId).get();
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      Map item = list[0].data();
+      ServiceCorporatePoolModel model = ServiceCorporatePoolModel.fromMap(item);
+      return model;
+    }
+    return null;
   }
 
 }
