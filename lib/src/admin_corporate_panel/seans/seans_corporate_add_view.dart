@@ -44,7 +44,7 @@ class _State extends State<SeansCorporateAddView> {
                     padding: EdgeInsets.all(10),
                     child: TextFormField(
                       controller: priceController,
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Seans İsmi (Sabah Seansı 10:00-14:00)",
