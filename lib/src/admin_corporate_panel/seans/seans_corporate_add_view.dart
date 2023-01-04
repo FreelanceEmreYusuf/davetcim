@@ -1,4 +1,5 @@
 import 'package:davetcim/shared/utils/utils.dart';
+import 'package:davetcim/src/admin_corporate_panel/seans/seans_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service-corporate_view_model.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_view.dart';
 import 'package:davetcim/src/admin_panel/service/service_view.dart';
@@ -11,10 +12,10 @@ import '../../../shared/utils/form_control.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 
 
-class ServiceCorporateAddView extends StatefulWidget {
+class SeansCorporateAddView extends StatefulWidget {
   final ServicePoolModel servicePoolModel;
 
-  ServiceCorporateAddView({
+  SeansCorporateAddView({
     Key key,
     @required this.servicePoolModel,
   }) : super(key: key);
@@ -23,7 +24,7 @@ class ServiceCorporateAddView extends StatefulWidget {
   State<StatefulWidget> createState() => new _State();
 }
 
-class _State extends State<ServiceCorporateAddView> {
+class _State extends State<SeansCorporateAddView> {
   TextEditingController priceController = TextEditingController();
   bool checkedCountPriceValue = false;
   bool hasPrice = false;
@@ -32,7 +33,7 @@ class _State extends State<ServiceCorporateAddView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarMenu(pageName: "Salon Hizmet Yönetimi", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+        appBar: AppBarMenu(pageName: "Seans Ekle", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
         body: Padding(
             padding: EdgeInsets.all(10),
             child: Form(
@@ -46,7 +47,7 @@ class _State extends State<ServiceCorporateAddView> {
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: "Fiyat (Ücretisiz ise 0 giriniz)",
+                        labelText: "Seans İsmi (Sabah Seansı 10:00-14:00)",
                       ),
                       validator: (value) {
                         return FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));
@@ -55,17 +56,32 @@ class _State extends State<ServiceCorporateAddView> {
                   ),
                   SizedBox(height: 20.0),
                   Container(
-                    height: MediaQuery.of(context).size.height / 15,
-                    child: CheckboxListTile(
-                      title: Text("Fiyat kişi sayısına göre çarpılacak mı?"),
-                      value: checkedCountPriceValue,
-                      onChanged: (newValue) {
-                        setState(() {
-                          checkedCountPriceValue = newValue;
-                        });
+                    padding: EdgeInsets.all(10),
+                    child: TextFormField(
+                      controller: priceController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Hafta İçi Saatlik Seans Ücreti (TL)",
+                      ),
+                      validator: (value) {
+                        return FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));
                       },
-                      controlAffinity:
-                      ListTileControlAffinity.leading, //  <-- leading Checkbox
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  Container(
+                    padding: EdgeInsets.all(10),
+                    child: TextFormField(
+                      controller: priceController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Hafta Sonu Saatlik Seans Ücreti (TL)",
+                      ),
+                      validator: (value) {
+                        return FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));
+                      },
                     ),
                   ),
                   SizedBox(height: 20.0),
@@ -78,12 +94,12 @@ class _State extends State<ServiceCorporateAddView> {
                         color: Constants.darkAccent,
                         child: Text("Ekle"),
                         onPressed: () async {
-                          if (registerFormKey.currentState.validate()) {
+                          /*if (registerFormKey.currentState.validate()) {
                             ServiceCorporatePoolViewModel service = ServiceCorporatePoolViewModel();
-                            await service.addNewService(widget.servicePoolModel,  int.parse(priceController.text), checkedCountPriceValue);
-                            Utils.navigateToPage(context, AdminCorporateServicePoolManager());
+                            await service.addNewService(widget.servicePoolModel,  int.parse(priceController.text), checkedCountPriceValue);*/
+                            Utils.navigateToPage(context, SeansCorporateView());
                           }
-                        },
+                        //},
                       )),
                 ],
               ),

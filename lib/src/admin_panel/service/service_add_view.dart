@@ -78,7 +78,7 @@ class _State extends State<ServiceAddView> {
                       height: 50,
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       // ignore: deprecated_member_use
-                      child: RaisedButton(
+                      child: MaterialButton(
                         textColor: Colors.white,
                         color: Constants.darkAccent,
                         child: Text("Ekle"),
