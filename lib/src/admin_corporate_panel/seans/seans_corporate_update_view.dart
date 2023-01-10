@@ -4,22 +4,36 @@ import 'package:davetcim/src/admin_corporate_panel/seans/seans_corporate_view_mo
 import 'package:flutter/material.dart';
 
 import '../../../shared/environments/const.dart';
+import '../../../shared/models/corporate_sessions_model.dart';
 import '../../../shared/models/service_pool_model.dart';
 import '../../../shared/utils/form_control.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 
 
-class SeansCorporateAddView extends StatefulWidget {
+class SeansCorporateUpdateView extends StatefulWidget {
+  final CorporateSessionsModel sessionModel;
+
+  SeansCorporateUpdateView({
+    Key key,
+    @required this.sessionModel,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => new _State();
 }
 
-class _State extends State<SeansCorporateAddView> {
+class _State extends State<SeansCorporateUpdateView> {
   TextEditingController sessionNameController = TextEditingController();
   TextEditingController midweekPriceController = TextEditingController();
   TextEditingController weekendPriceController = TextEditingController();
   final registerFormKey = GlobalKey <FormState> ();
+
+  @override
+  void initState() {
+    sessionNameController.text = widget.sessionModel.name;
+    midweekPriceController.text =  widget.sessionModel.midweekPrice.toString();
+    weekendPriceController.text =  widget.sessionModel.weekendPrice.toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,12 +97,13 @@ class _State extends State<SeansCorporateAddView> {
                       child: MaterialButton(
                         textColor: Colors.white,
                         color: Constants.darkAccent,
-                        child: Text("Ekle"),
+                        child: Text("Güncelle"),
                         onPressed: () async {
                           if (registerFormKey.currentState.validate()) {
                             CorporateSessionsViewModel service = CorporateSessionsViewModel();
-                            await service.addNewSession(sessionNameController.text, int.parse(midweekPriceController.text),
-                              int.parse(weekendPriceController.text));
+                            await service.updateSession(widget.sessionModel.id,
+                                sessionNameController.text, int.parse(midweekPriceController.text),
+                                int.parse(weekendPriceController.text));
                             Utils.navigateToPage(context, SeansCorporateView());
                           }
                         }
