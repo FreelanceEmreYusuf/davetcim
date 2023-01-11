@@ -12,13 +12,15 @@ import '../../shared/models/reservation_model.dart';
 import '../../shared/sessions/application_session.dart';
 import '../../shared/utils/utils.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
+import '../../widgets/carousel_calender_order_widget.dart';
 import '../../widgets/carousel_calender_widget.dart';
 import '../../widgets/hashtag_widget.dart';
 import '../../widgets/star_and_comment.dart';
 import '../fav_products/fav_products_view_model.dart';
 import '../reservation/reservation_view_model.dart';
-import '../select-orders/order_view.dart';
-import '../select-orders/order_view_model.dart';
+import '../select-orders/calender/calendar_view.dart';
+import '../select-orders/properties/order_view.dart';
+import '../select-orders/properties/order_view_model.dart';
 
 class ProductDetails extends StatefulWidget {
   @override
@@ -259,7 +261,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                   ),
                   new SizedBox(height: 20.0),
-                  new Padding(child: CalenderCarousel(reservationList: reservationList,), padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))),
+                  new Padding(child: CalenderCarousel(reservationList: reservationList,corporationId: widget.corporationId, ), padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))),
                   new SizedBox(width: 10.0),
                   new Container(
                     alignment: AlignmentDirectional.center,
@@ -316,10 +318,8 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
             onPressed: () {
-              Utils.navigateToPage(context, OrderScreen(corporationId: widget.corporationId,
-              invitationList: invitationList,
-                organizationTypeList: organizationTypeList,
-                sequenceOrderList: sequenceOrderList,));
+              Utils.navigateToPage(context, CalendarScreen(corporationId: widget.corporationId,
+              reservationList: reservationList));
             },
           ),
         ),

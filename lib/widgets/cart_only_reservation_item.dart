@@ -4,29 +4,42 @@ import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
 import '../shared/models/corporate_sessions_model.dart';
+import '../shared/models/reservation_model.dart';
 import '../src/reservation/reservation_view_model.dart';
 
-class CartReservationItem extends StatefulWidget {
-  final CorporateSessionsModel item;
+class CartOnlyReservationItem extends StatefulWidget {
+  final ReservationModel item;
 
-  CartReservationItem(
+  CartOnlyReservationItem(
       {Key key,
       @required this.item,})
       : super(key: key);
 
   @override
-  State<CartReservationItem> createState() => _CartReservationItemState();
+  State<CartOnlyReservationItem> createState() => _CartOnlyReservationItemState();
 }
 
-class _CartReservationItemState extends State<CartReservationItem> {
+class _CartOnlyReservationItemState extends State<CartOnlyReservationItem> {
+
+  CorporateSessionsModel sessionModel =
+    new CorporateSessionsModel(id : 0, corporationId : 0, name : "", midweekPrice : 0,weekendPrice : 0);
+
+  @override
+  void initState() {
+    getSessionData();
+  }
+
+  void getSessionData() async {
+    ReservationViewModel rvm = ReservationViewModel();
+    sessionModel = await rvm.getSessionDetail(widget.item.sessionId);
+
+    setState(() {
+      sessionModel = sessionModel;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    Color color = Colors.green;
-    String reserveInfo = "Bu Seans Müsait";
-    if (widget.item.hasReservation) {
-      color = Colors.red;
-      reserveInfo = "Rezerve Edilmiştir";
-    }
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
       child: Card(
@@ -34,12 +47,11 @@ class _CartReservationItemState extends State<CartReservationItem> {
         child: ListView(
           children: <Widget>[
             ListTile(
-              subtitle: Text(reserveInfo),
+              subtitle: Text("Rezerve Edilmiştir"),
               title: Text(
-                widget.item.name,
+                sessionModel.name,
                 style: TextStyle(
                   fontSize: 15,
-                  color: color,
                   fontWeight: FontWeight.w900,
                 ),
               ),

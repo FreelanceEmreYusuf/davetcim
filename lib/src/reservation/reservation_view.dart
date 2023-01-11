@@ -11,6 +11,7 @@ import '../../shared/environments/const.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/utils/date_utils.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
+import '../../widgets/cart_only_reservation_item.dart';
 import '../../widgets/cart_reservation_item.dart';
 import '../../widgets/on_error/somethingWentWrong.dart';
 
@@ -60,8 +61,7 @@ class _ReservationViewScreenState extends State<ReservationViewScreen>  {
                             : reservationList.length,
                         itemBuilder: (BuildContext context, int index) {
                           ReservationModel item = reservationList[index];
-                          return CartReservationItem(startTime: DateConversionUtils.convertIntTimeToString(item.startTime),
-                              endTime: DateConversionUtils.convertIntTimeToString(item.endTime));
+                          return CartOnlyReservationItem(item: item);
                         },
                       ),
                     ),

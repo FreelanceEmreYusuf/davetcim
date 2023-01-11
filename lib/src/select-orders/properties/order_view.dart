@@ -2,8 +2,8 @@ import 'package:davetcim/shared/models/combo_generic_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../widgets/app_bar/app_bar_view.dart';
-import 'order_view_model.dart';
+import '../../../widgets/app_bar/app_bar_view.dart';
+import '../properties/order_view_model.dart';
 
 class OrderScreen extends StatefulWidget {
   @override

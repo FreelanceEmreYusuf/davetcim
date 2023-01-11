@@ -7,8 +7,7 @@ class ReservationModel {
   final int cost;
   final int date;
   final String description;
-  final int endTime;
-  final int startTime;
+  final int sessionId;
   final bool isMoneyTransfered;
 
   ReservationModel({
@@ -18,9 +17,8 @@ class ReservationModel {
     this.cost,
     this.date,
     this.description,
-    this.endTime,
-    this.startTime,
-    this.isMoneyTransfered
+    this.sessionId,
+    this.isMoneyTransfered,
   });
 
   ///Object to map
@@ -31,8 +29,7 @@ class ReservationModel {
     'cost': cost,
     'date': date,
     'description': description,
-    'endTime': endTime,
-    'startTime': startTime,
+    'sessionId': sessionId,
     'isMoneyTransfered': isMoneyTransfered
   };
 
@@ -44,8 +41,7 @@ class ReservationModel {
     cost:  map['cost'],
     date: map['date'],
     description: map['description'],
-    endTime: map['endTime'],
-    startTime: map['startTime'],
+    sessionId: map['sessionId'],
     isMoneyTransfered: map['isMoneyTransfered']
   );
 }

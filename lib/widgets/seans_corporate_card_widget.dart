@@ -79,9 +79,13 @@ class _SeansCorporateCardWidgetState
                   child: InkWell(
                     splashColor: Colors.red, // splash color
                     onTap: () async{
-                      CorporateSessionsViewModel service = CorporateSessionsViewModel();
-                      await service.deleteSession(widget.model.id);
-                      Utils.navigateToPage(context, SeansCorporateView());
+                      await Dialogs.showDialogMessage(
+                          context,
+                          LanguageConstants
+                              .processApproveHeader[LanguageConstants.languageFlag],
+                          LanguageConstants.processApproveDeleteMessage[
+                          LanguageConstants.languageFlag],
+                          deleteService, '');
                     }, // button pressed
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -105,6 +109,12 @@ class _SeansCorporateCardWidgetState
         ),
       ),
     );
+  }
+
+  Future<void> deleteService() async {
+    CorporateSessionsViewModel service = CorporateSessionsViewModel();
+    await service.deleteSession(widget.model.id);
+    Utils.navigateToPage(context, SeansCorporateView());
   }
 
 }

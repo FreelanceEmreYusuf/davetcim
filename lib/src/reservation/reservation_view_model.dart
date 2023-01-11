@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../shared/models/corporate_sessions_model.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/services/database.dart';
 import '../../shared/utils/date_utils.dart';
@@ -39,6 +41,82 @@ class ReservationViewModel extends ChangeNotifier {
         .map((event) => event.map((e) => ReservationModel.fromMap(e.data())).toList());
 
     return reservationModellist;
+  }
+
+  Future<CorporateSessionsModel> getSessionDetail(int sessionId) async {
+    var response = await db
+        .getCollectionRef(DBConstants.corporationSessionsDb)
+        .where('id', isEqualTo: sessionId)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      Map item = list[0].data();
+      CorporateSessionsModel model = CorporateSessionsModel.fromMap(item);
+      return model;
+    }
+
+    return null;
+  }
+
+
+  Future<List<CorporateSessionsModel>> getSessionReservationExtraction(int corporateId, int date) async {
+    List<CorporateSessionsModel> sessionList = await getSessionList(corporateId);
+    List<ReservationModel> reservationList =  await getReservationWithDatelist(corporateId, date);
+
+    for (int i = 0; i < sessionList.length; i++) {
+      CorporateSessionsModel sessionModel = sessionList[i];
+      sessionModel.hasReservation = false;
+
+      for(int j = 0; j < reservationList.length; j++) {
+        ReservationModel reservationModel = reservationList[j];
+
+        if (sessionModel.id == reservationModel.sessionId) {
+          sessionModel.hasReservation = true;
+        }
+      }
+    }
+
+    return sessionList;
+  }
+
+  Future<List<CorporateSessionsModel>> getSessionList(int corporateId) async {
+    List<CorporateSessionsModel> sessionList = [];
+    List<ReservationModel> reservationList = [];
+
+    var response = await db
+        .getCollectionRef(DBConstants.corporationSessionsDb)
+        .where('corporationId', isEqualTo: corporateId)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        sessionList.add(CorporateSessionsModel.fromMap(item));
+      }
+    }
+
+    return sessionList;
+  }
+
+  Future<List<ReservationModel>> getReservationWithDatelist(int corporateId, int date) async {
+    var response = await db
+        .getCollectionRef("CorporationReservations")
+        .where('corporationId', isEqualTo: corporateId)
+        .where('date', isEqualTo: date)
+        .get();
+
+    List<ReservationModel> corpModelList = [];
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        corpModelList.add(ReservationModel.fromMap(item));
+      }
+    }
+
+    return corpModelList;
   }
 
 }

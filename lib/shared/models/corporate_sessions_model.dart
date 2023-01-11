@@ -6,6 +6,7 @@ class CorporateSessionsModel {
   final String name;
   final int midweekPrice;
   final int weekendPrice;
+  bool hasReservation;
 
   CorporateSessionsModel({
     this.id,
@@ -13,6 +14,7 @@ class CorporateSessionsModel {
     this.name,
     this.midweekPrice,
     this.weekendPrice,
+    this.hasReservation,
   });
 
   ///Object to map

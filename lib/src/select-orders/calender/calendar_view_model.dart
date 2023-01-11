@@ -4,7 +4,7 @@ import 'package:davetcim/shared/models/combo_generic_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../shared/models/corporation_model.dart';
+import '../../../shared/models/corporation_model.dart';
 
 class OrderViewModel extends ChangeNotifier {
   Database db = Database();
