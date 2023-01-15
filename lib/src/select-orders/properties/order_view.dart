@@ -2,23 +2,18 @@ import 'package:davetcim/shared/models/combo_generic_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../shared/dto/basket_user_model.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../properties/order_view_model.dart';
 
 class OrderScreen extends StatefulWidget {
   @override
   _OrderScreenState createState() => _OrderScreenState();
-  final int corporationId;
-  final List<ComboGenericModel> organizationTypeList;
-  final List<ComboGenericModel> sequenceOrderList;
-  final List<ComboGenericModel> invitationList;
+  final BasketUserModel basketModel;
 
   OrderScreen(
       {Key key,
-        @required this.corporationId,
-        @required this.organizationTypeList,
-        @required this.sequenceOrderList,
-        @required this.invitationList,
+        @required this.basketModel,
       })
       : super(key: key);
 
@@ -106,7 +101,7 @@ class _OrderScreenState extends State<OrderScreen>
                                 _cardDivisionSize),
                       ),
                       Text(
-                        widget.invitationList[selectedInvitationIndex].text,
+                        widget.basketModel.invitationList[selectedInvitationIndex].text,
                         style: TextStyle(fontSize: 18.0),
                       ),
                       SizedBox(
@@ -129,9 +124,9 @@ class _OrderScreenState extends State<OrderScreen>
                                 });
                               },
                               children: new List<Widget>.generate(
-                                  widget.invitationList.length, (int index) {
+                                  widget.basketModel.invitationList.length, (int index) {
                                 return new Center(
-                                  child: new Text(widget.invitationList[index].text),
+                                  child: new Text(widget.basketModel.invitationList[index].text),
                                 );
                               })),
                         );
@@ -369,7 +364,7 @@ class _OrderScreenState extends State<OrderScreen>
                                 _cardDivisionSize),
                       ),
                       Text(
-                        widget.organizationTypeList[selectedOrganizationIndex].text,
+                        widget.basketModel.organizationTypeList[selectedOrganizationIndex].text,
                         style: TextStyle(fontSize: 18.0),
                       ),
                       SizedBox(
@@ -392,10 +387,10 @@ class _OrderScreenState extends State<OrderScreen>
                                 });
                               },
                               children: new List<Widget>.generate(
-                                  widget.organizationTypeList.length, (int index) {
+                                  widget.basketModel.organizationTypeList.length, (int index) {
                                 return new Center(
                                   child: new Text(
-                                      widget.organizationTypeList[index].text),
+                                      widget.basketModel.organizationTypeList[index].text),
                                 );
                               })),
                         );
@@ -424,7 +419,7 @@ class _OrderScreenState extends State<OrderScreen>
                                 _cardDivisionSize),
                       ),
                       Text(
-                        widget.sequenceOrderList[selectedSeatingArrangement].text,
+                        widget.basketModel.sequenceOrderList[selectedSeatingArrangement].text,
                         style: TextStyle(fontSize: 18.0),
                       ),
                       SizedBox(
@@ -447,10 +442,10 @@ class _OrderScreenState extends State<OrderScreen>
                                 });
                               },
                               children: new List<Widget>.generate(
-                                  widget.sequenceOrderList.length, (int index) {
+                                  widget.basketModel.sequenceOrderList.length, (int index) {
                                 return new Center(
                                   child:
-                                      new Text(widget.sequenceOrderList[index].text),
+                                      new Text(widget.basketModel.sequenceOrderList[index].text),
                                 );
                               })),
                         );

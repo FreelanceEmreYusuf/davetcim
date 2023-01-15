@@ -7,6 +7,7 @@ import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/badge.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
+import '../../shared/dto/basket_user_model.dart';
 import '../../shared/models/combo_generic_model.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/sessions/application_session.dart';
@@ -318,8 +319,9 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
             onPressed: () {
-              Utils.navigateToPage(context, CalendarScreen(corporationId: widget.corporationId,
-              reservationList: reservationList));
+              BasketUserModel model = new BasketUserModel(
+                  0, widget.corporationId, 0, organizationTypeList, invitationList, sequenceOrderList, reservationList, null);
+              Utils.navigateToPage(context, CalendarScreen(basketModel: model));
             },
           ),
         ),

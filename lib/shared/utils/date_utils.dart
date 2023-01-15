@@ -17,9 +17,23 @@ class DateConversionUtils {
     );
   }
 
+  static int getWeekDayFromIntDate(int intDate) {
+    DateTime dt = getDateTimeFromIntDate(intDate);
+    return dt.weekday;
+  }
+
+  static bool isWeekendFromIntDate(int intDate) {
+    int weekDay = getWeekDayFromIntDate(intDate);
+    return (weekDay == 6) || (weekDay == 7);
+  }
+
   static String convertIntTimeToString(int timeInt) {
     String timeStr = timeInt.toString().padLeft(4, '0');
     return timeStr.substring(0, 2) + ":" + timeStr.substring(2, 4);
+  }
+
+  static bool isOldDate (DateTime dt) {
+    return dt.isBefore(DateTime.now().add(const Duration(days: -1)));
   }
 
 }

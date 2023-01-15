@@ -7,6 +7,7 @@ import 'package:davetcim/widgets/badge.dart';
 import 'package:provider/provider.dart';
 
 import '../../screens/notifications.dart';
+import '../../shared/dto/basket_user_model.dart';
 import '../../shared/environments/const.dart';
 import '../../shared/models/corporate_sessions_model.dart';
 import '../../shared/models/reservation_model.dart';
@@ -19,10 +20,8 @@ class ReservationOrderViewScreen extends StatefulWidget {
   @override
   _ReservationOrderViewScreenState createState() => _ReservationOrderViewScreenState();
 
-  final int corporateId;
-  final DateTime dateTime;
-
-  const ReservationOrderViewScreen(this.corporateId, this.dateTime);
+  final BasketUserModel basketModel;
+  const ReservationOrderViewScreen(this.basketModel);
 }
 
 class _ReservationOrderViewScreenState extends State<ReservationOrderViewScreen>  {
@@ -32,11 +31,13 @@ class _ReservationOrderViewScreenState extends State<ReservationOrderViewScreen>
   @override
   void initState() {
     callGetReservationList();
+
   }
 
   void callGetReservationList() async {
     ReservationViewModel rvm = ReservationViewModel();
-    reservationList = await rvm.getSessionReservationExtraction(widget.corporateId, DateConversionUtils.getCurrentDateAsInt(widget.dateTime));
+    reservationList = await rvm.getSessionReservationExtraction(widget.basketModel.corporationId,
+        widget.basketModel.date);
 
     setState(() {
       reservationList = reservationList;
@@ -50,7 +51,7 @@ class _ReservationOrderViewScreenState extends State<ReservationOrderViewScreen>
       return Scaffold();
     }
     return Scaffold(
-      appBar: AppBarMenu(pageName: widget.dateTime.toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: GridView.builder(
@@ -69,7 +70,8 @@ class _ReservationOrderViewScreenState extends State<ReservationOrderViewScreen>
               : reservationList.length,
           itemBuilder: (BuildContext context, int index) {
             CorporateSessionsModel item = reservationList[index];
-            return CartReservationItem(item: item);
+            widget.basketModel.sessionModel = item;
+            return CartReservationItem(basketModel: widget.basketModel);
           },
         ),
       ),

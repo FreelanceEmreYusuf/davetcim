@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
+import '../shared/dto/basket_user_model.dart';
 import '../shared/models/reservation_model.dart';
 import '../shared/utils/utils.dart';
 import '../src/reservation/reservation_order_view.dart';
@@ -11,10 +12,9 @@ import '../src/reservation/reservation_view.dart';
 class CalenderOrderCarousel extends StatefulWidget {
 
   //final IconData icon;
-  final List<ReservationModel> reservationList;
-  final int corporationId;
+  final BasketUserModel basketModel;
 
-  CalenderOrderCarousel({Key key, @required this.reservationList, this.corporationId})
+  CalenderOrderCarousel({Key key, @required this.basketModel})
   : super(key: key);
 
   @override
@@ -40,12 +40,12 @@ class _CalenderOrderCarouselState extends State<CalenderOrderCarousel> {
 
   void loadDates() {
     _markedDateMap.clear();
-    for (int i = 0; i < widget.reservationList.length; i++) {
+    for (int i = 0; i < widget.basketModel.reservationList.length; i++) {
       _markedDateMap.add(
-          DateConversionUtils.getDateTimeFromIntDate(widget.reservationList[i].date),
+          DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.reservationList[i].date),
           new Event(
-            date: DateConversionUtils.getDateTimeFromIntDate(widget.reservationList[i].date),
-            title: widget.reservationList[i].description,
+            date: DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.reservationList[i].date),
+            title: widget.basketModel.reservationList[i].description,
             //icon: Icon(Icons.access_alarms, color: Colors.blueAccent),
             dot: Container(
               margin: EdgeInsets.symmetric(horizontal: 1.0),
@@ -66,7 +66,8 @@ class _CalenderOrderCarouselState extends State<CalenderOrderCarousel> {
       child: CalendarCarousel<Event>(
         onDayPressed: (DateTime date, List<Event> events) {
           this.setState(() => _currentDate = date);
-          Utils.navigateToPage(context, ReservationOrderViewScreen(widget.corporationId, date));
+          widget.basketModel.date = DateConversionUtils.getCurrentDateAsInt(date);
+          Utils.navigateToPage(context, ReservationOrderViewScreen(widget.basketModel));
         },
         weekendTextStyle: TextStyle(
           color: Colors.red,
