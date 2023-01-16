@@ -1,10 +1,12 @@
-import 'package:davetcim/shared/models/combo_generic_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/dto/basket_user_model.dart';
+import '../../../shared/dto/order_basket_model.dart';
+import '../../../shared/utils/form_control.dart';
+import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
-import '../properties/order_view_model.dart';
+import '../services/services_view.dart';
 
 class OrderScreen extends StatefulWidget {
   @override
@@ -30,7 +32,8 @@ class _OrderScreenState extends State<OrderScreen>
   int selectedInvitationIndex = 0;
   int selectedOrganizationIndex = 0;
   int _cardDivisionSize = 20;
-  final TextEditingController _searchControl = new TextEditingController();
+  final TextEditingController personCountControl = new TextEditingController();
+  final registerFormKey = GlobalKey <FormState> ();
 
   DateTime date = DateTime.now().toLocal();
   DateTime time = DateTime.now().toLocal();
@@ -64,10 +67,17 @@ class _OrderScreenState extends State<OrderScreen>
   Widget build(BuildContext context) {
     super.build(context);
 
-
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
+          if (registerFormKey.currentState.validate()) {
+            OrderBasketModel orderBasketModel = new OrderBasketModel(
+                int.parse(personCountControl.text),
+                widget.basketModel.invitationList[selectedInvitationIndex].text,
+                widget.basketModel.sequenceOrderList[selectedSeatingArrangement].text);
+            widget.basketModel.orderBasketModel = orderBasketModel;
+            Utils.navigateToPage(context, ServicesScreen(basketModel: widget.basketModel));
+          }
         },
         label: const Text('Devam'),
         icon: const Icon(Icons.filter_list),
@@ -133,270 +143,6 @@ class _OrderScreenState extends State<OrderScreen>
                       });
                 },
               ),
-              Card(
-                elevation: 3.0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        MediaQuery.of(context).size.width / 20, 0, 0, 0),
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.black,
-                      ),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.white,
-                          ),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        hintText: "Davetli Sayısı gir..",
-                        prefixIcon: Icon(
-                          Icons.person,
-                          color: Colors.redAccent,
-                        ),
-                        hintStyle: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.redAccent,
-                        ),
-                      ),
-                      textAlignVertical: TextAlignVertical.center,
-                      maxLines: 1,
-                      keyboardType: TextInputType.number,
-                      controller: _searchControl,
-                    ),
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: checkedValue,
-                child: CupertinoPageScaffold(
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            _showDialog(
-                              CupertinoDatePicker(
-                                initialDateTime: date,
-                                mode: CupertinoDatePickerMode.date,
-                                use24hFormat: true,
-                                // This is called when the user changes the date.
-                                onDateTimeChanged: (DateTime newDate) {
-                                  setState(() => date = newDate);
-                                },
-                              ),
-                            );
-                          },
-                          child: Card(
-                            elevation: 3.0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                CupertinoButton(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize),
-                                  child: Text(
-                                    'Tarih',
-                                    style: kStyle,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Text(
-                                  '${date.month}-${date.day}-${date.year}',
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            _showDialog(
-                              CupertinoDatePicker(
-                                initialDateTime: time,
-                                mode: CupertinoDatePickerMode.time,
-                                use24hFormat: true,
-                                // This is called when the user changes the time.
-                                onDateTimeChanged: (DateTime newTime) {
-                                  setState(() => time = newTime);
-                                },
-                              ),
-                            );
-                          },
-                          child: Card(
-                            elevation: 3.0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                CupertinoButton(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize),
-                                  child: Text(
-                                    'Başlangıç Saati',
-                                    style: kStyle,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Text(
-                                  '${time.hour}:${time.minute}',
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            _showDialog(
-                              CupertinoDatePicker(
-                                initialDateTime: endTime,
-                                mode: CupertinoDatePickerMode.time,
-                                use24hFormat: true,
-                                // This is called when the user changes the time.
-                                onDateTimeChanged: (DateTime newTime) {
-                                  setState(() => endTime = newTime);
-                                },
-                              ),
-                            );
-                          },
-                          child: Card(
-                            elevation: 3.0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                CupertinoButton(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize),
-                                  child: Text(
-                                    'Bitiş Saati',
-                                    style: kStyle,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Text(
-                                  '${endTime.hour}:${endTime.minute}',
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              GestureDetector(
-                child: Card(
-                  elevation: 3.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      CupertinoButton(
-                        child: Text(
-                          "Mekan Türü",
-                          style: kStyle,
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize),
-                      ),
-                      Text(
-                        widget.basketModel.organizationTypeList[selectedOrganizationIndex].text,
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedOrganizationIndex = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  widget.basketModel.organizationTypeList.length, (int index) {
-                                return new Center(
-                                  child: new Text(
-                                      widget.basketModel.organizationTypeList[index].text),
-                                );
-                              })),
-                        );
-                      });
-                },
-              ),
               GestureDetector(
                 child: Card(
                   elevation: 3.0,
@@ -451,6 +197,62 @@ class _OrderScreenState extends State<OrderScreen>
                         );
                       });
                 },
+              ),
+              Form(
+                key: registerFormKey,
+                child: Card(
+                  elevation: 3.0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(5.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(
+                          MediaQuery.of(context).size.width / 20, 0, 0, 0),
+                      child: TextFormField(
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 15.0,
+                          color: Colors.black,
+                        ),
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.all(10.0),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                            ),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.white,
+                            ),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          hintText: "Davetli Sayısı gir..",
+                          prefixIcon: Icon(
+                            Icons.person,
+                            color: Colors.redAccent,
+                          ),
+                          hintStyle: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.redAccent,
+                          ),
+                        ),
+                        validator: (value) {
+                          return FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));
+                        },
+                        textAlignVertical: TextAlignVertical.center,
+                        maxLines: 1,
+                        keyboardType: TextInputType.number,
+                        controller: personCountControl,
+                      ),
+                    ),
+                  ),
+                ),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 15,

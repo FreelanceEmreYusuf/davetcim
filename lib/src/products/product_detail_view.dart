@@ -320,7 +320,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             ),
             onPressed: () {
               BasketUserModel model = new BasketUserModel(
-                  0, widget.corporationId, 0, organizationTypeList, invitationList, sequenceOrderList, reservationList, null);
+                  0, widget.corporationId, 0, invitationList, sequenceOrderList, reservationList, null, null);
               Utils.navigateToPage(context, CalendarScreen(basketModel: model));
             },
           ),
