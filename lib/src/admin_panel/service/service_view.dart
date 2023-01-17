@@ -56,10 +56,10 @@ class _AdminServicePoolManagerState extends State<AdminServicePoolManager> {
                   : serviceList.length,
               itemBuilder: (BuildContext context, int index) {
                 ServicePoolModel item = serviceList[index];
-
                 return GridServicePool(servicePoolModel: item);
               },
             ),
+            SizedBox(height: 10.0),
           ],
         ),
       ),
