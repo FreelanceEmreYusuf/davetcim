@@ -1,10 +1,11 @@
-import 'package:davetcim/shared/models/combo_generic_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/dto/basket_user_model.dart';
+import '../../../shared/models/service_pool_model.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
-import '../properties/order_view_model.dart';
+import '../../../widgets/grid_corporate_service_pool_for_basket.dart';
+import '../../admin_corporate_panel/service/service-corporate_view_model.dart';
 
 class ServicesScreen extends StatefulWidget {
   @override
@@ -22,11 +23,30 @@ class ServicesScreen extends StatefulWidget {
 class _ServicesScreenState extends State<ServicesScreen>
     with AutomaticKeepAliveClientMixin<ServicesScreen> {
 
+  List<ServicePoolModel> serviceList;
+
   @override
   void initState() {
-    // TODO: implement initState
-    print("count :" + widget.basketModel.orderBasketModel.count.toString());
+    super.initState();
+    setServiceList();
   }
+
+  void setServiceList() async {
+    ServiceCorporatePoolViewModel model = ServiceCorporatePoolViewModel();
+    //serviceList = await model.getServiceList();
+    serviceList = updateServiceList(await model.getServiceList());
+    setState(() {
+      serviceList = serviceList;
+    });
+  }
+
+  List<ServicePoolModel> updateServiceList(List<ServicePoolModel> serviceList){
+    for(int i=0; i<serviceList.length; i++){
+          serviceList.removeWhere((item) => item.companyHasService == false && item.hasChild != true);
+    }
+    return serviceList;
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +55,49 @@ class _ServicesScreenState extends State<ServicesScreen>
 
     return Scaffold(
       appBar: AppBarMenu(pageName: "Hizmetler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
-      body: Container()
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+        child: ListView(
+          children: <Widget>[
+            Divider(),
+            SizedBox(height: 10.0),
+            GridView.builder(
+              shrinkWrap: true,
+              primary: false,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                childAspectRatio: MediaQuery.of(context).size.width /
+                    (MediaQuery.of(context).size.height / 12),
+              ),
+              itemCount: serviceList == null
+                  ? 0
+                  : serviceList.length,
+              itemBuilder: (BuildContext context, int index) {
+                ServicePoolModel item = serviceList[index];
+
+                return GridCorporateServicePoolForBasket(servicePoolModel: item);
+              },
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.all(5.0),
+        height: 50.0,
+        child: TextButton(
+          style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
+          child: Text(
+            "DEVAM ET",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          onPressed: () {
+            //TODO:
+          },
+        ),
+      ),
     );
   }
 

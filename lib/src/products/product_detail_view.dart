@@ -11,6 +11,7 @@ import '../../shared/dto/basket_user_model.dart';
 import '../../shared/models/combo_generic_model.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/sessions/application_session.dart';
+import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/utils.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/carousel_calender_order_widget.dart';
@@ -18,6 +19,7 @@ import '../../widgets/carousel_calender_widget.dart';
 import '../../widgets/hashtag_widget.dart';
 import '../../widgets/star_and_comment.dart';
 import '../fav_products/fav_products_view_model.dart';
+import '../join/join_view.dart';
 import '../reservation/reservation_view_model.dart';
 import '../select-orders/calender/calendar_view.dart';
 import '../select-orders/properties/order_view.dart';
@@ -144,6 +146,10 @@ class _ProductDetailsState extends State<ProductDetails> {
     return listings;
   }
 
+  static void pushToJoinPage(BuildContext context) {
+    Utils.navigateToPage(context, JoinView(childPage: new Notifications()));
+  }
+
   int _current = 0;
 
   @override
@@ -262,7 +268,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                   ),
                   new SizedBox(height: 20.0),
-                  new Padding(child: CalenderCarousel(reservationList: reservationList,corporationId: widget.corporationId, ), padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))),
+                  new Container(child: CalenderCarousel(reservationList: reservationList,corporationId: widget.corporationId, ), padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))),
                   new SizedBox(width: 10.0),
                   new Container(
                     alignment: AlignmentDirectional.center,
@@ -277,7 +283,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                   new SizedBox(height: 20.0),
                   new SingleChildScrollView(
-                    padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 12)),
+                    //padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 12)),
                     child: Column(
                         children: <Widget>[
                           Container(
@@ -309,9 +315,10 @@ class _ProductDetailsState extends State<ProductDetails> {
         ),
       ),
         bottomNavigationBar: Container(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 4.0),
           height: 50.0,
           child: TextButton(
-            style: TextButton.styleFrom(backgroundColor: Theme.of(context).accentColor,),
+            style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
             child: Text(
               "SEPETE EKLE",
               style: TextStyle(
@@ -319,9 +326,19 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
             onPressed: () {
-              BasketUserModel model = new BasketUserModel(
-                  0, widget.corporationId, 0, invitationList, sequenceOrderList, reservationList, null, null);
-              Utils.navigateToPage(context, CalendarScreen(basketModel: model));
+              if (ApplicationSession.userSession != null){
+                BasketUserModel model = new BasketUserModel(
+                    0, widget.corporationId, 0, invitationList, sequenceOrderList, reservationList, null, null);
+                Utils.navigateToPage(context, CalendarScreen(basketModel: model));
+              }
+              else{
+                Dialogs.showAlertMessageWithAction(
+                    context,
+                    "Üye girişi uyarısı",
+                    "Sepetinizi oluşturabilmeniz için önce üye girişi yapmalısınız.",
+                    pushToJoinPage);
+              }
+
             },
           ),
         ),

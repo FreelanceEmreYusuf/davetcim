@@ -321,9 +321,10 @@ class _RegisterViewState extends State<RegisterView> {
               ),//Cevap
               SizedBox(height: 15.0),
               Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 4.0),
                 height: 40.0,
                 child: TextButton(
-                  style: TextButton.styleFrom(backgroundColor: Theme.of(context).accentColor,),
+                  style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
                   child: Text(
                     "Kaydet".toUpperCase(),
                     style: TextStyle(
