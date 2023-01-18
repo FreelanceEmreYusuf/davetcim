@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../shared/dto/basket_user_model.dart';
 import '../shared/models/service_corporate_pool_model.dart';
 import '../shared/models/service_pool_model.dart';
 import '../shared/utils/dialogs.dart';
@@ -12,10 +13,12 @@ import '../src/admin_corporate_panel/service/service_corporate_view.dart';
 
 class GridCorporateServicePoolForBasket extends StatefulWidget {
   final ServicePoolModel servicePoolModel;
+  BasketUserModel basketModel;
 
   GridCorporateServicePoolForBasket({
     Key key,
     @required this.servicePoolModel,
+    @required this.basketModel,
   }) : super(key: key);
 
   @override
@@ -55,6 +58,35 @@ class _GridCorporateServicePoolForBasketState
             Text(
                 widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 18, color: textColor, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
             Spacer(),
+            SizedBox.fromSize(
+              size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
+              child: ClipPath(
+                child: Material(
+                  color: Colors.grey, // button color
+                  child: InkWell(
+                    splashColor: Colors.deepOrangeAccent, // splash color
+                    onTap: () async {
+                      Dialogs.showAlertMessageWithAction(
+                          context,
+                          widget.servicePoolModel.serviceName,
+                          //TODO: hizmet için fiyat bilgileri girilecek
+                          "Belirtmiş olduğunuz davetli sayısı : "+widget.basketModel.orderBasketModel.count.toString()
+                              +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ "Evet"
+                              +"\n\nHizmetin birim ücreti : "+ "10TL"+
+                              "\n\nKişi sayısı X Hizmet birim ücreti(Toplam ücret) : "+"2000TL" ,
+                          null);
+                    }, // button pressed
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.info_outline, color: Colors.white), // icon
+                        Text("Bilgi", style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
             SizedBox.fromSize(
               size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
               child: ClipPath(

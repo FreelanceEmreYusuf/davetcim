@@ -76,7 +76,7 @@ class _ServicesScreenState extends State<ServicesScreen>
               itemBuilder: (BuildContext context, int index) {
                 ServicePoolModel item = serviceList[index];
 
-                return GridCorporateServicePoolForBasket(servicePoolModel: item);
+                return GridCorporateServicePoolForBasket(servicePoolModel: item, basketModel: widget.basketModel,);
               },
             ),
           ],
