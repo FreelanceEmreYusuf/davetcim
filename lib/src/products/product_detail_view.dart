@@ -11,6 +11,7 @@ import '../../shared/dto/basket_user_model.dart';
 import '../../shared/models/combo_generic_model.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/sessions/application_session.dart';
+import '../../shared/sessions/user_basket_session.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/utils.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
@@ -328,7 +329,9 @@ class _ProductDetailsState extends State<ProductDetails> {
             onPressed: () {
               if (ApplicationSession.userSession != null){
                 BasketUserModel model = new BasketUserModel(
-                    0, widget.corporationId, 0, invitationList, sequenceOrderList, reservationList, null, null);
+                    0, widget.corporationId, 0, invitationList,
+                    sequenceOrderList, reservationList, null, null, null);
+                UserBasketSession.servicePoolModel = [];
                 Utils.navigateToPage(context, CalendarScreen(basketModel: model));
               }
               else{

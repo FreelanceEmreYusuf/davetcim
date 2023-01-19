@@ -12,46 +12,31 @@ import '../src/admin_corporate_panel/service/service_corporate_add_view.dart';
 import '../src/admin_corporate_panel/service/service_corporate_update_view.dart';
 import '../src/admin_corporate_panel/service/service_corporate_view.dart';
 
-class GridCorporateServicePoolForBasket extends StatefulWidget {
+class GridCorporateServicePoolForBasketSummary extends StatefulWidget {
   final ServicePoolModel servicePoolModel;
   BasketUserModel basketModel;
 
-  GridCorporateServicePoolForBasket({
+  GridCorporateServicePoolForBasketSummary({
     Key key,
     @required this.servicePoolModel,
     @required this.basketModel,
   }) : super(key: key);
 
   @override
-  _GridCorporateServicePoolForBasketState createState() =>
-      _GridCorporateServicePoolForBasketState();
+  _GridCorporateServicePoolForBasketSummaryState createState() =>
+      _GridCorporateServicePoolForBasketSummaryState();
 }
 
-class _GridCorporateServicePoolForBasketState
-    extends State<GridCorporateServicePoolForBasket> {
+class _GridCorporateServicePoolForBasketSummaryState
+    extends State<GridCorporateServicePoolForBasketSummary> {
 
   bool buffer = true;
   int totalPrice = 0;
-  String buttonText = "Ekle";
   String priceChangeForCount = "Evet";
-  Color buttonColor = Colors.green;
-  Color textColor = Colors.red;
   IconData buttonIcon = Icons.add;
   @override
   Widget build(BuildContext context) {
     double _paddingLeftValue = 0;
-    if(widget.servicePoolModel.serviceName.substring(0,1) == "-"){
-      _paddingLeftValue = MediaQuery.of(context).size.height / 70;
-    }
-    if(widget.servicePoolModel.serviceName.substring(0,2) == "--"){
-      _paddingLeftValue = MediaQuery.of(context).size.height / 45;
-    }
-    if(widget.servicePoolModel.serviceName.substring(0,3) == "---"){
-      _paddingLeftValue = MediaQuery.of(context).size.height / 30;
-    }
-    if(widget.servicePoolModel.serviceName.substring(0,4) == "----"){
-      _paddingLeftValue = MediaQuery.of(context).size.height / 20;
-    }
 
     Row row;
     if(!widget.servicePoolModel.hasChild){
@@ -66,7 +51,7 @@ class _GridCorporateServicePoolForBasketState
         row = Row(
           children: [
             Text(
-                widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 18, color: textColor, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+                widget.servicePoolModel.serviceName.replaceAll("-", ""), style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
             Spacer(),
             SizedBox.fromSize(
               size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
@@ -92,46 +77,6 @@ class _GridCorporateServicePoolForBasketState
                       children: <Widget>[
                         Icon(Icons.info_outline, color: Colors.white), // icon
                         Text("Bilgi", style: TextStyle(color: Colors.white)),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            SizedBox.fromSize(
-              size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
-              child: ClipPath(
-                child: Material(
-                  color: buttonColor, // button color
-                  child: InkWell(
-                    splashColor: Colors.deepOrangeAccent, // splash color
-                    onTap: () async {
-                      //TODO: ekle çıkar butonlarının onclik işlemleri burada yapılacak
-                      setState(() {
-                        if(buffer==true){
-                          //hizmet sepete eklenmiş, hizmeti sepetten çıkardığımız if durumu
-                          buttonText= "Çıkar";
-                          buttonColor = Colors.red;
-                          buttonIcon = Icons.delete_rounded;
-                          textColor = Colors.green;
-                          UserBasketSession.servicePoolModel.add(widget.servicePoolModel);
-                        }else{
-                          //hizmet sepete eklenmemiş, hizmeti sepete eklediğimiz if durumu
-                          buttonText= "Ekle";
-                          buttonColor = Colors.green;
-                          buttonIcon = Icons.add;
-                          textColor = Colors.red;
-                          UserBasketSession.servicePoolModel.remove(widget.servicePoolModel);
-                        }
-                        buffer = !buffer;
-                      });
-
-                    }, // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(buttonIcon, color: Colors.white), // icon
-                        Text(buttonText, style: TextStyle(color: Colors.white)),
                       ],
                     ),
                   ),

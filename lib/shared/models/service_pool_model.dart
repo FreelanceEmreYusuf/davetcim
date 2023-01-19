@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:davetcim/shared/models/service_corporate_pool_model.dart';
+
 class ServicePoolModel {
   final int id;
   final int parentId;
@@ -7,6 +9,8 @@ class ServicePoolModel {
   final bool hasChild;
   final bool isActive;
   bool companyHasService;
+  bool userBasketSelected;
+  ServiceCorporatePoolModel corporateDetail;
   List<ServicePoolModel> childrenList;
 
   ServicePoolModel({
@@ -16,6 +20,8 @@ class ServicePoolModel {
     this.hasChild,
     this.isActive,
     this.companyHasService,
+    this.userBasketSelected,
+    this.corporateDetail,
     this.childrenList,
   });
 

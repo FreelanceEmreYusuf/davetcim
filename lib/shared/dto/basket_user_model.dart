@@ -1,3 +1,5 @@
+import 'package:davetcim/shared/models/service_pool_model.dart';
+
 import '../models/combo_generic_model.dart';
 import '../models/corporate_sessions_model.dart';
 import '../models/reservation_model.dart';
@@ -12,6 +14,7 @@ class BasketUserModel {
   List<ReservationModel> reservationList;
   CorporateSessionsModel sessionModel;
   OrderBasketModel orderBasketModel;
+  List<ServicePoolModel> servicePoolModel;
 
 
   BasketUserModel(
@@ -23,5 +26,6 @@ class BasketUserModel {
       this.reservationList,
       this.sessionModel,
       this.orderBasketModel,
+      this.servicePoolModel,
   );
 }

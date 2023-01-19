@@ -13,10 +13,12 @@ import '../../admin_panel/service/service_view_model.dart';
 class ServiceCorporatePoolViewModel extends ChangeNotifier {
   Database db = Database();
 
-  Future<List<ServicePoolModel>> getServiceList() async {
+
+
+  Future<List<ServicePoolModel>> getServiceList(int corporationId) async {
     ServicePoolViewModel mdl = ServicePoolViewModel();
     List<ServicePoolModel> serviceList = await mdl.getServices();
-    List<ServiceCorporatePoolModel> serviceCorporateList = await getCorporateServiceList();
+    List<ServiceCorporatePoolModel> serviceCorporateList = await getCorporateServiceList(corporationId);
 
     for(int j = 0; j < serviceList.length; j++) {
       serviceList[j].companyHasService = false;
@@ -25,6 +27,7 @@ class ServiceCorporatePoolViewModel extends ChangeNotifier {
       for(int j = 0; j < serviceList.length; j++) {
         if (serviceList[j].id == serviceCorporateList[i].serviceId)  {
           serviceList[j].companyHasService = true;
+          serviceList[j].corporateDetail = serviceCorporateList[i];
         }
       }
     }
@@ -32,11 +35,11 @@ class ServiceCorporatePoolViewModel extends ChangeNotifier {
     return serviceList;
   }
 
-  Future<List<ServiceCorporatePoolModel>> getCorporateServiceList() async {
+  Future<List<ServiceCorporatePoolModel>> getCorporateServiceList(int corporationId) async {
     CollectionReference servicesListRef =
     db.getCollectionRef(DBConstants.corporationServicesDb);
     var response = await servicesListRef
-        .where('corporateId', isEqualTo: ApplicationSession.userSession.corporationId).get();
+        .where('corporateId', isEqualTo: corporationId).get();
 
     List<ServiceCorporatePoolModel> servicesList = [];
     var list = response.docs;

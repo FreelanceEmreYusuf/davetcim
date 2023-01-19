@@ -38,10 +38,10 @@ class _SeansCorporateCardWidgetState
         child: Row(
           children: [
             Text(
-                widget.model.name, style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+                widget.model.name, style: TextStyle(fontSize: 15, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
             Spacer(),
             SizedBox.fromSize(
-              size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
+              size: Size(MediaQuery.of(context).size.height / 18, MediaQuery.of(context).size.height / 10), // button width and height
               child: ClipPath(
                 child: Material(
                   color: Colors.blue, // button color
@@ -55,7 +55,7 @@ class _SeansCorporateCardWidgetState
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Icon(Icons.update, color: Colors.white,), // icon
-                        Text("Güncelle", style: TextStyle(color: Colors.white)),
+                //        Text("Güncelle", style: TextStyle(color: Colors.white)),
                       ],
                     ),
                   ),
@@ -63,7 +63,7 @@ class _SeansCorporateCardWidgetState
               ),
             ),
             SizedBox.fromSize(
-              size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
+              size: Size(MediaQuery.of(context).size.height / 15, MediaQuery.of(context).size.height / 10), // button width and height
               child: ClipPath(
                 child: Material(
                   color: Colors.red, // button color
@@ -82,7 +82,7 @@ class _SeansCorporateCardWidgetState
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Icon(Icons.delete, color: Colors.white), // icon
-                        Text("Sil", style: TextStyle(color: Colors.white)),
+                 //       Text("Sil", style: TextStyle(color: Colors.white)),
                       ],
                     ),
                   ),
