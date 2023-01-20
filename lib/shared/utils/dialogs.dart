@@ -135,6 +135,8 @@ class Dialogs {
   }
 
 
+
+
   static showDialogForAddingComment(
       BuildContext context,
       String title,
@@ -178,47 +180,6 @@ class Dialogs {
       },
     );
   }
-/*
-  static showLoginDialogMessage(BuildContext context, Widget callerPage) {
-    // set up the buttons
-    Widget cancelButton = FlatButton(
-      child: Text(LanguageConstants.hayir[LanguageConstants.languageFlag]),
-      onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop();
-      },
-    );
-    Widget continueButton = FlatButton(
-      child: Text(LanguageConstants.evet[LanguageConstants.languageFlag]),
-      onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop();
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (BuildContext context) {
-            return JoinApp();
-          },
-        ));
-      },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text(LanguageConstants
-          .processApproveHeader[LanguageConstants.languageFlag]),
-      content: Text(LanguageConstants
-          .userMustBeLoginToContinueMessage[LanguageConstants.languageFlag]),
-      actions: [
-        cancelButton,
-        continueButton,
-      ],
-    );
-
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }*/
 
   static showLoginDialogMessage(BuildContext context, Widget callerPage) {
     // set up the buttons
@@ -260,4 +221,67 @@ class Dialogs {
       },
     );
   }
+
+  static showDialogMessageWithInputBox(BuildContext context, String title,
+      Function method) {
+    final TextEditingController inputMessageControl = new TextEditingController();
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("İptal"),
+      onPressed: () {
+        Navigator.of(context, rootNavigator: true).pop();
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Sepeti Onayla"),
+      onPressed: () {
+        method(inputMessageControl.text);
+        Navigator.of(context, rootNavigator: true).pop();
+      },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(title),
+      content: TextFormField(
+        style: TextStyle(
+          fontSize: 15.0,
+          color: Colors.black,
+        ),
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+          labelText: "Mesajınızı Girin",
+          filled: true,
+          fillColor: Colors.white,
+          focusColor: Colors.blue,
+          prefixIcon: Icon(
+            Icons.message,
+            color: Colors.black,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(5.0),
+            borderSide: BorderSide(
+              color: Colors.white,
+            ),
+          ),
+        ),
+        controller: inputMessageControl,
+        maxLines: 10,
+      ),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+
 }

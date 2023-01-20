@@ -14,10 +14,15 @@ import '../src/select-orders/properties/order_view.dart';
 
 class CartReservationItem extends StatefulWidget {
   final BasketUserModel basketModel;
+  final List<CorporateSessionsModel> reservationList;
+  final int index;
 
   CartReservationItem(
       {Key key,
-      @required this.basketModel})
+      @required this.basketModel,
+      @required this.reservationList,
+      @required this.index
+      })
       : super(key: key);
 
   @override
@@ -26,6 +31,7 @@ class CartReservationItem extends StatefulWidget {
 
 class _CartReservationItemState extends State<CartReservationItem> {
   void navigateToBasket()  {
+    widget.basketModel.selectedSessionModel = widget.reservationList[widget.index];
     Utils.navigateToPage(context, OrderScreen(basketModel: widget.basketModel));
   }
 

@@ -9,10 +9,13 @@ class BasketUserModel {
   int sessionId;
   int corporationId;
   int date;
+  int maxPopulation;
+  int totalPrice;
   List<ComboGenericModel> invitationList;
   List<ComboGenericModel> sequenceOrderList;
   List<ReservationModel> reservationList;
   CorporateSessionsModel sessionModel;
+  CorporateSessionsModel selectedSessionModel;
   OrderBasketModel orderBasketModel;
   List<ServicePoolModel> servicePoolModel;
 
@@ -21,6 +24,8 @@ class BasketUserModel {
       this.sessionId,
       this.corporationId,
       this.date,
+      this.maxPopulation,
+      this.totalPrice,
       this.invitationList,
       this.sequenceOrderList,
       this.reservationList,

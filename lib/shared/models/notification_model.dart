@@ -7,6 +7,7 @@ class NotificationModel {
   final int corporationId;
   final int customerId;
   final int commentId;
+  final int reservationId;
   final bool isForAdmin;
   final Timestamp notificationCreateDate;
   final String notificationOwner;
@@ -17,6 +18,7 @@ class NotificationModel {
     this.corporationId,
     this.customerId,
     this.commentId,
+    this.reservationId,
     this.isForAdmin,
     this.notificationCreateDate,
     this.notificationOwner,
@@ -29,6 +31,7 @@ class NotificationModel {
     'corporationId': corporationId,
     'customerId': customerId,
     'commentId': commentId,
+    'reservationId': reservationId,
     'isForAdmin': isForAdmin,
     'notificationCreateDate': notificationCreateDate,
     'notificationOwner': notificationOwner,
@@ -41,6 +44,7 @@ class NotificationModel {
     corporationId: map['corporationId'],
     customerId: map['customerId'],
     commentId: map['commentId'],
+    reservationId: map['reservationId'],
     isForAdmin: map['isForAdmin'],
     notificationCreateDate: map['notificationCreateDate'],
     notificationOwner: map['notificationOwner'],

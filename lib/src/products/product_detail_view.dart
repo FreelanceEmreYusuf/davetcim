@@ -329,7 +329,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             onPressed: () {
               if (ApplicationSession.userSession != null){
                 BasketUserModel model = new BasketUserModel(
-                    0, widget.corporationId, 0, invitationList,
+                    0, widget.corporationId, 0, widget.maxPopulation, 0, invitationList,
                     sequenceOrderList, reservationList, null, null, null);
                 UserBasketSession.servicePoolModel = [];
                 Utils.navigateToPage(context, CalendarScreen(basketModel: model));

@@ -243,7 +243,14 @@ class _OrderScreenState extends State<OrderScreen>
                           ),
                         ),
                         validator: (value) {
-                          return FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));
+                          String errorDesc = FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));
+                          if (errorDesc != null && errorDesc.trim().length > 0) {
+                            return errorDesc;
+                          } else {
+                            errorDesc = FormControlUtil.getMaxValueControl(int.parse(value), widget.basketModel.maxPopulation,
+                                "Bu salonun max kapasitesi ");
+                            return errorDesc;
+                          }
                         },
                         textAlignVertical: TextAlignVertical.center,
                         maxLines: 1,

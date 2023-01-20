@@ -19,11 +19,24 @@ class NotificationsViewModel extends ChangeNotifier {
     List<Widget> listings = [];
     CollectionReference notRef =
     db.getCollectionRef(DBConstants.notificationsDb);
-    var response = await notRef
-        .where('customerId', isEqualTo: ApplicationSession.userSession.id)
-        .orderBy('notificationCreateDate', descending: true)
-        .orderBy('id', descending: true)
-        .get();
+    bool isForAdmin = ApplicationSession.userSession.roleId == 3;
+
+    var response;
+    if (isForAdmin) {
+      response = await notRef
+          .where('corporationId', isEqualTo: ApplicationSession.userSession.corporationId)
+          .where('isForAdmin', isEqualTo: true)
+       //   .orderBy('notificationCreateDate', descending: true)
+       //   .orderBy('id', descending: true)
+          .get();
+    } else {
+      response = await notRef
+          .where('customerId', isEqualTo: ApplicationSession.userSession.id)
+     //     .where('isForAdmin', isEqualTo: false)
+          .orderBy('notificationCreateDate', descending: true)
+          .orderBy('id', descending: true)
+          .get();
+    }
 
     var list = response.docs;
     if (list.length > 0) {
@@ -73,17 +86,33 @@ class NotificationsViewModel extends ChangeNotifier {
   }
 
   Future<void> sendNotificationsToAdminCompanyUsers(BuildContext context,
-      int corporationId, int commentId, String text) async {
-    String offerMessage = "Konu: Yeni bir yorum onayınız var" +
-        "\n" +
-        " Yorum Mesajı: " +
-        text +
-        "\n" +
-        " Gönderen: " +
-        ApplicationSession.userSession.username +
-        "\n" +
-        " İşlem Tarihi :" +
-        DateTime.now().toString().substring(0, 10);
+      int corporationId, int commentId, int reservationId,  String text) async {
+    String offerMessage = "";
+
+    if (commentId > 0) {
+      offerMessage = "Konu: Yeni bir yorum onayınız var" +
+          "\n" +
+          " Yorum Mesajı: " +
+          text +
+          "\n" +
+          " Gönderen: " +
+          ApplicationSession.userSession.username +
+          "\n" +
+          " İşlem Tarihi :" +
+          DateTime.now().toString().substring(0, 10);
+    } else if (reservationId > 0) {
+      offerMessage = "Konu: Yeni bir rezervasyon talebi var" +
+          "\n" +
+          " Rezervasyon Talep Mesajı: " +
+          text +
+          "\n" +
+          " Gönderen: " +
+          ApplicationSession.userSession.username +
+          "\n" +
+          " İşlem Tarihi :" +
+          DateTime.now().toString().substring(0, 10);
+    }
+
 
     CollectionReference docsRef =
       db.getCollectionRef(DBConstants.customerDB);
@@ -104,6 +133,7 @@ class NotificationsViewModel extends ChangeNotifier {
         corporationId: corporationId,
         customerId: ApplicationSession.userSession.id,
         commentId: commentId,
+        reservationId: reservationId,
         isForAdmin : true,
         notificationCreateDate: Timestamp.now(),
         notificationOwner: ApplicationSession.userSession.username,

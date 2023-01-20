@@ -39,6 +39,19 @@ class _GridCorporateServicePoolForBasketState
   IconData buttonIcon = Icons.add;
   @override
   Widget build(BuildContext context) {
+    if (!widget.servicePoolModel.hasChild) {
+      for(int i = 0; i < UserBasketSession.servicePoolModel.length; i++) {
+        if (widget.servicePoolModel.id == UserBasketSession.servicePoolModel[i].id) {
+          buffer = false;
+          buttonText= "Çıkar";
+          buttonColor = Colors.red;
+          buttonIcon = Icons.delete_rounded;
+          textColor = Colors.green;
+          break;
+        }
+      }
+    }
+
     double _paddingLeftValue = 0;
     if(widget.servicePoolModel.serviceName.substring(0,1) == "-"){
       _paddingLeftValue = MediaQuery.of(context).size.height / 70;

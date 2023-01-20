@@ -83,7 +83,7 @@ class CommentsViewModel extends ChangeNotifier {
     db.editCollectionRef("Comments", commentModel.toMap());
 
     NotificationsViewModel notificationViewModel = NotificationsViewModel();
-    notificationViewModel.sendNotificationsToAdminCompanyUsers(context, corporationId, commentId, comment);
+    notificationViewModel.sendNotificationsToAdminCompanyUsers(context, corporationId, commentId, 0, comment);
 
     Dialogs.showAlertMessage(
         context,

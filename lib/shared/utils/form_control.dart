@@ -132,4 +132,14 @@ class FormControlUtil{
 
     return errorMessage;
   }
+
+  static String getMaxValueControl(int value, int maxValue, String errorDescStarting) {
+    String errorMessage = null;
+
+    if(value > maxValue){
+      errorMessage = errorDescStarting + maxValue.toString();
+    }
+
+    return errorMessage;
+  }
 }

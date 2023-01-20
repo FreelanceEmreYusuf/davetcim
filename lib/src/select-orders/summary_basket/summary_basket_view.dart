@@ -1,10 +1,14 @@
+import 'package:davetcim/src/main/main_screen_view.dart';
+import 'package:davetcim/src/select-orders/summary_basket/summary_basket_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/dto/basket_user_model.dart';
+import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
 import '../../../shared/sessions/user_basket_session.dart';
 import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';
+import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_service_pool_for_basket.dart';
 import '../../../widgets/grid_corporate_service_pool_for_basket_summary.dart';
@@ -47,16 +51,17 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
         totalPrice += widget.basketModel.servicePoolModel[i].corporateDetail.price;
       }
     }
+    widget.basketModel.totalPrice = totalPrice;
     return totalPrice;
   }
 
   String calculateSessionPrice(){
     int sessionCost = 0;
       if(DateConversionUtils.isWeekendFromIntDate(widget.basketModel.date) ){
-        sessionCost = widget.basketModel.sessionModel.weekendPrice;
+        sessionCost = widget.basketModel.selectedSessionModel.weekendPrice;
       }
       else{
-        sessionCost = widget.basketModel.sessionModel.midweekPrice;
+        sessionCost = widget.basketModel.selectedSessionModel.midweekPrice;
       }
 
       return sessionCost.toString();
@@ -102,75 +107,78 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               ),
             ),
             Divider(),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Card(
-                elevation: 10,
-                color: Colors.white54,
-                child: Row(
-                  children: [
-                    Text(
-                        "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
-                            +"\n\nSeans : "+widget.basketModel.sessionModel.name,
-                        style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
-                    ),
-                    Spacer(),
-                    SizedBox.fromSize(
-                      size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
-                      child: ClipPath(
-                        child: Material(
-                          color: Colors.grey, // button color
-                          child: InkWell(
-                            splashColor: Colors.deepOrangeAccent, // splash color
-                            onTap: () async {
-                              //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
-                              Dialogs.showAlertMessageWithAction(
-                                  context,
-                                  widget.basketModel.sessionModel.name,
-                                  "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
-                                      +"\n\nSeans : "+ widget.basketModel.sessionModel.name
-                                      +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ calculateSessionPrice()+ "TL",
-                                  null);
-                            }, // button pressed
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(Icons.info_outline, color: Colors.white), // icon
-                                Text("Bilgi", style: TextStyle(color: Colors.white)),
-                              ],
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Card(
+                  elevation: 10,
+                  color: Colors.white54,
+                  child: Row(
+                    children: [
+                      Text(
+                          "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
+                              +"\n\nSeans : "+widget.basketModel.selectedSessionModel.name,
+                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                      ),
+                      Spacer(),
+                      SizedBox.fromSize(
+                        size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
+                        child: ClipPath(
+                          child: Material(
+                            color: Colors.grey, // button color
+                            child: InkWell(
+                              splashColor: Colors.deepOrangeAccent, // splash color
+                              onTap: () async {
+                                //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
+                                Dialogs.showAlertMessageWithAction(
+                                    context,
+                                    widget.basketModel.selectedSessionModel.name,
+                                    "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
+                                        +"\n\nSeans : "+ widget.basketModel.selectedSessionModel.name
+                                        +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ calculateSessionPrice()+ "TL",
+                                    null);
+                              }, // button pressed
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(Icons.info_outline, color: Colors.white), // icon
+                                  Text("Bilgi", style: TextStyle(color: Colors.white)),
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-
-              /*Container(
-                height: MediaQuery.of(context).size.height / 13,
-                child: Card(
-                  color: Colors.white54,
-                  semanticContainer: true,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  shadowColor: Colors.black,
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                          DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
-                              +" & "+widget.basketModel.sessionModel.name,
-                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
-                      ),
                     ],
                   ),
                 ),
-              ),*/
+
+                /*Container(
+                  height: MediaQuery.of(context).size.height / 13,
+                  child: Card(
+                    color: Colors.white54,
+                    semanticContainer: true,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    shadowColor: Colors.black,
+                    elevation: 10,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child:  Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                            DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
+                                +" & "+widget.basketModel.sessionModel.name,
+                            style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                        ),
+                      ],
+                    ),
+                  ),
+                ),*/
+              ),
             ),
 
             //order list
@@ -350,14 +358,30 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
             ),
           ),
           onPressed: () {
-           widget.basketModel.servicePoolModel = UserBasketSession.servicePoolModel;
-           UserBasketSession.servicePoolModel = [];
-           NotificationsViewModel notificationViewModel = NotificationsViewModel();
-           notificationViewModel.sendNotificationsToAdminCompanyUsers(context, widget.basketModel.corporationId, 0, "Yeni bir rezervasyon talebiniz var");
+            Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", createReservationRequest);
           },
         ),
       ),
     );
+  }
+
+  void createReservationRequest(String description) async{
+    widget.basketModel.servicePoolModel = UserBasketSession.servicePoolModel;
+    UserBasketSession.servicePoolModel = [];
+
+    SummaryBasketViewModel model = SummaryBasketViewModel();
+    ReservationModel reservationResponse = await model.createNewReservation(widget.basketModel, description);
+    if (reservationResponse == null) {
+      Dialogs.showAlertMessage(context, "Üzgünüz", "Siz rezervasyon yaparken başka bir kullanıcı tarafından bu tarihteki bu seans rezerve edildi.");
+    } else {
+      NotificationsViewModel notificationViewModel = NotificationsViewModel();
+      notificationViewModel.sendNotificationsToAdminCompanyUsers(context, widget.basketModel.corporationId, 0, reservationResponse.id,  description);
+      Dialogs.showAlertMessageWithAction(context, "İşlem Mesajı", "Rezervasyon talebiniz alınmıştır. Salon sahibine bildirim gönderilmiştir.", navigateToHomePage);
+    }
+  }
+
+  void navigateToHomePage(BuildContext context) {
+    Utils.navigateToPage(context, MainScreen());
   }
 
   @override

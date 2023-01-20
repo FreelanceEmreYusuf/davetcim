@@ -71,7 +71,7 @@ class _ReservationOrderViewScreenState extends State<ReservationOrderViewScreen>
           itemBuilder: (BuildContext context, int index) {
             CorporateSessionsModel item = reservationList[index];
             widget.basketModel.sessionModel = item;
-            return CartReservationItem(basketModel: widget.basketModel,);
+            return CartReservationItem(basketModel: widget.basketModel, reservationList: reservationList, index: index);
           },
         ),
       ),
