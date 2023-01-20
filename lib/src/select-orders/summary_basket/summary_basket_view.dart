@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../../../shared/dto/basket_user_model.dart';
 import '../../../shared/models/service_pool_model.dart';
 import '../../../shared/sessions/user_basket_session.dart';
+import '../../../shared/utils/date_utils.dart';
+import '../../../shared/utils/dialogs.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_service_pool_for_basket.dart';
 import '../../../widgets/grid_corporate_service_pool_for_basket_summary.dart';
@@ -26,6 +27,8 @@ class SummaryBasketScreen extends StatefulWidget {
 class _SummaryBasketScreenState extends State<SummaryBasketScreen>
     with AutomaticKeepAliveClientMixin<SummaryBasketScreen> {
 
+
+
   List<ServicePoolModel> updateServiceList(List<ServicePoolModel> serviceList){
     for(int i=0; i<serviceList.length; i++){
           serviceList.removeWhere((item) => item.companyHasService == false && item.hasChild != true);
@@ -33,20 +36,261 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
     return serviceList;
   }
 
+  int calculateTotalPrice(){
+    int totalPrice = 0;
+    totalPrice += int.parse(calculateSessionPrice());
+    for(int i =0; i<widget.basketModel.servicePoolModel.length;i++){
+      if(widget.basketModel.servicePoolModel[i].corporateDetail.priceChangedForCount){
+        totalPrice += widget.basketModel.orderBasketModel.count * widget.basketModel.servicePoolModel[i].corporateDetail.price;
+      }
+      else{
+        totalPrice += widget.basketModel.servicePoolModel[i].corporateDetail.price;
+      }
+    }
+    return totalPrice;
+  }
+
+  String calculateSessionPrice(){
+    int sessionCost = 0;
+      if(DateConversionUtils.isWeekendFromIntDate(widget.basketModel.date) ){
+        sessionCost = widget.basketModel.sessionModel.weekendPrice;
+      }
+      else{
+        sessionCost = widget.basketModel.sessionModel.midweekPrice;
+      }
+
+      return sessionCost.toString();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    calculateSessionPrice();
+  }
+
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-
-
     return Scaffold(
       appBar: AppBarMenu(pageName: "Sepet Özeti", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(
           children: <Widget>[
-            Divider(),
+            //Tarih ve seans
             SizedBox(height: 10.0),
+            Container(
+              height: MediaQuery.of(context).size.height / 13,
+              child: Card(
+                color: Colors.redAccent,
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shadowColor: Colors.black,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                        " TARİH & SEANS", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                  ],
+                ),
+              ),
+            ),
+            Divider(),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Card(
+                elevation: 10,
+                color: Colors.white54,
+                child: Row(
+                  children: [
+                    Text(
+                        "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
+                            +"\n\nSeans : "+widget.basketModel.sessionModel.name,
+                        style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                    ),
+                    Spacer(),
+                    SizedBox.fromSize(
+                      size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
+                      child: ClipPath(
+                        child: Material(
+                          color: Colors.grey, // button color
+                          child: InkWell(
+                            splashColor: Colors.deepOrangeAccent, // splash color
+                            onTap: () async {
+                              //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
+                              Dialogs.showAlertMessageWithAction(
+                                  context,
+                                  widget.basketModel.sessionModel.name,
+                                  "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
+                                      +"\n\nSeans : "+ widget.basketModel.sessionModel.name
+                                      +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ calculateSessionPrice()+ "TL",
+                                  null);
+                            }, // button pressed
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(Icons.info_outline, color: Colors.white), // icon
+                                Text("Bilgi", style: TextStyle(color: Colors.white)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              /*Container(
+                height: MediaQuery.of(context).size.height / 13,
+                child: Card(
+                  color: Colors.white54,
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shadowColor: Colors.black,
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child:  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                          DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
+                              +" & "+widget.basketModel.sessionModel.name,
+                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                      ),
+                    ],
+                  ),
+                ),
+              ),*/
+            ),
+
+            //order list
+            SizedBox(height: 10.0),
+            Container(
+              height: MediaQuery.of(context).size.height / 13,
+              child: Card(
+                color: Colors.redAccent,
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shadowColor: Colors.black,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                        " ORGANİZASYON DETAYLARI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                  ],
+                ),
+              ),
+            ),
+            Divider(),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: Card(
+                elevation: 10,
+                color: Colors.white54,
+                child: Row(
+                  children: [
+                    Text(
+                        "Davetli Sayısı :" + widget.basketModel.orderBasketModel.count.toString()
+                         +"\n\nDavet türü : "+ widget.basketModel.orderBasketModel.invitationType
+                         +"\n\nOturma düzeni : "+ widget.basketModel.orderBasketModel.sequenceOrder,
+                        style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                    ),
+                    Spacer(),
+                    SizedBox.fromSize(
+                      size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 7), // button width and height
+                      child: ClipPath(
+                        child: Material(
+                          color: Colors.grey, // button color
+                          child: InkWell(
+                            splashColor: Colors.deepOrangeAccent, // splash color
+                            onTap: () async {
+                              //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
+                              Dialogs.showAlertMessageWithAction(
+                                  context,
+                                  "Bilgi",
+                                  "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",
+                                  null);
+                            }, // button pressed
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(Icons.info_outline, color: Colors.white), // icon
+                                Text("Bilgi", style: TextStyle(color: Colors.white)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              /*Container(
+                height: MediaQuery.of(context).size.height / 13,
+                child: Card(
+                  color: Colors.white54,
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shadowColor: Colors.black,
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child:  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                          DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
+                              +" & "+widget.basketModel.sessionModel.name,
+                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                      ),
+                    ],
+                  ),
+                ),
+              ),*/
+            ),
+
+            //hizmetler
+            SizedBox(height: 10.0),
+            Container(
+              height: MediaQuery.of(context).size.height / 13,
+              child: Card(
+                color: Colors.redAccent,
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shadowColor: Colors.black,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                        "HİZMETLER", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                  ],
+                ),
+              ),
+            ),
+            Divider(),
             GridView.builder(
               shrinkWrap: true,
               primary: false,
@@ -65,24 +309,33 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                 return GridCorporateServicePoolForBasketSummary(servicePoolModel: item, basketModel: widget.basketModel,);
               },
             ),
-            SizedBox(height: 10.0),
-            Card(
+            SizedBox(height: MediaQuery.of(context).size.height / 5,),
 
-              elevation: 10,
-              color: Colors.white54,
-              child:  Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                      "Toplam Tutar :", style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold,)),
-                 SizedBox(width: MediaQuery.of(context).size.width /4),
-                  Text(
-                      "999999TL", style: TextStyle(fontSize: 20, color: Colors.red, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold, )),
-                ],
-              ),
-            )
           ],
+        ),
+      ),
+      floatingActionButton: Container(
+        height: MediaQuery.of(context).size.height / 13,
+        child: Card(
+          color: Colors.redAccent,
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          shadowColor: Colors.black,
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child:  Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                  "Toplam Tutar :", style: TextStyle(fontSize: 20, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+              SizedBox(width: MediaQuery.of(context).size.width /4),
+              Text(
+                  " "+calculateTotalPrice().toString()+" TL ", style: TextStyle(fontSize: 20, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Container(

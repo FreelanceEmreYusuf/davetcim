@@ -17,7 +17,7 @@ class CartReservationItem extends StatefulWidget {
 
   CartReservationItem(
       {Key key,
-      @required this.basketModel,})
+      @required this.basketModel})
       : super(key: key);
 
   @override
@@ -25,7 +25,6 @@ class CartReservationItem extends StatefulWidget {
 }
 
 class _CartReservationItemState extends State<CartReservationItem> {
-
   void navigateToBasket()  {
     Utils.navigateToPage(context, OrderScreen(basketModel: widget.basketModel));
   }

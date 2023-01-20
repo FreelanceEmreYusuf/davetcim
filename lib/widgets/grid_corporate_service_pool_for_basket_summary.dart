@@ -14,7 +14,7 @@ import '../src/admin_corporate_panel/service/service_corporate_view.dart';
 
 class GridCorporateServicePoolForBasketSummary extends StatefulWidget {
   final ServicePoolModel servicePoolModel;
-  BasketUserModel basketModel;
+  final BasketUserModel basketModel;
 
   GridCorporateServicePoolForBasketSummary({
     Key key,
