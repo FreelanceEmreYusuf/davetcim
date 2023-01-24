@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/dto/product_filterer.dart';
+import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
@@ -94,8 +95,9 @@ class ProductsViewModel extends ChangeNotifier {
 
   Future<List<int>> filterCorporationListForReservations(ProductFilterer filter) async {
     var response = await db
-        .getCollectionRef("CorporationReservations")
+        .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('date', isEqualTo: DateConversionUtils.getCurrentDateAsInt(filter.date))
+        .where('isActive', isEqualTo: true)
         .get();
 
     List<int> corpModelListIDs = [];
@@ -103,10 +105,7 @@ class ProductsViewModel extends ChangeNotifier {
       var list = response.docs;
       for (int i = 0; i < list.length; i++) {
         Map item = list[i].data();
-        if (int.parse(item['startTime'].toString()) <= DateConversionUtils.getCurrentTimeAsInt(filter.startHour)
-          && int.parse(item['endTime'].toString()) >= DateConversionUtils.getCurrentTimeAsInt(filter.endHour)) {
-          corpModelListIDs.add(int.parse(item['corporationId'].toString()));
-        }
+        corpModelListIDs.add(int.parse(item['corporationId'].toString()));
       }
     }
 
@@ -155,14 +154,7 @@ class ProductsViewModel extends ChangeNotifier {
           }
         }
         if (!existsInReservation) {
-          if (filter.isTimeFilterEnabled) {
-            if (int.parse(item['organizationStart'].toString()) <= DateConversionUtils.getCurrentTimeAsInt(filter.startHour)
-                && int.parse(item['organizationEnd'].toString()) >= DateConversionUtils.getCurrentTimeAsInt(filter.endHour)) {
-              corpModelList.add(CorporationModel.fromMap(list[i].data()));
-            }
-          } else {
-            corpModelList.add(CorporationModel.fromMap(list[i].data()));
-          }
+          corpModelList.add(CorporationModel.fromMap(list[i].data()));
         }
       }
     }

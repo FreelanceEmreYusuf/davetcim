@@ -182,7 +182,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
               Card(
                   elevation: 3.0,
                   child: CheckboxListTile(
-                    title: Text("Tarih ve saat filtrelensin mi?"),
+                    title: Text("Tarih filtrelensin mi?"),
                     value: checkedValue,
                     onChanged: (newValue) {
                       setState(() {
@@ -234,105 +234,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                   ),
                                 ),
                                 Text(
-                                  '${date.month}-${date.day}-${date.year}',
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            _showDialog(
-                              CupertinoDatePicker(
-                                initialDateTime: time,
-                                mode: CupertinoDatePickerMode.time,
-                                use24hFormat: true,
-                                // This is called when the user changes the time.
-                                onDateTimeChanged: (DateTime newTime) {
-                                  setState(() => time = newTime);
-                                },
-                              ),
-                            );
-                          },
-                          child: Card(
-                            elevation: 3.0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                CupertinoButton(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize),
-                                  child: Text(
-                                    'Başlangıç Saati',
-                                    style: kStyle,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Text(
-                                  '${time.hour}:${time.minute}',
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            _showDialog(
-                              CupertinoDatePicker(
-                                initialDateTime: endTime,
-                                mode: CupertinoDatePickerMode.time,
-                                use24hFormat: true,
-                                // This is called when the user changes the time.
-                                onDateTimeChanged: (DateTime newTime) {
-                                  setState(() => endTime = newTime);
-                                },
-                              ),
-                            );
-                          },
-                          child: Card(
-                            elevation: 3.0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                CupertinoButton(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize),
-                                  child: Text(
-                                    'Bitiş Saati',
-                                    style: kStyle,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Text(
-                                  '${endTime.hour}:${endTime.minute}',
+                                  '${date.day}.${date.month}.${date.year}',
                                   style: const TextStyle(
                                     fontSize: 18.0,
                                     color: Colors.black,
@@ -502,7 +404,6 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                           child: CupertinoPicker(
                               itemExtent: 32.0,
                               onSelectedItemChanged: (int index) {
-                                print('Changed : ' + index.toString());
                                 SearchViewModel rm = SearchViewModel();
                                 setState(() {
                                   selectedRegion = index;

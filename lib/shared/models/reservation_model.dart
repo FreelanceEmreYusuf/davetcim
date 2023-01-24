@@ -9,6 +9,7 @@ class ReservationModel {
   final String description;
   final int sessionId;
   final bool isMoneyTransfered;
+  final bool isActive;
 
   ReservationModel({
     this.id,
@@ -19,6 +20,7 @@ class ReservationModel {
     this.description,
     this.sessionId,
     this.isMoneyTransfered,
+    this.isActive,
   });
 
   ///Object to map
@@ -30,7 +32,8 @@ class ReservationModel {
     'date': date,
     'description': description,
     'sessionId': sessionId,
-    'isMoneyTransfered': isMoneyTransfered
+    'isMoneyTransfered': isMoneyTransfered,
+    'isActive': isActive
   };
 
   ///Map to object
@@ -42,6 +45,7 @@ class ReservationModel {
     date: map['date'],
     description: map['description'],
     sessionId: map['sessionId'],
-    isMoneyTransfered: map['isMoneyTransfered']
+    isMoneyTransfered: map['isMoneyTransfered'],
+    isActive: map['isActive']
   );
 }

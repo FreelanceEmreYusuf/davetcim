@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../shared/environments/db_constants.dart';
 import '../../../shared/models/corporate_sessions_model.dart';
 import '../../../shared/services/database.dart';
+import '../../reservation/reservation_view_model.dart';
 
 
 class CorporateSessionsViewModel extends ChangeNotifier {
@@ -50,8 +51,8 @@ class CorporateSessionsViewModel extends ChangeNotifier {
 
   Future<void> deleteSession(int id) async {
     db.deleteDocument(DBConstants.corporationSessionsDb, id.toString());
+    ReservationViewModel rvm = ReservationViewModel();
+    rvm.makeReservationPassive(id);
   }
-
-
 
 }

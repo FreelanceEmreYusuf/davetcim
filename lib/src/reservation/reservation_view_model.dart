@@ -14,6 +14,7 @@ class ReservationViewModel extends ChangeNotifier {
     var response = await db
         .getCollectionRef("CorporationReservations")
         .where('corporationId', isEqualTo: corporateId)
+        .where('isActive', isEqualTo: true)
         .get();
 
     List<ReservationModel> corpModelList = [];
@@ -33,6 +34,7 @@ class ReservationViewModel extends ChangeNotifier {
     Stream<List<DocumentSnapshot>> reservationListInfo = db
         .getCollectionRef("CorporationReservations")
         .where('corporationId', isEqualTo: corporateId)
+        .where('isActive', isEqualTo: true)
         .where('date', isEqualTo: DateConversionUtils.getCurrentDateAsInt(dateTime))
         .snapshots()
         .map((event) => event.docs);
@@ -104,6 +106,7 @@ class ReservationViewModel extends ChangeNotifier {
     var response = await db
         .getCollectionRef("CorporationReservations")
         .where('corporationId', isEqualTo: corporateId)
+        .where('isActive', isEqualTo: true)
         .where('date', isEqualTo: date)
         .get();
 
@@ -119,4 +122,22 @@ class ReservationViewModel extends ChangeNotifier {
     return corpModelList;
   }
 
+  Future<void> makeReservationPassive(int sessionId) async {
+    var response = await db
+        .getCollectionRef(DBConstants.corporationReservationsDb)
+        .where('sessionId', isEqualTo: sessionId)
+        .where('isActive', isEqualTo: true)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        item['isActive'] = false;
+        ReservationModel reservationModel = ReservationModel.fromMap(item);
+        db.editCollectionRef(
+            DBConstants.corporationReservationsDb, reservationModel.toMap());
+      }
+    }
+  }
 }

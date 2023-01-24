@@ -48,7 +48,9 @@ class _ReservationOrderViewScreenState extends State<ReservationOrderViewScreen>
   Widget build(BuildContext context) {
     double fontSize = 20;
     if (reservationList == null || reservationList.length == 0) {
-      return Scaffold();
+      return Scaffold(
+        appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      );
     }
     return Scaffold(
       appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),

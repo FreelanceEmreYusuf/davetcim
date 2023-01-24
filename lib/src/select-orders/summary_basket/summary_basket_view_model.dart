@@ -16,6 +16,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
     var response = await db
         .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('sessionId', isEqualTo: basketModel.selectedSessionModel.id)
+        .where('isActive', isEqualTo: true)
         .where('date', isEqualTo: basketModel.date)
         .get();
 
@@ -40,7 +41,8 @@ class SummaryBasketViewModel extends ChangeNotifier {
       date: basketModel.date,
       description: description,
       sessionId: basketModel.selectedSessionModel.id,
-      isMoneyTransfered: false
+      isMoneyTransfered: false,
+      isActive: true
     );
 
     db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
