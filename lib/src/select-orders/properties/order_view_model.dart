@@ -39,6 +39,13 @@ class OrderViewModel extends ChangeNotifier {
       }
     }
 
+    if (organizationList.length == 0) {
+      var combo = ComboGenericModel();
+      combo.id = -1;
+      combo.text = "Belirtilmemiş";
+      organizationList.add(combo);
+    }
+
     return organizationList;
   }
 
@@ -71,6 +78,13 @@ class OrderViewModel extends ChangeNotifier {
       }
     }
 
+    if (invitationList.length == 0) {
+      var combo = ComboGenericModel();
+      combo.id = -1;
+      combo.text = "Belirtilmemiş";
+      invitationList.add(combo);
+    }
+
     return invitationList;
   }
 
@@ -101,6 +115,13 @@ class OrderViewModel extends ChangeNotifier {
           sequenceOrderList.add(combo);
         }
       }
+    }
+
+    if (sequenceOrderList.length == 0) {
+      var combo = ComboGenericModel();
+      combo.id = -1;
+      combo.text = "Belirtilmemiş";
+      sequenceOrderList.add(combo);
     }
 
     return sequenceOrderList;

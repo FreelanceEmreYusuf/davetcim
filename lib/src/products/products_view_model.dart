@@ -6,6 +6,10 @@ import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../shared/models/corporate_sessions_model.dart';
+import '../../shared/models/reservation_model.dart';
+import '../reservation/reservation_view_model.dart';
+
 class ProductsViewModel extends ChangeNotifier {
 
   Database db = Database();
@@ -94,9 +98,10 @@ class ProductsViewModel extends ChangeNotifier {
   }
 
   Future<List<int>> filterCorporationListForReservations(ProductFilterer filter) async {
+    int filterDate = DateConversionUtils.getCurrentDateAsInt(filter.date);
     var response = await db
         .getCollectionRef(DBConstants.corporationReservationsDb)
-        .where('date', isEqualTo: DateConversionUtils.getCurrentDateAsInt(filter.date))
+        .where('date', isEqualTo: filterDate)
         .where('isActive', isEqualTo: true)
         .get();
 
@@ -105,7 +110,24 @@ class ProductsViewModel extends ChangeNotifier {
       var list = response.docs;
       for (int i = 0; i < list.length; i++) {
         Map item = list[i].data();
-        corpModelListIDs.add(int.parse(item['corporationId'].toString()));
+        ReservationModel model = ReservationModel.fromMap(item);
+
+        ReservationViewModel rvm = ReservationViewModel();
+        List<CorporateSessionsModel> sessionList =
+          await rvm.getSessionReservationExtraction(model.corporationId, filterDate);
+
+        bool hasFullReservation = true;
+        for (int s = 0; s < sessionList.length; s++) {
+          CorporateSessionsModel sessionModel = sessionList[s];
+          if (!sessionModel.hasReservation) {
+            hasFullReservation = false;
+            break;
+          }
+        }
+
+        if (hasFullReservation) {
+          corpModelListIDs.add(model.corporationId);
+        }
       }
     }
 

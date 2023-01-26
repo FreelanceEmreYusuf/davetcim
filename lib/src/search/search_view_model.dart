@@ -110,18 +110,5 @@ class SearchViewModel extends ChangeNotifier {
       return "";
     }
   }
-/*
-  @override
-  void initState() {
-    fillCorporationCardModel();
-  }
-
-  void fillCorporationCardModel() async {
-    SearchViewModel rm = SearchViewModel();
-    corpCardMdl = await rm.getCorporationCard(1);
-    setState(() {
-      corpCardMdl = corpCardMdl;
-    });
-  }*/
 
 }
