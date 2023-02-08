@@ -206,7 +206,7 @@ class _SearchScreenState extends State<SearchScreen>
                             _showDialog(
                               CupertinoDatePicker(
                                 initialDateTime: date,
-                                minimumDate: date,
+                                minimumDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day),
                                 mode: CupertinoDatePickerMode.date,
                                 use24hFormat: true,
                                 // This is called when the user changes the date.

@@ -10,6 +10,9 @@ class ReservationModel {
   final int sessionId;
   final bool isMoneyTransfered;
   final bool isActive;
+  final int invitationCount;
+  final String invitationType;
+  final String seatingArrangement;
 
   ReservationModel({
     this.id,
@@ -21,6 +24,9 @@ class ReservationModel {
     this.sessionId,
     this.isMoneyTransfered,
     this.isActive,
+    this.invitationCount,
+    this.invitationType,
+    this.seatingArrangement,
   });
 
   ///Object to map
@@ -33,7 +39,10 @@ class ReservationModel {
     'description': description,
     'sessionId': sessionId,
     'isMoneyTransfered': isMoneyTransfered,
-    'isActive': isActive
+    'isActive': isActive,
+    'invitationCount': invitationCount,
+    'invitationType': invitationType,
+    'seatingArrangement': seatingArrangement,
   };
 
   ///Map to object
@@ -46,6 +55,9 @@ class ReservationModel {
     description: map['description'],
     sessionId: map['sessionId'],
     isMoneyTransfered: map['isMoneyTransfered'],
-    isActive: map['isActive']
+    isActive: map['isActive'],
+    invitationCount: map['invitationCount'],
+    invitationType: map['invitationType'],
+    seatingArrangement: map['seatingArrangement'],
   );
 }

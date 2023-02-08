@@ -82,6 +82,27 @@ class ReservationViewModel extends ChangeNotifier {
     return sessionList;
   }
 
+  Future<List<CorporateSessionsModel>> getSessionReservationForAllCorporatesExtraction(int date) async {
+    List<CorporateSessionsModel> sessionList = await getAllSessionList();
+    List<ReservationModel> reservationList =  await getReservationAllWithDatelist(date);
+
+    for (int i = 0; i < sessionList.length; i++) {
+      CorporateSessionsModel sessionModel = sessionList[i];
+      sessionModel.hasReservation = false;
+
+      for(int j = 0; j < reservationList.length; j++) {
+        ReservationModel reservationModel = reservationList[j];
+
+        if (sessionModel.id == reservationModel.sessionId
+          && sessionModel.corporationId == reservationModel.corporationId) {
+          sessionModel.hasReservation = true;
+        }
+      }
+    }
+
+    return sessionList;
+  }
+
   Future<List<CorporateSessionsModel>> getSessionList(int corporateId) async {
     List<CorporateSessionsModel> sessionList = [];
     List<ReservationModel> reservationList = [];
@@ -102,10 +123,48 @@ class ReservationViewModel extends ChangeNotifier {
     return sessionList;
   }
 
+  Future<List<CorporateSessionsModel>> getAllSessionList() async {
+    List<CorporateSessionsModel> sessionList = [];
+    List<ReservationModel> reservationList = [];
+
+    var response = await db
+        .getCollectionRef(DBConstants.corporationSessionsDb)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        sessionList.add(CorporateSessionsModel.fromMap(item));
+      }
+    }
+
+    return sessionList;
+  }
+
   Future<List<ReservationModel>> getReservationWithDatelist(int corporateId, int date) async {
     var response = await db
         .getCollectionRef("CorporationReservations")
         .where('corporationId', isEqualTo: corporateId)
+        .where('isActive', isEqualTo: true)
+        .where('date', isEqualTo: date)
+        .get();
+
+    List<ReservationModel> corpModelList = [];
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        corpModelList.add(ReservationModel.fromMap(item));
+      }
+    }
+
+    return corpModelList;
+  }
+
+  Future<List<ReservationModel>> getReservationAllWithDatelist(int date) async {
+    var response = await db
+        .getCollectionRef("CorporationReservations")
         .where('isActive', isEqualTo: true)
         .where('date', isEqualTo: date)
         .get();

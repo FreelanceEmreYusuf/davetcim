@@ -108,17 +108,25 @@ class ProductsViewModel extends ChangeNotifier {
     List<int> corpModelListIDs = [];
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
+      ReservationViewModel rvm = ReservationViewModel();
+      List<CorporateSessionsModel> sessionList =
+        await rvm.getSessionReservationForAllCorporatesExtraction(filterDate);
+
       for (int i = 0; i < list.length; i++) {
         Map item = list[i].data();
         ReservationModel model = ReservationModel.fromMap(item);
 
-        ReservationViewModel rvm = ReservationViewModel();
-        List<CorporateSessionsModel> sessionList =
-          await rvm.getSessionReservationExtraction(model.corporationId, filterDate);
-
-        bool hasFullReservation = true;
+        List<CorporateSessionsModel> sessionCorporationList = [];
         for (int s = 0; s < sessionList.length; s++) {
           CorporateSessionsModel sessionModel = sessionList[s];
+          if (sessionModel.corporationId == model.corporationId) {
+            sessionCorporationList.add(sessionModel);
+          }
+        }
+
+        bool hasFullReservation = true;
+        for (int s = 0; s < sessionCorporationList.length; s++) {
+          CorporateSessionsModel sessionModel = sessionCorporationList[s];
           if (!sessionModel.hasReservation) {
             hasFullReservation = false;
             break;

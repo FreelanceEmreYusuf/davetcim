@@ -42,7 +42,10 @@ class SummaryBasketViewModel extends ChangeNotifier {
       description: description,
       sessionId: basketModel.selectedSessionModel.id,
       isMoneyTransfered: false,
-      isActive: true
+      isActive: true,
+      invitationCount: basketModel.orderBasketModel.count,
+      invitationType: basketModel.orderBasketModel.invitationType,
+      seatingArrangement: basketModel.orderBasketModel.sequenceOrder
     );
 
     db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
