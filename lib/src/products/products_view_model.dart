@@ -153,6 +153,7 @@ class ProductsViewModel extends ChangeNotifier {
       list = list.where('id', whereIn: unqList);
     }
 
+
     if (filter.sequenceOrderUniqueIdentifier != "0") {
       list = list.where('sequenceOrderUniqueIdentifier', arrayContains: filter.sequenceOrderUniqueIdentifier);
     }
