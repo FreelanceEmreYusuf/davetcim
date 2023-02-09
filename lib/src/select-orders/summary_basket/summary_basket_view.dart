@@ -367,7 +367,6 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
 
   void createReservationRequest(String description) async{
     widget.basketModel.servicePoolModel = UserBasketSession.servicePoolModel;
-    UserBasketSession.servicePoolModel = [];
 
     SummaryBasketViewModel model = SummaryBasketViewModel();
     ReservationModel reservationResponse = await model.createNewReservation(widget.basketModel, description);
@@ -381,6 +380,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   }
 
   void navigateToHomePage(BuildContext context) {
+    UserBasketSession.servicePoolModel = [];
     Utils.navigateToPage(context, MainScreen());
   }
 

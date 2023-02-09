@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/combo_generic_model.dart';
@@ -7,7 +9,10 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../shared/dto/basket_user_model.dart';
 import '../../../shared/models/corporation_model.dart';
+import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
+import '../../../shared/models/service_pool_model.dart';
+import '../../../shared/sessions/user_basket_session.dart';
 
 class SummaryBasketViewModel extends ChangeNotifier {
   Database db = Database();
@@ -33,8 +38,10 @@ class SummaryBasketViewModel extends ChangeNotifier {
       return null;
     }
 
+    int reservationId = new DateTime.now().millisecondsSinceEpoch;
+
     ReservationModel reservationModel = new ReservationModel(
-      id: new DateTime.now().millisecondsSinceEpoch,
+      id: reservationId,
       corporationId: basketModel.corporationId,
       customerId: ApplicationSession.userSession.id,
       cost: basketModel.totalPrice,
@@ -49,7 +56,23 @@ class SummaryBasketViewModel extends ChangeNotifier {
     );
 
     db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
+    await createNewReservationDetail(basketModel, reservationId);
     return reservationModel;
+  }
+
+  Future<void> createNewReservationDetail(BasketUserModel basketModel, int reservationId) async {
+    int id = new DateTime.now().millisecondsSinceEpoch;
+    for (int i = 0; i < basketModel.servicePoolModel.length; i++) {
+      ServicePoolModel model = basketModel.servicePoolModel[i];
+      ReservationDetailModel reservationModel = new ReservationDetailModel(
+          id: (id + i),
+          reservationId: reservationId,
+          foreignId: model.id,
+          foreignType: "service",
+      );
+
+      db.editCollectionRef(DBConstants.reservationDetailDb, reservationModel.toMap());
+    }
   }
 
 
