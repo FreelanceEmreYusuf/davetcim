@@ -11,6 +11,18 @@ import '../../reservation/reservation_view_model.dart';
 class CorporateSessionsViewModel extends ChangeNotifier {
   Database db = Database();
 
+  Future<CorporateSessionsModel> getSession(int sessionId) async {
+    CollectionReference servicesListRef =
+    db.getCollectionRef(DBConstants.corporationSessionsDb);
+    var response = await servicesListRef
+        .where('id', isEqualTo: sessionId).get();
+
+    List<CorporateSessionsModel> sessionsList = [];
+    var list = response.docs;
+    CorporateSessionsModel sessionModel = CorporateSessionsModel.fromMap(list[0].data());
+    return sessionModel;
+  }
+
   Future<List<CorporateSessionsModel>> getSessions() async {
     CollectionReference servicesListRef =
     db.getCollectionRef(DBConstants.corporationSessionsDb);

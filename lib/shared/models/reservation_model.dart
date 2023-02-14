@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:davetcim/shared/models/reservation_detail_model.dart';
+
 class ReservationModel {
   final int id;
   final int corporationId;
@@ -13,6 +15,7 @@ class ReservationModel {
   final int invitationCount;
   final String invitationType;
   final String seatingArrangement;
+  final ReservationDetailModel detailModel;
 
   ReservationModel({
     this.id,
@@ -27,6 +30,7 @@ class ReservationModel {
     this.invitationCount,
     this.invitationType,
     this.seatingArrangement,
+    this.detailModel,
   });
 
   ///Object to map

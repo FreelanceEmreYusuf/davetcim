@@ -1,3 +1,4 @@
+import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/seans/seans_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_view.dart';
 import 'package:davetcim/src/admin_panel/service/service_view.dart';
@@ -7,6 +8,7 @@ import 'package:davetcim/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/environments/const.dart';
+import '../../widgets/reservation_corporate_card_widget.dart';
 
 
 class AdminCorporatePanelPage extends StatefulWidget {
@@ -57,6 +59,25 @@ class _State extends State<AdminCorporatePanelPage> {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
                             return SeansCorporateView();
+                          },
+                        ));
+                      },
+                    )),
+                SizedBox(height: 30.0),
+                Container(
+                    height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    // ignore: deprecated_member_use
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                      child: Text("REZERVASYON İŞLEMLERİ",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return ReservationCorporateView();
                           },
                         ));
                       },

@@ -32,6 +32,11 @@ class DateConversionUtils {
     return timeStr.substring(0, 2) + ":" + timeStr.substring(2, 4);
   }
 
+  static String convertIntTimeToViewString(int timeInt) {
+    String timeStr = timeInt.toString();
+    return timeStr.substring(6, 8) + "." + timeStr.substring(4, 6) + "." + timeStr.substring(0, 4);
+  }
+
   static bool isOldDate (DateTime dt) {
     return dt.isBefore(DateTime.now().add(const Duration(days: -1)));
   }
