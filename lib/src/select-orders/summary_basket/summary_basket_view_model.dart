@@ -8,6 +8,7 @@ import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../shared/dto/basket_user_model.dart';
+import '../../../shared/enums/reservation_status_enum.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
@@ -48,7 +49,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
       date: basketModel.date,
       description: description,
       sessionId: basketModel.selectedSessionModel.id,
-      isMoneyTransfered: false,
+      reservationStatus: ReservationStatusEnum.newRecord.index,
       isActive: true,
       invitationCount: basketModel.orderBasketModel.count,
       invitationType: basketModel.orderBasketModel.invitationType,

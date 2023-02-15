@@ -10,6 +10,10 @@ class DateConversionUtils {
         dt.second.toString().padLeft(2, '0'));
   }
 
+  static int getTodayAsInt() {
+    return  getCurrentDateAsInt(DateTime.now());
+  }
+
   static DateTime getDateTimeFromIntDate(int intDate) {
     return DateTime(int.parse(intDate.toString().substring(0, 4)),
       int.parse(intDate.toString().substring(4, 6)),

@@ -10,7 +10,7 @@ class ReservationModel {
   final int date;
   final String description;
   final int sessionId;
-  final bool isMoneyTransfered;
+  final int reservationStatus;
   final bool isActive;
   final int invitationCount;
   final String invitationType;
@@ -25,7 +25,7 @@ class ReservationModel {
     this.date,
     this.description,
     this.sessionId,
-    this.isMoneyTransfered,
+    this.reservationStatus,
     this.isActive,
     this.invitationCount,
     this.invitationType,
@@ -42,7 +42,7 @@ class ReservationModel {
     'date': date,
     'description': description,
     'sessionId': sessionId,
-    'isMoneyTransfered': isMoneyTransfered,
+    'reservationStatus': reservationStatus,
     'isActive': isActive,
     'invitationCount': invitationCount,
     'invitationType': invitationType,
@@ -58,7 +58,7 @@ class ReservationModel {
     date: map['date'],
     description: map['description'],
     sessionId: map['sessionId'],
-    isMoneyTransfered: map['isMoneyTransfered'],
+    reservationStatus: map['reservationStatus'],
     isActive: map['isActive'],
     invitationCount: map['invitationCount'],
     invitationType: map['invitationType'],

@@ -58,7 +58,11 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
   Widget build(BuildContext context) {
     super.build(context);
     if (detailResponse == null || detailResponse.reservationModel == null) {
-      return Scaffold(appBar: AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true));
+      return Scaffold(appBar:
+        AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+          body: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+          child: CircularProgressIndicator()));
     }
     return Scaffold(
       appBar: AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
@@ -250,15 +254,38 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                 return GridCorporateDetailServicesSummary(detailRowModel: item, detailModel: detailResponse);
               },
             ),
+            SizedBox(height: 10.0),
+            Container(
+              height: MediaQuery.of(context).size.height / 13,
+              child: Card(
+                color: Colors.redAccent,
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shadowColor: Colors.black,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                        "Toplam Tutar", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    SizedBox(width: MediaQuery.of(context).size.width /4),
+                    Text(
+                        detailResponse.reservationModel.cost.toString() +" TL ", style: TextStyle(fontSize: 20, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
+                  ],
+                ),
+              ),
+            ),
             SizedBox(height: MediaQuery.of(context).size.height / 5,),
-
           ],
         ),
       ),
       floatingActionButton: Container(
         height: MediaQuery.of(context).size.height / 13,
         child: Card(
-          color: Colors.redAccent,
           semanticContainer: true,
           clipBehavior: Clip.antiAliasWithSaveLayer,
           shadowColor: Colors.black,
@@ -267,14 +294,40 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
             borderRadius: BorderRadius.circular(10),
           ),
           child:  Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                  "Toplam Tutar :", style: TextStyle(fontSize: 20, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+              Container(
+                height: 50.0,
+                child: TextButton(
+                  style: TextButton.styleFrom(backgroundColor: Colors.green,),
+                  child: Text(
+                    "ONAYLA".toUpperCase(),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () async {
+
+                  },
+                ),
+              ),
               SizedBox(width: MediaQuery.of(context).size.width /4),
-              Text(
-                  detailResponse.reservationModel.cost.toString() +" TL ", style: TextStyle(fontSize: 20, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
+              Container(
+                height: 50.0,
+                child: TextButton(
+                  style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
+                  child: Text(
+                    "İPTAL".toUpperCase(),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () async {
+
+                  },
+                ),
+              ),
             ],
           ),
         ),
