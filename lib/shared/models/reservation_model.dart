@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:davetcim/shared/models/reservation_detail_model.dart';
 
+import '../enums/reservation_status_enum.dart';
+
 class ReservationModel {
   final int id;
   final int corporationId;
@@ -10,7 +12,7 @@ class ReservationModel {
   final int date;
   final String description;
   final int sessionId;
-  final int reservationStatus;
+  final ReservationStatusEnum reservationStatus;
   final bool isActive;
   final int invitationCount;
   final String invitationType;
@@ -42,7 +44,7 @@ class ReservationModel {
     'date': date,
     'description': description,
     'sessionId': sessionId,
-    'reservationStatus': reservationStatus,
+    'reservationStatus': reservationStatus.index,
     'isActive': isActive,
     'invitationCount': invitationCount,
     'invitationType': invitationType,
@@ -58,7 +60,7 @@ class ReservationModel {
     date: map['date'],
     description: map['description'],
     sessionId: map['sessionId'],
-    reservationStatus: map['reservationStatus'],
+    reservationStatus: ReservationStatusEnumConverter.getEnumValue(int.parse(map['reservationStatus'].toString())),
     isActive: map['isActive'],
     invitationCount: map['invitationCount'],
     invitationType: map['invitationType'],
