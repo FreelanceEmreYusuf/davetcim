@@ -40,7 +40,7 @@ class _State extends State<ReservationCorporateView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarMenu(pageName: "Rezervasyon Yönetimi", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: "Aktif Talepler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(
@@ -54,7 +54,7 @@ class _State extends State<ReservationCorporateView> {
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 1,
                 childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 12),
+                    (MediaQuery.of(context).size.height / 5),
               ),
               itemCount: reservationList == null
                   ? 0
@@ -66,14 +66,6 @@ class _State extends State<ReservationCorporateView> {
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Utils.navigateToPage(context, SeansCorporateAddView());
-        },
-        label: const Text('Seans Ekle'),
-        icon: const Icon(Icons.add),
-        backgroundColor: Colors.redAccent,
       ),
     );
   }

@@ -286,10 +286,11 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
       floatingActionButton: Container(
         height: MediaQuery.of(context).size.height / 13,
         child: Card(
-          semanticContainer: true,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
+          color: Colors.white54,
           shadowColor: Colors.black,
           elevation: 10,
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -297,35 +298,42 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                height: 50.0,
-                child: TextButton(
-                  style: TextButton.styleFrom(backgroundColor: Colors.green,),
-                  child: Text(
-                    "ONAYLA".toUpperCase(),
-                    style: TextStyle(
-                      color: Colors.white,
+              Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: Container(
+                  height: MediaQuery.of(context).size.height / 15,
+                  child: TextButton(
+                    style: TextButton.styleFrom(backgroundColor: Colors.green,),
+                    child: Text(
+                      "ONAYLA".toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  onPressed: () async {
+                    onPressed: () async {
 
-                  },
+                    },
+                  ),
                 ),
               ),
-              SizedBox(width: MediaQuery.of(context).size.width /4),
-              Container(
-                height: 50.0,
-                child: TextButton(
-                  style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
-                  child: Text(
-                    "İPTAL".toUpperCase(),
-                    style: TextStyle(
-                      color: Colors.white,
+              Flexible(
+                flex: 1,
+                fit: FlexFit.tight,
+                child: Container(
+                  height: MediaQuery.of(context).size.height / 15,
+                  child: TextButton(
+                    style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
+                    child: Text(
+                      "REDDET".toUpperCase(),
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  onPressed: () async {
+                    onPressed: () async {
 
-                  },
+                    },
+                  ),
                 ),
               ),
             ],
