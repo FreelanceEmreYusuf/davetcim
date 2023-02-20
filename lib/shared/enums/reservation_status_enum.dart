@@ -15,8 +15,11 @@ class ReservationStatusEnumConverter {
   }
 
   static List<int> adminViewedReservationStatus() {
-    return [ReservationStatusEnum.newRecord.index,
-      ReservationStatusEnum.approved.index,
+    return [ReservationStatusEnum.newRecord.index];
+  }
+
+  static List<int> adminHistoryViewedReservationStatus() {
+    return [ReservationStatusEnum.approved.index,
       ReservationStatusEnum.adminRejected.index];
   }
 }

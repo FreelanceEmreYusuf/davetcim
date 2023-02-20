@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../../../shared/dto/reservation_detail_view_model.dart';
 import '../../../shared/enums/reservation_status_enum.dart';
+import '../../../shared/helpers/customer_helper.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/services/database.dart';
@@ -71,8 +72,13 @@ class ReservationCorporateViewModel extends ChangeNotifier {
     CorporateSessionsViewModel csvm = CorporateSessionsViewModel();
     rdvm.sessionModel = await csvm.getSession(model.sessionId);
 
+    CustomerHelper custHelper = CustomerHelper();
+    rdvm.customerModel = await custHelper.getCustomer(rdvm.reservationModel.customerId);
+
     return rdvm;
   }
+
+
 
   Future<List<ServicePoolModel>> getServicePoolModelList(List<int> selectedServicesIds) async {
     List<ServicePoolModel> serviceList = [];
@@ -132,4 +138,16 @@ class ReservationCorporateViewModel extends ChangeNotifier {
 
     return serviceCorporateList;
   }
+
+  Future<void> editReservationForAdmin(ReservationModel model, bool isApproved) async {
+    Map reservationMap = model.toMap();
+    isApproved ?
+        reservationMap["reservationStatus"] = ReservationStatusEnum.approved.index :
+        reservationMap["reservationStatus"] = ReservationStatusEnum.adminRejected.index;
+
+    reservationMap["isActive"] = isApproved;
+    db.editCollectionRef(DBConstants.corporationReservationsDb, reservationMap);
+  }
+
+
 }

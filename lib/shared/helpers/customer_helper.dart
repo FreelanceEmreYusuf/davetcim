@@ -3,7 +3,27 @@ import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/utils/language.dart';
 
+import '../environments/db_constants.dart';
+import '../models/customer_model.dart';
+
 class CustomerHelper {
+
+  Future<CustomerModel> getCustomer(int customerId) async {
+    Database db = Database();
+    var response = await db
+        .getCollectionRef(DBConstants.customerDB)
+        .where('id', isEqualTo: customerId)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      CustomerModel customer = CustomerModel.fromMap(list[0].data());
+      return customer;
+    }
+
+    return null;
+  }
+
   static Future<String> getUserExistingControlWithUserName(
       String userName) async {
     String errorMessage = '';

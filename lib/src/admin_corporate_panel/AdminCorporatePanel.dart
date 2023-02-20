@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import '../../shared/environments/const.dart';
 import '../../widgets/reservation_corporate_card_widget.dart';
+import 'all_reservation/all_reservation_corporate_view.dart';
 
 
 class AdminCorporatePanelPage extends StatefulWidget {
@@ -82,6 +83,26 @@ class _State extends State<AdminCorporatePanelPage> {
                         ));
                       },
                     )),
+                SizedBox(height: 30.0),
+                Container(
+                    height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    // ignore: deprecated_member_use
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                      child: Text("REZERVASYON GEÇMİŞİ",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return AllReservationCorporateView();
+                          },
+                        ));
+                      },
+                    )),
+
               ],
             )));
   }

@@ -1,3 +1,4 @@
+import 'package:davetcim/shared/enums/reservation_status_enum.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
@@ -20,12 +21,12 @@ import '../../../widgets/grid_corporate_service_pool_for_basket_summary.dart';
 import '../../admin_corporate_panel/service/service-corporate_view_model.dart';
 import '../../notifications/notifications_view_model.dart';
 
-class ReservationCorporateDetailScreen extends StatefulWidget {
+class AllReservationCorporateDetailScreen extends StatefulWidget {
   @override
-  _ReservationCorporateDetailScreenState createState() => _ReservationCorporateDetailScreenState();
+  _AllReservationCorporateDetailScreenState createState() => _AllReservationCorporateDetailScreenState();
   final ReservationModel reservationModel;
 
-  ReservationCorporateDetailScreen(
+  AllReservationCorporateDetailScreen(
       {Key key,
         @required this.reservationModel,
       })
@@ -33,8 +34,8 @@ class ReservationCorporateDetailScreen extends StatefulWidget {
 
 }
 
-class _ReservationCorporateDetailScreenState extends State<ReservationCorporateDetailScreen>
-    with AutomaticKeepAliveClientMixin<ReservationCorporateDetailScreen> {
+class _AllReservationCorporateDetailScreenState extends State<AllReservationCorporateDetailScreen>
+    with AutomaticKeepAliveClientMixin<AllReservationCorporateDetailScreen> {
 
   ReservationDetailViewModel detailResponse = ReservationDetailViewModel();
 
@@ -63,8 +64,16 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
         AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-          child: CircularProgressIndicator()));
+          child: Center(child: CircularProgressIndicator())));
     }
+
+    Color color = Colors.green;
+    String textStr = 'ONAYLANMIŞ REZERVASYON';
+    if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.adminRejected) {
+      color = Colors.redAccent;
+      textStr = 'RED EDİLMİŞ REZERVASYON';
+    }
+
     return Scaffold(
       appBar: AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
@@ -73,6 +82,28 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
           children: <Widget>[
             //Müştreri
             SizedBox(height: 10.0),
+            Container(
+              height: MediaQuery.of(context).size.height / 13,
+              child: Card(
+                color: color,
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shadowColor: Colors.black,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                        textStr, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 15.0),
             Container(
               height: MediaQuery.of(context).size.height / 13,
               child: Card(
@@ -326,67 +357,6 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 5,),
           ],
-        ),
-      ),
-      floatingActionButton: Container(
-        height: MediaQuery.of(context).size.height / 13,
-        child: Card(
-          color: Colors.white54,
-          shadowColor: Colors.black,
-          elevation: 10,
-          semanticContainer: true,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child:  Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(
-                flex: 1,
-                fit: FlexFit.tight,
-                child: Container(
-                  height: MediaQuery.of(context).size.height / 15,
-                  child: TextButton(
-                    style: TextButton.styleFrom(backgroundColor: Colors.green,),
-                    child: Text(
-                      "ONAYLA".toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    onPressed: () async {
-                      ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
-                      await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
-                      Utils.navigateToPage(context, ReservationCorporateView());
-                    },
-                  ),
-                ),
-              ),
-              Flexible(
-                flex: 1,
-                fit: FlexFit.tight,
-                child: Container(
-                  height: MediaQuery.of(context).size.height / 15,
-                  child: TextButton(
-                    style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
-                    child: Text(
-                      "REDDET".toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
-                    ),
-                    onPressed: () async {
-                      ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
-                      await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
-                      Utils.navigateToPage(context, ReservationCorporateView());
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
         ),
       ),
     );
