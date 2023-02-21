@@ -2,7 +2,7 @@ import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/src/search/search_wihthout_appbar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:davetcim/screens/cart.dart';
+import 'package:davetcim/src/user_reservations/user_reservations_view.dart';
 import 'package:davetcim/src/fav_products/favorite_screen.dart';
 import 'package:davetcim/src/home/home_view.dart';
 import 'package:davetcim/src/profile/profile_view.dart';
@@ -41,7 +41,7 @@ class _MainScreenState extends State<MainScreen> {
             FavoriteScreen(),
             SearchWithoutAppBarScreen(),
           //  SearchScreen(),
-            CartScreen(),
+            UserReservationsScreen(),
             Profile(),
           ],
         ),
