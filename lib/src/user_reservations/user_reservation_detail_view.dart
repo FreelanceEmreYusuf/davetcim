@@ -74,12 +74,46 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
       createdAddress =  createdAddress + addressRemaining + "\n\n";
     }
 
+    Color color = Colors.green;
+    String textStr = 'ONAYLANMIŞ REZERVASYON';
+    if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.adminRejected) {
+      color = Colors.redAccent;
+      textStr = 'RED EDİLMİŞ REZERVASYON';
+    }
+    else if(detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.newRecord){
+      color = Colors.grey;
+      textStr = 'ONAY BEKLEYEN REZERVASYON';
+    }
     return Scaffold(
       appBar: AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(
           children: <Widget>[
+            //Müştreri
+            SizedBox(height: 10.0),
+            Container(
+              height: MediaQuery.of(context).size.height / 13,
+              child: Card(
+                color: color,
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shadowColor: Colors.black,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                        textStr, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 15.0),
             //Müştreri
             SizedBox(height: 10.0),
             Container(
@@ -362,7 +396,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                       child: TextButton(
                         style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
                         child: Text(
-                          "REDDET".toUpperCase(),
+                          "REZERVASYONU GERİ ÇEK".toUpperCase(),
                           style: TextStyle(
                             color: Colors.white,
                           ),
