@@ -34,16 +34,6 @@ class _NotificationsViewState extends State<NotificationsView> {
     });
   }
 
-  List<Widget> getListWidget(List _listings) {
-    // <<<<< Note this change for the return type
-    List listings = List<Widget>();
-    int i = 0;
-    for (i = 0; i < _listings.length; i++) {
-      listings.add(_listings[i]);
-    }
-    return listings;
-  }
-
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarMenu(pageName: "Bildirimler", isHomnePageIconVisible: true, isNotificationsIconVisible: false, isPopUpMenuActive: true),
@@ -53,8 +43,7 @@ class _NotificationsViewState extends State<NotificationsView> {
                   Expanded(
                     child: ListView(
                       padding: const EdgeInsets.all(20.0),
-                      children: getListWidget(
-                          listings), // <<<<< Note this change for the return type
+                      children: listings, // <<<<< Note this change for the return type
                     ),
                   )
                 ]))));

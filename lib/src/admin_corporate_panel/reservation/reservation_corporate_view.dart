@@ -39,6 +39,14 @@ class _State extends State<ReservationCorporateView> {
 
   @override
   Widget build(BuildContext context) {
+    if (reservationList == null || reservationList.length == 0) {
+      return Scaffold(appBar:
+      AppBarMenu(pageName: "Aktif Talepler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+          body: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+              child: Center(child: CircularProgressIndicator())));
+    }
+
     return Scaffold(
       appBar: AppBarMenu(pageName: "Aktif Talepler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(

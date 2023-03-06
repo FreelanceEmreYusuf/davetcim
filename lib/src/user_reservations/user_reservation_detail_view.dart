@@ -16,15 +16,18 @@ import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
+import '../notifications/notifications_view.dart';
 
 class UserResevationDetailScreen extends StatefulWidget {
   @override
   _UserResevationDetailScreenState createState() => _UserResevationDetailScreenState();
   final ReservationModel reservationModel;
+  final bool isFromNotification;
 
   UserResevationDetailScreen(
       {Key key,
         @required this.reservationModel,
+        @required this.isFromNotification,
       })
       : super(key: key);
 
@@ -84,6 +87,12 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
       color = Colors.grey;
       textStr = 'ONAY BEKLEYEN REZERVASYON';
     }
+
+    bool isFromNotification = false;
+    if (widget.isFromNotification != null) {
+      isFromNotification = widget.isFromNotification;
+    }
+
     return Scaffold(
       appBar: AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
@@ -404,7 +413,11 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                         onPressed: () async {
                           UserReservationsViewModel rcm = UserReservationsViewModel();
                           await rcm.rejectReservationForUser(detailResponse.reservationModel);
-                          Utils.navigateToPage(context, UserReservationsScreen());
+                          if (isFromNotification) {
+                            Utils.navigateToPage(context, NotificationsView());
+                          } else {
+                            Utils.navigateToPage(context, UserReservationsScreen());
+                          }
                         },
                       ),
                     ),

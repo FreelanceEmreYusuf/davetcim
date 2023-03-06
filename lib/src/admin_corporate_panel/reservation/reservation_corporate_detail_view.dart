@@ -18,16 +18,19 @@ import '../../../widgets/grid_corporate_detail_services_summary.dart';
 import '../../../widgets/grid_corporate_service_pool_for_basket.dart';
 import '../../../widgets/grid_corporate_service_pool_for_basket_summary.dart';
 import '../../admin_corporate_panel/service/service-corporate_view_model.dart';
+import '../../notifications/notifications_view.dart';
 import '../../notifications/notifications_view_model.dart';
 
 class ReservationCorporateDetailScreen extends StatefulWidget {
   @override
   _ReservationCorporateDetailScreenState createState() => _ReservationCorporateDetailScreenState();
   final ReservationModel reservationModel;
+  final bool isFromNotification;
 
   ReservationCorporateDetailScreen(
       {Key key,
         @required this.reservationModel,
+        @required this.isFromNotification,
       })
       : super(key: key);
 
@@ -65,6 +68,12 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
               child: Center(child: CircularProgressIndicator())));
     }
+
+    bool isFromNotification = false;
+    if (widget.isFromNotification != null) {
+      isFromNotification = widget.isFromNotification;
+    }
+
     return Scaffold(
       appBar: AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
@@ -358,8 +367,16 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                     ),
                     onPressed: () async {
                       ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+                      NotificationsViewModel notificationViewModel = NotificationsViewModel();
                       await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
-                      Utils.navigateToPage(context, ReservationCorporateView());
+                      notificationViewModel.sendNotificationToUser(context, widget.reservationModel.customerId,
+                          0, widget.reservationModel.id, true, widget.reservationModel.description);
+                      if (isFromNotification) {
+                        Utils.navigateToPage(context, NotificationsView());
+                      } else {
+                        Utils.navigateToPage(context, ReservationCorporateView());
+                      }
+
                     },
                   ),
                 ),
@@ -379,8 +396,15 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                     ),
                     onPressed: () async {
                       ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+                      NotificationsViewModel notificationViewModel = NotificationsViewModel();
                       await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
-                      Utils.navigateToPage(context, ReservationCorporateView());
+                      notificationViewModel.sendNotificationToUser(context, widget.reservationModel.customerId,
+                          0, widget.reservationModel.id, false, widget.reservationModel.description);
+                      if (isFromNotification) {
+                        Utils.navigateToPage(context, NotificationsView());
+                      } else {
+                        Utils.navigateToPage(context, ReservationCorporateView());
+                      }
                     },
                   ),
                 ),

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/environments/db_constants.dart';
+import '../../shared/helpers/customer_helper.dart';
 import '../../shared/models/customer_model.dart';
 import '../../shared/models/notification_model.dart';
 import '../../shared/services/database.dart';
@@ -42,9 +43,7 @@ class NotificationsViewModel extends ChangeNotifier {
     if (list.length > 0) {
       for (int i = 0; i < list.length; i++) {
         Map item = list[i].data();
-        listings.add(ListTileNotificationsEditing(item['text'], item["id"],
-            item["basketId"], item["commentId"], item["categoryId"],
-            item["isForAdmin"]));
+        listings.add(ListTileNotificationsEditing(NotificationModel.fromMap(item)));
         listings.add(Divider(
           thickness: 1,
         ));
@@ -83,6 +82,69 @@ class NotificationsViewModel extends ChangeNotifier {
         ApplicationSession.notificationCount = notificationCount;
       }
     }
+  }
+
+  Future<void> sendNotificationToUser(BuildContext context,
+      int customerId, int commentId, int reservationId, bool isApproved,  String text) async {
+    String offerMessage = "";
+    if (commentId > 0) {
+      if (isApproved) {
+        offerMessage = "Konu: Yorum Mesajınız Onaylandı" +
+            "\n" +
+            " Yorum Mesajı: " +
+            text +
+            "\n" +
+            " İşlem Tarihi :" +
+            DateTime.now().toString().substring(0, 10);
+      } else {
+        offerMessage = "Konu: Yorum Mesajınız İptal Edildi" +
+            "\n" +
+            " Yorum Mesajı: " +
+            text +
+            "\n" +
+            " İşlem Tarihi :" +
+            DateTime.now().toString().substring(0, 10);
+      }
+
+    } else if (reservationId > 0) {
+      if (isApproved) {
+        offerMessage = "Konu: Rezervasyon Talebiniz Onaylandı" +
+            "\n" +
+            " Rezervasyon Talep Mesajı: " +
+            text +
+            "\n" +
+            " İşlem Tarihi :" +
+            DateTime.now().toString().substring(0, 10);
+      } else {
+        offerMessage = "Konu: Rezervasyon Talebiniz İptal Edildi" +
+            "\n" +
+            " Rezervasyon Talep Mesajı: " +
+            text +
+            "\n" +
+            " İşlem Tarihi :" +
+            DateTime.now().toString().substring(0, 10);
+      }
+    }
+
+    CustomerHelper customerHelper = CustomerHelper();
+;   CustomerModel customer = await customerHelper.getCustomer(customerId);
+    int notificationCount = customer.notificationCount + 1;
+    Map<String, dynamic> customerMap = customer.toMap();
+    customerMap['notificationCount'] = notificationCount;
+    db.editCollectionRef("Customer", customerMap);
+
+    NotificationModel notificationModel = new NotificationModel(
+        id: new DateTime.now().millisecondsSinceEpoch,
+        corporationId: 0,
+        customerId: customerId,
+        commentId: commentId,
+        reservationId: reservationId,
+        isForAdmin : false,
+        notificationCreateDate: Timestamp.now(),
+        notificationOwner: customer.username,
+        text: offerMessage
+    );
+    db.editCollectionRef(DBConstants.notificationsDb, notificationModel.toMap());
   }
 
   Future<void> sendNotificationsToAdminCompanyUsers(BuildContext context,

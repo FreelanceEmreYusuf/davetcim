@@ -38,7 +38,8 @@ class _ReservationUserCardWidgetState
     return Container(
       child: InkWell(
         onTap: (){
-          Utils.navigateToPage(context, UserResevationDetailScreen(reservationModel : widget.model));
+          Utils.navigateToPage(context,
+              UserResevationDetailScreen(reservationModel : widget.model, isFromNotification: false));
         },
         child: SingleChildScrollView(
           child: Card(
