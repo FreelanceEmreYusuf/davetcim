@@ -348,68 +348,71 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          child:  Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Flexible(
-                flex: 1,
-                fit: FlexFit.tight,
-                child: Container(
-                  height: MediaQuery.of(context).size.height / 15,
-                  child: TextButton(
-                    style: TextButton.styleFrom(backgroundColor: Colors.green,),
-                    child: Text(
-                      "ONAYLA".toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.white,
+          child:  Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height / 15,
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Colors.green,),
+                      child: Text(
+                        "ONAYLA".toUpperCase(),
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                    onPressed: () async {
-                      ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
-                      NotificationsViewModel notificationViewModel = NotificationsViewModel();
-                      await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
-                      notificationViewModel.sendNotificationToUser(context, widget.reservationModel.customerId,
-                          0, widget.reservationModel.id, true, widget.reservationModel.description);
-                      if (isFromNotification) {
-                        Utils.navigateToPage(context, NotificationsView());
-                      } else {
-                        Utils.navigateToPage(context, ReservationCorporateView());
-                      }
+                      onPressed: () async {
+                        ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+                        NotificationsViewModel notificationViewModel = NotificationsViewModel();
+                        await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
+                        notificationViewModel.sendNotificationToUser(context, widget.reservationModel.customerId,
+                            0, widget.reservationModel.id, true, widget.reservationModel.description);
+                        if (isFromNotification) {
+                          Utils.navigateToPage(context, NotificationsView());
+                        } else {
+                          Utils.navigateToPage(context, ReservationCorporateView());
+                        }
 
-                    },
-                  ),
-                ),
-              ),
-              Flexible(
-                flex: 1,
-                fit: FlexFit.tight,
-                child: Container(
-                  height: MediaQuery.of(context).size.height / 15,
-                  child: TextButton(
-                    style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
-                    child: Text(
-                      "REDDET".toUpperCase(),
-                      style: TextStyle(
-                        color: Colors.white,
-                      ),
+                      },
                     ),
-                    onPressed: () async {
-                      ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
-                      NotificationsViewModel notificationViewModel = NotificationsViewModel();
-                      await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
-                      notificationViewModel.sendNotificationToUser(context, widget.reservationModel.customerId,
-                          0, widget.reservationModel.id, false, widget.reservationModel.description);
-                      if (isFromNotification) {
-                        Utils.navigateToPage(context, NotificationsView());
-                      } else {
-                        Utils.navigateToPage(context, ReservationCorporateView());
-                      }
-                    },
                   ),
                 ),
-              ),
-            ],
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height / 15,
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
+                      child: Text(
+                        "REDDET".toUpperCase(),
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: () async {
+                        ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+                        NotificationsViewModel notificationViewModel = NotificationsViewModel();
+                        await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
+                        notificationViewModel.sendNotificationToUser(context, widget.reservationModel.customerId,
+                            0, widget.reservationModel.id, false, widget.reservationModel.description);
+                        if (isFromNotification) {
+                          Utils.navigateToPage(context, NotificationsView());
+                        } else {
+                          Utils.navigateToPage(context, ReservationCorporateView());
+                        }
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

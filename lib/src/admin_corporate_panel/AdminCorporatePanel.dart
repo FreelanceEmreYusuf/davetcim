@@ -1,3 +1,4 @@
+import 'package:davetcim/src/admin_corporate_panel/manage_comments/manage_comment_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/seans/seans_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_view.dart';
@@ -98,6 +99,25 @@ class _State extends State<AdminCorporatePanelPage> {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
                             return AllReservationCorporateView();
+                          },
+                        ));
+                      },
+                    )),
+                SizedBox(height: 30.0),
+                Container(
+                    height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    // ignore: deprecated_member_use
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                      child: Text("YORUMLARI DÜZENLE",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return ManageCommentCorporateView();
                           },
                         ));
                       },

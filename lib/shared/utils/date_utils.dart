@@ -1,4 +1,6 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class DateConversionUtils {
   static int getCurrentDateAsInt(DateTime dt) {
     return  int.parse(""  + dt.year.toString()  +
@@ -43,6 +45,12 @@ class DateConversionUtils {
 
   static bool isOldDate (DateTime dt) {
     return dt.isBefore(DateTime.now().add(const Duration(days: -1)));
+  }
+
+  static String convertTimestampTString (int timestamp) {
+    DateTime tsdate = DateTime.fromMillisecondsSinceEpoch(timestamp);
+    String datetime = tsdate.year.toString() + "/" + tsdate.month.toString() + "/" + tsdate.day.toString();
+    return datetime;
   }
 
 }
