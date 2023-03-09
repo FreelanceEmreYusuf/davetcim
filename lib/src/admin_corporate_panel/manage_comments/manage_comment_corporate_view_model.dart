@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/models/comment_model.dart';
+import 'package:davetcim/src/comments/comments_view_model.dart';
 import 'package:davetcim/util/comments.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../shared/enums/reservation_status_enum.dart';
@@ -14,6 +15,7 @@ class ManageCommentCorporateViewModel extends ChangeNotifier {
     var response = await db
         .getCollectionRef("Comments")
         .where('corporationId', isEqualTo: corporateId)
+        .orderBy('date', descending: true)
         .get();
 
     List<CommentModel> commentList = [];
@@ -36,7 +38,12 @@ class ManageCommentCorporateViewModel extends ChangeNotifier {
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
       Map item = list[0].data();
-      db.deleteDocument(DBConstants.commentDb, item['id'].toString());
+      CommentModel commentModel = CommentModel.fromMap(item);
+      db.deleteDocument(DBConstants.commentDb, commentModel.id.toString());
+      if (commentModel.isApproved) {
+        CommentsViewModel commentsViewModel = CommentsViewModel();
+        commentsViewModel.deleteProductRating(commentModel.corporationId, commentModel.star);
+      }
     }
   }
 
@@ -52,6 +59,9 @@ class ManageCommentCorporateViewModel extends ChangeNotifier {
       userName: model.userName
     );
     db.editCollectionRef(DBConstants.commentDb, commentModel.toMap());
+
+    CommentsViewModel commentsViewModel = CommentsViewModel();
+    commentsViewModel.approveProductRating(model.corporationId, model.star);
   }
 
 }

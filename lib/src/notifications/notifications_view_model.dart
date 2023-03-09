@@ -20,7 +20,8 @@ class NotificationsViewModel extends ChangeNotifier {
     List<Widget> listings = [];
     CollectionReference notRef =
     db.getCollectionRef(DBConstants.notificationsDb);
-    bool isForAdmin = ApplicationSession.userSession.roleId == 3;
+    bool isForAdmin = ApplicationSession.userSession.roleId == 1
+      || ApplicationSession.userSession.roleId == 3;
 
     var response;
     if (isForAdmin) {

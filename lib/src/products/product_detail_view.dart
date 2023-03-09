@@ -292,7 +292,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                             InkWell(
                               child: StarAndComment(
                                 starCount: widget.rating.round(),
-                                rating: widget.rating,
+                                rating: double.parse(widget.rating.toStringAsFixed(2)),
                                 raters: widget.raters,
                               ),
                             ),

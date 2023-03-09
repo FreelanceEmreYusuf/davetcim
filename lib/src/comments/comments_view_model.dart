@@ -223,6 +223,54 @@ class CommentsViewModel extends ChangeNotifier {
     }
   }
 
+  Future<void> approveProductRating(int corporationId, int newRating) async {
+    CollectionReference docsRef = db.getCollectionRef(DBConstants.corporationDb);
+    var response = await docsRef.where('id', isEqualTo: corporationId).get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      Map item = list[0].data();
+      double averageRating = double.parse(item["averageRating"].toString());
+      int ratingCount = item["ratingCount"];
+
+      double totalRating = (averageRating * ratingCount) + newRating;
+      ratingCount += 1;
+      averageRating = totalRating / ratingCount;
+
+      CorporationModel corporationModel = CorporationModel.fromMap(item);
+      Map<String, dynamic> corporationMap = corporationModel.toMap();
+      corporationMap['ratingCount'] = ratingCount;
+      corporationMap['averageRating'] = averageRating;
+      db.editCollectionRef(DBConstants.corporationDb, corporationMap);
+    }
+  }
+
+  Future<void> deleteProductRating(int corporationId, int deletedRating) async {
+    CollectionReference docsRef = db.getCollectionRef(DBConstants.corporationDb);
+    var response = await docsRef.where('id', isEqualTo: corporationId).get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      Map item = list[0].data();
+      double averageRating = double.parse(item["averageRating"].toString());
+      int ratingCount = item["ratingCount"];
+
+      double totalRating = (averageRating * ratingCount) - deletedRating;
+      ratingCount -= 1;
+      if (ratingCount <= 0) {
+        averageRating = 0.0;
+      } else {
+        averageRating = totalRating / ratingCount;
+      }
+
+      CorporationModel corporationModel = CorporationModel.fromMap(item);
+      Map<String, dynamic> corporationMap = corporationModel.toMap();
+      corporationMap['ratingCount'] = ratingCount;
+      corporationMap['averageRating'] = averageRating;
+      db.editCollectionRef(DBConstants.corporationDb, corporationMap);
+    }
+  }
+
   Future<int> getOldRating(int corporationId) async {
     CollectionReference docsRef =
       db.getCollectionRef(DBConstants.productCommentsDb);
