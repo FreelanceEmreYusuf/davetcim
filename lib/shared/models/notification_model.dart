@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NotificationModel {
   final int id;
+  final int recipientCustomerId;
   final int corporationId;
   final int customerId;
   final int commentId;
@@ -15,6 +16,7 @@ class NotificationModel {
 
   NotificationModel({
     this.id,
+    this.recipientCustomerId,
     this.corporationId,
     this.customerId,
     this.commentId,
@@ -28,6 +30,7 @@ class NotificationModel {
   ///Object to map
   Map<String, dynamic> toMap() => {
     'id': id,
+    'recipientCustomerId': recipientCustomerId,
     'corporationId': corporationId,
     'customerId': customerId,
     'commentId': commentId,
@@ -41,6 +44,7 @@ class NotificationModel {
   ///Map to object
   factory NotificationModel.fromMap(Map map) => NotificationModel(
     id: map['id'],
+    recipientCustomerId: map['recipientCustomerId'],
     corporationId: map['corporationId'],
     customerId: map['customerId'],
     commentId: map['commentId'],

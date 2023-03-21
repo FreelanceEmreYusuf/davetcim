@@ -153,31 +153,6 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                     ],
                   ),
                 ),
-
-                /*Container(
-                  height: MediaQuery.of(context).size.height / 13,
-                  child: Card(
-                    color: Colors.white54,
-                    semanticContainer: true,
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    shadowColor: Colors.black,
-                    elevation: 10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                            DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
-                                +" & "+widget.basketModel.sessionModel.name,
-                            style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
-                        ),
-                      ],
-                    ),
-                  ),
-                ),*/
               ),
             ),
 
@@ -248,31 +223,6 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                   ],
                 ),
               ),
-
-              /*Container(
-                height: MediaQuery.of(context).size.height / 13,
-                child: Card(
-                  color: Colors.white54,
-                  semanticContainer: true,
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  shadowColor: Colors.black,
-                  elevation: 10,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child:  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                          DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
-                              +" & "+widget.basketModel.sessionModel.name,
-                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
-                      ),
-                    ],
-                  ),
-                ),
-              ),*/
             ),
 
             //hizmetler

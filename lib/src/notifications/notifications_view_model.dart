@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:davetcim/shared/models/reservation_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -27,14 +28,14 @@ class NotificationsViewModel extends ChangeNotifier {
     if (isForAdmin) {
       response = await notRef
           .where('corporationId', isEqualTo: ApplicationSession.userSession.corporationId)
+          .where('recipientCustomerId', isEqualTo: ApplicationSession.userSession.id)
           .where('isForAdmin', isEqualTo: true)
        //   .orderBy('notificationCreateDate', descending: true)
        //   .orderBy('id', descending: true)
           .get();
     } else {
       response = await notRef
-          .where('customerId', isEqualTo: ApplicationSession.userSession.id)
-     //     .where('isForAdmin', isEqualTo: false)
+          .where('recipientCustomerId', isEqualTo: ApplicationSession.userSession.id)
           .orderBy('notificationCreateDate', descending: true)
           .orderBy('id', descending: true)
           .get();
@@ -55,23 +56,23 @@ class NotificationsViewModel extends ChangeNotifier {
     return listings;
   }
 
-  Future<void> deleteNotification(BuildContext context, int id) async {
+  Future<void> deleteNotification(BuildContext context, int id, int customerId) async {
     CollectionReference notRef =
     db.getCollectionRef(DBConstants.notificationsDb);
     var response = await notRef.where('id', isEqualTo: id).get();
     var list = response.docs;
     if (list.length > 0) {
       list[0].reference.delete();
-      updateUserNotificationCount();
+      updateUserNotificationCount(customerId);
       Utils.navigateToPage(context, NotificationsView());
     }
   }
 
-  Future<void> updateUserNotificationCount() async {
+  Future<void> updateUserNotificationCount(int customerId) async {
     if (ApplicationSession.userSession != null) {
       CollectionReference notRef = db.getCollectionRef(DBConstants.customerDB);
       var response = await notRef
-          .where('id', isEqualTo: ApplicationSession.userSession.id)
+          .where('id', isEqualTo: customerId)
           .get();
       var list = response.docs;
       if (list.length > 0) {
@@ -137,7 +138,8 @@ class NotificationsViewModel extends ChangeNotifier {
     NotificationModel notificationModel = new NotificationModel(
         id: new DateTime.now().millisecondsSinceEpoch,
         corporationId: 0,
-        customerId: customerId,
+        customerId: ApplicationSession.userSession.id,
+        recipientCustomerId: customerId,
         commentId: commentId,
         reservationId: reservationId,
         isForAdmin : false,
@@ -181,6 +183,7 @@ class NotificationsViewModel extends ChangeNotifier {
       db.getCollectionRef(DBConstants.customerDB);
     var response = await docsRef
         .where('corporationId', isEqualTo: corporationId)
+        .where('roleId', isEqualTo: 1)
         .get();
 
     var list = response.docs;
@@ -195,6 +198,7 @@ class NotificationsViewModel extends ChangeNotifier {
         id: new DateTime.now().millisecondsSinceEpoch,
         corporationId: corporationId,
         customerId: ApplicationSession.userSession.id,
+        recipientCustomerId: customer.id,
         commentId: commentId,
         reservationId: reservationId,
         isForAdmin : true,
@@ -203,6 +207,29 @@ class NotificationsViewModel extends ChangeNotifier {
         text: offerMessage
       );
       db.editCollectionRef(DBConstants.notificationsDb, notificationModel.toMap());
+    }
+  }
+
+  Future<void> deleteNotificationsFromAdminUsers(BuildContext context,
+      int commentId, int reservationId) async {
+
+    CollectionReference docsRef =
+    db.getCollectionRef(DBConstants.notificationsDb);
+    var response;
+    if (reservationId > 0) {
+      response = await docsRef
+          .where('reservationId', isEqualTo: reservationId)
+          .get();
+    } else {
+      response = await docsRef
+          .where('commentId', isEqualTo: commentId)
+          .get();
+    }
+
+    var list = response.docs;
+    for (int i = 0; i < list.length; i++) {
+      NotificationModel notification = NotificationModel.fromMap(list[i].data());
+      deleteNotification(context, notification.id, notification.recipientCustomerId);
     }
   }
 

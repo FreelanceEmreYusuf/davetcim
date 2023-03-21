@@ -215,7 +215,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                        " ORGANİZASYON DETAYLARI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                        "ORGANİZASYON DETAYLARI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
                   ],
                 ),
               ),
@@ -373,6 +373,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                         await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
                         notificationViewModel.sendNotificationToUser(context, widget.reservationModel.customerId,
                             0, widget.reservationModel.id, true, widget.reservationModel.description);
+                        notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
                         if (isFromNotification) {
                           Utils.navigateToPage(context, NotificationsView());
                         } else {
@@ -402,6 +403,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                         await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
                         notificationViewModel.sendNotificationToUser(context, widget.reservationModel.customerId,
                             0, widget.reservationModel.id, false, widget.reservationModel.description);
+                        notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
                         if (isFromNotification) {
                           Utils.navigateToPage(context, NotificationsView());
                         } else {
