@@ -69,9 +69,13 @@ class _ProductDetailsState extends State<ProductDetails> {
     }
     return result;
   }
+  bool calenderVisibility;
+  String buttonText;
 
   @override
   void initState() {
+    calenderVisibility = false;
+    buttonText = "Takvimi Göster";
     callGetImageList();
     callGetHashtagListList();
     callGetReservationList();
@@ -163,10 +167,10 @@ class _ProductDetailsState extends State<ProductDetails> {
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: Stack(
           children: <Widget>[
-            new Column(
+            Column(
                 children: <Widget>[
                   SizedBox(height: 10.0),
-                  new Stack(
+                  Stack(
                     children: <Widget>[
                       Container(
                         height: MediaQuery.of(context).size.height / 3.2,
@@ -207,8 +211,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                     ],
                   ),
-                  new SizedBox(height: 10.0),
-                  new Text(
+                  SizedBox(height: 10.0),
+                  Text(
                     widget.name,
                     style: TextStyle(
                       fontSize: 20,
@@ -216,8 +220,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     maxLines: 2,
                   ),
-                  new HashtagWidget(hashtagList: hashtagList),
-                  new Padding(
+                  HashtagWidget(hashtagList: hashtagList),
+                  Padding(
                     padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
                     child: Row(
                       children: <Widget>[
@@ -238,7 +242,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ],
                     ),
                   ),
-                  new Padding(
+                  Padding(
                     padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
                     child: Row(
                       children: <Widget>[
@@ -252,8 +256,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ],
                     ),
                   ),
-                  new SizedBox(height: 20.0),
-                  new Text(
+                  SizedBox(height: 20.0),
+                  Text(
                     "Hakkında",
                     style: TextStyle(
                       fontSize: 18,
@@ -261,18 +265,50 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     maxLines: 2,
                   ),
-                  new SizedBox(height: 10.0),
-                  new Text(
+                  SizedBox(height: 10.0),
+                  Text(
                     widget.description,
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w300,
                     ),
                   ),
-                  new SizedBox(height: 20.0),
-                  new Container(child: CalenderCarousel(reservationList: reservationList,corporationId: widget.corporationId, ), padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))),
-                  new SizedBox(width: 10.0),
-                  new Container(
+                  SizedBox(height: 20.0),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black12,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: ListView(
+                        physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      children : <Widget>[
+                        MaterialButton(
+                          textColor: Colors.white,
+                          color: Colors.black12,
+                          child: Text(buttonText),
+                          minWidth: MediaQuery.of(context).size.width,
+                          onPressed: () async {
+                            setState(() {
+                              calenderVisibility = !calenderVisibility;
+                              if(calenderVisibility)
+                                buttonText = "Takvimi Gizle";
+                              else
+                                buttonText = "Takvimi Göster";
+                            });
+                          },
+                        ),
+                        Visibility(
+                            visible: calenderVisibility,
+                            child: Container(
+                                child: CalenderCarousel(reservationList: reservationList,corporationId: widget.corporationId, ),
+                                padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+                            )),
+                      ]
+                    ),
+                  ),
+                  SizedBox(height: 20.0),
+                  Container(
                     alignment: AlignmentDirectional.center,
                     child: Text(
                       "Yorumlar",
@@ -283,8 +319,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       maxLines: 2,
                     ),
                   ),
-                  new SizedBox(height: 20.0),
-                  new SingleChildScrollView(
+                  SizedBox(height: 20.0),
+                  SingleChildScrollView(
                     //padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 12)),
                     child: Column(
                         children: <Widget>[
