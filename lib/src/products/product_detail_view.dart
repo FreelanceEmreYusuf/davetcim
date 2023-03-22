@@ -159,6 +159,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     return Scaffold(
         appBar: AppBarMenu(pageName: widget.name, isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: Stack(
           children: <Widget>[
@@ -301,6 +302,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                               height: MediaQuery.of(context).size.height,
                               child:
                               ListView(
+                                physics: NeverScrollableScrollPhysics(),
                                 padding: const EdgeInsets.all(10.0),
                                 children: _getListings(
                                     commentList), // <<<<< Note this change for the return type
