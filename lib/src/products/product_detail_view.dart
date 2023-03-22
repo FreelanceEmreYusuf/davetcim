@@ -359,7 +359,7 @@ class _ProductDetailsState extends State<ProductDetails> {
           child: TextButton(
             style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
             child: Text(
-              "SEPETE EKLE",
+              "REZERVASYON OLUŞTUR",
               style: TextStyle(
                 color: Colors.white,
               ),
