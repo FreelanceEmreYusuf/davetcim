@@ -48,7 +48,7 @@ class _AppBarMenu extends State<AppBarMenu> {
 
   @override
   Widget build(BuildContext context) {
-    double fontSize = 20;
+    double fontSize = 15;
     AppBarViewModel mdl = new AppBarViewModel();
 
     return ChangeNotifierProvider<AppBarViewModel>(
