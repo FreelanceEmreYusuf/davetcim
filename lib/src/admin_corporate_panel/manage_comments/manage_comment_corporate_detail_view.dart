@@ -1,10 +1,9 @@
-
-
 import 'package:davetcim/shared/enums/reservation_status_enum.dart';
 import 'package:davetcim/shared/models/comment_model.dart';
 import 'package:davetcim/src/admin_corporate_panel/manage_comments/manage_comment_corporate_view_model.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
 import 'package:davetcim/src/comments/comments_view_model.dart';
+import 'package:davetcim/src/notifications/notifications_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/dto/reservation_detail_view_model.dart';
@@ -15,16 +14,19 @@ import '../../../shared/utils/language.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
+import '../../notifications/notifications_view_model.dart';
 import 'manage_comment_corporate_view.dart';
 
 class ManageCommentCorporateDetailScreen extends StatefulWidget {
   @override
   _ManageCommentCorporateDetailScreenState createState() => _ManageCommentCorporateDetailScreenState();
   final CommentModel commentModel;
+  final bool isFromNotification;
 
   ManageCommentCorporateDetailScreen(
       {Key key,
         @required this.commentModel,
+        @required this.isFromNotification,
       })
       : super(key: key);
 
@@ -38,15 +40,16 @@ class _ManageCommentCorporateDetailScreenState extends State<ManageCommentCorpor
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
     if (widget.commentModel == null) {
       return Scaffold(appBar:
-        AppBarMenu(pageName: "Yorum Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      AppBarMenu(pageName: "Yorum Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-          child: Center(child: CircularProgressIndicator())));
+              child: Center(child: CircularProgressIndicator())));
     }
 
     Color color = Colors.green;
@@ -57,7 +60,23 @@ class _ManageCommentCorporateDetailScreenState extends State<ManageCommentCorpor
     }
     var date = widget.commentModel.date;
 
+    bool isFromNotification = false;
+    if(widget.isFromNotification != null){
+      isFromNotification = widget.isFromNotification;
+    }
+
     Future<void> deleteService() async {
+      NotificationsViewModel notificationsViewModel = NotificationsViewModel();
+      await notificationsViewModel.deleteNotificationsFromAdminUsers(context, widget.commentModel.id, 0);
+      ManageCommentCorporateViewModel service = ManageCommentCorporateViewModel();
+      await service.deleteService(widget.commentModel);
+      if(isFromNotification)
+        Utils.navigateToPage(context, NotificationsView());
+      else
+        Utils.navigateToPage(context, ManageCommentCorporateView());
+    }
+
+    Future<void> deleteServiceWithoutDeleteNotifications() async {
       ManageCommentCorporateViewModel service = ManageCommentCorporateViewModel();
       await service.deleteService(widget.commentModel);
       Utils.navigateToPage(context, ManageCommentCorporateView());
@@ -66,7 +85,13 @@ class _ManageCommentCorporateDetailScreenState extends State<ManageCommentCorpor
     Future<void> updateService() async {
       ManageCommentCorporateViewModel service = ManageCommentCorporateViewModel();
       await service.updateComment(widget.commentModel);
-      Utils.navigateToPage(context, ManageCommentCorporateView());
+      NotificationsViewModel notificationsViewModel = NotificationsViewModel();
+      await notificationsViewModel.deleteNotificationsFromAdminUsers(context, widget.commentModel.id, 0);
+      if(isFromNotification)
+        Utils.navigateToPage(context, NotificationsView());
+      else
+        Utils.navigateToPage(context, ManageCommentCorporateView());
+
     }
 
     Widget bottomWidget = Padding(
@@ -156,7 +181,7 @@ class _ManageCommentCorporateDetailScreenState extends State<ManageCommentCorpor
                             .processApproveHeader[LanguageConstants.languageFlag],
                         LanguageConstants.processApproveDeleteMessage[
                         LanguageConstants.languageFlag],
-                        deleteService, '');
+                        deleteServiceWithoutDeleteNotifications, '');
                     //Utils.navigateToPage(context, ManageCommentCorporateView());
                   },
                 ),

@@ -7,12 +7,15 @@ import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../src/admin_corporate_panel/manage_comments/manage_comment_corporate_detail_view.dart';
 import '../../src/admin_corporate_panel/reservation/reservation_corporate_detail_view.dart';
 import '../../src/user_reservations/user_reservation_detail_view.dart';
 import '../environments/db_constants.dart';
+import '../models/comment_model.dart';
 import '../models/corporation_model.dart';
 import '../models/customer_model.dart';
 import '../utils/utils.dart';
+import 'comment_helper.dart';
 
 class NotificationHelper {
 
@@ -20,7 +23,7 @@ class NotificationHelper {
     if (notificationModel.reservationId > 0) {
       ReservationHelper reservationHelper = ReservationHelper();
       ReservationModel reservationModel = await
-        reservationHelper.getReservation(notificationModel.reservationId);
+      reservationHelper.getReservation(notificationModel.reservationId);
       if (notificationModel.isForAdmin) {
         Utils.navigateToPage(context, ReservationCorporateDetailScreen(reservationModel : reservationModel, isFromNotification: true));
       } else {
@@ -28,7 +31,18 @@ class NotificationHelper {
       }
 
     }
+    else{
+      CommentHelper commentHelper = CommentHelper();
+      CommentModel commentModel = await commentHelper.getComment(notificationModel.commentId);
+      if (notificationModel.isForAdmin) {
+        Utils.navigateToPage(context, ManageCommentCorporateDetailScreen(commentModel: commentModel, isFromNotification: true));
+      } else {
+        // TODO : admin notificationu değilse nasıl davranmalı!!!!!
+      }
+
+    }
   }
 
 
 }
+

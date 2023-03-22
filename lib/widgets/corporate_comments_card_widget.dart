@@ -41,7 +41,7 @@ class _CorporateCommentsCardWidgetState
     return Container(
       child: InkWell(
         onTap: (){
-         Utils.navigateToPage(context, ManageCommentCorporateDetailScreen(commentModel: widget.model));
+         Utils.navigateToPage(context, ManageCommentCorporateDetailScreen(commentModel: widget.model, isFromNotification: false,));
         },
         child: SingleChildScrollView(
           child: Card(
