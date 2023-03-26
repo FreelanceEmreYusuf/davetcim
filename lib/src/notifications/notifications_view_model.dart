@@ -30,8 +30,8 @@ class NotificationsViewModel extends ChangeNotifier {
           .where('corporationId', isEqualTo: ApplicationSession.userSession.corporationId)
           .where('recipientCustomerId', isEqualTo: ApplicationSession.userSession.id)
           .where('isForAdmin', isEqualTo: true)
-       //   .orderBy('notificationCreateDate', descending: true)
-       //   .orderBy('id', descending: true)
+          .orderBy('notificationCreateDate', descending: true)
+          .orderBy('id', descending: true)
           .get();
     } else {
       response = await notRef
@@ -87,7 +87,7 @@ class NotificationsViewModel extends ChangeNotifier {
   }
 
   Future<void> sendNotificationToUser(BuildContext context,
-      int customerId, int commentId, int reservationId, bool isApproved,  String text) async {
+      int corporationId, int customerId, int commentId, int reservationId, bool isApproved,  String text) async {
     String offerMessage = "";
     if (commentId > 0) {
       if (isApproved) {
@@ -137,7 +137,7 @@ class NotificationsViewModel extends ChangeNotifier {
 
     NotificationModel notificationModel = new NotificationModel(
         id: new DateTime.now().millisecondsSinceEpoch,
-        corporationId: 0,
+        corporationId: corporationId,
         customerId: ApplicationSession.userSession.id,
         recipientCustomerId: customerId,
         commentId: commentId,
@@ -219,10 +219,12 @@ class NotificationsViewModel extends ChangeNotifier {
     if (reservationId > 0) {
       response = await docsRef
           .where('reservationId', isEqualTo: reservationId)
+          .where('isForAdmin', isEqualTo: true)
           .get();
     } else {
       response = await docsRef
           .where('commentId', isEqualTo: commentId)
+          .where('isForAdmin', isEqualTo: true)
           .get();
     }
 

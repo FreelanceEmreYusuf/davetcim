@@ -40,6 +40,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
     with AutomaticKeepAliveClientMixin<ReservationCorporateDetailScreen> {
 
   ReservationDetailViewModel detailResponse = ReservationDetailViewModel();
+  bool hasDataTaken = false;
 
 
   void getReservationDetail() async{
@@ -48,6 +49,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
 
     setState(() {
       detailResponse = detailResponse;
+      hasDataTaken = true;
     });
   }
 
@@ -61,7 +63,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (detailResponse == null || detailResponse.reservationModel == null) {
+    if (!hasDataTaken) {
       return Scaffold(appBar:
         AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
@@ -371,7 +373,8 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                         ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
                         NotificationsViewModel notificationViewModel = NotificationsViewModel();
                         await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
-                        notificationViewModel.sendNotificationToUser(context, widget.reservationModel.customerId,
+                        notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
+                            widget.reservationModel.customerId,
                             0, widget.reservationModel.id, true, widget.reservationModel.description);
                         notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
                         if (isFromNotification) {
@@ -401,7 +404,8 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                         ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
                         NotificationsViewModel notificationViewModel = NotificationsViewModel();
                         await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
-                        notificationViewModel.sendNotificationToUser(context, widget.reservationModel.customerId,
+                        notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
+                            widget.reservationModel.customerId,
                             0, widget.reservationModel.id, false, widget.reservationModel.description);
                         notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
                         if (isFromNotification) {

@@ -38,6 +38,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
     with AutomaticKeepAliveClientMixin<AllReservationCorporateDetailScreen> {
 
   ReservationDetailViewModel detailResponse = ReservationDetailViewModel();
+  bool hasDataTaken = false;
 
 
   void getReservationDetail() async{
@@ -46,6 +47,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
 
     setState(() {
       detailResponse = detailResponse;
+      hasDataTaken = true;
     });
   }
 
@@ -59,7 +61,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    if (detailResponse == null || detailResponse.reservationModel == null) {
+    if (!hasDataTaken) {
       return Scaffold(appBar:
         AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(

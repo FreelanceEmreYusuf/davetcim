@@ -7,6 +7,7 @@ import '../../../shared/enums/reservation_status_enum.dart';
 import '../../../shared/environments/db_constants.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/services/database.dart';
+import '../../notifications/notifications_view_model.dart';
 
 class ManageCommentCorporateViewModel extends ChangeNotifier {
   Database db = Database();

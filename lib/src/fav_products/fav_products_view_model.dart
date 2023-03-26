@@ -88,4 +88,5 @@ class FavProductsViewModel extends ChangeNotifier {
       }
     }
   }
+
 }

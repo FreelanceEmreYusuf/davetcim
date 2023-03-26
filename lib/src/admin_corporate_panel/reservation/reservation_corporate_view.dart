@@ -20,6 +20,7 @@ class ReservationCorporateView extends StatefulWidget {
 
 class _State extends State<ReservationCorporateView> {
   List<ReservationModel> reservationList = [];
+  bool hasDataTaken = false;
   final registerFormKey = GlobalKey <FormState> ();
 
   @override
@@ -34,12 +35,13 @@ class _State extends State<ReservationCorporateView> {
 
     setState(() {
       reservationList = reservationList;
+      hasDataTaken = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if (reservationList == null || reservationList.length == 0) {
+    if (!hasDataTaken) {
       return Scaffold(appBar:
       AppBarMenu(pageName: "Aktif Talepler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(

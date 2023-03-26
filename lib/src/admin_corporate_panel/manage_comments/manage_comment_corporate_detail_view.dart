@@ -68,6 +68,8 @@ class _ManageCommentCorporateDetailScreenState extends State<ManageCommentCorpor
     Future<void> deleteService() async {
       NotificationsViewModel notificationsViewModel = NotificationsViewModel();
       await notificationsViewModel.deleteNotificationsFromAdminUsers(context, widget.commentModel.id, 0);
+      await notificationsViewModel.sendNotificationToUser(context,widget.commentModel.corporationId,
+          widget.commentModel.customerId, widget.commentModel.id, 0, false,  widget.commentModel.comment);
       ManageCommentCorporateViewModel service = ManageCommentCorporateViewModel();
       await service.deleteService(widget.commentModel);
       if(isFromNotification)
@@ -86,7 +88,10 @@ class _ManageCommentCorporateDetailScreenState extends State<ManageCommentCorpor
       ManageCommentCorporateViewModel service = ManageCommentCorporateViewModel();
       await service.updateComment(widget.commentModel);
       NotificationsViewModel notificationsViewModel = NotificationsViewModel();
+      await notificationsViewModel.sendNotificationToUser(context, widget.commentModel.corporationId,
+          widget.commentModel.customerId, widget.commentModel.id, 0, true,  widget.commentModel.comment);
       await notificationsViewModel.deleteNotificationsFromAdminUsers(context, widget.commentModel.id, 0);
+
       if(isFromNotification)
         Utils.navigateToPage(context, NotificationsView());
       else

@@ -19,6 +19,7 @@ import '../../widgets/carousel_calender_order_widget.dart';
 import '../../widgets/carousel_calender_widget.dart';
 import '../../widgets/hashtag_widget.dart';
 import '../../widgets/star_and_comment.dart';
+import '../comments/comments_view.dart';
 import '../fav_products/fav_products_view_model.dart';
 import '../join/join_view.dart';
 import '../reservation/reservation_view_model.dart';
@@ -139,16 +140,6 @@ class _ProductDetailsState extends State<ProductDetails> {
     setState(() {
       isFavorite = ApplicationSession.isCorporationFavorite(widget.corporationId);
     });
-  }
-
-  List<Widget> _getListings(List _listings) {
-    // <<<<< Note this change for the return type
-    List<Widget> listings = [];
-
-    for (int i = 0; i < _listings.length; i++) {
-      listings.add(_listings[i]);
-    }
-    return listings;
   }
 
   static void pushToJoinPage(BuildContext context) {
@@ -340,9 +331,30 @@ class _ProductDetailsState extends State<ProductDetails> {
                               ListView(
                                 physics: NeverScrollableScrollPhysics(),
                                 padding: const EdgeInsets.all(10.0),
-                                children: _getListings(
-                                    commentList), // <<<<< Note this change for the return type
+                                children: commentList, // <<<<< Note this change for the return type
                               )
+                          ),
+                          SizedBox(height: 20.0),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: Colors.black12,
+                              borderRadius: BorderRadius.circular(6),
+                            ),
+                            child: ListView(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                children : <Widget>[
+                                  MaterialButton(
+                                    textColor: Colors.white,
+                                    color: Colors.redAccent,
+                                    child: Text("Tüm Yorumları Göster"),
+                                    minWidth: MediaQuery.of(context).size.width,
+                                    onPressed: () async {
+                                      Utils.navigateToPage(context, CommentsView(commentList: commentList));
+                                    },
+                                  ),
+                                ]
+                            ),
                           ),
                         ]
                     ),

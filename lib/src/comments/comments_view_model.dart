@@ -108,50 +108,6 @@ class CommentsViewModel extends ChangeNotifier {
     commentList.add(Divider(
       thickness: 3,
     ));
-/*
-    if (ApplicationSession.userSession != null && list.length > 0) {
-      list.forEach((element) {
-        Map item = element.data();
-        if (int.parse(item["customerId"].toString()) ==
-            ApplicationSession.userSession.id) {
-          commentList.add(ListTile(
-            title: Text(
-              LanguageConstants.seninYorumun[LanguageConstants.languageFlag] +
-                  "(" +
-                  ApplicationSession.userSession.username +
-                  ")",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ));
-          Timestamp _date = item['date'];
-          DateTime date = _date.toDate().add(new Duration(hours: 3));
-          String userName = item['userName'];
-          commentList.add(ListTileCommentsWithEditing(item['comment'], date,
-              userName, item["star"], corporationId));
-          commentList.add(Divider(
-            thickness: 1,
-          ));
-
-          commentList.add(SizedBox(height: 25));
-          commentList.add(Divider(
-            thickness: 3,
-          ));
-          commentList.add(ListTile(
-              title: Text(
-                LanguageConstants
-                    .onaylanmisYorumlar[LanguageConstants.languageFlag],
-                style: TextStyle(
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              )));
-        }
-      });
-    }*/
-    //////////////////////////////////////////
 
     for (int i = 0; i < list.length; i++) {
       Map item = list[i].data();
