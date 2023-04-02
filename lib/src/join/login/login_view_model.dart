@@ -9,6 +9,9 @@ import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../shared/enums/customer_role_enum.dart';
+import '../../admin_corporate_panel/company/add_corporation/corporation_add_view.dart';
+import '../../admin_corporate_panel/company/user_register/company_user_register_view.dart';
 import '../../fav_products/fav_products_view_model.dart';
 
 class LoginViewModel extends ChangeNotifier {
@@ -26,7 +29,14 @@ class LoginViewModel extends ChangeNotifier {
       var list = response.docs;
       CustomerModel customer = CustomerModel.fromMap(list[0].data());
       await fillUserSession(customer);
-      Utils.navigateToPage(context, childPage);
+
+      if (customer.roleId == CustomerRoleEnum.companyAdminNotRegistered) {
+        Utils.navigateToPage(context, CompanyUserRegisterView());
+      } else if (customer.roleId == CustomerRoleEnum.companyAdmin && customer.corporationId == 0) {
+        Utils.navigateToPage(context, CorporationAddView());
+      } else {
+        Utils.navigateToPage(context, childPage);
+      }
     } else {
       Dialogs.showAlertMessage(
           context,

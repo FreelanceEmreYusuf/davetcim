@@ -5,6 +5,7 @@ import 'package:davetcim/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/environments/const.dart';
+import 'company/company_add_view.dart';
 
 
 class AdminPanelPage extends StatefulWidget {
@@ -28,14 +29,14 @@ class _State extends State<AdminPanelPage> {
                     // ignore: deprecated_member_use
                     child: TextButton(
                       style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("SALON EKLE",
+                      child: Text("YENİ SALON KULLANICISI EKLE",
                         style: TextStyle(
                           color: Colors.white,
                         ),),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return MainScreen();
+                            return CompanyAddView();
                           },
                         ));
                       },

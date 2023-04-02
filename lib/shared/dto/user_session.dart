@@ -1,10 +1,12 @@
+import '../enums/customer_role_enum.dart';
+
 class UserSession {
   final int id;
   final String name;
   final String surname;
   final String gsmNo;
   final int corporationId;
-  final int roleId;
+  final CustomerRoleEnum roleId;
   final bool isActive;
   final String username;
   final String eMail;

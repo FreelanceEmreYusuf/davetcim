@@ -4,16 +4,17 @@ import 'package:davetcim/shared/helpers/customer_helper.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/models/secret_questions_model.dart';
 import 'package:davetcim/shared/services/database.dart';
+import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/enums/customer_role_enum.dart';
-import '../join_view.dart';
+import '../../../../shared/enums/customer_role_enum.dart';
+import '../add_corporation/corporation_add_view.dart';
 
-class RegisterViewModel extends ChangeNotifier {
+class CompanyUserRegisterViewModel extends ChangeNotifier {
   Database db = Database();
   Future<void> customerUserRegisterFlow(
       BuildContext context,
@@ -52,13 +53,13 @@ class RegisterViewModel extends ChangeNotifier {
       String selectedQuestionAnswer) async {
     CustomerModel _customer = new CustomerModel(
         username: _usernameControl,
-        id: new DateTime.now().millisecondsSinceEpoch,
+        id: ApplicationSession.userSession.id,
         corporationId: 0,
         gsmNo: _phoneControl,
         isActive: true,
         name: _nameControl,
         password: _passwordControl,
-        roleId: CustomerRoleEnum.user,
+        roleId: CustomerRoleEnum.companyAdmin,
         surname: _surnameControl,
         eMail: _emailControl,
         secretQuestionId: selectedQuestion.id,
@@ -75,11 +76,11 @@ class RegisterViewModel extends ChangeNotifier {
         LanguageConstants.dialogSuccessHeader[LanguageConstants.languageFlag],
         LanguageConstants
             .dialogSuccessUserMessage[LanguageConstants.languageFlag],
-        pushToJoinPage);
+        pushToAdminCorporationAddPage);
   }
 
-  static void pushToJoinPage(BuildContext context) {
-    Utils.navigateToPage(context, JoinView());
+  static void pushToAdminCorporationAddPage(BuildContext context) {
+    Utils.navigateToPage(context, CorporationAddView());
   }
 
   Future<List<SecretQuestionsModel>> fillQuestionList() async {

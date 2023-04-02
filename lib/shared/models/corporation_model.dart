@@ -12,8 +12,6 @@ class CorporationModel {
   final bool isActive;
   final bool isPopularCorporation;
   final int maxPopulation;
-  final int organizationEnd;
-  final int organizationStart;
   final int ratingCount;
   final String region;
   final String telephoneNo;
@@ -33,8 +31,6 @@ class CorporationModel {
     this.isActive,
     this.isPopularCorporation,
     this.maxPopulation,
-    this.organizationEnd,
-    this.organizationStart,
     this.ratingCount,
     this.region,
     this.telephoneNo,
@@ -56,8 +52,6 @@ class CorporationModel {
     'isActive': isActive,
     'isPopularCorporation': isPopularCorporation,
     'maxPopulation': maxPopulation,
-    'organizationEnd': organizationEnd,
-    'organizationStart': organizationStart,
     'ratingCount': ratingCount,
     'region': region,
     'telephoneNo': telephoneNo,
@@ -79,8 +73,6 @@ class CorporationModel {
     isActive: map['isActive'],
     isPopularCorporation: map['isPopularCorporation'],
     maxPopulation: map['maxPopulation'],
-    organizationEnd: map['organizationEnd'],
-    organizationStart: map['organizationStart'],
     ratingCount: map['ratingCount'],
     region: map['region'],
     telephoneNo: map['telephoneNo'],

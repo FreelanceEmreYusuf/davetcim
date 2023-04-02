@@ -1,12 +1,14 @@
 import 'dart:math';
 
+import '../enums/customer_role_enum.dart';
+
 class CustomerModel {
   final int id;
   final String name;
   final String surname;
   final String gsmNo;
   final int corporationId;
-  final int roleId;
+  final CustomerRoleEnum roleId;
   final bool isActive;
   final String username;
   final String password;
@@ -39,7 +41,7 @@ class CustomerModel {
         'surname': surname,
         'gsmNo': gsmNo,
         'corporationId': corporationId,
-        'roleId': roleId,
+        'roleId': roleId.index,
         'isActive': isActive,
         'username': username,
         'password': password,
@@ -57,7 +59,7 @@ class CustomerModel {
       surname: map['surname'],
       gsmNo: map['gsmNo'],
       corporationId: map['corporationId'],
-      roleId: map['roleId'],
+      roleId: CustomerRoleEnumConverter.getEnumValue(int.parse(map['roleId'].toString())),
       isActive: map['isActive'],
       username: map['username'],
       password: map['password'],

@@ -13,6 +13,7 @@ import 'package:davetcim/src/search/search_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../shared/enums/customer_role_enum.dart';
 import '../../src/admin_corporate_panel/AdminCorporatePanel.dart';
 
 class PopUpMenu extends StatefulWidget {
@@ -24,9 +25,9 @@ class _PopUpMenu extends State<PopUpMenu> {
   @override
   Widget build(BuildContext context) {
     if (ApplicationSession.userSession != null) {
-      if (ApplicationSession.userSession.roleId == 3) {
+      if (ApplicationSession.userSession.roleId == CustomerRoleEnum.admin) {
         return getForAdmin();
-      } else if (ApplicationSession.userSession.roleId == 1) {
+      } else if (ApplicationSession.userSession.roleId == CustomerRoleEnum.companyAdmin) {
         return getForCorporateAdmin();
       }else {
         return getForAuthenticatedUser();

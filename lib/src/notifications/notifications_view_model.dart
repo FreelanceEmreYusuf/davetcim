@@ -3,6 +3,7 @@ import 'package:davetcim/shared/models/reservation_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../shared/enums/customer_role_enum.dart';
 import '../../shared/environments/db_constants.dart';
 import '../../shared/helpers/customer_helper.dart';
 import '../../shared/models/customer_model.dart';
@@ -21,8 +22,7 @@ class NotificationsViewModel extends ChangeNotifier {
     List<Widget> listings = [];
     CollectionReference notRef =
     db.getCollectionRef(DBConstants.notificationsDb);
-    bool isForAdmin = ApplicationSession.userSession.roleId == 1
-      || ApplicationSession.userSession.roleId == 3;
+    bool isForAdmin = CustomerRoleEnumConverter.isAdmin(ApplicationSession.userSession.roleId);
 
     var response;
     if (isForAdmin) {
@@ -183,7 +183,7 @@ class NotificationsViewModel extends ChangeNotifier {
       db.getCollectionRef(DBConstants.customerDB);
     var response = await docsRef
         .where('corporationId', isEqualTo: corporationId)
-        .where('roleId', isEqualTo: 1)
+        .where('roleId', isEqualTo: CustomerRoleEnum.companyAdmin.index)
         .get();
 
     var list = response.docs;
