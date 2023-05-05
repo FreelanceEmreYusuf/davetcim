@@ -1,3 +1,4 @@
+import 'package:davetcim/src/join/corporation_register/corporation_register_view.dart';
 import 'package:davetcim/src/join/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/src/join/register/register_view.dart';
@@ -22,7 +23,7 @@ class _JoinViewState extends State<JoinView>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, initialIndex: 0, length: 2);
+    _tabController = TabController(vsync: this, initialIndex: 0, length: 3);
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
 
@@ -74,6 +75,9 @@ class _JoinViewState extends State<JoinView>
             Tab(
               text: "Kayıt Ol",
             ),
+            Tab(
+              text: "Salon Kayıt",
+            ),
           ],
         ),
       ),
@@ -82,6 +86,7 @@ class _JoinViewState extends State<JoinView>
         children: <Widget>[
           LoginView(childPage: widget.childPage,),
           RegisterView(),
+          CorporationRegisterView(),
         ],
       ),
     );
