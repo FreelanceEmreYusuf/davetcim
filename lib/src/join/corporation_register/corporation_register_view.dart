@@ -5,6 +5,9 @@ import 'package:davetcim/src/join/register/register_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../shared/utils/utils.dart';
+import '../../corporation_register/common_informations_p1/common_info_view.dart';
+
 class CorporationRegisterView extends StatefulWidget {
   @override
   _CorporationRegisterViewState createState() => _CorporationRegisterViewState();
@@ -95,6 +98,7 @@ class _CorporationRegisterViewState extends State<CorporationRegisterView> {
                     ),
                   ),
                   onPressed: () {
+                    Utils.navigateToPage(context, CommonInformationsView());
                     //key kontrolü yapılacak değer doğru ise emrenin daha önceden yapmış olduğu salon akyıt sayfasına focuslanacak!
                   },
                 ),
