@@ -74,7 +74,11 @@ class _AppBarMenu extends State<AppBarMenu> {
                         icon: Icon(
                           Icons.keyboard_backspace,
                         ),
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () => {
+                          if (widget.pageName != 'Davetçim') {
+                            Navigator.pop(context)
+                          },
+                        }
                       ),
                       actions: <Widget>[
                         if(widget.isNotificationsIconVisible)
