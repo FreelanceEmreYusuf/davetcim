@@ -55,7 +55,7 @@ class CompanyViewModel extends ChangeNotifier {
         isActive: true,
         name: nameControl,
         password: passwordControl,
-        roleId: CustomerRoleEnum.companyAdminNotRegistered,
+        roleId: CustomerRoleEnum.user,
         surname: surnameControl,
         eMail: emailControl,
         secretQuestionId: 0,

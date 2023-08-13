@@ -30,9 +30,9 @@ class LoginViewModel extends ChangeNotifier {
       CustomerModel customer = CustomerModel.fromMap(list[0].data());
       await fillUserSession(customer);
 
-      if (customer.roleId == CustomerRoleEnum.companyAdminNotRegistered) {
+    /*  if (customer.roleId == CustomerRoleEnum.companyAdminNotRegistered) {
         Utils.navigateToPage(context, CompanyUserRegisterView());
-      } else if (customer.roleId == CustomerRoleEnum.companyAdmin && customer.corporationId == 0) {
+      } else */if (customer.roleId == CustomerRoleEnum.companyAdmin && customer.corporationId == 0) {
         Utils.navigateToPage(context, CorporationAddView());
       } else {
         Utils.navigateToPage(context, childPage);
