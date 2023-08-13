@@ -1,16 +1,20 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class CompanyModel {
   final int id;
   final String name;
   final int customerId;
   final bool isActive;
+  final Timestamp recordDate;
 
   CompanyModel({
     this.id,
     this.name,
     this.customerId,
     this.isActive,
+    this.recordDate
   });
 
   ///Object to map
@@ -19,6 +23,7 @@ class CompanyModel {
     'name': name,
     'customerId': customerId,
     'isActive': isActive,
+    'recordDate': recordDate,
   };
 
   ///Map to object
@@ -27,5 +32,6 @@ class CompanyModel {
     name: map['name'],
     customerId: map['customerId'],
     isActive: map['isActive'],
+    recordDate: map['recordDate'],
   );
 }

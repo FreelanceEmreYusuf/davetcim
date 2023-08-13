@@ -47,6 +47,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
       customerId: ApplicationSession.userSession.id,
       cost: basketModel.totalPrice,
       date: basketModel.date,
+      recordDate: Timestamp.now(),
       description: description,
       sessionId: basketModel.selectedSessionModel.id,
       reservationStatus: ReservationStatusEnum.newRecord,

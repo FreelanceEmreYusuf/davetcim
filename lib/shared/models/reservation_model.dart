@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/models/reservation_detail_model.dart';
 
 import '../enums/reservation_status_enum.dart';
@@ -17,6 +18,7 @@ class ReservationModel {
   final int invitationCount;
   final String invitationType;
   final String seatingArrangement;
+  final Timestamp recordDate;
   final ReservationDetailModel detailModel;
 
   ReservationModel({
@@ -32,6 +34,7 @@ class ReservationModel {
     this.invitationCount,
     this.invitationType,
     this.seatingArrangement,
+    this.recordDate,
     this.detailModel,
   });
 
@@ -48,6 +51,7 @@ class ReservationModel {
     'isActive': isActive,
     'invitationCount': invitationCount,
     'invitationType': invitationType,
+    'recordDate': recordDate,
     'seatingArrangement': seatingArrangement,
   };
 
@@ -64,6 +68,7 @@ class ReservationModel {
     isActive: map['isActive'],
     invitationCount: map['invitationCount'],
     invitationType: map['invitationType'],
+    recordDate: map['recordDate'],
     seatingArrangement: map['seatingArrangement'],
   );
 }

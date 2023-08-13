@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/helpers/customer_helper.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/services/database.dart';
@@ -56,6 +57,7 @@ class CompanyViewModel extends ChangeNotifier {
         name: nameControl,
         password: passwordControl,
         roleId: CustomerRoleEnum.user,
+        recordDate: Timestamp.now(),
         surname: surnameControl,
         eMail: emailControl,
         secretQuestionId: 0,
@@ -72,6 +74,7 @@ class CompanyViewModel extends ChangeNotifier {
         id: new DateTime.now().millisecondsSinceEpoch,
         name: firmName,
         customerId: customerId,
+        recordDate: Timestamp.now(),
         isActive: true);
 
     db.editCollectionRef("Company", company.toMap());

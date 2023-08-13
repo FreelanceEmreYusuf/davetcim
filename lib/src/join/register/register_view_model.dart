@@ -59,6 +59,7 @@ class RegisterViewModel extends ChangeNotifier {
         name: _nameControl,
         password: _passwordControl,
         roleId: CustomerRoleEnum.user,
+        recordDate: Timestamp.now(),
         surname: _surnameControl,
         eMail: _emailControl,
         secretQuestionId: selectedQuestion.id,

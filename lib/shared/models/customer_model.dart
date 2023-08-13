@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../enums/customer_role_enum.dart';
 
 class CustomerModel {
@@ -17,6 +19,7 @@ class CustomerModel {
   final String secretQuestionAnswer;
   final int notificationCount;
   final int basketCount;
+  final Timestamp recordDate;
 
   CustomerModel(
       {this.id,
@@ -32,7 +35,8 @@ class CustomerModel {
       this.secretQuestionId,
       this.secretQuestionAnswer,
       this.notificationCount,
-      this.basketCount});
+      this.basketCount,
+      this.recordDate});
 
   ///Object to map
   Map<String, dynamic> toMap() => {
@@ -50,6 +54,7 @@ class CustomerModel {
         'secretQuestionAnswer': secretQuestionAnswer,
         'notificationCount': notificationCount,
         'basketCount': basketCount,
+        'recordDate': recordDate,
       };
 
   ///Map to object
@@ -67,5 +72,6 @@ class CustomerModel {
       secretQuestionId: map['secretQuestionId'],
       secretQuestionAnswer: map['secretQuestionAnswer'],
       notificationCount: map['notificationCount'],
-      basketCount: map['basketCount']);
+      basketCount: map['basketCount'],
+      recordDate: map['recordDate']);
 }

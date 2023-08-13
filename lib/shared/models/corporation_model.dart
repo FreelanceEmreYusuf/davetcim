@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class CorporationModel {
   final int corporationId;
   final String corporationName;
@@ -15,6 +17,7 @@ class CorporationModel {
   final int ratingCount;
   final String region;
   final String telephoneNo;
+  final Timestamp recordDate;
   final List<String> invitationUniqueIdentifier;
   final List<String> organizationUniqueIdentifier;
   final List<String> sequenceOrderUniqueIdentifier;
@@ -34,6 +37,7 @@ class CorporationModel {
     this.ratingCount,
     this.region,
     this.telephoneNo,
+    this.recordDate,
     this.invitationUniqueIdentifier,
     this.organizationUniqueIdentifier,
     this.sequenceOrderUniqueIdentifier,
@@ -55,6 +59,7 @@ class CorporationModel {
     'ratingCount': ratingCount,
     'region': region,
     'telephoneNo': telephoneNo,
+    'recordDate': recordDate,
     'invitationUniqueIdentifier': invitationUniqueIdentifier,
     'organizationUniqueIdentifier': organizationUniqueIdentifier,
     'sequenceOrderUniqueIdentifier': sequenceOrderUniqueIdentifier,
@@ -76,6 +81,7 @@ class CorporationModel {
     ratingCount: map['ratingCount'],
     region: map['region'],
     telephoneNo: map['telephoneNo'],
+    recordDate: map['recordDate'],
     invitationUniqueIdentifier: List.from(map['invitationUniqueIdentifier']) ,
     organizationUniqueIdentifier: List.from(map['organizationUniqueIdentifier']),
     sequenceOrderUniqueIdentifier: List.from(map['sequenceOrderUniqueIdentifier']),

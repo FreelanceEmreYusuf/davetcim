@@ -75,7 +75,8 @@ class FavProductsViewModel extends ChangeNotifier {
             id: new DateTime.now().millisecondsSinceEpoch,
             corporationId: corporationId,
             customerId: ApplicationSession.userSession.id,
-            image: img);
+            image: img,
+            recordDate: Timestamp.now());
 
        db.editCollectionRef(DBConstants.favProductsDb, favProductsModel.toMap());
       }
