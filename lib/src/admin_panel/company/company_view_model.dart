@@ -60,8 +60,8 @@ class CompanyViewModel extends ChangeNotifier {
         recordDate: Timestamp.now(),
         surname: surnameControl,
         eMail: emailControl,
-        secretQuestionId: 0,
-        secretQuestionAnswer: "",
+        secretQuestionId: 3,
+        secretQuestionAnswer: "istanbul",
         notificationCount: 0,
         basketCount: 0);
 

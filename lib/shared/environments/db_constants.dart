@@ -5,6 +5,7 @@ class DBConstants {
   static String configurationDb = "Configuration";
   static String userDb = "User";
   static String secretQuestionsDb = "SecretQuestions";
+  static String companyDb = "Company";
   static String productCommentsDb = "Comments";
   static String notificationsDb = "Notifications";
   static String favProductsDb = "UserFavProducts";
@@ -24,6 +25,7 @@ class DBConstants {
   static String corporationServicesDb = "CorporationServices";
   static String corporationSessionsDb = "CorporationSessions";
   static String corporationReservationsDb = "CorporationReservations";
+  static String corporationRegisterKeyDb = "CorporationRegisterKey";
   static String reservationDetailDb = "ReservationDetail";
   static String commentDb = "Comments";
 }

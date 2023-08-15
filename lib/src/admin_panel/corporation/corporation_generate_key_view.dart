@@ -1,0 +1,140 @@
+import 'package:davetcim/shared/models/secret_questions_model.dart';
+import 'package:davetcim/shared/utils/form_control.dart';
+import 'package:davetcim/src/join/register/register_view_model.dart';
+import 'package:flutter/material.dart';
+
+import '../../../shared/models/company_model.dart';
+import '../../../shared/utils/language.dart';
+import '../../../widgets/app_bar/app_bar_view.dart';
+import 'corporation_generate_key_view_model.dart';
+
+class CorporationGenerateKeyView extends StatefulWidget {
+  @override
+  _CorporationGenerateKeyViewState createState() => _CorporationGenerateKeyViewState();
+}
+
+class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView> {
+  static List<CompanyModel> companyList = [];
+  CompanyModel selectedCompany;
+
+  final registerFormKey = GlobalKey <FormState> ();
+  String formException = "";
+  int keyNumber = 0;
+  bool keyVisibility = false;
+
+  @override
+  void initState() {
+    callCompanyList();
+  }
+
+  void callCompanyList() async{
+    CorporationGenerateKeyViewModel rm = CorporationGenerateKeyViewModel();
+    companyList = await rm.fillCompanyList();
+
+    setState(() {
+      companyList = companyList;
+    });
+  }
+
+  @override
+  Widget build(BuildContext contex){
+    return Scaffold(
+      appBar: AppBarMenu(pageName: "Yeni Salon Ekle", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      body:
+      Padding(
+        padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+        child: Form(
+          key: registerFormKey,
+          child: ListView(
+            shrinkWrap: true,
+            children: <Widget>[
+              SizedBox(height: 30.0),
+              DropdownButtonFormField(
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  labelText: "Firma Seçiniz",
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusColor: Colors.blue,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.black,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                isExpanded: true,
+                value: selectedCompany,
+                onChanged: (CompanyModel newValue) {
+                  setState(() {
+                    selectedCompany = newValue;
+                  });
+                },
+                items: companyList.map((CompanyModel company) {
+                  return new DropdownMenuItem<CompanyModel>(
+                    value: company,
+                    child: new Text(
+                      company.name,
+                      style: new TextStyle(color: Colors.black),
+                    ),
+                  );
+                }).toList(),
+                validator: (selectedQuestionValue){
+                  if(selectedQuestionValue == null)
+                  {
+                    return FormControlUtil.getErrorControl(LanguageConstants.formElementNullValueMessage[LanguageConstants.languageFlag]);
+                  }
+                  else{
+                    return null;
+                  }
+                },
+              ),
+              SizedBox(height: 15.0),
+              Container(
+                padding: EdgeInsets.fromLTRB(0, 0, 0, 4.0),
+                height: 40.0,
+                child: TextButton(
+                  style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
+                  child: Text(
+                    "Kaydet".toUpperCase(),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () async {
+                    if (registerFormKey.currentState.validate()) {
+                      CorporationGenerateKeyViewModel cvm = CorporationGenerateKeyViewModel();
+                      keyNumber = await cvm.createCorporationRegistrationKey(
+                        selectedCompany.id
+                      );
+
+                      setState(() {
+                        keyNumber = keyNumber;
+                        keyVisibility = true;
+                      });
+                    }
+                  },
+                ),
+              ),
+              SizedBox(height: 30),
+              Visibility(
+                  visible: keyVisibility,
+                  child: Container(
+                      child: Text("Salon Kayıt İşlemi için Üretilen Key :" +  keyNumber.toString()),
+                      padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+                  )),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
