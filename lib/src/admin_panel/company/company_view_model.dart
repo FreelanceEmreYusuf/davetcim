@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/enums/customer_role_enum.dart';
+import '../../../shared/environments/db_constants.dart';
 import '../../../shared/models/company_model.dart';
 import '../AdminPanel.dart';
 
@@ -78,6 +79,21 @@ class CompanyViewModel extends ChangeNotifier {
         isActive: true);
 
     db.editCollectionRef("Company", company.toMap());
+  }
+
+  Future<CompanyModel> getById(int companyId) async {
+    var response = await db
+        .getCollectionRef(DBConstants.companyDb)
+        .where('id', isEqualTo:companyId)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      CompanyModel companyModel = CompanyModel.fromMap(list[0].data());
+      return companyModel;
+    } else {
+      return null;
+    }
   }
 
 
