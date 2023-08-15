@@ -5,6 +5,7 @@ import 'package:davetcim/src/join/register/register_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../shared/models/company_model.dart';
 import '../../../shared/models/region_model.dart';
 import '../../../shared/sessions/application_session.dart';
 import '../../search/search_view_model.dart';
@@ -13,9 +14,17 @@ import 'common_informations_p1_view_model.dart';
 class CommonInformationsView extends StatefulWidget {
   @override
   _CommonInformationsViewState createState() => _CommonInformationsViewState();
+  final CompanyModel companyModel;
+
+  CommonInformationsView(
+      {Key key,
+        @required this.companyModel,
+       })
+      : super(key: key);
 }
 
 class _CommonInformationsViewState extends State<CommonInformationsView> {
+  final TextEditingController _firmNameControl = new TextEditingController();
   final TextEditingController _addresControl = new TextEditingController();
   final TextEditingController _emailControl = new TextEditingController();
   final TextEditingController _phoneControl = new TextEditingController();
@@ -32,6 +41,7 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
   int selectedDistrict = 0;
   @override
   void initState() {
+    _firmNameControl.text = widget.companyModel.name;
   }
 
   @override
@@ -60,6 +70,35 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
                   ),
                 ),
               ),
+              TextFormField(
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  labelText: "Firma Adı",
+                  enabled: false,
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusColor: Colors.blue,
+                  prefixIcon: Icon(
+                    Icons.perm_identity,
+                    color: Colors.black,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                controller: _firmNameControl,
+                validator: (name) {
+                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(name));
+                },
+                maxLines: 1,
+              ),//İsim
               SizedBox(height: 15.0),
               TextFormField(
                 style: TextStyle(

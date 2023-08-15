@@ -19,10 +19,6 @@ class _CorporationRegisterViewState extends State<CorporationRegisterView> {
   final TextEditingController _nameControl = new TextEditingController();
   final registerFormKey = GlobalKey <FormState> ();
   bool keyErrorVisibility = false;
-  @override
-  void initState() {
-
-  }
 
   @override
   Widget build(BuildContext contex){
@@ -106,7 +102,7 @@ class _CorporationRegisterViewState extends State<CorporationRegisterView> {
                         keyErrorVisibility = true;
                       });
                     } else {
-                      Utils.navigateToPage(context, CommonInformationsView());
+                      Utils.navigateToPage(context, CommonInformationsView(companyModel : companyModel));
                     }
                     //key kontrolü yapılacak değer doğru ise emrenin daha önceden yapmış olduğu salon akyıt sayfasına focuslanacak!
                   },
