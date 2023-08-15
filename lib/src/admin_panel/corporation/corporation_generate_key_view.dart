@@ -2,6 +2,7 @@ import 'package:davetcim/shared/models/secret_questions_model.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/src/join/register/register_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../shared/models/company_model.dart';
 import '../../../shared/utils/language.dart';
@@ -113,7 +114,7 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
                     if (registerFormKey.currentState.validate()) {
                       CorporationGenerateKeyViewModel cvm = CorporationGenerateKeyViewModel();
                       keyNumber = await cvm.createCorporationRegistrationKey(
-                        selectedCompany.id
+                          selectedCompany.id
                       );
 
                       setState(() {
@@ -128,7 +129,42 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
               Visibility(
                   visible: keyVisibility,
                   child: Container(
-                      child: Text("Salon Kayıt İşlemi için Üretilen Key :" +  keyNumber.toString()),
+                      child: Center(child: Text("Salon Kayıt İşlemi için Üretilen Key", style: TextStyle(fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black,),)),
+                      padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+                  )),
+              Visibility(
+                  visible: keyVisibility,
+                  child: Container(
+                      child: MaterialButton(
+                        elevation: 10.0,
+                        splashColor: Colors.green,
+                        onPressed: () {
+                          Clipboard.setData( ClipboardData(text: keyNumber.toString())).then((_) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(keyNumber.toString()+" değeri başarı ile kopyalandı.")));
+                          });
+                        },
+                        color: Colors.black45,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.copy,
+                              color: Colors.white,
+                            ),
+                            Text(
+                              keyNumber.toString(),
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
                   )),
             ],
