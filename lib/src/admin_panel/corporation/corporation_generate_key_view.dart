@@ -114,7 +114,7 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
                     if (registerFormKey.currentState.validate()) {
                       CorporationGenerateKeyViewModel cvm = CorporationGenerateKeyViewModel();
                       keyNumber = await cvm.createCorporationRegistrationKey(
-                        selectedCompany.id
+                          selectedCompany.id
                       );
 
                       setState(() {
@@ -143,7 +143,7 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
                         onPressed: () {
                           Clipboard.setData( ClipboardData(text: keyNumber.toString())).then((_) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                                 SnackBar(content: Text(keyNumber.toString()+" değeri başarı ile kopyalandı.")));
+                                SnackBar(content: Text(keyNumber.toString()+" değeri başarı ile kopyalandı.")));
                           });
                         },
                         color: Colors.black45,
