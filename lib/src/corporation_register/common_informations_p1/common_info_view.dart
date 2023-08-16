@@ -220,8 +220,8 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
                   fillColor: Colors.white,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
-                    Icons.perm_identity,
-                    color: Colors.black,
+                    Icons.home_work_sharp,
+                    color: Colors.black54,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
