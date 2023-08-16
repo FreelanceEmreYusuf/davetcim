@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/models/company_model.dart';
 import '../../../shared/models/region_model.dart';
 import '../../../shared/sessions/application_session.dart';
+import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../search/search_view_model.dart';
 import 'common_informations_p1_view_model.dart';
 
@@ -48,6 +49,7 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
   Widget build(BuildContext contex){
     callFillDistrict(regionList[selectedRegion].id);
     return Scaffold(
+      appBar: AppBarMenu(pageName: "Salon Bilgi Girişi", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body:
       Padding(
         padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
@@ -56,24 +58,11 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(
-                  top: 25.0,
-                ),
-                child: Text(
-                  "Salon Bilgi Girişi",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor,
-                  ),
-                ),
-              ),
+              SizedBox(height: 20,),
               TextFormField(
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.black,
+                  color: Colors.black54,
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -83,8 +72,8 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
                   fillColor: Colors.white,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
-                    Icons.perm_identity,
-                    color: Colors.black,
+                    Icons.business,
+                    color: Colors.black54,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -112,8 +101,8 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
                   fillColor: Colors.white,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
-                    Icons.perm_identity,
-                    color: Colors.black,
+                    Icons.account_balance,
+                    color: Colors.black54,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -141,8 +130,8 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
                   fillColor: Colors.white,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
-                    Icons.perm_identity,
-                    color: Colors.black,
+                    Icons.text_fields,
+                    color: Colors.black54,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -152,11 +141,11 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
                   ),
                 ),
                 controller: _descriptionControl,
-                validator: (surname) {
-                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(surname));
+                validator: (description) {
+                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlMax200(description));
                 },
                 maxLines: 1,
-              ),//Soyisim
+              ),//ön yazı
               SizedBox(height: 15.0),
               TextFormField(
                 style: TextStyle(
@@ -171,7 +160,7 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
                     Icons.mail_outline,
-                    color: Colors.black,
+                    color: Colors.black54,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -200,8 +189,8 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
                     fillColor: Colors.white,
                     focusColor: Colors.blue,
                     prefixIcon: Icon(
-                      Icons.mail_outline,
-                      color: Colors.black,
+                      Icons.phone,
+                      color: Colors.black54,
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -242,11 +231,11 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
                   ),
                 ),
                 controller: _addresControl,
-                validator: (userName) {
-                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(userName));
+                validator: (address) {
+                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlMax200(address));
                 },
                 maxLines: 1,
-              ),//Kullanıcı Adı
+              ),//address
               SizedBox(height: 15.0),
               GestureDetector(
                 child: Card(

@@ -21,6 +21,17 @@ class FormControlUtil{
     return errorMessage;
   }
 
+  static String getDefaultFormValueControlMax200(String value){
+    String errorMessage = getStringLenghtBetweenMinandMaxControl(value,3,200);
+
+    if(errorMessage.isEmpty)
+    {
+      errorMessage = getStringLenghtBetweenMinandMaxControl(value,3,200);
+    }
+
+    return errorMessage;
+  }
+
   static String getEmailAdressControl(String value)
   {
     String errorMessage = getDefaultFormValueControl(value);
@@ -92,6 +103,16 @@ class FormControlUtil{
     return errorMessage;
   }
 
+  static String getStringLenghtBetweenMinandMaxControl(String value, int min, int max){
+    String errorMessage = '';
+
+    if(!(value.length >= min && value.length <= max)){
+      errorMessage = "Bu alan en az "+min.toString()+" en fazla "+max.toString()+" karakterden oluşmalıdır!";
+    }
+
+    return errorMessage;
+  }
+
   static String getStringLenghtBetween3and70Control(String value){
     String errorMessage = '';
 
@@ -101,6 +122,17 @@ class FormControlUtil{
 
     return errorMessage;
   }
+
+
+  /*static String getStringLenghtBetweenMinandMaxControl(String value, int min, int max){
+    String errorMessage = '';
+
+    if(!(value.length >= min && value.length <= max)){
+      errorMessage = LanguageConstants.formElementValueBetween3and70Message[LanguageConstants.languageFlag].toString();
+    }
+
+    return errorMessage;
+  }*/
 
   static String getSuccessEmailAdressControl(String email) {
     String errorMessage = '';
