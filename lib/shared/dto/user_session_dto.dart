@@ -1,6 +1,6 @@
 import '../enums/customer_role_enum.dart';
 
-class UserSession {
+class UserSessionDto {
   final int id;
   final String name;
   final String surname;
@@ -11,7 +11,7 @@ class UserSession {
   final String username;
   final String eMail;
 
-  const UserSession(
+  const UserSessionDto(
       this.id,
       this.name,
       this.surname,

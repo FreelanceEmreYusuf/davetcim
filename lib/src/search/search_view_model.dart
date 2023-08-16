@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/shared/dto/product_filterer.dart';
+import 'package:davetcim/shared/dto/product_filterer_dto.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/corporation_card_model.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
@@ -53,7 +53,7 @@ class SearchViewModel extends ChangeNotifier {
       DateTime date,
       DateTime startHour,
       DateTime endHour) {
-    ProductFilterer filter = ProductFilterer(
+    ProductFiltererDto filter = ProductFiltererDto(
       region,
       district,
       invitationUniqueIdentifier,

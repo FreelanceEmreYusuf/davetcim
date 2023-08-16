@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/shared/dto/product_filterer.dart';
+import 'package:davetcim/shared/dto/product_filterer_dto.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/services/database.dart';
@@ -14,7 +14,7 @@ class ProductsViewModel extends ChangeNotifier {
 
   Database db = Database();
 
-  Future<List<int>>  getInvitationUniqueIdentifierList(ProductFilterer filter) async {
+  Future<List<int>>  getInvitationUniqueIdentifierList(ProductFiltererDto filter) async {
     var response = await db
         .getCollectionRef("Corporation")
         .where('invitationUniqueIdentifier', arrayContains: filter.invitationUniqueIdentifier)
@@ -36,7 +36,7 @@ class ProductsViewModel extends ChangeNotifier {
     return corpModelListIDs;
   }
 
-  Future<List<int>>  getOrganizationUniqueIdentifierList(ProductFilterer filter) async {
+  Future<List<int>>  getOrganizationUniqueIdentifierList(ProductFiltererDto filter) async {
     var response = await db
         .getCollectionRef("Corporation")
         .where('organizationUniqueIdentifier', arrayContains: filter.organizationUniqueIdentifier)
@@ -59,7 +59,7 @@ class ProductsViewModel extends ChangeNotifier {
   }
 
 
-  Future<List<int>>  getFilteredCompanyIds(ProductFilterer filter) async {
+  Future<List<int>>  getFilteredCompanyIds(ProductFiltererDto filter) async {
     List<int> unqInvitationList = [];
     List<int> unqOrganizationList = [];
 
@@ -97,7 +97,7 @@ class ProductsViewModel extends ChangeNotifier {
     return resultIdList;
   }
 
-  Future<List<int>> filterCorporationListForReservations(ProductFilterer filter) async {
+  Future<List<int>> filterCorporationListForReservations(ProductFiltererDto filter) async {
     int filterDate = DateConversionUtils.getCurrentDateAsInt(filter.date);
     var response = await db
         .getCollectionRef(DBConstants.corporationReservationsDb)
@@ -143,7 +143,7 @@ class ProductsViewModel extends ChangeNotifier {
   }
 
 
-  Future<List<CorporationModel>> getCorporationList(ProductFilterer filter) async {
+  Future<List<CorporationModel>> getCorporationList(ProductFiltererDto filter) async {
 
     Query list = db.getCollectionRef("Corporation");
     if (int.parse(filter.region) > 0) {

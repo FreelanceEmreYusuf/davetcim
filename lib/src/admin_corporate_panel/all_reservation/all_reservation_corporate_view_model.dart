@@ -3,7 +3,7 @@ import 'package:davetcim/shared/models/service_corporate_pool_model.dart';
 import 'package:davetcim/shared/models/service_pool_model.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../shared/dto/reservation_detail_view_model.dart';
+import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/reservation_status_enum.dart';
 import '../../../shared/helpers/customer_helper.dart';
 import '../../../shared/models/reservation_detail_model.dart';

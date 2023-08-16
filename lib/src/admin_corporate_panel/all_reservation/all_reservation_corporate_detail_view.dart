@@ -5,8 +5,8 @@ import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/select-orders/summary_basket/summary_basket_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../shared/dto/basket_user_model.dart';
-import '../../../shared/dto/reservation_detail_view_model.dart';
+import '../../../shared/dto/basket_user_dto.dart';
+import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
@@ -37,7 +37,7 @@ class AllReservationCorporateDetailScreen extends StatefulWidget {
 class _AllReservationCorporateDetailScreenState extends State<AllReservationCorporateDetailScreen>
     with AutomaticKeepAliveClientMixin<AllReservationCorporateDetailScreen> {
 
-  ReservationDetailViewModel detailResponse = ReservationDetailViewModel();
+  ReservationDetailViewDto detailResponse = ReservationDetailViewDto();
   bool hasDataTaken = false;
 
 

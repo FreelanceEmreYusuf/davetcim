@@ -4,7 +4,7 @@ import 'package:davetcim/shared/models/service_pool_model.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../shared/dto/reservation_detail_view_model.dart';
+import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/reservation_status_enum.dart';
 import '../../../shared/helpers/customer_helper.dart';
 import '../../../shared/models/reservation_detail_model.dart';
@@ -36,8 +36,8 @@ class UserReservationsViewModel extends ChangeNotifier {
     return corpModelList;
   }
 
-  Future<ReservationDetailViewModel> getReservationDetail(ReservationModel model) async {
-    ReservationDetailViewModel rdvm = ReservationDetailViewModel();
+  Future<ReservationDetailViewDto> getReservationDetail(ReservationModel model) async {
+    ReservationDetailViewDto rdvm = ReservationDetailViewDto();
 
     var response = await db
         .getCollectionRef("ReservationDetail")

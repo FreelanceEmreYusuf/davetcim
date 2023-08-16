@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/basket_user_model.dart';
+import '../../../shared/dto/basket_user_dto.dart';
 import '../../../shared/models/service_pool_model.dart';
 import '../../../shared/sessions/user_basket_session.dart';
 import '../../../shared/utils/utils.dart';
@@ -13,7 +13,7 @@ import '../summary_basket/summary_basket_view.dart';
 class ServicesScreen extends StatefulWidget {
   @override
   _ServicesScreenState createState() => _ServicesScreenState();
-  final BasketUserModel basketModel;
+  final BasketUserDto basketModel;
 
   ServicesScreen(
       {Key key,

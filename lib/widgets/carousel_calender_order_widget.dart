@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
-import '../shared/dto/basket_user_model.dart';
+import '../shared/dto/basket_user_dto.dart';
 import '../shared/models/reservation_model.dart';
 import '../shared/utils/utils.dart';
 import '../src/reservation/reservation_order_view.dart';
@@ -12,7 +12,7 @@ import '../src/reservation/reservation_view.dart';
 class CalenderOrderCarousel extends StatefulWidget {
 
   //final IconData icon;
-  final BasketUserModel basketModel;
+  final BasketUserDto basketModel;
 
   CalenderOrderCarousel({Key key, @required this.basketModel})
   : super(key: key);

@@ -8,14 +8,14 @@ import '../models/customer_model.dart';
 import '../models/reservation_detail_model.dart';
 import '../models/reservation_model.dart';
 
-class ReservationDetailViewModel {
+class ReservationDetailViewDto {
   ReservationModel reservationModel;
   List<ReservationDetailModel> detailList;
   CorporateSessionsModel sessionModel;
   CustomerModel customerModel;
   CorporationModel corporateModel;
 
-  ReservationDetailViewModel({
+  ReservationDetailViewDto({
     this.reservationModel,
     this.detailList,
     this.sessionModel,

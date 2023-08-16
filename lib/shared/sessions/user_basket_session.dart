@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/dto/user_session.dart';
+import 'package:davetcim/shared/dto/user_session_dto.dart';
 
 import '../models/service_pool_model.dart';
 import 'filter_screen_session.dart';

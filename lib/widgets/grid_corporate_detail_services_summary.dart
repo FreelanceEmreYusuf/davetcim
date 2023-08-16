@@ -1,8 +1,8 @@
 import 'package:davetcim/shared/sessions/user_basket_session.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../shared/dto/basket_user_model.dart';
-import '../shared/dto/reservation_detail_view_model.dart';
+import '../shared/dto/basket_user_dto.dart';
+import '../shared/dto/reservation_detail_view_dto.dart';
 import '../shared/models/reservation_detail_model.dart';
 import '../shared/models/service_corporate_pool_model.dart';
 import '../shared/models/service_pool_model.dart';
@@ -17,7 +17,7 @@ import '../src/admin_corporate_panel/service/service_corporate_view.dart';
 
 class GridCorporateDetailServicesSummary extends StatefulWidget {
   final ReservationDetailModel detailRowModel;
-  final ReservationDetailViewModel detailModel;
+  final ReservationDetailViewDto detailModel;
 
 
   GridCorporateDetailServicesSummary({

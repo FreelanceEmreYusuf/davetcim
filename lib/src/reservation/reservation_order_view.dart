@@ -7,7 +7,7 @@ import 'package:davetcim/widgets/badge.dart';
 import 'package:provider/provider.dart';
 
 import '../../screens/notifications.dart';
-import '../../shared/dto/basket_user_model.dart';
+import '../../shared/dto/basket_user_dto.dart';
 import '../../shared/environments/const.dart';
 import '../../shared/models/corporate_sessions_model.dart';
 import '../../shared/models/reservation_model.dart';
@@ -20,7 +20,7 @@ class ReservationOrderViewScreen extends StatefulWidget {
   @override
   _ReservationOrderViewScreenState createState() => _ReservationOrderViewScreenState();
 
-  final BasketUserModel basketModel;
+  final BasketUserDto basketModel;
   const ReservationOrderViewScreen(this.basketModel);
 }
 

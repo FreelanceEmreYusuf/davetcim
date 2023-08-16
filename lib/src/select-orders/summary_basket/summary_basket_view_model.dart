@@ -7,7 +7,7 @@ import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../shared/dto/basket_user_model.dart';
+import '../../../shared/dto/basket_user_dto.dart';
 import '../../../shared/enums/reservation_status_enum.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
@@ -18,7 +18,7 @@ import '../../../shared/sessions/user_basket_session.dart';
 class SummaryBasketViewModel extends ChangeNotifier {
   Database db = Database();
 
-  Future<bool> controReeservation(BasketUserModel basketModel) async {
+  Future<bool> controReeservation(BasketUserDto basketModel) async {
     var response = await db
         .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('sessionId', isEqualTo: basketModel.selectedSessionModel.id)
@@ -33,7 +33,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
     return false;
   }
 
-  Future<ReservationModel> createNewReservation(BasketUserModel basketModel, String description) async {
+  Future<ReservationModel> createNewReservation(BasketUserDto basketModel, String description) async {
     bool hasReservation = await controReeservation(basketModel);
     if (hasReservation) {
       return null;
@@ -62,7 +62,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
     return reservationModel;
   }
 
-  Future<void> createNewReservationDetail(BasketUserModel basketModel, int reservationId) async {
+  Future<void> createNewReservationDetail(BasketUserDto basketModel, int reservationId) async {
     int id = new DateTime.now().millisecondsSinceEpoch;
     for (int i = 0; i < basketModel.servicePoolModel.length; i++) {
       ServicePoolModel model = basketModel.servicePoolModel[i];

@@ -2,7 +2,7 @@ import 'package:davetcim/shared/models/combo_generic_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/basket_user_model.dart';
+import '../../../shared/dto/basket_user_dto.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/carousel_calender_order_widget.dart';
@@ -12,7 +12,7 @@ import '../properties/order_view_model.dart';
 class CalendarScreen extends StatefulWidget {
   @override
   _CalendarScreenState createState() => _CalendarScreenState();
-  final BasketUserModel basketModel;
+  final BasketUserDto basketModel;
 
   CalendarScreen(
       {Key key,

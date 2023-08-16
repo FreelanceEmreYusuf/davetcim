@@ -3,9 +3,9 @@ import 'package:davetcim/shared/models/service_pool_model.dart';
 import '../models/combo_generic_model.dart';
 import '../models/corporate_sessions_model.dart';
 import '../models/reservation_model.dart';
-import 'order_basket_model.dart';
+import 'order_basket_dto.dart';
 
-class BasketUserModel {
+class BasketUserDto {
   int sessionId;
   int corporationId;
   int date;
@@ -16,11 +16,11 @@ class BasketUserModel {
   List<ReservationModel> reservationList;
   CorporateSessionsModel sessionModel;
   CorporateSessionsModel selectedSessionModel;
-  OrderBasketModel orderBasketModel;
+  OrderBasketDto orderBasketModel;
   List<ServicePoolModel> servicePoolModel;
 
 
-  BasketUserModel(
+  BasketUserDto(
       this.sessionId,
       this.corporationId,
       this.date,

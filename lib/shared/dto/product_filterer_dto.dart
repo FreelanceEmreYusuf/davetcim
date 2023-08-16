@@ -1,4 +1,4 @@
-class ProductFilterer {
+class ProductFiltererDto {
   final String region;
   final String district;
   final String invitationUniqueIdentifier;
@@ -10,7 +10,7 @@ class ProductFilterer {
   final DateTime startHour;
   final DateTime endHour;
 
-  const ProductFilterer(
+  const ProductFiltererDto(
       this.region,
       this.district,
       this.invitationUniqueIdentifier,

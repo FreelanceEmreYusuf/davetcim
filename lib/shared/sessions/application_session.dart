@@ -1,9 +1,9 @@
-import 'package:davetcim/shared/dto/user_session.dart';
+import 'package:davetcim/shared/dto/user_session_dto.dart';
 
 import 'filter_screen_session.dart';
 
 class ApplicationSession {
-  static UserSession userSession;
+  static UserSessionDto userSession;
   static int notificationCount;
   static int basketCount;
   static FilterScreenSession filterScreenSession;

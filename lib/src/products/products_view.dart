@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/dto/product_filterer.dart';
+import 'package:davetcim/shared/dto/product_filterer_dto.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/src/products/products_view_model.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class ProductsScreen extends StatefulWidget {
   @override
   _ProductsScreenState createState() => _ProductsScreenState();
 
-  final ProductFilterer filter;
+  final ProductFiltererDto filter;
   final List<CorporationModel> corporationInputList;
   const ProductsScreen(this.filter, this.corporationInputList);
 }

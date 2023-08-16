@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/basket_user_model.dart';
-import '../../../shared/dto/order_basket_model.dart';
+import '../../../shared/dto/basket_user_dto.dart';
+import '../../../shared/dto/order_basket_dto.dart';
 import '../../../shared/utils/form_control.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
@@ -11,7 +11,7 @@ import '../services/services_view.dart';
 class OrderScreen extends StatefulWidget {
   @override
   _OrderScreenState createState() => _OrderScreenState();
-  final BasketUserModel basketModel;
+  final BasketUserDto basketModel;
 
   OrderScreen(
       {Key key,
@@ -71,7 +71,7 @@ class _OrderScreenState extends State<OrderScreen>
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           if (registerFormKey.currentState.validate()) {
-            OrderBasketModel orderBasketModel = new OrderBasketModel(
+            OrderBasketDto orderBasketModel = new OrderBasketDto(
                 int.parse(personCountControl.text),
                 widget.basketModel.invitationList[selectedInvitationIndex].text,
                 widget.basketModel.sequenceOrderList[selectedSeatingArrangement].text);

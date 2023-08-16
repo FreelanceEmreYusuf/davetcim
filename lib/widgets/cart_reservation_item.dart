@@ -4,7 +4,7 @@ import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
-import '../shared/dto/basket_user_model.dart';
+import '../shared/dto/basket_user_dto.dart';
 import '../shared/models/corporate_sessions_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
@@ -13,7 +13,7 @@ import '../src/reservation/reservation_view_model.dart';
 import '../src/select-orders/properties/order_view.dart';
 
 class CartReservationItem extends StatefulWidget {
-  final BasketUserModel basketModel;
+  final BasketUserDto basketModel;
   final List<CorporateSessionsModel> reservationList;
   final int index;
 
