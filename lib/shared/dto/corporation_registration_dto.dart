@@ -1,36 +1,15 @@
-import 'package:davetcim/shared/models/service_pool_model.dart';
-
-import '../models/combo_generic_model.dart';
-import '../models/corporate_sessions_model.dart';
-import '../models/reservation_model.dart';
-import 'order_basket_dto.dart';
+import 'package:davetcim/shared/models/company_model.dart';
+import 'package:davetcim/shared/models/corporation_model.dart';
+import '../models/customer_model.dart';
 
 class CorporationReservationDto {
-  int sessionId;
-  int corporationId;
-  int date;
-  int maxPopulation;
-  int totalPrice;
-  List<ComboGenericModel> invitationList;
-  List<ComboGenericModel> sequenceOrderList;
-  List<ReservationModel> reservationList;
-  CorporateSessionsModel sessionModel;
-  CorporateSessionsModel selectedSessionModel;
-  OrderBasketDto orderBasketModel;
-  List<ServicePoolModel> servicePoolModel;
-
+  CompanyModel companyModel;
+  CorporationModel corporationModel;
+  CustomerModel customerModel;
 
   CorporationReservationDto(
-      this.sessionId,
-      this.corporationId,
-      this.date,
-      this.maxPopulation,
-      this.totalPrice,
-      this.invitationList,
-      this.sequenceOrderList,
-      this.reservationList,
-      this.sessionModel,
-      this.orderBasketModel,
-      this.servicePoolModel,
-      );
+      this.companyModel,
+      this.corporationModel,
+      this.customerModel,
+  );
 }

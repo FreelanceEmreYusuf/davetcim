@@ -1,3 +1,4 @@
+import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/models/secret_questions_model.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/shared/utils/language.dart';
@@ -5,26 +6,30 @@ import 'package:davetcim/src/join/register/register_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../shared/dto/corporation_registration_dto.dart';
 import '../../../shared/models/company_model.dart';
+import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/region_model.dart';
 import '../../../shared/sessions/application_session.dart';
+import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../search/search_view_model.dart';
+import '../common_informations_p2/common_informations_p2_view.dart';
 import 'common_informations_p1_view_model.dart';
 
-class CommonInformationsView extends StatefulWidget {
+class CommonInformationsP1View extends StatefulWidget {
   @override
-  _CommonInformationsViewState createState() => _CommonInformationsViewState();
+  _CommonInformationsP1ViewState createState() => _CommonInformationsP1ViewState();
   final CompanyModel companyModel;
 
-  CommonInformationsView(
+  CommonInformationsP1View(
       {Key key,
         @required this.companyModel,
        })
       : super(key: key);
 }
 
-class _CommonInformationsViewState extends State<CommonInformationsView> {
+class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
   final TextEditingController _firmNameControl = new TextEditingController();
   final TextEditingController _addresControl = new TextEditingController();
   final TextEditingController _emailControl = new TextEditingController();
@@ -363,15 +368,24 @@ class _CommonInformationsViewState extends State<CommonInformationsView> {
                   ),
                   onPressed: () {
                     if (registerFormKey.currentState.validate()) {
-                      CommonInformationsViewModel rvm = CommonInformationsViewModel();
-                      rvm.customerUserRegisterFlow(
-                        context,
-                        _addresControl.text,
-                        _nameControl.text,
-                        _descriptionControl.text,
-                        _phoneControl.text,
-                        _emailControl.text,
-                      );
+                      CorporationModel corporation = new CorporationModel(
+                          corporationId: new DateTime.now().millisecondsSinceEpoch,
+                          corporationName: _firmNameControl.text,
+                          address: _addresControl.text,
+                          telephoneNo: _phoneControl.text,
+                          email: _emailControl.text,
+                          description: _descriptionControl.text,
+                          region: selectedRegion.toString(),
+                          district: selectedDistrict.toString(),
+                          companyId: widget.companyModel.id,
+                          averageRating: 0,
+                          imageUrl: "",
+                          isPopularCorporation: false,
+                          isActive: true);
+                      CorporationReservationDto corpReg = new CorporationReservationDto(
+                        null, corporation, null);
+
+                      Utils.navigateToPage(context, CommonInformationsP2View(corpReg : corpReg));
                     }
                   },
                 ),

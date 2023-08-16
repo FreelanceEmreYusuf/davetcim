@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../../shared/models/company_model.dart';
 import '../../../shared/utils/utils.dart';
-import '../../corporation_register/common_informations_p1/common_info_view.dart';
+import '../../corporation_register/common_informations_p1/common_informations_p1_view.dart';
 import 'corporation_register_view_model.dart';
 
 class CorporationRegisterView extends StatefulWidget {
@@ -102,7 +102,7 @@ class _CorporationRegisterViewState extends State<CorporationRegisterView> {
                         keyErrorVisibility = true;
                       });
                     } else {
-                      Utils.navigateToPage(context, CommonInformationsView(companyModel : companyModel));
+                      Utils.navigateToPage(context, CommonInformationsP1View(companyModel : companyModel));
                     }
                     //key kontrolü yapılacak değer doğru ise emrenin daha önceden yapmış olduğu salon akyıt sayfasına focuslanacak!
                   },

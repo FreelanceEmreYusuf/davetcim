@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../shared/enums/customer_role_enum.dart';
 
-class CommonInformationsP1ViewModel extends ChangeNotifier {
+class CommonInformationsP2ViewModel extends ChangeNotifier {
   Database db = Database();
   Future<void> customerUserRegisterFlow(
       BuildContext context,

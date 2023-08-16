@@ -17,6 +17,7 @@ class CorporationModel {
   final int ratingCount;
   final String region;
   final String telephoneNo;
+  final String email;
   final Timestamp recordDate;
   final List<String> invitationUniqueIdentifier;
   final List<String> organizationUniqueIdentifier;
@@ -37,6 +38,7 @@ class CorporationModel {
     this.ratingCount,
     this.region,
     this.telephoneNo,
+    this.email,
     this.recordDate,
     this.invitationUniqueIdentifier,
     this.organizationUniqueIdentifier,
@@ -59,6 +61,7 @@ class CorporationModel {
     'ratingCount': ratingCount,
     'region': region,
     'telephoneNo': telephoneNo,
+    'email': email,
     'recordDate': recordDate,
     'invitationUniqueIdentifier': invitationUniqueIdentifier,
     'organizationUniqueIdentifier': organizationUniqueIdentifier,
@@ -81,6 +84,7 @@ class CorporationModel {
     ratingCount: map['ratingCount'],
     region: map['region'],
     telephoneNo: map['telephoneNo'],
+    email: map['email'],
     recordDate: map['recordDate'],
     invitationUniqueIdentifier: List.from(map['invitationUniqueIdentifier']) ,
     organizationUniqueIdentifier: List.from(map['organizationUniqueIdentifier']),
