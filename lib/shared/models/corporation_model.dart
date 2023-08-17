@@ -19,9 +19,9 @@ class CorporationModel {
   final String telephoneNo;
   final String email;
   final Timestamp recordDate;
-  final List<String> invitationUniqueIdentifier;
-  final List<String> organizationUniqueIdentifier;
-  final List<String> sequenceOrderUniqueIdentifier;
+  List<String> invitationUniqueIdentifier;
+  List<String> organizationUniqueIdentifier;
+  List<String> sequenceOrderUniqueIdentifier;
 
   CorporationModel({
     this.corporationId,

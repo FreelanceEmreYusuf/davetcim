@@ -183,7 +183,7 @@ class NotificationsViewModel extends ChangeNotifier {
       db.getCollectionRef(DBConstants.customerDB);
     var response = await docsRef
         .where('corporationId', isEqualTo: corporationId)
-        .where('roleId', isEqualTo: CustomerRoleEnum.companyAdmin.index)
+        .where('roleId', isEqualTo: CustomerRoleEnum.organizationOwner.index)
         .get();
 
     var list = response.docs;

@@ -27,7 +27,7 @@ class _PopUpMenu extends State<PopUpMenu> {
     if (ApplicationSession.userSession != null) {
       if (ApplicationSession.userSession.roleId == CustomerRoleEnum.admin) {
         return getForAdmin();
-      } else if (ApplicationSession.userSession.roleId == CustomerRoleEnum.companyAdmin) {
+      } else if (ApplicationSession.userSession.roleId == CustomerRoleEnum.organizationOwner) {
         return getForCorporateAdmin();
       }else {
         return getForAuthenticatedUser();

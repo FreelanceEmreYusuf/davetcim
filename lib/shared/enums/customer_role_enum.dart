@@ -1,6 +1,6 @@
 enum CustomerRoleEnum {
   empty,
-  companyAdmin,
+  organizationOwner,
   user,
   admin,
 }

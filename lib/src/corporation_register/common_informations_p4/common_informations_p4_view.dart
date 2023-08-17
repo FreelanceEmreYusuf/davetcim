@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/dto/corporation_registration_dto.dart';
+import '../../../shared/dto/organization_type_response_dto.dart';
 import '../../../shared/models/company_model.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/region_model.dart';
@@ -17,6 +18,7 @@ import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/checkbox_listtile_item.dart';
 import '../../search/search_view_model.dart';
 import '../common_informations_p5/common_informations_p5_view.dart';
+import 'common_informations_p4_view_model.dart';
 
 class CommonInformationsP4View extends StatefulWidget {
   @override
@@ -31,22 +33,39 @@ class CommonInformationsP4View extends StatefulWidget {
 }
 
 class _CommonInformationsP4ViewState extends State<CommonInformationsP4View> {
+  Map<String, bool> values = {};
+  Map<String, int> valuesId = {};
+  OrganizationTypesResponseDto response;
   final registerFormKey = GlobalKey <FormState> ();
-  Map<String, bool> values = {
-    'Sıralı Masa': false,
-    'Yuvarlak Masa Düzeni': false,
-    'Sandalyesiz (Ayakta)': false,
-    'Masa Düzeni': false,
-  };
   @override
   void initState() {
+    callGetSequenceOrderTypes();
   }
 
+  void callGetSequenceOrderTypes() async {
+    CommonInformationsP4ViewModel commonInformationsP4ViewModel = CommonInformationsP4ViewModel();
+    response = await  commonInformationsP4ViewModel.getSequenceOrderTypes();
+    values = response.organizationTypeCheckedMap;
+    valuesId = response.organizationTypeNameIdMap;
+
+    setState(() {
+      response = response;
+      values = values;
+      valuesId = valuesId;
+    });
+  }
   @override
   Widget build(BuildContext contex){
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
+          List<String> sequenceOrderList = [];
+          values.forEach((k, v) =>  {
+            if (v) {
+              sequenceOrderList.add(valuesId[k].toString())
+            }
+          });
+          widget.corpReg.corporationModel.sequenceOrderUniqueIdentifier = sequenceOrderList;
           Utils.navigateToPage(context, CommonInformationsP5View(corpReg: widget.corpReg,));
         },
         label: const Text('Devam Et'),

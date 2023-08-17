@@ -32,7 +32,7 @@ class LoginViewModel extends ChangeNotifier {
 
     /*  if (customer.roleId == CustomerRoleEnum.companyAdminNotRegistered) {
         Utils.navigateToPage(context, CompanyUserRegisterView());
-      } else */if (customer.roleId == CustomerRoleEnum.companyAdmin && customer.corporationId == 0) {
+      } else */if (customer.roleId == CustomerRoleEnum.organizationOwner && customer.corporationId == 0) {
         Utils.navigateToPage(context, CorporationAddView());
       } else {
         Utils.navigateToPage(context, childPage);

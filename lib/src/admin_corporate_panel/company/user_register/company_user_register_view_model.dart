@@ -59,7 +59,7 @@ class CompanyUserRegisterViewModel extends ChangeNotifier {
         isActive: true,
         name: _nameControl,
         password: _passwordControl,
-        roleId: CustomerRoleEnum.companyAdmin,
+        roleId: CustomerRoleEnum.organizationOwner,
         recordDate: Timestamp.now(),
         surname: _surnameControl,
         eMail: _emailControl,

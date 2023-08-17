@@ -17,34 +17,34 @@ import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/checkbox_listtile_item.dart';
 import '../../search/search_view_model.dart';
-import '../common_informations_p4/common_informations_p4_view.dart';
-import 'common_informations_p3_view_model.dart';
+import '../common_informations_p5/common_informations_p5_view.dart';
+import 'common_informations_p6_view_model.dart';
 
-class CommonInformationsP3View extends StatefulWidget {
+class CommonInformationsP6View extends StatefulWidget {
   @override
-  _CommonInformationsP3ViewState createState() => _CommonInformationsP3ViewState();
+  _CommonInformationsP6ViewState createState() => _CommonInformationsP6ViewState();
   final CorporationReservationDto corpReg;
 
-  CommonInformationsP3View(
+  CommonInformationsP6View(
       {Key key,
         @required this.corpReg,
        })
       : super(key: key);
 }
 
-class _CommonInformationsP3ViewState extends State<CommonInformationsP3View> {
+class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
   Map<String, bool> values = {};
   Map<String, int> valuesId = {};
   OrganizationTypesResponseDto response;
   final registerFormKey = GlobalKey <FormState> ();
   @override
   void initState() {
-    callGetInvitationTypes();
+    callGetSequenceOrderTypes();
   }
 
-  void callGetInvitationTypes() async {
-    CommonInformationsP3ViewModel commonInformationsP3ViewModel = CommonInformationsP3ViewModel();
-    response = await  commonInformationsP3ViewModel.getInvitationTypes();
+  void callGetSequenceOrderTypes() async {
+    CommonInformationsP6ViewModel commonInformationsP4ViewModel = CommonInformationsP6ViewModel();
+    response = await  commonInformationsP4ViewModel.getSequenceOrderTypes();
     values = response.organizationTypeCheckedMap;
     valuesId = response.organizationTypeNameIdMap;
 
@@ -54,26 +54,25 @@ class _CommonInformationsP3ViewState extends State<CommonInformationsP3View> {
       valuesId = valuesId;
     });
   }
-
   @override
   Widget build(BuildContext contex){
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          List<String> invitationIdentifierList = [];
+          List<String> sequenceOrderList = [];
           values.forEach((k, v) =>  {
             if (v) {
-              invitationIdentifierList.add(valuesId[k].toString())
+              sequenceOrderList.add(valuesId[k].toString())
             }
           });
-          widget.corpReg.corporationModel.invitationUniqueIdentifier = invitationIdentifierList;
-          Utils.navigateToPage(context, CommonInformationsP4View(corpReg: widget.corpReg,));
+          widget.corpReg.corporationModel.sequenceOrderUniqueIdentifier = sequenceOrderList;
+          Utils.navigateToPage(context, CommonInformationsP5View(corpReg: widget.corpReg,));
         },
         label: const Text('Devam Et'),
         icon: const Icon(Icons.navigate_next),
         backgroundColor: Colors.redAccent,
       ),
-      appBar: AppBarMenu(pageName: "Sunulan Davet Türleri", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: "Özet", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
         child: Form(
