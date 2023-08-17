@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import '../../shared/environments/const.dart';
 import '../../widgets/reservation_corporate_card_widget.dart';
 import 'all_reservation/all_reservation_corporate_view.dart';
+import 'corporation_analysis/corporation_analysis_view.dart';
 
 
 class AdminCorporatePanelPage extends StatefulWidget {
@@ -118,6 +119,25 @@ class _State extends State<AdminCorporatePanelPage> {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
                             return ManageCommentCorporateView();
+                          },
+                        ));
+                      },
+                    )),
+                SizedBox(height: 30.0),
+                Container(
+                    height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    // ignore: deprecated_member_use
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                      child: Text("SALON ANALİZİ",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return CorporationAnalysisView();
                           },
                         ));
                       },
