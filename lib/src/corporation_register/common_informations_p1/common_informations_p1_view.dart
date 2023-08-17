@@ -13,6 +13,7 @@ import '../../../shared/models/region_model.dart';
 import '../../../shared/sessions/application_session.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/checkbox_listtile_item.dart';
 import '../../search/search_view_model.dart';
 import '../common_informations_p2/common_informations_p2_view.dart';
 import 'common_informations_p1_view_model.dart';
@@ -36,6 +37,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
   final TextEditingController _phoneControl = new TextEditingController();
   final TextEditingController _nameControl = new TextEditingController();
   final TextEditingController _descriptionControl = new TextEditingController();
+  final TextEditingController _maxPopulationControl = new TextEditingController();
   final registerFormKey = GlobalKey <FormState> ();
   String formException = "";
   int _cardDivisionSize = 20;
@@ -220,6 +222,37 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  labelText: "Maximum Kapasite",
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusColor: Colors.blue,
+                  prefixIcon: Icon(
+                    Icons.person_add,
+                    color: Colors.black54,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                controller: _maxPopulationControl,
+                validator: (maxPopulation) {
+                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlBetweenMinMax(maxPopulation,1,6));
+                },
+                maxLines: 1,
+                keyboardType: TextInputType.number,
+                maxLength: 10,
+              ),
+              SizedBox(height: 15.0),
+              TextFormField(
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Adres",
                   filled: true,
                   fillColor: Colors.white,
@@ -378,6 +411,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                           region: selectedRegion.toString(),
                           district: selectedDistrict.toString(),
                           companyId: widget.companyModel.id,
+                          maxPopulation: int.parse(_maxPopulationControl.text),
                           averageRating: 0,
                           imageUrl: "",
                           isPopularCorporation: false,
@@ -386,6 +420,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                         null, corporation, null);
 
                       Utils.navigateToPage(context, CommonInformationsP2View(corpReg : corpReg));
+                      //Utils.navigateToPage(context, CheckBoxListItem());
                     }
                   },
                 ),

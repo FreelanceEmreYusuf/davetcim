@@ -32,6 +32,17 @@ class FormControlUtil{
     return errorMessage;
   }
 
+  static String getDefaultFormValueControlBetweenMinMax(String value, int min, int max){
+    String errorMessage = getStringLenghtBetweenMinandMaxControl(value,min,max);
+
+    if(errorMessage.isEmpty)
+    {
+      errorMessage = getStringLenghtBetweenMinandMaxControl(value,min,max);
+    }
+
+    return errorMessage;
+  }
+
   static String getEmailAdressControl(String value)
   {
     String errorMessage = getDefaultFormValueControl(value);
