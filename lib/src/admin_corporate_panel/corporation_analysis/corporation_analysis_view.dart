@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/carousel_calender_widget_for_between_two_date.dart';
 import '../../../widgets/cupertino_date_picker.dart';
+import 'corporation_analysis_pick_firstdate_view.dart';
 
 class CorporationAnalysisView extends StatefulWidget {
   @override
@@ -23,7 +25,18 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBarMenu(pageName: "Salon Analiz Sayfası", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FloatingActionButton.extended(
+          onPressed: () {
+            Utils.navigateToPage(context, CorporationAnalysisFirstDatePickerView());
+          },
+          label: Text('2 Tarih Arasını Filtrele', style: TextStyle(fontSize: 15), maxLines: 2),
+          icon: Icon(Icons.search),
+          backgroundColor: Colors.redAccent,
+        ),
+      ),
+        appBar: AppBarMenu(pageName: "Salon Analiz Sayfası", isHomnePageIconVisible: true, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body: InkWell(
         child: ListView(
           shrinkWrap: true,
@@ -173,64 +186,6 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                 ),),
               ),
             ),
-            Divider(color: Colors.redAccent, height: 25, thickness: 5.0),
-            SizedBox(height: 10,),
-            Center(child: Text("Tarih Seçerek Filtrele", style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w900,
-              color: Colors.redAccent,
-            ),)),
-            SizedBox(height: 10,),
-            Card(
-              elevation: 10.0,
-              child: ListTile(
-              onTap: () {
-                setState(() {
-                  firstCalenderVisibility = !firstCalenderVisibility;
-                });
-              },
-                title: Text("Başlangıç Tarihi Seç"),
-                trailing: IconButton(
-                  icon: Icon(
-                    Icons.keyboard_arrow_down,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      firstCalenderVisibility = !firstCalenderVisibility;
-                    });
-                  },
-                ),),
-              ),
-            Visibility(
-              child: CalenderCarouselBetweenTwoDate(),
-              visible: firstCalenderVisibility,
-            ),
-            SizedBox(height: 10,),
-            Card(
-              elevation: 10.0,
-              child: ListTile(
-                onTap: () {
-                  setState(() {
-                    secondtCalenderVisibility = !secondtCalenderVisibility;
-                  });
-                },
-                title: Text("Bitiş Tarihi Seç"),
-                trailing: IconButton(
-                  icon: Icon(
-                    Icons.keyboard_arrow_down,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      secondtCalenderVisibility = !secondtCalenderVisibility;
-                    });
-                  },
-                ),),
-            ),
-            Visibility(
-              child: CalenderCarouselBetweenTwoDate(),
-              visible: secondtCalenderVisibility,
-            ),
-            SizedBox(height: 50,),
           ],
         ),
       ),
