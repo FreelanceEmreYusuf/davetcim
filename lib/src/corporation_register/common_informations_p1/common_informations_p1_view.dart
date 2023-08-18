@@ -152,6 +152,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                   return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlMax200(description));
                 },
                 maxLines: 1,
+                maxLength: 200,
               ),//ön yazı
               SizedBox(height: 15.0),
               TextFormField(
@@ -243,7 +244,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                 },
                 maxLines: 1,
                 keyboardType: TextInputType.number,
-                maxLength: 10,
+                maxLength: 6,
               ),
               SizedBox(height: 15.0),
               TextFormField(
@@ -273,6 +274,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                   return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlMax200(address));
                 },
                 maxLines: 1,
+                maxLength: 200,
               ),//address
               SizedBox(height: 15.0),
               GestureDetector(

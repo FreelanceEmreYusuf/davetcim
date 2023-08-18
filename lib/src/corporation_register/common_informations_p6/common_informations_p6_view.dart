@@ -8,17 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/dto/corporation_registration_dto.dart';
-import '../../../shared/dto/organization_type_response_dto.dart';
-import '../../../shared/models/company_model.dart';
-import '../../../shared/models/corporation_model.dart';
-import '../../../shared/models/region_model.dart';
-import '../../../shared/sessions/application_session.dart';
-import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
-import '../../../widgets/checkbox_listtile_item.dart';
-import '../../search/search_view_model.dart';
-import '../common_informations_p5/common_informations_p5_view.dart';
-import 'common_informations_p6_view_model.dart';
 
 class CommonInformationsP6View extends StatefulWidget {
   @override
@@ -33,63 +23,248 @@ class CommonInformationsP6View extends StatefulWidget {
 }
 
 class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
-  Map<String, bool> values = {};
-  Map<String, int> valuesId = {};
-  OrganizationTypesResponseDto response;
-  final registerFormKey = GlobalKey <FormState> ();
   @override
   void initState() {
-    callGetSequenceOrderTypes();
   }
 
-  void callGetSequenceOrderTypes() async {
-    CommonInformationsP6ViewModel commonInformationsP4ViewModel = CommonInformationsP6ViewModel();
-    response = await  commonInformationsP4ViewModel.getSequenceOrderTypes();
-    values = response.organizationTypeCheckedMap;
-    valuesId = response.organizationTypeNameIdMap;
-
-    setState(() {
-      response = response;
-      values = values;
-      valuesId = valuesId;
-    });
-  }
   @override
   Widget build(BuildContext contex){
+    TextStyle textStyleTitle = TextStyle(fontSize: 22, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.w700,);
+    TextStyle textStyleText = TextStyle(fontSize: 20, color: Colors.black87, fontStyle: FontStyle.normal,fontWeight: FontWeight.w500,);
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          List<String> sequenceOrderList = [];
-          values.forEach((k, v) =>  {
-            if (v) {
-              sequenceOrderList.add(valuesId[k].toString())
-            }
-          });
-          widget.corpReg.corporationModel.sequenceOrderUniqueIdentifier = sequenceOrderList;
-          Utils.navigateToPage(context, CommonInformationsP5View(corpReg: widget.corpReg,));
-        },
-        label: const Text('Devam Et'),
-        icon: const Icon(Icons.navigate_next),
-        backgroundColor: Colors.redAccent,
-      ),
+      floatingActionButton:
+          FloatingActionButton.extended(
+            onPressed: () {
+            },
+            label: const Text('Onayla'),
+            icon: const Icon(Icons.done),
+            elevation: 20,
+            backgroundColor: Colors.redAccent,
+          ),
       appBar: AppBarMenu(pageName: "Özet", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body: Padding(
-        padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
-        child: Form(
-          key: registerFormKey,
-          child: new ListView(
-            children: values.keys.map((String key) {
-              return new CheckboxListTile(
-                title: new Text(key),
-                value: values[key],
-                onChanged: (bool value) {
-                  setState(() {
-                    values[key] = value;
-                  });
-                },
-              );
-            }).toList(),
+        padding: const EdgeInsets.all(10.0),
+        child: Card(
+          elevation: 30,
+          color: Colors.white60,
+          shadowColor: Colors.redAccent,
+          child: ListView(
+    children: <Widget>[
+          Card(
+            color: Colors.redAccent,
+            semanticContainer: true,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            shadowColor: Colors.black,
+            elevation: 10,
+            child:  Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                    " SALON BİLGİLERİ", style: TextStyle(fontSize: 23, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+              ],
+            ),
           ),
+      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Firma Adı", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.corporationModel.corporationName, style: textStyleText, maxLines: 2, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: Text("Salon Adı", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
+              Expanded(child: Text(widget.corpReg.corporationModel.corporationName, style: textStyleText, maxLines: 2, textAlign: TextAlign.center,)),
+            ],
+          ),
+          Divider(indent: 2, color: Colors.black,),
+          Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(child: Text("Salon Açıklaması", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
+                Expanded(child: Text(widget.corpReg.corporationModel.description, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+              ],
+            ),
+          Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Adres", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.corporationModel.address, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Maximum Kapasite", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.corporationModel.maxPopulation.toString(), style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Telefon numarası", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.corporationModel.telephoneNo, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Email adresi", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.corporationModel.email, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("İl", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.corporationModel.email, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("İlçe", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.corporationModel.email, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Sunduğu Davet Türü Hizmetleri", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.corporationModel.invitationUniqueIdentifier.first, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Salon Özellikleri", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.corporationModel.organizationUniqueIdentifier.first, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Sunulan Masa Düzenleri ve Tipleri", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.corporationModel.sequenceOrderUniqueIdentifier.first, style: textStyleText, maxLines: 10,textAlign: TextAlign.center,)),
+        ],
+      ),
+      SizedBox(height: MediaQuery.of(context).size.height / 25,),
+      Card(
+        color: Colors.redAccent,
+        semanticContainer: true,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        shadowColor: Colors.black,
+        elevation: 10,
+        child:  Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Text(
+                  " SALON ADMİN KULLANICISI BİLGİLERİ", maxLines: 3, textAlign: TextAlign.center, style: TextStyle(fontSize: 23, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+            ),
+          ],
+        ),
+      ),
+      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("İsim", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.customerModel.name, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Soy İsim", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.customerModel.surname, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Telefon", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.customerModel.gsmNo, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Kullanıcı Adı", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.customerModel.username, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Şifre", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.customerModel.password, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Email Adresi", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.customerModel.eMail, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Hesap Kurtarma Gizli Sorusu", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.customerModel.secretQuestionId.toString(), style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Cevap", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.customerModel.secretQuestionAnswer, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      SizedBox(height: MediaQuery.of(context).size.height / 10,),
+    ],),
         ),
       ),
     );
