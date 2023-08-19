@@ -79,7 +79,7 @@ class _CommonInformationsP5ViewState extends State<CommonInformationsP5View> {
             CustomerModel _customer = new CustomerModel(
                 username: _usernameControl.text,
                 id: new DateTime.now().millisecondsSinceEpoch,
-                corporationId: 0,
+                corporationId: widget.corpReg.corporationModel.corporationId,
                 gsmNo: _phoneControl.text,
                 isActive: true,
                 name: _nameControl.text,
@@ -93,6 +93,7 @@ class _CommonInformationsP5ViewState extends State<CommonInformationsP5View> {
                 notificationCount: 0,
                 basketCount: 0);
             widget.corpReg.customerModel = _customer;
+            widget.corpReg.secretQuestionName = selectedQuestion.questionText;
 
             String errorMessage = await CustomerHelper.getUserExistingControlWithUserName(_usernameControl.text);
             if (errorMessage.isNotEmpty) {

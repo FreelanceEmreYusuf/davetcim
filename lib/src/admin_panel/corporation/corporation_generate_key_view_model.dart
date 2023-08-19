@@ -40,4 +40,21 @@ class CorporationGenerateKeyViewModel extends ChangeNotifier {
     return id;
   }
 
+  Future<CorporationRegistrationKeyModel> getByKeyNo(int keyNumber) async {
+    var response = await db
+        .getCollectionRef(DBConstants.corporationRegisterKeyDb)
+        .where('keyNumber', isEqualTo:keyNumber)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      CorporationRegistrationKeyModel keyModel = CorporationRegistrationKeyModel
+          .fromMap(list[0].data());
+      return keyModel;
+    }
+
+    return null;
+  }
+
+
 }

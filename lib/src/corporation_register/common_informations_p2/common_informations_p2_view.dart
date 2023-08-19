@@ -36,6 +36,7 @@ class _CommonInformationsP2ViewState extends State<CommonInformationsP2View> {
   Map<String, int> valuesId = {};
   OrganizationTypesResponseDto response;
   final registerFormKey = GlobalKey <FormState> ();
+  bool keyVisibility = false;
   @override
   void initState() {
     callGetOrganizationTypes();
@@ -54,23 +55,42 @@ class _CommonInformationsP2ViewState extends State<CommonInformationsP2View> {
     });
   }
 
+  bool isListItemChecked() {
+    bool isChecked = false;
+    values.forEach((k, v) =>  {
+      if (v) {
+        isChecked = true
+      }
+    });
+    return isChecked;
+  }
+
   @override
   Widget build(BuildContext contex){
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          List<String> organizationUniqueIdentifier = [];
-          values.forEach((k, v) =>  {
-            if (v) {
-              organizationUniqueIdentifier.add(valuesId[k].toString())
-            }
-          });
-          widget.corpReg.corporationModel.organizationUniqueIdentifier = organizationUniqueIdentifier;
-          Utils.navigateToPage(context, CommonInformationsP3View(corpReg: widget.corpReg));
-        },
-        label: const Text('Devam Et'),
-        icon: const Icon(Icons.navigate_next),
-        backgroundColor: Colors.redAccent,
+      floatingActionButton: Visibility(
+        visible: keyVisibility,
+        child: FloatingActionButton.extended(
+          onPressed: () {
+            String organizationTypes = "";
+            List<String> organizationUniqueIdentifier = [];
+            values.forEach((k, v) =>  {
+              if (v) {
+                organizationUniqueIdentifier.add(valuesId[k].toString()),
+                if (organizationTypes.isNotEmpty) {
+                  organizationTypes += ", "
+                },
+                organizationTypes = organizationTypes + k,
+              }
+            });
+            widget.corpReg.corporationModel.organizationUniqueIdentifier = organizationUniqueIdentifier;
+            widget.corpReg.organizationTypes = organizationTypes;
+            Utils.navigateToPage(context, CommonInformationsP3View(corpReg: widget.corpReg));
+          },
+          label: const Text('Devam Et'),
+          icon: const Icon(Icons.navigate_next),
+          backgroundColor: Colors.redAccent,
+        ),
       ),
       appBar: AppBarMenu(pageName: "Sunulan Salon Tipleri", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body:
@@ -86,6 +106,7 @@ class _CommonInformationsP2ViewState extends State<CommonInformationsP2View> {
                 onChanged: (bool value) {
                   setState(() {
                     values[key] = value;
+                    keyVisibility = isListItemChecked();
                   });
                 },
               );

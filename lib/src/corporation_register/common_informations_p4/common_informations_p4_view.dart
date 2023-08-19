@@ -37,6 +37,7 @@ class _CommonInformationsP4ViewState extends State<CommonInformationsP4View> {
   Map<String, int> valuesId = {};
   OrganizationTypesResponseDto response;
   final registerFormKey = GlobalKey <FormState> ();
+  bool keyVisibility = false;
   @override
   void initState() {
     callGetSequenceOrderTypes();
@@ -54,23 +55,43 @@ class _CommonInformationsP4ViewState extends State<CommonInformationsP4View> {
       valuesId = valuesId;
     });
   }
+
+  bool isListItemChecked() {
+    bool isChecked = false;
+    values.forEach((k, v) =>  {
+      if (v) {
+        isChecked = true
+      }
+    });
+    return isChecked;
+  }
+
   @override
   Widget build(BuildContext contex){
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          List<String> sequenceOrderList = [];
-          values.forEach((k, v) =>  {
-            if (v) {
-              sequenceOrderList.add(valuesId[k].toString())
-            }
-          });
-          widget.corpReg.corporationModel.sequenceOrderUniqueIdentifier = sequenceOrderList;
-          Utils.navigateToPage(context, CommonInformationsP5View(corpReg: widget.corpReg,));
-        },
-        label: const Text('Devam Et'),
-        icon: const Icon(Icons.navigate_next),
-        backgroundColor: Colors.redAccent,
+      floatingActionButton: Visibility(
+        visible: keyVisibility,
+        child: FloatingActionButton.extended(
+          onPressed: () {
+            String sequenceOrderTypes = "";
+            List<String> sequenceOrderList = [];
+            values.forEach((k, v) =>  {
+              if (v) {
+                sequenceOrderList.add(valuesId[k].toString()),
+                if (sequenceOrderTypes.isNotEmpty) {
+                  sequenceOrderTypes += ", "
+                },
+                sequenceOrderTypes = sequenceOrderTypes + k,
+              }
+            });
+            widget.corpReg.corporationModel.sequenceOrderUniqueIdentifier = sequenceOrderList;
+            widget.corpReg.sequenceOrderTypes = sequenceOrderTypes;
+            Utils.navigateToPage(context, CommonInformationsP5View(corpReg: widget.corpReg,));
+          },
+          label: const Text('Devam Et'),
+          icon: const Icon(Icons.navigate_next),
+          backgroundColor: Colors.redAccent,
+        ),
       ),
       appBar: AppBarMenu(pageName: "Sunulan Oturma Düzenleri", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body: Padding(
@@ -85,6 +106,7 @@ class _CommonInformationsP4ViewState extends State<CommonInformationsP4View> {
                 onChanged: (bool value) {
                   setState(() {
                     values[key] = value;
+                    keyVisibility = isListItemChecked();
                   });
                 },
               );

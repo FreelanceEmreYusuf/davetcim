@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/models/secret_questions_model.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
@@ -22,10 +23,12 @@ class CommonInformationsP1View extends StatefulWidget {
   @override
   _CommonInformationsP1ViewState createState() => _CommonInformationsP1ViewState();
   final CompanyModel companyModel;
+  final int registrationKey;
 
   CommonInformationsP1View(
       {Key key,
         @required this.companyModel,
+        @required this.registrationKey,
        })
       : super(key: key);
 }
@@ -405,21 +408,25 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                     if (registerFormKey.currentState.validate()) {
                       CorporationModel corporation = new CorporationModel(
                           corporationId: new DateTime.now().millisecondsSinceEpoch,
-                          corporationName: _firmNameControl.text,
+                          corporationName: _nameControl.text,
                           address: _addresControl.text,
                           telephoneNo: _phoneControl.text,
                           email: _emailControl.text,
                           description: _descriptionControl.text,
-                          region: selectedRegion.toString(),
-                          district: selectedDistrict.toString(),
+                          region: regionList[selectedRegion].id.toString(),
+                          district: districtList[selectedDistrict].id.toString(),
                           companyId: widget.companyModel.id,
                           maxPopulation: int.parse(_maxPopulationControl.text),
+                          ratingCount: 0,
+                          recordDate: Timestamp.now(),
                           averageRating: 0,
                           imageUrl: "",
                           isPopularCorporation: false,
                           isActive: true);
                       CorporationReservationDto corpReg = new CorporationReservationDto(
-                        null, corporation, null);
+                        widget.companyModel, corporation, null,
+                        regionList[selectedRegion].name, districtList[selectedDistrict].name,
+                        "", "", "", "", widget.registrationKey);
 
                       Utils.navigateToPage(context, CommonInformationsP2View(corpReg : corpReg));
                       //Utils.navigateToPage(context, CheckBoxListItem());

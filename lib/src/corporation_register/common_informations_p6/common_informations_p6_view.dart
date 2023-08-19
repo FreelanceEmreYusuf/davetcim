@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import '../../../shared/dto/corporation_registration_dto.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import 'common_informations_p6_view_model.dart';
 
 class CommonInformationsP6View extends StatefulWidget {
   @override
@@ -35,6 +36,8 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
       floatingActionButton:
           FloatingActionButton.extended(
             onPressed: () {
+              CommonInformationsP6ViewModel model = CommonInformationsP6ViewModel();
+              model.corporationRegisterFlow(context, widget.corpReg);
             },
             label: const Text('Onayla'),
             icon: const Icon(Icons.done),
@@ -71,7 +74,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Firma Adı", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(widget.corpReg.corporationModel.corporationName, style: textStyleText, maxLines: 2, textAlign: TextAlign.center,)),
+          Expanded(child: Text(widget.corpReg.companyModel.name, style: textStyleText, maxLines: 2, textAlign: TextAlign.center,)),
         ],
       ),
       Divider(indent: 2, color: Colors.black,),
@@ -134,7 +137,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("İl", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(widget.corpReg.corporationModel.email, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+          Expanded(child: Text(widget.corpReg.regionName, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
       Divider(indent: 2, color: Colors.black,),
@@ -143,7 +146,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("İlçe", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(widget.corpReg.corporationModel.email, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+          Expanded(child: Text(widget.corpReg.districtName, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
       Divider(indent: 2, color: Colors.black,),
@@ -152,7 +155,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Sunduğu Davet Türü Hizmetleri", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(widget.corpReg.corporationModel.invitationUniqueIdentifier.first, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+          Expanded(child: Text(widget.corpReg.invitationTypes, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
       Divider(indent: 2, color: Colors.black,),
@@ -161,7 +164,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Salon Özellikleri", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(widget.corpReg.corporationModel.organizationUniqueIdentifier.first, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+          Expanded(child: Text(widget.corpReg.organizationTypes, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
       Divider(indent: 2, color: Colors.black,),
@@ -170,7 +173,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Sunulan Masa Düzenleri ve Tipleri", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(widget.corpReg.corporationModel.sequenceOrderUniqueIdentifier.first, style: textStyleText, maxLines: 10,textAlign: TextAlign.center,)),
+          Expanded(child: Text(widget.corpReg.sequenceOrderTypes, style: textStyleText, maxLines: 10,textAlign: TextAlign.center,)),
         ],
       ),
       SizedBox(height: MediaQuery.of(context).size.height / 25,),
@@ -251,7 +254,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Hesap Kurtarma Gizli Sorusu", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(widget.corpReg.customerModel.secretQuestionId.toString(), style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+          Expanded(child: Text(widget.corpReg.secretQuestionName, style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
       Divider(indent: 2, color: Colors.black,),

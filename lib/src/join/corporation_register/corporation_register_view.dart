@@ -102,7 +102,7 @@ class _CorporationRegisterViewState extends State<CorporationRegisterView> {
                         keyErrorVisibility = true;
                       });
                     } else {
-                      Utils.navigateToPage(context, CommonInformationsP1View(companyModel : companyModel));
+                      Utils.navigateToPage(context, CommonInformationsP1View(companyModel : companyModel, registrationKey: int.parse(_nameControl.text)));
                     }
                     //key kontrolü yapılacak değer doğru ise emrenin daha önceden yapmış olduğu salon akyıt sayfasına focuslanacak!
                   },

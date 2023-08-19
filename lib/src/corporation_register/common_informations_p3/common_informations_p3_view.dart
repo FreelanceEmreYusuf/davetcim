@@ -37,6 +37,7 @@ class _CommonInformationsP3ViewState extends State<CommonInformationsP3View> {
   Map<String, int> valuesId = {};
   OrganizationTypesResponseDto response;
   final registerFormKey = GlobalKey <FormState> ();
+  bool keyVisibility = false;
   @override
   void initState() {
     callGetInvitationTypes();
@@ -55,23 +56,42 @@ class _CommonInformationsP3ViewState extends State<CommonInformationsP3View> {
     });
   }
 
+  bool isListItemChecked() {
+    bool isChecked = false;
+    values.forEach((k, v) =>  {
+      if (v) {
+        isChecked = true
+      }
+    });
+    return isChecked;
+  }
+
   @override
   Widget build(BuildContext contex){
     return Scaffold(
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          List<String> invitationIdentifierList = [];
-          values.forEach((k, v) =>  {
-            if (v) {
-              invitationIdentifierList.add(valuesId[k].toString())
-            }
-          });
-          widget.corpReg.corporationModel.invitationUniqueIdentifier = invitationIdentifierList;
-          Utils.navigateToPage(context, CommonInformationsP4View(corpReg: widget.corpReg,));
-        },
-        label: const Text('Devam Et'),
-        icon: const Icon(Icons.navigate_next),
-        backgroundColor: Colors.redAccent,
+      floatingActionButton: Visibility(
+        visible: keyVisibility,
+        child: FloatingActionButton.extended(
+          onPressed: () {
+            String invitationTypes = "";
+            List<String> invitationIdentifierList = [];
+            values.forEach((k, v) =>  {
+              if (v) {
+                invitationIdentifierList.add(valuesId[k].toString()),
+                if (invitationTypes.isNotEmpty) {
+                  invitationTypes += ", "
+                },
+                invitationTypes = invitationTypes + k,
+              }
+            });
+            widget.corpReg.corporationModel.invitationUniqueIdentifier = invitationIdentifierList;
+            widget.corpReg.invitationTypes = invitationTypes;
+            Utils.navigateToPage(context, CommonInformationsP4View(corpReg: widget.corpReg,));
+          },
+          label: const Text('Devam Et'),
+          icon: const Icon(Icons.navigate_next),
+          backgroundColor: Colors.redAccent,
+        ),
       ),
       appBar: AppBarMenu(pageName: "Sunulan Davet Türleri", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body: Padding(
@@ -86,6 +106,7 @@ class _CommonInformationsP3ViewState extends State<CommonInformationsP3View> {
                 onChanged: (bool value) {
                   setState(() {
                     values[key] = value;
+                    keyVisibility = isListItemChecked();
                   });
                 },
               );

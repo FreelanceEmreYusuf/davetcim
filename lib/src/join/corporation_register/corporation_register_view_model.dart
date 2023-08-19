@@ -23,6 +23,7 @@ class CorporationRegisterViewModel extends ChangeNotifier {
     var response = await db
         .getCollectionRef(DBConstants.corporationRegisterKeyDb)
         .where('keyNumber', isEqualTo:keyNumber)
+        .where('isActive', isEqualTo:true)
         .get();
 
     if (response.docs != null && response.docs.length > 0) {
