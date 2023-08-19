@@ -36,7 +36,7 @@ class _State extends State<AdminCorporatePanelPage> {
                     // ignore: deprecated_member_use
                     child: TextButton(
                       style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
-                      child: Text("HİZMET İŞLEMLERİ",
+                      child: Text("SUNULAN HİZMET İŞLEMLERİ",
                         style: TextStyle(
                           color: Colors.white,
                         ),),
