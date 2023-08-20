@@ -44,7 +44,7 @@ class _CorporationAnalysisBetweenTwoDateViewState extends State<CorporationAnaly
           shrinkWrap: true,
           primary: false,
           children: <Widget>[
-            SizedBox(height: MediaQuery.of(context).size.height / 20,),
+            SizedBox(height: MediaQuery.of(context).size.height / 50,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -88,7 +88,7 @@ class _CorporationAnalysisBetweenTwoDateViewState extends State<CorporationAnaly
               ),
             ),
 
-            SizedBox(height: MediaQuery.of(context).size.height / 20,),
+            SizedBox(height: MediaQuery.of(context).size.height / 50,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -132,7 +132,7 @@ class _CorporationAnalysisBetweenTwoDateViewState extends State<CorporationAnaly
               ),
             ),
 
-            SizedBox(height: MediaQuery.of(context).size.height / 20,),
+            SizedBox(height: MediaQuery.of(context).size.height / 50,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
@@ -199,7 +199,7 @@ class _CorporationAnalysisBetweenTwoDateViewState extends State<CorporationAnaly
               ),
             ),
 
-            SizedBox(height: MediaQuery.of(context).size.height / 20,),
+            SizedBox(height: MediaQuery.of(context).size.height / 50,),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Container(
