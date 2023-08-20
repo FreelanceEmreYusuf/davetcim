@@ -75,31 +75,30 @@ class EntrancePageModel extends ChangeNotifier {
 
     var list = response.docs;
     List<RegionModel> regionList = [];
-   /* list.forEach((region) {
+    list.forEach((region) {
       Map item = region.data();
-      if (item["id"] == 34) {
+      if (item!=null && item["id"] == 34) {
         regionList.add(RegionModel.fromMap(item));
       }
     });
     list.forEach((region) {
       Map item = region.data();
-      if (item["id"] == 6) {
+      if (item!=null && item["id"] == 6) {
         regionList.add(RegionModel.fromMap(item));
       }
     });
     list.forEach((region) {
       Map item = region.data();
-      if (item["id"] == 35) {
+      if (item!=null && item["id"] == 35) {
         regionList.add(RegionModel.fromMap(item));
       }
-    });*/
+    });
     list.forEach((region) {
       Map item = region.data();
-   //  if (item["id"] != 34 && item["id"] != 35 && item["id"] != 6) {
+      if (item!=null && item["id"] != 34 && item["id"] != 35 && item["id"] != 6) {
         regionList.add(RegionModel.fromMap(item));
-    //  }
+      }
     });
-
     return regionList;
   }
 
