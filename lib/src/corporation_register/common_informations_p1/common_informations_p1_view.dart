@@ -53,8 +53,16 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
   @override
   void initState() {
     _firmNameControl.text = widget.companyModel.name;
-    SearchViewModel rm = SearchViewModel();
-    districtList = rm.fillDistrictlist(regionList[0].id);
+    firstInitialDistrict();
+  }
+
+  void firstInitialDistrict() {
+    if (regionList != null && regionList.length > 0) {
+      SearchViewModel rm = SearchViewModel();
+      districtList = rm.fillDistrictlist(regionList[0].id);
+    } else {
+      firstInitialDistrict();
+    }
   }
 
   @override

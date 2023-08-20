@@ -50,7 +50,6 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    callFillDistrict(regionList[selectedRegion].id);
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -405,8 +404,10 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                               itemExtent: 32.0,
                               onSelectedItemChanged: (int index) {
                                 SearchViewModel rm = SearchViewModel();
+                                districtList = rm.fillDistrictlist(regionList[index].id);
                                 setState(() {
                                   selectedRegion = index;
+                                  districtList = districtList;
                                   selectedDistrict = 0;
                                 });
                               },
@@ -482,14 +483,6 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
         ),
       ),
     );
-  }
-
-  void callFillDistrict(int regionCode) async {
-    SearchViewModel rm = SearchViewModel();
-    districtList = await rm.fillDistrictlist(regionCode);
-    setState(() {
-      districtList = districtList;
-    });
   }
 
   @override

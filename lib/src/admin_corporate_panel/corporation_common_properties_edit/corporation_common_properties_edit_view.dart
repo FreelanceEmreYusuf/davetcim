@@ -1,24 +1,15 @@
-import 'package:davetcim/shared/models/customer_model.dart';
-import 'package:davetcim/shared/models/secret_questions_model.dart';
-import 'package:davetcim/shared/utils/form_control.dart';
-import 'package:davetcim/shared/utils/language.dart';
-import 'package:davetcim/src/corporation_register/common_informations_p3/common_informations_p3_view.dart';
-import 'package:davetcim/src/join/register/register_view_model.dart';
-import 'package:davetcim/widgets/checkbox_item.dart';
+import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/corporation_registration_dto.dart';
+import '../../../shared/dto/corporation_organizations_response_dto.dart';
 import '../../../shared/dto/organization_type_response_dto.dart';
-import '../../../shared/models/company_model.dart';
-import '../../../shared/models/corporation_model.dart';
-import '../../../shared/models/region_model.dart';
-import '../../../shared/sessions/application_session.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../corporation_register/common_informations_p2/common_informations_p2_view_model.dart';
 import '../../corporation_register/common_informations_p3/common_informations_p3_view_model.dart';
 import '../../corporation_register/common_informations_p4/common_informations_p4_view_model.dart';
-import '../../search/search_view_model.dart';
+import '../AdminCorporatePanel.dart';
 import 'corporation_common_properties_edit_view_model.dart';
 
 class CorporationCommonPropertiesEditView extends StatefulWidget {
@@ -33,6 +24,8 @@ class CorporationCommonPropertiesEditView extends StatefulWidget {
 }
 
 class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonPropertiesEditView> {
+  CorporationOrganizationsResponseDto response = CorporationOrganizationsResponseDto(null, null, null);
+
   Map<String, bool> values = {};
   Map<String, int> valuesId = {};
 
@@ -42,60 +35,39 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
   Map<String, bool> values3 = {};
   Map<String, int> valuesId3 = {};
 
+  bool organizationErrorVisibility = false;
+  bool invitationErrorVisibility = false;
+  bool sequenceErrorVisibility = false;
 
-  OrganizationTypesResponseDto response;
-  OrganizationTypesResponseDto response2;
-  OrganizationTypesResponseDto response3;
+
   final registerFormKey = GlobalKey <FormState> ();
   final registerFormKey2 = GlobalKey <FormState> ();
   final registerFormKey3 = GlobalKey <FormState> ();
   @override
   void initState() {
     callGetOrganizationTypes();
-    callGetInvitationTypes();
-    callGetSequenceOrderTypes();
   }
 
   void callGetOrganizationTypes() async {
-    CorporationCommonPropertiesEditViewModel commonInformationsP2ViewModel = CorporationCommonPropertiesEditViewModel();
-    response = await  commonInformationsP2ViewModel.getOrganizationTypes();
-    values = response.organizationTypeCheckedMap;
-    valuesId = response.organizationTypeNameIdMap;
+    CorporationCommonPropertiesEditViewModel model = CorporationCommonPropertiesEditViewModel();
+    response = await  model.getCorporationOrganizationTypes(ApplicationSession.userSession.corporationId);
+    values = response.organizationTypeResponse.organizationTypeCheckedMap;
+    valuesId = response.organizationTypeResponse.organizationTypeNameIdMap;
+    values2 = response.invitationTypeResponse.organizationTypeCheckedMap;
+    valuesId2 = response.invitationTypeResponse.organizationTypeNameIdMap;
+    values3 = response.sequenceOrderResponse.organizationTypeCheckedMap;
+    valuesId3 = response.sequenceOrderResponse.organizationTypeNameIdMap;
 
     setState(() {
       response = response;
       values = values;
       valuesId = valuesId;
-    });
-  }
-
-  void callGetInvitationTypes() async {
-    CommonInformationsP3ViewModel commonInformationsP3ViewModel = CommonInformationsP3ViewModel();
-    response2 = await  commonInformationsP3ViewModel.getInvitationTypes();
-    values2 = response2.organizationTypeCheckedMap;
-    valuesId2 = response2.organizationTypeNameIdMap;
-
-    setState(() {
-      response2 = response2;
       values2 = values2;
       valuesId2 = valuesId2;
-    });
-  }
-
-  void callGetSequenceOrderTypes() async {
-    CommonInformationsP4ViewModel commonInformationsP4ViewModel = CommonInformationsP4ViewModel();
-    response3 = await  commonInformationsP4ViewModel.getSequenceOrderTypes();
-    values3 = response3.organizationTypeCheckedMap;
-    valuesId3 = response3.organizationTypeNameIdMap;
-
-    setState(() {
-      response3 = response3;
       values3 = values3;
       valuesId3 = valuesId3;
     });
   }
-
-
 
   @override
   Widget build(BuildContext contex){
@@ -107,9 +79,51 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
         margin: const EdgeInsets.all(10),
     child: MaterialButton(
       color: Colors.redAccent,
-    onPressed: () {},
+    onPressed: () {
+      List<String> organizationUniqueIdentifier = [];
+      values.forEach((k, v) =>  {
+        if (v) {
+          organizationUniqueIdentifier.add(valuesId[k].toString()),
+        }
+      });
+
+      List<String> invitationUniqueIdentifier = [];
+      values2.forEach((k, v) =>  {
+        if (v) {
+          invitationUniqueIdentifier.add(valuesId2[k].toString()),
+        }
+      });
+
+      List<String> sequenceOrderIdentifier = [];
+      values3.forEach((k, v) =>  {
+        if (v) {
+          sequenceOrderIdentifier.add(valuesId3[k].toString()),
+        }
+      });
+
+      if (organizationUniqueIdentifier.length == 0) {
+        setState(() {
+          organizationErrorVisibility = true;
+        });
+      } else if (invitationUniqueIdentifier.length == 0) {
+        setState(() {
+          invitationErrorVisibility = true;
+        });
+      } else if (sequenceOrderIdentifier.length == 0) {
+        setState(() {
+          sequenceErrorVisibility = true;
+        });
+      } else {
+        CorporationCommonPropertiesEditViewModel viewModel = CorporationCommonPropertiesEditViewModel();
+        viewModel.setCorporationOrganizationTypes(ApplicationSession.userSession.corporationId,
+            organizationUniqueIdentifier,
+            invitationUniqueIdentifier,
+            sequenceOrderIdentifier);
+        Utils.navigateToPage(context, AdminCorporatePanelPage());
+      }
+    },
     child: const Center(
-    child: Text('Güncelle', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+    child: Text('Güncelle', style: TextStyle(fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold)),
     ),
     ),
         ),
@@ -145,6 +159,12 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
                 }).toList(),
               ),
             ),
+            Visibility(
+                visible: organizationErrorVisibility,
+                child: Container(
+                    child: Text("Lütfen Salon Özelliği Seçiniz", style: TextStyle(color: Colors.red)),
+                    padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+                )),
             SizedBox(height:  MediaQuery.of(context).size.height / 25.0,),
             Container(
               padding: const EdgeInsets.only(left: 14.0, top: 14.0),
@@ -172,6 +192,12 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
                 }).toList(),
               ),
             ),
+            Visibility(
+                visible: invitationErrorVisibility,
+                child: Container(
+                    child: Text("Lütfen Davet Türü Seçiniz", style: TextStyle(color: Colors.red)),
+                    padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+                )),
             SizedBox(height:  MediaQuery.of(context).size.height / 25.0,),
             Container(
               padding: const EdgeInsets.only(left: 14.0, top: 14.0),
@@ -199,6 +225,12 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
                 }).toList(),
               ),
             ),
+            Visibility(
+                visible: sequenceErrorVisibility,
+                child: Container(
+                    child: Text("Lütfen Masa Türü Seçiniz", style: TextStyle(color: Colors.red)),
+                    padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+                )),
             SizedBox(height:  MediaQuery.of(context).size.height / 4.0,),
           ],
         ),

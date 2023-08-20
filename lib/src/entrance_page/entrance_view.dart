@@ -67,13 +67,13 @@ class _EntrancePageState extends State<EntrancePage> {
 
   @override
   void initState() {
+    callFillFilterScreenSession();
     super.initState();
     _pageController = PageController();
-    callFillFilterScreenSession();
   }
 
   void callFillFilterScreenSession() async {
     EntrancePageModel rm = EntrancePageModel();
-    rm.fillFilterScreenSession();
+    await rm.fillFilterScreenSession();
   }
 }

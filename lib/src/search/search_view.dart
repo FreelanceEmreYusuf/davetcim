@@ -51,8 +51,16 @@ class _SearchScreenState extends State<SearchScreen>
 
   @override
   void initState() {
-    SearchViewModel rm = SearchViewModel();
-    districtList = rm.fillDistrictlist(regionList[0].id);
+    firstInitialDistrict();
+  }
+
+  void firstInitialDistrict() {
+    if (regionList != null && regionList.length > 0) {
+      SearchViewModel rm = SearchViewModel();
+      districtList = rm.fillDistrictlist(regionList[0].id);
+    } else {
+      firstInitialDistrict();
+    }
   }
 
   @override
@@ -190,7 +198,7 @@ class _SearchScreenState extends State<SearchScreen>
               Card(
                   elevation: 3.0,
                   child: CheckboxListTile(
-                    title: Text("Tarih ve saat filtrelensin mi?"),
+                    title: Text("Tarih filtrelensin mi?"),
                     value: checkedValue,
                     onChanged: (newValue) {
                       setState(() {
