@@ -50,9 +50,14 @@ class _SearchScreenState extends State<SearchScreen>
   }
 
   @override
+  void initState() {
+    SearchViewModel rm = SearchViewModel();
+    districtList = rm.fillDistrictlist(regionList[0].id);
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
-    callFillDistrict(regionList[selectedRegion].id);
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
@@ -409,8 +414,10 @@ class _SearchScreenState extends State<SearchScreen>
                               itemExtent: 32.0,
                               onSelectedItemChanged: (int index) {
                                 SearchViewModel rm = SearchViewModel();
+                                districtList = rm.fillDistrictlist(regionList[index].id);
                                 setState(() {
                                   selectedRegion = index;
+                                  districtList = districtList;
                                   selectedDistrict = 0;
                                 });
                               },
@@ -486,14 +493,6 @@ class _SearchScreenState extends State<SearchScreen>
         ),
       ),
     );
-  }
-
-  void callFillDistrict(int regionCode) async {
-    SearchViewModel rm = SearchViewModel();
-    districtList = await rm.fillDistrictlist(regionCode);
-    setState(() {
-      districtList = districtList;
-    });
   }
 
   @override

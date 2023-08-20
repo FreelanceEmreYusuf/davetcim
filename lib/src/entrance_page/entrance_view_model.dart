@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
+import 'package:davetcim/shared/models/district_model.dart';
 import 'package:davetcim/shared/models/invitation_type_model.dart';
 import 'package:davetcim/shared/models/organization_type_model.dart';
 import 'package:davetcim/shared/models/region_model.dart';
@@ -18,7 +19,8 @@ class EntrancePageModel extends ChangeNotifier {
           await fillOrganizationTypeList(),
           await fillInvitationTypeList(),
           await fillSequenceOrderList(),
-          await fillRegionList());
+          await fillRegionList(),
+          await fillDistrictList());
     }
   }
 
@@ -73,11 +75,45 @@ class EntrancePageModel extends ChangeNotifier {
 
     var list = response.docs;
     List<RegionModel> regionList = [];
+   /* list.forEach((region) {
+      Map item = region.data();
+      if (item["id"] == 34) {
+        regionList.add(RegionModel.fromMap(item));
+      }
+    });
     list.forEach((region) {
       Map item = region.data();
-      regionList.add(RegionModel.fromMap(item));
+      if (item["id"] == 6) {
+        regionList.add(RegionModel.fromMap(item));
+      }
+    });
+    list.forEach((region) {
+      Map item = region.data();
+      if (item["id"] == 35) {
+        regionList.add(RegionModel.fromMap(item));
+      }
+    });*/
+    list.forEach((region) {
+      Map item = region.data();
+   //  if (item["id"] != 34 && item["id"] != 35 && item["id"] != 6) {
+        regionList.add(RegionModel.fromMap(item));
+    //  }
     });
 
     return regionList;
+  }
+
+  Future<List<DistrictModel>> fillDistrictList() async {
+    CollectionReference docsRef = db.getCollectionRef(DBConstants.districtDb);
+    var response = await docsRef.orderBy('id', descending: false).get();
+
+    var list = response.docs;
+    List<DistrictModel> districtList = [];
+    list.forEach((region) {
+      Map item = region.data();
+      districtList.add(DistrictModel.fromMap(item));
+    });
+
+    return districtList;
   }
 }

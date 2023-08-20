@@ -30,17 +30,8 @@ List<DistrictModel> districtList = [
 class SearchViewModel extends ChangeNotifier {
   Database db = Database();
 
-  Future<List<DistrictModel>> fillDistrictlist(int regionCode) async {
-    CollectionReference docsRef = db.getCollectionRef(DBConstants.districtDb);
-    var response = await docsRef.where('regionId', isEqualTo: regionCode).get();
-
-    var list = response.docs;
-    List<DistrictModel> districtList = [];
-    list.forEach((district) {
-      Map item = district.data();
-      districtList.add(DistrictModel.fromMap(item));
-    });
-
+  List<DistrictModel> fillDistrictlist(int regionCode)  {
+    List<DistrictModel> districtList = ApplicationSession.getDistrictList(regionCode);
     return districtList;
   }
 

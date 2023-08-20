@@ -105,8 +105,8 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
         floatingActionButton: Container(
         height: MediaQuery.of(context).size.height / 14.0,
         margin: const EdgeInsets.all(10),
-    child: ElevatedButton(
-      style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+    child: MaterialButton(
+      color: Colors.redAccent,
     onPressed: () {},
     child: const Center(
     child: Text('Güncelle', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),

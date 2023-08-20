@@ -53,11 +53,12 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
   @override
   void initState() {
     _firmNameControl.text = widget.companyModel.name;
+    SearchViewModel rm = SearchViewModel();
+    districtList = rm.fillDistrictlist(regionList[0].id);
   }
 
   @override
   Widget build(BuildContext contex){
-    callFillDistrict(regionList[selectedRegion].id);
     return Scaffold(
       appBar: AppBarMenu(pageName: "Salon Bilgi Girişi", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body:
@@ -322,8 +323,10 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                               itemExtent: 32.0,
                               onSelectedItemChanged: (int index) {
                                 SearchViewModel rm = SearchViewModel();
+                                districtList = rm.fillDistrictlist(regionList[index].id);
                                 setState(() {
                                   selectedRegion = index;
+                                  districtList = districtList;
                                   selectedDistrict = 0;
                                 });
                               },
@@ -439,12 +442,5 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
         ),
       ),
     );
-  }
-  void callFillDistrict(int regionCode) async {
-    SearchViewModel rm = SearchViewModel();
-    districtList = await rm.fillDistrictlist(regionCode);
-    setState(() {
-      districtList = districtList;
-    });
   }
 }
