@@ -40,150 +40,461 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
           shrinkWrap: true,
           primary: false,
           children: <Widget>[
-            SizedBox(height: 25,),
-            Card(
-              elevation: 10.0,
-              child: ListTile(
-                title: Text("Ziyaretçi sayısı"),
-                subtitle: Text(
-                  "Bugün",
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w900,
+            SizedBox(height: MediaQuery.of(context).size.height / 20,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(40),
+                bottomRight: Radius.circular(40)),
+                color: Colors.redAccent),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Ziyaretçi sayısı"),
+                          subtitle: Text(
+                            "Bugün",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.search,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("115", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Ziyaretçi sayısı"),
+                          subtitle: Text(
+                            "Son 1 Ay",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.search,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("3995", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Ziyaretçi sayısı"),
+                          subtitle: Text(
+                            "Son 1 Yıl",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.search,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("17563", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                    ],
                   ),
                 ),
-                leading: Icon(
-                  FontAwesomeIcons.search,
-                  size: 25.0,
-                  color: Theme.of(context).accentColor,
-                ),
-                trailing: Text("115", style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.redAccent,
-                ),),
               ),
             ),
-            SizedBox(height: 10,),
-            Card(
-              elevation: 10.0,
-              child: ListTile(
-                title: Text("Ziyaretçi sayısı"),
-                subtitle: Text(
-                  "Son 1 Ay",
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w900,
+
+            SizedBox(height: MediaQuery.of(context).size.height / 20,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(40),
+                        bottomLeft: Radius.circular(40)),
+                    color: Colors.redAccent),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Favoriye eklenme sayısı"),
+                          subtitle: Text(
+                            "Bugün",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.solidHeart,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("115", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Favoriye eklenme sayısı"),
+                          subtitle: Text(
+                            "Son 1 Ay",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.solidHeart,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("3995", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Favoriye eklenme sayısı"),
+                          subtitle: Text(
+                            "Son 1 Yıl",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.solidHeart,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("17563", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                    ],
                   ),
                 ),
-                leading: Icon(
-                  FontAwesomeIcons.search,
-                  size: 25.0,
-                  color: Theme.of(context).accentColor,
-                ),
-                trailing: Text("3995", style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.redAccent,
-                ),),
               ),
             ),
-            SizedBox(height: 10,),
-            Card(
-              elevation: 10.0,
-              child: ListTile(
-                title: Text("Ziyaretçi sayısı"),
-                subtitle: Text(
-                  "Son 1 Yıl",
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w900,
+
+            SizedBox(height: MediaQuery.of(context).size.height / 20,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(40),
+                        bottomRight: Radius.circular(40)),
+                    color: Colors.redAccent),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Rezervasyon sayısı"),
+                          subtitle: Text(
+                            "Bugün",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.marker,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("5", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Toplam Ciro"),
+                          subtitle: Text(
+                            "Bugün",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.solidMoneyBillAlt,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("70000TL", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Rezervasyon sayısı"),
+                          subtitle: Text(
+                            "Son 1 Ay",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.marker,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("89", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Toplam Ciro"),
+                          subtitle: Text(
+                            "Son 1 Ay",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.solidMoneyBillAlt,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("700000TL", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Rezervasyon sayısı"),
+                          subtitle: Text(
+                            "Son 1 Yıl",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.marker,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("1256", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Toplam Ciro"),
+                          subtitle: Text(
+                            "Son 1 Yıl",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.solidMoneyBillAlt,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("7000000TL", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                    ],
                   ),
                 ),
-                leading: Icon(
-                  FontAwesomeIcons.search,
-                  size: 25.0,
-                  color: Theme.of(context).accentColor,
-                ),
-                trailing: Text("17563", style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.redAccent,
-                ),),
               ),
             ),
-            Divider(color: Colors.redAccent, height: 25, thickness: 5.0),
-            Card(
-              elevation: 10.0,
-              child: ListTile(
-                title: Text("Rezervasyon sayısı"),
-                subtitle: Text(
-                  "Bugün",
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w900,
+
+            SizedBox(height: MediaQuery.of(context).size.height / 20,),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(40),
+                        bottomLeft: Radius.circular(40)),
+                    color: Colors.redAccent),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Yapılan yorum sayısı"),
+                          subtitle: Text(
+                            "Bugün",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.comment,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("115", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Yapılan yorum sayısı"),
+                          subtitle: Text(
+                            "Son 1 Ay",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.comment,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("3995", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Yapılan yorum sayısı"),
+                          subtitle: Text(
+                            "Son 1 Yıl",
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w900,
+                            ),
+                          ),
+                          leading: Icon(
+                            FontAwesomeIcons.comment,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("17563", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                      Card(
+                        elevation: 10.0,
+                        child: ListTile(
+                          title: Text("Salon yıldız seviyesi"),
+                          leading: Icon(
+                            FontAwesomeIcons.star,
+                            size: 25.0,
+                            color: Theme.of(context).accentColor,
+                          ),
+                          trailing: Text("4.5", style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w900,
+                            color: Colors.redAccent,
+                          ),),
+                        ),
+                      ),
+                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                    ],
                   ),
                 ),
-                leading: Icon(
-                  FontAwesomeIcons.search,
-                  size: 25.0,
-                  color: Theme.of(context).accentColor,
-                ),
-                trailing: Text("5", style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.redAccent,
-                ),),
               ),
             ),
-            SizedBox(height: 10,),
-            Card(
-              elevation: 10.0,
-              child: ListTile(
-                title: Text("Rezervasyon sayısı"),
-                subtitle: Text(
-                  "Son 1 Ay",
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                leading: Icon(
-                  FontAwesomeIcons.search,
-                  size: 25.0,
-                  color: Theme.of(context).accentColor,
-                ),
-                trailing: Text("89", style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.redAccent,
-                ),),
-              ),
-            ),
-            SizedBox(height: 10,),
-            Card(
-              elevation: 10.0,
-              child: ListTile(
-                title: Text("Rezervasyon sayısı"),
-                subtitle: Text(
-                  "Son 1 Yıl",
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w900,
-                  ),
-                ),
-                leading: Icon(
-                  FontAwesomeIcons.search,
-                  size: 25.0,
-                  color: Theme.of(context).accentColor,
-                ),
-                trailing: Text("1256", style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.redAccent,
-                ),),
-              ),
-            ),
+
+
           ],
         ),
       ),
