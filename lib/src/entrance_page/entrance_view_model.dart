@@ -16,11 +16,17 @@ class EntrancePageModel extends ChangeNotifier {
   Future<void> fillFilterScreenSession() async {
     if (ApplicationSession.filterScreenSession == null) {
       ApplicationSession.filterScreenSession = FilterScreenSession(
-          await fillOrganizationTypeList(),
-          await fillInvitationTypeList(),
-          await fillSequenceOrderList(),
-          await fillRegionList(),
-          await fillDistrictList());
+          null,
+          null,
+          null,
+          null,
+          null);
+
+      ApplicationSession.filterScreenSession.organizationTypeList = await fillOrganizationTypeList();
+      ApplicationSession.filterScreenSession.sequenceOrderList = await fillSequenceOrderList();
+      ApplicationSession.filterScreenSession.invitationTypeList = await fillInvitationTypeList();
+      ApplicationSession.filterScreenSession.regionModelList = await fillRegionList();
+      ApplicationSession.filterScreenSession.districtModelList = await fillDistrictList();
     }
   }
 

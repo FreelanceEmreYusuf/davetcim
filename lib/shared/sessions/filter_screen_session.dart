@@ -5,13 +5,13 @@ import 'package:davetcim/shared/models/region_model.dart';
 import 'package:davetcim/shared/models/sequence_order_model.dart';
 
 class FilterScreenSession {
-  final List<OrganizationTypeModel> organizationTypeList;
-  final List<InvitationTypeModel> invitationTypeList;
-  final List<SequenceOrderModel> sequenceOrderList;
-  final List<RegionModel> regionModelList;
-  final List<DistrictModel> districtModelList;
+  List<OrganizationTypeModel> organizationTypeList;
+  List<InvitationTypeModel> invitationTypeList;
+  List<SequenceOrderModel> sequenceOrderList;
+  List<RegionModel> regionModelList;
+  List<DistrictModel> districtModelList;
 
-  const FilterScreenSession(
+  FilterScreenSession(
       this.organizationTypeList,
       this.invitationTypeList,
       this.sequenceOrderList,
