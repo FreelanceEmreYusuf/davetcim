@@ -10,23 +10,20 @@ import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/shared/sessions/filter_screen_session.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../shared/helpers/region_district_helper.dart';
+
 class EntrancePageModel extends ChangeNotifier {
   Database db = Database();
 
   Future<void> fillFilterScreenSession() async {
     if (ApplicationSession.filterScreenSession == null) {
+      RegionDistrictHelper regionDistrictHelper = RegionDistrictHelper();
       ApplicationSession.filterScreenSession = FilterScreenSession(
-          null,
-          null,
-          null,
-          null,
-          null);
-
-      ApplicationSession.filterScreenSession.organizationTypeList = await fillOrganizationTypeList();
-      ApplicationSession.filterScreenSession.sequenceOrderList = await fillSequenceOrderList();
-      ApplicationSession.filterScreenSession.invitationTypeList = await fillInvitationTypeList();
-      ApplicationSession.filterScreenSession.regionModelList = await fillRegionList();
-      ApplicationSession.filterScreenSession.districtModelList = await fillDistrictList();
+          await fillOrganizationTypeList(),
+          await fillInvitationTypeList(),
+          await fillSequenceOrderList(),
+          await regionDistrictHelper.fillRegionList(),
+      );
     }
   }
 
@@ -73,52 +70,5 @@ class EntrancePageModel extends ChangeNotifier {
     });
 
     return sequenceOrderList;
-  }
-
-  Future<List<RegionModel>> fillRegionList() async {
-    CollectionReference docsRef = db.getCollectionRef(DBConstants.regionDb);
-    var response = await docsRef.orderBy('id', descending: false).get();
-
-    var list = response.docs;
-    List<RegionModel> regionList = [];
-    list.forEach((region) {
-      Map item = region.data();
-      if (item!=null && item["id"] == 34) {
-        regionList.add(RegionModel.fromMap(item));
-      }
-    });
-    list.forEach((region) {
-      Map item = region.data();
-      if (item!=null && item["id"] == 6) {
-        regionList.add(RegionModel.fromMap(item));
-      }
-    });
-    list.forEach((region) {
-      Map item = region.data();
-      if (item!=null && item["id"] == 35) {
-        regionList.add(RegionModel.fromMap(item));
-      }
-    });
-    list.forEach((region) {
-      Map item = region.data();
-      if (item!=null && item["id"] != 34 && item["id"] != 35 && item["id"] != 6) {
-        regionList.add(RegionModel.fromMap(item));
-      }
-    });
-    return regionList;
-  }
-
-  Future<List<DistrictModel>> fillDistrictList() async {
-    CollectionReference docsRef = db.getCollectionRef(DBConstants.districtDb);
-    var response = await docsRef.orderBy('id', descending: false).get();
-
-    var list = response.docs;
-    List<DistrictModel> districtList = [];
-    list.forEach((region) {
-      Map item = region.data();
-      districtList.add(DistrictModel.fromMap(item));
-    });
-
-    return districtList;
   }
 }

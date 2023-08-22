@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/dto/product_filterer_dto.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
+import 'package:davetcim/shared/helpers/region_district_helper.dart';
 import 'package:davetcim/shared/models/corporation_card_model.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/models/district_model.dart';
@@ -30,9 +31,9 @@ List<DistrictModel> districtList = [
 class SearchViewModel extends ChangeNotifier {
   Database db = Database();
 
-  List<DistrictModel> fillDistrictlist(int regionCode)  {
-    List<DistrictModel> districtList = ApplicationSession.getDistrictList(regionCode);
-    return districtList;
+  Future<List<DistrictModel>> fillDistrictlist(int regionCode) async {
+    RegionDistrictHelper regionDistrictHelper = RegionDistrictHelper();
+    return await regionDistrictHelper.fillDistrictList(regionCode);
   }
 
   void goToFilterPage(BuildContext context, String region, String district,

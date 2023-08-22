@@ -9,12 +9,10 @@ class FilterScreenSession {
   List<InvitationTypeModel> invitationTypeList;
   List<SequenceOrderModel> sequenceOrderList;
   List<RegionModel> regionModelList;
-  List<DistrictModel> districtModelList;
 
   FilterScreenSession(
       this.organizationTypeList,
       this.invitationTypeList,
       this.sequenceOrderList,
-      this.regionModelList,
-      this.districtModelList);
+      this.regionModelList);
 }

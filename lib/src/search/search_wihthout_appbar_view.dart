@@ -48,6 +48,20 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
   }
 
   @override
+  void initState() {
+    firstInitialDistrict();
+  }
+
+  void firstInitialDistrict() async {
+    if (regionList != null && regionList.length > 0) {
+      SearchViewModel rm = SearchViewModel();
+      districtList = await rm.fillDistrictlist(regionList[0].id);
+    } else {
+      firstInitialDistrict();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
@@ -402,9 +416,9 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                           height: 200.0,
                           child: CupertinoPicker(
                               itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
+                              onSelectedItemChanged: (int index) async {
                                 SearchViewModel rm = SearchViewModel();
-                                districtList = rm.fillDistrictlist(regionList[index].id);
+                                districtList = await rm.fillDistrictlist(regionList[index].id);
                                 setState(() {
                                   selectedRegion = index;
                                   districtList = districtList;

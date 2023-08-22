@@ -25,16 +25,4 @@ class ApplicationSession {
     }
     return false;
   }
-
-  static List<DistrictModel> getDistrictList(int regionCode) {
-    List<DistrictModel> responseList = [];
-    for (int i = 0; i < filterScreenSession.districtModelList.length; i++) {
-      DistrictModel districtModel = filterScreenSession.districtModelList[i];
-      if (districtModel.regionId == regionCode) {
-        responseList.add(districtModel);
-      }
-    }
-    return responseList;
-  }
-
 }

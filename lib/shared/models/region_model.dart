@@ -1,12 +1,14 @@
 import 'dart:math';
 
+import 'district_model.dart';
+
 class RegionModel {
   final int id;
   final String name;
 
   RegionModel({
     this.id,
-    this.name,
+    this.name
   });
 
   ///Object to map

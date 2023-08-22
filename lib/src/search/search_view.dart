@@ -54,10 +54,10 @@ class _SearchScreenState extends State<SearchScreen>
     firstInitialDistrict();
   }
 
-  void firstInitialDistrict() {
+  void firstInitialDistrict() async {
     if (regionList != null && regionList.length > 0) {
       SearchViewModel rm = SearchViewModel();
-      districtList = rm.fillDistrictlist(regionList[0].id);
+      districtList = await rm.fillDistrictlist(regionList[0].id);
     } else {
       firstInitialDistrict();
     }
@@ -420,9 +420,9 @@ class _SearchScreenState extends State<SearchScreen>
                           height: 200.0,
                           child: CupertinoPicker(
                               itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
+                              onSelectedItemChanged: (int index) async {
                                 SearchViewModel rm = SearchViewModel();
-                                districtList = rm.fillDistrictlist(regionList[index].id);
+                                districtList = await rm.fillDistrictlist(regionList[index].id);
                                 setState(() {
                                   selectedRegion = index;
                                   districtList = districtList;
