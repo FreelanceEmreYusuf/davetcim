@@ -75,7 +75,7 @@ class _AppBarMenu extends State<AppBarMenu> {
                           Icons.keyboard_backspace,
                         ),
                         onPressed: () => {
-                          if (widget.pageName != 'Davetçim') {
+                          if (widget.pageName != 'Davetçim' && widget.pageName != 'Admin Paneli') {
                             Navigator.pop(context)
                           },
                         }

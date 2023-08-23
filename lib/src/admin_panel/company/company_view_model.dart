@@ -24,20 +24,10 @@ class CompanyViewModel extends ChangeNotifier {
       String surname,
       String phoneNumber,
       String email) async {
-    String userExistControlWithUserName =
-    await CustomerHelper.getUserExistingControlWithUserName(username);
-    String userExistControlWithEmail =
-    await CustomerHelper.getUserExistingControlWithEmail(email);
-    String errorMessage = userExistControlWithUserName.isNotEmpty
-        ? userExistControlWithUserName
-        : userExistControlWithEmail;
-    if (errorMessage.isEmpty) {
-      await createCustomer(firmName, username, email, password, phoneNumber, name,
-          surname);
-      showSucessMessage(context);
-    } else {
-      Dialogs.showAlertMessage(context, "Bilgilendirme!", errorMessage);
-    }
+
+    await createCustomer(firmName, username, email, password, phoneNumber, name,
+        surname);
+    showSucessMessage(context);
   }
 
   Future<void> createCustomer(

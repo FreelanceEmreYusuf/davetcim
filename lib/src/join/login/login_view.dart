@@ -1,3 +1,4 @@
+import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/src/home/home_view.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
@@ -20,6 +21,8 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController _usernameControl = new TextEditingController();
   final TextEditingController _passwordControl = new TextEditingController();
   final loginFormKey = GlobalKey<FormState>();
+
+  bool loginErrorVisibility = false;
 
   @override
   Widget build(BuildContext contex) {
@@ -107,6 +110,12 @@ class _LoginViewState extends State<LoginView> {
                 },
                 maxLines: 1,
               ),
+              Visibility(
+                  visible: loginErrorVisibility,
+                  child: Container(
+                      child: Text("Kullanıcı adı ya da parolanız doğrulanamadı", style: TextStyle(color: Colors.red)),
+                      padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+                  )),
               SizedBox(height: 10.0),
               Container(
                 alignment: Alignment.centerRight,
@@ -144,9 +153,15 @@ class _LoginViewState extends State<LoginView> {
                   onPressed: () async {
                     LoginViewModel vm = LoginViewModel();
                     if (loginFormKey.currentState.validate()) {
-                      await vm.userLoginFlow(context,
+                      bool isRegistered = await vm.userLoginFlow(context,
                           widget.childPage == null ? new MainScreen() : widget.childPage,
                           _usernameControl.text, _passwordControl.text);
+
+                      if (!isRegistered) {
+                        setState(() {
+                          loginErrorVisibility = true;
+                        });
+                      }
                       // use the email provided here
                     }
                   },

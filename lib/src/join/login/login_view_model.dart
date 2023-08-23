@@ -17,7 +17,7 @@ import '../../fav_products/fav_products_view_model.dart';
 class LoginViewModel extends ChangeNotifier {
   Database db = Database();
 
-  Future<void> userLoginFlow(BuildContext context, Widget childPage,
+  Future<bool> userLoginFlow(BuildContext context, Widget childPage,
       String userName, String password) async {
     var response = await db
         .getCollectionRef(DBConstants.customerDB)
@@ -30,20 +30,16 @@ class LoginViewModel extends ChangeNotifier {
       CustomerModel customer = CustomerModel.fromMap(list[0].data());
       await fillUserSession(customer);
 
-    /*  if (customer.roleId == CustomerRoleEnum.companyAdminNotRegistered) {
-        Utils.navigateToPage(context, CompanyUserRegisterView());
-      } else */if (customer.roleId == CustomerRoleEnum.organizationOwner && customer.corporationId == 0) {
+     if (customer.roleId == CustomerRoleEnum.organizationOwner && customer.corporationId == 0) {
         Utils.navigateToPage(context, CorporationAddView());
       } else {
         Utils.navigateToPage(context, childPage);
       }
+
+      return true;
     } else {
-      Dialogs.showAlertMessage(
-          context,
-          LanguageConstants
-              .dialogUnSuccessHeader[LanguageConstants.languageFlag],
-          LanguageConstants
-              .kullaniciAdiYaDaParolaYanlis[LanguageConstants.languageFlag]);
+
+      return false;
     }
   }
 

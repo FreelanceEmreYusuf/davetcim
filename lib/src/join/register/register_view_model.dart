@@ -25,20 +25,10 @@ class RegisterViewModel extends ChangeNotifier {
       String email,
       String questionAnswer,
       SecretQuestionsModel selectedQuestion) async {
-    String userExistControlWithUserName =
-        await CustomerHelper.getUserExistingControlWithUserName(username);
-    String userExistControlWithEmail =
-        await CustomerHelper.getUserExistingControlWithEmail(email);
-    String errorMessage = userExistControlWithUserName.isNotEmpty
-        ? userExistControlWithUserName
-        : userExistControlWithEmail;
-    if (errorMessage.isEmpty) {
-      await createCustomer(username, email, password, phoneNumber, name,
-          surname, selectedQuestion, questionAnswer);
-      showSucessMessage(context);
-    } else {
-      Dialogs.showAlertMessage(context, "Bilgilendirme!", errorMessage);
-    }
+
+    await createCustomer(username, email, password, phoneNumber, name,
+        surname, selectedQuestion, questionAnswer);
+    showSucessMessage(context);
   }
 
   Future<void> createCustomer(

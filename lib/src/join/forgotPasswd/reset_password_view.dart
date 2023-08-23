@@ -23,6 +23,8 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   static List<SecretQuestionsModel> secretQuestionList = [];
   SecretQuestionsModel selectedQuestion;
 
+  bool usernameErrorVisibility = false;
+
   @override
   void initState() {
     callSecretQuestionList();
@@ -260,7 +262,13 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(secretQuestionAnswer));
           },
           maxLines: 1,
-        ),//Cevap
+        ),
+        Visibility(
+            visible: usernameErrorVisibility,
+            child: Container(
+                child: Text("Girdiğiniz bilgiler doğrulanamadı", style: TextStyle(color: Colors.red)),
+                padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+            )),//Cevap
         SizedBox(height: 40.0),
         Container(
           height: 50.0,
@@ -273,15 +281,20 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
               ),
             ),
             onPressed: () async {
-              if (forgotPasswordForm.currentState.validate())
-              {
+              if (forgotPasswordForm.currentState.validate()) {
                 ResetPasswdViewModel rpvm = ResetPasswdViewModel();
-                rpvm.userResetPasswordFlow(context,
+                bool isRegistered = await rpvm.userResetPasswordFlow(context,
                     _usernameControl.text,
                     _emailControl.text,
                     _passwordControl.text,
                     selectedQuestion.id,
                     _secretQuestionControl.text);
+
+                if (!isRegistered) {
+                  setState(() {
+                    usernameErrorVisibility = true;
+                  });
+                }
               }
             },
           ),

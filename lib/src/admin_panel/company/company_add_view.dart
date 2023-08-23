@@ -3,6 +3,7 @@ import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/src/join/register/register_view_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../shared/helpers/customer_helper.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import 'company_view_model.dart';
 
@@ -22,6 +23,9 @@ class _CompanyAddViewState extends State<CompanyAddView> {
 
   final registerFormKey = GlobalKey <FormState> ();
   String formException = "";
+
+  bool usernameErrorVisibility = false;
+  bool emailErrorVisibility = false;
 
   @override
   Widget build(BuildContext contex){
@@ -150,7 +154,13 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                   return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(userName));
                 },
                 maxLines: 1,
-              ),//Kullanıcı Adı
+              ),
+              Visibility(
+                  visible: usernameErrorVisibility,
+                  child: Container(
+                      child: Text("Bu kullanıcı adı sistemde kullanılıyor", style: TextStyle(color: Colors.red)),
+                      padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+                  )),//Kullanıcı Adı//Kullanıcı Adı//Kullanıcı Adı
               SizedBox(height: 15.0),
               TextFormField(
                   style: TextStyle(
@@ -180,7 +190,13 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                   },
                   maxLines: 1,
                   keyboardType: TextInputType.emailAddress
-              ),//E-Posta
+              ),
+              Visibility(
+                  visible: emailErrorVisibility,
+                  child: Container(
+                      child: Text("Bu email bilgisi sistemde kullanılıyor", style: TextStyle(color: Colors.red)),
+                      padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+                  )),//E-Posta//E-Posta//E-Posta
               SizedBox(height: 15.0),
               TextFormField(
                 style: TextStyle(
@@ -254,19 +270,38 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                       color: Colors.white,
                     ),
                   ),
-                  onPressed: () {
+                  onPressed: () async {
                     if (registerFormKey.currentState.validate()) {
-                      CompanyViewModel cvm = CompanyViewModel();
-                      cvm.companyAddRegisterFlow(
-                        context,
-                        firmNameControl.text,
-                        usernameControl.text,
-                        passwordControl.text,
-                        nameControl.text,
-                        surnameControl.text,
-                        phoneControl.text,
-                        emailControl.text,
-                      );
+                      String userExistControlWithUserName =
+                          await CustomerHelper.getUserExistingControlWithUserName(usernameControl.text);
+                      String userExistControlWithEmail =
+                          await CustomerHelper.getUserExistingControlWithEmail(emailControl.text);
+                      if (userExistControlWithUserName.isNotEmpty && userExistControlWithEmail.isNotEmpty) {
+                        setState(() {
+                          usernameErrorVisibility = true;
+                          emailErrorVisibility = true;
+                        });
+                      } else if (userExistControlWithUserName.isNotEmpty) {
+                        setState(() {
+                          usernameErrorVisibility = true;
+                        });
+                      } else if (userExistControlWithEmail.isNotEmpty) {
+                        setState(() {
+                          emailErrorVisibility = true;
+                        });
+                      } else {
+                        CompanyViewModel cvm = CompanyViewModel();
+                        cvm.companyAddRegisterFlow(
+                          context,
+                          firmNameControl.text,
+                          usernameControl.text,
+                          passwordControl.text,
+                          nameControl.text,
+                          surnameControl.text,
+                          phoneControl.text,
+                          emailControl.text,
+                        );
+                      }
                     }
                   },
                 ),

@@ -14,7 +14,7 @@ import '../join_view.dart';
 class ResetPasswdViewModel extends ChangeNotifier {
   Database db = Database();
 
-  Future<void> userResetPasswordFlow(
+  Future<bool> userResetPasswordFlow(
       BuildContext context,
       String userName,
       String email,
@@ -36,13 +36,10 @@ class ResetPasswdViewModel extends ChangeNotifier {
       customerMap['password'] = password;
       db.editCollectionRef("Customer", customerMap);
       showSucessMessage(context);
+
+      return true;
     } else {
-      Dialogs.showAlertMessage(
-          context,
-          LanguageConstants
-              .dialogUnSuccessHeader[LanguageConstants.languageFlag],
-          LanguageConstants
-              .kullaniciAdiYaDaParolaYanlis[LanguageConstants.languageFlag]);
+      return false;
     }
   }
 
