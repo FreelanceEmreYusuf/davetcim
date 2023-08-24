@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:davetcim/screens/notifications.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
+import 'package:flutter/services.dart';
 
 import '../../shared/dto/basket_user_dto.dart';
 import '../../shared/models/combo_generic_model.dart';
@@ -278,54 +279,82 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: Card(
                       elevation: 10,
                       shadowColor: Colors.redAccent,
-                      color: Colors.redAccent,
                       child: Container(
-                        margin: const EdgeInsets.all(12.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Column(
-                              children: [
-                                Icon(Icons.phone, size: 25, color: Colors.white),
-                                Text(
-                                  'Telefon',
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white
+                        margin: const EdgeInsets.all(8.0),
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              MaterialButton(
+                                color: Colors.redAccent,
+                                splashColor: Colors.blue,
+                                onPressed: (){
+                                  Clipboard.setData(ClipboardData(text: widget.corporationModel.telephoneNo)).then((_) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text("Telefon numarası panoya kopyalandı."), duration: Duration(seconds: 1),));
+                                  });
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.all(4.0),
+                                  child: Column(
+                                    children: [
+                                      Icon(Icons.phone, size: 25, color: Colors.white),
+                                      Text(
+                                        'Telefon',
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white
+                                        ),
+                                      ),
+                                      Text(
+                                        widget.corporationModel.telephoneNo,
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.white
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                                Text(
-                                  widget.corporationModel.telephoneNo,
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      color: Colors.white
+                              ),
+                              MaterialButton(
+                                color: Colors.redAccent,
+                                splashColor: Colors.blue,
+                                onPressed: (){
+                                  Clipboard.setData(ClipboardData(text: widget.corporationModel.email)).then((_) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text("Email bilgisi panoya kopyalandı."), duration: Duration(seconds: 1),));
+                                  });
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.all(4.0),
+                                  child: Column(
+                                    children: [
+                                      Icon(Icons.mail, size: 25, color: Colors.white,),
+                                      Text(
+                                        "Email",
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.white
+                                        ),
+                                      ),
+                                      Text(
+                                        widget.corporationModel.email,
+                                        style: TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.white
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Icon(Icons.mail, size: 25, color: Colors.white,),
-                                Text(
-                                  "Email",
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white
-                                  ),
-                                ),
-                                Text(
-                                  widget.corporationModel.email.toString(),
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      color: Colors.white
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -335,7 +364,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     elevation: 10,
                     shadowColor: Colors.redAccent,
                     child: Container(
-                      margin: const EdgeInsets.all(12.0),
+                      margin: const EdgeInsets.all(10.0),
                       child: Column(
                         children: [
                           Text(
@@ -399,7 +428,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                       ),
                     ),
                   ),
-
                   SizedBox(height: MediaQuery.of(context).size.height/30,),
                   ListView(
                       physics: NeverScrollableScrollPhysics(),
