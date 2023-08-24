@@ -43,7 +43,6 @@ class ProductsViewDetailModel extends ChangeNotifier {
         await getInvitationIdentifiers(corporationModel.invitationUniqueIdentifier);
       List<String> sequenceOrderUniqueIdentifiers =
         await getSequenceOrderIdentifiers(corporationModel.sequenceOrderUniqueIdentifier);
-     // hashtagList.add('#' + corporationModel.corporationName);
       hashtagList.add(regionName);
       hashtagList.add(districtName);
       hashtagList.addAll(organizationUniqueIdentifiers);

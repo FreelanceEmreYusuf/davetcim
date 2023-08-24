@@ -57,9 +57,12 @@ class _ProductDetailsState extends State<ProductDetails> {
   bool calenderVisibility;
   String buttonText;
   IconData icon = Icons.keyboard_arrow_down;
+  String districtName = "";
+  String regionName = "";
 
   @override
   void initState() {
+    getDistrictRegionName(int.parse(widget.corporationModel.district), int.parse(widget.corporationModel.region));
     calenderVisibility = false;
     buttonText = "Takvimi Göster";
     callGetImageList();
@@ -69,6 +72,17 @@ class _ProductDetailsState extends State<ProductDetails> {
     fillOrderViewParams();
     super.initState();
   }
+
+  Future<void> getDistrictRegionName(int districtId, int regionId) async{
+    ProductsViewDetailModel productsViewDetailModel = ProductsViewDetailModel();
+    districtName = await productsViewDetailModel.getDistrict(districtId);
+    regionName = await productsViewDetailModel.getRegion(regionId);
+
+    districtName = districtName.substring(1);
+    regionName = regionName.substring(1);
+  }
+
+
 
   void fillOrderViewParams() async {
     OrderViewModel rm = OrderViewModel();
@@ -189,9 +203,9 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                   SizedBox(height:MediaQuery.of(context).size.height/50,),
                   Text(
-                    widget.corporationModel.email,
+                    widget.corporationModel.corporationName,
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 25,
                       fontWeight: FontWeight.w800,
                     ),
                     maxLines: 2,
@@ -262,54 +276,51 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Padding(
                     padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
                     child: Card(
-                      elevation: 5,
+                      elevation: 10,
                       shadowColor: Colors.redAccent,
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
+                      color: Colors.redAccent,
+                      child: Container(
+                        margin: const EdgeInsets.all(12.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             Column(
                               children: [
-                                SmoothStarRating(
-                                  starCount: widget.corporationModel.averageRating.round(),
-                                  color: Constants.ratingBG,
-                                  allowHalfRating: true,
-                                  rating: 5.0,
-                                  size: MediaQuery.of(context).size.height/25,
-                                ),
+                                Icon(Icons.phone, size: 25, color: Colors.white),
                                 Text(
-                                  widget.corporationModel.averageRating.toString() + ' Puan',
+                                  'Telefon',
                                   style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.orange
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white
                                   ),
                                 ),
                                 Text(
-                                  widget.corporationModel.ratingCount.toString() + ' Yorum',
+                                  widget.corporationModel.telephoneNo,
                                   style: TextStyle(
-                                      fontSize: 15,
-                                      color: Colors.redAccent
+                                      fontSize: 20.0,
+                                      color: Colors.white
                                   ),
                                 ),
                               ],
                             ),
                             Column(
                               children: [
+                                Icon(Icons.mail, size: 25, color: Colors.white,),
                                 Text(
                                   "Email",
                                   style: TextStyle(
-                                      fontSize: 15.0,
+                                      fontSize: 20.0,
                                       fontWeight: FontWeight.w600,
-                                      color: Colors.deepOrange
+                                      color: Colors.white
                                   ),
                                 ),
                                 Text(
                                   widget.corporationModel.email.toString(),
                                   style: TextStyle(
-                                      fontSize: 15.0,
-                                      color: Colors.deepOrangeAccent
+                                      fontSize: 20.0,
+                                      color: Colors.white
                                   ),
                                 ),
                               ],
@@ -321,7 +332,46 @@ class _ProductDetailsState extends State<ProductDetails> {
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height/30),
                   Card(
-                    elevation: 5,
+                    elevation: 10,
+                    shadowColor: Colors.redAccent,
+                    child: Container(
+                      margin: const EdgeInsets.all(12.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            "Adres",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w800,
+                                color: Colors.redAccent
+                            ),
+                            maxLines: 2,
+                          ),
+                          SizedBox(height: MediaQuery.of(context).size.height/50,),
+                          Text(
+                            widget.corporationModel.address,
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w300,
+                            ),
+                            textAlign: TextAlign.start,
+                          ),
+                          SizedBox(height: MediaQuery.of(context).size.height/50,),
+                          Text(
+                            districtName+"/"+regionName,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w300,
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height/30),
+                  Card(
+                    elevation: 10,
                     shadowColor: Colors.redAccent,
                     child: Container(
                       margin: const EdgeInsets.all(12.0),
@@ -424,7 +474,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 ),
                               ),
                               Container(
-                                  height: MediaQuery.of(context).size.height / 2,
+                                  height: MediaQuery.of(context).size.height /1.5 ,
                                   child:
                                   ListView(
                                     physics: NeverScrollableScrollPhysics(),
