@@ -81,19 +81,8 @@ class CorporationCommonPropertiesEditViewModel extends ChangeNotifier {
   }
 
 
-  Future<void> setCorporationOrganizationTypes(int corporateId, organizationUniqueIdentifier,
-      invitationUniqueIdentifier, sequenceOrderIdentifier) async {
-
-    CorporateHelper corporateHelper = CorporateHelper();
-    CorporationModel corporateModel = await corporateHelper.getCorporate(corporateId);
-    Map<String, dynamic> corporationMap = corporateModel.toMap();
-    corporationMap['organizationUniqueIdentifier'] = organizationUniqueIdentifier;
-    corporationMap['invitationUniqueIdentifier'] = invitationUniqueIdentifier;
-    corporationMap['sequenceOrderUniqueIdentifier'] = sequenceOrderIdentifier;
+  Future<void> setCorporationInfoAndOrganizationTypes(CorporationModel corporationModel) async {
+    Map<String, dynamic> corporationMap = corporationModel.toMap();
     db.editCollectionRef("Corporation", corporationMap);
   }
-
-
-
-
 }
