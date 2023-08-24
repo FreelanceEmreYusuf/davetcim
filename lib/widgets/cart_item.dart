@@ -3,6 +3,9 @@ import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
+import '../shared/helpers/corporate_helper.dart';
+import '../shared/models/corporation_model.dart';
+
 class CartItem extends StatelessWidget {
   final String name;
   final String img;
@@ -27,18 +30,13 @@ class CartItem extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
       child: InkWell(
-        onTap: () {
+        onTap: () async {
+          CorporateHelper corporationViewModel = CorporateHelper();
+          CorporationModel corporationModel = await corporationViewModel.getCorporate(corporationId);
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (BuildContext context) {
-                return ProductDetails(
-                    img: img,
-                    raters: raters,
-                    isFav: isFav,
-                    name: name,
-                    rating: rating,
-                    description: description,
-                    corporationId: corporationId,);
+                return ProductDetails(corporationModel: corporationModel,);
               },
             ),
           );

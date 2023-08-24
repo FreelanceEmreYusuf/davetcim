@@ -1,3 +1,5 @@
+import 'package:davetcim/shared/helpers/corporate_helper.dart';
+import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/src/products/product_detail_view.dart';
@@ -124,19 +126,13 @@ class _GridProductState extends State<GridProduct> {
           ),
         ],
       ),
-      onTap: () {
+      onTap: () async {
+        CorporateHelper corporationViewModel = CorporateHelper();
+        CorporationModel corporationModel = await corporationViewModel.getCorporate(widget.corporationId);
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context) {
-              return ProductDetails(
-                  img: widget.img,
-                  raters: widget.raters,
-                  isFav: widget.isFav,
-                  name: widget.name,
-                  rating: widget.rating,
-                  description: widget.description,
-                  corporationId: widget.corporationId,
-                  maxPopulation: widget.maxPopulation,);
+              return ProductDetails(corporationModel: corporationModel,);
             },
           ),
         );

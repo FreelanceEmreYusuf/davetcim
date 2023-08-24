@@ -3,6 +3,8 @@ import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
+import '../shared/helpers/corporate_helper.dart';
+import '../shared/models/corporation_model.dart';
 import '../shared/sessions/application_session.dart';
 import '../shared/utils/utils.dart';
 import '../src/fav_products/fav_products_view_model.dart';
@@ -107,19 +109,14 @@ class SliderItem extends StatelessWidget {
           ),
         ],
       ),
-      onTap: () {
+      onTap: () async {
+        CorporateHelper corporationViewModel = CorporateHelper();
+        CorporationModel corporationModel = await corporationViewModel.getCorporate(corporationId);
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context) {
               return ProductDetails(
-                  corporationId: corporationId,
-                  img: img,
-                  raters: raters,
-                  isFav: isFav,
-                  name: name,
-                  rating: rating,
-                  description: description,
-                  maxPopulation: maxPopulation);
+              corporationModel: corporationModel,);
             },
           ),
         );

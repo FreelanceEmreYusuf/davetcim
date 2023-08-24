@@ -42,15 +42,7 @@ class NotificationHelper {
       } else {
         CorporateHelper corporateHelper = CorporateHelper();
         CorporationModel corporationModel = await corporateHelper.getCorporate(notificationModel.corporationId);
-        Utils.navigateToPage(context,
-            ProductDetails(img: corporationModel.imageUrl,
-                raters: corporationModel.ratingCount,
-                isFav: ApplicationSession.isCorporationFavorite(corporationModel.corporationId),
-                name: corporationModel.corporationName,
-                rating: corporationModel.averageRating,
-                description: corporationModel.description,
-                corporationId: corporationModel.corporationId,
-                maxPopulation: corporationModel.maxPopulation));
+        Utils.navigateToPage(context, ProductDetails(corporationModel: corporationModel) );
 
       }
 

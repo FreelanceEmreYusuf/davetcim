@@ -49,6 +49,7 @@ class ProductsViewDetailModel extends ChangeNotifier {
       hashtagList.addAll(organizationUniqueIdentifiers);
       hashtagList.addAll(invitationUniqueIdentifiers);
       hashtagList.addAll(sequenceOrderUniqueIdentifiers);
+      hashtagList.add("Max Kapasite "+item["maxPopulation"].toString());
     }
 
     return hashtagList;

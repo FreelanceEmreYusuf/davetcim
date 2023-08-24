@@ -169,12 +169,9 @@ class CommentsViewModel extends ChangeNotifier {
         corporationMap['ratingCount'] = ratingCount;
         corporationMap['averageRating'] = averageRating;
         db.editCollectionRef(DBConstants.corporationDb, corporationMap);
+        corporationModel = CorporationModel.fromMap(corporationMap);
 
-        Utils.navigateToPage(context, ProductDetails(corporationId: corporationId,
-            description: corporationModel.description,img: corporationModel.imageUrl,
-          isFav: false, name: corporationModel.corporationName, raters: corporationModel.ratingCount,
-          rating: corporationModel.averageRating
-        ));
+        Utils.navigateToPage(context, ProductDetails(corporationModel: corporationModel));
       }
     }
   }
