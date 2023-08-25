@@ -82,7 +82,7 @@ class _PickPageViewState extends State<PickPageView> {
                                 size: 30.0,
                               ),
                             ),
-                            title: Text("Yeni Resim Ekle", style: TextStyle(color: Colors.redAccent, fontSize: 30.0, fontWeight: FontWeight.bold)),
+                            title: Text("Galeriden Resim Ekle", style: TextStyle(color: Colors.redAccent, fontSize: 30.0, fontWeight: FontWeight.bold)),
 
                           ),
                         ),
