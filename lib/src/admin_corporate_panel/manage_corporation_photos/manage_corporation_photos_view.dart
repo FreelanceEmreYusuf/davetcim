@@ -15,7 +15,11 @@ class ManageCorporationPhotosView extends StatefulWidget {
 class _ManageCorporationPhotosViewState extends State<ManageCorporationPhotosView> {
   List<ImageModel> list = [];
   final registerFormKey = GlobalKey <FormState> ();
-  bool isPhotoActive = true;
+  bool validationVisibility = false;
+  String validationMessage = '';
+
+  bool hasDataTaken = false;
+
   @override
   void initState() {
     getCorporationImages();
@@ -26,17 +30,58 @@ class _ManageCorporationPhotosViewState extends State<ManageCorporationPhotosVie
     list = await corporationPhotosViewModel.getCorporatePhotos(ApplicationSession.userSession.corporationId);
     setState(() {
       list = list;
+      hasDataTaken = true;
     });
   }
 
 
   @override
-  Widget build(BuildContext contex){
+  Widget build(BuildContext contex) {
+    if (!hasDataTaken) {
+      return Scaffold(appBar:
+      AppBarMenu(isPopUpMenuActive: true, isNotificationsIconVisible: true, isHomnePageIconVisible: true, pageName: "Fotoğraf Yönetimi"),
+          body: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+              child: Center(child: CircularProgressIndicator())));
+    }
+
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(10.0),
         child: FloatingActionButton.extended(
           onPressed: () {
+            bool isMainPhotoCheckedOnce = false;
+            bool mainPhotoCheckedAsInactive = false;
+            int countForMainPhoto = 0;
+            for (int i = 0; i < list.length; i++) {
+              ImageModel imageModel = list[i];
+              if (imageModel.isMainPhoto) {
+                if (!imageModel.isActivePhoto) {
+                  mainPhotoCheckedAsInactive = true;
+                  break;
+                }
+                countForMainPhoto++;
+              }
+            }
+            if (mainPhotoCheckedAsInactive) {
+              setState(() {
+                validationVisibility = true;
+                validationMessage = 'Ana Resim Inaktif Olarak Seçilemez';
+              });
+            } else if (countForMainPhoto == 0) {
+              setState(() {
+                validationVisibility = true;
+                validationMessage = 'Ana Resim Seçilmedi';
+              });
+            } else if (countForMainPhoto > 1) {
+              setState(() {
+                validationVisibility = true;
+                validationMessage = 'Birden Fazla Ana Resim Seçilemez';
+              });
+            } else {
+              ManageCorporationPhotosViewModel manageCorporationPhotosViewModel = ManageCorporationPhotosViewModel();
+              manageCorporationPhotosViewModel.editImages(contex, list);
+            }
           },
           label: const Text('Güncelle'),
           icon: const Icon(Icons.update),
@@ -56,8 +101,6 @@ class _ManageCorporationPhotosViewState extends State<ManageCorporationPhotosVie
                 shrinkWrap: true,
                 itemCount: list == null ? 0 : list.length,
                 itemBuilder: (BuildContext context, int index) {
-//                Food food = Food.fromJson(foods[index]);
-                  Map imageMap = list[index].toMap();
                   return Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Container(
@@ -78,25 +121,27 @@ class _ManageCorporationPhotosViewState extends State<ManageCorporationPhotosVie
                                   margin: const EdgeInsets.all(10.0),
                                   child: Stack(children: <Widget>[
                                     Image.network(
-                                      imageMap["imageUrl"],
+                                      list[index].imageUrl,
                                       fit: BoxFit.fill,
                                     ),
                                   ])),
                               CheckboxListTile(
-                                value: isPhotoActive,
+                                value: list[index].isMainPhoto,
                                 title: Text("Salon ana resmi olarak belirle"),
                                 onChanged: (bool value) {
+                                  list[index].isMainPhoto = value;
                                   setState(() {
-                                    isPhotoActive = value;
+                                    list = list;
                                   });
                                 },
                               ),
                               CheckboxListTile(
-                                value: isPhotoActive,
+                                value: list[index].isActivePhoto,
                                 title: Text("Resmi ekle/kaldır"),
                                 onChanged: (bool value) {
+                                  list[index].isActivePhoto = value;
                                   setState(() {
-                                    isPhotoActive = value;
+                                    list = list;
                                   });
                                 },
                               ),
@@ -110,6 +155,12 @@ class _ManageCorporationPhotosViewState extends State<ManageCorporationPhotosVie
               ),
             ),
           ),
+          Visibility(
+              visible: validationVisibility,
+              child: Container(
+                  child: Text(validationMessage, style: TextStyle(color: Colors.red)),
+                  padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+              )),//E
         ],
       ),
     );

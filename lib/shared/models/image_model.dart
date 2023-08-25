@@ -6,11 +6,15 @@ class ImageModel {
   final int id;
   final int corporationId;
   final String imageUrl;
+  bool isMainPhoto;
+  bool isActivePhoto;
 
   ImageModel({
     this.id,
     this.corporationId,
     this.imageUrl,
+    this.isMainPhoto,
+    this.isActivePhoto,
   });
 
   ///Object to map

@@ -1,11 +1,10 @@
-import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/models/image_model.dart';
+import '../../../shared/utils/utils.dart';
+import '../manage_corporation_photos_add/manage_corporation_photos_add_view.dart';
 import 'manage_corporation_photos_view.dart';
-import 'manage_corporation_photos_view_model.dart.dart';
 
 
 class PickPageView extends StatefulWidget {
@@ -42,12 +41,8 @@ class _PickPageViewState extends State<PickPageView> {
                       child: Container(
                         child: MaterialButton(
                           onPressed: (){
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return ManageCorporationPhotosView();
-                                },
-                              ));
-                            },
+                              Utils.navigateToPage(context, ManageCorporationPhotosView());
+                          },
                           child: ListTile(
                             leading: CircleAvatar(
                               backgroundColor: Colors.redAccent,
@@ -71,7 +66,7 @@ class _PickPageViewState extends State<PickPageView> {
                       child: Container(
                         child: MaterialButton(
                           onPressed: (){
-
+                            Utils.navigateToPage(context, ManageCorporationPhotosAddView());
                           },
                           child: ListTile(
                             leading: CircleAvatar(
