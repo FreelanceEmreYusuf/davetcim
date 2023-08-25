@@ -34,7 +34,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
           backgroundColor: Colors.redAccent,
         ),
       ),
-        appBar: AppBarMenu(pageName: "Salon Analiz Sayfası", isHomnePageIconVisible: true, isNotificationsIconVisible: false, isPopUpMenuActive: true),
+        appBar: AppBarMenu(pageName: "Salon Analiz Sayfası", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: InkWell(
         child: ListView(
           shrinkWrap: true,

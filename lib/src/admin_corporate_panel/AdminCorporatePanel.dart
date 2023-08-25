@@ -13,6 +13,8 @@ import '../../widgets/reservation_corporate_card_widget.dart';
 import 'all_reservation/all_reservation_corporate_view.dart';
 import 'corporation_analysis/corporation_analysis_view.dart';
 import 'corporation_common_properties_edit/corporation_common_properties_edit_view.dart';
+import 'manage_corporation_photos/manage_corporation_photos_view.dart';
+import 'manage_corporation_photos/pick_page.dart';
 
 
 class AdminCorporatePanelPage extends StatefulWidget {
@@ -158,6 +160,25 @@ class _State extends State<AdminCorporatePanelPage> {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
                             return CorporationCommonPropertiesEditView();
+                          },
+                        ));
+                      },
+                    )),
+                SizedBox(height: 30.0),
+                Container(
+                    height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    // ignore: deprecated_member_use
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                      child: Text("FOTOĞRAFLARI YÖNET",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return PickPageView();
                           },
                         ));
                       },

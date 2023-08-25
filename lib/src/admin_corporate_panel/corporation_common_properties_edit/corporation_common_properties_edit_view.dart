@@ -196,7 +196,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
     ),
     ),
         ),
-      appBar: AppBarMenu(pageName: "Salon Özellikleri", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: "Salon Özellikleri", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
         child: ListView(
