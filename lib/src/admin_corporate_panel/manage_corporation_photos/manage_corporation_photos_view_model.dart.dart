@@ -2,6 +2,7 @@ import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/models/image_model.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../shared/environments/db_constants.dart';
 import '../../../shared/services/database.dart';
@@ -42,6 +43,7 @@ class ManageCorporationPhotosViewModel extends ChangeNotifier {
     for (int i = 0; i < imageList.length; i++) {
       if (!imageList[i].isActivePhoto) {
         deleteImage(imageList[i]);
+        deleteImageFromStorage(imageList[i]);
       }
       if (imageList[i].isMainPhoto) {
         makeMainImage(imageList[i]);
@@ -53,6 +55,11 @@ class ManageCorporationPhotosViewModel extends ChangeNotifier {
   Future<void> deleteImage(ImageModel imageModel) async {
     db.deleteDocument(DBConstants.imagesDb, imageModel.id.toString());
   }
+
+  Future<void> deleteImageFromStorage(ImageModel imageModel) async {
+      await FirebaseStorage.instance.refFromURL(imageModel.imageUrl).delete();
+  }
+
 
   Future<void> makeMainImage(ImageModel imageModel) async {
     CorporateHelper corporateHelper = CorporateHelper();
