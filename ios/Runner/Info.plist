@@ -26,6 +26,10 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSCameraUsageDescription</key>
+    <string>Uygulama, salon sahibi olarak, salon fotoğraflarının tarafınızca yüklenebilmesi için kameranıza erişim talebinde bulunmaktadır.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>Uygulama, salon sahibi olarak, salon fotoğraflarının tarafınızca yüklenebilmesi için gelerinize erişim talebinde bulunmaktadır.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

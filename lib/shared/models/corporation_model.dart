@@ -15,6 +15,7 @@ class CorporationModel {
   bool isPopularCorporation;
   int maxPopulation;
   int ratingCount;
+  int minReservationAmount;
   String region;
   String telephoneNo;
   String email;
@@ -36,6 +37,7 @@ class CorporationModel {
     this.isPopularCorporation,
     this.maxPopulation,
     this.ratingCount,
+    this.minReservationAmount,
     this.region,
     this.telephoneNo,
     this.email,
@@ -59,6 +61,7 @@ class CorporationModel {
     'isPopularCorporation': isPopularCorporation,
     'maxPopulation': maxPopulation,
     'ratingCount': ratingCount,
+    'minReservationAmount': minReservationAmount,
     'region': region,
     'telephoneNo': telephoneNo,
     'email': email,
@@ -82,6 +85,7 @@ class CorporationModel {
     isPopularCorporation: map['isPopularCorporation'],
     maxPopulation: map['maxPopulation'],
     ratingCount: map['ratingCount'],
+    minReservationAmount: map['minReservationAmount'],
     region: map['region'],
     telephoneNo: map['telephoneNo'],
     email: map['email'],

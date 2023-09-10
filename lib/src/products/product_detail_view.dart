@@ -142,8 +142,8 @@ class _ProductDetailsState extends State<ProductDetails> {
     });
   }
 
-  static void pushToJoinPage(BuildContext context) {
-    Utils.navigateToPage(context, JoinView(childPage: new Notifications()));
+  void pushToJoinPage(BuildContext context) {
+    Utils.navigateToPage(context, JoinView(childPage: new ProductDetails(corporationModel: widget.corporationModel)));
   }
 
   int _current = 0;

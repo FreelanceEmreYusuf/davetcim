@@ -41,6 +41,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
   final TextEditingController _nameControl = new TextEditingController();
   final TextEditingController _descriptionControl = new TextEditingController();
   final TextEditingController _maxPopulationControl = new TextEditingController();
+  final TextEditingController _minReservationAmount = new TextEditingController();
   final registerFormKey = GlobalKey <FormState> ();
   String formException = "";
   int _cardDivisionSize = 20;
@@ -259,6 +260,38 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                 maxLength: 6,
               ),
               SizedBox(height: 15.0),
+
+              TextFormField(
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  labelText: "Minimumu Rezervasyon Tutarı",
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusColor: Colors.blue,
+                  prefixIcon: Icon(
+                    Icons.person_add,
+                    color: Colors.black54,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                controller: _minReservationAmount,
+                validator: (minReservationAmount) {
+                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlBetweenMinMax(minReservationAmount,1,6));
+                },
+                maxLines: 1,
+                keyboardType: TextInputType.number,
+                maxLength: 6,
+              ),
+              SizedBox(height: 15.0),
               TextFormField(
                 style: TextStyle(
                   fontSize: 15.0,
@@ -428,6 +461,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                           district: districtList[selectedDistrict].id.toString(),
                           companyId: widget.companyModel.id,
                           maxPopulation: int.parse(_maxPopulationControl.text),
+                          minReservationAmount: int.parse(_minReservationAmount.text),
                           ratingCount: 0,
                           recordDate: Timestamp.now(),
                           averageRating: 0,

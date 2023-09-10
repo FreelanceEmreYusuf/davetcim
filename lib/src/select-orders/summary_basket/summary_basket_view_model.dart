@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
+import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/combo_generic_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
@@ -31,6 +32,12 @@ class SummaryBasketViewModel extends ChangeNotifier {
     }
 
     return false;
+  }
+
+  Future<int> getMinReservationAmount(int corporateId) async {
+    CorporateHelper corporateHelper = CorporateHelper();
+    CorporationModel corporationModel = await corporateHelper.getCorporate(corporateId);
+    return corporationModel.minReservationAmount;
   }
 
   Future<ReservationModel> createNewReservation(BasketUserDto basketModel, String description) async {
@@ -76,6 +83,9 @@ class SummaryBasketViewModel extends ChangeNotifier {
       db.editCollectionRef(DBConstants.reservationDetailDb, reservationModel.toMap());
     }
   }
+
+
+
 
 
 

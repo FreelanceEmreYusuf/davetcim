@@ -307,8 +307,19 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               color: Colors.white,
             ),
           ),
-          onPressed: () {
-            Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", createReservationRequest);
+          onPressed: () async {
+         //   if (widget.basketModel.)
+            SummaryBasketViewModel summaryBasketViewModel = SummaryBasketViewModel();
+            int minReservationAmount = await summaryBasketViewModel.getMinReservationAmount(widget.basketModel.corporationId);
+            if (minReservationAmount < calculateTotalPrice()) {
+              Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", createReservationRequest);
+            } else {
+              Dialogs.showAlertMessageWithAction(
+                  context,
+                  "Uyarı",
+                  "Minimum rezervasyon tutarı; bu salon için " + minReservationAmount.toString() + " TL dir",
+                  null);
+            }
           },
         ),
       ),

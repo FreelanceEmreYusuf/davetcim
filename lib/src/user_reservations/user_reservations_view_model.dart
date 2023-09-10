@@ -21,7 +21,8 @@ class UserReservationsViewModel extends ChangeNotifier {
     var response = await db
         .getCollectionRef("CorporationReservations")
         .where('customerId', isEqualTo: ApplicationSession.userSession.id)
-        .where('reservationStatus', whereIn: ReservationStatusEnumConverter.userViewedReservationStatus())
+        .where('reservationStatus', whereIn: ReservationStatusEnumConverter.userViewedReservationStatus()) 
+        .orderBy('recordDate', descending: true)
         .get();
 
     List<ReservationModel> corpModelList = [];
