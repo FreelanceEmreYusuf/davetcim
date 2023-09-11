@@ -283,6 +283,114 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Padding(
                     padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
                     child: Card(
+                      elevation: 5,
+                      shadowColor: Colors.redAccent,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.all(10.0),
+                              child: ListTile(
+                                trailing: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: Icon(
+                                    Icons.visibility,
+                                    color: Colors.redAccent,
+                                  ),
+                                ),
+                                subtitle: Text(
+                                  "Salonun detay sayfasının kaç kere incelendiği bilgisini içerir.",
+                                  style: TextStyle(
+                                      fontSize: 14.0,
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                                title: Text(
+                                  "Ziyaretçi Sayısı",
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: Colors.redAccent,
+                                      fontWeight: FontWeight.bold,
+                                      letterSpacing: 1.0
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Divider(color: Colors.redAccent, thickness: 1),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Bugün",
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.deepOrange
+                                      ),
+                                    ),
+                                    Text(
+                                      widget.corporationModel.maxPopulation.toString(),
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          color: Colors.deepOrangeAccent
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Son 1 Ay",
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.deepOrange
+                                      ),
+                                    ),
+                                    Text(
+                                      widget.corporationModel.maxPopulation.toString(),
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          color: Colors.deepOrangeAccent
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Column(
+                                  children: [
+                                    Text(
+                                      "Son 1 Yıl",
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.deepOrange
+                                      ),
+                                    ),
+                                    Text(
+                                      widget.corporationModel.maxPopulation.toString(),
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          color: Colors.deepOrangeAccent
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height/50,),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
+                    child: Card(
                       elevation: 10,
                       shadowColor: Colors.redAccent,
                       child: Container(
