@@ -8,6 +8,7 @@ import 'package:davetcim/widgets/smooth_star_rating.dart';
 import 'package:flutter/services.dart';
 
 import '../../shared/dto/basket_user_dto.dart';
+import '../../shared/enums/corporation_event_log_enum.dart';
 import '../../shared/models/combo_generic_model.dart';
 import '../../shared/models/corporation_model.dart';
 import '../../shared/models/reservation_model.dart';
@@ -19,6 +20,7 @@ import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/carousel_calender_widget.dart';
 import '../../widgets/hashtag_widget.dart';
 import '../../widgets/star_and_comment.dart';
+import '../admin_corporate_panel/corporation_analysis/corporation_analysis_view_model.dart';
 import '../comments/comments_view.dart';
 import '../fav_products/fav_products_view_model.dart';
 import '../join/join_view.dart';
@@ -71,6 +73,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     callGetReservationList();
     callGetProductComments();
     fillOrderViewParams();
+    logData();
     super.initState();
   }
 
@@ -83,7 +86,10 @@ class _ProductDetailsState extends State<ProductDetails> {
     regionName = regionName.substring(1);
   }
 
-
+  void logData()  {
+    CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
+    corporationAnalysisViewModel.editDailyLog(widget.corporationModel.corporationId, CorporationEventLogEnum.newVisit.name, 0);
+  }
 
   void fillOrderViewParams() async {
     OrderViewModel rm = OrderViewModel();

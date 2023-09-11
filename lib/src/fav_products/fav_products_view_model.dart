@@ -3,6 +3,7 @@ import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
+import '../../shared/enums/corporation_event_log_enum.dart';
 import '../../shared/environments/db_constants.dart';
 import '../../shared/models/user_fav_products.dart';
 import '../../shared/services/database.dart';
@@ -10,6 +11,7 @@ import '../../shared/sessions/application_session.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/language.dart';
 import '../../shared/utils/utils.dart';
+import '../admin_corporate_panel/corporation_analysis/corporation_analysis_view_model.dart';
 
 class FavProductsViewModel extends ChangeNotifier {
   Database db = Database();
@@ -79,6 +81,8 @@ class FavProductsViewModel extends ChangeNotifier {
             recordDate: Timestamp.now());
 
        db.editCollectionRef(DBConstants.favProductsDb, favProductsModel.toMap());
+       CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
+       corporationAnalysisViewModel.editDailyLog(corporationId, CorporationEventLogEnum.newFavorite.name, 0);
       }
 
       FavProductsViewModel favMdl = FavProductsViewModel();

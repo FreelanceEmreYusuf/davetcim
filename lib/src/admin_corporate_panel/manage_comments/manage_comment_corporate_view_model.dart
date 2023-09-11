@@ -3,11 +3,13 @@ import 'package:davetcim/shared/models/comment_model.dart';
 import 'package:davetcim/src/comments/comments_view_model.dart';
 import 'package:davetcim/util/comments.dart';
 import 'package:flutter/cupertino.dart';
+import '../../../shared/enums/corporation_event_log_enum.dart';
 import '../../../shared/enums/reservation_status_enum.dart';
 import '../../../shared/environments/db_constants.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/services/database.dart';
 import '../../notifications/notifications_view_model.dart';
+import '../corporation_analysis/corporation_analysis_view_model.dart';
 
 class ManageCommentCorporateViewModel extends ChangeNotifier {
   Database db = Database();
@@ -63,6 +65,9 @@ class ManageCommentCorporateViewModel extends ChangeNotifier {
 
     CommentsViewModel commentsViewModel = CommentsViewModel();
     commentsViewModel.approveProductRating(model.corporationId, model.star);
+
+    CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
+    corporationAnalysisViewModel.editDailyLog(model.corporationId, CorporationEventLogEnum.newComment.name, model.star);
   }
 
 }

@@ -28,4 +28,5 @@ class DBConstants {
   static String corporationRegisterKeyDb = "CorporationRegisterKey";
   static String reservationDetailDb = "ReservationDetail";
   static String commentDb = "Comments";
+  static String corporationEventLogDb = "CorporationEventLog";
 }

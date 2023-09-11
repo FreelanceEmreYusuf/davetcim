@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../shared/models/corporation_event_log_model.dart';
+import '../../../shared/sessions/application_session.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import 'corporation_analysis_pick_firstdate_view.dart';
+import 'corporation_analysis_view_model.dart';
 
 class CorporationAnalysisView extends StatefulWidget {
   @override
@@ -20,8 +23,35 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
 
   bool firstCalenderVisibility = false;
   bool secondtCalenderVisibility = false;
+  CorporationEventLogModel corporationEventLogModel;
+  bool hasDataTaken = false;
+
+  @override
+  void initState() {
+    getScreenModel();
+    super.initState();
+  }
+
+  void getScreenModel() async {
+    CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
+    corporationEventLogModel = await corporationAnalysisViewModel.getLogForScreen(ApplicationSession.userSession.corporationId);
+    setState(() {
+      corporationEventLogModel = corporationEventLogModel;
+      hasDataTaken = true;
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
+    if (!hasDataTaken) {
+      return Scaffold(appBar:
+      AppBarMenu(pageName: "Salon Analiz Sayfası", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+          body: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+              child: Center(child: CircularProgressIndicator())));
+    }
+
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -70,7 +100,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("115", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.visitCount.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -94,7 +124,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("3995", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.visitCountMonth.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -118,7 +148,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("17563", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.visitCountYear.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -162,7 +192,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("115", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.favoriteCount.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -186,7 +216,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("3995", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.favoriteCountMonth.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -210,7 +240,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("17563", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.favoriteCountYear.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -254,7 +284,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("5", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.reservationCount.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -277,7 +307,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("70000TL", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.reservationTotalAmount.toString() + " TL", style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -301,7 +331,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("89", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.favoriteCountMonth.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -324,7 +354,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("700000TL", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.reservationTotalAmountMonth.toString() + " TL", style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -348,7 +378,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("1256", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.reservationCountYear.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -371,7 +401,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("7000000TL", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.reservationTotalAmountYear.toString() + " TL", style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -415,7 +445,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("115", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.commentCount.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -439,7 +469,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("3995", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.commentCountMonth.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -463,7 +493,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("17563", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.commentCountYear.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -480,7 +510,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("4.5", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.averageStarPoint.toStringAsFixed(2), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
