@@ -240,7 +240,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   size: MediaQuery.of(context).size.height/25,
                                 ),
                                 Text(
-                                  widget.corporationModel.averageRating.toString() + ' Puan',
+                                  widget.corporationModel.averageRating.toStringAsFixed(2) + ' Puan',
                                   style: TextStyle(
                                     fontSize: 15,
                                     color: Colors.orange

@@ -1,6 +1,9 @@
+import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/widgets/star_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import '../src/comments/comments_view_model.dart';
 
 
 class ListTileComments extends StatefulWidget {
@@ -8,32 +11,55 @@ class ListTileComments extends StatefulWidget {
   final DateTime date;
   final String userName;
   final int star;
-  const ListTileComments(this.comment, this.date, this.userName, this.star);
+  final int corporationId;
+  const ListTileComments(this.comment, this.date, this.userName, this.star, this.corporationId);
   @override
   _ListTileCommentsState createState() => _ListTileCommentsState();
 }
 
 class _ListTileCommentsState extends State<ListTileComments> {
+
+  Widget trailingWidget = null;
+  int oldRating = 0;
+
   @override
   Widget build(BuildContext context) {
-    String text = widget.userName.toString() +
-        " / " +
-        DateFormat('yyyy-MM-dd – HH:mm').format(widget.date).toString();
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundColor: Colors.red,
-        child: Icon(
-          Icons.comment,
-          color: Colors.white,
+    if(ApplicationSession.userSession.username == widget.userName)
+      trailingWidget = MaterialButton(
+        onPressed: () async{
+          //TODO
+          CommentsViewModel commentsViewModel = CommentsViewModel();
+          oldRating = await commentsViewModel.getOldRating(widget.corporationId);
+          setState(() {
+            oldRating = oldRating;
+          });
+          await commentsViewModel.deleteUserComment(context, widget.corporationId, oldRating);
+        },
+        child: CircleAvatar(
+          backgroundColor: Colors.white,
+          child: Icon(
+            Icons.delete,
+            color: Colors.redAccent,
+          ),
         ),
-      ),
-      title: Text(widget.comment),
-      subtitle: StarWidget(
-        starCount: widget.star,
-        raters: widget.userName,
-        date: widget.date,
-      ),
-      onTap: () {},
-    );
+      );
+
+    return ListTile(
+          leading: CircleAvatar(
+            backgroundColor: Colors.red,
+            child: Icon(
+              Icons.comment,
+              color: Colors.white,
+            ),
+          ),
+          title: Text(widget.comment),
+          subtitle: StarWidget(
+            starCount: widget.star,
+            raters: widget.userName,
+            date: widget.date,
+          ),
+          onTap: () {},
+      trailing: trailingWidget
+        );
   }
 }

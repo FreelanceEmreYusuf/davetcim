@@ -47,22 +47,31 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                   padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
                   child: ListView(
                     children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            mdl.getUserName(),
-                            style: TextStyle(
-                              fontSize: 23,
-                              fontWeight: FontWeight.w800,
-                            ),
+                      if(ApplicationSession.userSession != null)
+                        Container(
+                          margin: EdgeInsets.fromLTRB(0, 10.0, 0, 0.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                "Hoşgeldin ",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              Text(
+                                "@"+mdl.getUserName(),
+                                style: TextStyle(
+                                    fontSize: 23,
+                                    fontWeight: FontWeight.w800,
+                                    color: Colors.lightGreen
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-
-                      SizedBox(height: 10.0),
-                      //Slider Here
-
+                        ),
+                      SizedBox(height: 10,),
                       Stack(
                         children: <Widget>[
                           Container(

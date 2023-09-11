@@ -115,7 +115,7 @@ class CommentsViewModel extends ChangeNotifier {
       DateTime date = _date.toDate().add(new Duration(hours: 3));
       String userName = item['userName'];
       commentList
-          .add(ListTileComments(item['comment'], date, userName, item["star"]));
+          .add(ListTileComments(item['comment'], date, userName, item["star"], item["corporationId"] ));
       commentList.add(Divider(
         thickness: 1,
       ));

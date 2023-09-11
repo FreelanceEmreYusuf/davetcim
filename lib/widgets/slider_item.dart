@@ -96,12 +96,13 @@ class SliderItem extends StatelessWidget {
                   color: Constants.ratingBG,
                   allowHalfRating: true,
                   rating: rating,
-                  size: 10.0,
+                  size: 13.0,
                 ),
                 Text(
-                  " $rating ($raters Reviews)",
+                  rating.toStringAsFixed(2)+"($raters Reviews)",
+                  //" $rating ($raters Reviews)",
                   style: TextStyle(
-                    fontSize: 11.0,
+                    fontSize: 14,
                   ),
                 ),
               ],

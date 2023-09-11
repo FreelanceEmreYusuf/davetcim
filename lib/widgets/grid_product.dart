@@ -113,12 +113,12 @@ class _GridProductState extends State<GridProduct> {
                   color: Constants.ratingBG,
                   allowHalfRating: true,
                   rating: widget.rating,
-                  size: 10.0,
+                  size: 13.0,
                 ),
                 Text(
-                  " ${widget.rating} (${widget.raters} Reviews)",
+                  " ${widget.rating.toStringAsFixed(2)} (${widget.raters} Reviews)",
                   style: TextStyle(
-                    fontSize: 11.0,
+                    fontSize: 13.0,
                   ),
                 ),
               ],
