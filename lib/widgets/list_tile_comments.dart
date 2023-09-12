@@ -27,7 +27,7 @@ class _ListTileCommentsState extends State<ListTileComments> {
 
   @override
   Widget build(BuildContext context) {
-    if(ApplicationSession.userSession.username == widget.userName)
+    if(ApplicationSession.userSession != null && ApplicationSession.userSession.username == widget.userName)
       trailingWidget = MaterialButton(
         onPressed: () async{
           CommentsViewModel commentsViewModel = CommentsViewModel();
