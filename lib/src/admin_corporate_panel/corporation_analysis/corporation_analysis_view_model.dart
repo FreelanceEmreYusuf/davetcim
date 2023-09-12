@@ -42,7 +42,6 @@ class CorporationAnalysisViewModel extends ChangeNotifier {
     CorporationEventLogModel corporationEventLogModel = new CorporationEventLogModel(
         id: new DateTime.now().millisecondsSinceEpoch,
         corporationId: corporationId,
-        averageStarPoint: 0.0,
         commentCount: 0,
         commentCountMonth: 0,
         commentCountYear: 0,
@@ -91,7 +90,6 @@ class CorporationAnalysisViewModel extends ChangeNotifier {
           commentCount += corporationEventRowLogModel.commentCount;
           reservationCount += corporationEventRowLogModel.reservationCount;
           reservationTotalAmount = corporationEventRowLogModel.reservationTotalAmount;
-          averageStar = corporationEventRowLogModel.averageStarPoint;
         }
       }
       corporationEventLogModel.visitCount = visitCount;
@@ -109,7 +107,6 @@ class CorporationAnalysisViewModel extends ChangeNotifier {
       corporationEventLogModel.commentCount = commentCount;
       corporationEventLogModel.commentCountMonth = commentCountMonth;
       corporationEventLogModel.commentCountYear = commentCountYear;
-      corporationEventLogModel.averageStarPoint = averageStar;
     }
 
     return corporationEventLogModel;
@@ -126,7 +123,6 @@ class CorporationAnalysisViewModel extends ChangeNotifier {
     CorporationEventLogModel corporationEventLogModel = new CorporationEventLogModel(
         id: new DateTime.now().millisecondsSinceEpoch,
         corporationId: corporationId,
-        averageStarPoint: 0.0,
         commentCount: 0,
         date: DateConversionUtils.getTodayAsInt(),
         recordDate: Timestamp.now(),
@@ -164,7 +160,6 @@ class CorporationAnalysisViewModel extends ChangeNotifier {
           corporationEventLogModel = new CorporationEventLogModel(
           id: new DateTime.now().millisecondsSinceEpoch,
           corporationId: corporationId,
-          averageStarPoint: 0.0,
           commentCount: 0,
           date: DateConversionUtils.getTodayAsInt(),
           recordDate: Timestamp.now(),
@@ -178,19 +173,14 @@ class CorporationAnalysisViewModel extends ChangeNotifier {
       corporationEventLogModel.visitCount += 1;
     } else if (logType == CorporationEventLogEnum.newComment.name) {
       int totalCommentCount = corporationEventLogModel.commentCount;
-      double totalStarPoint = (corporationEventLogModel.averageStarPoint * totalCommentCount) + value;
       corporationEventLogModel.commentCount += 1;
-      corporationEventLogModel.averageStarPoint = totalStarPoint / corporationEventLogModel.commentCount;
     } else if (logType == CorporationEventLogEnum.newFavorite.name) {
       corporationEventLogModel.favoriteCount += 1;
     } else if (logType == CorporationEventLogEnum.newReservation.name) {
       corporationEventLogModel.reservationCount += 1;
       corporationEventLogModel.reservationTotalAmount += value;
     } else if (logType == CorporationEventLogEnum.deletedComment.name) {
-      double totalStarPoint = (corporationEventLogModel.averageStarPoint * corporationEventLogModel.commentCount);
-      totalStarPoint -= value;
       corporationEventLogModel.commentCount -= 1;
-      corporationEventLogModel.averageStarPoint = totalStarPoint / corporationEventLogModel.commentCount;
     }
 
     corporationEventLogModel.recordDate = Timestamp.now();

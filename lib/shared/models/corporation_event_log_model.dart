@@ -19,7 +19,6 @@ class CorporationEventLogModel {
   int visitCount;
   int visitCountMonth;
   int visitCountYear;
-  double averageStarPoint;
   Timestamp recordDate;
 
   CorporationEventLogModel({
@@ -41,7 +40,6 @@ class CorporationEventLogModel {
     this.visitCount,
     this.visitCountMonth,
     this.visitCountYear,
-    this.averageStarPoint,
     this.recordDate,
   });
 
@@ -55,7 +53,6 @@ class CorporationEventLogModel {
     'reservationCount': reservationCount,
     'reservationTotalAmount': reservationTotalAmount,
     'visitCount': visitCount,
-    'averageStarPoint': averageStarPoint,
     'recordDate': recordDate,
   };
 
@@ -69,7 +66,6 @@ class CorporationEventLogModel {
     reservationCount: map['reservationCount'],
     reservationTotalAmount: map['reservationTotalAmount'],
     visitCount: map['visitCount'],
-    averageStarPoint: map['averageStarPoint'],
     recordDate: map['recordDate'],
   );
 }
