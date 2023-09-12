@@ -4,4 +4,5 @@ enum CorporationEventLogEnum {
   newReservation,
   newVisit,
   newStarPoint,
+  deletedComment
 }

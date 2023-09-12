@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import '../../shared/dto/basket_user_dto.dart';
 import '../../shared/enums/corporation_event_log_enum.dart';
 import '../../shared/models/combo_generic_model.dart';
+import '../../shared/models/corporation_event_log_model.dart';
 import '../../shared/models/corporation_model.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/sessions/application_session.dart';
@@ -62,6 +63,8 @@ class _ProductDetailsState extends State<ProductDetails> {
   IconData icon = Icons.keyboard_arrow_down;
   String districtName = "";
   String regionName = "";
+  CorporationEventLogModel corporationEventLogModel;
+  bool hasDataTaken = false;
 
   @override
   void initState() {
@@ -74,6 +77,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     callGetProductComments();
     fillOrderViewParams();
     logData();
+    getLogModel();
     super.initState();
   }
 
@@ -86,9 +90,18 @@ class _ProductDetailsState extends State<ProductDetails> {
     regionName = regionName.substring(1);
   }
 
-  void logData()  {
+  void getLogModel() async {
     CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
-    corporationAnalysisViewModel.editDailyLog(widget.corporationModel.corporationId, CorporationEventLogEnum.newVisit.name, 0);
+    corporationEventLogModel = await corporationAnalysisViewModel.getLogForScreen(widget.corporationModel.corporationId);
+    setState(() {
+      corporationEventLogModel = corporationEventLogModel;
+      hasDataTaken = true;
+    });
+  }
+
+  void logData() async {
+    CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
+    await corporationAnalysisViewModel.editDailyLog(widget.corporationModel.corporationId, CorporationEventLogEnum.newVisit.name, 0);
   }
 
   void fillOrderViewParams() async {
@@ -156,6 +169,14 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
+    if (!hasDataTaken) {
+      return Scaffold(appBar:
+      AppBarMenu(pageName: widget.corporationModel.corporationName, isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+          body: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+              child: Center(child: CircularProgressIndicator())));
+    }
+
     isFavorite = ApplicationSession.isCorporationFavorite(widget.corporationModel.corporationId);
     return Scaffold(
         appBar: AppBarMenu(pageName: widget.corporationModel.corporationName, isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
@@ -334,7 +355,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       ),
                                     ),
                                     Text(
-                                      widget.corporationModel.maxPopulation.toString(),
+                                      corporationEventLogModel.visitCount.toString(),
                                       style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.deepOrangeAccent
@@ -353,7 +374,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       ),
                                     ),
                                     Text(
-                                      widget.corporationModel.maxPopulation.toString(),
+                                      corporationEventLogModel.visitCountMonth.toString(),
                                       style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.deepOrangeAccent
@@ -372,7 +393,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       ),
                                     ),
                                     Text(
-                                      widget.corporationModel.maxPopulation.toString(),
+                                      corporationEventLogModel.visitCountYear.toString(),
                                       style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.deepOrangeAccent

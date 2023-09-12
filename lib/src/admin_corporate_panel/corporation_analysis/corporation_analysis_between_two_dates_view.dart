@@ -2,11 +2,14 @@ import 'package:davetcim/src/admin_corporate_panel/AdminCorporatePanel.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../shared/models/corporation_event_log_model.dart';
+import '../../../shared/sessions/application_session.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/carousel_calender_widget_for_between_two_date.dart';
 import '../../../widgets/cupertino_date_picker.dart';
 import 'corporation_analysis_pick_firstdate_view.dart';
+import 'corporation_analysis_view_model.dart';
 
 class CorporationAnalysisBetweenTwoDateView extends StatefulWidget {
   @override
@@ -22,6 +25,24 @@ class CorporationAnalysisBetweenTwoDateView extends StatefulWidget {
 }
 
 class _CorporationAnalysisBetweenTwoDateViewState extends State<CorporationAnalysisBetweenTwoDateView> {
+
+  CorporationEventLogModel corporationEventLogModel;
+  bool hasDataTaken = false;
+
+  @override
+  void initState() {
+    getScreenModel();
+    super.initState();
+  }
+
+  void getScreenModel() async {
+    CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
+    corporationEventLogModel = await corporationAnalysisViewModel.getLogBetweenDates(ApplicationSession.userSession.corporationId, widget.firstDate, widget.secondDate);
+    setState(() {
+      corporationEventLogModel = corporationEventLogModel;
+      hasDataTaken = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +95,7 @@ class _CorporationAnalysisBetweenTwoDateViewState extends State<CorporationAnaly
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("115", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.visitCount.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -118,7 +139,7 @@ class _CorporationAnalysisBetweenTwoDateViewState extends State<CorporationAnaly
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("115", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.favoriteCount.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -162,7 +183,7 @@ class _CorporationAnalysisBetweenTwoDateViewState extends State<CorporationAnaly
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("5", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.reservationCount.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -185,7 +206,7 @@ class _CorporationAnalysisBetweenTwoDateViewState extends State<CorporationAnaly
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("70000TL", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.reservationTotalAmount.toString() + " TL", style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
@@ -229,7 +250,7 @@ class _CorporationAnalysisBetweenTwoDateViewState extends State<CorporationAnaly
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text("115", style: TextStyle(
+                          trailing: Text(corporationEventLogModel.commentCount.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,

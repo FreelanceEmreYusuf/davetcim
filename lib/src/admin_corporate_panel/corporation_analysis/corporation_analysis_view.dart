@@ -501,23 +501,6 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                         ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height / 50,),
-                      Card(
-                        elevation: 10.0,
-                        child: ListTile(
-                          title: Text("Salon yıldız seviyesi"),
-                          leading: Icon(
-                            FontAwesomeIcons.star,
-                            size: 25.0,
-                            color: Theme.of(context).accentColor,
-                          ),
-                          trailing: Text(corporationEventLogModel.averageStarPoint.toStringAsFixed(2), style: TextStyle(
-                            fontSize: 15,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.redAccent,
-                          ),),
-                        ),
-                      ),
-                      SizedBox(height: MediaQuery.of(context).size.height / 50,),
                     ],
                   ),
                 ),

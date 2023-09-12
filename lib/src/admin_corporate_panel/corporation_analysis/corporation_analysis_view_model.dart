@@ -94,7 +94,6 @@ class CorporationAnalysisViewModel extends ChangeNotifier {
           averageStar = corporationEventRowLogModel.averageStarPoint;
         }
       }
-
       corporationEventLogModel.visitCount = visitCount;
       corporationEventLogModel.visitCountMonth = visitCountMonth;
       corporationEventLogModel.visitCountYear = visitCountYear;
@@ -111,23 +110,12 @@ class CorporationAnalysisViewModel extends ChangeNotifier {
       corporationEventLogModel.commentCountMonth = commentCountMonth;
       corporationEventLogModel.commentCountYear = commentCountYear;
       corporationEventLogModel.averageStarPoint = averageStar;
-      return corporationEventLogModel;
     }
 
-    return new CorporationEventLogModel(
-        id: new DateTime.now().millisecondsSinceEpoch,
-        corporationId: corporationId,
-        averageStarPoint: 0.0,
-        commentCount: 0,
-        date: DateConversionUtils.getTodayAsInt(),
-        recordDate: Timestamp.now(),
-        favoriteCount: 0,
-        reservationCount: 0,
-        reservationTotalAmount: 0,
-        visitCount: 0);
+    return corporationEventLogModel;
   }
 
-  Future<CorporationEventLogModel> getDailyLogBetweenDates(int corporationId, DateTime beginDate, DateTime endDate) async {
+  Future<CorporationEventLogModel> getLogBetweenDates(int corporationId, DateTime beginDate, DateTime endDate) async {
     var response = await db
         .getCollectionRef(DBConstants.corporationEventLogDb)
         .where('corporationId', isEqualTo: corporationId)
@@ -198,6 +186,11 @@ class CorporationAnalysisViewModel extends ChangeNotifier {
     } else if (logType == CorporationEventLogEnum.newReservation.name) {
       corporationEventLogModel.reservationCount += 1;
       corporationEventLogModel.reservationTotalAmount += value;
+    } else if (logType == CorporationEventLogEnum.deletedComment.name) {
+      double totalStarPoint = (corporationEventLogModel.averageStarPoint * corporationEventLogModel.commentCount);
+      totalStarPoint -= value;
+      corporationEventLogModel.commentCount -= 1;
+      corporationEventLogModel.averageStarPoint = totalStarPoint / corporationEventLogModel.commentCount;
     }
 
     corporationEventLogModel.recordDate = Timestamp.now();

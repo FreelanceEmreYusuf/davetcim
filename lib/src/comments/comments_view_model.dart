@@ -10,10 +10,12 @@ import 'package:flutter/material.dart';
 
 import '../../shared/models/comment_model.dart';
 import '../../shared/models/corporation_model.dart';
+import '../../shared/utils/date_utils.dart';
 import '../../shared/utils/utils.dart';
 import '../../widgets/add_comments_widget.dart';
 import '../../widgets/comments_with_editing.dart';
 import '../../widgets/list_tile_comments.dart';
+import '../admin_corporate_panel/corporation_analysis/corporation_analysis_view_model.dart';
 import '../products/product_detail_view.dart';
 
 class CommentsViewModel extends ChangeNotifier {
@@ -99,6 +101,7 @@ class CommentsViewModel extends ChangeNotifier {
     var response = await docsRef
         .where('corporationId', isEqualTo: corporationId)
         .where('isApproved', isEqualTo: true)
+        .orderBy('date', descending: true)
         .get();
 
     var list = response.docs;
@@ -112,7 +115,8 @@ class CommentsViewModel extends ChangeNotifier {
     for (int i = 0; i < list.length; i++) {
       Map item = list[i].data();
       Timestamp _date = item['date'];
-      DateTime date = _date.toDate().add(new Duration(hours: 3));
+      //DateTime date = _date.toDate().add(new Duration(hours: 3));
+      DateTime date = _date.toDate();
       String userName = item['userName'];
       commentList
           .add(ListTileComments(item['comment'], date, userName, item["star"], item["corporationId"] ));
@@ -170,7 +174,6 @@ class CommentsViewModel extends ChangeNotifier {
         corporationMap['averageRating'] = averageRating;
         db.editCollectionRef(DBConstants.corporationDb, corporationMap);
         corporationModel = CorporationModel.fromMap(corporationMap);
-
         Utils.navigateToPage(context, ProductDetails(corporationModel: corporationModel));
       }
     }
