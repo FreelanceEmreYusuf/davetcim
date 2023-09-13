@@ -1,11 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/utils/language.dart';
 
 import '../environments/db_constants.dart';
 import '../models/corporation_model.dart';
-import '../models/customer_model.dart';
 
 class CorporateHelper {
 
@@ -23,5 +19,23 @@ class CorporateHelper {
     }
 
     return null;
+  }
+
+  Future<List<CorporationModel>> getCorporateByCompany(int companyId) async {
+    Database db = Database();
+    List<CorporationModel> corporationList = [];
+    var response = await db
+        .getCollectionRef(DBConstants.corporationDb)
+        .where('companyId', isEqualTo: companyId)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        corporationList.add(CorporationModel.fromMap(list[i].data()));
+      }
+    }
+
+    return corporationList;
   }
 }

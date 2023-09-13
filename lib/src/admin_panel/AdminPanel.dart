@@ -8,6 +8,7 @@ import '../../shared/environments/const.dart';
 import '../admin_corporate_panel/company/add_corporation/corporation_add_view.dart';
 import 'company/company_add_view.dart';
 import 'corporation/corporation_generate_key_view.dart';
+import 'manage_corporation_active_passive/corporation_active_passive_view.dart';
 
 
 class AdminPanelPage extends StatefulWidget {
@@ -69,52 +70,14 @@ class _State extends State<AdminPanelPage> {
                     // ignore: deprecated_member_use
                     child: TextButton(
                       style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("SALON GÜNCELLE",
+                      child: Text("SALON AKTİF/PASİF",
                         style: TextStyle(
                           color: Colors.white,
                         ),),
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
-                            return MainScreen();
-                          },
-                        ));
-                      },
-                    )),
-                SizedBox(height: 30.0),
-                Container(
-                    height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    // ignore: deprecated_member_use
-                    child: TextButton(
-                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("SALON SİL",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return MainScreen();
-                          },
-                        ));
-                      },
-                    )),
-                SizedBox(height: 30.0),
-                Container(
-                    height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    // ignore: deprecated_member_use
-                    child: TextButton(
-                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("BİLDİRİM GÖNDER",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return MainScreen();
+                            return CorporationActivePassiveView();
                           },
                         ));
                       },

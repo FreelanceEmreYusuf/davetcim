@@ -6,9 +6,6 @@ import '../../../shared/models/corporation_event_log_model.dart';
 import '../../../shared/sessions/application_session.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
-import '../../../widgets/carousel_calender_widget_for_between_two_date.dart';
-import '../../../widgets/cupertino_date_picker.dart';
-import 'corporation_analysis_pick_firstdate_view.dart';
 import 'corporation_analysis_view_model.dart';
 
 class CorporationAnalysisBetweenTwoDateView extends StatefulWidget {
@@ -47,6 +44,14 @@ class _CorporationAnalysisBetweenTwoDateViewState extends State<CorporationAnaly
   @override
   Widget build(BuildContext context) {
     String date = widget.firstDate.toString().substring(0,10)+" - "+widget.secondDate.toString().substring(0,10);
+    if (!hasDataTaken) {
+      return Scaffold(appBar:
+      AppBarMenu(pageName: date, isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+          body: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+              child: Center(child: CircularProgressIndicator())));
+    }
+
     return Scaffold(
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(8.0),

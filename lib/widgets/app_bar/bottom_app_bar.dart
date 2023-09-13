@@ -101,7 +101,16 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                         color: widget.page == 3
                             ? Theme.of(context).accentColor
                             : Theme.of(context).textTheme.caption.color,
-                        onPressed: () => widget.pageController.jumpToPage(3),
+                        onPressed: () {
+                          if (ApplicationSession.userSession == null) {
+                            Dialogs.showAlertMessage(
+                                context,
+                                "",
+                                "Sepetinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız.");
+                          } else {
+                            widget.pageController.jumpToPage(3);
+                          }
+                        }
                       ),
                       IconButton(
                           icon: Icon(
