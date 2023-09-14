@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
@@ -14,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../shared/enums/customer_role_enum.dart';
+import '../../shared/helpers/corporate_helper.dart';
 import '../../src/admin_corporate_panel/AdminCorporatePanel.dart';
 
 class PopUpMenu extends StatefulWidget {
@@ -21,14 +23,35 @@ class PopUpMenu extends StatefulWidget {
   _PopUpMenu createState() => _PopUpMenu();
 }
 
+
+
 class _PopUpMenu extends State<PopUpMenu> {
+  bool isCorpActive = false;
+  void isCorporationActive(int corporateId) async{
+    CorporateHelper _corporateHelper = CorporateHelper();
+    isCorpActive = await _corporateHelper.isCorporationActive(corporateId);
+    setState(() {
+      isCorpActive = isCorpActive;
+    });
+  }
+  @override
+  void initState() {
+    if (ApplicationSession.userSession != null) {
+      isCorporationActive(ApplicationSession.userSession.corporationId);
+    }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (ApplicationSession.userSession != null) {
       if (ApplicationSession.userSession.roleId == CustomerRoleEnum.admin) {
         return getForAdmin();
       } else if (ApplicationSession.userSession.roleId == CustomerRoleEnum.organizationOwner) {
-        return getForCorporateAdmin();
+        if(isCorpActive && ApplicationSession.userSession.corporationId !=0 )
+          return getForCorporateAdmin();
+        else
+        return getForAuthenticatedUser();
       }else {
         return getForAuthenticatedUser();
       }

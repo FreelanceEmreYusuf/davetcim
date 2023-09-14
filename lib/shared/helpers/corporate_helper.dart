@@ -38,4 +38,20 @@ class CorporateHelper {
 
     return corporationList;
   }
+
+  Future<bool> isCorporationActive(int corporateId) async{
+    CorporationModel corporationModel = await this.getCorporate(corporateId);
+    if(corporationModel.isActive)
+      return true;
+    else
+      return false;
+  }
+
+  Future<bool> isCorporationPopular(int corporateId) async{
+    CorporationModel corporationModel = await this.getCorporate(corporateId);
+    if(corporationModel.isPopularCorporation)
+      return true;
+    else
+      return false;
+  }
 }

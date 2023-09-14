@@ -18,6 +18,7 @@ class HomeViewModel extends ChangeNotifier {
   Stream<List<CorporationModel>> getHomeCorporationList()  {
       Stream<List<DocumentSnapshot>> corporationDocList = db.getCollectionRef("Corporation")
           .where('isPopularCorporation', isEqualTo: true)
+          .where('isActive', isEqualTo: true)
           .snapshots()
           .map((event) => event.docs);
 

@@ -146,6 +146,7 @@ class ProductsViewModel extends ChangeNotifier {
   Future<List<CorporationModel>> getCorporationList(ProductFiltererDto filter) async {
 
     Query list = db.getCollectionRef("Corporation");
+    list = list.where('isActive', isEqualTo: true);
     if (int.parse(filter.region) > 0) {
       list = list.where('region', isEqualTo: filter.region);
     }
