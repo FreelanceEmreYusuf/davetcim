@@ -4,7 +4,7 @@ import 'package:davetcim/widgets/app_bar/icon_badge_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../screens/notifications.dart';
-import '../../shared/maps/MenuMap.dart';
+import '../../shared/maps/menu_back_map.dart';
 import '../../shared/models/customer_model.dart';
 import '../../shared/sessions/application_session.dart';
 import '../../shared/utils/dialogs.dart';
