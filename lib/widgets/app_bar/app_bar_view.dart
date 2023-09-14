@@ -4,6 +4,7 @@ import 'package:davetcim/widgets/app_bar/icon_badge_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../screens/notifications.dart';
+import '../../shared/maps/MenuMap.dart';
 import '../../shared/models/customer_model.dart';
 import '../../shared/sessions/application_session.dart';
 import '../../shared/utils/dialogs.dart';
@@ -50,6 +51,26 @@ class _AppBarMenu extends State<AppBarMenu> {
   Widget build(BuildContext context) {
     double fontSize = 15;
     AppBarViewModel mdl = new AppBarViewModel();
+    
+    Widget backButton;
+    if (menuBackMap.containsKey(widget.pageName) && menuBackMap[widget.pageName] == null) {
+      backButton = null;
+    } else {
+      backButton = IconButton(
+          icon: Icon(
+            Icons.keyboard_backspace,
+          ),
+          onPressed: () => {
+            if (menuBackMap.containsKey(widget.pageName)) {
+              Utils.navigateToPage(context, menuBackMap[widget.pageName])
+            } else {
+              Navigator.pop(context)  
+            }
+          }
+      );
+    }
+      
+  //  if (widget.pageName != 'Davetçim' && )
 
     return ChangeNotifierProvider<AppBarViewModel>(
         create: (_)=>AppBarViewModel(),
@@ -70,16 +91,7 @@ class _AppBarMenu extends State<AppBarMenu> {
                     return AppBar(
                       backgroundColor: Constants.darkAccent,
                       automaticallyImplyLeading: false,
-                      leading: IconButton(
-                        icon: Icon(
-                          Icons.keyboard_backspace,
-                        ),
-                        onPressed: () => {
-                          if (widget.pageName != 'Davetçim' && widget.pageName != 'Admin Paneli') {
-                            Navigator.pop(context)
-                          },
-                        }
-                      ),
+                      leading: backButton,
                       actions: <Widget>[
                         if(widget.isNotificationsIconVisible)
                           IconButton(
