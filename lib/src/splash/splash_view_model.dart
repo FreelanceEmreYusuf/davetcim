@@ -1,5 +1,4 @@
 import 'package:davetcim/shared/environments/db_constants.dart';
-import 'package:davetcim/shared/models/bypass_info_page_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/utils/device_info.dart';
 import 'package:flutter/cupertino.dart';

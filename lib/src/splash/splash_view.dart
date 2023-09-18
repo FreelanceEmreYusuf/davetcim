@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void callNextFlow() async {
-    WalkthroughModel rm = WalkthroughModel();
+    WalkthroughViewModel rm = WalkthroughViewModel();
     if (!await rm.willDemoShowed()) {
       Utils.navigateToPage(context, EntrancePage());
     } else {
