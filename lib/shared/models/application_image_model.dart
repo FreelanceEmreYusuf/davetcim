@@ -6,11 +6,15 @@ class ApplicationImageModel {
   final int id;
   final String imageUrl;
   final String key;
+  final String title;
+  final String body;
 
   ApplicationImageModel({
     this.id,
     this.imageUrl,
-    this.key
+    this.key,
+    this.title,
+    this.body
   });
 
   ///Object to map
@@ -18,6 +22,8 @@ class ApplicationImageModel {
     'id': id,
     'imageUrl': imageUrl,
     'key': key,
+    'title': title,
+    'body': body,
   };
 
   ///Map to object
@@ -25,5 +31,7 @@ class ApplicationImageModel {
     id: map['id'],
     imageUrl: map['imageUrl'],
     key: map['key'],
+    title: map['title'],
+    body: map['body'],
   );
 }

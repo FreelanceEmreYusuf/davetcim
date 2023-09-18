@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/dto/product_filterer_dto.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/helpers/region_district_helper.dart';

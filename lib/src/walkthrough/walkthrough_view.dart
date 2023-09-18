@@ -41,28 +41,27 @@ class _WalkthroughState extends State<Walkthrough> {
 
   @override
   Widget build(BuildContext context) {
+    if (!hasDataTaken) {
+      return Scaffold(
+          body: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+              child: Center(child: CircularProgressIndicator())));
+    }
 
     List pageInfos = [
       {
-        "title": "Düğün Salonları",
-        "body":
-        "En güzel gecene ev sahipliği yapacak olan düğün salonuna karar vermeden önce,"
-            "  düğün salonu galerilerine göz at,  "
-            "en güzel düğün salonu dekorasyonu örneklerini incele!.",
+        "title": "${getImageByKey("weddingHall").title}",
+        "body":"${getImageByKey("weddingHall").body}",
         "img": "${getImageByKey("weddingHall").imageUrl}",
       },
       {
-        "title": "Paket Seçimi",
-        "body": "Cebinize uygun evlilik paketini seçebilirsiniz"
-            " Düğün davet balo gibi organizasyonlarınıza özel paket seçeneklerimizle "
-            "dui. Nulla porttitor accumsan tincidunt.",
+        "title": "${getImageByKey("bundle").title}",
+        "body":"${getImageByKey("bundle").body}",
         "img": "${getImageByKey("bundle").imageUrl}",
       },
       {
-        "title": "Fiyat Teklifi",
-        "body": "Hızlı bir şekilde salon sahibinin size ulaşmasını sağlayıp"
-            " Uygun fiyat teklifleri alabilirsiniz "
-            "Evlilikten geçen yolda bize uğramadan geçmeyin!",
+        "title": "${getImageByKey("priceOffer").title}",
+        "body":"${getImageByKey("priceOffer").body}",
         "img": "${getImageByKey("priceOffer").imageUrl}",
       },
     ];
@@ -71,6 +70,8 @@ class _WalkthroughState extends State<Walkthrough> {
     List<PageViewModel> pages = [
       for (int i = 0; i < pageInfos.length; i++) _buildPageModel(pageInfos[i])
     ];
+
+
 
     return WillPopScope(
       onWillPop: () => Future.value(false),
