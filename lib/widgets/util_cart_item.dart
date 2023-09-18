@@ -24,51 +24,48 @@ class UtilCartItem extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      flex: 1,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: GestureDetector(
-          onTap: () {
-            Utils.navigateToPage(context, screen);
-          },
-          child: Card(
-              elevation: 4.0,
-              child: Stack(children: <Widget>[
-                Image.network(
-                  img,
-                  fit: BoxFit.fill,
-                ),
-                Center(
-                  child: ListTile(
-                    tileColor: Colors.white70,
-                    leading: IconButton(
-                      tooltip: tooltip,
-                      iconSize: MediaQuery.of(context).size.width / 8,
-                      icon: Icon(
-                        icon,
-                        color: Colors.redAccent,
-                      ),
-                    ),
-                    title: Text(
-                      title,
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.right,
-                    ),
-                    subtitle: Text(
-                      subtitle,
-                      style: TextStyle(
-                        color: Colors.redAccent,
-                      ),
-                      textAlign: TextAlign.right,
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: GestureDetector(
+        onTap: () {
+          Utils.navigateToPage(context, screen);
+        },
+        child: Card(
+            elevation: 4.0,
+            child: Stack(children: <Widget>[
+              Image.network(
+                img,
+                fit: BoxFit.fill,
+              ),
+              Center(
+                child: ListTile(
+                  tileColor: Colors.white70,
+                  leading: IconButton(
+                    tooltip: tooltip,
+                    iconSize: MediaQuery.of(context).size.width / 8,
+                    icon: Icon(
+                      icon,
+                      color: Colors.redAccent,
                     ),
                   ),
+                  title: Text(
+                    title,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.right,
+                  ),
+                  subtitle: Text(
+                    subtitle,
+                    style: TextStyle(
+                      color: Colors.redAccent,
+                    ),
+                    textAlign: TextAlign.right,
+                  ),
                 ),
-              ])),
-        ),
+              ),
+            ])),
       ),
     );
   }

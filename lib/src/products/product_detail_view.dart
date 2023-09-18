@@ -178,6 +178,56 @@ class _ProductDetailsState extends State<ProductDetails> {
     }
 
     isFavorite = ApplicationSession.isCorporationFavorite(widget.corporationModel.corporationId);
+
+    Widget img = Stack(
+      children: <Widget>[
+        Container(
+          height: MediaQuery.of(context).size.height / 3.2,
+          width: MediaQuery.of(context).size.width,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8.0),
+            //       !loading ? HomeCarousel(homeManager) : Center(child:ProgressIndicator())
+            child: Swiper(
+              itemBuilder: (BuildContext context,int index){
+                return Image.network(imageList[index],fit: BoxFit.fill,);
+              },
+              itemCount: imageList.length,
+              pagination: SwiperPagination(),
+              control: SwiperControl(),
+              autoplay: true,
+            ),
+          ),
+        ),
+        Positioned(
+          right: -10.0,
+          bottom: 3.0,
+          child: RawMaterialButton(
+            onPressed: () {
+              editUserFavProduct();
+            },
+            fillColor: Colors.white,
+            shape: CircleBorder(),
+            elevation: 4.0,
+            child: Padding(
+              padding: EdgeInsets.all(5),
+              child: Icon(
+                isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: Colors.red,
+                size: 17,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+    if(widget.corporationModel.imageUrl == null || widget.corporationModel.imageUrl.isEmpty ){
+      img = Icon(
+        Icons.home_filled,
+        size: 150.0,
+        color: Colors.redAccent,
+      );
+    }
+
     return Scaffold(
         appBar: AppBarMenu(pageName: widget.corporationModel.corporationName, isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: SingleChildScrollView(
@@ -188,47 +238,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             Column(
                 children: <Widget>[
                   SizedBox(height: 10.0),
-                  Stack(
-                    children: <Widget>[
-                      Container(
-                        height: MediaQuery.of(context).size.height / 3.2,
-                        width: MediaQuery.of(context).size.width,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          //       !loading ? HomeCarousel(homeManager) : Center(child:ProgressIndicator())
-                          child: Swiper(
-                            itemBuilder: (BuildContext context,int index){
-                              return Image.network(imageList[index],fit: BoxFit.fill,);
-                            },
-                            itemCount: imageList.length,
-                            pagination: SwiperPagination(),
-                            control: SwiperControl(),
-                            autoplay: true,
-                          ),
-                        ),
-                      ),
-                      Positioned(
-                        right: -10.0,
-                        bottom: 3.0,
-                        child: RawMaterialButton(
-                          onPressed: () {
-                            editUserFavProduct();
-                          },
-                          fillColor: Colors.white,
-                          shape: CircleBorder(),
-                          elevation: 4.0,
-                          child: Padding(
-                            padding: EdgeInsets.all(5),
-                            child: Icon(
-                              isFavorite ? Icons.favorite : Icons.favorite_border,
-                              color: Colors.red,
-                              size: 17,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  img,
                   SizedBox(height:MediaQuery.of(context).size.height/50,),
                   Text(
                     widget.corporationModel.corporationName,

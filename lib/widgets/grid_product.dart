@@ -52,7 +52,18 @@ class _GridProductState extends State<GridProduct> {
 
   @override
   Widget build(BuildContext context) {
+    Widget img = Image.network(
+      "${widget.img}",
+      fit: BoxFit.cover,
+    );
     isFavorite =  ApplicationSession.isCorporationFavorite(widget.corporationId);
+    if(widget.img == null ||widget.img.isEmpty ){
+      img = Icon(
+        Icons.home_filled,
+        size: 150.0,
+        color: Colors.redAccent,
+      );
+    }
     return InkWell(
       child: ListView(
         shrinkWrap: true,
@@ -65,10 +76,7 @@ class _GridProductState extends State<GridProduct> {
                 width: MediaQuery.of(context).size.width / 2.2,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    "${widget.img}",
-                    fit: BoxFit.cover,
-                  ),
+                  child: img,
                 ),
               ),
               Positioned(
