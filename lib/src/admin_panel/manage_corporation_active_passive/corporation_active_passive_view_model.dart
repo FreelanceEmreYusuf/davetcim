@@ -20,4 +20,14 @@ class CorporationActivePassiveViewModel extends ChangeNotifier {
 
     db.editCollectionRef(DBConstants.corporationDb, corporationModel.toMap());
   }
+
+  Future<void> editCorporationPopularity(CorporationModel corporationModel) async {
+    if (corporationModel.isPopularCorporation) {
+      corporationModel.isPopularCorporation = false;
+    } else {
+      corporationModel.isPopularCorporation = true;
+    }
+
+    db.editCollectionRef(DBConstants.corporationDb, corporationModel.toMap());
+  }
 }

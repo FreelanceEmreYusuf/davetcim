@@ -33,42 +33,64 @@ class _GridCorporateActivePassiveState
     Row row;
 
     String buttonText = 'Pasif Yap';
-    Color buttonColor = Colors.blue;
+    Color buttonColor = Colors.grey;
     if (!widget.corporationModel.isActive) {
       buttonText = 'Aktif Yap';
       buttonColor = Colors.green;
     }
 
+    String buttonTextForPopular = 'Normal Yap';
+    Color buttonColorForPopular = Colors.deepOrangeAccent;
+    if (!widget.corporationModel.isPopularCorporation) {
+      buttonTextForPopular = 'Popular Yap';
+      buttonColorForPopular = Colors.redAccent;
+    }
+
     row = Row(
       children: [
-        Text(
-            widget.corporationModel.corporationName, style: TextStyle(
-            fontSize: 18,
-            color: Colors.green,
-            fontStyle: FontStyle.italic,
-            fontWeight: FontWeight.bold)),
+        Expanded(
+          child: Text(
+              widget.corporationModel.corporationName, style: TextStyle(
+              fontSize: 18,
+              color: Colors.green,
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.bold)),
+        ),
         Spacer(),
-        SizedBox.fromSize(
-          size: Size(MediaQuery
-              .of(context)
-              .size
-              .height / 10, MediaQuery
-              .of(context)
-              .size
-              .height / 10), // button width and height
+        Expanded(
+            child: ClipPath(
+              child: Material(
+                color: buttonColor, // button color
+                child: InkWell(
+                  splashColor: Colors.deepOrangeAccent, // splash color
+                  onTap: () async {
+                    await updateCorporationActivePassive(widget.corporationModel);
+                  }, // button pressed
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.update, color: Colors.white), // icon
+                      Text(buttonText, style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        Expanded(
           child: ClipPath(
             child: Material(
-              color: buttonColor, // button color
+              color: buttonColorForPopular, // button color
               child: InkWell(
                 splashColor: Colors.deepOrangeAccent, // splash color
                 onTap: () async {
-                  await updateCorporationActivePassive(widget.corporationModel);
+                  await updateCorporationPopularity(widget.corporationModel);
                 }, // button pressed
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.update, color: Colors.white), // icon
-                    Text(buttonText, style: TextStyle(color: Colors.white)),
+                    Icon(Icons.whatshot, color: Colors.white), // icon
+                    Text(buttonTextForPopular, style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
@@ -105,6 +127,12 @@ class _GridCorporateActivePassiveState
   Future<void> updateCorporationActivePassive(CorporationModel corporationModel) async {
     CorporationActivePassiveViewModel corporationActivePassiveViewModel = CorporationActivePassiveViewModel();
     await corporationActivePassiveViewModel.editCorporationActivePassive(corporationModel);
+    Utils.navigateToPage(context, CorporationActivePassiveView());
+  }
+
+  Future<void> updateCorporationPopularity(CorporationModel corporationModel) async {
+    CorporationActivePassiveViewModel editCorporationPopularity = CorporationActivePassiveViewModel();
+    await editCorporationPopularity.editCorporationPopularity(corporationModel);
     Utils.navigateToPage(context, CorporationActivePassiveView());
   }
 
