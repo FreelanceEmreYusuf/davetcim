@@ -44,7 +44,7 @@ class _AppBarMenu extends State<AppBarMenu> {
   }
 
   static void pushToJoinPage(BuildContext context) {
-    Utils.navigateToPage(context, JoinView(childPage: new Notifications()));
+    Utils.navigateToPage(context, JoinView(childPage: new NotificationsView()));
   }
 
   @override
