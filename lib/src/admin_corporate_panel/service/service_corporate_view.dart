@@ -35,7 +35,7 @@ class _AdminCorporateServicePoolManagerState extends State<AdminCorporateService
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarMenu(pageName: "Hizmet Havuzu", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: "Salon Hizmet Havuzu", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(

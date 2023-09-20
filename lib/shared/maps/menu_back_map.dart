@@ -6,6 +6,7 @@ Map<String, Widget> menuBackMap =
   'Davetçim': null,
   'Admin Paneli': null,
   'Firma Aktif/Pasif Yönet': AdminPanelPage(),
+  'Hizmet Havuzu': AdminPanelPage(),
 };
 
 
