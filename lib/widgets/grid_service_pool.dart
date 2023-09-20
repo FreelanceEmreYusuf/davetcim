@@ -39,63 +39,69 @@ class _GridServicePoolState
       _paddingLeftValue = MediaQuery.of(context).size.height / 15;
     }
 
-    Row row;
+    Widget row;
     if(widget.servicePoolModel.hasChild){
-      row = Row(
-        children: [
-          Text(
-              widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
-          Spacer(),
-          SizedBox.fromSize(
-            size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
-            child: ClipPath(
-              child: Material(
-                color: Colors.green, // button color
-                child: InkWell(
-                  splashColor: Colors.lightGreen, // splash color
-                  onTap: () {
-                    Utils.navigateToPage(context, ServiceAddView(servicePoolModel : widget.servicePoolModel));
-                  }, // button pressed
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.add, color: Colors.white), // icon
-                      Text("Ekle", style: TextStyle(color: Colors.white)),
-                    ],
+      row = Container(
+        constraints: BoxConstraints.expand(),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: Text(
+                      widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+                ),
+                Spacer(),
+                SizedBox.fromSize(
+                  size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
+                  child: ClipPath(
+                    child: Material(
+                      color: Colors.green, // button color
+                      child: InkWell(
+                        splashColor: Colors.lightGreen, // splash color
+                        onTap: () {
+                          Utils.navigateToPage(context, ServiceAddView(servicePoolModel : widget.servicePoolModel));
+                        }, // button pressed
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.add, color: Colors.white), // icon
+                            Text("Ekle", style: TextStyle(color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          SizedBox.fromSize(
-            size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
-            child: ClipPath(
-              child: Material(
-                color: Colors.red, // button color
-                child: InkWell(
-                  splashColor: Colors.redAccent, // splash color
-                  onTap: () async{
-                    await Dialogs.showDialogMessage(
-                        context,
-                        LanguageConstants
-                            .processApproveHeader[LanguageConstants.languageFlag],
-                        LanguageConstants.processApproveDeleteMessage[
-                        LanguageConstants.languageFlag],
-                        deleteService, '');
+                SizedBox.fromSize(
+                  size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
+                  child: ClipPath(
+                    child: Material(
+                      color: Colors.red, // button color
+                      child: InkWell(
+                        splashColor: Colors.redAccent, // splash color
+                        onTap: () async{
+                          await Dialogs.showDialogMessage(
+                              context,
+                              LanguageConstants
+                                  .processApproveHeader[LanguageConstants.languageFlag],
+                              LanguageConstants.processApproveDeleteMessage[
+                              LanguageConstants.languageFlag],
+                              deleteService, '');
 
-                  }, // button pressed
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.delete, color: Colors.white), // icon
-                      Text("Sil", style: TextStyle(color: Colors.white)),
-                    ],
+                        }, // button pressed
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.delete, color: Colors.white), // icon
+                            Text("Sil", style: TextStyle(color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
-          )
-        ],
+                )
+              ],
+        ),
       );
     }
     else
