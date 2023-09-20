@@ -105,16 +105,46 @@ class _ProfileState extends State<Profile> {
             ),
             ListTile(
               title: Text(
-                "Ad Soyad",
+                "Ad",
                 style: TextStyle(
                   fontSize: 17,
                   fontWeight: FontWeight.w700,
                 ),
               ),
               subtitle: Text(
-                ApplicationSession.userSession.name +
-                    " " +
-                    ApplicationSession.userSession.surname,
+                ApplicationSession.userSession.name ,
+              ),
+              trailing: IconButton(
+                icon: Icon(
+                  Icons.edit,
+                  size: 20.0,
+                ),
+                onPressed: () {
+
+
+
+
+                  /*Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return CustomerListScreen();
+                      },
+                    ),
+                  );*/
+                },
+                tooltip: "Düzenle",
+              ),
+            ),
+            ListTile(
+              title: Text(
+                "Soyad",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              subtitle: Text(
+                ApplicationSession.userSession.surname,
               ),
               trailing: IconButton(
                 icon: Icon(
@@ -201,6 +231,7 @@ class _ProfileState extends State<Profile> {
                 tooltip: "Düzenle",
               ),
             ),
+
             MediaQuery.of(context).platformBrightness == Brightness.dark
                 ? SizedBox()
                 : ListTile(
