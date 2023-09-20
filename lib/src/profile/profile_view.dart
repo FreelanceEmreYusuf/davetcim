@@ -2,6 +2,7 @@ import 'package:davetcim/shared/helpers/customer_helper.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:davetcim/providers/app_provider.dart';
 import 'package:davetcim/src/splash/splash_view.dart';
@@ -20,6 +21,7 @@ class _ProfileState extends State<Profile> {
   String surname;
   String gsmNo;
   String email;
+  bool passwordWidget = false;
 
   @override
   void initState() {
@@ -173,7 +175,7 @@ class _ProfileState extends State<Profile> {
                 onPressed: () {
                   Dialogs.showDialogMessageWithInputBox(context, "İsim Güncelle", "Vazgeç", "Onayla", name, 2, editCustomerName);
                 },
-                tooltip: "Düzenle",
+                tooltip: "Ad Güncelle",
               ),
             ),
             ListTile(
@@ -195,7 +197,7 @@ class _ProfileState extends State<Profile> {
                 onPressed: () {
                   Dialogs.showDialogMessageWithInputBox(context, "Soyisim Güncelle", "Vazgeç", "Onayla", surname, 2, editCustomerSurname);
                 },
-                tooltip: "Düzenle",
+                tooltip: "Soyad Güncelle",
               ),
             ),
             ListTile(
@@ -217,7 +219,7 @@ class _ProfileState extends State<Profile> {
                 onPressed: () {
                   Dialogs.showDialogMessageWithInputBox(context, "Email Güncelle", "Vazgeç", "Onayla", email, 2, editCustomerEmail);
                 },
-                tooltip: "Düzenle",
+                tooltip: "Email Güncelle",
               ),
             ),
             ListTile(
@@ -239,9 +241,164 @@ class _ProfileState extends State<Profile> {
                 onPressed: () {
                   Dialogs.showDialogMessageWithInputBox(context, "Telefon Güncelle", "Vazgeç", "Onayla", gsmNo, 2,  editCustomerGSMNo);
                 },
-                tooltip: "Düzenle",
+                tooltip: "Telefon Numarası Güncelle",
               ),
             ),
+            ListTile(
+              title: Text(
+                "Şifre Güncelle",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              subtitle: Text(
+                "Min 8 karakter",
+              ),
+              trailing: IconButton(
+                icon: Icon(
+                  Icons.edit,
+                  size: 20.0,
+                ),
+                onPressed: () {
+                  setState(() {
+                    passwordWidget = !passwordWidget;
+                  });
+                  //Dialogs.showDialogMessageWithInputBox(context, "Telefon Güncelle", "Vazgeç", "Onayla", gsmNo, 2,  editCustomerGSMNo);
+                },
+                tooltip: "Şifre Değiştir",
+              ),
+            ),
+            Visibility(
+              visible: passwordWidget,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          bottomRight: Radius.circular(40)),
+                      color: Colors.redAccent),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: <Widget>[
+                        SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                        Card(
+                          elevation: 10.0,
+                          child: TextFormField(
+                            style: TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.black,
+                            ),
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              labelText: "Eski Parola",
+                              filled: true,
+                              fillColor: Colors.white,
+                              focusColor: Colors.blue,
+                              prefixIcon: Icon(
+                                Icons.perm_identity,
+                                color: Colors.black,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            //controller: _nameControl,
+                            /*validator: (name) {
+                              return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(name));
+                            },*/
+                            maxLines: 1,
+                          ),//İsim
+                        ),
+
+                        SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                        Card(
+                          elevation: 10.0,
+                          child: TextFormField(
+                            style: TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.black,
+                            ),
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              labelText: "Yeni Parola",
+                              filled: true,
+                              fillColor: Colors.white,
+                              focusColor: Colors.blue,
+                              prefixIcon: Icon(
+                                Icons.perm_identity,
+                                color: Colors.black,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            //controller: _nameControl,
+                            /*validator: (name) {
+                              return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(name));
+                            },*/
+                            maxLines: 1,
+                          ),//İsim
+                        ),
+
+                        SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                        Card(
+                          elevation: 10.0,
+                          child: TextFormField(
+                            style: TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.black,
+                            ),
+                            decoration: InputDecoration(
+                              contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                              labelText: "Yeni Parola Tekrar",
+                              filled: true,
+                              fillColor: Colors.white,
+                              focusColor: Colors.blue,
+                              prefixIcon: Icon(
+                                Icons.perm_identity,
+                                color: Colors.black,
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                                borderSide: BorderSide(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                            //controller: _nameControl,
+                            /*validator: (name) {
+                              return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(name));
+                            },*/
+                            maxLines: 1,
+                          ),
+                        ),
+
+                        SizedBox(height: MediaQuery.of(context).size.height / 25,),
+                        MaterialButton(
+                          textColor: Colors.redAccent,
+                          color: Colors.white,
+                          child: Text('Güncelle'),
+                          onPressed: () {
+
+                          },
+                        )
+
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
 
             MediaQuery.of(context).platformBrightness == Brightness.dark
                 ? SizedBox()
