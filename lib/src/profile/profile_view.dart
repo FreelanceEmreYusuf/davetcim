@@ -6,8 +6,6 @@ import 'package:davetcim/providers/app_provider.dart';
 import 'package:davetcim/src/splash/splash_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 
-import '../../widgets/app_bar/app_bar_view.dart';
-
 class Profile extends StatefulWidget {
   @override
   _ProfileState createState() => _ProfileState();
@@ -17,7 +15,6 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: AppBarMenu(pageName: "Profilim", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(
@@ -27,11 +24,10 @@ class _ProfileState extends State<Profile> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: Image.asset(
-                    "assets/avatar.jpg",
-                    fit: BoxFit.cover,
-                    width: 100.0,
-                    height: 100.0,
+                  child: Icon(
+                    Icons.person,
+                    color: Colors.redAccent,
+                    size: MediaQuery.of(context).size.height / 6,
                   ),
                 ),
                 Expanded(
@@ -126,13 +122,17 @@ class _ProfileState extends State<Profile> {
                   size: 20.0,
                 ),
                 onPressed: () {
-                  Navigator.of(context).push(
+
+
+
+
+                  /*Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (BuildContext context) {
                         return CustomerListScreen();
                       },
                     ),
-                  );
+                  );*/
                 },
                 tooltip: "Düzenle",
               ),
@@ -148,6 +148,26 @@ class _ProfileState extends State<Profile> {
               subtitle: Text(
                 ApplicationSession.userSession.eMail,
               ),
+              trailing: IconButton(
+                icon: Icon(
+                  Icons.edit,
+                  size: 20.0,
+                ),
+                onPressed: () {
+
+
+
+
+                  /*Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return CustomerListScreen();
+                      },
+                    ),
+                  );*/
+                },
+                tooltip: "Düzenle",
+              ),
             ),
             ListTile(
               title: Text(
@@ -159,6 +179,26 @@ class _ProfileState extends State<Profile> {
               ),
               subtitle: Text(
                 ApplicationSession.userSession.gsmNo,
+              ),
+              trailing: IconButton(
+                icon: Icon(
+                  Icons.edit,
+                  size: 20.0,
+                ),
+                onPressed: () {
+
+
+
+
+                  /*Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return CustomerListScreen();
+                      },
+                    ),
+                  );*/
+                },
+                tooltip: "Düzenle",
               ),
             ),
             MediaQuery.of(context).platformBrightness == Brightness.dark
