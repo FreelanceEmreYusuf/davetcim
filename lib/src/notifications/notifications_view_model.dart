@@ -78,9 +78,8 @@ class NotificationsViewModel extends ChangeNotifier {
       if (list.length > 0) {
         CustomerModel customer = CustomerModel.fromMap(list[0].data());
         int notificationCount = customer.notificationCount - 1;
-        Map<String, dynamic> customerMap = customer.toMap();
-        customerMap['notificationCount'] = notificationCount;
-        db.editCollectionRef("Customer", customerMap);
+        customer.notificationCount = notificationCount;
+        db.editCollectionRef(DBConstants.customerDB, customer.toMap());
         ApplicationSession.notificationCount = notificationCount;
       }
     }

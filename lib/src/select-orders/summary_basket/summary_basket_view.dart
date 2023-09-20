@@ -312,7 +312,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
             SummaryBasketViewModel summaryBasketViewModel = SummaryBasketViewModel();
             int minReservationAmount = await summaryBasketViewModel.getMinReservationAmount(widget.basketModel.corporationId);
             if (minReservationAmount < calculateTotalPrice()) {
-              Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", createReservationRequest);
+              Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", "İptal", "Sepeti Onayla", "Mesajınızı Girin", 10,  createReservationRequest);
             } else {
               Dialogs.showAlertMessageWithAction(
                   context,

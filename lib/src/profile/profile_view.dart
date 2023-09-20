@@ -1,10 +1,13 @@
+import 'package:davetcim/shared/helpers/customer_helper.dart';
+import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
-import 'package:davetcim/src/customer_list/customer_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:davetcim/providers/app_provider.dart';
 import 'package:davetcim/src/splash/splash_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
+
+import '../../shared/utils/dialogs.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -12,6 +15,54 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
+  String name;
+  String surname;
+  String gsmNo;
+  String email;
+
+  @override
+  void initState() {
+    name = ApplicationSession.userSession.name;
+    surname = ApplicationSession.userSession.surname;
+    gsmNo = ApplicationSession.userSession.gsmNo;
+    email = ApplicationSession.userSession.eMail;
+    // TODO: implement initState
+    super.initState();
+  }
+
+  void editCustomerName(String inputName) async {
+    CustomerHelper customerHelper = CustomerHelper();
+    await customerHelper.editCustomer(inputName, surname, email, gsmNo);
+    setState(() {
+      name = ApplicationSession.userSession.name;
+    });
+  }
+
+  void editCustomerSurname(String inputSurname) async {
+    CustomerHelper customerHelper = CustomerHelper();
+    await customerHelper.editCustomer(name, inputSurname, email, gsmNo);
+    setState(() {
+      surname = ApplicationSession.userSession.surname;
+    });
+  }
+
+  void editCustomerGSMNo(String inputGsm) async {
+    CustomerHelper customerHelper = CustomerHelper();
+    await customerHelper.editCustomer(name, surname, email, inputGsm);
+    setState(() {
+      gsmNo = ApplicationSession.userSession.gsmNo;
+    });
+  }
+
+  void editCustomerEmail(String inputEmail) async {
+    CustomerHelper customerHelper = CustomerHelper();
+    await customerHelper.editCustomer(name, surname, inputEmail, gsmNo);
+    setState(() {
+      email = ApplicationSession.userSession.eMail;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -112,7 +163,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               subtitle: Text(
-                ApplicationSession.userSession.name ,
+                name ,
               ),
               trailing: IconButton(
                 icon: Icon(
@@ -120,17 +171,7 @@ class _ProfileState extends State<Profile> {
                   size: 20.0,
                 ),
                 onPressed: () {
-
-
-
-
-                  /*Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return CustomerListScreen();
-                      },
-                    ),
-                  );*/
+                  Dialogs.showDialogMessageWithInputBox(context, "İsim Güncelle", "Vazgeç", "Onayla", name, 2, editCustomerName);
                 },
                 tooltip: "Düzenle",
               ),
@@ -144,7 +185,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               subtitle: Text(
-                ApplicationSession.userSession.surname,
+                surname,
               ),
               trailing: IconButton(
                 icon: Icon(
@@ -152,17 +193,7 @@ class _ProfileState extends State<Profile> {
                   size: 20.0,
                 ),
                 onPressed: () {
-
-
-
-
-                  /*Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return CustomerListScreen();
-                      },
-                    ),
-                  );*/
+                  Dialogs.showDialogMessageWithInputBox(context, "Soyisim Güncelle", "Vazgeç", "Onayla", surname, 2, editCustomerSurname);
                 },
                 tooltip: "Düzenle",
               ),
@@ -176,7 +207,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               subtitle: Text(
-                ApplicationSession.userSession.eMail,
+                email,
               ),
               trailing: IconButton(
                 icon: Icon(
@@ -184,17 +215,7 @@ class _ProfileState extends State<Profile> {
                   size: 20.0,
                 ),
                 onPressed: () {
-
-
-
-
-                  /*Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return CustomerListScreen();
-                      },
-                    ),
-                  );*/
+                  Dialogs.showDialogMessageWithInputBox(context, "Email Güncelle", "Vazgeç", "Onayla", email, 2, editCustomerEmail);
                 },
                 tooltip: "Düzenle",
               ),
@@ -208,7 +229,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               subtitle: Text(
-                ApplicationSession.userSession.gsmNo,
+                gsmNo,
               ),
               trailing: IconButton(
                 icon: Icon(
@@ -216,17 +237,7 @@ class _ProfileState extends State<Profile> {
                   size: 20.0,
                 ),
                 onPressed: () {
-
-
-
-
-                  /*Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return CustomerListScreen();
-                      },
-                    ),
-                  );*/
+                  Dialogs.showDialogMessageWithInputBox(context, "Telefon Güncelle", "Vazgeç", "Onayla", gsmNo, 2,  editCustomerGSMNo);
                 },
                 tooltip: "Düzenle",
               ),

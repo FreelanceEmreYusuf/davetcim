@@ -6,20 +6,20 @@ import '../enums/customer_role_enum.dart';
 
 class CustomerModel {
   final int id;
-  final String name;
-  final String surname;
-  final String gsmNo;
-  final int corporationId;
-  final CustomerRoleEnum roleId;
-  final bool isActive;
-  final String username;
-  final String password;
-  final String eMail;
-  final int secretQuestionId;
-  final String secretQuestionAnswer;
-  final int notificationCount;
-  final int basketCount;
-  final Timestamp recordDate;
+  String name;
+  String surname;
+  String gsmNo;
+  int corporationId;
+  CustomerRoleEnum roleId;
+  bool isActive;
+  String username;
+  String password;
+  String eMail;
+  int secretQuestionId;
+  String secretQuestionAnswer;
+  int notificationCount;
+  int basketCount;
+  Timestamp recordDate;
 
   CustomerModel(
       {this.id,

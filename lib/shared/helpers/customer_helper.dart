@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/shared/services/database.dart';
+import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/shared/utils/language.dart';
 
 import '../environments/db_constants.dart';
@@ -22,6 +23,20 @@ class CustomerHelper {
     }
 
     return null;
+  }
+
+  Future<void> editCustomer(String name, String surname, String email, String gsmNo) async {
+    Database db = Database();
+    CustomerModel customerModel = await getCustomer(ApplicationSession.userSession.id);
+    customerModel.name = name;
+    customerModel.surname = surname;
+    customerModel.eMail = email;
+    customerModel.gsmNo = gsmNo;
+    ApplicationSession.userSession.gsmNo = gsmNo;
+    ApplicationSession.userSession.name = name;
+    ApplicationSession.userSession.surname = surname;
+    ApplicationSession.userSession.eMail = email;
+    await db.editCollectionRef(DBConstants.customerDB, customerModel.toMap());
   }
 
   static Future<String> getUserExistingControlWithUserName(

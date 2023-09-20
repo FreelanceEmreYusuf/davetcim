@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -222,18 +223,18 @@ class Dialogs {
     );
   }
 
-  static showDialogMessageWithInputBox(BuildContext context, String title,
-      Function method) {
+  static showDialogMessageWithInputBox(BuildContext context, String title, String cancelButtonText,
+      String okButtonText, String labelText, int maxLines, Function method) {
     final TextEditingController inputMessageControl = new TextEditingController();
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: Text("İptal"),
+      child: Text(cancelButtonText),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
       },
     );
     Widget continueButton = TextButton(
-      child: Text("Sepeti Onayla"),
+      child: Text(okButtonText),
       onPressed: () {
         method(inputMessageControl.text);
         Navigator.of(context, rootNavigator: true).pop();
@@ -250,7 +251,7 @@ class Dialogs {
         ),
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-          labelText: "Mesajınızı Girin",
+          labelText: labelText,
           filled: true,
           fillColor: Colors.white,
           focusColor: Colors.blue,
@@ -266,7 +267,7 @@ class Dialogs {
           ),
         ),
         controller: inputMessageControl,
-        maxLines: 10,
+        maxLines: maxLines,
       ),
       actions: [
         cancelButton,
