@@ -159,10 +159,12 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                   color: Colors.white54,
                   child: Row(
                     children: [
-                      Text(
-                          "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
-                              +"\n\nSeans : "+detailResponse.sessionModel.name,
-                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                      Expanded(
+                        child: Text(
+                            "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
+                                +"\n\nSeans : "+detailResponse.sessionModel.name,
+                            style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                        ),
                       ),
                       Spacer(),
                       SizedBox.fromSize(

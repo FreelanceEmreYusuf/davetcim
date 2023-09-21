@@ -67,6 +67,15 @@ class _OrderScreenState extends State<OrderScreen>
   Widget build(BuildContext context) {
     super.build(context);
 
+    if (widget.basketModel.sequenceOrderList.isEmpty ||
+      widget.basketModel.invitationList.isEmpty) {
+      return Scaffold(appBar:
+      AppBarMenu(pageName: "Salon Özellikleri", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+          body: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+              child: Center(child: CircularProgressIndicator())));
+    }
+
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
