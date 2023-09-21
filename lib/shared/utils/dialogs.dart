@@ -244,30 +244,33 @@ class Dialogs {
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(title),
-      content: TextFormField(
-        style: TextStyle(
-          fontSize: 15.0,
-          color: Colors.black,
-        ),
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-          labelText: labelText,
-          filled: true,
-          fillColor: Colors.white,
-          focusColor: Colors.blue,
-          prefixIcon: Icon(
-            Icons.message,
+      content: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: TextFormField(
+          style: TextStyle(
+            fontSize: 15.0,
             color: Colors.black,
           ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5.0),
-            borderSide: BorderSide(
-              color: Colors.white,
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+            labelText: labelText,
+            filled: true,
+            fillColor: Colors.white,
+            focusColor: Colors.blue,
+            prefixIcon: Icon(
+              Icons.message,
+              color: Colors.black,
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: BorderSide(
+                color: Colors.white,
+              ),
             ),
           ),
+          controller: inputMessageControl,
+          maxLines: maxLines,
         ),
-        controller: inputMessageControl,
-        maxLines: maxLines,
       ),
       actions: [
         cancelButton,
