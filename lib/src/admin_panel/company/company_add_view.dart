@@ -64,7 +64,8 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                 ),
                 controller: firmNameControl,
                 validator: (name) {
-                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(name));
+                  return FormControlUtil.getErrorControl(
+                      FormControlUtil.getStringLenghtBetweenMinandMaxControl(name, 3, 15));
                 },
                 maxLines: 1,
               ),//Firma İsimi
@@ -93,7 +94,8 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                 ),
                 controller: nameControl,
                 validator: (name) {
-                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(name));
+                  return FormControlUtil.getErrorControl(
+                      FormControlUtil.getStringLenghtBetweenMinandMaxControl(name, 3, 15));
                 },
                 maxLines: 1,
               ),//İsim
@@ -122,7 +124,8 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                 ),
                 controller: surnameControl,
                 validator: (surname) {
-                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(surname));
+                  return FormControlUtil.getErrorControl(
+                      FormControlUtil.getStringLenghtBetweenMinandMaxControl(surname, 2, 15));
                 },
                 maxLines: 1,
               ),//Soyisim
@@ -151,7 +154,8 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                 ),
                 controller: usernameControl,
                 validator: (userName) {
-                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(userName));
+                  return FormControlUtil.getErrorControl(
+                      FormControlUtil.getStringLenghtBetweenMinandMaxControl(userName, 3, 15));
                 },
                 maxLines: 1,
               ),
