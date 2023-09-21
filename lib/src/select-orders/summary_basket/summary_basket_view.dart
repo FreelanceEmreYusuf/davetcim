@@ -3,6 +3,7 @@ import 'package:davetcim/src/select-orders/summary_basket/summary_basket_view_mo
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/dto/basket_user_dto.dart';
+import '../../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
 import '../../../shared/sessions/user_basket_session.dart';
@@ -312,7 +313,8 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
             SummaryBasketViewModel summaryBasketViewModel = SummaryBasketViewModel();
             int minReservationAmount = await summaryBasketViewModel.getMinReservationAmount(widget.basketModel.corporationId);
             if (minReservationAmount < calculateTotalPrice()) {
-              Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", "İptal", "Sepeti Onayla", "Mesajınızı Girin", 10,  createReservationRequest);
+              Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", "İptal", "Sepeti Onayla", "Mesajınızı Girin", 10,
+                  createReservationRequest, DailogInmputValidatorTypeEnum.richText);
             } else {
               Dialogs.showAlertMessageWithAction(
                   context,

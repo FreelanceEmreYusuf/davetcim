@@ -1,6 +1,7 @@
 import 'package:davetcim/shared/helpers/customer_helper.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/src/join/forgotPasswd/reset_password_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +9,9 @@ import 'package:davetcim/providers/app_provider.dart';
 import 'package:davetcim/src/splash/splash_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 
+import '../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../shared/utils/dialogs.dart';
+import '../../shared/utils/form_control.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -21,6 +24,11 @@ class _ProfileState extends State<Profile> {
   String surname;
   String gsmNo;
   String email;
+
+  final forgotPasswordForm = GlobalKey <FormState> ();
+  final TextEditingController oldPasswordControl = new TextEditingController();
+  final TextEditingController passwordControl = new TextEditingController();
+  final TextEditingController passwordAgainControl = new TextEditingController();
 
   @override
   void initState() {
@@ -172,7 +180,8 @@ class _ProfileState extends State<Profile> {
                   size: 20.0,
                 ),
                 onPressed: () {
-                  Dialogs.showDialogMessageWithInputBox(context, "İsim Güncelle", "Vazgeç", "Onayla", name, 2, editCustomerName);
+                  Dialogs.showDialogMessageWithInputBox(context, "İsim Güncelle", "Vazgeç", "Onayla", name, 2,
+                      editCustomerName, DailogInmputValidatorTypeEnum.name);
                 },
                 tooltip: "Ad Güncelle",
               ),
@@ -194,7 +203,8 @@ class _ProfileState extends State<Profile> {
                   size: 20.0,
                 ),
                 onPressed: () {
-                  Dialogs.showDialogMessageWithInputBox(context, "Soyisim Güncelle", "Vazgeç", "Onayla", surname, 2, editCustomerSurname);
+                  Dialogs.showDialogMessageWithInputBox(context, "Soyisim Güncelle", "Vazgeç", "Onayla", surname, 2,
+                      editCustomerSurname, DailogInmputValidatorTypeEnum.name);
                 },
                 tooltip: "Soyad Güncelle",
               ),
@@ -216,7 +226,8 @@ class _ProfileState extends State<Profile> {
                   size: 20.0,
                 ),
                 onPressed: () {
-                  Dialogs.showDialogMessageWithInputBox(context, "Email Güncelle", "Vazgeç", "Onayla", email, 2, editCustomerEmail);
+                  Dialogs.showDialogMessageWithInputBox(context, "Email Güncelle", "Vazgeç", "Onayla", email, 2,
+                      editCustomerEmail, DailogInmputValidatorTypeEnum.email);
                 },
                 tooltip: "Email Güncelle",
               ),
@@ -238,7 +249,8 @@ class _ProfileState extends State<Profile> {
                   size: 20.0,
                 ),
                 onPressed: () {
-                  Dialogs.showDialogMessageWithInputBox(context, "Telefon Güncelle", "Vazgeç", "Onayla", gsmNo, 2,  editCustomerGSMNo);
+                  Dialogs.showDialogMessageWithInputBox(context, "Telefon Güncelle", "Vazgeç", "Onayla", gsmNo, 2,
+                      editCustomerGSMNo, DailogInmputValidatorTypeEnum.telephone);
                 },
                 tooltip: "Telefon Numarası Güncelle",
               ),
@@ -269,21 +281,31 @@ class _ProfileState extends State<Profile> {
                           content: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Form(
+                              key: forgotPasswordForm,
                               child: Column(
                                 children: <Widget>[
                                   TextFormField(
+                                    controller:  oldPasswordControl,
+                                    validator: (password) {
+                                      return FormControlUtil.getErrorControl(FormControlUtil.getPasswordCompareControl(oldPasswordControl.text, ApplicationSession.userSession.password));
+                                    },
                                     decoration: InputDecoration(
                                       labelText: 'Eski Şifre',
                                       icon: Icon(Icons.person_remove),
                                     ),
                                   ),
                                   TextFormField(
+                                    controller:  passwordControl,
                                     decoration: InputDecoration(
                                       labelText: 'Yeni Şifre',
                                       icon: Icon(Icons.person),
                                     ),
                                   ),
                                   TextFormField(
+                                    controller:  passwordAgainControl,
+                                    validator: (email) {
+                                      return FormControlUtil.getErrorControl(FormControlUtil.getPasswordCompareControl(passwordControl.text, passwordAgainControl.text));
+                                    },
                                     decoration: InputDecoration(
                                       labelText: 'Yeni Şifre Tekrar',
                                       icon: Icon(Icons.person_add_alt_1 ),
@@ -297,7 +319,7 @@ class _ProfileState extends State<Profile> {
                             MaterialButton(
                                 child: Text("Reddet"),
                                 onPressed: () {
-                                  // your code
+                                  Navigator.of(context, rootNavigator: true).pop();
                                 },
                             elevation: 10,
                               splashColor: Colors.blue,
@@ -306,7 +328,11 @@ class _ProfileState extends State<Profile> {
                             MaterialButton(
                               child: Text("Onayla"),
                               onPressed: () {
-                                // your code
+                                if (forgotPasswordForm.currentState.validate()) {
+                                  ResetPasswdViewModel rpvm = ResetPasswdViewModel();
+                                  rpvm.userResetPassword(context, ApplicationSession.userSession.id, passwordControl.text);
+                                  Navigator.of(context, rootNavigator: true).pop();
+                                }
                               },
                               elevation: 10,
                               splashColor: Colors.green,

@@ -53,7 +53,8 @@ class LoginViewModel extends ChangeNotifier {
         customer.roleId,
         customer.isActive,
         customer.username,
-        customer.eMail);
+        customer.eMail,
+        customer.password);
     ApplicationSession.notificationCount = customer.notificationCount;
     ApplicationSession.basketCount = customer.basketCount;
 

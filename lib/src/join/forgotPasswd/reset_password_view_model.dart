@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
+import 'package:davetcim/shared/helpers/customer_helper.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/models/secret_questions_model.dart';
 import 'package:davetcim/shared/services/database.dart';
@@ -14,8 +15,11 @@ import '../join_view.dart';
 class ResetPasswdViewModel extends ChangeNotifier {
   Database db = Database();
 
-  Future<void> userChangePassword(int customerId, String password) {
-    //Customer
+  Future<void> userResetPassword(BuildContext context, int customerId, String password) async {
+    CustomerHelper customerHelper = CustomerHelper();
+    CustomerModel customer = await customerHelper.getCustomer(customerId);
+    customer.password = password;
+    db.editCollectionRef(DBConstants.customerDB, customer.toMap());
   }
 
   Future<bool> userResetPasswordFlow(

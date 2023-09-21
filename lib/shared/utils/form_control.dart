@@ -96,13 +96,10 @@ class FormControlUtil{
       return errorMessage;
     }
 
-    print(password);
-    print(passwordAgain);
     if (password != passwordAgain) {
       errorMessage = LanguageConstants.dialogResetPasswordUnSuccessPasswordMessage[LanguageConstants.languageFlag];
     }
 
-    print(errorMessage);
     return errorMessage;
   }
 

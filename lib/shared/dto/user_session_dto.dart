@@ -10,6 +10,7 @@ class UserSessionDto {
   bool isActive;
   String username;
   String eMail;
+  String password;
 
   UserSessionDto(
       this.id,
@@ -20,5 +21,6 @@ class UserSessionDto {
       this.roleId,
       this.isActive,
       this.username,
-      this.eMail);
+      this.eMail,
+      this.password);
 }

@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../src/join/join_view.dart';
+import '../enums/dialog_input_validator_type_enum.dart';
 import 'language.dart';
 
 class Dialogs {
@@ -224,8 +226,9 @@ class Dialogs {
   }
 
   static showDialogMessageWithInputBox(BuildContext context, String title, String cancelButtonText,
-      String okButtonText, String labelText, int maxLines, Function method) {
+      String okButtonText, String labelText, int maxLines, Function method, DailogInmputValidatorTypeEnum validationType) {
     final TextEditingController inputMessageControl = new TextEditingController();
+    final registerFormKey = GlobalKey <FormState> ();
     // set up the buttons
     Widget cancelButton = TextButton(
       child: Text(cancelButtonText),
@@ -236,40 +239,70 @@ class Dialogs {
     Widget continueButton = TextButton(
       child: Text(okButtonText),
       onPressed: () {
-        method(inputMessageControl.text);
-        Navigator.of(context, rootNavigator: true).pop();
+        if (registerFormKey.currentState.validate()) {
+          method(inputMessageControl.text);
+          Navigator.of(context, rootNavigator: true).pop();
+        }
       },
     );
+
+    FormFieldValidator<String> validator;
+    TextInputType inputType = TextInputType.text;
+    if (validationType == DailogInmputValidatorTypeEnum.name) {
+      validator = (name) {
+        return FormControlUtil.getErrorControl(
+            FormControlUtil.getStringLenghtBetweenMinandMaxControl(name, 3, 15));
+      };
+    } else if (validationType == DailogInmputValidatorTypeEnum.telephone) {
+      inputType = TextInputType.number;
+      validator = (phoneNumber) {
+        return FormControlUtil.getErrorControl(FormControlUtil.getPhoneNumberControl(phoneNumber));
+      };
+    } else if (validationType == DailogInmputValidatorTypeEnum.email) {
+      validator = (email) {
+        return FormControlUtil.getErrorControl(FormControlUtil.getEmailAdressControl(email));
+      };
+    } else {
+      validator = (anything) {
+        return FormControlUtil.getErrorControl(
+            FormControlUtil.getStringLenghtBetweenMinandMaxControl(anything, 3, 1500));
+      };
+    }
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(title),
       content: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: TextFormField(
-          style: TextStyle(
-            fontSize: 15.0,
-            color: Colors.black,
-          ),
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-            labelText: labelText,
-            filled: true,
-            fillColor: Colors.white,
-            focusColor: Colors.blue,
-            prefixIcon: Icon(
-              Icons.message,
+        child: Form(
+          key: registerFormKey,
+          child: TextFormField(
+            validator: validator,
+            keyboardType: inputType,
+            style: TextStyle(
+              fontSize: 15.0,
               color: Colors.black,
             ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(5.0),
-              borderSide: BorderSide(
-                color: Colors.white,
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+              labelText: labelText,
+              filled: true,
+              fillColor: Colors.white,
+              focusColor: Colors.blue,
+              prefixIcon: Icon(
+                Icons.message,
+                color: Colors.black,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(5.0),
+                borderSide: BorderSide(
+                  color: Colors.white,
+                ),
               ),
             ),
+            controller: inputMessageControl,
+            maxLines: maxLines,
           ),
-          controller: inputMessageControl,
-          maxLines: maxLines,
         ),
       ),
       actions: [
