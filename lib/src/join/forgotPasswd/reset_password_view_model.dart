@@ -14,6 +14,10 @@ import '../join_view.dart';
 class ResetPasswdViewModel extends ChangeNotifier {
   Database db = Database();
 
+  Future<void> userChangePassword(int customerId, String password) {
+    //Customer
+  }
+
   Future<bool> userResetPasswordFlow(
       BuildContext context,
       String userName,
@@ -32,9 +36,8 @@ class ResetPasswdViewModel extends ChangeNotifier {
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
       CustomerModel customer = CustomerModel.fromMap(list[0].data());
-      Map<String, dynamic> customerMap = customer.toMap();
-      customerMap['password'] = password;
-      db.editCollectionRef("Customer", customerMap);
+      customer.password = password;
+      db.editCollectionRef("Customer", customer.toMap());
       showSucessMessage(context);
 
       return true;
