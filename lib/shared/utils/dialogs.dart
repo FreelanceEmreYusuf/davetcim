@@ -253,6 +253,11 @@ class Dialogs {
         return FormControlUtil.getErrorControl(
             FormControlUtil.getStringLenghtBetweenMinandMaxControl(name, 3, 15));
       };
+    } else if (validationType == DailogInmputValidatorTypeEnum.surname) {
+      validator = (surname) {
+        return FormControlUtil.getErrorControl(
+            FormControlUtil.getStringLenghtBetweenMinandMaxControl(surname, 2, 15));
+      };
     } else if (validationType == DailogInmputValidatorTypeEnum.telephone) {
       inputType = TextInputType.number;
       validator = (phoneNumber) {

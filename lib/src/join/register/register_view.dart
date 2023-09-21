@@ -94,7 +94,8 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 controller: _nameControl,
                 validator: (name) {
-                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(name));
+                  return FormControlUtil.getErrorControl(
+                      FormControlUtil.getStringLenghtBetweenMinandMaxControl(name, 3, 15));
                 },
                 maxLines: 1,
               ),//İsim
@@ -123,7 +124,8 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 controller: _surnameControl,
                 validator: (surname) {
-                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(surname));
+                  return FormControlUtil.getErrorControl(
+                      FormControlUtil.getStringLenghtBetweenMinandMaxControl(surname, 2, 15));
                 },
                 maxLines: 1,
               ),//Soyisim
@@ -152,7 +154,8 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 controller: _usernameControl,
                 validator: (userName) {
-                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(userName));
+                  return FormControlUtil.getErrorControl(
+                      FormControlUtil.getStringLenghtBetweenMinandMaxControl(userName, 3, 15));
                 },
                 maxLines: 1,
               ),

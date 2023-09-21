@@ -204,7 +204,7 @@ class _ProfileState extends State<Profile> {
                 ),
                 onPressed: () {
                   Dialogs.showDialogMessageWithInputBox(context, "Soyisim Güncelle", "Vazgeç", "Onayla", surname, 2,
-                      editCustomerSurname, DailogInmputValidatorTypeEnum.name);
+                      editCustomerSurname, DailogInmputValidatorTypeEnum.surname);
                 },
                 tooltip: "Soyad Güncelle",
               ),
