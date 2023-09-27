@@ -27,6 +27,21 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
 
   int _current = 0;
   String sliderCorporationName = "";
+  List<int> orderedCorporationList =[];
+
+  @override
+  void initState() {
+    getOrderedCorporationList();
+    super.initState();
+  }
+
+  void getOrderedCorporationList() async{
+    HomeViewModel homeViewModel = new HomeViewModel();
+    orderedCorporationList = await homeViewModel.getMountLogs();
+    setState(() {
+      orderedCorporationList = orderedCorporationList;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +51,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
       create: (_) => HomeViewModel(),
       builder: (context, child) => StreamBuilder<List<CorporationModel>>(
           stream: Provider.of<HomeViewModel>(context, listen: false)
-              .getHomeCorporationList(),
+              .getHomeCorporationList(orderedCorporationList),
           builder: (context, asyncSnapshot) {
             if (asyncSnapshot.hasError) {
               return SomethingWentWrongScreen();

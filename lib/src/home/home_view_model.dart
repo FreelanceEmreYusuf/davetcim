@@ -3,6 +3,9 @@ import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:flutter/cupertino.dart';
+import '../../shared/environments/db_constants.dart';
+import '../../shared/models/corporation_event_log_model.dart';
+import '../../shared/utils/date_utils.dart';
 
 class HomeViewModel extends ChangeNotifier {
 
@@ -15,18 +18,100 @@ class HomeViewModel extends ChangeNotifier {
     return "";
   }
 
-  Stream<List<CorporationModel>> getHomeCorporationList()  {
+  Stream<List<CorporationModel>> getHomeCorporationList(List<int> corporationsOrderedId)  {
+    if(corporationsOrderedId.isNotEmpty){
+      print(corporationsOrderedId.toString());
       Stream<List<DocumentSnapshot>> corporationDocList = db.getCollectionRef("Corporation")
-          .where('isPopularCorporation', isEqualTo: true)
+          .where("id", whereIn: corporationsOrderedId)
           .where('isActive', isEqualTo: true)
           .snapshots()
-          .map((event) => event.docs);
+          .map((event) {
+        List<DocumentSnapshot> docs = event.docs;
+        List<DocumentSnapshot> sortedDocs = [];
+        for (int id in corporationsOrderedId) {
+          DocumentSnapshot doc = docs.firstWhere(
+                (element) => element['id'] == id,
+            orElse: () => null,
+          );
 
+          if (doc != null) {
+            sortedDocs.add(doc);
+          }
+        }
+
+        return sortedDocs;
+      });
       Stream<List<CorporationModel>> corporationList = corporationDocList
           .map((event) => event.map((e) => CorporationModel.fromMap(e.data())).toList());
 
       return corporationList;
+    }
+
+     return null;
 
     }
+
+
+  Future<List<int>> getMountLogs() async {
+    var response = await db
+        .getCollectionRef(DBConstants.corporationEventLogDb)
+        .where(
+        'date', isGreaterThanOrEqualTo: DateConversionUtils.getCurrentDateAsInt(
+        DateTime(DateTime
+            .now()
+            .year, DateTime
+            .now()
+            .month - 1, DateTime
+            .now()
+            .day)))
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      List<CorporationEventLogModel> corporationEventLogModelList = [];
+      List<Map<int,int>> corporations = [];
+      Map<int,int> corporation = {};
+      int totalPoint =0;
+      for (int i = 0; i < list.length; i++) {
+        corporationEventLogModelList.add(CorporationEventLogModel.fromMap(list[i].data()));
+      }
+      for(int j = 0; j<corporationEventLogModelList.length; j++){
+        totalPoint = (corporationEventLogModelList[j].commentCount*3)+
+            (corporationEventLogModelList[j].favoriteCount*3)+
+            (corporationEventLogModelList[j].reservationCount*5)+
+            (corporationEventLogModelList[j].visitCount*1);
+
+        corporation= {
+          corporationEventLogModelList[j].corporationId: totalPoint
+        };
+        corporations.add(corporation);
+      }
+
+        Map<int, int> distinctCorporations = {};
+
+        for (var map in corporations) {
+          map.forEach((key, value) {
+            if (distinctCorporations.containsKey(key)) {
+              distinctCorporations[key] += value;
+            } else {
+              distinctCorporations[key] = value;
+            }
+          });
+        }
+
+        print("distinctCorporations ");
+      print(distinctCorporations);
+
+      var orderedCorporationIdList = distinctCorporations.entries.toList()
+        ..sort((a, b) => b.value.compareTo(a.value));
+      int maxCorp = 20;
+      if(orderedCorporationIdList.length <maxCorp){
+        maxCorp = orderedCorporationIdList.length;
+      }
+      return orderedCorporationIdList.map((entry) => entry.key).toList().sublist(0,maxCorp);
+    }
+    return null;
+  }
+
 }
 
