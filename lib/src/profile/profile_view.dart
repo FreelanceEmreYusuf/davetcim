@@ -1,14 +1,11 @@
 import 'package:davetcim/shared/helpers/customer_helper.dart';
-import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/src/join/forgotPasswd/reset_password_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:davetcim/providers/app_provider.dart';
 import 'package:davetcim/src/splash/splash_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
-
 import '../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/form_control.dart';
