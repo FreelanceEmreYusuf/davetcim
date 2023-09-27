@@ -21,6 +21,26 @@ class CorporateHelper {
     return null;
   }
 
+  Future<List<CorporationModel>> getPopularCorporate() async {
+    Database db = Database();
+    List<CorporationModel> corporationList =[];
+    var response = await db
+        .getCollectionRef(DBConstants.corporationDb)
+        .where('isActive', isEqualTo: true)
+        .where('isPopularCorporation', isEqualTo: true)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        corporationList.add(CorporationModel.fromMap(list[i].data()));
+      }
+      return corporationList;
+    }
+
+    return null;
+  }
+
   Future<List<CorporationModel>> getCorporateByCompany(int companyId) async {
     Database db = Database();
     List<CorporationModel> corporationList = [];

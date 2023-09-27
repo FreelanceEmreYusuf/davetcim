@@ -1,4 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/src/home/home_view_model.dart';
@@ -28,10 +29,12 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
   int _current = 0;
   String sliderCorporationName = "";
   List<int> orderedCorporationList =[];
+  List<CorporationModel> popularCorporationModelList =[];
 
   @override
   void initState() {
     getOrderedCorporationList();
+    getHomeSliderCorporationList();
     super.initState();
   }
 
@@ -40,6 +43,14 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
     orderedCorporationList = await homeViewModel.getMountLogs();
     setState(() {
       orderedCorporationList = orderedCorporationList;
+    });
+  }
+
+  void getHomeSliderCorporationList() async{
+    CorporateHelper corporateModel = new CorporateHelper();
+    popularCorporationModelList = await corporateModel.getPopularCorporate();
+    setState(() {
+      popularCorporationModelList = popularCorporationModelList;
     });
   }
 
@@ -97,8 +108,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                               //       !loading ? HomeCarousel(homeManager) : Center(child:ProgressIndicator())
                               child: Swiper(
                                 itemBuilder: (BuildContext context,int index){
-                                  CorporationModel model = corporationList[index];
-
+                                  CorporationModel model = popularCorporationModelList[index];
                                   return SliderItem(
                                     corporationId: model.corporationId,
                                     img: model.imageUrl,
@@ -112,7 +122,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                                   );
                                   //Image.network(corporationList[index].imageUrl,fit: BoxFit.fill,);
                                 },
-                                itemCount: corporationList.length,
+                                itemCount: popularCorporationModelList.length,
                                 pagination: SwiperPagination(),
                                 control: SwiperControl(),
                                 autoplay: false,
@@ -126,7 +136,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            "Öne Çıkanlar",
+                            "Son Zamanlarda Populer",
                             style: TextStyle(
                               fontSize: 23,
                               fontWeight: FontWeight.w800,
