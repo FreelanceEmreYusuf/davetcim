@@ -5,6 +5,7 @@ import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/src/join/forgotPasswd/forgot_passwd_view.dart';
 import 'package:flutter/material.dart';
 
+import '../../../shared/utils/utils.dart';
 import 'login_view_model.dart';
 
 class LoginView extends StatefulWidget {
@@ -129,13 +130,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return ForgotPasswdView();
-                        },
-                      ),
-                    );
+                    Utils.navigateToPage(context, ForgotPasswdView());
                   },
                 ),
               ),

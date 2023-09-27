@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:davetcim/screens/categories_screen.dart';
+import 'package:page_transition/page_transition.dart';
 
 class HomeCategory extends StatefulWidget {
   final IconData icon;
@@ -27,13 +28,8 @@ class _HomeCategoryState extends State<HomeCategory> {
     return InkWell(
       onTap: widget.isHome
           ? () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return CategoriesScreen();
-                  },
-                ),
-              );
+        Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,
+            child: CategoriesScreen()));
             }
           : widget.tap,
       child: Card(

@@ -5,6 +5,8 @@ import 'package:davetcim/src/join/join_view.dart';
 import 'package:davetcim/shared/models/secret_questions_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../../shared/utils/utils.dart';
+
 class ResetPasswordView extends StatefulWidget {
   @override
   _ResetPasswordViewState createState() => _ResetPasswordViewState();
@@ -307,12 +309,6 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
   }
 
   static void pushToJoinPage(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (BuildContext context) {
-          return JoinView();
-        },
-      ),
-    );
+    Utils.navigateToPage(context, JoinView());
   }
 }

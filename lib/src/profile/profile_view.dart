@@ -2,6 +2,7 @@ import 'package:davetcim/shared/helpers/customer_helper.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/src/join/forgotPasswd/reset_password_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:davetcim/providers/app_provider.dart';
 import 'package:davetcim/src/splash/splash_view.dart';
@@ -9,6 +10,7 @@ import 'package:davetcim/shared/environments/const.dart';
 import '../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/form_control.dart';
+import '../../shared/utils/utils.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -122,13 +124,7 @@ class _ProfileState extends State<Profile> {
                         children: <Widget>[
                           InkWell(
                             onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                    return SplashScreen();
-                                  },
-                                ),
-                              );
+                              Utils.navigateToPage(context, SplashScreen());
                             },
                             child: Text(
                               "Çıkış",
@@ -316,7 +312,7 @@ class _ProfileState extends State<Profile> {
                             MaterialButton(
                                 child: Text("Reddet"),
                                 onPressed: () {
-                                  Navigator.of(context, rootNavigator: true).pop();
+                                  Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
                                 },
                             elevation: 10,
                               splashColor: Colors.blue,
@@ -328,7 +324,7 @@ class _ProfileState extends State<Profile> {
                                 if (forgotPasswordForm.currentState.validate()) {
                                   ResetPasswdViewModel rpvm = ResetPasswdViewModel();
                                   rpvm.userResetPassword(context, ApplicationSession.userSession.id, passwordControl.text);
-                                  Navigator.of(context, rootNavigator: true).pop();
+                                  Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
                                 }
                               },
                               elevation: 10,

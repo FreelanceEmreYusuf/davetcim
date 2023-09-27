@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
+import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../../src/join/join_view.dart';
 import '../enums/dialog_input_validator_type_enum.dart';
@@ -15,7 +17,7 @@ class Dialogs {
     Widget okButton = TextButton(
       child: Text(LanguageConstants.tamam[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context).pop();
+        Navigator.of(context).pop(PageTransition(type: PageTransitionType.fade));
       },
     );
 
@@ -44,7 +46,7 @@ class Dialogs {
     Widget okButton = TextButton(
       child: Text(LanguageConstants.tamam[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context).pop();
+        Navigator.of(context).pop(PageTransition(type: PageTransitionType.fade));
         method(context);
       },
     );
@@ -74,7 +76,7 @@ class Dialogs {
     Widget okButton = TextButton(
       child: Text(LanguageConstants.tamam[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context).pop();
+        Navigator.of(context).pop(PageTransition(type: PageTransitionType.fade));
         method(context, childPage);
       },
     );
@@ -103,7 +105,7 @@ class Dialogs {
     Widget cancelButton = TextButton(
       child: Text(LanguageConstants.hayir[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
       },
     );
     Widget continueButton = TextButton(
@@ -114,7 +116,8 @@ class Dialogs {
         } else {
           method(functionInput);
         }
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
+
       },
     );
 
@@ -154,13 +157,13 @@ class Dialogs {
     Widget cancelButton = TextButton(
       child: Text(LanguageConstants.hayir[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
       },
     );
     Widget continueButton = TextButton(
       child: Text(LanguageConstants.evet[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
         method(context, input1, input2, input3, input4, input5);
       },
     );
@@ -189,18 +192,14 @@ class Dialogs {
     Widget cancelButton = TextButton(
       child: Text(LanguageConstants.hayir[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
       },
     );
     Widget continueButton = TextButton(
       child: Text(LanguageConstants.evet[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop();
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (BuildContext context) {
-            return JoinView();
-          },
-        ));
+        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
+        Utils.navigateToPage(context, JoinView());
       },
     );
 
@@ -233,7 +232,7 @@ class Dialogs {
     Widget cancelButton = TextButton(
       child: Text(cancelButtonText),
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
       },
     );
     Widget continueButton = TextButton(
@@ -241,7 +240,7 @@ class Dialogs {
       onPressed: () {
         if (registerFormKey.currentState.validate()) {
           method(inputMessageControl.text);
-          Navigator.of(context, rootNavigator: true).pop();
+          Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
         }
       },
     );

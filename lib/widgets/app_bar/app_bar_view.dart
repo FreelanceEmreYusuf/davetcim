@@ -2,6 +2,7 @@ import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/widgets/app_bar/icon_badge_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../screens/notifications.dart';
 import '../../shared/maps/menu_back_map.dart';
@@ -64,7 +65,7 @@ class _AppBarMenu extends State<AppBarMenu> {
             if (menuBackMap.containsKey(widget.pageName)) {
               Utils.navigateToPage(context, menuBackMap[widget.pageName])
             } else {
-              Navigator.pop(context)  
+              Navigator.pop(context, PageTransition(type: PageTransitionType.leftToRight))
             }
           }
       );
@@ -119,13 +120,7 @@ class _AppBarMenu extends State<AppBarMenu> {
                                 Icons.home,
                               ),
                               onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return MainScreen();
-                                    },
-                                  ),
-                                );
+                                Utils.navigateToPage(context, MainScreen());
                               },
                             ),
                         if(widget.isPopUpMenuActive)

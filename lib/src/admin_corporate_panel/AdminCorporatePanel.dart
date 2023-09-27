@@ -9,6 +9,7 @@ import 'package:davetcim/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/environments/const.dart';
+import '../../shared/utils/utils.dart';
 import '../../widgets/reservation_corporate_card_widget.dart';
 import 'all_reservation/all_reservation_corporate_view.dart';
 import 'corporation_analysis/corporation_analysis_view.dart';
@@ -43,11 +44,7 @@ class _State extends State<AdminCorporatePanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return AdminCorporateServicePoolManager();
-                          },
-                        ));
+                        Utils.navigateToPage(context, AdminCorporateServicePoolManager());
                       },
                     )),
                 SizedBox(height: 30.0),
@@ -62,11 +59,7 @@ class _State extends State<AdminCorporatePanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return SeansCorporateView();
-                          },
-                        ));
+                        Utils.navigateToPage(context, SeansCorporateView());
                       },
                     )),
                 SizedBox(height: 30.0),
@@ -81,11 +74,7 @@ class _State extends State<AdminCorporatePanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return ReservationCorporateView();
-                          },
-                        ));
+                        Utils.navigateToPage(context, ReservationCorporateView());
                       },
                     )),
                 SizedBox(height: 30.0),
@@ -100,11 +89,7 @@ class _State extends State<AdminCorporatePanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return AllReservationCorporateView();
-                          },
-                        ));
+                        Utils.navigateToPage(context, AllReservationCorporateView());
                       },
                     )),
                 SizedBox(height: 30.0),
@@ -119,11 +104,7 @@ class _State extends State<AdminCorporatePanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return ManageCommentCorporateView();
-                          },
-                        ));
+                        Utils.navigateToPage(context, ManageCommentCorporateView());
                       },
                     )),
                 SizedBox(height: 30.0),
@@ -138,11 +119,7 @@ class _State extends State<AdminCorporatePanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return CorporationAnalysisView();
-                          },
-                        ));
+                        Utils.navigateToPage(context, CorporationAnalysisView());
                       },
                     )),
                 SizedBox(height: 30.0),
@@ -157,11 +134,7 @@ class _State extends State<AdminCorporatePanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return CorporationCommonPropertiesEditView();
-                          },
-                        ));
+                        Utils.navigateToPage(context, CorporationCommonPropertiesEditView());
                       },
                     )),
                 SizedBox(height: 30.0),
@@ -176,11 +149,7 @@ class _State extends State<AdminCorporatePanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return PickPageView();
-                          },
-                        ));
+                        Utils.navigateToPage(context, PickPageView());
                       },
                     )),
 

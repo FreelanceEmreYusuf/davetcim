@@ -3,7 +3,9 @@ import 'package:davetcim/src/join/login/login_view.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/src/join/register/register_view.dart';
 import 'package:flutter/services.dart';
+import 'package:page_transition/page_transition.dart';
 
+import '../../shared/utils/utils.dart';
 import '../main/main_screen_view.dart';
 
 class JoinView extends StatefulWidget {
@@ -37,7 +39,7 @@ class _JoinViewState extends State<JoinView>
           icon: Icon(
             Icons.keyboard_backspace,
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => Navigator.pop(context, PageTransition(type: PageTransitionType.leftToRight)),
         ),
         elevation: 8.0,
         title: IconButton(
@@ -46,13 +48,7 @@ class _JoinViewState extends State<JoinView>
             Icons.home,
           ),
           onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context) {
-                  return MainScreen();
-                },
-              ),
-            );
+            Utils.navigateToPage(context, MainScreen());
           },
         ),
         bottom: TabBar(

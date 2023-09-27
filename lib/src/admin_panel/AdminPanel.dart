@@ -3,6 +3,7 @@ import 'package:davetcim/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/environments/const.dart';
+import '../../shared/utils/utils.dart';
 import 'company/company_add_view.dart';
 import 'corporation/corporation_generate_key_view.dart';
 import 'manage_corporation_active_passive/corporation_active_passive_view.dart';
@@ -35,11 +36,7 @@ class _State extends State<AdminPanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return CompanyAddView();
-                          },
-                        ));
+                        Utils.navigateToPage(context, CompanyAddView());
                       },
                     )),
                 SizedBox(height: 30.0),
@@ -54,11 +51,7 @@ class _State extends State<AdminPanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return CorporationGenerateKeyView();
-                          },
-                        ));
+                        Utils.navigateToPage(context, CorporationGenerateKeyView());
                       },
                     )),
                 SizedBox(height: 30.0),
@@ -73,11 +66,7 @@ class _State extends State<AdminPanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return CorporationActivePassiveView();
-                          },
-                        ));
+                        Utils.navigateToPage(context, CorporationActivePassiveView());
                       },
                     )),
                 SizedBox(height: 30.0),
@@ -92,11 +81,7 @@ class _State extends State<AdminPanelPage> {
                         color: Colors.white,
                       ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return AdminServicePoolManager();
-                          },
-                        ));
+                        Utils.navigateToPage(context, AdminServicePoolManager());
                       },
                     )),
                 SizedBox(height: 30.0),
@@ -111,11 +96,7 @@ class _State extends State<AdminPanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return ManageLookupsView();
-                          },
-                        ));
+                        Utils.navigateToPage(context, ManageLookupsView());
                       },
                     )),
               ],

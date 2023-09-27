@@ -57,13 +57,7 @@ class _AppBarMenu extends State<AppBarMenuWithOutPreviousPageIcon> {
               Icons.home,
             ),
             onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context) {
-                    return MainScreen();
-                  },
-                ),
-              );
+              Utils.navigateToPage(context, MainScreen());
             },
           ),
         if(widget.isNotificationsIconVisible)
@@ -80,13 +74,7 @@ class _AppBarMenu extends State<AppBarMenuWithOutPreviousPageIcon> {
               if (ApplicationSession.userSession == null) {
                 showSucessMessage(context);
               } else {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return Notifications();
-                    },
-                  ),
-                );
+                Utils.navigateToPage(context, Notifications());
               }
             },
             tooltip: LanguageConstants

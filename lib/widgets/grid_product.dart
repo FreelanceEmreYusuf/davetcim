@@ -5,6 +5,7 @@ import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 import '../shared/sessions/application_session.dart';
+import '../shared/utils/utils.dart';
 import '../src/fav_products/fav_products_view_model.dart';
 import 'bounce_button.dart';
 
@@ -137,13 +138,7 @@ class _GridProductState extends State<GridProduct> {
       onTap: () async {
         CorporateHelper corporationViewModel = CorporateHelper();
         CorporationModel corporationModel = await corporationViewModel.getCorporate(widget.corporationId);
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (BuildContext context) {
-              return ProductDetails(corporationModel: corporationModel,);
-            },
-          ),
-        );
+        Utils.navigateToPage(context, ProductDetails(corporationModel: corporationModel,));
       },
     );
   }
