@@ -8,6 +8,7 @@ import 'package:davetcim/widgets/smooth_star_rating.dart';
 
 import '../shared/sessions/application_session.dart';
 import '../src/fav_products/fav_products_view_model.dart';
+import 'bounce_button.dart';
 
 class GridProduct extends StatefulWidget {
   final String name;
@@ -80,22 +81,23 @@ class _GridProductState extends State<GridProduct> {
                 ),
               ),
               Positioned(
-                right: -10.0,
-                bottom: 3.0,
-                child: RawMaterialButton(
-                  onPressed: () {
+                right: -MediaQuery.of(context).size.height / 60,
+                bottom: MediaQuery.of(context).size.height / 100,
+                child: BounceButton(
+                  child: Icon(
+                    isFavorite ? Icons.favorite : Icons.favorite_border,
+                    color: Colors.red,
+                    size: MediaQuery.of(context).size.width / 18,
+                  ),
+                  onTap: (){
                     editUserFavProduct();
                   },
-                  fillColor: Colors.white,
-                  shape: CircleBorder(),
-                  elevation: 4.0,
-                  child: Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Icon(
-                      isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: Colors.red,
-                      size: 17,
-                    ),
+                  height: MediaQuery.of(context).size.height / 17,
+                  width: MediaQuery.of(context).size.width / 4.5,
+                  duration: Duration(milliseconds: 500),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white70,
                   ),
                 ),
               ),

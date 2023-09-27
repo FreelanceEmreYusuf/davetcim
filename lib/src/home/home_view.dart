@@ -7,9 +7,7 @@ import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/widgets/slider_item.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/widgets/grid_product.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
-
 import '../../widgets/on_error/somethingWentWrong.dart';
 
 class Home extends StatefulWidget {
@@ -26,10 +24,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
     return result;
   }
 
-  int _current = 0;
   String sliderCorporationName = "";
   List<int> orderedCorporationList =[];
   List<CorporationModel> popularCorporationModelList =[];
+  IconData iconData = Icons.favorite_border_outlined;
 
   @override
   void initState() {
@@ -40,7 +38,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
 
   void getOrderedCorporationList() async{
     HomeViewModel homeViewModel = new HomeViewModel();
-    orderedCorporationList = await homeViewModel.getMountLogs();
+    orderedCorporationList = await homeViewModel.getMountLogs(50);
     setState(() {
       orderedCorporationList = orderedCorporationList;
     });
@@ -145,7 +143,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                         ],
                       ),
                       SizedBox(height: 10.0),
-
                       GridView.builder(
                         shrinkWrap: true,
                         primary: false,

@@ -3,9 +3,8 @@ import 'package:provider/provider.dart';
 import '../../shared/models/customer_model.dart';
 import '../../shared/sessions/application_session.dart';
 import '../../shared/utils/dialogs.dart';
-import '../../shared/utils/language.dart';
-import '../../src/main/main_screen_view_model.dart';
 import '../badge.dart';
+import '../bounce_button.dart';
 import '../on_error/somethingWentWrong.dart';
 import 'app_bar_view_model.dart';
 
@@ -52,25 +51,34 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       SizedBox(width: 7),
-                      IconButton(
-                        icon: Icon(
+                      BounceButton(
+                        child: Icon(
                           Icons.home,
-                          size: 24.0,
+                          size: MediaQuery.of(context).size.height / 22,
+                          color: widget.page == 0
+                              ? Theme.of(context).accentColor
+                              : Theme.of(context).textTheme.caption.color,
                         ),
-                        color: widget.page == 0
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).textTheme.caption.color,
-                        onPressed: () => widget.pageController.jumpToPage(0),
+                        onTap: (){
+                          widget.pageController.jumpToPage(0);
+                        },
+                        height: MediaQuery.of(context).size.height / 17,
+                        width: MediaQuery.of(context).size.width / 10,
+                        duration: Duration(milliseconds: 500),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white70,
+                        ),
                       ),
-                      IconButton(
-                        icon: Icon(
+                      BounceButton(
+                        child: Icon(
                           Icons.favorite,
-                          size: 24.0,
+                          size: MediaQuery.of(context).size.height / 22,
+                          color: widget.page == 1
+                              ? Theme.of(context).accentColor
+                              : Theme.of(context).textTheme.caption.color,
                         ),
-                        color: widget.page == 1
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).textTheme.caption.color,
-                        onPressed: () {
+                        onTap: (){
                           if (ApplicationSession.userSession == null) {
                             Dialogs.showAlertMessage(
                                 context,
@@ -79,12 +87,19 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                           } else {
                             widget.pageController.jumpToPage(1);
                           }
-                        }
+                        },
+                        height: MediaQuery.of(context).size.height / 17,
+                        width: MediaQuery.of(context).size.width / 10,
+                        duration: Duration(milliseconds: 500),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white70,
+                        ),
                       ),
                       IconButton(
                         icon: Icon(
                           Icons.search,
-                          size: 24.0,
+                          size: MediaQuery.of(context).size.height / 22,
                           color: Theme.of(context).primaryColor,
                         ),
                         color: widget.page == 2
@@ -95,7 +110,7 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                       IconButton(
                         icon: IconBadge(
                           icon: Icons.shopping_cart,
-                          size: 24.0,
+                          size: MediaQuery.of(context).size.height / 22,
                           count: basketCount,
                         ),
                         color: widget.page == 3
@@ -112,24 +127,32 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                           }
                         }
                       ),
-                      IconButton(
-                          icon: Icon(
-                            Icons.person,
-                            size: 24.0,
-                          ),
-                          color: widget.page == 4
-                              ? Theme.of(context).accentColor
-                              : Theme.of(context).textTheme.caption.color,
-                          onPressed: () => {
-                            if (ApplicationSession.userSession == null) {
-                                Dialogs.showAlertMessage(
+                      BounceButton(
+                        child: Icon(
+                        Icons.person,
+                        size: MediaQuery.of(context).size.height / 22,
+                        color: widget.page == 4
+                            ? Theme.of(context).accentColor
+                            : Theme.of(context).textTheme.caption.color,
+                      ),
+                        onTap: (){
+                          if (ApplicationSession.userSession == null) {
+                            Dialogs.showAlertMessage(
                                 context,
                                 "",
-                                "Profilinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
-                              } else {
-                                widget.pageController.jumpToPage(4),
-                              }
-                          }),
+                                "Profilinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız.");
+                          } else {
+                          widget.pageController.jumpToPage(4);
+                          }
+                        },
+                        height: MediaQuery.of(context).size.height / 17,
+                        width: MediaQuery.of(context).size.width / 10,
+                        duration: Duration(milliseconds: 500),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white70,
+                        ),
+                      ),
                       SizedBox(width: 7),
                     ],
                   ),

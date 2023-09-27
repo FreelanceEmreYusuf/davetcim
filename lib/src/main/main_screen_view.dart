@@ -10,6 +10,7 @@ import 'package:davetcim/widgets/badge.dart';
 
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/app_bar/bottom_app_bar.dart';
+import '../../widgets/bounce_button.dart';
 import '../search/search_view.dart';
 import 'main_screen_view_model.dart';
 
@@ -53,9 +54,26 @@ class _MainScreenState extends State<MainScreen> {
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.redAccent,
           elevation: 4.0,
-          child: Icon(
-            Icons.search,
+          child: BounceButton(
+            child: Icon(
+              Icons.search_sharp,
+              size: MediaQuery.of(context).size.height / 20,
+            ),
+            onTap: (){
+              _pageController.jumpToPage(2);
+            },
+            height: MediaQuery.of(context).size.height / 17,
+            width: MediaQuery.of(context).size.width / 10,
+            duration: Duration(milliseconds: 500),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.redAccent,
+            ),
           ),
+
+          /*Icon(
+            Icons.search,
+          ),*/
           onPressed: () => _pageController.jumpToPage(2),
         ),
       ),

@@ -40,8 +40,6 @@ class _CorporationAnalysisSecondDatePickerViewState extends State<CorporationAna
         child: CalendarCarousel<Event>(
           onDayPressed: (DateTime date, List<Event> events) {
             this.setState(() => _secondDate = date);
-            print("first date : "+widget.startDate.toString());
-            print("second date : "+_secondDate.toString());
             Utils.navigateToPage(context, CorporationAnalysisBetweenTwoDateView(firstDate: widget.startDate, secondDate: _secondDate,));
           },
           weekendTextStyle: TextStyle(

@@ -20,7 +20,6 @@ class HomeViewModel extends ChangeNotifier {
 
   Stream<List<CorporationModel>> getHomeCorporationList(List<int> corporationsOrderedId)  {
     if(corporationsOrderedId.isNotEmpty){
-      print(corporationsOrderedId.toString());
       Stream<List<DocumentSnapshot>> corporationDocList = db.getCollectionRef("Corporation")
           .where("id", whereIn: corporationsOrderedId)
           .where('isActive', isEqualTo: true)
@@ -52,7 +51,7 @@ class HomeViewModel extends ChangeNotifier {
     }
 
 
-  Future<List<int>> getMountLogs() async {
+  Future<List<int>> getMountLogs(int maxCorp) async {
     var response = await db
         .getCollectionRef(DBConstants.corporationEventLogDb)
         .where(
@@ -98,13 +97,8 @@ class HomeViewModel extends ChangeNotifier {
             }
           });
         }
-
-        print("distinctCorporations ");
-      print(distinctCorporations);
-
       var orderedCorporationIdList = distinctCorporations.entries.toList()
         ..sort((a, b) => b.value.compareTo(a.value));
-      int maxCorp = 20;
       if(orderedCorporationIdList.length <maxCorp){
         maxCorp = orderedCorporationIdList.length;
       }

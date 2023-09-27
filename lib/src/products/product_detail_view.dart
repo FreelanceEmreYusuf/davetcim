@@ -18,6 +18,7 @@ import '../../shared/sessions/user_basket_session.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/utils.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
+import '../../widgets/bounce_button.dart';
 import '../../widgets/carousel_calender_widget.dart';
 import '../../widgets/hashtag_widget.dart';
 import '../../widgets/star_and_comment.dart';
@@ -199,22 +200,23 @@ class _ProductDetailsState extends State<ProductDetails> {
           ),
         ),
         Positioned(
-          right: -10.0,
-          bottom: 3.0,
-          child: RawMaterialButton(
-            onPressed: () {
+          right: -MediaQuery.of(context).size.height / 60,
+          bottom: MediaQuery.of(context).size.height / 100,
+          child: BounceButton(
+            child: Icon(
+              isFavorite ? Icons.favorite : Icons.favorite_border,
+              color: Colors.red,
+              size: MediaQuery.of(context).size.width / 18,
+            ),
+            onTap: (){
               editUserFavProduct();
             },
-            fillColor: Colors.white,
-            shape: CircleBorder(),
-            elevation: 4.0,
-            child: Padding(
-              padding: EdgeInsets.all(5),
-              child: Icon(
-                isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: Colors.red,
-                size: 17,
-              ),
+            height: MediaQuery.of(context).size.height / 17,
+            width: MediaQuery.of(context).size.width / 4.5,
+            duration: Duration(milliseconds: 500),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle, // Yuvarlak şekil
+              color: Colors.white70, // Düğme rengi
             ),
           ),
         ),
