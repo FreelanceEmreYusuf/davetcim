@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'generic_lookup_item_model.dart';
+
 class InvitationTypeModel {
   final int id;
   final String name;

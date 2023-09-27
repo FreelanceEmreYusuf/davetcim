@@ -1,14 +1,10 @@
-import 'dart:math';
+class GenericLookupItemModel {
+  int id;
+  String name;
+  int filteringStatus;
+  int sortingIndex;
 
-import 'generic_lookup_item_model.dart';
-
-class SequenceOrderModel {
-  final int id;
-  final String name;
-  final int filteringStatus;
-  final int sortingIndex;
-
-  SequenceOrderModel({
+  GenericLookupItemModel({
     this.id,
     this.name,
     this.filteringStatus,
@@ -20,11 +16,11 @@ class SequenceOrderModel {
     'id': id,
     'name': name,
     'filteringStatus': filteringStatus,
-    'sortingIndex': sortingIndex,
+    'sortingIndex': sortingIndex
   };
 
   ///Map to object
-  factory SequenceOrderModel.fromMap(Map map) => SequenceOrderModel(
+  factory GenericLookupItemModel.fromMap(Map map) => GenericLookupItemModel(
     id: map['id'],
     name: map['name'],
     filteringStatus: map['filteringStatus'],

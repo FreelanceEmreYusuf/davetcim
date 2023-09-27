@@ -1,18 +1,18 @@
 import 'dart:math';
 
+import 'package:davetcim/shared/models/generic_lookup_item_model.dart';
+
 class OrganizationTypeModel {
   final int id;
   final String name;
   final int filteringStatus;
   final int sortingIndex;
-  final String uniqueIdentifier;
 
   OrganizationTypeModel({
     this.id,
     this.name,
     this.filteringStatus,
-    this.sortingIndex,
-    this.uniqueIdentifier
+    this.sortingIndex
   });
 
   ///Object to map
@@ -20,8 +20,7 @@ class OrganizationTypeModel {
     'id': id,
     'name': name,
     'filteringStatus': filteringStatus,
-    'sortingIndex': sortingIndex,
-    'uniqueIdentifier': uniqueIdentifier,
+    'sortingIndex': sortingIndex
   };
 
   ///Map to object
@@ -29,7 +28,6 @@ class OrganizationTypeModel {
     id: map['id'],
     name: map['name'],
     filteringStatus: map['filteringStatus'],
-    sortingIndex: map['sortingIndex'],
-    uniqueIdentifier: map['uniqueIdentifier'],
+    sortingIndex: map['sortingIndex']
   );
 }

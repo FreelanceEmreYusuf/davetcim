@@ -1,14 +1,12 @@
 import 'package:davetcim/src/admin_panel/service/service_view.dart';
-import 'package:davetcim/src/home/home_view.dart';
-import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/environments/const.dart';
-import '../admin_corporate_panel/company/add_corporation/corporation_add_view.dart';
 import 'company/company_add_view.dart';
 import 'corporation/corporation_generate_key_view.dart';
 import 'manage_corporation_active_passive/corporation_active_passive_view.dart';
+import 'manage_lookups/manage_lookups_view.dart';
 
 
 class AdminPanelPage extends StatefulWidget {
@@ -97,6 +95,25 @@ class _State extends State<AdminPanelPage> {
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) {
                             return AdminServicePoolManager();
+                          },
+                        ));
+                      },
+                    )),
+                SizedBox(height: 30.0),
+                Container(
+                    height: 50,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    // ignore: deprecated_member_use
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                      child: Text("SALON ÖZELLİK YÖNET",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),),
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return ManageLookupsView();
                           },
                         ));
                       },

@@ -10,6 +10,7 @@ Map<String, Widget> menuBackMap =
   'Admin Paneli': null,
   'Firma Aktif/Pasif Yönet': AdminPanelPage(),
   'Hizmet Havuzu': AdminPanelPage(),
+  'Salon Özellik Yönet': AdminPanelPage(),
   'Bildirimler': MainScreen(),
 
   'Salon Hizmet Havuzu': AdminCorporatePanelPage(),
