@@ -1,10 +1,14 @@
 import 'dart:io';
 
+import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../shared/environments/const.dart';
+import '../../../shared/models/image_model.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../manage_corporation_photos/manage_corporation_photos_view_model.dart.dart';
 import 'manage_corporation_photos_view_model.dart';
 
 class ManageCorporationPhotosAddView extends StatefulWidget {
@@ -19,6 +23,8 @@ class _State extends State<ManageCorporationPhotosAddView> {
   String _photoUrl;
   File image;
   final picker = ImagePicker();
+  List<ImageModel> imageList = [];
+  int imageListLenght = 0;
 
   Future updateCodeFromCamera() async {
     final pickedFile =
@@ -45,6 +51,22 @@ class _State extends State<ManageCorporationPhotosAddView> {
     }
   }
 
+  void getCorporationImageList() async {
+    ManageCorporationPhotosViewModel manageCorporationPhotosObject = new ManageCorporationPhotosViewModel();
+    imageList = await manageCorporationPhotosObject.getCorporatePhotos(ApplicationSession.userSession.corporationId);
+
+    setState(() {
+      imageList = imageList;
+      imageListLenght = imageList.length;
+    });
+  }
+/*
+  @override
+  void initState() {
+    super.initState();
+    getCorporationImageList();
+  }*/
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,8 +83,14 @@ class _State extends State<ManageCorporationPhotosAddView> {
                       textColor: Colors.white,
                       color: Constants.darkAccent,
                       child: Text('Galeriden Ekle'),
-                      onPressed: () {
-                        updateCodeFromGalery();
+                      onPressed: () async {
+                        getCorporationImageList();
+                        if(imageListLenght<9)
+                          {
+                            await updateCodeFromGalery();
+                          }
+                        else
+                          Dialogs.showAlertMessage(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.");
                       },
                     )),
                 SizedBox(height: 20.0),
@@ -74,8 +102,14 @@ class _State extends State<ManageCorporationPhotosAddView> {
                       textColor: Colors.white,
                       color: Constants.darkAccent,
                       child: Text('Kameradan Ekle'),
-                      onPressed: () {
-                        updateCodeFromCamera();
+                      onPressed: () async {
+                        getCorporationImageList();
+                        if(imageListLenght<9)
+                        {
+                          await updateCodeFromCamera();
+                        }
+                        else
+                          Dialogs.showAlertMessage(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.");
                       },
                     )),
               ],
