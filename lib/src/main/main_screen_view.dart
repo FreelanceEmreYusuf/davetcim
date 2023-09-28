@@ -64,7 +64,7 @@ class _MainScreenState extends State<MainScreen> {
             },
             height: MediaQuery.of(context).size.height / 17,
             width: MediaQuery.of(context).size.width / 10,
-            duration: Duration(milliseconds: 500),
+            duration: Duration(milliseconds: 300),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.redAccent,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../providers/app_provider.dart';
+import '../../shared/environments/const.dart';
 import '../../shared/models/customer_model.dart';
 import '../../shared/sessions/application_session.dart';
 import '../../shared/utils/dialogs.dart';
@@ -64,10 +66,13 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                         },
                         height: MediaQuery.of(context).size.height / 17,
                         width: MediaQuery.of(context).size.width / 10,
-                        duration: Duration(milliseconds: 500),
+                        duration: Duration(milliseconds: 300),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white70,
+                          color: Provider.of<AppProvider>(context).theme ==
+                              Constants.lightTheme
+                              ? Colors.white
+                              : Colors.black,
                         ),
                       ),
                       BounceButton(
@@ -90,10 +95,13 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                         },
                         height: MediaQuery.of(context).size.height / 17,
                         width: MediaQuery.of(context).size.width / 10,
-                        duration: Duration(milliseconds: 500),
+                        duration: Duration(milliseconds: 300),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white70,
+                          color: Provider.of<AppProvider>(context).theme ==
+                              Constants.lightTheme
+                              ? Colors.white
+                              : Colors.black,
                         ),
                       ),
                       IconButton(
@@ -147,10 +155,13 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                         },
                         height: MediaQuery.of(context).size.height / 17,
                         width: MediaQuery.of(context).size.width / 10,
-                        duration: Duration(milliseconds: 500),
+                        duration: Duration(milliseconds: 300),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white70,
+                          color: Provider.of<AppProvider>(context).theme ==
+                              Constants.lightTheme
+                              ? Colors.white
+                              : Colors.black,
                         ),
                       ),
                       SizedBox(width: 7),

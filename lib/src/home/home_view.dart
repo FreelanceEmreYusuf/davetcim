@@ -4,10 +4,15 @@ import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/src/home/home_view_model.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
+import 'package:davetcim/src/profile/profile_view.dart';
+import 'package:davetcim/widgets/bounce_button.dart';
 import 'package:davetcim/widgets/slider_item.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/widgets/grid_product.dart';
 import 'package:provider/provider.dart';
+import '../../providers/app_provider.dart';
+import '../../shared/environments/const.dart';
+import '../../shared/utils/utils.dart';
 import '../../widgets/on_error/somethingWentWrong.dart';
 
 class Home extends StatefulWidget {
@@ -84,12 +89,25 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              Text(
-                                "@"+mdl.getUserName(),
-                                style: TextStyle(
-                                    fontSize: 23,
-                                    fontWeight: FontWeight.w800,
-                                    color: Colors.lightGreen
+                              BounceButton(
+                                child: Text(
+                                  "@"+mdl.getUserName(),
+                                  style: TextStyle(
+                                      fontSize: 23,
+                                      fontWeight: FontWeight.w800,
+                                      color: Colors.lightGreen
+                                  ),
+                                ),
+                                onTap: (){
+
+                                },
+                                duration: Duration(milliseconds: 300),
+                                decoration: BoxDecoration(
+                                    color: Provider.of<AppProvider>(context).theme ==
+                                        Constants.lightTheme
+                                        ? Colors.white
+                                        : Colors.black,
+                                    borderRadius: BorderRadius.circular(20)
                                 ),
                               ),
                             ],

@@ -93,7 +93,7 @@ class _GridProductState extends State<GridProduct> {
                   },
                   height: MediaQuery.of(context).size.height / 17,
                   width: MediaQuery.of(context).size.width / 4.5,
-                  duration: Duration(milliseconds: 500),
+                  duration: Duration(milliseconds: 300),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white70,

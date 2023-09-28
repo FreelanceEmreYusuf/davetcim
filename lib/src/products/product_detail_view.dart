@@ -2,11 +2,9 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:davetcim/src/comments/comments_view_model.dart';
 import 'package:davetcim/src/products/product_detail_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:davetcim/screens/notifications.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 import 'package:flutter/services.dart';
-
 import '../../shared/dto/basket_user_dto.dart';
 import '../../shared/enums/corporation_event_log_enum.dart';
 import '../../shared/models/combo_generic_model.dart';
@@ -213,7 +211,7 @@ class _ProductDetailsState extends State<ProductDetails> {
             },
             height: MediaQuery.of(context).size.height / 17,
             width: MediaQuery.of(context).size.width / 4.5,
-            duration: Duration(milliseconds: 500),
+            duration: Duration(milliseconds: 300),
             decoration: BoxDecoration(
               shape: BoxShape.circle, // Yuvarlak şekil
               color: Colors.white70, // Düğme rengi
@@ -427,76 +425,95 @@ class _ProductDetailsState extends State<ProductDetails> {
                       elevation: 10,
                       shadowColor: Colors.redAccent,
                       child: Container(
-                        margin: const EdgeInsets.all(8.0),
+                        margin: const EdgeInsets.all(0.0),
                         child: SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              MaterialButton(
-                                color: Colors.redAccent,
-                                splashColor: Colors.blue,
-                                onPressed: (){
-                                  Clipboard.setData(ClipboardData(text: widget.corporationModel.telephoneNo)).then((_) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text("Telefon numarası panoya kopyalandı."), duration: Duration(seconds: 1),));
-                                  });
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.all(4.0),
-                                  child: Column(
-                                    children: [
-                                      Icon(Icons.phone, size: 25, color: Colors.white),
-                                      Text(
-                                        'Telefon',
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white
-                                        ),
+                              FittedBox(
+                                child: BounceButton(
+                                  child: Container(
+                                    margin: const EdgeInsets.all(4.0),
+                                    child: FittedBox(
+                                      child: Column(
+                                        children: [
+                                          Icon(Icons.phone, size: 25, color: Colors.white),
+                                          Text(
+                                            'Telefon',
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white
+                                            ),
+                                          ),
+                                          Text(
+                                            widget.corporationModel.telephoneNo,
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                color: Colors.white
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        widget.corporationModel.telephoneNo,
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            color: Colors.white
-                                        ),
-                                      ),
-                                    ],
+                                    ),
+                                  ),
+                                  onTap: (){
+                                    Clipboard.setData(ClipboardData(text: widget.corporationModel.telephoneNo)).then((_) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text("Telefon numarası panoya kopyalandı."), duration: Duration(seconds: 1),));
+                                    });
+                                  },
+                                  height: MediaQuery.of(context).size.height / 8,
+                                  width: MediaQuery.of(context).size.width / 2.5,
+                                  duration: Duration(milliseconds: 300),
+                                  decoration: BoxDecoration(
+                                      color: Colors.redAccent,
+                                      borderRadius: BorderRadius.circular(5)
                                   ),
                                 ),
                               ),
-                              MaterialButton(
-                                color: Colors.redAccent,
-                                splashColor: Colors.blue,
-                                onPressed: (){
-                                  Clipboard.setData(ClipboardData(text: widget.corporationModel.email)).then((_) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text("Email bilgisi panoya kopyalandı."), duration: Duration(seconds: 1),));
-                                  });
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.all(4.0),
-                                  child: Column(
-                                    children: [
-                                      Icon(Icons.mail, size: 25, color: Colors.white,),
-                                      Text(
-                                        "Email",
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.white
-                                        ),
+                              SizedBox(height: 5, width: 5,),
+                              FittedBox(
+                                child: BounceButton(
+                                  child: Container(
+                                    margin: const EdgeInsets.all(4.0),
+                                    child: FittedBox(
+                                      child: Column(
+                                        children: [
+                                          Icon(Icons.mail, size: 25, color: Colors.white,),
+                                          Text(
+                                            "Email",
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.white
+                                            ),
+                                          ),
+                                          Text(
+                                            widget.corporationModel.email,
+                                            style: TextStyle(
+                                                fontSize: 20.0,
+                                                color: Colors.white
+                                            ),
+                                          ),
+                                        ],
                                       ),
-                                      Text(
-                                        widget.corporationModel.email,
-                                        style: TextStyle(
-                                            fontSize: 20.0,
-                                            color: Colors.white
-                                        ),
-                                      ),
-                                    ],
+                                    ),
+                                  ),
+                                  onTap: (){
+                                    Clipboard.setData(ClipboardData(text: widget.corporationModel.email)).then((_) {
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(content: Text("Email bilgisi panoya kopyalandı."), duration: Duration(seconds: 1),));
+                                    });
+                                  },
+                                  height: MediaQuery.of(context).size.height / 8,
+                                  width: MediaQuery.of(context).size.width / 2.5,
+                                  duration: Duration(milliseconds: 300),
+                                  decoration: BoxDecoration(
+                                      color: Colors.redAccent,
+                                      borderRadius: BorderRadius.circular(1)
                                   ),
                                 ),
                               ),
@@ -580,35 +597,40 @@ class _ProductDetailsState extends State<ProductDetails> {
                       physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     children : <Widget>[
-                      Card(
-                        elevation: 15,
-                        shadowColor: Colors.redAccent,
-                        color: Colors.red,
-                        child: MaterialButton(
-                          textColor: Colors.white,
-                          color: Colors.redAccent,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(buttonText, style: TextStyle(fontSize: 18),),
-                              Icon(icon, size: 22,),
-                            ],
-                          ),
-                          minWidth: MediaQuery.of(context).size.width,
-                          onPressed: () async {
-                            setState(() {
-                              calenderVisibility = !calenderVisibility;
-                              if(calenderVisibility){
-                                buttonText = "Takvimi Gizle";
-                                icon = Icons.keyboard_arrow_up;
-                              }
-                              else
-                                {
-                                  buttonText = "Takvimi Göster";
-                                  icon = Icons.keyboard_arrow_down;
-                                }
-                            });
-                          },
+                      BounceButton(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text(buttonText, style: TextStyle(fontSize: 18, color: Colors.white),),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Icon(icon, size: 22, color: Colors.white),
+                            ),
+                          ],
+                        ),
+                        onTap: (){
+                          setState(() {
+                            calenderVisibility = !calenderVisibility;
+                            if(calenderVisibility){
+                              buttonText = "Takvimi Gizle";
+                              icon = Icons.keyboard_arrow_up;
+                            }
+                            else
+                            {
+                              buttonText = "Takvimi Göster";
+                              icon = Icons.keyboard_arrow_down;
+                            }
+                          });
+                        },
+                        height: MediaQuery.of(context).size.height/15,
+                        width: MediaQuery.of(context).size.height/1,
+                        duration: Duration(milliseconds: 300),
+                        decoration: BoxDecoration(
+                            color: Colors.redAccent,
+                            borderRadius: BorderRadius.circular(5)
                         ),
                       ),
                       Visibility(

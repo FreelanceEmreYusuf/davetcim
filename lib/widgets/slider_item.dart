@@ -62,7 +62,7 @@ class SliderItem extends StatelessWidget {
             },
             height: MediaQuery.of(context).size.height / 15,
             width: MediaQuery.of(context).size.width / 3,
-            duration: Duration(milliseconds: 500),
+            duration: Duration(milliseconds: 300),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white70,
