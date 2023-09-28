@@ -188,7 +188,12 @@ class _ProductDetailsState extends State<ProductDetails> {
             //       !loading ? HomeCarousel(homeManager) : Center(child:ProgressIndicator())
             child: Swiper(
               itemBuilder: (BuildContext context,int index){
-                return Image.network(imageList[index],fit: BoxFit.fill,);
+                return GestureDetector(
+                    child: Image.network(imageList[index],fit: BoxFit.fill,),
+                  onTap: (){
+                    Utils.navigateToPage(context, ImageDetailScreen(corporationModel: widget.corporationModel, image: imageList[index],));
+                  },
+                );
               },
               itemCount: imageList.length,
               pagination: SwiperPagination(),
@@ -744,5 +749,39 @@ class _ProductDetailsState extends State<ProductDetails> {
         ),
       );
 
+  }
+}
+
+class ImageDetailScreen extends StatefulWidget {
+
+  final CorporationModel corporationModel;
+  final String image;
+  @override
+  State<ImageDetailScreen> createState() => _ImageDetailScreenState();
+  ImageDetailScreen(
+      {Key key,
+        @required this.corporationModel, @required this.image})
+      : super(key: key);
+}
+
+class _ImageDetailScreenState extends State<ImageDetailScreen> {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        child: Center(
+          child: Hero(
+            tag: widget.corporationModel.corporationName,
+            child: Image.network(
+                widget.image,
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
   }
 }
