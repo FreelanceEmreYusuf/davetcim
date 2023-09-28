@@ -139,7 +139,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                                 itemCount: popularCorporationModelList.length,
                                 pagination: SwiperPagination(),
                                 control: SwiperControl(),
-                                autoplay: false,
+                                autoplay: true,
                               ),
                             ),
                           ),
