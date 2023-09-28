@@ -172,7 +172,6 @@ class CorporationAnalysisViewModel extends ChangeNotifier {
     if (logType == CorporationEventLogEnum.newVisit.name) {
       corporationEventLogModel.visitCount += 1;
     } else if (logType == CorporationEventLogEnum.newComment.name) {
-      int totalCommentCount = corporationEventLogModel.commentCount;
       corporationEventLogModel.commentCount += 1;
     } else if (logType == CorporationEventLogEnum.newFavorite.name) {
       corporationEventLogModel.favoriteCount += 1;

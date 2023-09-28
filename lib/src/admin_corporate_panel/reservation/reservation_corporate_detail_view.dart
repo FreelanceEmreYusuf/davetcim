@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/dto/basket_user_dto.dart';
 import '../../../shared/dto/reservation_detail_view_dto.dart';
+import '../../../shared/enums/corporation_event_log_enum.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
@@ -20,6 +21,7 @@ import '../../../widgets/grid_corporate_service_pool_for_basket_summary.dart';
 import '../../admin_corporate_panel/service/service-corporate_view_model.dart';
 import '../../notifications/notifications_view.dart';
 import '../../notifications/notifications_view_model.dart';
+import '../corporation_analysis/corporation_analysis_view_model.dart';
 
 class ReservationCorporateDetailScreen extends StatefulWidget {
   @override
@@ -379,6 +381,11 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                             widget.reservationModel.customerId,
                             0, widget.reservationModel.id, true, widget.reservationModel.description);
                         notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
+
+                        CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
+                        corporationAnalysisViewModel.editDailyLog(widget.reservationModel.corporationId,
+                            CorporationEventLogEnum.newReservation.name, detailResponse.reservationModel.cost);
+
                         if (isFromNotification) {
                           Utils.navigateToPage(context, NotificationsView());
                         } else {
