@@ -1,6 +1,4 @@
-import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:flutter/material.dart';
-import 'package:davetcim/util/foods.dart';
 import 'package:davetcim/widgets/grid_product.dart';
 
 import '../../shared/models/corporation_model.dart';
@@ -18,12 +16,6 @@ class _FavoriteScreenState extends State<FavoriteScreen>
 
   List<CorporationModel> corpModelList = [];
 
-  @override
-  void initState() {
-    super.initState();
-    callFillFavoriteCorporations();
-  }
-
   void callFillFavoriteCorporations() async {
     FavProductsViewModel rm = FavProductsViewModel();
     corpModelList = await rm.getFavProductDetailedList();
@@ -36,6 +28,8 @@ class _FavoriteScreenState extends State<FavoriteScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    callFillFavoriteCorporations();
+
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),

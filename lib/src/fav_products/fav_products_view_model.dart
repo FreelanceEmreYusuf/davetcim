@@ -71,7 +71,7 @@ class FavProductsViewModel extends ChangeNotifier {
       var list = response.docs;
 
       if (list.length > 0) {
-        list[0].reference.delete();
+        await list[0].reference.delete();
       } else {
         UserFavProductsModel favProductsModel = new UserFavProductsModel(
             id: new DateTime.now().millisecondsSinceEpoch,
@@ -82,7 +82,7 @@ class FavProductsViewModel extends ChangeNotifier {
 
        db.editCollectionRef(DBConstants.favProductsDb, favProductsModel.toMap());
        CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
-       corporationAnalysisViewModel.editDailyLog(corporationId, CorporationEventLogEnum.newFavorite.name, 0);
+       await corporationAnalysisViewModel.editDailyLog(corporationId, CorporationEventLogEnum.newFavorite.name, 0);
       }
 
       FavProductsViewModel favMdl = FavProductsViewModel();

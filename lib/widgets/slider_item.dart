@@ -8,7 +8,7 @@ import '../shared/models/corporation_model.dart';
 import '../src/fav_products/fav_products_view_model.dart';
 import 'bounce_button.dart';
 
-class SliderItem extends StatelessWidget {
+class SliderItem extends StatefulWidget {
   final int corporationId;
   final String name;
   final String img;
@@ -33,7 +33,23 @@ class SliderItem extends StatelessWidget {
       : super(key: key);
 
   @override
+  State<SliderItem> createState() => _SliderItemState();
+}
+
+class _SliderItemState extends State<SliderItem> {
+  bool isFav;
+  bool isPageLoad = true;
+
+  @override
+  void initState() {
+    isFav = widget.isFav;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (isPageLoad) {
+      isFav = widget.isFav;
+    }
     Widget image = Stack(
       children: <Widget>[
         Container(
@@ -42,7 +58,7 @@ class SliderItem extends StatelessWidget {
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8.0),
             child: Image.network(
-              "$img",
+              "${widget.img}",
               fit: BoxFit.cover,
             ),
           ),
@@ -58,7 +74,18 @@ class SliderItem extends StatelessWidget {
             ),
             onTap: (){
               FavProductsViewModel mdl = FavProductsViewModel();
-              mdl.editFavoriteProductPage(corporationId, img, context, callerPage);
+              mdl.editFavoriteProductPage(widget.corporationId, widget.img, context, widget.callerPage);
+              if (isFav) {
+                setState(() {
+                  isPageLoad = false;
+                  isFav = false;
+                });
+              } else {
+                setState(() {
+                  isPageLoad = false;
+                  isFav = true;
+                });
+              }
             },
             height: MediaQuery.of(context).size.height / 15,
             width: MediaQuery.of(context).size.width / 3,
@@ -72,7 +99,7 @@ class SliderItem extends StatelessWidget {
       ],
     );
 
-    if(img == null || img.isEmpty ){
+    if(widget.img == null || widget.img.isEmpty ){
       image = Icon(
         Icons.home_filled,
         size: 150.0,
@@ -88,7 +115,7 @@ class SliderItem extends StatelessWidget {
           Padding(
             padding: EdgeInsets.only(bottom: 2.0, top: 8.0),
             child: Text(
-              "$name",
+              "${widget.name}",
               style: TextStyle(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w900,
@@ -104,11 +131,11 @@ class SliderItem extends StatelessWidget {
                   starCount: 5,
                   color: Constants.ratingBG,
                   allowHalfRating: true,
-                  rating: rating,
+                  rating: widget.rating,
                   size: 13.0,
                 ),
                 Text(
-                  rating.toStringAsFixed(2)+"($raters Reviews)",
+                  widget.rating.toStringAsFixed(2)+"(${widget.raters} Reviews)",
                   //" $rating ($raters Reviews)",
                   style: TextStyle(
                     fontSize: 14,
@@ -121,7 +148,7 @@ class SliderItem extends StatelessWidget {
       ),
       onTap: () async {
         CorporateHelper corporationViewModel = CorporateHelper();
-        CorporationModel corporationModel = await corporationViewModel.getCorporate(corporationId);
+        CorporationModel corporationModel = await corporationViewModel.getCorporate(widget.corporationId);
         Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,  child: ProductDetails(
           corporationModel: corporationModel,)));
       },

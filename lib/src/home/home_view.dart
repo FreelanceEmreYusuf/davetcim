@@ -4,7 +4,6 @@ import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/src/home/home_view_model.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
-import 'package:davetcim/src/profile/profile_view.dart';
 import 'package:davetcim/widgets/bounce_button.dart';
 import 'package:davetcim/widgets/slider_item.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,6 @@ import 'package:davetcim/widgets/grid_product.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../../shared/environments/const.dart';
-import '../../shared/utils/utils.dart';
 import '../../widgets/on_error/somethingWentWrong.dart';
 
 class Home extends StatefulWidget {
@@ -134,7 +132,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                                     raters: model.ratingCount,
                                     description: model.description,
                                     maxPopulation: model.maxPopulation,
-                                    callerPage: MainScreen(),
+                                    callerPage: null,
                                   );
                                   //Image.network(corporationList[index].imageUrl,fit: BoxFit.fill,);
                                 },
