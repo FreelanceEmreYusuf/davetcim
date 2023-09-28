@@ -53,6 +53,7 @@ class UtilCartItem extends StatelessWidget {
                     style: TextStyle(
                       color: Colors.red,
                       fontWeight: FontWeight.bold,
+                      fontSize: 25,
                     ),
                     textAlign: TextAlign.right,
                   ),
@@ -60,6 +61,7 @@ class UtilCartItem extends StatelessWidget {
                     subtitle,
                     style: TextStyle(
                       color: Colors.redAccent,
+                        fontSize: 15,
                     ),
                     textAlign: TextAlign.right,
                   ),

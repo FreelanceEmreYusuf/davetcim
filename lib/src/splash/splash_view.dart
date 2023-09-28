@@ -14,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   startTimeout() {
-    return Timer(Duration(seconds: 2), changeScreen);
+    return Timer(Duration(seconds: 3), changeScreen);
   }
 
   changeScreen() async {
@@ -42,35 +42,12 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Container(
-        margin: EdgeInsets.only(left: 40.0, right: 40.0),
+        margin: EdgeInsets.only(left: 25.0, right: 25.0),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Icon(
-                Icons.contact_page,
-                size: 150.0,
-                color: Theme.of(context).accentColor,
-              ),
-              SizedBox(width: 40.0),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(
-                  top: 15.0,
-                ),
-                child: Text(
-                  "${Constants.appName}",
-                  style: TextStyle(
-                    fontSize: 25.0,
-                    fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+            child: Image.asset('assets/2.png',
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width
+            )),
       ),
     );
   }

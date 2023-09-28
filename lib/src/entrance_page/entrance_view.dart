@@ -35,9 +35,9 @@ class _EntrancePageState extends State<EntrancePage> {
                   tooltip: "Organizasyon için en uygun mekanı bul",
                   img:
                       'https://i.pinimg.com/564x/6c/b1/69/6cb16913d2e46c32ef46989145f5900d.jpg',
-                  title: "Mekan Filtreleme Robotu",
-                  subtitle:
-                      "Düğün, Kına, Doğum Günü ve daha birçok organizasyon için kriterlerinize uygun mekanı biz sizin için bulalım.",
+                  title: "Davet Filtreleme Robotu",
+                  subtitle:"",
+                      //"Düğün, Kına, Doğum Günü ve daha birçok organizasyon için kriterlerinize uygun mekanı biz sizin için bulalım.",
                   screen: SearchScreen(),
                 ),
                 UtilCartItem(
@@ -46,8 +46,8 @@ class _EntrancePageState extends State<EntrancePage> {
                   img:
                       'https://focuspg.com.au/wp-content/uploads/2019/08/home-loan-grid-img-1-new.jpg',
                   title: "Ana Sayfa",
-                  subtitle:
-                      "Uygulamamızın ana sayfasına gider, burada öne çıkan mekanları görebilir avantajlı teklifler alabilirsiniz.",
+                  subtitle:"",
+                      //"Uygulamamızın ana sayfasına gider, burada öne çıkan mekanları görebilir avantajlı teklifler alabilirsiniz.",
                   screen: MainScreen(),
                 ),
                 UtilCartItem(
@@ -57,8 +57,8 @@ class _EntrancePageState extends State<EntrancePage> {
                   img:
                       'https://carta.v-card.es/assets/images/user/login.png',
                   title: "Üye Girişi / Yeni Üyelik",
-                  subtitle:
-                      "Avantajlı tekliflerden yararlanabilmek, favorilerinizi seçebilmek ve sepetinizi doldurabilmek için üye girişi yapabilirsiniz. Ayrıca üye değilseniz yeni üyelik oluşturabilirsiniz",
+                  subtitle:"",
+                      //"Avantajlı tekliflerden yararlanabilmek, favorilerinizi seçebilmek ve sepetinizi doldurabilmek için üye girişi yapabilirsiniz. Ayrıca üye değilseniz yeni üyelik oluşturabilirsiniz",
                   screen: JoinView(),
                 ),
               ],

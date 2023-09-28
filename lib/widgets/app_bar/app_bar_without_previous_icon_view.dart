@@ -2,12 +2,15 @@ import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/widgets/app_bar/icon_badge_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/app_provider.dart';
 import '../../screens/notifications.dart';
 import '../../shared/sessions/application_session.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/language.dart';
 import '../../shared/utils/utils.dart';
 import '../../src/join/join_view.dart';
+import '../bounce_button.dart';
 import '../popup_menu/popup_menu.dart';
 import 'app_bar_view_model.dart';
 
@@ -84,7 +87,32 @@ class _AppBarMenu extends State<AppBarMenuWithOutPreviousPageIcon> {
           new PopUpMenu(),
       ],
       //   centerTitle: true,
-      title: Text(
+      title: FittedBox(
+        child: BounceButton(
+          child: Text(
+            widget.pageName,
+            style: TextStyle(
+              fontSize: fontSize,
+              color: Color(0xffffffff),
+              fontWeight: FontWeight.w700,
+              fontFamily: 'RobotoMono',
+            ),
+          ),
+          onTap: (){
+
+          },
+          duration: Duration(milliseconds: 300),
+          decoration: BoxDecoration(
+              color: Provider.of<AppProvider>(context).theme ==
+                  Constants.lightTheme
+                  ? Constants.darkAccent
+                  : Colors.black,
+              borderRadius: BorderRadius.circular(50)
+          ),
+        ),
+      ),
+      /*
+      Text(
         widget.pageName,
         style: TextStyle(
           fontSize: fontSize,
@@ -92,7 +120,7 @@ class _AppBarMenu extends State<AppBarMenuWithOutPreviousPageIcon> {
           fontWeight: FontWeight.w700,
           fontFamily: 'RobotoMono',
         ),
-      ),
+      ),*/
       elevation: 0.0,
     );
   }

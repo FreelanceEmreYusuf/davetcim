@@ -4,6 +4,7 @@ import 'package:davetcim/widgets/app_bar/icon_badge_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import '../../providers/app_provider.dart';
 import '../../screens/notifications.dart';
 import '../../shared/maps/menu_back_map.dart';
 import '../../shared/models/customer_model.dart';
@@ -14,6 +15,7 @@ import '../../shared/utils/utils.dart';
 import '../../src/join/join_view.dart';
 import '../../src/notifications/notifications_view.dart';
 import '../badge.dart';
+import '../bounce_button.dart';
 import '../on_error/somethingWentWrong.dart';
 import '../popup_menu/popup_menu.dart';
 import 'app_bar_view_model.dart';
@@ -50,7 +52,7 @@ class _AppBarMenu extends State<AppBarMenu> {
 
   @override
   Widget build(BuildContext context) {
-    double fontSize = 15;
+    double fontSize = 20;
     AppBarViewModel mdl = new AppBarViewModel();
     
     Widget backButton;
@@ -127,13 +129,28 @@ class _AppBarMenu extends State<AppBarMenu> {
                           new PopUpMenu(),
                       ],
                       centerTitle: true,
-                      title: Text(
-                        widget.pageName,
-                        style: TextStyle(
-                          fontSize: fontSize,
-                          color: Color(0xffffffff),
-                          fontWeight: FontWeight.w900,
-                          fontFamily: 'RobotoMono',
+                      title: FittedBox(
+                        child: BounceButton(
+                          child: Text(
+                            widget.pageName,
+                            style: TextStyle(
+                              fontSize: fontSize,
+                              color: Color(0xffffffff),
+                              fontWeight: FontWeight.w700,
+                              fontFamily: 'RobotoMono',
+                            ),
+                          ),
+                          onTap: (){
+
+                          },
+                          duration: Duration(milliseconds: 300),
+                          decoration: BoxDecoration(
+                              color: Provider.of<AppProvider>(context).theme ==
+                                  Constants.lightTheme
+                                  ? Constants.darkAccent
+                                  : Constants.darkAccent,
+                              borderRadius: BorderRadius.circular(50)
+                          ),
                         ),
                       ),
                       elevation: 0.0,
