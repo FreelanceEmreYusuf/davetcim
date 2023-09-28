@@ -331,7 +331,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
                             size: 25.0,
                             color: Theme.of(context).accentColor,
                           ),
-                          trailing: Text(corporationEventLogModel.favoriteCountMonth.toString(), style: TextStyle(
+                          trailing: Text(corporationEventLogModel.reservationCountMonth.toString(), style: TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
