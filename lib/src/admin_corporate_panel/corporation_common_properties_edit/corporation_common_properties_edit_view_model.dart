@@ -1,3 +1,4 @@
+import 'package:davetcim/shared/dto/service_type_response_dto.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:flutter/cupertino.dart';
@@ -5,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../../shared/dto/corporation_organizations_response_dto.dart';
 import '../../../shared/dto/organization_type_response_dto.dart';
+import '../../../shared/enums/corporation_service_selection_enum.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../corporation_register/common_informations_p2/common_informations_p2_view_model.dart';
 import '../../corporation_register/common_informations_p3/common_informations_p3_view_model.dart';
@@ -77,7 +79,27 @@ class CorporationCommonPropertiesEditViewModel extends ChangeNotifier {
       });
     }
 
-    return CorporationOrganizationsResponseDto(organizationTypes, sequenceOrderTypes, invitationTypes);
+    Map<int, String> serviceSelectionMap = {};
+    Map<int, bool> serviceSelectionSelectedMap = {};
+    serviceSelectionMap.addAll({0: "Kullanıcı firma paketini seçer"});
+    serviceSelectionMap.addAll({1: "Kullanıcı ürünler içinden seçer"});
+    if (corporateModel.serviceSelection == CorporationServiceSelectionEnum.customerSelectsCorporationPackage
+      || corporateModel.serviceSelection == CorporationServiceSelectionEnum.customerSelectsBoth) {
+      serviceSelectionSelectedMap.addAll({0: true});
+    } else {
+      serviceSelectionSelectedMap.addAll({0: false});
+    }
+
+    if (corporateModel.serviceSelection == CorporationServiceSelectionEnum.customerSelectsExtraProduct
+        || corporateModel.serviceSelection == CorporationServiceSelectionEnum.customerSelectsBoth) {
+      serviceSelectionSelectedMap.addAll({1: true});
+    } else {
+      serviceSelectionSelectedMap.addAll({1: false});
+    }
+
+    ServiceTypesResponseDto serviceTypeResponse = ServiceTypesResponseDto(serviceSelectionMap, serviceSelectionSelectedMap);
+
+    return CorporationOrganizationsResponseDto(organizationTypes, sequenceOrderTypes, invitationTypes, serviceTypeResponse);
   }
 
 

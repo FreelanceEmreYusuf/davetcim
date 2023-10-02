@@ -1,10 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/dto/corporation_organizations_response_dto.dart';
+import '../../../shared/enums/corporation_service_selection_enum.dart';
 import '../../../shared/models/company_model.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/region_model.dart';
@@ -28,7 +28,7 @@ class CorporationCommonPropertiesEditView extends StatefulWidget {
 }
 
 class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonPropertiesEditView> {
-  CorporationOrganizationsResponseDto response = CorporationOrganizationsResponseDto(null, null, null);
+  CorporationOrganizationsResponseDto response = CorporationOrganizationsResponseDto(null, null, null, null);
 
   Map<String, bool> values = {};
   Map<String, int> valuesId = {};
@@ -39,9 +39,13 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
   Map<String, bool> values3 = {};
   Map<String, int> valuesId3 = {};
 
+  Map<int, String> serviceSelectionMap = {};
+  Map<int, bool> serviceSelectionCheckedMap = {};
+
   bool organizationErrorVisibility = false;
   bool invitationErrorVisibility = false;
   bool sequenceErrorVisibility = false;
+  bool serviceSelectionErrorVisibility = false;
 
   final TextEditingController _firmNameControl = new TextEditingController();
   final TextEditingController _addresControl = new TextEditingController();
@@ -55,6 +59,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
   final registerFormKey = GlobalKey <FormState> ();
   final registerFormKey2 = GlobalKey <FormState> ();
   final registerFormKey3 = GlobalKey <FormState> ();
+  final registerFormKey4 = GlobalKey <FormState> ();
 
   String formException = "";
   int _cardDivisionSize = 20;
@@ -62,6 +67,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
   TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
   List<RegionModel> regionList =
       ApplicationSession.filterScreenSession.regionModelList;
+
   int selectedRegion = 0;
   int selectedDistrict = 0;
 
@@ -106,8 +112,6 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
     }
   }
 
-
-
   void callGetOrganizationTypes() async {
     CorporationCommonPropertiesEditViewModel model = CorporationCommonPropertiesEditViewModel();
     response = await  model.getCorporationOrganizationTypes(ApplicationSession.userSession.corporationId);
@@ -117,6 +121,9 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
     valuesId2 = response.invitationTypeResponse.organizationTypeNameIdMap;
     values3 = response.sequenceOrderResponse.organizationTypeCheckedMap;
     valuesId3 = response.sequenceOrderResponse.organizationTypeNameIdMap;
+    serviceSelectionMap = response.serviceTypeResponse.serviceTypeTitleMap;
+    serviceSelectionCheckedMap = response.serviceTypeResponse.serviceTypeChecked;
+
 
     setState(() {
       response = response;
@@ -126,6 +133,8 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
       valuesId2 = valuesId2;
       values3 = values3;
       valuesId3 = valuesId3;
+      serviceSelectionMap = serviceSelectionMap;
+      serviceSelectionCheckedMap = serviceSelectionCheckedMap;
     });
   }
 
@@ -161,6 +170,17 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
         }
       });
 
+      int serviceSelectionCount = 0;
+      int serviceSelectedValue = -1;
+      serviceSelectionCheckedMap.forEach((k, v) =>  {
+        if (v) {
+          serviceSelectionCount += 1,
+          if (k == 0) serviceSelectedValue = 0,
+          if (k == 1) serviceSelectedValue = 1,
+        }
+      });
+      if (serviceSelectionCount > 1) serviceSelectedValue = 2;
+
       if (organizationUniqueIdentifier.length == 0) {
         setState(() {
           organizationErrorVisibility = true;
@@ -172,6 +192,10 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
       } else if (sequenceOrderIdentifier.length == 0) {
         setState(() {
           sequenceErrorVisibility = true;
+        });
+      } else if (serviceSelectionCount == 0) {
+        setState(() {
+          serviceSelectionErrorVisibility = true;
         });
       } else {
         CorporateHelper corporateHelper = CorporateHelper();
@@ -188,6 +212,8 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
         corporationModel.organizationUniqueIdentifier = organizationUniqueIdentifier;
         corporationModel.invitationUniqueIdentifier = invitationUniqueIdentifier;
         corporationModel.sequenceOrderUniqueIdentifier = sequenceOrderIdentifier;
+        corporationModel.serviceSelection = CorporationServiceSelectionEnumConverter.getEnumValue(serviceSelectedValue);
+
 
         CorporationCommonPropertiesEditViewModel viewModel = CorporationCommonPropertiesEditViewModel();
         viewModel.setCorporationInfoAndOrganizationTypes(corporationModel);
@@ -671,6 +697,39 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
                 visible: sequenceErrorVisibility,
                 child: Container(
                     child: Text("Lütfen Masa Türü Seçiniz", style: TextStyle(color: Colors.red)),
+                    padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+                )),
+            SizedBox(height:  MediaQuery.of(context).size.height / 25.0,),
+            Container(
+              padding: const EdgeInsets.only(left: 14.0, top: 14.0),
+              child: Text("Sunulan Servis Düzenleri",
+                style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20.0
+                ),
+              ),
+            ),
+            Divider(thickness: 2,),
+            Form(
+              key: registerFormKey4,
+              child: new Column(
+                children: serviceSelectionMap.keys.map((int key) {
+                  return new CheckboxListTile(
+                    title: new Text(serviceSelectionMap[key]),
+                    value: serviceSelectionCheckedMap[key],
+                    onChanged: (bool value) {
+                      setState(() {
+                        serviceSelectionCheckedMap[key] = value;
+                      });
+                    },
+                  );
+                }).toList(),
+              ),
+            ),
+            Visibility(
+                visible: sequenceErrorVisibility,
+                child: Container(
+                    child: Text("Lütfen Servis Türü Seçiniz", style: TextStyle(color: Colors.red)),
                     padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
                 )),
             SizedBox(height:  MediaQuery.of(context).size.height / 4.0,),

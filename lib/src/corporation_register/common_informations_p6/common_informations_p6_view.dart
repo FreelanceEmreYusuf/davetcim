@@ -1,9 +1,3 @@
-import 'package:davetcim/shared/models/customer_model.dart';
-import 'package:davetcim/shared/models/secret_questions_model.dart';
-import 'package:davetcim/shared/utils/form_control.dart';
-import 'package:davetcim/shared/utils/language.dart';
-import 'package:davetcim/src/join/register/register_view_model.dart';
-import 'package:davetcim/widgets/checkbox_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

@@ -2,52 +2,52 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/dto/corporation_registration_dto.dart';
-import '../../../shared/dto/organization_type_response_dto.dart';
+import '../../../shared/dto/service_type_response_dto.dart';
+import '../../../shared/enums/corporation_service_selection_enum.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
-import '../common_informations_p4_2/common_informations_p4_2_view.dart';
 import '../common_informations_p5/common_informations_p5_view.dart';
-import 'common_informations_p4_view_model.dart';
+import 'common_informations_p4_2_view_model.dart';
 
-class CommonInformationsP4View extends StatefulWidget {
+class CommonInformationsP42View extends StatefulWidget {
   @override
-  _CommonInformationsP4ViewState createState() => _CommonInformationsP4ViewState();
+  _CommonInformationsP42ViewState createState() => _CommonInformationsP42ViewState();
   final CorporationReservationDto corpReg;
 
-  CommonInformationsP4View(
+  CommonInformationsP42View(
       {Key key,
         @required this.corpReg,
        })
       : super(key: key);
 }
 
-class _CommonInformationsP4ViewState extends State<CommonInformationsP4View> {
-  Map<String, bool> values = {};
-  Map<String, int> valuesId = {};
-  OrganizationTypesResponseDto response;
+class _CommonInformationsP42ViewState extends State<CommonInformationsP42View> {
+  Map<int, String> values = {};
+  Map<int, bool> valuesChecked = {};
+  ServiceTypesResponseDto response;
   final registerFormKey = GlobalKey <FormState> ();
   bool keyVisibility = false;
   @override
   void initState() {
-    callGetSequenceOrderTypes();
+    callGetServiceTypes();
   }
 
-  void callGetSequenceOrderTypes() async {
-    CommonInformationsP4ViewModel commonInformationsP4ViewModel = CommonInformationsP4ViewModel();
-    response = await  commonInformationsP4ViewModel.getSequenceOrderTypes();
-    values = response.organizationTypeCheckedMap;
-    valuesId = response.organizationTypeNameIdMap;
+  void callGetServiceTypes()  {
+    CommonInformationsP42ViewModel service = CommonInformationsP42ViewModel();
+    response =  service.getServiceTypes();
+    values = response.serviceTypeTitleMap;
+    valuesChecked = response.serviceTypeChecked;
 
     setState(() {
       response = response;
       values = values;
-      valuesId = valuesId;
+      valuesChecked = valuesChecked;
     });
   }
 
   bool isListItemChecked() {
     bool isChecked = false;
-    values.forEach((k, v) =>  {
+    valuesChecked.forEach((k, v) =>  {
       if (v) {
         isChecked = true
       }
@@ -62,20 +62,20 @@ class _CommonInformationsP4ViewState extends State<CommonInformationsP4View> {
         visible: keyVisibility,
         child: FloatingActionButton.extended(
           onPressed: () {
-            String sequenceOrderTypes = "";
-            List<String> sequenceOrderList = [];
-            values.forEach((k, v) =>  {
+            int serviceSelectionCount = 0;
+            int serviceSelectedValue = -1;
+            valuesChecked.forEach((k, v) =>  {
               if (v) {
-                sequenceOrderList.add(valuesId[k].toString()),
-                if (sequenceOrderTypes.isNotEmpty) {
-                  sequenceOrderTypes += ", "
-                },
-                sequenceOrderTypes = sequenceOrderTypes + k,
+                serviceSelectionCount += 1,
+                if (k == 0) serviceSelectedValue = 0,
+                if (k == 1) serviceSelectedValue = 1,
               }
             });
-            widget.corpReg.corporationModel.sequenceOrderUniqueIdentifier = sequenceOrderList;
-            widget.corpReg.sequenceOrderTypes = sequenceOrderTypes;
-            Utils.navigateToPage(context, CommonInformationsP42View(corpReg: widget.corpReg,));
+            if (serviceSelectionCount > 1) serviceSelectedValue = 2;
+
+            widget.corpReg.corporationModel.serviceSelection =
+                CorporationServiceSelectionEnumConverter.getEnumValue(serviceSelectedValue);
+            Utils.navigateToPage(context, CommonInformationsP5View(corpReg: widget.corpReg,));
           },
           label: const Text('Devam Et'),
           icon: const Icon(Icons.navigate_next),
@@ -88,13 +88,13 @@ class _CommonInformationsP4ViewState extends State<CommonInformationsP4View> {
         child: Form(
           key: registerFormKey,
           child: new ListView(
-            children: values.keys.map((String key) {
+            children: values.keys.map((int key) {
               return new CheckboxListTile(
-                title: new Text(key),
-                value: values[key],
+                title: new Text(values[key]),
+                value: valuesChecked[key],
                 onChanged: (bool value) {
                   setState(() {
-                    values[key] = value;
+                    valuesChecked[key] = value;
                     keyVisibility = isListItemChecked();
                   });
                 },

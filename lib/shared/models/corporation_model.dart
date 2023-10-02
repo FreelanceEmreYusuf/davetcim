@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import '../enums/corporation_service_selection_enum.dart';
+
 class CorporationModel {
   int corporationId;
   String corporationName;
@@ -19,6 +21,7 @@ class CorporationModel {
   String region;
   String telephoneNo;
   String email;
+  CorporationServiceSelectionEnum serviceSelection;
   Timestamp recordDate;
   List<String> invitationUniqueIdentifier;
   List<String> organizationUniqueIdentifier;
@@ -41,6 +44,7 @@ class CorporationModel {
     this.region,
     this.telephoneNo,
     this.email,
+    this.serviceSelection,
     this.recordDate,
     this.invitationUniqueIdentifier,
     this.organizationUniqueIdentifier,
@@ -65,6 +69,7 @@ class CorporationModel {
     'region': region,
     'telephoneNo': telephoneNo,
     'email': email,
+    'serviceSelection': serviceSelection.index,
     'recordDate': recordDate,
     'invitationUniqueIdentifier': invitationUniqueIdentifier,
     'organizationUniqueIdentifier': organizationUniqueIdentifier,
@@ -89,6 +94,7 @@ class CorporationModel {
     region: map['region'],
     telephoneNo: map['telephoneNo'],
     email: map['email'],
+    serviceSelection: CorporationServiceSelectionEnumConverter.getEnumValue(map['serviceSelection']),
     recordDate: map['recordDate'],
     invitationUniqueIdentifier: List.from(map['invitationUniqueIdentifier']) ,
     organizationUniqueIdentifier: List.from(map['organizationUniqueIdentifier']),
