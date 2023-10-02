@@ -54,6 +54,7 @@ class UtilCartItem extends StatelessWidget {
                       color: Colors.red,
                       fontWeight: FontWeight.bold,
                       fontSize: 25,
+                      backgroundColor: Colors.white,
                     ),
                     textAlign: TextAlign.right,
                   ),
