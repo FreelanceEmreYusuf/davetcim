@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 import 'package:flutter/services.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../../shared/dto/basket_user_dto.dart';
@@ -194,8 +195,8 @@ class _ProductDetailsState extends State<ProductDetails> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               BounceButton(
-                child: FittedBox(child: Image.asset("assets/sponsorship_smaller.png")),
-                onTap: (){
+                child: Image.asset("assets/sponsorship_smaller.png"),
+                onTap: (){ 
                   ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text("Davetcim Sponsoru", style: TextStyle(fontSize: 17, color: Colors.black)), duration: Duration(seconds: 1), backgroundColor: Colors.white,));
                 },
@@ -724,7 +725,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     physics: NeverScrollableScrollPhysics(),
                                     padding: const EdgeInsets.all(10.0),
                                     children: commentList, // <<<<< Note this change for the return type
-                                  )
+                                  ),
                               ),
                               SizedBox(height: MediaQuery.of(context).size.height/30),
                               Container(
@@ -821,7 +822,8 @@ class _ImageDetailScreenState extends State<ImageDetailScreen> {
           ),
         ),
         onTap: () {
-          Navigator.pop(context);
+          Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.leftToRightPop));
+          //Navigator.pop(context);
         },
       ),
     );
