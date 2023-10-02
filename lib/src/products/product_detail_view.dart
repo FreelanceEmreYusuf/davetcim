@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import '../../providers/app_provider.dart';
 import '../../shared/dto/basket_user_dto.dart';
 import '../../shared/enums/corporation_event_log_enum.dart';
 import '../../shared/models/combo_generic_model.dart';
@@ -176,6 +178,53 @@ class _ProductDetailsState extends State<ProductDetails> {
               child: Center(child: CircularProgressIndicator())));
     }
 
+    Widget corpNameWidget = Text(
+      widget.corporationModel.corporationName,
+      style: TextStyle(
+        fontSize: 25,
+        fontWeight: FontWeight.w800,
+      ),
+      maxLines: 2,
+    );
+    if(widget.corporationModel.isPopularCorporation){
+      setState(() {
+        corpNameWidget = FittedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              BounceButton(
+                child: FittedBox(child: Image.asset("assets/sponsorship_smaller.png")),
+                onTap: (){
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text("Davetcim Sponsoru", style: TextStyle(fontSize: 17, color: Colors.black)), duration: Duration(seconds: 1), backgroundColor: Colors.white,));
+                },
+                height: MediaQuery.of(context).size.height / 17,
+                width: MediaQuery.of(context).size.width / 10,
+                duration: Duration(milliseconds: 300),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Provider.of<AppProvider>(context).theme ==
+                      Constants.lightTheme
+                      ? Colors.white
+                      : Colors.black,
+                ),
+              ),
+              Text(
+                widget.corporationModel.corporationName,
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w800,
+                ),
+                maxLines: 2,
+              ),
+            ],
+          ),
+        );
+      });
+
+    }
+
     isFavorite = ApplicationSession.isCorporationFavorite(widget.corporationModel.corporationId);
 
     Widget img = Stack(
@@ -245,14 +294,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                   SizedBox(height: 10.0),
                   img,
                   SizedBox(height:MediaQuery.of(context).size.height/50,),
-                  Text(
-                    widget.corporationModel.corporationName,
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w800,
-                    ),
-                    maxLines: 2,
-                  ),
+                  corpNameWidget,
                   HashtagWidget(hashtagList: hashtagList),
                   SizedBox(height: MediaQuery.of(context).size.height/50,),
                   Padding(

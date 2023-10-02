@@ -58,7 +58,7 @@ class _GridLookupItemState
               ),
             ),
           ),
-        Expanded(
+        /*Expanded(
           child: ClipPath(
             child: Material(
               color: Colors.blueAccent, // button color
@@ -77,7 +77,7 @@ class _GridLookupItemState
               ),
             ),
           ),
-        ),
+        ),*/
       ],
     );
 

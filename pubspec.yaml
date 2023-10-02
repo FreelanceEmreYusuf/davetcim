@@ -65,11 +65,8 @@ flutter:
   assets:
     - assets/avatar.jpg
     - assets/errorimage.jpeg
-    - assets/davetcim_logo1.png
-    - assets/davetcim_logo4.png
     - assets/2.png
-    - assets/3.png
-    - assets/5.png
+    - assets/sponsorship_smaller.png
 
   #   - images/a_dot_ham.jpeg
 
