@@ -30,4 +30,5 @@ class DBConstants {
   static String commentDb = "Comments";
   static String corporationEventLogDb = "CorporationEventLog";
   static String applicationImagesDb = "ApplicationImages";
+  static String insuranceDB = "Insurance";
 }

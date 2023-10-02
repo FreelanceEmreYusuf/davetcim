@@ -1,3 +1,4 @@
+import 'package:davetcim/shared/helpers/general_helper.dart';
 import 'package:davetcim/src/splash/splash_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -15,14 +16,28 @@ void main() async {
       systemNavigationBarColor: Colors.redAccent,
     ),
   );
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => AppProvider()),
-      ],
-      child: MyApp(),
-    ),
-  );
+  GeneralHelper model = new GeneralHelper();
+  if(await model.checkInsurance()){
+    runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => AppProvider()),
+        ],
+        child: ErrorPage(),
+      ),
+    );
+  }
+  else{
+    runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => AppProvider()),
+        ],
+        child: MyApp(),
+      ),
+    );
+  }
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -37,8 +52,46 @@ class MyApp extends StatelessWidget {
           title: Constants.appName,
           theme: appProvider.theme,
           darkTheme: Constants.darkTheme,
-          home: SplashScreen(),
+          home: SplashScreen(), 
         );
+      },
+    );
+  }
+}
+
+class ErrorPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AppProvider>(
+      builder: (BuildContext context, AppProvider appProvider, Widget child) {
+        return MaterialApp(
+          key: appProvider.key,
+          debugShowCheckedModeBanner: false,
+          navigatorKey: appProvider.navigatorKey,
+          title: Constants.appName,
+          theme: appProvider.theme,
+          darkTheme: Constants.darkTheme,
+          home: Scaffold(
+            body: GestureDetector(
+              onTap: (){
+
+              },
+              child: Image.asset("assets/errorimage.jpeg"),
+            ),
+          ),
+        );
+
+
+          
+          /*MaterialApp(
+          key: appProvider.key,
+          debugShowCheckedModeBanner: false,
+          navigatorKey: appProvider.navigatorKey,
+          title: Constants.appName,
+          theme: appProvider.theme,
+          darkTheme: Constants.darkTheme,
+          home: SplashScreen(),
+        );*/
       },
     );
   }
