@@ -11,9 +11,7 @@ import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
-import '../../../widgets/grid_corporate_service_pool_for_basket.dart';
 import '../../../widgets/grid_corporate_service_pool_for_basket_summary.dart';
-import '../../admin_corporate_panel/service/service-corporate_view_model.dart';
 import '../../notifications/notifications_view_model.dart';
 
 class SummaryBasketScreen extends StatefulWidget {

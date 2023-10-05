@@ -1,12 +1,12 @@
 import 'package:davetcim/shared/utils/utils.dart';
-import 'package:davetcim/src/admin_corporate_panel/service/service-corporate_view_model.dart';
-import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_view.dart';
+import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_user_choose/service-corporate_view_model.dart';
+import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_user_choose/service_corporate_view.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/environments/const.dart';
-import '../../../shared/models/service_corporate_pool_model.dart';
-import '../../../shared/utils/form_control.dart';
-import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../../shared/environments/const.dart';
+import '../../../../shared/models/service_corporate_pool_model.dart';
+import '../../../../shared/utils/form_control.dart';
+import '../../../../widgets/app_bar/app_bar_view.dart';
 
 
 class ServiceCorporateUpdateView extends StatefulWidget {

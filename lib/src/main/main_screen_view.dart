@@ -6,12 +6,10 @@ import 'package:davetcim/src/user_reservations/user_reservations_view.dart';
 import 'package:davetcim/src/fav_products/favorite_screen.dart';
 import 'package:davetcim/src/home/home_view.dart';
 import 'package:davetcim/src/profile/profile_view.dart';
-import 'package:davetcim/widgets/badge.dart';
 
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/app_bar/bottom_app_bar.dart';
 import '../../widgets/bounce_button.dart';
-import '../search/search_view.dart';
 import 'main_screen_view_model.dart';
 
 class MainScreen extends StatefulWidget {
@@ -23,8 +21,6 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   PageController _pageController;
   int _page = 0;
-
-
 
   @override
   Widget build(BuildContext context) {

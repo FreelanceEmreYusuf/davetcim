@@ -1,25 +1,14 @@
 import 'package:davetcim/shared/enums/reservation_status_enum.dart';
-import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
-import 'package:davetcim/src/main/main_screen_view.dart';
-import 'package:davetcim/src/select-orders/summary_basket/summary_basket_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../shared/dto/basket_user_dto.dart';
 import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
-import '../../../shared/models/service_pool_model.dart';
-import '../../../shared/sessions/user_basket_session.dart';
 import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';
-import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
-import '../../../widgets/grid_corporate_service_pool_for_basket.dart';
-import '../../../widgets/grid_corporate_service_pool_for_basket_summary.dart';
-import '../../admin_corporate_panel/service/service-corporate_view_model.dart';
-import '../../notifications/notifications_view_model.dart';
 
 class AllReservationCorporateDetailScreen extends StatefulWidget {
   @override

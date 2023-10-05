@@ -5,10 +5,10 @@ import '../shared/models/service_pool_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/language.dart';
 import '../shared/utils/utils.dart';
-import '../src/admin_corporate_panel/service/service-corporate_view_model.dart';
-import '../src/admin_corporate_panel/service/service_corporate_add_view.dart';
-import '../src/admin_corporate_panel/service/service_corporate_update_view.dart';
-import '../src/admin_corporate_panel/service/service_corporate_view.dart';
+import '../src/admin_corporate_panel/service/service_corporate_user_choose/service-corporate_view_model.dart';
+import '../src/admin_corporate_panel/service/service_corporate_user_choose/service_corporate_add_view.dart';
+import '../src/admin_corporate_panel/service/service_corporate_user_choose/service_corporate_update_view.dart';
+import '../src/admin_corporate_panel/service/service_corporate_user_choose/service_corporate_view.dart';
 
 class GridCorporateServicePool extends StatefulWidget {
   final ServicePoolModel servicePoolModel;

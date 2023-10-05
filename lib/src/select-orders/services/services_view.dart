@@ -7,7 +7,7 @@ import '../../../shared/sessions/user_basket_session.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_service_pool_for_basket.dart';
-import '../../admin_corporate_panel/service/service-corporate_view_model.dart';
+import '../../admin_corporate_panel/service/service_corporate_user_choose/service-corporate_view_model.dart';
 import '../summary_basket/summary_basket_view.dart';
 
 class ServicesScreen extends StatefulWidget {

@@ -18,6 +18,7 @@ Map<String, Widget> menuBackMap =
   'Aktif Talepler': AdminCorporatePanelPage(),
   'Tüm Rezervasyonlar': AdminCorporatePanelPage(),
   'Yorum Yönetimi': AdminCorporatePanelPage(),
+  'Salon Paket Yönet': AdminCorporatePanelPage(),
 };
 
 
