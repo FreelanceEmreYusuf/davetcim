@@ -76,7 +76,11 @@ class ErrorPage extends StatelessWidget {
               onTap: (){
 
               },
-              child: Image.asset("assets/errorimage.jpeg"),
+              child: Center(
+                child: FittedBox(
+                    fit: BoxFit.fill,
+                    child: Image.asset("assets/coming_soon.png")),
+              ),
             ),
           ),
         );
