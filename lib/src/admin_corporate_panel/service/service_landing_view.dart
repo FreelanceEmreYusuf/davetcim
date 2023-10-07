@@ -2,8 +2,12 @@ import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_pac
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_user_choose/service_corporate_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
+import '../../../providers/app_provider.dart';
+import '../../../shared/environments/const.dart';
 import '../../../shared/utils/utils.dart';
+import '../../../widgets/bounce_button.dart';
 import '../AdminCorporatePanel.dart';
 
 class ServiceLandingView extends StatefulWidget {
@@ -31,7 +35,33 @@ class _ServiceLandingViewState extends State<ServiceLandingView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar:
+      AppBar(
+        title: FittedBox(
+          child: BounceButton(
+            child: Text(
+              "Salon Hizmet İşlemleri",
+              style: TextStyle(
+                fontSize: 20,
+                color: Color(0xffffffff),
+                fontWeight: FontWeight.w700,
+                fontFamily: 'RobotoMono',
+              ),
+            ),
+            onTap: (){
+
+            },
+            duration: Duration(milliseconds: 300),
+            decoration: BoxDecoration(
+                color: Provider.of<AppProvider>(context).theme ==
+                    Constants.lightTheme
+                    ? Colors.redAccent
+                    : Constants.darkAccent,
+                borderRadius: BorderRadius.circular(50)
+            ),
+          ),
+        ),
+        centerTitle: true,
         backgroundColor: Colors.redAccent,
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -57,12 +87,16 @@ class _ServiceLandingViewState extends State<ServiceLandingView>
             fontWeight: FontWeight.w800,
           ),
           tabs: <Widget>[
-            Tab(
-              text: "Firma Ekstra Ürünler",
+            FittedBox(
+              child: Tab(
+                text: "Havuzdan Hizmet Ekle",
+              ),
             ),
-            Tab(
-              text: "Firma Paketleri",
-            )
+            FittedBox(
+              child: Tab(
+                text: "Hizmet Paketi Oluştur",
+              )
+            ),
           ],
         ),
       ),

@@ -57,6 +57,8 @@ class _State extends State<ServiceCorporatePackageAddView> {
                     child: TextFormField(
                       controller: bodyController,
                       keyboardType: TextInputType.text,
+                      maxLines: 12,
+                      textDirection: TextDirection.ltr,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Paket İçeriği",
@@ -74,7 +76,7 @@ class _State extends State<ServiceCorporatePackageAddView> {
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: "Paket Fiyatı",
+                        labelText: "Kişi Başı Paket Fiyatı",
                       ),
                       validator: (value) {
                         return FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));

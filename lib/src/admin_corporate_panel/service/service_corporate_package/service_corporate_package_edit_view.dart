@@ -62,6 +62,8 @@ class _State extends State<ServiceCorporatePackageEditView> {
                   Container(
                     padding: EdgeInsets.all(10),
                     child: TextFormField(
+                      maxLines: 12,
+                      textDirection: TextDirection.ltr,
                       controller: bodyController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
@@ -81,7 +83,7 @@ class _State extends State<ServiceCorporatePackageEditView> {
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: "Paket Fiyatı",
+                        labelText: "Kişi Başı Paket Fiyatı",
                       ),
                       validator: (value) {
                         return FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));
