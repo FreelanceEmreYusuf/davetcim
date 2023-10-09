@@ -50,7 +50,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
 
     ReservationModel reservationModel = new ReservationModel(
       id: reservationId,
-      corporationId: basketModel.corporationId,
+      corporationId: basketModel.corporationModel.corporationId,
       customerId: ApplicationSession.userSession.id,
       cost: basketModel.totalPrice,
       date: basketModel.date,
@@ -71,23 +71,29 @@ class SummaryBasketViewModel extends ChangeNotifier {
 
   Future<void> createNewReservationDetail(BasketUserDto basketModel, int reservationId) async {
     int id = new DateTime.now().millisecondsSinceEpoch;
-    for (int i = 0; i < basketModel.servicePoolModel.length; i++) {
-      ServicePoolModel model = basketModel.servicePoolModel[i];
-      ReservationDetailModel reservationModel = new ReservationDetailModel(
+    if (basketModel.servicePoolModel != null) {
+      for (int i = 0; i < basketModel.servicePoolModel.length; i++) {
+        ServicePoolModel model = basketModel.servicePoolModel[i];
+        ReservationDetailModel reservationModel = new ReservationDetailModel(
           id: (id + i),
           reservationId: reservationId,
           foreignId: model.id,
           foreignType: "service",
+        );
+
+        db.editCollectionRef(DBConstants.reservationDetailDb, reservationModel.toMap());
+      }
+    }
+
+    if (basketModel.packageModel != null) {
+      ReservationDetailModel reservationModel = new ReservationDetailModel(
+        id: (id + 1),
+        reservationId: reservationId,
+        foreignId: basketModel.packageModel.id,
+        foreignType: "package",
       );
 
       db.editCollectionRef(DBConstants.reservationDetailDb, reservationModel.toMap());
     }
   }
-
-
-
-
-
-
-
 }

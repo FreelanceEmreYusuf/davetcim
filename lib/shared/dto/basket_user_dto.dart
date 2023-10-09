@@ -1,13 +1,15 @@
+import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/models/service_pool_model.dart';
 
 import '../models/combo_generic_model.dart';
 import '../models/corporate_sessions_model.dart';
+import '../models/corporation_package_services_model.dart';
 import '../models/reservation_model.dart';
 import 'order_basket_dto.dart';
 
 class BasketUserDto {
   int sessionId;
-  int corporationId;
+  CorporationModel corporationModel;
   int date;
   int maxPopulation;
   int totalPrice;
@@ -17,12 +19,13 @@ class BasketUserDto {
   CorporateSessionsModel sessionModel;
   CorporateSessionsModel selectedSessionModel;
   OrderBasketDto orderBasketModel;
+  CorporationPackageServicesModel packageModel;
   List<ServicePoolModel> servicePoolModel;
 
 
   BasketUserDto(
       this.sessionId,
-      this.corporationId,
+      this.corporationModel,
       this.date,
       this.maxPopulation,
       this.totalPrice,
@@ -31,6 +34,7 @@ class BasketUserDto {
       this.reservationList,
       this.sessionModel,
       this.orderBasketModel,
+      this.packageModel,
       this.servicePoolModel,
   );
 }

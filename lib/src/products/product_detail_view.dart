@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../../shared/dto/basket_user_dto.dart';
 import '../../shared/enums/corporation_event_log_enum.dart';
+import '../../shared/helpers/corporate_helper.dart';
 import '../../shared/models/combo_generic_model.dart';
 import '../../shared/models/corporation_event_log_model.dart';
 import '../../shared/models/corporation_model.dart';
@@ -771,11 +772,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                 color: Colors.white,
               ),
             ),
-            onPressed: () {
+            onPressed: ()  {
               if (ApplicationSession.userSession != null){
                 BasketUserDto model = new BasketUserDto(
-                    0, widget.corporationModel.corporationId, 0, widget.corporationModel.maxPopulation, 0, invitationList,
-                    sequenceOrderList, reservationList, null, null, null);
+                    0, widget.corporationModel, 0, widget.corporationModel.maxPopulation,
+                    0, invitationList,
+                    sequenceOrderList, reservationList,
+                    null, null, null, null);
                 UserBasketSession.servicePoolModel = [];
                 Utils.navigateToPage(context, CalendarScreen(basketModel: model));
               }

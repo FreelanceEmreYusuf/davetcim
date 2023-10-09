@@ -27,6 +27,7 @@ class _ServicesScreenState extends State<ServicesScreen>
     with AutomaticKeepAliveClientMixin<ServicesScreen> {
 
   List<ServicePoolModel> serviceList;
+  bool hasDataTaken = false;
 
   @override
   void initState() {
@@ -36,10 +37,10 @@ class _ServicesScreenState extends State<ServicesScreen>
 
   void setServiceList() async {
     ServiceCorporatePoolViewModel model = ServiceCorporatePoolViewModel();
-    //serviceList = await model.getServiceList();
-    serviceList = updateServiceList(await model.getServiceList(widget.basketModel.corporationId));
+    serviceList = updateServiceList(await model.getServiceList(widget.basketModel.corporationModel.corporationId));
     setState(() {
       serviceList = serviceList;
+      hasDataTaken = true;
     });
   }
 
@@ -55,6 +56,13 @@ class _ServicesScreenState extends State<ServicesScreen>
   Widget build(BuildContext context) {
     super.build(context);
 
+    if (!hasDataTaken) {
+      return Scaffold(appBar:
+      AppBarMenu(pageName: "Hizmetler",  isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+          body: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+              child: Center(child: CircularProgressIndicator())));
+    }
 
     return Scaffold(
       appBar: AppBarMenu(pageName: "Hizmetler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),

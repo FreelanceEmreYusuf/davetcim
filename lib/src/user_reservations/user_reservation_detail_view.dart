@@ -16,6 +16,9 @@ import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
+import '../../shared/models/corporation_package_services_model.dart';
+import '../../widgets/grid_corporate_detail_package_summary.dart';
+import '../../widgets/grid_service_package_summary_item.dart';
 import '../notifications/notifications_view.dart';
 
 class UserResevationDetailScreen extends StatefulWidget {
@@ -93,6 +96,16 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
     bool isFromNotification = false;
     if (widget.isFromNotification != null) {
       isFromNotification = widget.isFromNotification;
+    }
+
+    String packageTitle = "";
+    String serviceTitle = "";
+
+    if (detailResponse.packageModel != null) {
+      packageTitle = "PAKET SEÇİMİ";
+    }
+    if (detailResponse.detailList != null) {
+      serviceTitle = "HİZMETLER";
     }
 
     return Scaffold(
@@ -311,7 +324,6 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
               ),
             ),
 
-            //hizmetler
             SizedBox(height: 10.0),
             Container(
               height: MediaQuery.of(context).size.height / 13,
@@ -329,7 +341,48 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                        "HİZMETLER", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                        packageTitle, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                  ],
+                ),
+              ),
+            ),
+            Divider(),
+            GridView.builder(
+              shrinkWrap: true,
+              primary: false,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                childAspectRatio: MediaQuery.of(context).size.width /
+                    (MediaQuery.of(context).size.height / 12),
+              ),
+              itemCount: detailResponse.packageModel == null
+                  ? 0 : 1,
+              itemBuilder: (BuildContext context, int index) {
+                CorporationPackageServicesModel item = detailResponse.packageModel;
+                return GridCorporateDetailPackageSummary(packageModel: item,  detailModel: detailResponse);
+              },
+            ),
+
+            //paketler
+            SizedBox(height: 10.0),
+            Container(
+              height: MediaQuery.of(context).size.height / 13,
+              child: Card(
+                color: Colors.redAccent,
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shadowColor: Colors.black,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                        serviceTitle, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
                   ],
                 ),
               ),

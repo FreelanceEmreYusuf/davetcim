@@ -36,7 +36,7 @@ class _ReservationOrderViewScreenState extends State<ReservationOrderViewScreen>
 
   void callGetReservationList() async {
     ReservationViewModel rvm = ReservationViewModel();
-    reservationList = await rvm.getSessionReservationExtraction(widget.basketModel.corporationId,
+    reservationList = await rvm.getSessionReservationExtraction(widget.basketModel.corporationModel.corporationId,
         widget.basketModel.date);
 
     setState(() {

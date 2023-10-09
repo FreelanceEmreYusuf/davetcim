@@ -1,11 +1,15 @@
+import 'package:davetcim/shared/enums/corporation_service_selection_enum.dart';
+import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/dto/basket_user_dto.dart';
 import '../../../shared/dto/order_basket_dto.dart';
+import '../../../shared/helpers/corporate_helper.dart';
 import '../../../shared/utils/form_control.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../services/services_package_view.dart';
 import '../services/services_view.dart';
 
 class OrderScreen extends StatefulWidget {
@@ -78,14 +82,19 @@ class _OrderScreenState extends State<OrderScreen>
 
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
+        onPressed: ()  {
           if (registerFormKey.currentState.validate()) {
             OrderBasketDto orderBasketModel = new OrderBasketDto(
                 int.parse(personCountControl.text),
                 widget.basketModel.invitationList[selectedInvitationIndex].text,
                 widget.basketModel.sequenceOrderList[selectedSeatingArrangement].text);
             widget.basketModel.orderBasketModel = orderBasketModel;
-            Utils.navigateToPage(context, ServicesScreen(basketModel: widget.basketModel));
+            if (widget.basketModel.corporationModel.serviceSelection == CorporationServiceSelectionEnum.customerSelectsBoth
+              || widget.basketModel.corporationModel.serviceSelection == CorporationServiceSelectionEnum.customerSelectsCorporationPackage) {
+              Utils.navigateToPage(context, ServicesPackageView(basketModel: widget.basketModel));
+            } else {
+              Utils.navigateToPage(context, ServicesScreen(basketModel: widget.basketModel));
+            }
           }
         },
         label: const Text('Devam'),

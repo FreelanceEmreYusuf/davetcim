@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:davetcim/shared/models/service_pool_model.dart';
+import 'corporation_package_services_model.dart';
 
 class ReservationDetailModel {
   final int id;
@@ -14,7 +15,7 @@ class ReservationDetailModel {
     this.reservationId,
     this.foreignId,
     this.foreignType,
-    this.servicePoolModel,
+    this.servicePoolModel
   });
 
   ///Object to map

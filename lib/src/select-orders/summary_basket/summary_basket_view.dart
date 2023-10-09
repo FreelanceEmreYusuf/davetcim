@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/dto/basket_user_dto.dart';
 import '../../../shared/enums/dialog_input_validator_type_enum.dart';
+import '../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
 import '../../../shared/sessions/user_basket_session.dart';
@@ -12,6 +13,7 @@ import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_service_pool_for_basket_summary.dart';
+import '../../../widgets/grid_service_package_summary_item.dart';
 import '../../notifications/notifications_view_model.dart';
 
 class SummaryBasketScreen extends StatefulWidget {
@@ -42,14 +44,20 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   int calculateTotalPrice(){
     int totalPrice = 0;
     totalPrice += int.parse(calculateSessionPrice());
-    for(int i =0; i<widget.basketModel.servicePoolModel.length;i++){
-      if(widget.basketModel.servicePoolModel[i].corporateDetail.priceChangedForCount){
-        totalPrice += widget.basketModel.orderBasketModel.count * widget.basketModel.servicePoolModel[i].corporateDetail.price;
-      }
-      else{
-        totalPrice += widget.basketModel.servicePoolModel[i].corporateDetail.price;
+    if (widget.basketModel.servicePoolModel != null) {
+      for(int i =0; i < widget.basketModel.servicePoolModel.length;i++){
+        if(widget.basketModel.servicePoolModel[i].corporateDetail.priceChangedForCount){
+          totalPrice += widget.basketModel.orderBasketModel.count * widget.basketModel.servicePoolModel[i].corporateDetail.price;
+        }
+        else{
+          totalPrice += widget.basketModel.servicePoolModel[i].corporateDetail.price;
+        }
       }
     }
+    if (widget.basketModel.packageModel != null) {
+      totalPrice += widget.basketModel.orderBasketModel.count *  widget.basketModel.packageModel.price;
+    }
+
     widget.basketModel.totalPrice = totalPrice;
     return totalPrice;
   }
@@ -75,6 +83,17 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
 
   @override
   Widget build(BuildContext context) {
+    String packageTitle = "";
+    String serviceTitle = "";
+
+    if (widget.basketModel.packageModel != null) {
+      packageTitle = "PAKET SEÇİMİ";
+    }
+    if (widget.basketModel.servicePoolModel != null) {
+      serviceTitle = "HİZMETLER";
+    }
+
+
     super.build(context);
     return Scaffold(
       appBar: AppBarMenu(pageName: "Sepet Özeti", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
@@ -223,6 +242,46 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                 ),
               ),
             ),
+            //paket
+            SizedBox(height: 10.0),
+            Container(
+              height: MediaQuery.of(context).size.height / 13,
+              child: Card(
+                color: Colors.redAccent,
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shadowColor: Colors.black,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                        packageTitle, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                  ],
+                ),
+              ),
+            ),
+            Divider(),
+            GridView.builder(
+              shrinkWrap: true,
+              primary: false,
+              physics: NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                childAspectRatio: MediaQuery.of(context).size.width /
+                    (MediaQuery.of(context).size.height / 12),
+              ),
+              itemCount: widget.basketModel.packageModel == null
+                  ? 0 : 1,
+              itemBuilder: (BuildContext context, int index) {
+                CorporationPackageServicesModel item = widget.basketModel.packageModel;
+                return GridServicePackageSummaryItem(basketModel: widget.basketModel);
+              },
+            ),
 
             //hizmetler
             SizedBox(height: 10.0),
@@ -242,7 +301,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                        "HİZMETLER", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                        serviceTitle, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
                   ],
                 ),
               ),
@@ -309,7 +368,8 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
           onPressed: () async {
          //   if (widget.basketModel.)
             SummaryBasketViewModel summaryBasketViewModel = SummaryBasketViewModel();
-            int minReservationAmount = await summaryBasketViewModel.getMinReservationAmount(widget.basketModel.corporationId);
+            int minReservationAmount = await summaryBasketViewModel.getMinReservationAmount(
+                widget.basketModel.corporationModel.corporationId);
             if (minReservationAmount < calculateTotalPrice()) {
               Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", "İptal", "Sepeti Onayla", "Mesajınızı Girin", 10,
                   createReservationRequest, DailogInmputValidatorTypeEnum.richText);
@@ -335,7 +395,8 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
       Dialogs.showAlertMessage(context, "Üzgünüz", "Siz rezervasyon yaparken başka bir kullanıcı tarafından bu tarihteki bu seans rezerve edildi.");
     } else {
       NotificationsViewModel notificationViewModel = NotificationsViewModel();
-      notificationViewModel.sendNotificationsToAdminCompanyUsers(context, widget.basketModel.corporationId, 0, reservationResponse.id,  description);
+      notificationViewModel.sendNotificationsToAdminCompanyUsers(context, widget.basketModel.corporationModel.corporationId,
+          0, reservationResponse.id,  description);
       Dialogs.showAlertMessageWithAction(context, "İşlem Mesajı", "Rezervasyon talebiniz alınmıştır. Salon sahibine bildirim gönderilmiştir.", navigateToHomePage);
     }
   }

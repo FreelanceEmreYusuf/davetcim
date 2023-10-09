@@ -12,6 +12,7 @@ import '../../../shared/models/reservation_model.dart';
 import '../../../shared/services/database.dart';
 import '../../../shared/utils/date_utils.dart';
 import '../../shared/helpers/corporate_helper.dart';
+import '../../shared/models/corporation_package_services_model.dart';
 import '../admin_corporate_panel/seans/seans_corporate_view_model.dart';
 
 class UserReservationsViewModel extends ChangeNotifier {
@@ -57,7 +58,8 @@ class UserReservationsViewModel extends ChangeNotifier {
       }
 
       List<ServicePoolModel> serviceList = await getServicePoolModelList(selectedServicesIds);
-      List<ServiceCorporatePoolModel> serviceCorporateList = await getServicePoolCorporateModelList(selectedServicesIds, model);
+      List<ServiceCorporatePoolModel> serviceCorporateList =
+        await getServicePoolCorporateModelList(selectedServicesIds, model);
 
       for (int i = 0; i < list.length; i++) {
         Map item = list[i].data();
@@ -65,6 +67,8 @@ class UserReservationsViewModel extends ChangeNotifier {
         detailModel.servicePoolModel = await getServicePoolModel(serviceList, detailModel, serviceCorporateList);
         detailList.add(detailModel);
       }
+
+      rdvm.packageModel = await getServicePackageModel(selectedServicesIds);
     }
 
     rdvm.reservationModel = model;
@@ -100,6 +104,25 @@ class UserReservationsViewModel extends ChangeNotifier {
     }
 
     return serviceList;
+  }
+
+  Future<CorporationPackageServicesModel> getServicePackageModel(List<int> selectedServicesIds) async {
+    var response = await db
+        .getCollectionRef(DBConstants.corporationPackageServicesDb)
+        .where('id', whereIn: selectedServicesIds)
+        .where('isActive', isEqualTo: true)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        CorporationPackageServicesModel packageModel = CorporationPackageServicesModel.fromMap(item);
+        return packageModel;
+      }
+    }
+
+    return null;
   }
 
   Future<ServicePoolModel> getServicePoolModel(List<ServicePoolModel> serviceList, ReservationDetailModel reservationDetailModel,
