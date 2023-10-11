@@ -69,7 +69,7 @@ class _GridCorporateServicePoolForBasketSummaryState
                           "Belirtmiş olduğunuz davetli sayısı : "+widget.basketModel.orderBasketModel.count.toString()
                               +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
                               +"\n\nHizmetin birim ücreti : "+ widget.servicePoolModel.corporateDetail.price.toString()+ "TL"
-                              "\n\nKişi sayısına göre toplam ücret : "+
+                              "\n\nToplam ücret : "+
                               totalPrice.toString() + "TL",
                           null);
                     }, // button pressed

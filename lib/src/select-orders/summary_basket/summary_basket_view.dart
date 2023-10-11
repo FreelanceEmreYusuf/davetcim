@@ -325,8 +325,12 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                                 Dialogs.showAlertMessageWithAction(
                                     context,
                                     widget.basketModel.packageModel.title,
-                                    widget.basketModel.packageModel.body +
-                                        " \nFiyat:" + widget.basketModel.packageModel.price.toString() + "TL",
+                                    "Paket İçeriği: "+widget.basketModel.packageModel.body+""
+                                        "\n\nKişi başı ücret: "+widget.basketModel.packageModel.price.toString()+" TL"
+                                        "\n\nDavetli Sayısına Göre Toplam Tutar: "
+                                        "\nDavetli Sayısı("+widget.basketModel.orderBasketModel.count.toString()+") "
+                                        "\nKişi Başı Paket Ücreti("+widget.basketModel.packageModel.price.toString()+"TL)"
+                                        "\nToplam Ücret: "+(widget.basketModel.packageModel.price*widget.basketModel.orderBasketModel.count).toString()+" TL",
                                     null);
                               },
                               child: Column(

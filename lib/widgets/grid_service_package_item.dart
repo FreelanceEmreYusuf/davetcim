@@ -53,7 +53,12 @@ class _GridServicePackageItemState
                     Dialogs.showAlertMessageWithAction(
                         context,
                         widget.packageModel.title,
-                        widget.packageModel.body,
+                        "Paket İçeriği: "+widget.packageModel.body+""
+                        "\n\nKişi başı ücret: "+widget.packageModel.price.toString()+" TL"
+                            "\n\nDavetli Sayısına Göre Toplam Tutar: "
+                            "\nDavetli Sayısı("+widget.basketModel.orderBasketModel.count.toString()+") "
+                            "\nKişi Başı Paket Ücreti("+widget.packageModel.price.toString()+"TL)"
+                            "\nToplam Ücret: "+(widget.packageModel.price*widget.basketModel.orderBasketModel.count).toString()+" TL",
                         null);
                   }, // button pressed
                   child: Column(
