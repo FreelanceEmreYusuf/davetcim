@@ -47,4 +47,30 @@ class GeneralHelper {
     return generalDataModelList;
   }
 
+  static String generateText(GeneralDataModel model){
+    String text = "";
+    if(model.title != null && model.title != "")
+      text += model.title.toUpperCase()+"\n\n";
+    if(model.subtitle != null && model.subtitle != "")
+      text += model.subtitle+"\n\n\n";
+    if(model.title2 != null && model.title2 != "")
+      text += model.title2.toUpperCase()+"\n\n";
+    if(model.subtitle2 != null && model.subtitle2 != "")
+      text += model.subtitle2+"\n\n\n";
+    if(model.title3 != null && model.title3 != "")
+      text += model.title3.toUpperCase()+"\n\n";
+    if(model.subtitle3 != null && model.subtitle3 != "")
+      text += model.subtitle3+"\n\n\n";
+    if(model.title4 != null && model.title4 != "")
+      text += model.title4.toUpperCase()+"\n\n";
+    if(model.subtitle4 != null && model.subtitle4 != "")
+      text += model.subtitle4+"\n\n\n";
+    if(model.title5 != null && model.title5 != "")
+      text += model.title5.toUpperCase()+"\n\n";
+    if(model.subtitle5 != null && model.subtitle5 != "")
+      text += model.subtitle5+"\n\n\n";
+
+    return text;
+  }
+
 }

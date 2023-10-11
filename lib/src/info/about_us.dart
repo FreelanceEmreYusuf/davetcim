@@ -37,33 +37,6 @@ class _AboutUsPageState extends State<AboutUsPage> {
     return generalData;
   }
 
-  String generateText(){
-    String text = "";
-    GeneralDataModel model = getSpesificData(2);
-    if(model.title != null && model.title != "")
-      text += getSpesificData(2).title.toUpperCase()+"\n\n";
-    if(model.subtitle != null && model.subtitle != "")
-      text += getSpesificData(2).subtitle+"\n\n\n";
-    if(model.title2 != null && model.title2 != "")
-      text += getSpesificData(2).title2.toUpperCase()+"\n\n";
-    if(model.subtitle2 != null && model.subtitle2 != "")
-      text += getSpesificData(2).subtitle2+"\n\n\n";
-    if(model.title3 != null && model.title3 != "")
-      text += getSpesificData(2).title3.toUpperCase()+"\n\n";
-    if(model.subtitle3 != null && model.subtitle3 != "")
-      text += getSpesificData(2).subtitle3+"\n\n\n";
-    if(model.title4 != null && model.title4 != "")
-      text += getSpesificData(2).title4.toUpperCase()+"\n\n";
-    if(model.subtitle4 != null && model.subtitle4 != "")
-      text += getSpesificData(2).subtitle4+"\n\n\n";
-    if(model.title5 != null && model.title5 != "")
-      text += getSpesificData(2).title5.toUpperCase()+"\n\n";
-    if(model.subtitle5 != null && model.subtitle5 != "")
-      text += getSpesificData(2).subtitle5+"\n\n\n";
-
-    return text;
-  }
-
   @override
   Widget build(BuildContext context) {
     if (!hasDataTaken) {
@@ -76,7 +49,6 @@ class _AboutUsPageState extends State<AboutUsPage> {
     return Scaffold(
 
         appBar: AppBarMenu(pageName: LanguageConstants.hakkinda[LanguageConstants.languageFlag], isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
-
         body: Padding(
             padding: EdgeInsets.all(10),
             child: ListView(
@@ -84,9 +56,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 Container(
                   padding: EdgeInsets.all(10),
                   child: Text(
-                    generateText(),
-                    /*LanguageConstants
-                        .bilgilendirme[LanguageConstants.languageFlag],*/
+                    GeneralHelper.generateText(getSpesificData(1)),
                     softWrap: true,
                     style: TextStyle(
                       fontSize: 15,
