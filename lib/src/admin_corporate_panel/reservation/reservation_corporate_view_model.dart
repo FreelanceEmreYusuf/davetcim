@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/reservation_status_enum.dart';
 import '../../../shared/helpers/customer_helper.dart';
+import '../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/services/database.dart';
@@ -64,6 +65,8 @@ class ReservationCorporateViewModel extends ChangeNotifier {
         detailModel.servicePoolModel = await getServicePoolModel(serviceList, detailModel, serviceCorporateList);
         detailList.add(detailModel);
       }
+
+      rdvm.packageModel = await getServicePackageModel(selectedServicesIds);
     }
 
     rdvm.reservationModel = model;
@@ -77,8 +80,6 @@ class ReservationCorporateViewModel extends ChangeNotifier {
 
     return rdvm;
   }
-
-
 
   Future<List<ServicePoolModel>> getServicePoolModelList(List<int> selectedServicesIds) async {
     List<ServicePoolModel> serviceList = [];
@@ -99,6 +100,25 @@ class ReservationCorporateViewModel extends ChangeNotifier {
     }
 
     return serviceList;
+  }
+
+  Future<CorporationPackageServicesModel> getServicePackageModel(List<int> selectedServicesIds) async {
+    var response = await db
+        .getCollectionRef(DBConstants.corporationPackageServicesDb)
+        .where('id', whereIn: selectedServicesIds)
+        .where('isActive', isEqualTo: true)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        CorporationPackageServicesModel packageModel = CorporationPackageServicesModel.fromMap(item);
+        return packageModel;
+      }
+    }
+
+    return null;
   }
 
   Future<ServicePoolModel> getServicePoolModel(List<ServicePoolModel> serviceList, ReservationDetailModel reservationDetailModel,

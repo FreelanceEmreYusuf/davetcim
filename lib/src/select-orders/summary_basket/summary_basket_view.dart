@@ -80,20 +80,101 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
     calculateSessionPrice();
   }
 
+  Widget getPackageWidget() {
+    if (widget.basketModel.packageModel != null) {
+      return FittedBox(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          child: Card(
+            elevation: 10,
+            color: Colors.white54,
+            child: Row(
+              children: [
+                FittedBox(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                        widget.basketModel.packageModel.title,
+                        style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                    ),
+                  ),
+                ),
+                Spacer(),
+                SizedBox.fromSize(
+                  size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
+                    //circular(30.0), // Yuvarlak köşe için bir değer belirtin
+                    child: Material(
+                      color: Colors.grey,
+                      child: InkWell(
+                        splashColor: Colors.deepOrangeAccent,
+                        onTap: () async {
+                          Dialogs.showAlertMessageWithAction(
+                              context,
+                              widget.basketModel.packageModel.title,
+                              "Paket İçeriği: "+widget.basketModel.packageModel.body+""
+                                  "\n\nKişi başı ücret: "+widget.basketModel.packageModel.price.toString()+" TL"
+                                  "\n\nDavetli Sayısına Göre Toplam Tutar: "
+                                  "\nDavetli Sayısı("+widget.basketModel.orderBasketModel.count.toString()+") "
+                                  "\nKişi Başı Paket Ücreti("+widget.basketModel.packageModel.price.toString()+"TL)"
+                                  "\nToplam Ücret: "+(widget.basketModel.packageModel.price*widget.basketModel.orderBasketModel.count).toString()+" TL",
+                              null);
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
+                            FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
+    return Container(
+        child: Text("Paket Seçimi Bulunmamaktadır.", style: TextStyle(color: Colors.red)),
+        padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+    );
+  }
+
+  Widget getServiceWidget() {
+    if (widget.basketModel.servicePoolModel != null) {
+      return GridView.builder(
+        shrinkWrap: true,
+        primary: false,
+        physics: NeverScrollableScrollPhysics(),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 1,
+          childAspectRatio: MediaQuery.of(context).size.width /
+              (MediaQuery.of(context).size.height / 12),
+        ),
+        itemCount: widget.basketModel.servicePoolModel == null
+            ? 0
+            : widget.basketModel.servicePoolModel.length,
+        itemBuilder: (BuildContext context, int index) {
+          ServicePoolModel item = widget.basketModel.servicePoolModel[index];
+
+          return GridCorporateServicePoolForBasketSummary(servicePoolModel: item, basketModel: widget.basketModel,);
+        },
+      );
+    }
+
+    return Container(
+        child: Text("Hizmet Seçimi Bulunmamaktadır.", style: TextStyle(color: Colors.red)),
+        padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    String packageTitle = "";
-    String serviceTitle = "";
-
-    if (widget.basketModel.packageModel != null) {
-      packageTitle = "PAKET SEÇİMİ";
-    }
-    if (widget.basketModel.servicePoolModel != null) {
-      serviceTitle = "HİZMETLER";
-    }
-
-
     super.build(context);
     return Scaffold(
       appBar: AppBarMenu(pageName: "Sepet Özeti", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
@@ -294,61 +375,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               ),
             ),
             Spacer(),
-            FittedBox(
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Card(
-                  elevation: 10,
-                  color: Colors.white54,
-                  child: Row(
-                    children: [
-                      FittedBox(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Text(
-                              widget.basketModel.packageModel.title,
-                              style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      SizedBox.fromSize(
-                        size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
-                          //circular(30.0), // Yuvarlak köşe için bir değer belirtin
-                          child: Material(
-                            color: Colors.grey,
-                            child: InkWell(
-                              splashColor: Colors.deepOrangeAccent,
-                              onTap: () async {
-                                Dialogs.showAlertMessageWithAction(
-                                    context,
-                                    widget.basketModel.packageModel.title,
-                                    "Paket İçeriği: "+widget.basketModel.packageModel.body+""
-                                        "\n\nKişi başı ücret: "+widget.basketModel.packageModel.price.toString()+" TL"
-                                        "\n\nDavetli Sayısına Göre Toplam Tutar: "
-                                        "\nDavetli Sayısı("+widget.basketModel.orderBasketModel.count.toString()+") "
-                                        "\nKişi Başı Paket Ücreti("+widget.basketModel.packageModel.price.toString()+"TL)"
-                                        "\nToplam Ücret: "+(widget.basketModel.packageModel.price*widget.basketModel.orderBasketModel.count).toString()+" TL",
-                                    null);
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
-                                  FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+            getPackageWidget(),
             //hizmetler
             SizedBox(height: 10.0),
             Container(
@@ -370,7 +397,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                            serviceTitle, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                            "HİZMETLER", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
                       ),
                     ),
                   ],
@@ -378,24 +405,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               ),
             ),
             Divider(),
-            GridView.builder(
-              shrinkWrap: true,
-              primary: false,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 12),
-              ),
-              itemCount: widget.basketModel.servicePoolModel == null
-                  ? 0
-                  : widget.basketModel.servicePoolModel.length,
-              itemBuilder: (BuildContext context, int index) {
-                ServicePoolModel item = widget.basketModel.servicePoolModel[index];
-
-                return GridCorporateServicePoolForBasketSummary(servicePoolModel: item, basketModel: widget.basketModel,);
-              },
-            ),
+            getServiceWidget(),
             SizedBox(height: MediaQuery.of(context).size.height / 5,),
 
           ],

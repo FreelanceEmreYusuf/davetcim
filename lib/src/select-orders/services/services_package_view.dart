@@ -1,11 +1,14 @@
-import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_package/service_corporate_package_view_model.dart';
+import 'package:davetcim/src/select-orders/services/services_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/dto/basket_user_dto.dart';
+import '../../../shared/enums/corporation_service_selection_enum.dart';
+import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_service_package_item.dart';
+import '../summary_basket/summary_basket_view.dart';
 
 
 class ServicesPackageView extends StatefulWidget {
@@ -37,10 +40,25 @@ class _ServicesPackageViewState extends State<ServicesPackageView> {
     ServiceCorporatePackageViewModel packageViewModel = ServiceCorporatePackageViewModel();
     packagesList = await packageViewModel.getPackageList(widget.basketModel.corporationModel.corporationId);
 
+    if (packagesList.length == 0) {
+      navigateToNextScreen();
+    }
+
     setState(() {
       packagesList = packagesList;
       hasDataTaken = true;
     });
+  }
+
+  void navigateToNextScreen() {
+    if (widget.basketModel.corporationModel.serviceSelection ==
+        CorporationServiceSelectionEnum.customerSelectsExtraProduct
+        || widget.basketModel.corporationModel.serviceSelection ==
+            CorporationServiceSelectionEnum.customerSelectsBoth) {
+      Utils.navigateToPage(context, ServicesScreen(basketModel: widget.basketModel));
+    } else {
+      Utils.navigateToPage(context, SummaryBasketScreen(basketModel: widget.basketModel));
+    }
   }
 
   @override
@@ -54,6 +72,14 @@ class _ServicesPackageViewState extends State<ServicesPackageView> {
     }
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          navigateToNextScreen();
+        },
+        label: Text('Seçmeden Devam Et', style: TextStyle(fontSize: 15), maxLines: 2),
+        icon: Icon(Icons.skip_next),
+        backgroundColor: Colors.redAccent,
+      ),
       appBar: AppBarMenu(pageName: "Paketler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),

@@ -59,7 +59,6 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
     getReservationDetail();
   }
 
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -96,16 +95,6 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
     bool isFromNotification = false;
     if (widget.isFromNotification != null) {
       isFromNotification = widget.isFromNotification;
-    }
-
-    String packageTitle = "";
-    String serviceTitle = "";
-
-    if (detailResponse.packageModel != null) {
-      packageTitle = "PAKET SEÇİMİ";
-    }
-    if (detailResponse.detailList != null) {
-      serviceTitle = "HİZMETLER";
     }
 
     return Scaffold(
@@ -341,7 +330,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                        packageTitle, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                        "PAKET SEÇİMİ", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
                   ],
                 ),
               ),
@@ -382,7 +371,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
-                        serviceTitle, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                        "HİZMET SEÇİMİ", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
                   ],
                 ),
               ),

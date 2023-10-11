@@ -38,10 +38,19 @@ class _ServicesScreenState extends State<ServicesScreen>
   void setServiceList() async {
     ServiceCorporatePoolViewModel model = ServiceCorporatePoolViewModel();
     serviceList = updateServiceList(await model.getServiceList(widget.basketModel.corporationModel.corporationId));
+
+    if (serviceList.length == 0) {
+      navigateToNextScreen();
+    }
+
     setState(() {
       serviceList = serviceList;
       hasDataTaken = true;
     });
+  }
+
+  void navigateToNextScreen() {
+    Utils.navigateToPage(context, SummaryBasketScreen(basketModel: widget.basketModel));
   }
 
   List<ServicePoolModel> updateServiceList(List<ServicePoolModel> serviceList){
@@ -106,7 +115,7 @@ class _ServicesScreenState extends State<ServicesScreen>
           ),
           onPressed: () {
            widget.basketModel.servicePoolModel = UserBasketSession.servicePoolModel;
-           Utils.navigateToPage(context, SummaryBasketScreen(basketModel: widget.basketModel));
+           navigateToNextScreen();
           },
         ),
       ),

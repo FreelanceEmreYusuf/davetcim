@@ -50,7 +50,9 @@ class _GridCorporateDetailPackageSummaryState
                       context,
                       widget.packageModel.title,
                       widget.packageModel.body + "\n\nBelirtmiş olduğunuz davetli sayısı : "+widget.detailModel.reservationModel.invitationCount.toString()
-                          +"\n\nHizmetin birim ücreti : "+ widget.packageModel.price.toString(),
+                          +"\n\nHizmetin birim ücreti : "+ widget.packageModel.price.toString()
+                          +"\n\nHizmetin toplam ücreti : "+
+                          (widget.packageModel.price * widget.detailModel.reservationModel.invitationCount).toString(),
                       null);
                 }, // button pressed
                 child: Column(
