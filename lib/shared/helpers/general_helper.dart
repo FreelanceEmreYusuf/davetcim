@@ -8,6 +8,7 @@ import 'package:davetcim/shared/utils/language.dart';
 import '../environments/db_constants.dart';
 import '../models/corporation_model.dart';
 import '../models/customer_model.dart';
+import '../models/general_data_model.dart';
 import '../models/insurance_model.dart';
 
 class GeneralHelper {
@@ -28,6 +29,22 @@ class GeneralHelper {
       }
     }
     return !insuranceModelList.first.insurance;
+  }
+
+  Future<List<GeneralDataModel>> getGeneralData() async {
+    var response = await db
+        .getCollectionRef(DBConstants.generalDataDb)
+        .get();
+
+    List<GeneralDataModel> generalDataModelList = [];
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        generalDataModelList.add(GeneralDataModel.fromMap(item));
+      }
+    }
+    return generalDataModelList;
   }
 
 }

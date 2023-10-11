@@ -32,4 +32,5 @@ class DBConstants {
   static String applicationImagesDb = "ApplicationImages";
   static String insuranceDB = "Insurance";
   static String corporationPackageServicesDb = "CorporationPackageServices";
+  static String generalDataDb = "GeneralData";
 }
