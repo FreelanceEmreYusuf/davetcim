@@ -57,8 +57,6 @@ class _AboutApplicationPageState extends State<AboutApplicationPage> {
                   padding: EdgeInsets.all(10),
                   child: Text(
                       GeneralHelper.generateText(getSpesificData(2)),
-                    /*LanguageConstants
-                        .uygulamaBilgilendirme[LanguageConstants.languageFlag],*/
                     softWrap: true,
                     style: TextStyle(
                       fontSize: 15,
