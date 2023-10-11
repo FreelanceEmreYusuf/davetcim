@@ -112,14 +112,19 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                 shadowColor: Colors.black,
                 elevation: 10,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20.0),
+                  bottomRight: Radius.circular(20.0),
                 ),
+              ),
                 child:  Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        " TARİH & SEANS", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      child: Text(
+                          " TARİH & SEANS", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),
@@ -128,40 +133,50 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: SizedBox(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width-MediaQuery.of(context).size.width /20,
                 child: Card(
                   elevation: 10,
                   color: Colors.white54,
                   child: Row(
                     children: [
-                      Text(
-                          "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
-                              +"\n\nSeans : "+widget.basketModel.selectedSessionModel.name,
-                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                      FittedBox(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                              "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
+                                  +"\n\nSeans : "+widget.basketModel.selectedSessionModel.name,
+                              style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                          ),
+                        ),
                       ),
                       Spacer(),
                       SizedBox.fromSize(
-                        size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
-                        child: ClipPath(
+                        size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
+                          //circular(30.0), // Yuvarlak köşe için bir değer belirtin
                           child: Material(
-                            color: Colors.grey, // button color
+                            color: Colors.grey,
                             child: InkWell(
-                              splashColor: Colors.deepOrangeAccent, // splash color
+                              splashColor: Colors.deepOrangeAccent,
                               onTap: () async {
-                                //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
                                 Dialogs.showAlertMessageWithAction(
-                                    context,
-                                    widget.basketModel.selectedSessionModel.name,
-                                    "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
-                                        +"\n\nSeans : "+ widget.basketModel.selectedSessionModel.name
-                                        +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ calculateSessionPrice()+ "TL",
-                                    null);
-                              }, // button pressed
+                                  context,
+                                  widget.basketModel.selectedSessionModel.name,
+                                  "Organizasyon tarihi : " +
+                                      DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0, 10) +
+                                      "\n\nSeans : " + widget.basketModel.selectedSessionModel.name +
+                                      "\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : " +
+                                      calculateSessionPrice() +
+                                      "TL",
+                                  null,
+                                );
+                              },
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Icon(Icons.info_outline, color: Colors.white), // icon
-                                  Text("Bilgi", style: TextStyle(color: Colors.white)),
+                                  FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
+                                  FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
                                 ],
                               ),
                             ),
@@ -185,14 +200,19 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                 shadowColor: Colors.black,
                 elevation: 10,
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0),
+                  ),
                 ),
                 child:  Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        " ORGANİZASYON DETAYLARI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      child: Text(
+                          " ORGANİZASYON DETAYLARI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),
@@ -205,33 +225,39 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                 color: Colors.white54,
                 child: Row(
                   children: [
-                    Text(
-                        "Davetli Sayısı :" + widget.basketModel.orderBasketModel.count.toString()
-                         +"\n\nDavet türü : "+ widget.basketModel.orderBasketModel.invitationType
-                         +"\n\nOturma düzeni : "+ widget.basketModel.orderBasketModel.sequenceOrder,
-                        style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                    FittedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            "Davetli Sayısı :" + widget.basketModel.orderBasketModel.count.toString()
+                             +"\n\nDavet türü : "+ widget.basketModel.orderBasketModel.invitationType
+                             +"\n\nOturma düzeni : "+ widget.basketModel.orderBasketModel.sequenceOrder,
+                            style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                        ),
+                      ),
                     ),
                     Spacer(),
                     SizedBox.fromSize(
-                      size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 7), // button width and height
-                      child: ClipPath(
+                      size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
+                        //circular(30.0), // Yuvarlak köşe için bir değer belirtin
                         child: Material(
-                          color: Colors.grey, // button color
+                          color: Colors.grey,
                           child: InkWell(
-                            splashColor: Colors.deepOrangeAccent, // splash color
+                            splashColor: Colors.deepOrangeAccent,
                             onTap: () async {
-                              //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
                               Dialogs.showAlertMessageWithAction(
                                   context,
                                   "Bilgi",
                                   "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",
                                   null);
-                            }, // button pressed
+                            },
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                                Icon(Icons.info_outline, color: Colors.white), // icon
-                                Text("Bilgi", style: TextStyle(color: Colors.white)),
+                                FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
+                                FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
                               ],
                             ),
                           ),
@@ -242,8 +268,8 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                 ),
               ),
             ),
-            //paket
-            SizedBox(height: 10.0),
+            //paket seçimi
+            Divider(),
             Container(
               height: MediaQuery.of(context).size.height / 13,
               child: Card(
@@ -259,30 +285,66 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        packageTitle, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      child: Text(
+                          " PAKET SEÇİMİ", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),
             ),
-            Divider(),
-            GridView.builder(
-              shrinkWrap: true,
-              primary: false,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 12),
+            Spacer(),
+            FittedBox(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Card(
+                  elevation: 10,
+                  color: Colors.white54,
+                  child: Row(
+                    children: [
+                      FittedBox(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                              widget.basketModel.packageModel.title,
+                              style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                          ),
+                        ),
+                      ),
+                      Spacer(),
+                      SizedBox.fromSize(
+                        size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
+                          //circular(30.0), // Yuvarlak köşe için bir değer belirtin
+                          child: Material(
+                            color: Colors.grey,
+                            child: InkWell(
+                              splashColor: Colors.deepOrangeAccent,
+                              onTap: () async {
+                                Dialogs.showAlertMessageWithAction(
+                                    context,
+                                    widget.basketModel.packageModel.title,
+                                    widget.basketModel.packageModel.body +
+                                        " \nFiyat:" + widget.basketModel.packageModel.price.toString() + "TL",
+                                    null);
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
+                                  FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              itemCount: widget.basketModel.packageModel == null
-                  ? 0 : 1,
-              itemBuilder: (BuildContext context, int index) {
-                CorporationPackageServicesModel item = widget.basketModel.packageModel;
-                return GridServicePackageSummaryItem(basketModel: widget.basketModel);
-              },
             ),
-
             //hizmetler
             SizedBox(height: 10.0),
             Container(
@@ -300,8 +362,13 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        serviceTitle, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            serviceTitle, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                      ),
+                    ),
                   ],
                 ),
               ),

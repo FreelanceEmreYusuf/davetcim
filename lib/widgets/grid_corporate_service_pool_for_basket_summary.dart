@@ -45,13 +45,19 @@ class _GridCorporateServicePoolForBasketSummaryState
 
         row = Row(
           children: [
-            Text(
-                widget.servicePoolModel.serviceName.replaceAll("-", ""), style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+            FittedBox(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                    widget.servicePoolModel.serviceName.replaceAll("-", ""), style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+              ),
+            ),
             Spacer(),
             SizedBox.fromSize(
               size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
               child: ClipPath(
                 child: Material(
+                  borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
                   color: Colors.grey, // button color
                   child: InkWell(
                     splashColor: Colors.deepOrangeAccent, // splash color
@@ -70,8 +76,8 @@ class _GridCorporateServicePoolForBasketSummaryState
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.info_outline, color: Colors.white), // icon
-                        Text("Bilgi", style: TextStyle(color: Colors.white)),
+                        FittedBox(child: Icon(Icons.info_outline, color: Colors.white)), // icon
+                        FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
                       ],
                     ),
                   ),
@@ -84,8 +90,13 @@ class _GridCorporateServicePoolForBasketSummaryState
     } else {
       row = Row(
         children: [
-          Text(
-              widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+          FittedBox(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                  widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+            ),
+          ),
         ],
       );
     }
@@ -102,6 +113,12 @@ class _GridCorporateServicePoolForBasketSummaryState
           Container(
             height: MediaQuery.of(context).size.height / 13,
             child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20.0),
+                  bottomRight: Radius.circular(20.0),
+                ),
+              ),
               color: Colors.white54,
               semanticContainer: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,

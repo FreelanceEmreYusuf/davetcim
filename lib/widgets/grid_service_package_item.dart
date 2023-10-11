@@ -30,8 +30,10 @@ class _GridServicePackageItemState
     Row row;
 
     row = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(
+        FittedBox(
           child: Text(
               widget.packageModel.title, style: TextStyle(
               fontSize: 18,
@@ -43,7 +45,8 @@ class _GridServicePackageItemState
         Expanded(
             child: ClipPath(
               child: Material(
-                color: Colors.yellow, // button color
+                borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
+                color: Colors.grey, // button color
                 child: InkWell(
                   splashColor: Colors.deepOrangeAccent, // splash color
                   onTap: () async {
@@ -56,19 +59,19 @@ class _GridServicePackageItemState
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.info, color: Colors.white), // icon
-                      Text("Bilgi", style: TextStyle(color: Colors.white)),
+                      FittedBox(child: Icon(Icons.info, color: Colors.white)), // icon
+                      FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
                     ],
                   ),
                 ),
               ),
             ),
           ),
-        Spacer(),
         Expanded(
           child: ClipPath(
             child: Material(
               color: Colors.green, // button color
+              borderRadius: BorderRadius.horizontal(right: Radius.circular(30.0)),
               child: InkWell(
                 splashColor: Colors.deepOrangeAccent, // splash color
                 onTap: () {
@@ -98,7 +101,7 @@ class _GridServicePackageItemState
 
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
+        color: Colors.white,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -110,7 +113,13 @@ class _GridServicePackageItemState
               color: Colors.white54,
               semanticContainer: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: row,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20.0),
+                  bottomRight: Radius.circular(20.0),
+                ),
+              ),
+              child: row, // Burada row widgetını kullanmalısınız.
               elevation: 10,
             ),
           ),

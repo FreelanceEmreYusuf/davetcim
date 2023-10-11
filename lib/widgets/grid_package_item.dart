@@ -26,19 +26,25 @@ class _GridPackageItemState
     Row row;
 
     row = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Expanded(
-          child: Text(
-              widget.packageModel.title, style: TextStyle(
-              fontSize: 18,
-              color: Colors.green,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold)),
+        FittedBox(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+                widget.packageModel.title, style: TextStyle(
+                fontSize: 18,
+                color: Colors.green,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold)),
+          ),
         ),
         Spacer(),
         Expanded(
             child: ClipPath(
               child: Material(
+                borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
                 color: Colors.green, // button color
                 child: InkWell(
                   splashColor: Colors.deepOrangeAccent, // splash color
@@ -58,7 +64,6 @@ class _GridPackageItemState
               ),
             ),
           ),
-        Spacer(),
         Expanded(
           child: ClipPath(
             child: Material(
@@ -73,8 +78,8 @@ class _GridPackageItemState
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.delete, color: Colors.white), // icon
-                    Text("Sil", style: TextStyle(color: Colors.white)),
+                    FittedBox(child: Icon(Icons.delete, color: Colors.white)), // icon
+                    FittedBox(child: Text("Sil", style: TextStyle(color: Colors.white))),
                   ],
                 ),
               ),
@@ -95,6 +100,12 @@ class _GridPackageItemState
           Container(
             height: MediaQuery.of(context).size.height / 13,
             child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20.0),
+                  bottomRight: Radius.circular(20.0),
+                ),
+              ),
               color: Colors.white54,
               semanticContainer: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,
