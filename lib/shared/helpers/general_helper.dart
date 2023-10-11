@@ -70,7 +70,7 @@ class GeneralHelper {
     if(model.subtitle5 != null && model.subtitle5 != "")
       text += model.subtitle5+"\n\n\n";
 
-    return text;
+    return text.replaceAll("\\n", "\n");
   }
 
 }
