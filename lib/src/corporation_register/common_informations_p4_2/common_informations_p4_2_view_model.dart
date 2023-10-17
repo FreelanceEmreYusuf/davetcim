@@ -11,8 +11,8 @@ class CommonInformationsP42ViewModel extends ChangeNotifier {
   ServiceTypesResponseDto getServiceTypes()  {
     Map<int, String> serviceSelectionMap = {};
     Map<int, bool> serviceSelectionSelectedMap = {};
-    serviceSelectionMap.addAll({0: "Kullanıcı firma paketini seçer"});
-    serviceSelectionMap.addAll({1: "Kullanıcı ürünler içinden seçer"});
+    serviceSelectionMap.addAll({0: "Kullanıcı firmanın sunduğu paketleri seçebilir"});
+    serviceSelectionMap.addAll({1: "Kullanıcı paketler hariç firmanın sunduğu hizmetleri seçebilir"});
     serviceSelectionSelectedMap.addAll({0: false});
     serviceSelectionSelectedMap.addAll({1: false});
 

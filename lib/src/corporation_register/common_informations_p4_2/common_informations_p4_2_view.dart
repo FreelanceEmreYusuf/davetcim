@@ -82,7 +82,7 @@ class _CommonInformationsP42ViewState extends State<CommonInformationsP42View> {
           backgroundColor: Colors.redAccent,
         ),
       ),
-      appBar: AppBarMenu(pageName: "Sunulan Oturma Düzenleri", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: "Salon Hizmet & Paket Seçimi", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
         child: Form(

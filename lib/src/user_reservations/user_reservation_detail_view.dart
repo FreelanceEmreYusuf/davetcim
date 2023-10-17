@@ -5,6 +5,7 @@ import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/select-orders/summary_basket/summary_basket_view_model.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_view.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_view_model.dart';
+import 'package:davetcim/src/user_reservations/user_reservations_with_app_bar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/dto/basket_user_dto.dart';
@@ -460,7 +461,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                           if (isFromNotification) {
                             Utils.navigateToPage(context, NotificationsView());
                           } else {
-                            Utils.navigateToPage(context, UserReservationsScreen());
+                            Utils.navigateToPage(context, UserReservationsWithAppBarScreen());
                           }
                         },
                       ),

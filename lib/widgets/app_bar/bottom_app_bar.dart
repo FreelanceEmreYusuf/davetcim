@@ -115,16 +115,15 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                             : Theme.of(context).textTheme.caption.color,
                         onPressed: () => widget.pageController.jumpToPage(2),
                       ),
-                      IconButton(
-                        icon: IconBadge(
-                          icon: Icons.shopping_cart,
+                      BounceButton(
+                        child: Icon(
+                          Icons.shopping_cart,
                           size: MediaQuery.of(context).size.height / 22,
-                          count: basketCount,
+                          color: widget.page == 3
+                              ? Theme.of(context).accentColor
+                              : Theme.of(context).textTheme.caption.color,
                         ),
-                        color: widget.page == 3
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).textTheme.caption.color,
-                        onPressed: () {
+                        onTap: (){
                           if (ApplicationSession.userSession == null) {
                             Dialogs.showAlertMessage(
                                 context,
@@ -133,7 +132,17 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                           } else {
                             widget.pageController.jumpToPage(3);
                           }
-                        }
+                        },
+                        height: MediaQuery.of(context).size.height / 17,
+                        width: MediaQuery.of(context).size.width / 10,
+                        duration: Duration(milliseconds: 300),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Provider.of<AppProvider>(context).theme ==
+                              Constants.lightTheme
+                              ? Colors.white
+                              : Colors.black,
+                        ),
                       ),
                       BounceButton(
                         child: Icon(

@@ -51,6 +51,7 @@ class _ServicesPackageViewState extends State<ServicesPackageView> {
   }
 
   void navigateToNextScreen() {
+    widget.basketModel.packageModel = null;
     if (widget.basketModel.corporationModel.serviceSelection ==
         CorporationServiceSelectionEnum.customerSelectsExtraProduct
         || widget.basketModel.corporationModel.serviceSelection ==

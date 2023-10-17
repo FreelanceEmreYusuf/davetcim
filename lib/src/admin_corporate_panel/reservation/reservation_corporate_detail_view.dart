@@ -73,7 +73,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
     }
 
     return Scaffold(
-      appBar: AppBarMenu(pageName: "Rezervasyon Detayı2", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(

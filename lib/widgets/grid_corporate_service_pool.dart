@@ -1,3 +1,4 @@
+import 'package:davetcim/src/admin_corporate_panel/service/service_landing_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../shared/models/service_corporate_pool_model.dart';
@@ -168,7 +169,7 @@ class _GridCorporateServicePoolState
   Future<void> deleteService() async {
     ServiceCorporatePoolViewModel service = ServiceCorporatePoolViewModel();
     await service.deleteService(widget.servicePoolModel);
-    Utils.navigateToPage(context, AdminCorporateServicePoolManager());
+    Utils.navigateToPage(context, ServiceLandingView(pageIndex: 0,));
   }
 
 }

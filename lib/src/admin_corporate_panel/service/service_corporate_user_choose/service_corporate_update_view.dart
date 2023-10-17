@@ -1,6 +1,7 @@
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_user_choose/service-corporate_view_model.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_user_choose/service_corporate_view.dart';
+import 'package:davetcim/src/admin_corporate_panel/service/service_landing_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../shared/environments/const.dart';
@@ -89,7 +90,7 @@ class _State extends State<ServiceCorporateUpdateView> {
                           if (registerFormKey.currentState.validate()) {
                             ServiceCorporatePoolViewModel service = ServiceCorporatePoolViewModel();
                             await service.updateService(widget.serviceCorporatePoolModel,  int.parse(priceController.text), checkedCountPriceValue);
-                            Utils.navigateToPage(context, AdminCorporateServicePoolManager());
+                            Utils.navigateToPage(context, ServiceLandingView(pageIndex: 0,));
                           }
                         },
                       )),

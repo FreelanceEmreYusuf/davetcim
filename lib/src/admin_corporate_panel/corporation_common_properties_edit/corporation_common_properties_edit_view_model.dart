@@ -81,8 +81,8 @@ class CorporationCommonPropertiesEditViewModel extends ChangeNotifier {
 
     Map<int, String> serviceSelectionMap = {};
     Map<int, bool> serviceSelectionSelectedMap = {};
-    serviceSelectionMap.addAll({0: "Kullanıcı firma paketini seçer"});
-    serviceSelectionMap.addAll({1: "Kullanıcı ürünler içinden seçer"});
+    serviceSelectionMap.addAll({0: "Kullanıcı firmanın sunduğu paketleri seçebilir"});
+    serviceSelectionMap.addAll({1: "Kullanıcı paketler hariç firmanın sunduğu hizmetleri seçebilir"});
     if (corporateModel.serviceSelection == CorporationServiceSelectionEnum.customerSelectsCorporationPackage
       || corporateModel.serviceSelection == CorporationServiceSelectionEnum.customerSelectsBoth) {
       serviceSelectionSelectedMap.addAll({0: true});
