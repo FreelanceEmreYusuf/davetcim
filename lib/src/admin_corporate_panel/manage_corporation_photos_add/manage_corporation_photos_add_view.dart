@@ -104,12 +104,22 @@ class _State extends State<ManageCorporationPhotosAddView> {
                       child: Text('Kameradan Ekle'),
                       onPressed: () async {
                         getCorporationImageList();
-                        if(imageListLenght<9)
-                        {
-                          await updateCodeFromCamera();
+                        if(ApplicationSession.isCorporationFavorite(ApplicationSession.userSession.corporationId)){
+                          if(imageListLenght<25)
+                          {
+                            await updateCodeFromCamera();
+                          }
+                          else
+                            Dialogs.showAlertMessage(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.");
                         }
-                        else
-                          Dialogs.showAlertMessage(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.");
+                        else{
+                          if(imageListLenght<9)
+                          {
+                            await updateCodeFromCamera();
+                          }
+                          else
+                            Dialogs.showAlertMessage(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.");
+                        }
                       },
                     )),
               ],
