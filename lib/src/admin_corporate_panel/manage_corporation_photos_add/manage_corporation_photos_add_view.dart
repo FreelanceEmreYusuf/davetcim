@@ -113,7 +113,7 @@ class _State extends State<ManageCorporationPhotosAddView> {
                             Dialogs.showAlertMessage(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.");
                         }
                         else{
-                          if(imageListLenght<9)
+                          if(imageListLenght<10)
                           {
                             await updateCodeFromCamera();
                           }
