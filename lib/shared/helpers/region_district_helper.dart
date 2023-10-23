@@ -10,7 +10,8 @@ class RegionDistrictHelper {
 
   Future<List<RegionModel>> fillRegionList() async {
     CollectionReference docsRef = db.getCollectionRef(DBConstants.regionDb);
-    var response = await docsRef.orderBy('id', descending: false).get();
+    var response = await docsRef.where('isActive', isEqualTo:true)
+        /*.orderBy('id', descending: false)*/.get();
 
     var list = response.docs;
     List<RegionModel> regionList = [];
