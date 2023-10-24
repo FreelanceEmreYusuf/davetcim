@@ -57,7 +57,7 @@ class _ProductsScreenState extends State<ProductsScreen>  {
       return Scaffold(
         appBar: AppBarMenu(pageName: "Salonlar", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
         body: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+          padding: EdgeInsets.all(10.0),
           child: ListView(
             children: <Widget>[
               GridView.builder(

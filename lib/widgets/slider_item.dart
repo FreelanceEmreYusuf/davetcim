@@ -1,3 +1,4 @@
+import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
@@ -75,16 +76,18 @@ class _SliderItemState extends State<SliderItem> {
             onTap: (){
               FavProductsViewModel mdl = FavProductsViewModel();
               mdl.editFavoriteProductPage(widget.corporationId, widget.img, context, widget.callerPage);
-              if (isFav) {
-                setState(() {
-                  isPageLoad = false;
-                  isFav = false;
-                });
-              } else {
-                setState(() {
-                  isPageLoad = false;
-                  isFav = true;
-                });
+              if(ApplicationSession.userSession != null){
+                if (isFav) {
+                  setState(() {
+                    isPageLoad = false;
+                    isFav = false;
+                  });
+                } else {
+                  setState(() {
+                    isPageLoad = false;
+                    isFav = true;
+                  });
+                }
               }
             },
             height: MediaQuery.of(context).size.height / 15,

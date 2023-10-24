@@ -85,10 +85,9 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                         ),
                         onTap: (){
                           if (ApplicationSession.userSession == null) {
-                            Dialogs.showAlertMessage(
-                                context,
-                                "",
-                                "Favori ürünlerinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız.");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Favori ürünler listenizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
+                                  duration: Duration(seconds: 2),));
                           } else {
                             widget.pageController.jumpToPage(1);
                           }
@@ -125,10 +124,9 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                         ),
                         onTap: (){
                           if (ApplicationSession.userSession == null) {
-                            Dialogs.showAlertMessage(
-                                context,
-                                "",
-                                "Sepetinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız.");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Sepetinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
+                                  duration: Duration(seconds: 2),));
                           } else {
                             widget.pageController.jumpToPage(3);
                           }
@@ -154,10 +152,9 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                       ),
                         onTap: (){
                           if (ApplicationSession.userSession == null) {
-                            Dialogs.showAlertMessage(
-                                context,
-                                "",
-                                "Profilinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız.");
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text("Profilinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
+                                  duration: Duration(seconds: 2),));
                           } else {
                           widget.pageController.jumpToPage(4);
                           }

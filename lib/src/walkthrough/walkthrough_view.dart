@@ -89,19 +89,23 @@ class _WalkthroughState extends State<Walkthrough> {
               Utils.navigateToPage(context, EntrancePage());
             },
             showSkipButton: true,
-            skip: Text("Birdaha Gösterme"),
+            skip: Text(
+              "Birdaha Gösterme",
+            ),
             next: Text(
               "Devam",
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 color: Theme.of(context).accentColor,
+                fontSize: 17
               ),
             ),
             done: Text(
-              "Done",
+              "Bitti",
               style: TextStyle(
                 fontWeight: FontWeight.w800,
                 color: Theme.of(context).accentColor,
+                fontSize: 17
               ),
             ),
           ),
@@ -116,19 +120,15 @@ class _WalkthroughState extends State<Walkthrough> {
       body: item['body'],
       image: Image.network(
         item['img'],
-        height: 185.0,
+        height: MediaQuery.of(context).size.width / 3.5,
       ),
       decoration: PageDecoration(
         titleTextStyle: TextStyle(
-          fontSize: 28.0,
+          fontSize: 26.0,
           fontWeight: FontWeight.w600,
           color: Theme.of(context).accentColor,
         ),
-        bodyTextStyle: TextStyle(fontSize: 15.0),
-//        dotsDecorator: DotsDecorator(
-//          activeColor: Theme.of(context).accentColor,
-//          activeSize: Size.fromRadius(8),
-//        ),
+        bodyTextStyle: TextStyle(fontSize: 17.0),
         pageColor: Theme.of(context).primaryColor,
       ),
     );

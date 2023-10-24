@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../shared/enums/corporation_event_log_enum.dart';
@@ -54,13 +55,9 @@ class FavProductsViewModel extends ChangeNotifier {
   Future<void> editFavoriteProductPage(int corporationId, String img, BuildContext context, Widget callerPage) async {
 
     if (ApplicationSession.userSession == null) {
-      Dialogs.showAlertMessage(
-          context,
-          "",
-          LanguageConstants
-              .dialogGoToLoginForFavoriteProduct[
-          LanguageConstants
-              .languageFlag]);
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(LanguageConstants
+                .dialogGoToLoginForFavoriteProduct[LanguageConstants.languageFlag]), duration: Duration(seconds: 1),));
     } else {
       CollectionReference docsRef =
       db.getCollectionRef(DBConstants.favProductsDb);

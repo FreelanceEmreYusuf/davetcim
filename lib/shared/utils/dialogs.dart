@@ -17,7 +17,12 @@ class Dialogs {
     Widget okButton = TextButton(
       child: Text(LanguageConstants.tamam[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context).pop(PageTransition(type: PageTransitionType.fade));
+        try{
+          Navigator.of(context).pop(PageTransition());
+        }
+        catch(e) {
+
+        }
       },
     );
 
@@ -46,7 +51,7 @@ class Dialogs {
     Widget okButton = TextButton(
       child: Text(LanguageConstants.tamam[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context).pop(PageTransition(type: PageTransitionType.fade));
+        Navigator.of(context).pop(PageTransition());
         method(context);
       },
     );
@@ -76,7 +81,7 @@ class Dialogs {
     Widget okButton = TextButton(
       child: Text(LanguageConstants.tamam[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context).pop(PageTransition(type: PageTransitionType.fade));
+        Navigator.of(context).pop(PageTransition());
         method(context, childPage);
       },
     );
@@ -105,7 +110,7 @@ class Dialogs {
     Widget cancelButton = TextButton(
       child: Text(LanguageConstants.hayir[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
+        Navigator.of(context, rootNavigator: true).pop(PageTransition());
       },
     );
     Widget continueButton = TextButton(
@@ -116,7 +121,7 @@ class Dialogs {
         } else {
           method(functionInput);
         }
-        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
+        Navigator.of(context, rootNavigator: true).pop(PageTransition());
 
       },
     );
@@ -157,13 +162,13 @@ class Dialogs {
     Widget cancelButton = TextButton(
       child: Text(LanguageConstants.hayir[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
+        Navigator.of(context, rootNavigator: true).pop(PageTransition());
       },
     );
     Widget continueButton = TextButton(
       child: Text(LanguageConstants.evet[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
+        Navigator.of(context, rootNavigator: true).pop(PageTransition());
         method(context, input1, input2, input3, input4, input5);
       },
     );
@@ -198,7 +203,7 @@ class Dialogs {
     Widget continueButton = TextButton(
       child: Text(LanguageConstants.evet[LanguageConstants.languageFlag]),
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
+        Navigator.of(context, rootNavigator: true).pop(PageTransition());
         Utils.navigateToPage(context, JoinView());
       },
     );
@@ -232,7 +237,7 @@ class Dialogs {
     Widget cancelButton = TextButton(
       child: Text(cancelButtonText),
       onPressed: () {
-        Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
+        Navigator.of(context, rootNavigator: true).pop(PageTransition());
       },
     );
     Widget continueButton = TextButton(
@@ -240,7 +245,7 @@ class Dialogs {
       onPressed: () {
         if (registerFormKey.currentState.validate()) {
           method(inputMessageControl.text);
-          Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
+          Navigator.of(context, rootNavigator: true).pop(PageTransition());
         }
       },
     );
