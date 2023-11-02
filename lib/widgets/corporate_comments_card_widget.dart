@@ -59,15 +59,21 @@ class _CorporateCommentsCardWidgetState
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text((DateConversionUtils.convertTimestampTString(int.parse(date.millisecondsSinceEpoch.toString()))),
-                    style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,),
-                    maxLines: 5,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text((DateConversionUtils.convertTimestampTString(int.parse(date.millisecondsSinceEpoch.toString()))),
+                      style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,),
+                      maxLines: 5,
+                    ),
                   ),
                   Expanded(
-                    child: Text("\n\n Kullanıcı Adı : " + widget.model.userName + "\n Onay Durumu : "+text +
-                        "\n "+ widget.model.star.toString()+" Yıldız - " +"Yorum : " + widget.model.comment.substring(0,commentLength)+endText,
-                      style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold,),
-                      maxLines: 5,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text("\n\n Kullanıcı Adı : " + widget.model.userName + "\n Onay Durumu : "+text +
+                          "\n "+ widget.model.star.toString()+" Yıldız - " +"Yorum : " + widget.model.comment.substring(0,commentLength)+endText,
+                        style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold,),
+                        maxLines: 5,
+                      ),
                     ),
                   ),
                 ],

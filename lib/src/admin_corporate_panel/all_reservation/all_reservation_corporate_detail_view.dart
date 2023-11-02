@@ -2,6 +2,7 @@ import 'package:davetcim/shared/enums/reservation_status_enum.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
@@ -90,8 +91,11 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        textStr, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          textStr, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),
@@ -112,29 +116,46 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        " MÜŞTERİ BİLGİLERİ", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          " MÜŞTERİ BİLGİLERİ", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),
             ),
             Divider(),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Card(
-                  elevation: 10,
-                  color: Colors.white54,
-                  child: Row(
-                    children: [
-                      Text(
-                          detailResponse.customerModel.name + " " + detailResponse.customerModel.surname
-                              +"\n\nGsm No : "+detailResponse.customerModel.gsmNo
-                              +"\n\nemail : "+detailResponse.customerModel.eMail,
-                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+            InkWell(
+              onTap: (){
+                Clipboard.setData(ClipboardData(text: detailResponse.customerModel.gsmNo)).then((_) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: FittedBox(child: Text("Telefon numarası panoya kopyalandı("+detailResponse.customerModel.gsmNo+")")), duration: Duration(seconds: 1),));
+                });
+              },
+              child: FittedBox(
+                fit: BoxFit.fitWidth,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Card(
+                      elevation: 10,
+                      color: Colors.white54,
+                      child: Row(
+                        children: [
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                                detailResponse.customerModel.name + " " + detailResponse.customerModel.surname
+                                    +"\n\nGsm No : "+detailResponse.customerModel.gsmNo
+                                    +"\n\nemail : "+detailResponse.customerModel.eMail,
+                                style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
@@ -156,57 +177,66 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        " TARİH & SEANS", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          " TARİH & SEANS", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),
             ),
             Divider(),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Card(
-                  elevation: 10,
-                  color: Colors.white54,
-                  child: Row(
-                    children: [
-                      Text(
-                          "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
-                              +"\n\nSeans : "+detailResponse.sessionModel.name,
-                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
-                      ),
-                      Spacer(),
-                      SizedBox.fromSize(
-                        size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
-                        child: ClipPath(
-                          child: Material(
-                            color: Colors.grey, // button color
-                            child: InkWell(
-                              splashColor: Colors.deepOrangeAccent, // splash color
-                              onTap: () async {
-                                //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
-                                Dialogs.showAlertMessageWithAction(
-                                    context,
-                                    detailResponse.sessionModel.name,
-                                    "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
-                                        +"\n\nSeans : "+ detailResponse.sessionModel.name
-                                        +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ detailResponse.reservationModel.cost.toString()+ "TL",
-                                    null);
-                              }, // button pressed
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(Icons.info_outline, color: Colors.white), // icon
-                                  Text("Bilgi", style: TextStyle(color: Colors.white)),
-                                ],
+            FittedBox(
+              fit: BoxFit.fitWidth,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: Card(
+                    elevation: 10,
+                    color: Colors.white54,
+                    child: Row(
+                      children: [
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                              "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
+                                  +"\n\nSeans : "+detailResponse.sessionModel.name,
+                              style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                          ),
+                        ),
+                        Spacer(),
+                        SizedBox.fromSize(
+                          size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
+                          child: ClipPath(
+                            child: Material(
+                              color: Colors.grey, // button color
+                              child: InkWell(
+                                splashColor: Colors.deepOrangeAccent, // splash color
+                                onTap: () async {
+                                  //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
+                                  Dialogs.showAlertMessageWithAction(
+                                      context,
+                                      detailResponse.sessionModel.name,
+                                      "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
+                                          +"\n\nSeans : "+ detailResponse.sessionModel.name
+                                          +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ detailResponse.reservationModel.cost.toString()+ "TL",
+                                      null);
+                                }, // button pressed
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(Icons.info_outline, color: Colors.white), // icon
+                                    Text("Bilgi", style: TextStyle(color: Colors.white)),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -229,8 +259,11 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        " ORGANİZASYON DETAYLARI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          " ORGANİZASYON DETAYLARI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),
@@ -243,11 +276,14 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                 color: Colors.white54,
                 child: Row(
                   children: [
-                    Text(
-                        "Davetli Sayısı :" + detailResponse.reservationModel.invitationCount.toString()
-                         +"\n\nDavet türü : "+ detailResponse.reservationModel.invitationType
-                         +"\n\nOturma düzeni : "+ detailResponse.reservationModel.seatingArrangement,
-                        style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          "Davetli Sayısı :" + detailResponse.reservationModel.invitationCount.toString()
+                           +"\n\nDavet türü : "+ detailResponse.reservationModel.invitationType
+                           +"\n\nOturma düzeni : "+ detailResponse.reservationModel.seatingArrangement,
+                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                      ),
                     ),
                     Spacer(),
                     SizedBox.fromSize(
@@ -297,8 +333,11 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        "PAKET SEÇİMİ", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          "PAKET SEÇİMİ", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),
@@ -338,8 +377,11 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        "HİZMETLER", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          "HİZMETLER", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),
@@ -379,8 +421,11 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        "Toplam Tutar", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          "Toplam Tutar", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                     SizedBox(width: MediaQuery.of(context).size.width /4),
                     Text(
                         detailResponse.reservationModel.cost.toString() +" TL ", style: TextStyle(fontSize: 20, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),

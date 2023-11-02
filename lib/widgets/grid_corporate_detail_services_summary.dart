@@ -38,8 +38,11 @@ class _GridCorporateDetailServicesSummaryState
 
     row = Row(
       children: [
-        Text(
-            widget.detailRowModel.servicePoolModel.serviceName.replaceAll("-", ""), style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+              widget.detailRowModel.servicePoolModel.serviceName.replaceAll("-", ""), style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+        ),
         Spacer(),
         SizedBox.fromSize(
           size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height

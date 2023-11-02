@@ -47,8 +47,11 @@ class _GridCorporateServicePoolState
       if (widget.servicePoolModel.companyHasService) {
         row = Row(
           children: [
-            Text(
-                widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 18, color: Colors.green, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                  widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 18, color: Colors.green, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+            ),
             Spacer(),
             SizedBox.fromSize(
               size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
@@ -107,8 +110,11 @@ class _GridCorporateServicePoolState
       } else {
         row = Row(
           children: [
-            Text(
-                widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 18, color: Colors.red, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                  widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 18, color: Colors.red, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+            ),
             Spacer(),
             SizedBox.fromSize(
               size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
@@ -137,8 +143,11 @@ class _GridCorporateServicePoolState
     } else {
       row = Row(
         children: [
-          Text(
-              widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+                widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+          ),
         ],
       );
     }

@@ -219,8 +219,11 @@ class _ManageCommentCorporateDetailScreenState extends State<ManageCommentCorpor
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        textStr, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          textStr, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),
@@ -241,8 +244,10 @@ class _ManageCommentCorporateDetailScreenState extends State<ManageCommentCorpor
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        " YORUM DETAYLARI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      child: Text(
+                          " YORUM DETAYLARI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),
@@ -257,11 +262,14 @@ class _ManageCommentCorporateDetailScreenState extends State<ManageCommentCorpor
                   color: Colors.white54,
                   child: Row(
                     children: [
-                      Text(
-                          "Tarih : "+(DateConversionUtils.convertTimestampTString(int.parse(date.millisecondsSinceEpoch.toString())))
-                              +"\n\nKullanıcı Adı : "+widget.commentModel.userName
-                              +"\n\nYıldız : "+widget.commentModel.star.toString(),
-                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                            "Tarih : "+(DateConversionUtils.convertTimestampTString(int.parse(date.millisecondsSinceEpoch.toString())))
+                                +"\n\nKullanıcı Adı : "+widget.commentModel.userName
+                                +"\n\nYıldız : "+widget.commentModel.star.toString(),
+                            style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                        ),
                       ),
                     ],
                   ),
@@ -283,8 +291,10 @@ class _ManageCommentCorporateDetailScreenState extends State<ManageCommentCorpor
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        " YORUM MESAJI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      child: Text(
+                          " YORUM MESAJI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),

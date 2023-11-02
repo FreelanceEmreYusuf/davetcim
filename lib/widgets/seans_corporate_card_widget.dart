@@ -37,8 +37,11 @@ class _SeansCorporateCardWidgetState
         ),
         child: Row(
           children: [
-            Text(
-                widget.model.name, style: TextStyle(fontSize: 15, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                  widget.model.name, style: TextStyle(fontSize: 15, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+            ),
             Spacer(),
             SizedBox.fromSize(
               size: Size(MediaQuery.of(context).size.height / 18, MediaQuery.of(context).size.height / 10), // button width and height

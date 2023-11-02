@@ -121,8 +121,11 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                        textStr, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          textStr, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
                   ],
                 ),
               ),
@@ -161,11 +164,14 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                   color: Colors.white54,
                   child: Row(
                     children: [
-                      Text(
-                          detailResponse.corporateModel.corporationName
-                              +"\n\nGsm No : "+detailResponse.corporateModel.telephoneNo
-                              +"\n\nAdres : "+createdAddress,
-                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                            detailResponse.corporateModel.corporationName
+                                +"\n\nGsm No : "+detailResponse.corporateModel.telephoneNo
+                                +"\n\nAdres : "+createdAddress,
+                            style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                        ),
                       ),
                     ],
                   ),
@@ -205,10 +211,13 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                   color: Colors.white54,
                   child: Row(
                     children: [
-                      Text(
-                          "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
-                              +"\n\nSeans : "+detailResponse.sessionModel.name,
-                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                            "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
+                                +"\n\nSeans : "+detailResponse.sessionModel.name,
+                            style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                        ),
                       ),
                       Spacer(),
                       SizedBox.fromSize(
@@ -276,11 +285,14 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                 color: Colors.white54,
                 child: Row(
                   children: [
-                    Text(
-                        "Davetli Sayısı :" + detailResponse.reservationModel.invitationCount.toString()
-                         +"\n\nDavet türü : "+ detailResponse.reservationModel.invitationType
-                         +"\n\nOturma düzeni : "+ detailResponse.reservationModel.seatingArrangement,
-                        style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          "Davetli Sayısı :" + detailResponse.reservationModel.invitationCount.toString()
+                           +"\n\nDavet türü : "+ detailResponse.reservationModel.invitationType
+                           +"\n\nOturma düzeni : "+ detailResponse.reservationModel.seatingArrangement,
+                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                      ),
                     ),
                     Spacer(),
                     SizedBox.fromSize(
@@ -449,10 +461,13 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                       height: MediaQuery.of(context).size.height / 15,
                       child: TextButton(
                         style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
-                        child: Text(
-                          "REZERVASYONU GERİ ÇEK".toUpperCase(),
-                          style: TextStyle(
-                            color: Colors.white,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            "REZERVASYONU GERİ ÇEK".toUpperCase(),
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                         onPressed: () async {

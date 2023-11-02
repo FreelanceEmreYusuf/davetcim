@@ -50,15 +50,21 @@ class _ReservationAllCorporateCardWidgetState
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(DateConversionUtils.convertIntTimeToViewString(widget.model.date),
-                    style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,),
-                    maxLines: 5,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(DateConversionUtils.convertIntTimeToViewString(widget.model.date),
+                      style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,),
+                      maxLines: 5,
+                    ),
                   ),
                   Expanded(
-                    child: Text("\n\n Davet Türü : " + widget.model.invitationType + "\n Davetli Sayısı : " + widget.model.invitationCount.toString() +
-                        "\n Toplam Ücret : " + widget.model.cost.toString()+" TL",
-                      style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold,),
-                      maxLines: 5,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text("\n\n Davet Türü : " + widget.model.invitationType + "\n Davetli Sayısı : " + widget.model.invitationCount.toString() +
+                          "\n Toplam Ücret : " + widget.model.cost.toString()+" TL",
+                        style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold,),
+                        maxLines: 5,
+                      ),
                     ),
                   ),
                 ],

@@ -84,10 +84,12 @@ class _State extends State<ManageCommentCorporateView> {
                 height: MediaQuery.of(context).size.height / 15,
                 child: TextButton(
                   style: TextButton.styleFrom(backgroundColor: Colors.green,),
-                  child: Text(
-                    "Yeşil : Onaylanmış Yorum",
-                    style: TextStyle(
-                      color: Colors.white,
+                  child: FittedBox(
+                    child: Text(
+                      "Yeşil : Onaylanmış Yorum",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   onPressed: () async {
@@ -103,10 +105,12 @@ class _State extends State<ManageCommentCorporateView> {
                 height: MediaQuery.of(context).size.height / 15,
                 child: TextButton(
                   style: TextButton.styleFrom(backgroundColor: Colors.grey,),
-                  child: Text(
-                    "Gri : Onay Bekleyen Yorum",
-                    style: TextStyle(
-                      color: Colors.white,
+                  child: FittedBox(
+                    child: Text( 
+                      "Gri : Onay Bekleyen Yorum",
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                   onPressed: () async {
