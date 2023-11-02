@@ -82,61 +82,60 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
 
   Widget getPackageWidget() {
     if (widget.basketModel.packageModel != null) {
-      return FittedBox(
-        child: SizedBox(
+      return
+        SizedBox(
           width: MediaQuery.of(context).size.width,
           child: Card(
             elevation: 10,
             color: Colors.white54,
             child: Row(
-              children: [
-                FittedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                        widget.basketModel.packageModel.title,
-                        style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
-                    ),
-                  ),
-                ),
-                Spacer(),
-                SizedBox.fromSize(
-                  size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
-                    //circular(30.0), // Yuvarlak köşe için bir değer belirtin
-                    child: Material(
-                      color: Colors.grey,
-                      child: InkWell(
-                        splashColor: Colors.deepOrangeAccent,
-                        onTap: () async {
-                          Dialogs.showAlertMessageWithAction(
-                              context,
-                              widget.basketModel.packageModel.title,
-                              "Paket İçeriği: "+widget.basketModel.packageModel.body+""
-                                  "\n\nKişi başı ücret: "+widget.basketModel.packageModel.price.toString()+" TL"
-                                  "\n\nDavetli Sayısına Göre Toplam Tutar: "
-                                  "\nDavetli Sayısı("+widget.basketModel.orderBasketModel.count.toString()+") "
-                                  "\nKişi Başı Paket Ücreti("+widget.basketModel.packageModel.price.toString()+"TL)"
-                                  "\nToplam Ücret: "+(widget.basketModel.packageModel.price*widget.basketModel.orderBasketModel.count).toString()+" TL",
-                              null);
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
-                            FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
+                children: [
+              FittedBox(
+              child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                  widget.basketModel.packageModel.title,
+                  style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+              ),
             ),
           ),
-        ),
-      );
+          Spacer(),
+          SizedBox.fromSize(
+            size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
+            child: ClipRRect(
+            borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
+            //circular(30.0), // Yuvarlak köşe için bir değer belirtin
+            child: Material(
+            color: Colors.grey,
+            child: InkWell(
+            splashColor: Colors.deepOrangeAccent,
+            onTap: () async {
+              Dialogs.showAlertMessageWithAction(
+              context,
+              widget.basketModel.packageModel.title,
+              "Paket İçeriği: "+widget.basketModel.packageModel.body+""
+              "\n\nKişi başı ücret: "+widget.basketModel.packageModel.price.toString()+" TL"
+              "\n\nDavetli Sayısına Göre Toplam Tutar: "
+              "\nDavetli Sayısı("+widget.basketModel.orderBasketModel.count.toString()+") "
+              "\nKişi Başı Paket Ücreti("+widget.basketModel.packageModel.price.toString()+"TL)"
+              "\nToplam Ücret: "+(widget.basketModel.packageModel.price*widget.basketModel.orderBasketModel.count).toString()+" TL",
+              null);
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
+                FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
+              ],
+            ),
+            ),
+            ),
+            ),
+          ),
+          ],
+          ),
+          ),
+          );
     }
 
     return Container(
@@ -374,7 +373,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                 ),
               ),
             ),
-            Spacer(),
+            SizedBox(height: 10.0),
             getPackageWidget(),
             //hizmetler
             SizedBox(height: 10.0),
