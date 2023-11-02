@@ -40,13 +40,18 @@ class _ManageLookupsViewState extends State<ManageLookupsView> {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Utils.navigateToPage(context, LookupAddView(dbTable: selectedLookup.id));
+          try{
+            Utils.navigateToPage(context, LookupAddView(dbTable: selectedLookup.id));
+          }
+          catch(e) {
+
+          }
         },
         label: Text('Yeni Ekle', style: TextStyle(fontSize: 15), maxLines: 2),
         icon: Icon(Icons.add_circle),
         backgroundColor: Colors.redAccent,
       ),
-      appBar: AppBarMenu(pageName: "Salon Özellik Yönet", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: "Salon Özelliklerini Yönet", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(
@@ -88,9 +93,11 @@ class _ManageLookupsViewState extends State<ManageLookupsView> {
               items: lookupList.map((ComboGenericIdentifierModel item) {
                 return new DropdownMenuItem<ComboGenericIdentifierModel>(
                   value: item,
-                  child: new Text(
-                    item.text,
-                    style: new TextStyle(color: Colors.black),
+                  child: FittedBox(
+                    child: new Text(
+                      item.text,
+                      style: new TextStyle(color: Colors.black),
+                    ),
                   ),
                 );
               }).toList(),

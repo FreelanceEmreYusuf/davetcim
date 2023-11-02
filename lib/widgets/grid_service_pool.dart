@@ -46,9 +46,12 @@ class _GridServicePoolState
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Expanded(
-                  child: Text(
-                      widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+                Expanded( 
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text( 
+                        widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+                  ),
                 ),
                 Spacer(),
                 SizedBox.fromSize(
@@ -107,8 +110,13 @@ class _GridServicePoolState
     else
       row = Row(
         children: [
-          Text(
-              widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+          Expanded(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                  widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+            ),
+          ),
           Spacer(),
           SizedBox.fromSize(
             size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height

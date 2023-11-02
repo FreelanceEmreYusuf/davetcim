@@ -86,9 +86,11 @@ class _CorporationActivePassiveViewState extends State<CorporationActivePassiveV
               items: companyList.map((CompanyModel company) {
                 return new DropdownMenuItem<CompanyModel>(
                   value: company,
-                  child: new Text(
-                    company.name,
-                    style: new TextStyle(color: Colors.black),
+                  child: FittedBox(
+                    child: new Text(
+                      company.name,
+                      style: new TextStyle(color: Colors.black),
+                    ),
                   ),
                 );
               }).toList(),

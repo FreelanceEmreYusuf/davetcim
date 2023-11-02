@@ -41,12 +41,15 @@ class _GridCorporateActivePassiveState
     row = Row(
       children: [
         Expanded(
-          child: Text(
-              widget.corporationModel.corporationName, style: TextStyle(
-              fontSize: 18,
-              color: Colors.green,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold)),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+                widget.corporationModel.corporationName, style: TextStyle(
+                fontSize: 18,
+                color: Colors.green,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold)),
+          ),
         ),
         Spacer(),
         Expanded(
@@ -58,12 +61,14 @@ class _GridCorporateActivePassiveState
                   onTap: () async {
                     await updateCorporationActivePassive(widget.corporationModel);
                   }, // button pressed
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.update, color: Colors.white), // icon
-                      Text(buttonText, style: TextStyle(color: Colors.white)),
-                    ],
+                  child: FittedBox(
+                    child: Column( 
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(Icons.update, color: Colors.white), // icon
+                        Text(buttonText, style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -78,12 +83,14 @@ class _GridCorporateActivePassiveState
                 onTap: () async {
                   await updateCorporationPopularity(widget.corporationModel);
                 }, // button pressed
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.whatshot, color: Colors.white), // icon
-                    Text(buttonTextForPopular, style: TextStyle(color: Colors.white)),
-                  ],
+                child: FittedBox(
+                  child: Column( 
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.whatshot, color: Colors.white), // icon
+                      Text(buttonTextForPopular, style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
                 ),
               ),
             ),

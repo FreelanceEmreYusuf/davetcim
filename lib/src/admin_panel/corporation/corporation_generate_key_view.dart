@@ -82,9 +82,11 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
                 items: companyList.map((CompanyModel company) {
                   return new DropdownMenuItem<CompanyModel>(
                     value: company,
-                    child: new Text(
-                      company.name,
-                      style: new TextStyle(color: Colors.black),
+                    child: FittedBox(
+                      child: new Text(
+                        company.name,
+                        style: new TextStyle(color: Colors.black),
+                      ),
                     ),
                   );
                 }).toList(),
@@ -129,9 +131,11 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
               Visibility(
                   visible: keyVisibility,
                   child: Container(
-                      child: Center(child: Text("Salon Kayıt İşlemi için Üretilen Key", style: TextStyle(fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,),)),
+                      child: Center(child: FittedBox(
+                        child: Text("Salon Kayıt İşlemi için Üretilen Key", style: TextStyle(fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.black,),),
+                      )),
                       padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
                   )),
               Visibility(

@@ -29,12 +29,15 @@ class _GridLookupItemState
     row = Row(
       children: [
         Expanded(
-          child: Text(
-              widget.lookupModel.name, style: TextStyle(
-              fontSize: 18,
-              color: Colors.green,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold)),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+                widget.lookupModel.name, style: TextStyle(
+                fontSize: 18,
+                color: Colors.green,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold)),
+          ),
         ),
         Spacer(),
         Expanded(

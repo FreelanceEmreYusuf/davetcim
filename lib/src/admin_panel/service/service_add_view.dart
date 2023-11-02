@@ -48,7 +48,7 @@ class _State extends State<ServiceAddView> {
                     padding: EdgeInsets.all(10),
                     child: TextFormField(
                       controller: serviceController,
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Servis Adı",
