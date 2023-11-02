@@ -61,14 +61,12 @@ class _GridCorporateActivePassiveState
                   onTap: () async {
                     await updateCorporationActivePassive(widget.corporationModel);
                   }, // button pressed
-                  child: FittedBox(
-                    child: Column( 
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(Icons.update, color: Colors.white), // icon
-                        Text(buttonText, style: TextStyle(color: Colors.white)),
-                      ],
-                    ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.update, color: Colors.white), // icon
+                      Text(buttonText, style: TextStyle(color: Colors.white)),
+                    ],
                   ),
                 ),
               ),
@@ -83,14 +81,12 @@ class _GridCorporateActivePassiveState
                 onTap: () async {
                   await updateCorporationPopularity(widget.corporationModel);
                 }, // button pressed
-                child: FittedBox(
-                  child: Column( 
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(Icons.whatshot, color: Colors.white), // icon
-                      Text(buttonTextForPopular, style: TextStyle(color: Colors.white)),
-                    ],
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Icon(Icons.whatshot, color: Colors.white), // icon
+                    Text(buttonTextForPopular, style: TextStyle(color: Colors.white)),
+                  ],
                 ),
               ),
             ),
