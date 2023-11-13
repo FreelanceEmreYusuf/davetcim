@@ -131,7 +131,14 @@ class _GridCorporateServicePoolForBasketState
                           buttonColor = Colors.green;
                           buttonIcon = Icons.add;
                           textColor = Colors.red;
-                          UserBasketSession.servicePoolModel.remove(widget.servicePoolModel);
+                          //UserBasketSession.servicePoolModel.remove(widget.servicePoolModel);
+                          List<ServicePoolModel> listTemp = [];
+                          for (int i = 0; i < UserBasketSession.servicePoolModel.length; i++) {
+                            if (UserBasketSession.servicePoolModel[i].id != widget.servicePoolModel.id) {
+                              listTemp.add(UserBasketSession.servicePoolModel[i]);
+                            }
+                          }
+                          UserBasketSession.servicePoolModel = listTemp;
                         }
                         buffer = !buffer;
                       });

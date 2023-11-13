@@ -445,11 +445,12 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               color: Colors.white,
             ),
           ),
-          onPressed: () async {
-         //   if (widget.basketModel.)
-            SummaryBasketViewModel summaryBasketViewModel = SummaryBasketViewModel();
-            int minReservationAmount = await summaryBasketViewModel.getMinReservationAmount(
-                widget.basketModel.corporationModel.corporationId);
+          onPressed: ()  {
+            int minReservationAmount = widget.basketModel.corporationModel.minReservationAmount;
+            if(DateConversionUtils.isWeekendFromIntDate(widget.basketModel.date) ){
+              minReservationAmount = widget.basketModel.corporationModel.minReservationAmountWeekend;
+            }
+
             if (minReservationAmount < calculateTotalPrice()) {
               Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", "İptal", "Sepeti Onayla", "Mesajınızı Girin", 10,
                   createReservationRequest, DailogInmputValidatorTypeEnum.richText);
@@ -457,7 +458,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               Dialogs.showAlertMessageWithAction(
                   context,
                   "Uyarı",
-                  "Minimum rezervasyon tutarı; bu salon için " + minReservationAmount.toString() + " TL dir",
+                  "Minimum rezervasyon tutarı; bu salon ve belirlenen tarih için " + minReservationAmount.toString() + " TL dir",
                   null);
             }
           },

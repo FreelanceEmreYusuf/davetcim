@@ -321,7 +321,7 @@ class Dialogs {
     } else {
       validator = (anything) {
         return FormControlUtil.getErrorControl(
-            FormControlUtil.getStringLenghtBetweenMinandMaxControl(anything, 3, 1500));
+            FormControlUtil.getStringLenghtBetweenMinandMaxControl(anything, 0, 1500));
       };
     }
 

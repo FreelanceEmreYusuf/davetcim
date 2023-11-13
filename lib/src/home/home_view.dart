@@ -11,6 +11,7 @@ import 'package:davetcim/widgets/grid_product.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../../shared/environments/const.dart';
+import '../../shared/sessions/user_basket_session.dart';
 import '../../widgets/on_error/somethingWentWrong.dart';
 
 class Home extends StatefulWidget {
@@ -34,6 +35,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
 
   @override
   void initState() {
+    UserBasketSession.servicePoolModel = [];
     getOrderedCorporationList();
     getHomeSliderCorporationList();
     super.initState();

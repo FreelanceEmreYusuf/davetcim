@@ -23,6 +23,7 @@ class DBConstants {
   static String imagesDb = "Images";
   static String servicesDb = "Services";
   static String corporationServicesDb = "CorporationServices";
+  static String corporationPackageServicesDb = "CorporationPackageServices";
   static String corporationSessionsDb = "CorporationSessions";
   static String corporationReservationsDb = "CorporationReservations";
   static String corporationRegisterKeyDb = "CorporationRegisterKey";
@@ -31,6 +32,5 @@ class DBConstants {
   static String corporationEventLogDb = "CorporationEventLog";
   static String applicationImagesDb = "ApplicationImages";
   static String insuranceDB = "Insurance";
-  static String corporationPackageServicesDb = "CorporationPackageServices";
   static String generalDataDb = "GeneralData";
 }

@@ -14,7 +14,7 @@ class ServiceCorporatePackageViewModel extends ChangeNotifier {
 
   Future<List<CorporationPackageServicesModel>> getPackageList(int corporateId) async {
     var response = await db
-        .getCollectionRef(DBConstants.corporationServicesDb)
+        .getCollectionRef(DBConstants.corporationPackageServicesDb)
         .where('corporateId', isEqualTo: corporateId)
         .where('isActive', isEqualTo: true)
         .get();
@@ -43,7 +43,7 @@ class ServiceCorporatePackageViewModel extends ChangeNotifier {
         price: price,
         isActive: true);
 
-    db.editCollectionRef(DBConstants.corporationServicesDb, model.toMap());
+    db.editCollectionRef(DBConstants.corporationPackageServicesDb, model.toMap());
   }
 
   Future<void> editPackageItem(CorporationPackageServicesModel model,
@@ -51,11 +51,11 @@ class ServiceCorporatePackageViewModel extends ChangeNotifier {
     model.title = title;
     model.body = body;
     model.price = price;
-    db.editCollectionRef(DBConstants.corporationServicesDb, model.toMap());
+    db.editCollectionRef(DBConstants.corporationPackageServicesDb, model.toMap());
   }
 
   Future<void> deactivatePackageItem(CorporationPackageServicesModel model) {
     model.isActive = false;
-    db.editCollectionRef(DBConstants.corporationServicesDb, model.toMap());
+    db.editCollectionRef(DBConstants.corporationPackageServicesDb, model.toMap());
   }
 }

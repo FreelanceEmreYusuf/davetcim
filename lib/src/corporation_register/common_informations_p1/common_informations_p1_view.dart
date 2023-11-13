@@ -1,9 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/shared/models/customer_model.dart';
-import 'package:davetcim/shared/models/secret_questions_model.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
-import 'package:davetcim/shared/utils/language.dart';
-import 'package:davetcim/src/join/register/register_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,10 +10,8 @@ import '../../../shared/models/region_model.dart';
 import '../../../shared/sessions/application_session.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
-import '../../../widgets/checkbox_listtile_item.dart';
 import '../../search/search_view_model.dart';
 import '../common_informations_p2/common_informations_p2_view.dart';
-import 'common_informations_p1_view_model.dart';
 
 class CommonInformationsP1View extends StatefulWidget {
   @override
@@ -42,6 +36,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
   final TextEditingController _descriptionControl = new TextEditingController();
   final TextEditingController _maxPopulationControl = new TextEditingController();
   final TextEditingController _minReservationAmount = new TextEditingController();
+  final TextEditingController _minReservationAmountWeekend = new TextEditingController();
   final registerFormKey = GlobalKey <FormState> ();
   String formException = "";
   int _cardDivisionSize = 20;
@@ -299,6 +294,37 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  labelText: "Minimumu Rezervasyon Tutarı(Haftasonu)",
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusColor: Colors.blue,
+                  prefixIcon: Icon(
+                    Icons.person_add,
+                    color: Colors.black54,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                controller: _minReservationAmountWeekend,
+                validator: (minReservationAmount) {
+                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlBetweenMinMax(minReservationAmount,1,6));
+                },
+                maxLines: 1,
+                keyboardType: TextInputType.number,
+                maxLength: 6,
+              ),
+              SizedBox(height: 15.0),
+              TextFormField(
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                ),
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Adres",
                   filled: true,
                   fillColor: Colors.white,
@@ -462,6 +488,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                           companyId: widget.companyModel.id,
                           maxPopulation: int.parse(_maxPopulationControl.text),
                           minReservationAmount: int.parse(_minReservationAmount.text),
+                          minReservationAmountWeekend: int.parse(_minReservationAmountWeekend.text),
                           ratingCount: 0,
                           recordDate: Timestamp.now(),
                           averageRating: 0,

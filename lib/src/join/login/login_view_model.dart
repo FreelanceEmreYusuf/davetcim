@@ -3,16 +3,12 @@ import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:davetcim/shared/dto/user_session_dto.dart';
-import 'package:davetcim/shared/utils/dialogs.dart';
-import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/enums/customer_role_enum.dart';
-import '../../../shared/helpers/conversion_helper.dart';
 import '../../admin_corporate_panel/company/add_corporation/corporation_add_view.dart';
-import '../../admin_corporate_panel/company/user_register/company_user_register_view.dart';
 import '../../fav_products/fav_products_view_model.dart';
 
 class LoginViewModel extends ChangeNotifier {

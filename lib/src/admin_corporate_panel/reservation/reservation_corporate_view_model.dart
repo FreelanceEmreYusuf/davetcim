@@ -41,7 +41,7 @@ class ReservationCorporateViewModel extends ChangeNotifier {
     ReservationDetailViewDto rdvm = ReservationDetailViewDto();
 
     var response = await db
-        .getCollectionRef("ReservationDetail")
+        .getCollectionRef(DBConstants.reservationDetailDb)
         .where('reservationId', isEqualTo: model.id)
         .get();
 
@@ -59,14 +59,23 @@ class ReservationCorporateViewModel extends ChangeNotifier {
       List<ServicePoolModel> serviceList = await getServicePoolModelList(selectedServicesIds);
       List<ServiceCorporatePoolModel> serviceCorporateList = await getServicePoolCorporateModelList(selectedServicesIds, model);
 
+      int packagePrice = 0;
       for (int i = 0; i < list.length; i++) {
         Map item = list[i].data();
         ReservationDetailModel detailModel = ReservationDetailModel.fromMap(item);
         detailModel.servicePoolModel = await getServicePoolModel(serviceList, detailModel, serviceCorporateList);
-        detailList.add(detailModel);
+        if (detailModel.foreignType == "package") {
+          packagePrice = detailModel.price;
+        }
+        if (detailModel.foreignType == "service") {
+          detailList.add(detailModel);
+        }
       }
 
       rdvm.packageModel = await getServicePackageModel(selectedServicesIds);
+      if (rdvm.packageModel != null) {
+        rdvm.packageModel.price = packagePrice;
+      }
     }
 
     rdvm.reservationModel = model;

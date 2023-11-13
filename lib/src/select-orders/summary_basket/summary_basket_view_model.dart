@@ -75,13 +75,17 @@ class SummaryBasketViewModel extends ChangeNotifier {
       for (int i = 0; i < basketModel.servicePoolModel.length; i++) {
         ServicePoolModel model = basketModel.servicePoolModel[i];
         ReservationDetailModel reservationModel = new ReservationDetailModel(
-          id: (id + i),
+          id: id,
           reservationId: reservationId,
           foreignId: model.id,
           foreignType: "service",
+          price: model.corporateDetail.price,
+          priceChangedForCount: model.corporateDetail.priceChangedForCount,
+          hasPrice: model.corporateDetail.hasPrice,
         );
+        id += 1;
 
-        db.editCollectionRef(DBConstants.reservationDetailDb, reservationModel.toMap());
+        await db.editCollectionRef(DBConstants.reservationDetailDb, reservationModel.toMap());
       }
     }
 
@@ -91,6 +95,9 @@ class SummaryBasketViewModel extends ChangeNotifier {
         reservationId: reservationId,
         foreignId: basketModel.packageModel.id,
         foreignType: "package",
+        price: basketModel.packageModel.price,
+        priceChangedForCount: true,
+        hasPrice: true,
       );
 
       db.editCollectionRef(DBConstants.reservationDetailDb, reservationModel.toMap());

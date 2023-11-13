@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../shared/dto/basket_user_dto.dart';
 import '../shared/enums/corporation_service_selection_enum.dart';
 import '../shared/models/corporation_package_services_model.dart';
+import '../shared/sessions/user_basket_session.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/select-orders/services/services_view.dart';

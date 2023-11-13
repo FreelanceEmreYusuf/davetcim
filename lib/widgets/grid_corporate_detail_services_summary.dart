@@ -32,7 +32,7 @@ class _GridCorporateDetailServicesSummaryState
 
     Row row;
 
-    if (!widget.detailRowModel.servicePoolModel.corporateDetail.priceChangedForCount) {
+    if (!widget.detailRowModel.priceChangedForCount) {
       priceChangeForCount = "Hayır";
     }
 
@@ -58,7 +58,7 @@ class _GridCorporateDetailServicesSummaryState
                       //TODO: hizmet için fiyat bilgileri girilecek
                       "Belirtmiş olduğunuz davetli sayısı : "+widget.detailModel.reservationModel.invitationCount.toString()
                           +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
-                          +"\n\nHizmetin birim ücreti : "+ widget.detailRowModel.servicePoolModel.corporateDetail.price.toString(),
+                          +"\n\nHizmetin birim ücreti : "+ widget.detailRowModel.price.toString(),
                       null);
                 }, // button pressed
                 child: Column(

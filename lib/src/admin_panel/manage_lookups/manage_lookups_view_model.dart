@@ -18,7 +18,7 @@ class ManageLookupsViewModel extends ChangeNotifier {
 
     model = ComboGenericIdentifierModel();
     model.id = DBConstants.organizationTypeDb;
-    model.text = "Organizasyon Tipi";
+    model.text = "Mekan Türü";
     responseList.add(model);
 
     model = ComboGenericIdentifierModel();

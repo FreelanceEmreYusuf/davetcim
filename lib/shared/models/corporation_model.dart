@@ -18,6 +18,7 @@ class CorporationModel {
   int maxPopulation;
   int ratingCount;
   int minReservationAmount;
+  int minReservationAmountWeekend;
   String region;
   String telephoneNo;
   String email;
@@ -41,6 +42,7 @@ class CorporationModel {
     this.maxPopulation,
     this.ratingCount,
     this.minReservationAmount,
+    this.minReservationAmountWeekend,
     this.region,
     this.telephoneNo,
     this.email,
@@ -66,6 +68,7 @@ class CorporationModel {
     'maxPopulation': maxPopulation,
     'ratingCount': ratingCount,
     'minReservationAmount': minReservationAmount,
+    'minReservationAmountWeekend': minReservationAmountWeekend,
     'region': region,
     'telephoneNo': telephoneNo,
     'email': email,
@@ -91,6 +94,7 @@ class CorporationModel {
     maxPopulation: map['maxPopulation'],
     ratingCount: map['ratingCount'],
     minReservationAmount: map['minReservationAmount'],
+    minReservationAmountWeekend: map['minReservationAmountWeekend'],
     region: map['region'],
     telephoneNo: map['telephoneNo'],
     email: map['email'],

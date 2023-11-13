@@ -1,13 +1,15 @@
 import 'dart:math';
 
 import 'package:davetcim/shared/models/service_pool_model.dart';
-import 'corporation_package_services_model.dart';
 
 class ReservationDetailModel {
-  final int id;
-  final int reservationId;
-  final int foreignId;
-  final String foreignType;
+  int id;
+  int reservationId;
+  int foreignId;
+  String foreignType;
+  bool hasPrice;
+  int price;
+  bool priceChangedForCount;
   ServicePoolModel servicePoolModel;
 
   ReservationDetailModel({
@@ -15,7 +17,10 @@ class ReservationDetailModel {
     this.reservationId,
     this.foreignId,
     this.foreignType,
-    this.servicePoolModel
+    this.servicePoolModel,
+    this.hasPrice,
+    this.price,
+    this.priceChangedForCount
   });
 
   ///Object to map
@@ -24,6 +29,9 @@ class ReservationDetailModel {
     'reservationId': reservationId,
     'foreignId': foreignId,
     'foreignType': foreignType,
+    'hasPrice': hasPrice,
+    'price': price,
+    'priceChangedForCount': priceChangedForCount,
   };
 
   ///Map to object
@@ -32,5 +40,8 @@ class ReservationDetailModel {
     reservationId: map['reservationId'],
     foreignId: map['foreignId'],
     foreignType: map['foreignType'],
+    hasPrice: map['hasPrice'],
+    price: map['price'],
+    priceChangedForCount: map['priceChangedForCount'],
   );
 }
