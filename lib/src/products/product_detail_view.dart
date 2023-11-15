@@ -68,6 +68,8 @@ class _ProductDetailsState extends State<ProductDetails> {
   String regionName = "";
   CorporationEventLogModel corporationEventLogModel;
   bool hasDataTaken = false;
+  bool hasFillOrderViewParamsTaken = false;
+  bool hasDistrictsAndRegionTaken = false;
 
   @override
   void initState() {
@@ -91,6 +93,9 @@ class _ProductDetailsState extends State<ProductDetails> {
 
     districtName = districtName.substring(1);
     regionName = regionName.substring(1);
+    setState(() {
+      hasDistrictsAndRegionTaken = true;
+    });
   }
 
   void getLogModel() async {
@@ -117,6 +122,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       organizationTypeList = organizationTypeList;
       invitationList = invitationList;
       sequenceOrderList = sequenceOrderList;
+      hasFillOrderViewParamsTaken = true;
     });
   }
 
@@ -172,7 +178,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
-    if (!hasDataTaken) {
+    if (!hasDataTaken || !hasFillOrderViewParamsTaken || !hasDistrictsAndRegionTaken) {
       return Scaffold(appBar:
       AppBarMenu(pageName: widget.corporationModel.corporationName, isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
