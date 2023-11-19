@@ -105,8 +105,8 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                                 decoration: BoxDecoration(
                                     color: Provider.of<AppProvider>(context).theme ==
                                         Constants.lightTheme
-                                        ? Colors.white
-                                        : Colors.black,
+                                        ? Colors.transparent
+                                        : Colors.transparent,
                                     borderRadius: BorderRadius.circular(20)
                                 ),
                               ),
