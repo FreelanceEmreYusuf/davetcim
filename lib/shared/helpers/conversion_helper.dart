@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/helpers/region_district_helper.dart';
 import 'package:davetcim/shared/services/database.dart';
 
@@ -34,6 +33,7 @@ class ConversionHelper {
         detailModel.price = 500;
         detailModel.hasPrice = true;
         detailModel.priceChangedForCount = true;
+
         db.editCollectionRef(DBConstants.reservationDetailDb, detailModel.toMap());
       }
     }

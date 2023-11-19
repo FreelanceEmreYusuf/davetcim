@@ -15,6 +15,7 @@ import '../../../widgets/grid_corporate_detail_package_summary.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
 import '../../notifications/notifications_view.dart';
 import '../../notifications/notifications_view_model.dart';
+import '../../user_reservations/user_reservations_view_model.dart';
 import '../corporation_analysis/corporation_analysis_view_model.dart';
 
 class ReservationCorporateDetailScreen extends StatefulWidget {
@@ -40,7 +41,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
 
 
   void getReservationDetail() async{
-    ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+    UserReservationsViewModel rcm = UserReservationsViewModel();
     detailResponse = await rcm.getReservationDetail(widget.reservationModel);
 
     setState(() {

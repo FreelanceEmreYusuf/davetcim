@@ -1,5 +1,4 @@
 import 'package:davetcim/shared/enums/reservation_status_enum.dart';
-import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +11,7 @@ import '../../../shared/utils/dialogs.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_package_summary.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
+import '../../user_reservations/user_reservations_view_model.dart';
 
 class AllReservationCorporateDetailScreen extends StatefulWidget {
   @override
@@ -34,7 +34,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
 
 
   void getReservationDetail() async{
-    ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+    UserReservationsViewModel rcm = UserReservationsViewModel();
     detailResponse = await rcm.getReservationDetail(widget.reservationModel);
 
     setState(() {

@@ -10,8 +10,6 @@ import '../../../shared/helpers/customer_helper.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/services/database.dart';
-import '../../../shared/utils/date_utils.dart';
-import '../../shared/helpers/corporate_helper.dart';
 import '../../shared/models/corporation_package_services_model.dart';
 import '../admin_corporate_panel/seans/seans_corporate_view_model.dart';
 
@@ -50,33 +48,16 @@ class UserReservationsViewModel extends ChangeNotifier {
 
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
-      List<int> selectedServicesIds = [];
+
       for (int i = 0; i < list.length; i++) {
         Map item = list[i].data();
         ReservationDetailModel detailModel = ReservationDetailModel.fromMap(item);
-        selectedServicesIds.add(detailModel.foreignId);
-      }
-
-      List<ServicePoolModel> serviceList = await getServicePoolModelList(selectedServicesIds);
-      List<ServiceCorporatePoolModel> serviceCorporateList =
-        await getServicePoolCorporateModelList(selectedServicesIds, model);
-
-      int packagePrice = 0;
-      for (int i = 0; i < list.length; i++) {
-        Map item = list[i].data();
-        ReservationDetailModel detailModel = ReservationDetailModel.fromMap(item);
-        detailModel.servicePoolModel = await getServicePoolModel(serviceList, detailModel, serviceCorporateList);
         if (detailModel.foreignType == "package") {
-          packagePrice = detailModel.price;
-        }
-        if (detailModel.foreignType == "service") {
+          rdvm.packageModel = await getServicePackageModel(detailModel.foreignId);
+          rdvm.packageModel.price = detailModel.price;
+        } else if (detailModel.foreignType == "service") {
           detailList.add(detailModel);
         }
-      }
-
-      rdvm.packageModel = await getServicePackageModel(selectedServicesIds);
-      if (rdvm.packageModel != null) {
-        rdvm.packageModel.price = packagePrice;
       }
     }
 
@@ -86,8 +67,8 @@ class UserReservationsViewModel extends ChangeNotifier {
     CorporateSessionsViewModel csvm = CorporateSessionsViewModel();
     rdvm.sessionModel = await csvm.getSession(model.sessionId);
 
-    CorporateHelper corporateHelper = CorporateHelper();
-    rdvm.corporateModel = await corporateHelper.getCorporate(rdvm.reservationModel.corporationId);
+    CustomerHelper custHelper = CustomerHelper();
+    rdvm.customerModel = await custHelper.getCustomer(rdvm.reservationModel.customerId);
 
     return rdvm;
   }
@@ -115,10 +96,10 @@ class UserReservationsViewModel extends ChangeNotifier {
     return serviceList;
   }
 
-  Future<CorporationPackageServicesModel> getServicePackageModel(List<int> selectedServicesIds) async {
+  Future<CorporationPackageServicesModel> getServicePackageModel(int packageId) async {
     var response = await db
         .getCollectionRef(DBConstants.corporationPackageServicesDb)
-        .where('id', whereIn: selectedServicesIds)
+        .where('id', isEqualTo: packageId)
         .where('isActive', isEqualTo: true)
         .get();
 

@@ -41,7 +41,7 @@ class _GridCorporateDetailServicesSummaryState
         FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
-              widget.detailRowModel.servicePoolModel.serviceName.replaceAll("-", ""), style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+              widget.detailRowModel.serviceName.replaceAll("-", ""), style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
         ),
         Spacer(),
         SizedBox.fromSize(
@@ -54,7 +54,7 @@ class _GridCorporateDetailServicesSummaryState
                 onTap: () async {
                   Dialogs.showAlertMessageWithAction(
                       context,
-                      widget.detailRowModel.servicePoolModel.serviceName,
+                      widget.detailRowModel.serviceName,
                       //TODO: hizmet için fiyat bilgileri girilecek
                       "Belirtmiş olduğunuz davetli sayısı : "+widget.detailModel.reservationModel.invitationCount.toString()
                           +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount

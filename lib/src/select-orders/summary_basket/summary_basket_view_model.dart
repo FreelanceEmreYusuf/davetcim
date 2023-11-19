@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
-import 'package:davetcim/shared/models/combo_generic_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,7 +11,6 @@ import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
-import '../../../shared/sessions/user_basket_session.dart';
 
 class SummaryBasketViewModel extends ChangeNotifier {
   Database db = Database();
@@ -79,6 +75,8 @@ class SummaryBasketViewModel extends ChangeNotifier {
           reservationId: reservationId,
           foreignId: model.id,
           foreignType: "service",
+          serviceName: model.serviceName.replaceAll("-", ""),
+          serviceBody: "",
           price: model.corporateDetail.price,
           priceChangedForCount: model.corporateDetail.priceChangedForCount,
           hasPrice: model.corporateDetail.hasPrice,
@@ -95,9 +93,11 @@ class SummaryBasketViewModel extends ChangeNotifier {
         reservationId: reservationId,
         foreignId: basketModel.packageModel.id,
         foreignType: "package",
+        serviceName: basketModel.packageModel.title,
+        serviceBody: basketModel.packageModel.body,
         price: basketModel.packageModel.price,
         priceChangedForCount: true,
-        hasPrice: true,
+        hasPrice: true
       );
 
       db.editCollectionRef(DBConstants.reservationDetailDb, reservationModel.toMap());
