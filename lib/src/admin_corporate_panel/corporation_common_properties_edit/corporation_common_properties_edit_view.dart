@@ -55,6 +55,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
   final TextEditingController _descriptionControl = new TextEditingController();
   final TextEditingController _maxPopulationControl = new TextEditingController();
   final TextEditingController _minReservationAmountControl = new TextEditingController();
+  final TextEditingController _minReservationAmountWeekendControl = new TextEditingController();
 
   final registerFormKey = GlobalKey <FormState> ();
   final registerFormKey2 = GlobalKey <FormState> ();
@@ -90,6 +91,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
     _descriptionControl.text = corporationModel.description;
     _maxPopulationControl.text = corporationModel.maxPopulation.toString();
     _minReservationAmountControl.text = corporationModel.minReservationAmount.toString();
+    _minReservationAmountWeekendControl.text = corporationModel.minReservationAmountWeekend.toString();
 
     for (int i = 0; i < regionList.length; i++) {
       if (regionList[i].id == int.parse(corporationModel.region)) {
@@ -209,6 +211,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
         corporationModel.district = districtList[selectedDistrict].id.toString();
         corporationModel.maxPopulation = int.parse(_maxPopulationControl.text);
         corporationModel.minReservationAmount = int.parse(_minReservationAmountControl.text);
+        corporationModel.minReservationAmountWeekend = int.parse(_minReservationAmountWeekendControl.text);
         corporationModel.organizationUniqueIdentifier = organizationUniqueIdentifier;
         corporationModel.invitationUniqueIdentifier = invitationUniqueIdentifier;
         corporationModel.sequenceOrderUniqueIdentifier = sequenceOrderIdentifier;
@@ -444,6 +447,37 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
                 ),
               ),
               controller: _minReservationAmountControl,
+              validator: (minReservationAmount) {
+                return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlBetweenMinMax(minReservationAmount,1,10));
+              },
+              maxLines: 1,
+              keyboardType: TextInputType.number,
+              maxLength: 10,
+            ),
+            SizedBox(height: 15.0),
+            TextFormField(
+              style: TextStyle(
+                fontSize: 15.0,
+                color: Colors.black,
+              ),
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                labelText: "Minimum Rezervasyon Tutarı (Haftasonu)",
+                filled: true,
+                fillColor: Colors.white,
+                focusColor: Colors.blue,
+                prefixIcon: Icon(
+                  Icons.person_add,
+                  color: Colors.black54,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              controller: _minReservationAmountWeekendControl,
               validator: (minReservationAmount) {
                 return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlBetweenMinMax(minReservationAmount,1,10));
               },
