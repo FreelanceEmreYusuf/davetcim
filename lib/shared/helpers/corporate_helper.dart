@@ -61,7 +61,7 @@ class CorporateHelper {
 
   Future<bool> isCorporationActive(int corporateId) async{
     CorporationModel corporationModel = await this.getCorporate(corporateId);
-    if(corporationModel.isActive)
+    if(corporationModel != null && corporationModel.isActive)
       return true;
     else
       return false;
@@ -69,7 +69,7 @@ class CorporateHelper {
 
   Future<bool> isCorporationPopular(int corporateId) async{
     CorporationModel corporationModel = await this.getCorporate(corporateId);
-    if(corporationModel.isPopularCorporation)
+    if(corporationModel != null && corporationModel.isPopularCorporation)
       return true;
     else
       return false;

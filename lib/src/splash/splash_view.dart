@@ -14,7 +14,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   startTimeout() {
-    return Timer(Duration(seconds: 3), changeScreen);
+    return Timer(Duration(milliseconds: 1500), changeScreen);
   }
 
   changeScreen() async {
@@ -31,6 +31,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void callNextFlow() async {
     WalkthroughViewModel rm = WalkthroughViewModel();
     if (!await rm.willDemoShowed()) {
+      startTimeout();
       Utils.navigateToPage(context, EntrancePage());
     } else {
       startTimeout();
