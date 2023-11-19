@@ -69,10 +69,10 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                         duration: Duration(milliseconds: 300),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Provider.of<AppProvider>(context).theme ==
+                          color: Provider.of<AppProvider>(context).theme  ==
                               Constants.lightTheme
-                              ? Colors.white
-                              : Colors.black,
+                              ? Colors.transparent
+                              : Colors.transparent,
                         ),
                       ),
                       BounceButton(
@@ -99,8 +99,8 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                           shape: BoxShape.circle,
                           color: Provider.of<AppProvider>(context).theme ==
                               Constants.lightTheme
-                              ? Colors.white
-                              : Colors.black,
+                              ? Colors.transparent
+                              : Colors.transparent,
                         ),
                       ),
                       IconButton(
@@ -138,8 +138,8 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                           shape: BoxShape.circle,
                           color: Provider.of<AppProvider>(context).theme ==
                               Constants.lightTheme
-                              ? Colors.white
-                              : Colors.black,
+                              ? Colors.transparent
+                              : Colors.transparent,
                         ),
                       ),
                       BounceButton(
@@ -166,8 +166,8 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                           shape: BoxShape.circle,
                           color: Provider.of<AppProvider>(context).theme ==
                               Constants.lightTheme
-                              ? Colors.white
-                              : Colors.black,
+                              ? Colors.transparent
+                              : Colors.transparent,
                         ),
                       ),
                       SizedBox(width: 7),

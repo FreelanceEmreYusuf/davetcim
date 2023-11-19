@@ -75,7 +75,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
             labelText: "Kullanıcı Adı",
             filled: true,
-            fillColor: Colors.white,
+            fillColor: Colors.transparent,
             focusColor: Colors.blue,
             prefixIcon: Icon(
               Icons.perm_identity,
@@ -104,7 +104,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
             labelText: "E-Posta",
             filled: true,
-            fillColor: Colors.white,
+            fillColor: Colors.transparent,
             focusColor: Colors.blue,
             prefixIcon: Icon(
               Icons.mail_outline,
@@ -133,7 +133,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
             labelText: "Yeni Parola",
             filled: true,
-            fillColor: Colors.white,
+            fillColor: Colors.transparent,
             focusColor: Colors.blue,
             prefixIcon: Icon(
               Icons.lock_outline,
@@ -164,7 +164,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
             labelText: "Yeni Parola Tekrar",
             filled: true,
-            fillColor: Colors.white,
+            fillColor: Colors.transparent,
             focusColor: Colors.blue,
             prefixIcon: Icon(
               Icons.lock_outline,
@@ -197,7 +197,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
             labelText: "Gizli Soru",
             filled: true,
-            fillColor: Colors.white,
+            fillColor: Colors.transparent,
             focusColor: Colors.blue,
             prefixIcon: Icon(
               Icons.security,
@@ -246,7 +246,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
             contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
             labelText: "Cevap",
             filled: true,
-            fillColor: Colors.white,
+            fillColor: Colors.transparent,
             focusColor: Colors.blue,
             prefixIcon: Icon(
               Icons.question_answer,

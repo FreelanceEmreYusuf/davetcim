@@ -55,7 +55,7 @@ class _CorporationRegisterViewState extends State<CorporationRegisterView> {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Salon aktivasyon kodunuzu girin",
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: Colors.transparent,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
                     Icons.key,

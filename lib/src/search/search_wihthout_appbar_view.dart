@@ -146,7 +146,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                 elevation: 3.0,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.transparent,
                     borderRadius: BorderRadius.all(
                       Radius.circular(5.0),
                     ),
@@ -165,12 +165,12 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5.0),
                           borderSide: BorderSide(
-                            color: Colors.white,
+                            color: Colors.transparent,
                           ),
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Colors.white,
+                            color: Colors.transparent,
                           ),
                           borderRadius: BorderRadius.circular(5.0),
                         ),
