@@ -13,7 +13,6 @@ class ReservationDetailViewDto {
   ReservationModel reservationModel;
   List<ReservationDetailModel> detailList;
   CorporationPackageServicesModel packageModel;
-  CorporateSessionsModel sessionModel;
   CustomerModel customerModel;
   CorporationModel corporateModel;
 
@@ -21,7 +20,6 @@ class ReservationDetailViewDto {
     this.reservationModel,
     this.detailList,
     this.packageModel,
-    this.sessionModel,
     this.customerModel,
     this.corporateModel,
   });

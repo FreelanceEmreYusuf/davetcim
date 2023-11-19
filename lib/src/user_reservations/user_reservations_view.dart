@@ -1,15 +1,6 @@
-import 'package:davetcim/shared/sessions/application_session.dart';
-import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
-import 'package:davetcim/src/admin_corporate_panel/seans/seans_corporate_add_view.dart';
-import 'package:davetcim/src/admin_corporate_panel/seans/seans_corporate_view_model.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_view_model.dart';
 import 'package:flutter/material.dart';
-import '../../../shared/models/corporate_sessions_model.dart';
 import '../../../shared/models/reservation_model.dart';
-import '../../../shared/utils/utils.dart';
-import '../../../widgets/app_bar/app_bar_view.dart';
-import '../../../widgets/reservation_corporate_card_widget.dart';
-import '../../../widgets/seans_corporate_card_widget.dart';
 import '../../widgets/reservation_user_card_widget.dart';
 
 

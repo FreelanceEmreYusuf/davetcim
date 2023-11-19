@@ -202,7 +202,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                           fit: BoxFit.scaleDown,
                           child: Text(
                               "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
-                                  +"\n\nSeans : "+detailResponse.sessionModel.name,
+                                  +"\n\nSeans : "+detailResponse.reservationModel.sessionName,
                               style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
                           ),
                         ),
@@ -218,9 +218,9 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                                   //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
                                   Dialogs.showAlertMessageWithAction(
                                       context,
-                                      detailResponse.sessionModel.name,
+                                      detailResponse.reservationModel.sessionName,
                                       "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
-                                          +"\n\nSeans : "+ detailResponse.sessionModel.name
+                                          +"\n\nSeans : "+ detailResponse.reservationModel.sessionName
                                           +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ detailResponse.reservationModel.cost.toString()+ "TL",
                                       null);
                                 }, // button pressed

@@ -64,16 +64,11 @@ class UserReservationsViewModel extends ChangeNotifier {
     rdvm.reservationModel = model;
     rdvm.detailList = detailList;
 
-    CorporateSessionsViewModel csvm = CorporateSessionsViewModel();
-    rdvm.sessionModel = await csvm.getSession(model.sessionId);
-
     CustomerHelper custHelper = CustomerHelper();
     rdvm.customerModel = await custHelper.getCustomer(rdvm.reservationModel.customerId);
 
     return rdvm;
   }
-
-
 
   Future<List<ServicePoolModel>> getServicePoolModelList(List<int> selectedServicesIds) async {
     List<ServicePoolModel> serviceList = [];

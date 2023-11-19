@@ -53,6 +53,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
       recordDate: Timestamp.now(),
       description: description,
       sessionId: basketModel.selectedSessionModel.id,
+      sessionName: basketModel.selectedSessionModel.name,
       reservationStatus: ReservationStatusEnum.newRecord,
       isActive: true,
       invitationCount: basketModel.orderBasketModel.count,
