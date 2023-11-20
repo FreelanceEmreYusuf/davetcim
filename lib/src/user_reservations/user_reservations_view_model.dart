@@ -1,4 +1,5 @@
 import 'package:davetcim/shared/environments/db_constants.dart';
+import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/service_corporate_pool_model.dart';
 import 'package:davetcim/shared/models/service_pool_model.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
@@ -10,6 +11,7 @@ import '../../../shared/helpers/customer_helper.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/services/database.dart';
+import '../../shared/models/corporation_model.dart';
 import '../../shared/models/corporation_package_services_model.dart';
 import '../admin_corporate_panel/seans/seans_corporate_view_model.dart';
 
@@ -66,6 +68,10 @@ class UserReservationsViewModel extends ChangeNotifier {
 
     CustomerHelper custHelper = CustomerHelper();
     rdvm.customerModel = await custHelper.getCustomer(rdvm.reservationModel.customerId);
+
+    CorporateHelper corporateHelper = CorporateHelper();
+    CorporationModel corporateModel = await corporateHelper.getCorporate(rdvm.reservationModel.corporationId);
+    rdvm.corporateModel = corporateModel;
 
     return rdvm;
   }
