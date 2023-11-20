@@ -67,7 +67,7 @@ class _State extends State<SeansCorporateUpdateView> {
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: "Hafta İçi Saatlik Seans Ücreti (TL)",
+                        labelText: "Hafta İçi Seans Ücreti (TL)",
                       ),
                       validator: (value) {
                         return FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));
@@ -82,7 +82,7 @@ class _State extends State<SeansCorporateUpdateView> {
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: "Hafta Sonu Saatlik Seans Ücreti (TL)",
+                        labelText: "Hafta Sonu Seans Ücreti (TL)",
                       ),
                       validator: (value) {
                         return FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));

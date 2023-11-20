@@ -431,7 +431,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
               ),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                labelText: "Minimum Rezervasyon Tutarı",
+                labelText: "Min Rezervasyon Tutarı (Haftaiçi)",
                 filled: true,
                 fillColor: Colors.white,
                 focusColor: Colors.blue,
@@ -462,7 +462,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
               ),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                labelText: "Minimum Rezervasyon Tutarı (Haftasonu)",
+                labelText: "Min Rezervasyon Tutarı (Haftasonu)",
                 filled: true,
                 fillColor: Colors.white,
                 focusColor: Colors.blue,

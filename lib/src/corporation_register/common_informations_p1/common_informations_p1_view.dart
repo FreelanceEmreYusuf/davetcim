@@ -263,7 +263,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  labelText: "Minimumu Rezervasyon Tutarı",
+                  labelText: "Min Rezervasyon Tutarı (Haftaiçi)",
                   filled: true,
                   fillColor: Colors.white,
                   focusColor: Colors.blue,
@@ -294,7 +294,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  labelText: "Minimumu Rezervasyon Tutarı(Haftasonu)",
+                  labelText: "Min Rezervasyon Tutarı(Haftasonu)",
                   filled: true,
                   fillColor: Colors.white,
                   focusColor: Colors.blue,
