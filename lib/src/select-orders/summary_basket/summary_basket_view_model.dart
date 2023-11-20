@@ -11,6 +11,7 @@ import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
+import '../../../shared/utils/date_utils.dart';
 
 class SummaryBasketViewModel extends ChangeNotifier {
   Database db = Database();
@@ -44,6 +45,11 @@ class SummaryBasketViewModel extends ChangeNotifier {
 
     int reservationId = new DateTime.now().millisecondsSinceEpoch;
 
+    int sessionCost = basketModel.selectedSessionModel.midweekPrice;
+    if(DateConversionUtils.isWeekendFromIntDate(basketModel.date) ){
+      sessionCost = basketModel.selectedSessionModel.weekendPrice;
+    }
+
     ReservationModel reservationModel = new ReservationModel(
       id: reservationId,
       corporationId: basketModel.corporationModel.corporationId,
@@ -54,6 +60,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
       description: description,
       sessionId: basketModel.selectedSessionModel.id,
       sessionName: basketModel.selectedSessionModel.name,
+      sessionCost: sessionCost,
       reservationStatus: ReservationStatusEnum.newRecord,
       isActive: true,
       invitationCount: basketModel.orderBasketModel.count,

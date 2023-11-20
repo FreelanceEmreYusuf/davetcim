@@ -178,7 +178,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                                     detailResponse.reservationModel.sessionName,
                                     "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
                                         +"\n\nSeans : "+ detailResponse.reservationModel.sessionName
-                                        +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ detailResponse.reservationModel.cost.toString()+ "TL",
+                                        +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ detailResponse.reservationModel.sessionCost.toString()+ "TL",
                                     null);
                               }, // button pressed
                               child: Column(

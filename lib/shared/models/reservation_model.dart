@@ -14,6 +14,7 @@ class ReservationModel {
   final String description;
   final int sessionId;
   final String sessionName;
+  final int sessionCost;
   final ReservationStatusEnum reservationStatus;
   final bool isActive;
   final int invitationCount;
@@ -31,6 +32,7 @@ class ReservationModel {
     this.description,
     this.sessionId,
     this.sessionName,
+    this.sessionCost,
     this.reservationStatus,
     this.isActive,
     this.invitationCount,
@@ -50,6 +52,7 @@ class ReservationModel {
     'description': description,
     'sessionId': sessionId,
     'sessionName': sessionName,
+    'sessionCost': sessionCost,
     'reservationStatus': reservationStatus.index,
     'isActive': isActive,
     'invitationCount': invitationCount,
@@ -68,6 +71,7 @@ class ReservationModel {
     description: map['description'],
     sessionId: map['sessionId'],
     sessionName: map['sessionName'],
+    sessionCost: map['sessionCost'],
     reservationStatus: ReservationStatusEnumConverter.getEnumValue(int.parse(map['reservationStatus'].toString())),
     isActive: map['isActive'],
     invitationCount: map['invitationCount'],
