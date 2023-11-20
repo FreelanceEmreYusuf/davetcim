@@ -1,9 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/service_corporate_pool_model.dart';
 import 'package:davetcim/shared/models/service_pool_model.dart';
 import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/reservation_status_enum.dart';
@@ -55,8 +58,18 @@ class UserReservationsViewModel extends ChangeNotifier {
         Map item = list[i].data();
         ReservationDetailModel detailModel = ReservationDetailModel.fromMap(item);
         if (detailModel.foreignType == "package") {
-          rdvm.packageModel = await getServicePackageModel(detailModel.foreignId);
-          rdvm.packageModel.price = detailModel.price;
+          CorporationPackageServicesModel packageServicesModel = CorporationPackageServicesModel(
+            id: 1,
+            corporateId: model.corporationId,
+            title: detailModel.serviceName,
+            body: detailModel.serviceBody,
+            price: detailModel.price,
+            isActive: true,
+            createIntDate: DateConversionUtils.getTodayAsInt(),
+            createDate: Timestamp.now()
+          );
+
+          rdvm.packageModel = packageServicesModel;
         } else if (detailModel.foreignType == "service") {
           detailList.add(detailModel);
         }
@@ -95,25 +108,6 @@ class UserReservationsViewModel extends ChangeNotifier {
     }
 
     return serviceList;
-  }
-
-  Future<CorporationPackageServicesModel> getServicePackageModel(int packageId) async {
-    var response = await db
-        .getCollectionRef(DBConstants.corporationPackageServicesDb)
-        .where('id', isEqualTo: packageId)
-        .where('isActive', isEqualTo: true)
-        .get();
-
-    if (response.docs != null && response.docs.length > 0) {
-      var list = response.docs;
-      for (int i = 0; i < list.length; i++) {
-        Map item = list[i].data();
-        CorporationPackageServicesModel packageModel = CorporationPackageServicesModel.fromMap(item);
-        return packageModel;
-      }
-    }
-
-    return null;
   }
 
   Future<ServicePoolModel> getServicePoolModel(List<ServicePoolModel> serviceList, ReservationDetailModel reservationDetailModel,
