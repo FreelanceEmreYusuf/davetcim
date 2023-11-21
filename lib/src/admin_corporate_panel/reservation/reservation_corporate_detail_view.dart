@@ -414,7 +414,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                         await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
                         notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
                             widget.reservationModel.customerId,
-                            0, widget.reservationModel.id, true, widget.reservationModel.description);
+                            0, widget.reservationModel.id, true, widget.reservationModel.description, "");
                         notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
 
                         CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
@@ -450,7 +450,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                         await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
                         notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
                             widget.reservationModel.customerId,
-                            0, widget.reservationModel.id, false, widget.reservationModel.description);
+                            0, widget.reservationModel.id, false, widget.reservationModel.description, "");
                         notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
                         if (isFromNotification) {
                           Utils.navigateToPage(context, NotificationsView());

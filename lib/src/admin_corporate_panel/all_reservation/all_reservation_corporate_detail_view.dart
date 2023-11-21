@@ -8,10 +8,15 @@ import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';
+import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_package_summary.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
+import '../../notifications/notifications_view_model.dart';
 import '../../user_reservations/user_reservations_view_model.dart';
+import '../reservation/reservation_corporate_view_model.dart';
+import 'all_reservation_corporate_delay_date_view.dart';
+import 'all_reservation_corporate_view.dart';
 
 class AllReservationCorporateDetailScreen extends StatefulWidget {
   @override
@@ -59,6 +64,11 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
           child: Center(child: CircularProgressIndicator())));
+    }
+
+    bool isApproved = false;
+    if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.approved) {
+      isApproved = true;
     }
 
     Color color = Colors.green;
@@ -435,6 +445,76 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
             ),
             SizedBox(height: MediaQuery.of(context).size.height / 5,),
           ],
+        ),
+      ),
+      floatingActionButton: Visibility(
+        visible: isApproved,
+        child: Container(
+          height: MediaQuery.of(context).size.height / 13,
+          child: Card(
+            color: Colors.white54,
+            shadowColor: Colors.black,
+            elevation: 10,
+            semanticContainer: true,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child:  Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 15,
+                      child: TextButton(
+                        style: TextButton.styleFrom(backgroundColor: Colors.green,),
+                        child: Text(
+                          "ERTELE".toUpperCase(),
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () async {
+                          Utils.navigateToPage(context,
+                              AllReservationCorporateDelayDateScreen(reservationModel: widget.reservationModel,));
+                        },
+                      ),
+                    ),
+                  ),
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 15,
+                      child: TextButton(
+                        style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
+                        child: Text(
+                          "REDDET".toUpperCase(),
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () async {
+                          ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+                          NotificationsViewModel notificationViewModel = NotificationsViewModel();
+                          await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
+                          notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
+                              widget.reservationModel.customerId,
+                              0, widget.reservationModel.id, false, widget.reservationModel.description, "");
+                          Utils.navigateToPage(context, AllReservationCorporateView());
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
     );

@@ -1,16 +1,11 @@
 import 'package:davetcim/shared/environments/db_constants.dart';
-import 'package:davetcim/shared/models/service_corporate_pool_model.dart';
-import 'package:davetcim/shared/models/service_pool_model.dart';
+import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/reservation_status_enum.dart';
-import '../../../shared/helpers/customer_helper.dart';
-import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/services/database.dart';
-import '../../../shared/utils/date_utils.dart';
-import '../seans/seans_corporate_view_model.dart';
+import '../../notifications/notifications_view_model.dart';
 
 class AllReservationCorporateViewModel extends ChangeNotifier {
   Database db = Database();
@@ -34,4 +29,24 @@ class AllReservationCorporateViewModel extends ChangeNotifier {
 
     return corpModelList;
   }
+
+  Future<void> delayReservation(BuildContext context, ReservationModel reservationModel,
+      int newReservationDate) async {
+    reservationModel.date = newReservationDate;
+    await db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
+    NotificationsViewModel notificationViewModel = NotificationsViewModel();
+
+    String offerMessage = "Konu: Rezervasyonunuz firma tarafından " +
+        DateConversionUtils.getDateTimeFromIntDate(reservationModel.date).toString().substring(0, 10)
+        + " tarihine ertelendi." +
+        "\n" +
+        " İşlem Tarihi :" +
+        DateTime.now().toString().substring(0, 10);
+
+    notificationViewModel.sendNotificationToUser(context, reservationModel.corporationId,
+        reservationModel.customerId,
+        0, reservationModel.id, true, reservationModel.description, offerMessage);
+
+  }
+
 }

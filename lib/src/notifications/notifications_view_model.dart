@@ -86,49 +86,52 @@ class NotificationsViewModel extends ChangeNotifier {
   }
 
   Future<void> sendNotificationToUser(BuildContext context,
-      int corporationId, int customerId, int commentId, int reservationId, bool isApproved,  String text) async {
+      int corporationId, int customerId, int commentId, int reservationId,
+      bool isApproved, String text, String offerMessage) async {
     String offerMessage = "";
-    if (commentId > 0) {
-      if (isApproved) {
-        offerMessage = "Konu: Yorum Mesajınız Onaylandı" +
-            "\n" +
-            " Yorum Mesajı: " +
-            text +
-            "\n" +
-            " İşlem Tarihi :" +
-            DateTime.now().toString().substring(0, 10);
-      } else {
-        offerMessage = "Konu: Yorum Mesajınız İptal Edildi" +
-            "\n" +
-            " Yorum Mesajı: " +
-            text +
-            "\n" +
-            " İşlem Tarihi :" +
-            DateTime.now().toString().substring(0, 10);
-      }
+    bool isOfferMessageEmpty = offerMessage.length == 0;
+    if (isOfferMessageEmpty) {
+      if (commentId > 0) {
+        if (isApproved) {
+          offerMessage = "Konu: Yorum Mesajınız Onaylandı" +
+              "\n" +
+              " Yorum Mesajı: " +
+              text +
+              "\n" +
+              " İşlem Tarihi :" +
+              DateTime.now().toString().substring(0, 10);
+        } else {
+          offerMessage = "Konu: Yorum Mesajınız İptal Edildi" +
+              "\n" +
+              " Yorum Mesajı: " +
+              text +
+              "\n" +
+              " İşlem Tarihi :" +
+              DateTime.now().toString().substring(0, 10);
+        }
 
-    } else if (reservationId > 0) {
-      if (isApproved) {
-        offerMessage = "Konu: Rezervasyon Talebiniz Onaylandı" +
-            "\n" +
-            " Rezervasyon Talep Mesajı: " +
-            text +
-            "\n" +
-            " İşlem Tarihi :" +
-            DateTime.now().toString().substring(0, 10);
-      } else {
-        offerMessage = "Konu: Rezervasyon Talebiniz İptal Edildi" +
-            "\n" +
-            " Rezervasyon Talep Mesajı: " +
-            text +
-            "\n" +
-            " İşlem Tarihi :" +
-            DateTime.now().toString().substring(0, 10);
+      } else if (reservationId > 0) {
+        if (isApproved) {
+          offerMessage = "Konu: Rezervasyon Talebiniz Onaylandı" +
+              "\n" +
+              " Rezervasyon Talep Mesajı: " +
+              text +
+              "\n" +
+              " İşlem Tarihi :" +
+              DateTime.now().toString().substring(0, 10);
+        } else {
+          offerMessage = "Konu: Rezervasyon Talebiniz İptal Edildi" +
+              "\n" +
+              " Rezervasyon Talep Mesajı: " +
+              text +
+              "\n" +
+              " İşlem Tarihi :" +
+              DateTime.now().toString().substring(0, 10);
+        }
       }
     }
-
     CustomerHelper customerHelper = CustomerHelper();
-;   CustomerModel customer = await customerHelper.getCustomer(customerId);
+    CustomerModel customer = await customerHelper.getCustomer(customerId);
     int notificationCount = customer.notificationCount + 1;
     Map<String, dynamic> customerMap = customer.toMap();
     customerMap['notificationCount'] = notificationCount;

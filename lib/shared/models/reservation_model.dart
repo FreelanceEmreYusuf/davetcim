@@ -8,20 +8,20 @@ import '../enums/reservation_status_enum.dart';
 class ReservationModel {
   final int id;
   final int corporationId;
-  final int customerId;
-  final int cost;
-  final int date;
-  final String description;
-  final int sessionId;
-  final String sessionName;
-  final int sessionCost;
-  final ReservationStatusEnum reservationStatus;
-  final bool isActive;
-  final int invitationCount;
-  final String invitationType;
-  final String seatingArrangement;
-  final Timestamp recordDate;
-  final ReservationDetailModel detailModel;
+  int customerId;
+  int cost;
+  int date;
+  String description;
+  int sessionId;
+  String sessionName;
+  int sessionCost;
+  ReservationStatusEnum reservationStatus;
+  bool isActive;
+  int invitationCount;
+  String invitationType;
+  String seatingArrangement;
+  Timestamp recordDate;
+  ReservationDetailModel detailModel;
 
   ReservationModel({
     this.id,
