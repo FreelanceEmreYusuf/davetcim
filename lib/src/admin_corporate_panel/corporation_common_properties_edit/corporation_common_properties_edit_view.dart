@@ -1,5 +1,5 @@
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -67,7 +67,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
   static TextStyle kStyle =
   TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
   List<RegionModel> regionList =
-      ApplicationSession.filterScreenSession.regionModelList;
+      ApplicationCache.filterCache.regionModelList;
 
   int selectedRegion = 0;
   int selectedDistrict = 0;
@@ -80,7 +80,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
 
   void fillCorporateInfo() async {
     CorporateHelper corporateHelper = CorporateHelper();
-    CorporationModel corporationModel =  await corporateHelper.getCorporate(ApplicationSession.userSession.corporationId);
+    CorporationModel corporationModel =  await corporateHelper.getCorporate(ApplicationCache.userCache.corporationId);
     CompanyViewModel cvm = CompanyViewModel();
     CompanyModel companyModel = await cvm.getById(corporationModel.companyId);
     _firmNameControl.text = companyModel.name;
@@ -116,7 +116,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
 
   void callGetOrganizationTypes() async {
     CorporationCommonPropertiesEditViewModel model = CorporationCommonPropertiesEditViewModel();
-    response = await  model.getCorporationOrganizationTypes(ApplicationSession.userSession.corporationId);
+    response = await  model.getCorporationOrganizationTypes(ApplicationCache.userCache.corporationId);
     values = response.organizationTypeResponse.organizationTypeCheckedMap;
     valuesId = response.organizationTypeResponse.organizationTypeNameIdMap;
     values2 = response.invitationTypeResponse.organizationTypeCheckedMap;
@@ -201,7 +201,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
         });
       } else {
         CorporateHelper corporateHelper = CorporateHelper();
-        CorporationModel corporationModel =  await corporateHelper.getCorporate(ApplicationSession.userSession.corporationId);
+        CorporationModel corporationModel =  await corporateHelper.getCorporate(ApplicationCache.userCache.corporationId);
         corporationModel.corporationName = _nameControl.text;
         corporationModel.address = _addresControl.text;
         corporationModel.telephoneNo = _phoneControl.text;

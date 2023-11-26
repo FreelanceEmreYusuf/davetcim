@@ -7,7 +7,7 @@ import 'package:davetcim/widgets/badge.dart';
 import 'package:davetcim/widgets/grid_product.dart';
 
 import '../../screens/notifications.dart';
-import '../../shared/sessions/application_session.dart';
+import '../../shared/sessions/application_cache.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 
 class ProductsScreen extends StatefulWidget {
@@ -76,7 +76,7 @@ class _ProductsScreenState extends State<ProductsScreen>  {
                   CorporationModel item = corporationList[index];
                   return GridProduct(
                     img: item.imageUrl,
-                    isFav: ApplicationSession.isCorporationFavorite(item.corporationId),
+                    isFav: ApplicationCache.isCorporationFavorite(item.corporationId),
                     name: item.corporationName,
                     rating: item.averageRating,
                     raters: item.ratingCount,

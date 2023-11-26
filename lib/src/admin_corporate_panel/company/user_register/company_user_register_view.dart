@@ -1,5 +1,5 @@
 import 'package:davetcim/shared/models/secret_questions_model.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/src/join/register/register_view_model.dart';
@@ -38,10 +38,10 @@ class _CompanyUserRegisterViewState extends State<CompanyUserRegisterView> {
   }
 
   void fillDefinedAreas() async{
-    emailControl.text = ApplicationSession.userSession.eMail;
-    phoneControl.text = ApplicationSession.userSession.gsmNo;
-    nameControl.text = ApplicationSession.userSession.name;
-    surnameControl.text = ApplicationSession.userSession.surname;
+    emailControl.text = ApplicationCache.userCache.eMail;
+    phoneControl.text = ApplicationCache.userCache.gsmNo;
+    nameControl.text = ApplicationCache.userCache.name;
+    surnameControl.text = ApplicationCache.userCache.surname;
   }
 
   void callSecretQuestionList() async{

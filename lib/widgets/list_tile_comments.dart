@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:davetcim/widgets/star_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class _ListTileCommentsState extends State<ListTileComments> {
 
   @override
   Widget build(BuildContext context) {
-    if(ApplicationSession.userSession != null && ApplicationSession.userSession.username == widget.userName)
+    if(ApplicationCache.userCache != null && ApplicationCache.userCache.username == widget.userName)
       trailingWidget = MaterialButton(
         onPressed: () async{
           CommentsViewModel commentsViewModel = CommentsViewModel();

@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_package/service_corporate_package_add_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_package/service_corporate_package_view_model.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class _ServiceCorporatePackageViewState extends State<ServiceCorporatePackageVie
 
   void fillPackegeList() async  {
     ServiceCorporatePackageViewModel packageViewModel = ServiceCorporatePackageViewModel();
-    packagesList = await packageViewModel.getPackageList(ApplicationSession.userSession.corporationId);
+    packagesList = await packageViewModel.getPackageList(ApplicationCache.userCache.corporationId);
 
     setState(() {
       packagesList = packagesList;

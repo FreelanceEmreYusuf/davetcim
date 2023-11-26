@@ -3,7 +3,7 @@ import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/service_corporate_pool_model.dart';
 import 'package:davetcim/shared/models/service_pool_model.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class UserReservationsViewModel extends ChangeNotifier {
   Future<List<ReservationModel>> getReservationlist() async {
     var response = await db
         .getCollectionRef("CorporationReservations")
-        .where('customerId', isEqualTo: ApplicationSession.userSession.id)
+        .where('customerId', isEqualTo: ApplicationCache.userCache.id)
         .where('reservationStatus', whereIn: ReservationStatusEnumConverter.userViewedReservationStatus()) 
         .orderBy('recordDate', descending: true)
         .get();

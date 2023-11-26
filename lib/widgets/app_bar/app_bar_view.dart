@@ -8,7 +8,7 @@ import '../../providers/app_provider.dart';
 import '../../screens/notifications.dart';
 import '../../shared/maps/menu_back_map.dart';
 import '../../shared/models/customer_model.dart';
-import '../../shared/sessions/application_session.dart';
+import '../../shared/sessions/application_cache.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/language.dart';
 import '../../shared/utils/utils.dart';
@@ -107,7 +107,7 @@ class _AppBarMenu extends State<AppBarMenu> {
                               textColor: Colors.white,
                             ),
                           onPressed: () {
-                            if (ApplicationSession.userSession == null) {
+                            if (ApplicationCache.userCache == null) {
                               showSucessMessage(context);
                             } else {
                               Utils.navigateToPage(context, NotificationsView());

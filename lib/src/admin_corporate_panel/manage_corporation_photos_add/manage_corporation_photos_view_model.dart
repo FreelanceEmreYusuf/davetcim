@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/image_model.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../shared/services/database.dart';
@@ -28,7 +28,7 @@ class ManageCorporationPhotosAddViewModel extends ChangeNotifier {
 
     ImageModel imageModel = ImageModel(
         id : new DateTime.now().millisecondsSinceEpoch,
-        corporationId: ApplicationSession.userSession.corporationId,
+        corporationId: ApplicationCache.userCache.corporationId,
         imageUrl: uploadedImageUrl
     );
 

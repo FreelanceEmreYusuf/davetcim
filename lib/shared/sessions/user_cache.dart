@@ -1,6 +1,6 @@
 import '../enums/customer_role_enum.dart';
 
-class UserSessionDto {
+class UserCache {
   int id;
   String name;
   String surname;
@@ -12,7 +12,7 @@ class UserSessionDto {
   String eMail;
   String password;
 
-  UserSessionDto(
+  UserCache(
       this.id,
       this.name,
       this.surname,

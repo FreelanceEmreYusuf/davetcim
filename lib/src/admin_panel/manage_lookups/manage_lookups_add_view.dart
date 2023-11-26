@@ -1,4 +1,3 @@
-import 'package:davetcim/shared/models/generic_lookup_item_model.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/material.dart';
 

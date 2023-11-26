@@ -1,13 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
-import 'package:davetcim/shared/models/district_model.dart';
 import 'package:davetcim/shared/models/invitation_type_model.dart';
 import 'package:davetcim/shared/models/organization_type_model.dart';
-import 'package:davetcim/shared/models/region_model.dart';
 import 'package:davetcim/shared/models/sequence_order_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
-import 'package:davetcim/shared/sessions/filter_screen_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
+import 'package:davetcim/shared/sessions/filter_cache.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../shared/helpers/region_district_helper.dart';
@@ -16,9 +14,9 @@ class EntrancePageModel extends ChangeNotifier {
   Database db = Database();
 
   Future<void> fillFilterScreenSession() async {
-    if (ApplicationSession.filterScreenSession == null) {
+    if (ApplicationCache.filterCache == null) {
       RegionDistrictHelper regionDistrictHelper = RegionDistrictHelper();
-      ApplicationSession.filterScreenSession = FilterScreenSession(
+      ApplicationCache.filterCache = FilterCache(
           await fillOrganizationTypeList(),
           await fillInvitationTypeList(),
           await fillSequenceOrderList(),

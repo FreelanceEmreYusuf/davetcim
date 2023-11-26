@@ -8,7 +8,7 @@ import '../../shared/enums/corporation_event_log_enum.dart';
 import '../../shared/environments/db_constants.dart';
 import '../../shared/models/user_fav_products.dart';
 import '../../shared/services/database.dart';
-import '../../shared/sessions/application_session.dart';
+import '../../shared/sessions/application_cache.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/language.dart';
 import '../../shared/utils/utils.dart';
@@ -21,7 +21,7 @@ class FavProductsViewModel extends ChangeNotifier {
     CollectionReference notRef =
     db.getCollectionRef(DBConstants.favProductsDb);
     var response = await notRef
-        .where('customerId', isEqualTo: ApplicationSession.userSession.id)
+        .where('customerId', isEqualTo: ApplicationCache.userCache.id)
         .get();
 
     List<int> favProductsList = [];
@@ -38,7 +38,7 @@ class FavProductsViewModel extends ChangeNotifier {
     CollectionReference notRef =
     db.getCollectionRef(DBConstants.corporationDb);
     var response = await notRef
-        .where('id', whereIn: ApplicationSession.favoriteCorporationList)
+        .where('id', whereIn: ApplicationCache.favoriteCorporationList)
         .get();
 
     List<CorporationModel> corpModelList = [];
@@ -54,7 +54,7 @@ class FavProductsViewModel extends ChangeNotifier {
 
   Future<void> editFavoriteProductPage(int corporationId, String img, BuildContext context, Widget callerPage) async {
 
-    if (ApplicationSession.userSession == null) {
+    if (ApplicationCache.userCache == null) {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(LanguageConstants
                 .dialogGoToLoginForFavoriteProduct[LanguageConstants.languageFlag]), duration: Duration(seconds: 1),));
@@ -63,7 +63,7 @@ class FavProductsViewModel extends ChangeNotifier {
       db.getCollectionRef(DBConstants.favProductsDb);
       var response = await docsRef
           .where('corporationId', isEqualTo: corporationId)
-          .where('customerId', isEqualTo: ApplicationSession.userSession.id)
+          .where('customerId', isEqualTo: ApplicationCache.userCache.id)
           .get();
       var list = response.docs;
 
@@ -73,7 +73,7 @@ class FavProductsViewModel extends ChangeNotifier {
         UserFavProductsModel favProductsModel = new UserFavProductsModel(
             id: new DateTime.now().millisecondsSinceEpoch,
             corporationId: corporationId,
-            customerId: ApplicationSession.userSession.id,
+            customerId: ApplicationCache.userCache.id,
             image: img,
             recordDate: Timestamp.now());
 
@@ -83,7 +83,7 @@ class FavProductsViewModel extends ChangeNotifier {
       }
 
       FavProductsViewModel favMdl = FavProductsViewModel();
-      ApplicationSession.favoriteCorporationList = await favMdl.getFavProductsList();
+      ApplicationCache.favoriteCorporationList = await favMdl.getFavProductsList();
 
       if (callerPage != null) {
         Utils.navigateToPage(context, callerPage);

@@ -12,7 +12,7 @@ import '../../../shared/dto/organization_type_response_dto.dart';
 import '../../../shared/models/company_model.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/region_model.dart';
-import '../../../shared/sessions/application_session.dart';
+import '../../../shared/sessions/application_cache.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/checkbox_listtile_item.dart';

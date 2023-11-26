@@ -1,15 +1,15 @@
-import 'package:davetcim/shared/dto/user_session_dto.dart';
-import 'filter_screen_session.dart';
+import 'package:davetcim/shared/sessions/user_cache.dart';
+import 'filter_cache.dart';
 
-class ApplicationSession {
-  static UserSessionDto userSession;
+class ApplicationCache {
+  static UserCache userCache;
   static int notificationCount;
   static int basketCount;
-  static FilterScreenSession filterScreenSession;
+  static FilterCache filterCache;
   static List<int> favoriteCorporationList;
 
   static bool isCorporationFavorite(int corporationId) {
-    if (userSession == null) {
+    if (userCache == null) {
       return false;
     }
     if (favoriteCorporationList == null) {

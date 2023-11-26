@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/src/notifications/notifications_view_model.dart';
@@ -23,7 +23,7 @@ class CommentsViewModel extends ChangeNotifier {
 
   Future<void> addUserComment(BuildContext context,
       int corporationId, int star, String comment) async {
-    if (ApplicationSession.userSession != null) {
+    if (ApplicationCache.userCache != null) {
       await controlAndAddComments(
           context,
           corporationId,
@@ -41,7 +41,7 @@ class CommentsViewModel extends ChangeNotifier {
       CollectionReference docsRef =
         db.getCollectionRef(DBConstants.productCommentsDb);
       var response = await docsRef
-          .where('userId', isEqualTo: ApplicationSession.userSession.id)
+          .where('userId', isEqualTo: ApplicationCache.userCache.id)
           .where('corporationId', isEqualTo: corporationId)
           .get();
       if (response.docs != null && response.docs.length > 0) {
@@ -74,12 +74,12 @@ class CommentsViewModel extends ChangeNotifier {
     CommentModel commentModel = new CommentModel(
         id: commentId,
         corporationId: corporationId,
-        customerId: ApplicationSession.userSession.id,
+        customerId: ApplicationCache.userCache.id,
         star: star,
         isApproved: false,
         date: Timestamp.now(),
         comment: comment,
-        userName: ApplicationSession.userSession.username,
+        userName: ApplicationCache.userCache.username,
        );
 
     db.editCollectionRef("Comments", commentModel.toMap());
@@ -133,7 +133,7 @@ class CommentsViewModel extends ChangeNotifier {
     CollectionReference docsRef =
       db.getCollectionRef(DBConstants.productCommentsDb);
     var response = await docsRef
-        .where('customerId', isEqualTo: ApplicationSession.userSession.id)
+        .where('customerId', isEqualTo: ApplicationCache.userCache.id)
         .where('corporationId', isEqualTo: corporationId)
         .get();
 
@@ -233,7 +233,7 @@ class CommentsViewModel extends ChangeNotifier {
 
     var response = await docsRef
         .where('corporationId', isEqualTo: corporationId)
-        .where('customerId', isEqualTo: ApplicationSession.userSession.id)
+        .where('customerId', isEqualTo: ApplicationCache.userCache.id)
         .where('isApproved', isEqualTo: true)
         .get();
 

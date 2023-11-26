@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/user_basket_session.dart';
+import 'package:davetcim/shared/sessions/user_basket_cache.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../shared/dto/basket_user_dto.dart';
@@ -36,8 +36,8 @@ class _GridCorporateServicePoolForBasketState
   @override
   Widget build(BuildContext context) {
     if (!widget.servicePoolModel.hasChild) {
-      for(int i = 0; i < UserBasketSession.servicePoolModel.length; i++) {
-        if (widget.servicePoolModel.id == UserBasketSession.servicePoolModel[i].id) {
+      for(int i = 0; i < UserBasketCache.servicePoolModel.length; i++) {
+        if (widget.servicePoolModel.id == UserBasketCache.servicePoolModel[i].id) {
           buffer = false;
           buttonText= "Çıkar";
           buttonColor = Colors.red;
@@ -124,7 +124,7 @@ class _GridCorporateServicePoolForBasketState
                           buttonColor = Colors.red;
                           buttonIcon = Icons.delete_rounded;
                           textColor = Colors.green;
-                          UserBasketSession.servicePoolModel.add(widget.servicePoolModel);
+                          UserBasketCache.servicePoolModel.add(widget.servicePoolModel);
                         }else{
                           //hizmet sepete eklenmemiş, hizmeti sepete eklediğimiz if durumu
                           buttonText= "Ekle";
@@ -133,12 +133,12 @@ class _GridCorporateServicePoolForBasketState
                           textColor = Colors.red;
                           //UserBasketSession.servicePoolModel.remove(widget.servicePoolModel);
                           List<ServicePoolModel> listTemp = [];
-                          for (int i = 0; i < UserBasketSession.servicePoolModel.length; i++) {
-                            if (UserBasketSession.servicePoolModel[i].id != widget.servicePoolModel.id) {
-                              listTemp.add(UserBasketSession.servicePoolModel[i]);
+                          for (int i = 0; i < UserBasketCache.servicePoolModel.length; i++) {
+                            if (UserBasketCache.servicePoolModel[i].id != widget.servicePoolModel.id) {
+                              listTemp.add(UserBasketCache.servicePoolModel[i]);
                             }
                           }
-                          UserBasketSession.servicePoolModel = listTemp;
+                          UserBasketCache.servicePoolModel = listTemp;
                         }
                         buffer = !buffer;
                       });

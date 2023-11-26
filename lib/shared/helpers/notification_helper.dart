@@ -5,7 +5,7 @@ import 'package:davetcim/shared/helpers/reservation_helper.dart';
 import 'package:davetcim/shared/models/notification_model.dart';
 import 'package:davetcim/shared/models/reservation_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:flutter/cupertino.dart';
 

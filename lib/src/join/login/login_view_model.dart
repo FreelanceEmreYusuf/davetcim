@@ -1,8 +1,8 @@
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
-import 'package:davetcim/shared/dto/user_session_dto.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
+import 'package:davetcim/shared/sessions/user_cache.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class LoginViewModel extends ChangeNotifier {
   }
 
   Future<void> fillUserSession(CustomerModel customer) async{
-    ApplicationSession.userSession = UserSessionDto(
+    ApplicationCache.userCache = UserCache(
         customer.id,
         customer.name,
         customer.surname,
@@ -54,10 +54,10 @@ class LoginViewModel extends ChangeNotifier {
         customer.username,
         customer.eMail,
         customer.password);
-    ApplicationSession.notificationCount = customer.notificationCount;
-    ApplicationSession.basketCount = customer.basketCount;
+    ApplicationCache.notificationCount = customer.notificationCount;
+    ApplicationCache.basketCount = customer.basketCount;
 
     FavProductsViewModel favMdl = FavProductsViewModel();
-    ApplicationSession.favoriteCorporationList = await favMdl.getFavProductsList();
+    ApplicationCache.favoriteCorporationList = await favMdl.getFavProductsList();
   }
 }

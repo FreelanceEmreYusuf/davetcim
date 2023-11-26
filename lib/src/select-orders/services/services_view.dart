@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../shared/dto/basket_user_dto.dart';
 import '../../../shared/models/service_pool_model.dart';
-import '../../../shared/sessions/user_basket_session.dart';
+import '../../../shared/sessions/user_basket_cache.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_service_pool_for_basket.dart';
@@ -114,7 +114,7 @@ class _ServicesScreenState extends State<ServicesScreen>
             ),
           ),
           onPressed: () {
-           widget.basketModel.servicePoolModel = UserBasketSession.servicePoolModel;
+           widget.basketModel.servicePoolModel = UserBasketCache.servicePoolModel;
            navigateToNextScreen();
           },
         ),

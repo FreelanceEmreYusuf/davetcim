@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -53,7 +53,7 @@ class _State extends State<ManageCorporationPhotosAddView> {
 
   void getCorporationImageList() async {
     ManageCorporationPhotosViewModel manageCorporationPhotosObject = new ManageCorporationPhotosViewModel();
-    imageList = await manageCorporationPhotosObject.getCorporatePhotos(ApplicationSession.userSession.corporationId);
+    imageList = await manageCorporationPhotosObject.getCorporatePhotos(ApplicationCache.userCache.corporationId);
 
     setState(() {
       imageList = imageList;
@@ -104,7 +104,7 @@ class _State extends State<ManageCorporationPhotosAddView> {
                       child: Text('Kameradan Ekle'),
                       onPressed: () async {
                         getCorporationImageList();
-                        if(ApplicationSession.isCorporationFavorite(ApplicationSession.userSession.corporationId)){
+                        if(ApplicationCache.isCorporationFavorite(ApplicationCache.userCache.corporationId)){
                           if(imageListLenght<25)
                           {
                             await updateCodeFromCamera();

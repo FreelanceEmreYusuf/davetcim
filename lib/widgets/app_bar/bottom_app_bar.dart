@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../../shared/environments/const.dart';
 import '../../shared/models/customer_model.dart';
-import '../../shared/sessions/application_session.dart';
+import '../../shared/sessions/application_cache.dart';
 import '../../shared/utils/dialogs.dart';
 import '../badge.dart';
 import '../bounce_button.dart';
@@ -84,7 +84,7 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                               : Theme.of(context).textTheme.caption.color,
                         ),
                         onTap: (){
-                          if (ApplicationSession.userSession == null) {
+                          if (ApplicationCache.userCache == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Favori ürünler listenizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
                                   duration: Duration(seconds: 2),));
@@ -123,7 +123,7 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                               : Theme.of(context).textTheme.caption.color,
                         ),
                         onTap: (){
-                          if (ApplicationSession.userSession == null) {
+                          if (ApplicationCache.userCache == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Sepetinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
                                   duration: Duration(seconds: 2),));
@@ -151,7 +151,7 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                             : Theme.of(context).textTheme.caption.color,
                       ),
                         onTap: (){
-                          if (ApplicationSession.userSession == null) {
+                          if (ApplicationCache.userCache == null) {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Profilinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
                                   duration: Duration(seconds: 2),));

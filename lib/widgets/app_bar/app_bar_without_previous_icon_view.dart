@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../../screens/notifications.dart';
-import '../../shared/sessions/application_session.dart';
+import '../../shared/sessions/application_cache.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/language.dart';
 import '../../shared/utils/utils.dart';
@@ -74,7 +74,7 @@ class _AppBarMenu extends State<AppBarMenuWithOutPreviousPageIcon> {
               textColor: Colors.white,
             ),
             onPressed: () {
-              if (ApplicationSession.userSession == null) {
+              if (ApplicationCache.userCache == null) {
                 showSucessMessage(context);
               } else {
                 Utils.navigateToPage(context, Notifications());

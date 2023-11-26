@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
-import '../shared/sessions/application_session.dart';
+import '../shared/sessions/application_cache.dart';
 import '../shared/utils/utils.dart';
 import '../src/fav_products/fav_products_view_model.dart';
 import 'bounce_button.dart';
@@ -46,7 +46,7 @@ class _GridProductState extends State<GridProduct> {
     FavProductsViewModel mdl = FavProductsViewModel();
     await mdl.editFavoriteProductPage(widget.corporationId, widget.img, context, null);
     setState(() {
-      isFavorite = ApplicationSession.isCorporationFavorite(widget.corporationId);
+      isFavorite = ApplicationCache.isCorporationFavorite(widget.corporationId);
     });
   }
 
@@ -56,7 +56,7 @@ class _GridProductState extends State<GridProduct> {
       "${widget.img}",
       fit: BoxFit.cover,
     );
-    isFavorite =  ApplicationSession.isCorporationFavorite(widget.corporationId);
+    isFavorite =  ApplicationCache.isCorporationFavorite(widget.corporationId);
     if(widget.img == null ||widget.img.isEmpty ){
       img = Icon(
         Icons.home_filled,

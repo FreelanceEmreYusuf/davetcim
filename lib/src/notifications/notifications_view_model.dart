@@ -9,7 +9,7 @@ import '../../shared/helpers/customer_helper.dart';
 import '../../shared/models/customer_model.dart';
 import '../../shared/models/notification_model.dart';
 import '../../shared/services/database.dart';
-import '../../shared/sessions/application_session.dart';
+import '../../shared/sessions/application_cache.dart';
 import '../../shared/utils/utils.dart';
 import '../../widgets/list_tile_notifications_editing.dart';
 import '../../widgets/no_found_notification_screen.dart';
@@ -22,20 +22,20 @@ class NotificationsViewModel extends ChangeNotifier {
     List<Widget> listings = [];
     CollectionReference notRef =
     db.getCollectionRef(DBConstants.notificationsDb);
-    bool isForAdmin = CustomerRoleEnumConverter.isAdmin(ApplicationSession.userSession.roleId);
+    bool isForAdmin = CustomerRoleEnumConverter.isAdmin(ApplicationCache.userCache.roleId);
 
     var response;
     if (isForAdmin) {
       response = await notRef
-          .where('corporationId', isEqualTo: ApplicationSession.userSession.corporationId)
-          .where('recipientCustomerId', isEqualTo: ApplicationSession.userSession.id)
+          .where('corporationId', isEqualTo: ApplicationCache.userCache.corporationId)
+          .where('recipientCustomerId', isEqualTo: ApplicationCache.userCache.id)
           .where('isForAdmin', isEqualTo: true)
           .orderBy('notificationCreateDate', descending: true)
           .orderBy('id', descending: true)
           .get();
     } else {
       response = await notRef
-          .where('recipientCustomerId', isEqualTo: ApplicationSession.userSession.id)
+          .where('recipientCustomerId', isEqualTo: ApplicationCache.userCache.id)
           .orderBy('notificationCreateDate', descending: true)
           .orderBy('id', descending: true)
           .get();
@@ -69,7 +69,7 @@ class NotificationsViewModel extends ChangeNotifier {
   }
 
   Future<void> updateUserNotificationCount(int customerId) async {
-    if (ApplicationSession.userSession != null) {
+    if (ApplicationCache.userCache != null) {
       CollectionReference notRef = db.getCollectionRef(DBConstants.customerDB);
       var response = await notRef
           .where('id', isEqualTo: customerId)
@@ -80,7 +80,7 @@ class NotificationsViewModel extends ChangeNotifier {
         int notificationCount = customer.notificationCount - 1;
         customer.notificationCount = notificationCount;
         db.editCollectionRef(DBConstants.customerDB, customer.toMap());
-        ApplicationSession.notificationCount = notificationCount;
+        ApplicationCache.notificationCount = notificationCount;
       }
     }
   }
@@ -140,7 +140,7 @@ class NotificationsViewModel extends ChangeNotifier {
     NotificationModel notificationModel = new NotificationModel(
         id: new DateTime.now().millisecondsSinceEpoch,
         corporationId: corporationId,
-        customerId: ApplicationSession.userSession.id,
+        customerId: ApplicationCache.userCache.id,
         recipientCustomerId: customerId,
         commentId: commentId,
         reservationId: reservationId,
@@ -163,7 +163,7 @@ class NotificationsViewModel extends ChangeNotifier {
           text +
           "\n" +
           " Gönderen: " +
-          ApplicationSession.userSession.username +
+          ApplicationCache.userCache.username +
           "\n" +
           " İşlem Tarihi :" +
           DateTime.now().toString().substring(0, 10);
@@ -174,7 +174,7 @@ class NotificationsViewModel extends ChangeNotifier {
           text +
           "\n" +
           " Gönderen: " +
-          ApplicationSession.userSession.username +
+          ApplicationCache.userCache.username +
           "\n" +
           " İşlem Tarihi :" +
           DateTime.now().toString().substring(0, 10);
@@ -199,13 +199,13 @@ class NotificationsViewModel extends ChangeNotifier {
       NotificationModel notificationModel = new NotificationModel(
         id: new DateTime.now().millisecondsSinceEpoch,
         corporationId: corporationId,
-        customerId: ApplicationSession.userSession.id,
+        customerId: ApplicationCache.userCache.id,
         recipientCustomerId: customer.id,
         commentId: commentId,
         reservationId: reservationId,
         isForAdmin : true,
         notificationCreateDate: Timestamp.now(),
-        notificationOwner: ApplicationSession.userSession.username,
+        notificationOwner: ApplicationCache.userCache.username,
         text: offerMessage
       );
       db.editCollectionRef(DBConstants.notificationsDb, notificationModel.toMap());

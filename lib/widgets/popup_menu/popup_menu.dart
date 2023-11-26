@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:davetcim/shared/models/corporation_model.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/src/admin_panel/AdminPanel.dart';
@@ -36,19 +36,19 @@ class _PopUpMenu extends State<PopUpMenu> {
   }
   @override
   void initState() {
-    if (ApplicationSession.userSession != null) {
-      isCorporationActive(ApplicationSession.userSession.corporationId);
+    if (ApplicationCache.userCache != null) {
+      isCorporationActive(ApplicationCache.userCache.corporationId);
     }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (ApplicationSession.userSession != null) {
-      if (ApplicationSession.userSession.roleId == CustomerRoleEnum.admin) {
+    if (ApplicationCache.userCache != null) {
+      if (ApplicationCache.userCache.roleId == CustomerRoleEnum.admin) {
         return getForAdmin();
-      } else if (ApplicationSession.userSession.roleId == CustomerRoleEnum.organizationOwner) {
-        if(isCorpActive && ApplicationSession.userSession.corporationId !=0 )
+      } else if (ApplicationCache.userCache.roleId == CustomerRoleEnum.organizationOwner) {
+        if(isCorpActive && ApplicationCache.userCache.corporationId !=0 )
           return getForCorporateAdmin();
         else
         return getForAuthenticatedUser();
@@ -134,7 +134,7 @@ class _PopUpMenu extends State<PopUpMenu> {
         } else if (value == 3) {
           Utils.navigateToPage(context, AdminPanelPage());
         } else if (value == 4) {
-          ApplicationSession.userSession = null;
+          ApplicationCache.userCache = null;
           Utils.navigateToPage(context, MainScreen());
         } else if (value == 5) {
           if (Platform.isAndroid) {
@@ -221,7 +221,7 @@ class _PopUpMenu extends State<PopUpMenu> {
         } else if (value == 3) {
           Utils.navigateToPage(context, AdminCorporatePanelPage());
         } else if (value == 4) {
-          ApplicationSession.userSession = null;
+          ApplicationCache.userCache = null;
           Utils.navigateToPage(context, MainScreen());
         } else if (value == 5) {
           if (Platform.isAndroid) {
@@ -297,7 +297,7 @@ class _PopUpMenu extends State<PopUpMenu> {
         } else if (value == 2) {
           Utils.navigateToPage(context, AboutApplicationPage());
         } else if (value == 3) {
-          ApplicationSession.userSession = null;
+          ApplicationCache.userCache = null;
           Utils.navigateToPage(context, MainScreen());
         } else if (value == 4) {
           if (Platform.isAndroid) {

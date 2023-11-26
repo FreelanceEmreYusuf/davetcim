@@ -4,7 +4,7 @@ import 'package:davetcim/shared/helpers/customer_helper.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/models/secret_questions_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
@@ -43,7 +43,7 @@ class CompanyUserRegisterViewModel extends ChangeNotifier {
       String selectedQuestionAnswer) async {
     CustomerModel _customer = new CustomerModel(
         username: _usernameControl,
-        id: ApplicationSession.userSession.id,
+        id: ApplicationCache.userCache.id,
         corporationId: 0,
         gsmNo: _phoneControl,
         isActive: true,

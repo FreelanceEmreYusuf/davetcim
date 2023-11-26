@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../shared/sessions/application_session.dart';
+import '../shared/sessions/application_cache.dart';
 
 class NotificationBadge extends StatefulWidget {
   final IconData icon;
@@ -31,9 +31,9 @@ void initState() {
 @override
 class _NotificationBadgeState extends State<NotificationBadge> {
   String getUserNotificationCount() {
-    if (ApplicationSession.userSession != null) {
+    if (ApplicationCache.userCache != null) {
       setState(() {
-        notificationCount = ApplicationSession.notificationCount;
+        notificationCount = ApplicationCache.notificationCount;
       });
     } else
       notificationCount = 0;

@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:davetcim/src/search/search_wihthout_appbar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

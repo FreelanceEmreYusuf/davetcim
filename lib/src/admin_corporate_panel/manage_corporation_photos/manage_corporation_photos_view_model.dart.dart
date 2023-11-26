@@ -1,7 +1,7 @@
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/models/image_model.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../shared/environments/db_constants.dart';
@@ -14,7 +14,7 @@ class ManageCorporationPhotosViewModel extends ChangeNotifier {
 
   Future<List<ImageModel>> getCorporatePhotos(int corporateId) async {
     CorporateHelper corporateHelper = CorporateHelper();
-    CorporationModel corporationModel = await corporateHelper.getCorporate(ApplicationSession.userSession.corporationId);
+    CorporationModel corporationModel = await corporateHelper.getCorporate(ApplicationCache.userCache.corporationId);
 
     var response = await db
         .getCollectionRef(DBConstants.imagesDb)

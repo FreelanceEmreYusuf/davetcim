@@ -7,7 +7,7 @@ import '../../../shared/dto/corporation_registration_dto.dart';
 import '../../../shared/models/company_model.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/region_model.dart';
-import '../../../shared/sessions/application_session.dart';
+import '../../../shared/sessions/application_cache.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../search/search_view_model.dart';
@@ -43,7 +43,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
   static TextStyle kStyle =
   TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
   List<RegionModel> regionList =
-      ApplicationSession.filterScreenSession.regionModelList;
+      ApplicationCache.filterCache.regionModelList;
   int selectedRegion = 0;
   int selectedDistrict = 0;
   @override

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_session.dart';
+import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../shared/dto/basket_user_dto.dart';
@@ -53,7 +53,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
     ReservationModel reservationModel = new ReservationModel(
       id: reservationId,
       corporationId: basketModel.corporationModel.corporationId,
-      customerId: ApplicationSession.userSession.id,
+      customerId: ApplicationCache.userCache.id,
       cost: basketModel.totalPrice,
       date: basketModel.date,
       recordDate: Timestamp.now(),

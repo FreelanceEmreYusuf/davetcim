@@ -4,13 +4,13 @@ import 'package:davetcim/shared/models/organization_type_model.dart';
 import 'package:davetcim/shared/models/region_model.dart';
 import 'package:davetcim/shared/models/sequence_order_model.dart';
 
-class FilterScreenSession {
+class FilterCache {
   List<OrganizationTypeModel> organizationTypeList;
   List<InvitationTypeModel> invitationTypeList;
   List<SequenceOrderModel> sequenceOrderList;
   List<RegionModel> regionModelList;
 
-  FilterScreenSession(
+  FilterCache(
       this.organizationTypeList,
       this.invitationTypeList,
       this.sequenceOrderList,

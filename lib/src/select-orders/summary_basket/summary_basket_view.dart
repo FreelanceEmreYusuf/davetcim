@@ -7,7 +7,7 @@ import '../../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
-import '../../../shared/sessions/user_basket_session.dart';
+import '../../../shared/sessions/user_basket_cache.dart';
 import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/utils.dart';
@@ -468,7 +468,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   }
 
   void createReservationRequest(String description) async{
-    widget.basketModel.servicePoolModel = UserBasketSession.servicePoolModel;
+    widget.basketModel.servicePoolModel = UserBasketCache.servicePoolModel;
 
     SummaryBasketViewModel model = SummaryBasketViewModel();
     ReservationModel reservationResponse = await model.createNewReservation(widget.basketModel, description);
@@ -483,7 +483,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   }
 
   void navigateToHomePage(BuildContext context) {
-    UserBasketSession.servicePoolModel = [];
+    UserBasketCache.servicePoolModel = [];
     Utils.navigateToPage(context, MainScreen());
   }
 

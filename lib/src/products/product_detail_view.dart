@@ -15,8 +15,8 @@ import '../../shared/models/combo_generic_model.dart';
 import '../../shared/models/corporation_event_log_model.dart';
 import '../../shared/models/corporation_model.dart';
 import '../../shared/models/reservation_model.dart';
-import '../../shared/sessions/application_session.dart';
-import '../../shared/sessions/user_basket_session.dart';
+import '../../shared/sessions/application_cache.dart';
+import '../../shared/sessions/user_basket_cache.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/utils.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
@@ -166,7 +166,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     FavProductsViewModel mdl = FavProductsViewModel();
     await mdl.editFavoriteProductPage(widget.corporationModel.corporationId, widget.corporationModel.imageUrl, context, null);
     setState(() {
-      isFavorite = ApplicationSession.isCorporationFavorite(widget.corporationModel.corporationId);
+      isFavorite = ApplicationCache.isCorporationFavorite(widget.corporationModel.corporationId);
     });
   }
 
@@ -233,7 +233,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
     }
 
-    isFavorite = ApplicationSession.isCorporationFavorite(widget.corporationModel.corporationId);
+    isFavorite = ApplicationCache.isCorporationFavorite(widget.corporationModel.corporationId);
 
     Widget img = Stack(
       children: <Widget>[
@@ -779,13 +779,13 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
             onPressed: ()  {
-              if (ApplicationSession.userSession != null){
+              if (ApplicationCache.userCache != null){
                 BasketUserDto model = new BasketUserDto(
                     0, widget.corporationModel, 0, widget.corporationModel.maxPopulation,
                     0, invitationList,
                     sequenceOrderList, reservationList,
                     null, null, null, null);
-                UserBasketSession.servicePoolModel = [];
+                UserBasketCache.servicePoolModel = [];
                 Utils.navigateToPage(context, CalendarScreen(basketModel: model));
               }
               else{
