@@ -66,9 +66,10 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
           child: Center(child: CircularProgressIndicator())));
     }
 
-    bool isApproved = false;
-    if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.approved) {
-      isApproved = true;
+    bool isAvailableForDelayOrCancel = false;
+    if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.approved &&
+        detailResponse.reservationModel.date >= DateConversionUtils.getTodayAsInt()) {
+      isAvailableForDelayOrCancel = true;
     }
 
     Color color = Colors.green;
@@ -448,7 +449,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
         ),
       ),
       floatingActionButton: Visibility(
-        visible: isApproved,
+        visible: isAvailableForDelayOrCancel,
         child: Container(
           height: MediaQuery.of(context).size.height / 13,
           child: Card(

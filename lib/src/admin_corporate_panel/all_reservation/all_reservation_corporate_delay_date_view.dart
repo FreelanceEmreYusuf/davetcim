@@ -6,8 +6,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
-import '../AdminCorporatePanel.dart';
-import 'all_reservation_corporate_view.dart';
+import 'admin_change_reservation_order_view.dart';
 import 'all_reservation_corporate_view_model.dart';
 
 
@@ -23,28 +22,70 @@ class AllReservationCorporateDelayDateScreen extends StatefulWidget {
 
 class _AllReservationCorporateDelayDateScreenState extends State<AllReservationCorporateDelayDateScreen> {
 
+  List<ReservationModel> reservationList;
+  EventList<Event> reservationDates = new EventList<Event>(
+    events: {
+      new DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day): [
+      ],
+    },
+  );
+  bool hasDataTaken = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getReservationDates(widget.reservationModel);
+
+  }
+
+  void getReservationDates(ReservationModel reservationModel) async {
+    AllReservationCorporateViewModel model = AllReservationCorporateViewModel();
+    reservationList = await model.getAllReservationlist(reservationModel.corporationId);
+
+    for (int i = 0; i < reservationList.length; i++) {
+      reservationDates.add(
+          DateConversionUtils.getDateTimeFromIntDate(reservationList[i].date),
+          new Event(
+            date: DateConversionUtils.getDateTimeFromIntDate(reservationList[i].date),
+            title: reservationList[i].description,
+            //icon: Icon(Icons.access_alarms, color: Colors.blueAccent),
+            dot: Container(
+              margin: EdgeInsets.symmetric(horizontal: 1.0),
+              color: Colors.blueAccent,
+              height: 5.0,
+              width: 5.0,
+            ),
+          ));
+    }
+
+    setState(() {
+      reservationList = reservationList;
+      reservationDates = reservationDates;
+      hasDataTaken = true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (!hasDataTaken ) {
+      return Scaffold(appBar:
+      AppBarMenu(pageName: "Yeni Rezervasyon Tarihi Seçin", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
+          body: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+              child: Center(child: CircularProgressIndicator())));
+    }
 
-    DateTime dtReservationDate = DateConversionUtils.getDateTimeFromIntDate(widget.reservationModel.date);
-    EventList<Event> _markedDateMap = new EventList<Event>(
-      events: {
-        dtReservationDate: [
-        ],
-      },
-    );
-
-    DateTime _firsDate = dtReservationDate;
+    DateTime _firsDate = DateTime.now();
     return Scaffold(
       appBar: AppBarMenu(pageName: "Yeni Rezervasyon Tarihi Seçin", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.0),
         child: CalendarCarousel<Event>(
           onDayPressed: (DateTime date, List<Event> events) {
-            AllReservationCorporateViewModel allReservationCorporateViewModel = AllReservationCorporateViewModel();
-            allReservationCorporateViewModel.delayReservation(context, widget.reservationModel,
-                DateConversionUtils.getCurrentDateAsInt(date));
-            Utils.navigateToPage(context, AllReservationCorporateView());
+            Utils.navigateToPage(context, AdminChangeReservationOrderViewScreen(
+                widget.reservationModel,
+                DateConversionUtils.getCurrentDateAsInt(date)
+            ));
           },
           weekendTextStyle: TextStyle(
             color: Colors.red,
@@ -59,7 +100,7 @@ class _AllReservationCorporateDelayDateScreenState extends State<AllReservationC
           selectedDayTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 15),
           selectedDayBorderColor: Colors.redAccent,
           weekFormat: false,
-          markedDatesMap: _markedDateMap,
+          markedDatesMap: reservationDates,
           height:  MediaQuery.of(context).size.height / 1.6,
           isScrollable: true,
           selectedDateTime: _firsDate,

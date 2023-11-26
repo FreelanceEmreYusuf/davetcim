@@ -30,9 +30,7 @@ class AllReservationCorporateViewModel extends ChangeNotifier {
     return corpModelList;
   }
 
-  Future<void> delayReservation(BuildContext context, ReservationModel reservationModel,
-      int newReservationDate) async {
-    reservationModel.date = newReservationDate;
+  Future<void> delayReservation(BuildContext context, ReservationModel reservationModel) async {
     await db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
     NotificationsViewModel notificationViewModel = NotificationsViewModel();
 

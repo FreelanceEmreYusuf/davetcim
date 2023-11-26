@@ -1,7 +1,4 @@
 import 'package:davetcim/shared/dto/user_session_dto.dart';
-import 'package:davetcim/shared/models/district_model.dart';
-
-import '../models/region_model.dart';
 import 'filter_screen_session.dart';
 
 class ApplicationSession {
