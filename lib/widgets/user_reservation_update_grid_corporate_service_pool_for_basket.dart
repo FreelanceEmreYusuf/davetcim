@@ -1,31 +1,30 @@
+import 'package:davetcim/shared/dto/reservation_detail_view_dto.dart';
 import 'package:davetcim/shared/sessions/user_basket_cache.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../shared/dto/basket_user_dto.dart';
 import '../shared/models/service_pool_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/admin_corporate_panel/service/service_corporate_user_choose/service-corporate_view_model.dart';
 import '../src/admin_corporate_panel/service/service_corporate_user_choose/service_corporate_view.dart';
 
-
-class GridCorporateServicePoolForBasket extends StatefulWidget {
+class UserReservationUpdateGridCorporateServicePoolForBasket extends StatefulWidget {
   final ServicePoolModel servicePoolModel;
-  BasketUserDto basketModel;
+  ReservationDetailViewDto detailResponse;
 
-  GridCorporateServicePoolForBasket({
+  UserReservationUpdateGridCorporateServicePoolForBasket({
     Key key,
     @required this.servicePoolModel,
-    @required this.basketModel,
+    @required this.detailResponse,
   }) : super(key: key);
 
   @override
-  _GridCorporateServicePoolForBasketState createState() =>
-      _GridCorporateServicePoolForBasketState();
+  _UserReservationUpdateGridCorporateServicePoolForBasketState createState() =>
+      _UserReservationUpdateGridCorporateServicePoolForBasketState();
 }
 
-class _GridCorporateServicePoolForBasketState
-    extends State<GridCorporateServicePoolForBasket> {
+class _UserReservationUpdateGridCorporateServicePoolForBasketState
+    extends State<UserReservationUpdateGridCorporateServicePoolForBasket> {
 
   bool buffer = true;
   int totalPrice = 0;
@@ -67,7 +66,7 @@ class _GridCorporateServicePoolForBasketState
     if(!widget.servicePoolModel.hasChild){
       if (widget.servicePoolModel.companyHasService) {
 
-        totalPrice = widget.servicePoolModel.corporateDetail.price * widget.basketModel.orderBasketModel.count;
+        totalPrice = widget.servicePoolModel.corporateDetail.price * widget.detailResponse.orderBasketModel.count;
         if (!widget.servicePoolModel.corporateDetail.priceChangedForCount) {
           totalPrice = widget.servicePoolModel.corporateDetail.price;
           priceChangeForCount = "Hayır";
@@ -91,7 +90,7 @@ class _GridCorporateServicePoolForBasketState
                           context,
                           widget.servicePoolModel.serviceName,
                           //TODO: hizmet için fiyat bilgileri girilecek
-                          "Belirtmiş olduğunuz davetli sayısı : "+widget.basketModel.orderBasketModel.count.toString()
+                          "Belirtmiş olduğunuz davetli sayısı : "+widget.detailResponse.orderBasketModel.count.toString()
                               +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
                               +"\n\nHizmetin birim ücreti : "+ widget.servicePoolModel.corporateDetail.price.toString()+ "TL"
                               "\n\nToplam ücret : "+
@@ -173,7 +172,7 @@ class _GridCorporateServicePoolForBasketState
     return Container(
       padding: EdgeInsets.only(left: _paddingLeftValue),
       decoration: BoxDecoration(
-        color: Colors.white,
+          color: Colors.white,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

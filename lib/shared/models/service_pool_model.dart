@@ -6,8 +6,8 @@ class ServicePoolModel {
   final int id;
   final int parentId;
   String serviceName;
-  final bool hasChild;
-  final bool isActive;
+  bool hasChild;
+  bool isActive;
   bool companyHasService;
   bool userBasketSelected;
   ServiceCorporatePoolModel corporateDetail;

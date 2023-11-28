@@ -3,6 +3,7 @@ import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corpo
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/select-orders/summary_basket/summary_basket_view_model.dart';
+import 'package:davetcim/src/user_reservations/update/user_reservation_update_calendar_view.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_view.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_view_model.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_with_app_bar_view.dart';
@@ -438,7 +439,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
         ),
       ),
       floatingActionButton: Visibility(
-      visible: detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.newRecord,
+        visible: detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.newRecord,
         child: Container(
           height: MediaQuery.of(context).size.height / 13,
           child: Card(
@@ -450,10 +451,31 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            child:  Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+            child:  Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Container(
+                      height: MediaQuery.of(context).size.height / 15,
+                      child: TextButton(
+                        style: TextButton.styleFrom(backgroundColor: Colors.green,),
+                        child: Text(
+                          "GÜNCELLE".toUpperCase(),
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        onPressed: () async {
+                          Utils.navigateToPage(context, UserReservationUpdateCalendarScreen(detailResponse: detailResponse));
+                        },
+                      ),
+                    ),
+                  ),
                   Flexible(
                     flex: 1,
                     fit: FlexFit.tight,
@@ -461,13 +483,10 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                       height: MediaQuery.of(context).size.height / 15,
                       child: TextButton(
                         style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "REZERVASYONU GERİ ÇEK".toUpperCase(),
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
+                        child: Text(
+                          "İPTAL".toUpperCase(),
+                          style: TextStyle(
+                            color: Colors.white,
                           ),
                         ),
                         onPressed: () async {
@@ -482,8 +501,8 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                       ),
                     ),
                   ),
-
-              ],
+                ],
+              ),
             ),
           ),
         ),

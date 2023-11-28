@@ -6,6 +6,7 @@ import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../shared/dto/basket_user_dto.dart';
+import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/reservation_status_enum.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
@@ -22,6 +23,22 @@ class SummaryBasketViewModel extends ChangeNotifier {
         .where('sessionId', isEqualTo: basketModel.selectedSessionModel.id)
         .where('isActive', isEqualTo: true)
         .where('date', isEqualTo: basketModel.date)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      return true;
+    }
+
+    return false;
+  }
+
+  Future<bool> controReeservationIsApproved(ReservationDetailViewDto detailResponse) async {
+    var response = await db
+        .getCollectionRef(DBConstants.corporationReservationsDb)
+        .where('sessionId', isEqualTo: detailResponse.selectedSessionModel.id)
+        .where('isActive', isEqualTo: true)
+        .where('date', isEqualTo: detailResponse.reservationModel.date)
+        .where('reservationStatus', isEqualTo: ReservationStatusEnum.newRecord.index)
         .get();
 
     if (response.docs != null && response.docs.length > 0) {
@@ -109,6 +126,98 @@ class SummaryBasketViewModel extends ChangeNotifier {
       );
 
       db.editCollectionRef(DBConstants.reservationDetailDb, reservationModel.toMap());
+    }
+  }
+
+  Future<ReservationModel> updateUserReservation(ReservationDetailViewDto detailResponse, String description) async {
+    bool hasReservation = await controReeservationIsApproved(detailResponse);
+    if (hasReservation) {
+      return null;
+    }
+
+    int reservationId = detailResponse.reservationModel.id;
+
+    int sessionCost = detailResponse.selectedSessionModel.midweekPrice;
+    if(DateConversionUtils.isWeekendFromIntDate(detailResponse.reservationModel.date) ){
+      sessionCost = detailResponse.selectedSessionModel.weekendPrice;
+    }
+
+    ReservationModel reservationModel = new ReservationModel(
+        id: reservationId,
+        corporationId: detailResponse.corporateModel.corporationId,
+        customerId: ApplicationCache.userCache.id,
+        cost: detailResponse.reservationModel.cost,
+        date: detailResponse.reservationModel.date,
+        recordDate: Timestamp.now(),
+        description: description,
+        sessionId: detailResponse.selectedSessionModel.id,
+        sessionName: detailResponse.selectedSessionModel.name,
+        sessionCost: sessionCost,
+        reservationStatus: ReservationStatusEnum.newRecord,
+        isActive: true,
+        invitationCount: detailResponse.orderBasketModel.count,
+        invitationType: detailResponse.orderBasketModel.invitationType,
+        seatingArrangement: detailResponse.orderBasketModel.sequenceOrder
+    );
+
+    db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
+    await updateReservationDetail(detailResponse, reservationId);
+    return reservationModel;
+  }
+
+  Future<void> updateReservationDetail(ReservationDetailViewDto detailResponse, int reservationId) async {
+    await deleteReservationDetail(reservationId);
+
+    int id = new DateTime.now().millisecondsSinceEpoch;
+    if (detailResponse.servicePoolModel != null) {
+      for (int i = 0; i < detailResponse.servicePoolModel.length; i++) {
+        ServicePoolModel model = detailResponse.servicePoolModel[i];
+        ReservationDetailModel reservationModel = new ReservationDetailModel(
+          id: id,
+          reservationId: reservationId,
+          foreignId: model.id,
+          foreignType: "service",
+          serviceName: model.serviceName.replaceAll("-", ""),
+          serviceBody: "",
+          price: model.corporateDetail.price,
+          priceChangedForCount: model.corporateDetail.priceChangedForCount,
+          hasPrice: model.corporateDetail.hasPrice,
+        );
+        id += 1;
+
+        await db.editCollectionRef(DBConstants.reservationDetailDb, reservationModel.toMap());
+      }
+    }
+
+    if (detailResponse.packageModel != null) {
+      ReservationDetailModel reservationModel = new ReservationDetailModel(
+          id: (id + 1),
+          reservationId: reservationId,
+          foreignId: detailResponse.packageModel.id,
+          foreignType: "package",
+          serviceName: detailResponse.packageModel.title,
+          serviceBody: detailResponse.packageModel.body,
+          price: detailResponse.packageModel.price,
+          priceChangedForCount: true,
+          hasPrice: true
+      );
+
+      db.editCollectionRef(DBConstants.reservationDetailDb, reservationModel.toMap());
+    }
+  }
+
+  Future<void> deleteReservationDetail(int reservationId) async {
+    CollectionReference servicesListRef =
+    db.getCollectionRef(DBConstants.reservationDetailDb);
+    var response = await servicesListRef
+        .where('reservationId', isEqualTo: reservationId).get();
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        ReservationDetailModel detailModel = ReservationDetailModel.fromMap(item);
+        db.deleteDocument(DBConstants.reservationDetailDb, detailModel.id.toString());
+      }
     }
   }
 }

@@ -54,6 +54,38 @@ class ReservationCorporateViewModel extends ChangeNotifier {
     return serviceList;
   }
 
+  Future<List<ServicePoolModel>> getServicePoolModelDetailedList(List<int> selectedServicesIds, ReservationModel model) async {
+    List<ServicePoolModel> serviceList = [];
+    List<ServiceCorporatePoolModel> corporateServiceList = await getServicePoolCorporateModelList(selectedServicesIds, model);
+
+    var response = await db
+        .getCollectionRef(DBConstants.servicesDb)
+        .where('id', whereIn: selectedServicesIds)
+        .where('isActive', isEqualTo: true)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        ServicePoolModel serviceModel = ServicePoolModel.fromMap(item);
+        for (int j = 0; j < corporateServiceList.length; j++) {
+          ServiceCorporatePoolModel model = corporateServiceList[j];
+          serviceModel.companyHasService = false;
+          serviceModel.hasChild = false;
+          if (model.serviceId == serviceModel.id) {
+            serviceModel.corporateDetail = model;
+            serviceModel.companyHasService = true;
+            break;
+          }
+        }
+        serviceList.add(serviceModel);
+      }
+    }
+
+    return serviceList;
+  }
+
 
   Future<ServicePoolModel> getServicePoolModel(List<ServicePoolModel> serviceList, ReservationDetailModel reservationDetailModel,
       List<ServiceCorporatePoolModel> serviceCorporateList) async {
