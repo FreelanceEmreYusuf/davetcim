@@ -63,8 +63,6 @@ class _UserReservationUpdateReservationOrderViewScreenState extends State<UserRe
               ? 0
               : sessionList.length,
           itemBuilder: (BuildContext context, int index) {
-            CorporateSessionsModel item = sessionList[index];
-            widget.detailResponse.selectedSessionModel = item;
             return UserReservationUpdateCartReservationItem(
                 detailResponse: widget.detailResponse, sessionList: sessionList, index: index);
           },

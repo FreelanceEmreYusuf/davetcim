@@ -12,6 +12,7 @@ import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/user_reservation_update_grid_corporate_service_pool_for_basket_summary.dart';
 import '../../select-orders/summary_basket/summary_basket_view_model.dart';
+import '../user_reservations_with_app_bar_view.dart';
 
 class UserReservationUpdateSummaryBasketScreen extends StatefulWidget {
   @override
@@ -470,7 +471,8 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
     SummaryBasketViewModel model = SummaryBasketViewModel();
     ReservationModel reservationResponse = await model.updateUserReservation(widget.detailResponse, description);
     if (reservationResponse == null) {
-      Dialogs.showAlertMessage(context, "Üzgünüz", "Siz rezervasyon yaparken rezervasyonununz onaylandı ya da red edildi.");
+      Dialogs.showAlertMessageWithAction(context, "Üzgünüz", "Siz rezervasyon yaparken rezervasyonunuz onaylandı ya da red edildi.Salon sahibiyle iletişime geçiniz",
+          navigateToReservationsPage);
     } else {
       Dialogs.showAlertMessageWithAction(context, "İşlem Mesajı", "Rezervasyon talebiniz güncellenmiştir.", navigateToHomePage);
     }
@@ -479,6 +481,11 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
   void navigateToHomePage(BuildContext context) {
     UserBasketCache.servicePoolModel = [];
     Utils.navigateToPage(context, MainScreen());
+  }
+
+  void navigateToReservationsPage(BuildContext context) {
+    UserBasketCache.servicePoolModel = [];
+    Utils.navigateToPage(context, UserReservationsWithAppBarScreen());
   }
 
   @override

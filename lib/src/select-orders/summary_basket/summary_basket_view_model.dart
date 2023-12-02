@@ -35,13 +35,12 @@ class SummaryBasketViewModel extends ChangeNotifier {
   Future<bool> controReeservationIsApproved(ReservationDetailViewDto detailResponse) async {
     var response = await db
         .getCollectionRef(DBConstants.corporationReservationsDb)
-        .where('sessionId', isEqualTo: detailResponse.selectedSessionModel.id)
+        .where('id', isEqualTo: detailResponse.reservationModel.id)
         .where('isActive', isEqualTo: true)
-        .where('date', isEqualTo: detailResponse.reservationModel.date)
         .where('reservationStatus', isEqualTo: ReservationStatusEnum.newRecord.index)
         .get();
 
-    if (response.docs != null && response.docs.length > 0) {
+    if (response.docs != null && response.docs.length == 0) {
       return true;
     }
 
@@ -79,6 +78,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
       sessionName: basketModel.selectedSessionModel.name,
       sessionCost: sessionCost,
       reservationStatus: ReservationStatusEnum.newRecord,
+      userReservationVersion: 0,
       isActive: true,
       invitationCount: basketModel.orderBasketModel.count,
       invitationType: basketModel.orderBasketModel.invitationType,
@@ -154,6 +154,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
         sessionName: detailResponse.selectedSessionModel.name,
         sessionCost: sessionCost,
         reservationStatus: ReservationStatusEnum.newRecord,
+        userReservationVersion: detailResponse.reservationModel.userReservationVersion + 1,
         isActive: true,
         invitationCount: detailResponse.orderBasketModel.count,
         invitationType: detailResponse.orderBasketModel.invitationType,

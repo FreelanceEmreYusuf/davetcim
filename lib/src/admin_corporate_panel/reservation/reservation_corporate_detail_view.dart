@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/corporation_event_log_enum.dart';
+import '../../../shared/helpers/reservation_helper.dart';
 import '../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
@@ -54,6 +55,21 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
   void initState() {
     super.initState();
     getReservationDetail();
+  }
+
+  void navigateToReservationsPage(BuildContext context) {
+    Utils.navigateToPage(context, ReservationCorporateView());
+  }
+
+
+
+  Future<bool> hasReservationChangedByUser() async {
+    ReservationHelper reservationHelper = ReservationHelper();
+    ReservationModel currentResModel = await reservationHelper.getReservation(widget.reservationModel.id);
+    if (currentResModel.userReservationVersion != widget.reservationModel.userReservationVersion) {
+      return true;
+    }
+    return false;
   }
 
 
@@ -409,23 +425,30 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                         ),
                       ),
                       onPressed: () async {
-                        ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
-                        NotificationsViewModel notificationViewModel = NotificationsViewModel();
-                        await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
-                        notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
-                            widget.reservationModel.customerId,
-                            0, widget.reservationModel.id, true, widget.reservationModel.description, "");
-                        notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
-
-                        CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
-                        corporationAnalysisViewModel.editDailyLog(widget.reservationModel.corporationId,
-                            CorporationEventLogEnum.newReservation.name, detailResponse.reservationModel.cost);
-
-                        if (isFromNotification) {
-                          Utils.navigateToPage(context, NotificationsView());
+                        if (await hasReservationChangedByUser()) {
+                          Dialogs.showAlertMessageWithAction(context, "Üzgünüz", "Bu rezervasyon, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
+                              navigateToReservationsPage);
                         } else {
-                          Utils.navigateToPage(context, ReservationCorporateView());
+                          ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+                          NotificationsViewModel notificationViewModel = NotificationsViewModel();
+                          await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
+                          notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
+                              widget.reservationModel.customerId,
+                              0, widget.reservationModel.id, true, widget.reservationModel.description, "");
+                          notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
+
+                          CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
+                          corporationAnalysisViewModel.editDailyLog(widget.reservationModel.corporationId,
+                              CorporationEventLogEnum.newReservation.name, detailResponse.reservationModel.cost);
+
+                          if (isFromNotification) {
+                            Utils.navigateToPage(context, NotificationsView());
+                          } else {
+                            Utils.navigateToPage(context, ReservationCorporateView());
+                          }
+
                         }
+
 
                       },
                     ),

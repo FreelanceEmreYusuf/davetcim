@@ -35,7 +35,7 @@ class _UserReservationUpdateCartReservationItemState extends State<UserReservati
     Color color = Colors.green;
     String reserveInfo = "Bu Seans Müsait";
     int reservationStatusFlag = 0;
-    if (widget.detailResponse.selectedSessionModel.hasReservation) {
+    if (widget.sessionList[widget.index].hasReservation) {
       color = Colors.red;
       reserveInfo = "Rezerve Edilmiştir";
       reservationStatusFlag = 1;
@@ -78,7 +78,7 @@ class _UserReservationUpdateCartReservationItemState extends State<UserReservati
               ListTile(
                 subtitle: Text(reserveInfo),
                 title: Text(
-                  widget.detailResponse.selectedSessionModel.name,
+                  widget.sessionList[widget.index].name,
                   style: TextStyle(
                     fontSize: 15,
                     color: color,
