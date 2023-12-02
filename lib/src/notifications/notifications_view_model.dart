@@ -88,7 +88,6 @@ class NotificationsViewModel extends ChangeNotifier {
   Future<void> sendNotificationToUser(BuildContext context,
       int corporationId, int customerId, int commentId, int reservationId,
       bool isApproved, String text, String offerMessage) async {
-    String offerMessage = "";
     if (offerMessage.isEmpty) {
       if (commentId > 0) {
         if (isApproved) {
