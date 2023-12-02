@@ -14,7 +14,7 @@ class CorporateSessionsModel {
     this.name,
     this.midweekPrice,
     this.weekendPrice,
-    this.hasReservation,
+    this.hasReservation
   });
 
   ///Object to map

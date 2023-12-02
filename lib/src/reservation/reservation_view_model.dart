@@ -82,6 +82,29 @@ class ReservationViewModel extends ChangeNotifier {
     return sessionList;
   }
 
+  Future<List<CorporateSessionsModel>> getSessionReservationExtractionForUpdate
+      (int corporateId, int date, int sessionId, int customerId) async {
+    List<CorporateSessionsModel> sessionList = await getSessionList(corporateId);
+    List<ReservationModel> reservationList =  await getReservationWithDatelist(corporateId, date);
+
+    for (int i = 0; i < sessionList.length; i++) {
+      CorporateSessionsModel sessionModel = sessionList[i];
+      sessionModel.hasReservation = false;
+
+      for(int j = 0; j < reservationList.length; j++) {
+        ReservationModel reservationModel = reservationList[j];
+        if (reservationModel.customerId == customerId && reservationModel.sessionId == sessionId) {
+          continue;
+        }
+        if (sessionModel.id == reservationModel.sessionId) {
+          sessionModel.hasReservation = true;
+        }
+      }
+    }
+
+    return sessionList;
+  }
+
   Future<List<CorporateSessionsModel>> getSessionReservationForAllCorporatesExtraction(int date) async {
     List<CorporateSessionsModel> sessionList = await getAllSessionList();
     List<ReservationModel> reservationList =  await getReservationAllWithDatelist(date);

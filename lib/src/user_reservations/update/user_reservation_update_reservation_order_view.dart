@@ -28,8 +28,10 @@ class _UserReservationUpdateReservationOrderViewScreenState extends State<UserRe
 
   void callGetReservationList() async {
     ReservationViewModel rvm = ReservationViewModel();
-    sessionList = await rvm.getSessionReservationExtraction(widget.detailResponse.corporateModel.corporationId,
-        widget.detailResponse.reservationModel.date);
+    sessionList = await rvm.getSessionReservationExtractionForUpdate(widget.detailResponse.corporateModel.corporationId,
+        widget.detailResponse.reservationModel.date, widget.detailResponse.reservationModel.sessionId,
+        widget.detailResponse.reservationModel.customerId
+    );
 
     setState(() {
       sessionList = sessionList;
