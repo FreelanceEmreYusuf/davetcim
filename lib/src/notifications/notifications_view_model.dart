@@ -89,8 +89,7 @@ class NotificationsViewModel extends ChangeNotifier {
       int corporationId, int customerId, int commentId, int reservationId,
       bool isApproved, String text, String offerMessage) async {
     String offerMessage = "";
-    bool isOfferMessageEmpty = offerMessage.length == 0;
-    if (isOfferMessageEmpty) {
+    if (offerMessage.isEmpty) {
       if (commentId > 0) {
         if (isApproved) {
           offerMessage = "Konu: Yorum Mesajınız Onaylandı" +
