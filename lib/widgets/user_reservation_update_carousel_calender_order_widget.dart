@@ -70,8 +70,7 @@ class _UserReservationUpdateCalenderOrderCarouselState extends State<UserReserva
 
   @override
   Widget build(BuildContext context) {
-    DateTime _currentDate =
-      DateConversionUtils.getDateTimeFromIntDate(widget.detailResponse.reservationModel.date);
+    DateTime _currentDate = DateTime.now();
     if (!hasDataTaken) {
       return Padding(
           padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),

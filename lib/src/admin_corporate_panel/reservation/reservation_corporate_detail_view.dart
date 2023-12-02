@@ -446,10 +446,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                           } else {
                             Utils.navigateToPage(context, ReservationCorporateView());
                           }
-
                         }
-
-
                       },
                     ),
                   ),
@@ -468,17 +465,22 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                         ),
                       ),
                       onPressed: () async {
-                        ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
-                        NotificationsViewModel notificationViewModel = NotificationsViewModel();
-                        await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
-                        notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
-                            widget.reservationModel.customerId,
-                            0, widget.reservationModel.id, false, widget.reservationModel.description, "");
-                        notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
-                        if (isFromNotification) {
-                          Utils.navigateToPage(context, NotificationsView());
+                        if (await hasReservationChangedByUser()) {
+                          Dialogs.showAlertMessageWithAction(context, "Üzgünüz", "Bu rezervasyon, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
+                              navigateToReservationsPage);
                         } else {
-                          Utils.navigateToPage(context, ReservationCorporateView());
+                          ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+                          NotificationsViewModel notificationViewModel = NotificationsViewModel();
+                          await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
+                          notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
+                              widget.reservationModel.customerId,
+                              0, widget.reservationModel.id, false, widget.reservationModel.description, "");
+                          notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
+                          if (isFromNotification) {
+                            Utils.navigateToPage(context, NotificationsView());
+                          } else {
+                            Utils.navigateToPage(context, ReservationCorporateView());
+                          }
                         }
                       },
                     ),
