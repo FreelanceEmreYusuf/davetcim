@@ -4,24 +4,20 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 import '../shared/models/reservation_model.dart';
+import '../shared/sessions/application_cache.dart';
 import '../shared/utils/utils.dart';
+import '../src/admin_corporate_panel/all_reservation/all_reservation_corporate_view_model.dart';
+import '../src/admin_corporate_panel/reservation/reservation_only_for_corporate_view.dart';
 import '../src/reservation/reservation_all_order_view.dart';
 import '../src/reservation/reservation_view.dart';
 
-class CalenderCarousel extends StatefulWidget {
-
-  //final IconData icon;
-  final List<ReservationModel> reservationList;
-  final int corporationId;
-
-  CalenderCarousel({Key key, @required this.reservationList, this.corporationId})
-  : super(key: key);
+class CalenderCorporateAdminCarousel extends StatefulWidget {
 
   @override
-  _CalenderCarouselState createState() => _CalenderCarouselState();
+  _CalenderCorporateAdminCarouselState createState() => _CalenderCorporateAdminCarouselState();
 }
 
-class _CalenderCarouselState extends State<CalenderCarousel> {
+class _CalenderCorporateAdminCarouselState extends State<CalenderCorporateAdminCarousel> {
 
   EventList<Event> _markedDateMap = new EventList<Event>(
     events: {
@@ -30,22 +26,26 @@ class _CalenderCarouselState extends State<CalenderCarousel> {
     },
   );
 
+  List<ReservationModel> reservationList = [];
+  bool hasDataTaken = false;
+
   @override
   void initState() {
-    ///tüm rezervasoynları for döngüsüyle dönerek _markedDateMap nesnesine add edicez
-    /// Add more events to _markedDateMap EventList
-    loadDates();
     super.initState();
+    loadDates();
   }
 
-  void loadDates() {
+  void loadDates() async {
+    AllReservationCorporateViewModel model = AllReservationCorporateViewModel();
+    reservationList = await model.getAllReservationlistForCalendar(ApplicationCache.userCache.corporationId);
+
     _markedDateMap.clear();
-    for (int i = 0; i < widget.reservationList.length; i++) {
+    for (int i = 0; i < reservationList.length; i++) {
       _markedDateMap.add(
-          DateConversionUtils.getDateTimeFromIntDate(widget.reservationList[i].date),
+          DateConversionUtils.getDateTimeFromIntDate(reservationList[i].date),
           new Event(
-            date: DateConversionUtils.getDateTimeFromIntDate(widget.reservationList[i].date),
-            title: widget.reservationList[i].description,
+            date: DateConversionUtils.getDateTimeFromIntDate(reservationList[i].date),
+            title: reservationList[i].description,
             //icon: Icon(Icons.access_alarms, color: Colors.blueAccent),
             dot: Container(
               margin: EdgeInsets.symmetric(horizontal: 1.0),
@@ -55,18 +55,30 @@ class _CalenderCarouselState extends State<CalenderCarousel> {
             ),
           ));
     }
+
+    setState(() {
+      reservationList = reservationList;
+      _markedDateMap = _markedDateMap;
+      hasDataTaken = true;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     DateTime _currentDate = DateTime.now();
-    loadDates();
+
+    if (!hasDataTaken) {
+      return Scaffold(body: Padding(
+          padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+          child: Center(child: CircularProgressIndicator())));
+    }
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.0),
       child: CalendarCarousel<Event>(
         onDayPressed: (DateTime date, List<Event> events) {
           this.setState(() => _currentDate = date);
-          Utils.navigateToPage(context, RerservationAllOrderViewScreen(widget.corporationId, date));
+          Utils.navigateToPage(context, ReservationOnlyForCorporateViewScreen(ApplicationCache.userCache.corporationId, date));
         },
         weekendTextStyle: TextStyle(
           color: Colors.red,

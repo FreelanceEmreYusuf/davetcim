@@ -17,6 +17,7 @@ import '../../notifications/notifications_view_model.dart';
 import '../../user_reservations/user_reservations_view_model.dart';
 import '../reservation/reservation_corporate_view_model.dart';
 import 'all_reservation_corporate_delay_date_view.dart';
+import 'all_reservation_corporate_landing_view.dart';
 import 'all_reservation_corporate_view.dart';
 
 class AllReservationCorporateDetailScreen extends StatefulWidget {
@@ -62,7 +63,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
     notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
         widget.reservationModel.customerId,
         0, widget.reservationModel.id, false, widget.reservationModel.description, "");
-    Utils.navigateToPage(context, AllReservationCorporateView());
+    Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 1));
   }
 
 

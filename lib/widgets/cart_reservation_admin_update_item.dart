@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../shared/models/corporate_sessions_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
+import '../src/admin_corporate_panel/all_reservation/all_reservation_corporate_landing_view.dart';
 import '../src/admin_corporate_panel/all_reservation/all_reservation_corporate_view.dart';
 import '../src/admin_corporate_panel/all_reservation/all_reservation_corporate_view_model.dart';
 
@@ -67,7 +68,7 @@ class _CartReservationAdminUpdateItemState extends State<CartReservationAdminUpd
 
             AllReservationCorporateViewModel allReservationCorporateViewModel = AllReservationCorporateViewModel();
             allReservationCorporateViewModel.delayReservation(context, widget.reservationModel);
-            Utils.navigateToPage(context, AllReservationCorporateView());
+            Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 1));
 
            /* TODO : Dialogs.showDialogMessage(
                 context,

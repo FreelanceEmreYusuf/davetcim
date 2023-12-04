@@ -40,7 +40,7 @@ class _AllReservationCorporateDelayDateScreenState extends State<AllReservationC
 
   void getReservationDates(ReservationModel reservationModel) async {
     AllReservationCorporateViewModel model = AllReservationCorporateViewModel();
-    reservationList = await model.getAllReservationlist(reservationModel.corporationId);
+    reservationList = await model.getAllReservationlistForCalendar(reservationModel.corporationId);
 
     for (int i = 0; i < reservationList.length; i++) {
       reservationDates.add(

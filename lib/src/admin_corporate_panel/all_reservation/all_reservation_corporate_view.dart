@@ -6,19 +6,21 @@ import '../../../widgets/reservation_all_corporate_card_widget.dart';
 import 'all_reservation_corporate_view_model.dart';
 
 class AllReservationCorporateView extends StatefulWidget {
-
   @override
   State<StatefulWidget> createState() => new _State();
 }
 
 class _State extends State<AllReservationCorporateView> {
-  List<ReservationModel> reservationList = [];
   final registerFormKey = GlobalKey <FormState> ();
+
+  List<ReservationModel> reservationList = [];
+  bool hasDataTaken = false;
+
 
   @override
   void initState() {
-    callGetReservations();
     super.initState();
+    callGetReservations();
   }
 
   void callGetReservations() async {
@@ -27,13 +29,19 @@ class _State extends State<AllReservationCorporateView> {
 
     setState(() {
       reservationList = reservationList;
+      hasDataTaken = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (!hasDataTaken) {
+      return Scaffold(body: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+              child: Center(child: CircularProgressIndicator())));
+    }
+
     return Scaffold(
-      appBar: AppBarMenu(pageName: "Tüm Rezervasyonlar", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(

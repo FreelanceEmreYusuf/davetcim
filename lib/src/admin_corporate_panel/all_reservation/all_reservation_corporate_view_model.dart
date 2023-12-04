@@ -30,6 +30,25 @@ class AllReservationCorporateViewModel extends ChangeNotifier {
     return corpModelList;
   }
 
+  Future<List<ReservationModel>> getAllReservationlistForCalendar(int corporateId) async {
+    var response = await db
+        .getCollectionRef("CorporationReservations")
+        .where('corporationId', isEqualTo: corporateId)
+        .where('reservationStatus', isEqualTo: ReservationStatusEnum.approved.index)
+        .get();
+
+    List<ReservationModel> corpModelList = [];
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        corpModelList.add(ReservationModel.fromMap(item));
+      }
+    }
+
+    return corpModelList;
+  }
+
   Future<void> delayReservation(BuildContext context, ReservationModel reservationModel) async {
     await db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
     NotificationsViewModel notificationViewModel = NotificationsViewModel();

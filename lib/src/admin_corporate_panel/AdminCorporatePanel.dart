@@ -1,14 +1,13 @@
 import 'package:davetcim/src/admin_corporate_panel/manage_comments/manage_comment_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/seans/seans_corporate_view.dart';
-import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_user_choose/service_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service_landing_view.dart';
 import 'package:davetcim/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/environments/const.dart';
 import '../../shared/utils/utils.dart';
-import 'all_reservation/all_reservation_corporate_view.dart';
+import 'all_reservation/all_reservation_corporate_landing_view.dart';
 import 'corporation_analysis/corporation_analysis_view.dart';
 import 'corporation_common_properties_edit/corporation_common_properties_edit_view.dart';
 import 'manage_corporation_photos/pick_page.dart';
@@ -85,7 +84,7 @@ class _State extends State<AdminCorporatePanelPage> {
                           color: Colors.white,
                         ),),
                       onPressed: () {
-                        Utils.navigateToPage(context, AllReservationCorporateView());
+                        Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 0));
                       },
                     )),
                 SizedBox(height: 30.0),
