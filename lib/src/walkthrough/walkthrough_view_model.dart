@@ -22,10 +22,10 @@ class WalkthroughViewModel extends ChangeNotifier {
         .get();
 
     if (response.docs != null && response.docs.length > 0) {
-      return true;
+      return false;
     }
 
-    return false;
+    return true;
   }
 
   Future<List<ApplicationImageModel>> getApplicationImageList() async {

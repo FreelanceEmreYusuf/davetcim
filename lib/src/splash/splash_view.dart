@@ -5,7 +5,6 @@ import 'package:davetcim/src/walkthrough/walkthrough_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:davetcim/src/walkthrough/walkthrough_view.dart';
-import 'package:davetcim/shared/environments/const.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -18,7 +17,12 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   changeScreen() async {
-    Utils.navigateToPage(context, Walkthrough());
+    WalkthroughViewModel rm = WalkthroughViewModel();
+    if (!await rm.willDemoShowed()) {
+      Utils.navigateToPage(context, EntrancePage());
+    } else {
+      Utils.navigateToPage(context, Walkthrough());
+    }
   }
 
   @override
@@ -29,13 +33,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void callNextFlow() async {
-    WalkthroughViewModel rm = WalkthroughViewModel();
-    if (!await rm.willDemoShowed()) {
-      startTimeout();
-      Utils.navigateToPage(context, EntrancePage());
-    } else {
-      startTimeout();
-    }
+    startTimeout();
   }
 
   @override

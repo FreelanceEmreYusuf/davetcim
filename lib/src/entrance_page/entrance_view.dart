@@ -1,15 +1,8 @@
-import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/src/join/join_view.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/search/search_view.dart';
-import 'package:davetcim/widgets/animated_fab.dart';
-import 'package:davetcim/widgets/badge.dart';
-import 'package:davetcim/widgets/fancy_fab.dart';
 import 'package:davetcim/widgets/util_cart_item.dart';
 import 'package:flutter/material.dart';
-import 'package:davetcim/shared/utils/utils.dart';
-
-import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/app_bar/app_bar_without_previous_icon_view.dart';
 import 'entrance_view_model.dart';
 
