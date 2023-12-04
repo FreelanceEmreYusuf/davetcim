@@ -158,7 +158,7 @@ class ProductsViewModel extends ChangeNotifier {
     }
 
     List<int> unqList = await getFilteredCompanyIds(filter);
-    if (unqList != null) {
+    if (unqList != null && unqList.length > 0) {
       list = list.where('id', whereIn: unqList);
     }
 
