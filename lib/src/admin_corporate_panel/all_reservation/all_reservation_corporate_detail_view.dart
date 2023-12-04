@@ -8,6 +8,7 @@ import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';
+import '../../../shared/utils/language.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_package_summary.dart';
@@ -52,6 +53,16 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
   void initState() {
     super.initState();
     getReservationDetail();
+  }
+
+  void rejectReservation() async {
+    ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+    NotificationsViewModel notificationViewModel = NotificationsViewModel();
+    await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
+    notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
+        widget.reservationModel.customerId,
+        0, widget.reservationModel.id, false, widget.reservationModel.description, "");
+    Utils.navigateToPage(context, AllReservationCorporateView());
   }
 
 
@@ -501,13 +512,12 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                           ),
                         ),
                         onPressed: () async {
-                          ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
-                          NotificationsViewModel notificationViewModel = NotificationsViewModel();
-                          await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
-                          notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
-                              widget.reservationModel.customerId,
-                              0, widget.reservationModel.id, false, widget.reservationModel.description, "");
-                          Utils.navigateToPage(context, AllReservationCorporateView());
+                          await Dialogs.showDialogMessage(
+                              context,
+                              LanguageConstants
+                                  .processApproveHeader[LanguageConstants.languageFlag],
+                              "Daha önceden onaylanmış olan rezervasyonu, iptal etmek istediğinize emin misiniz?",
+                              rejectReservation, '');
                         },
                       ),
                     ),

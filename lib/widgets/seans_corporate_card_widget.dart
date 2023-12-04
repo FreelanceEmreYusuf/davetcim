@@ -77,8 +77,7 @@ class _SeansCorporateCardWidgetState
                           context,
                           LanguageConstants
                               .processApproveHeader[LanguageConstants.languageFlag],
-                          LanguageConstants.processApproveDeleteMessage[
-                          LanguageConstants.languageFlag],
+                          "Seans bilgisini sildiğiniz taktirde, işlem bekleyen rezervasyonlarınız etkilenecektir. Silmek istediğinize emin misiniz?",
                           deleteService, '');
                     }, // button pressed
                     child: Column(
