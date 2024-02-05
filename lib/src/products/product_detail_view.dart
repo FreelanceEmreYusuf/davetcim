@@ -10,7 +10,7 @@ import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../../shared/dto/basket_user_dto.dart';
 import '../../shared/enums/corporation_event_log_enum.dart';
-import '../../shared/helpers/corporate_helper.dart';
+import 'package:url_launcher/url_launcher.dart' as launcher;
 import '../../shared/models/combo_generic_model.dart';
 import '../../shared/models/corporation_event_log_model.dart';
 import '../../shared/models/corporation_model.dart';
@@ -22,6 +22,7 @@ import '../../shared/utils/utils.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/bounce_button.dart';
 import '../../widgets/carousel_calender_widget.dart';
+import '../../widgets/contact_widget.dart';
 import '../../widgets/hashtag_widget.dart';
 import '../../widgets/star_and_comment.dart';
 import '../admin_corporate_panel/corporation_analysis/corporation_analysis_view_model.dart';
@@ -514,17 +515,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       ),
                                     ),
                                   ),
-                                  onTap: (){
-                                    Clipboard.setData(ClipboardData(text: widget.corporationModel.telephoneNo)).then((_) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(content: Text("Telefon numarası panoya kopyalandı."), duration: Duration(seconds: 1),));
-                                    });
+                                  onTap: () async {
+                                    Uri uri = Uri.parse('tel:' + widget.corporationModel.telephoneNo);
+                                    if (!await launcher.launchUrl(uri)) {
+                                      debugPrint(
+                                          "Could not launch the uri"); // because the simulator doesn't has the phone app
+                                    }
                                   },
                                   height: MediaQuery.of(context).size.height / 8,
                                   width: MediaQuery.of(context).size.width / 2.5,
                                   duration: Duration(milliseconds: 300),
                                   decoration: BoxDecoration(
-                                      color: Colors.redAccent,
+                                      color: Colors.green,
                                       borderRadius: BorderRadius.circular(5)
                                   ),
                                 ),
@@ -557,17 +559,20 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       ),
                                     ),
                                   ),
-                                  onTap: (){
-                                    Clipboard.setData(ClipboardData(text: widget.corporationModel.email)).then((_) {
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                          SnackBar(content: Text("Email bilgisi panoya kopyalandı."), duration: Duration(seconds: 1),));
-                                    });
+                                  onTap: () async {
+                                    Uri uri = Uri.parse(
+                                      'mailto:' + widget.corporationModel.email + '?subject=Davetcim Rezervasyonu HK.&body=Merhaba,',
+                                    );
+                                    if (!await launcher.launchUrl(uri)) {
+                                    debugPrint(
+                                    "Could not launch the uri"); // because the simulator doesn't has the email app
+                                    }
                                   },
                                   height: MediaQuery.of(context).size.height / 8,
                                   width: MediaQuery.of(context).size.width / 2.5,
                                   duration: Duration(milliseconds: 300),
                                   decoration: BoxDecoration(
-                                      color: Colors.redAccent,
+                                      color: Colors.blueAccent,
                                       borderRadius: BorderRadius.circular(1)
                                   ),
                                 ),
