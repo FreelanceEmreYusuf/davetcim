@@ -24,6 +24,7 @@ import '../../widgets/bounce_button.dart';
 import '../../widgets/carousel_calender_widget.dart';
 import '../../widgets/contact_widget.dart';
 import '../../widgets/hashtag_widget.dart';
+import '../../widgets/launch_button.dart';
 import '../../widgets/star_and_comment.dart';
 import '../admin_corporate_panel/corporation_analysis/corporation_analysis_view_model.dart';
 import '../comments/comments_view.dart';
@@ -174,6 +175,8 @@ class _ProductDetailsState extends State<ProductDetails> {
   void pushToJoinPage(BuildContext context) {
     Utils.navigateToPage(context, JoinView(childPage: new ProductDetails(corporationModel: widget.corporationModel)));
   }
+
+
 
   int _current = 0;
 
@@ -488,94 +491,36 @@ class _ProductDetailsState extends State<ProductDetails> {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
-                              FittedBox(
-                                child: BounceButton(
-                                  child: Container(
-                                    margin: const EdgeInsets.all(4.0),
-                                    child: FittedBox(
-                                      child: Column(
-                                        children: [
-                                          Icon(Icons.phone, size: 25, color: Colors.white),
-                                          Text(
-                                            'Telefon',
-                                            style: TextStyle(
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.white
-                                            ),
-                                          ),
-                                          Text(
-                                            widget.corporationModel.telephoneNo,
-                                            style: TextStyle(
-                                                fontSize: 20.0,
-                                                color: Colors.white
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  onTap: () async {
-                                    Uri uri = Uri.parse('tel:' + widget.corporationModel.telephoneNo);
-                                    if (!await launcher.launchUrl(uri)) {
-                                      debugPrint(
-                                          "Could not launch the uri"); // because the simulator doesn't has the phone app
-                                    }
-                                  },
-                                  height: MediaQuery.of(context).size.height / 8,
-                                  width: MediaQuery.of(context).size.width / 2.5,
-                                  duration: Duration(milliseconds: 300),
-                                  decoration: BoxDecoration(
-                                      color: Colors.green,
-                                      borderRadius: BorderRadius.circular(5)
-                                  ),
-                                ),
-                              ),
+                            LaunchButton(
+                            title: 'Telefon',
+                              value: widget.corporationModel.telephoneNo,
+                              icon: Icons.phone,
+                              color: Colors.green,
+                              context: context,
+                              onPressed: () async {
+                                Uri uri = Uri.parse('tel:' + widget.corporationModel.telephoneNo);
+                                if (!await launcher.launchUrl(uri)) {
+                                  debugPrint(
+                                      "Could not launch the uri"); // because the simulator doesn't has the phone app
+                                }
+                              },
+                            ),
                               SizedBox(height: 5, width: 5,),
-                              FittedBox(
-                                child: BounceButton(
-                                  child: Container(
-                                    margin: const EdgeInsets.all(4.0),
-                                    child: FittedBox(
-                                      child: Column(
-                                        children: [
-                                          Icon(Icons.mail, size: 25, color: Colors.white,),
-                                          Text(
-                                            "Email",
-                                            style: TextStyle(
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.w600,
-                                                color: Colors.white
-                                            ),
-                                          ),
-                                          Text(
-                                            widget.corporationModel.email,
-                                            style: TextStyle(
-                                                fontSize: 20.0,
-                                                color: Colors.white
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  onTap: () async {
-                                    Uri uri = Uri.parse(
-                                      'mailto:' + widget.corporationModel.email + '?subject=Davetcim Rezervasyonu HK.&body=Merhaba,',
-                                    );
-                                    if (!await launcher.launchUrl(uri)) {
+                              LaunchButton(
+                                title: 'Email',
+                                value: widget.corporationModel.email,
+                                icon: Icons.mail,
+                                color: Colors.blueAccent,
+                                context: context,
+                                onPressed: () async {
+                                  Uri uri = Uri.parse(
+                                    'mailto:' + widget.corporationModel.email + '?subject=Davetcim Rezervasyonu HK.&body=Merhaba,',
+                                  );
+                                  if (!await launcher.launchUrl(uri)) {
                                     debugPrint(
-                                    "Could not launch the uri"); // because the simulator doesn't has the email app
-                                    }
-                                  },
-                                  height: MediaQuery.of(context).size.height / 8,
-                                  width: MediaQuery.of(context).size.width / 2.5,
-                                  duration: Duration(milliseconds: 300),
-                                  decoration: BoxDecoration(
-                                      color: Colors.blueAccent,
-                                      borderRadius: BorderRadius.circular(1)
-                                  ),
-                                ),
+                                        "Could not launch the uri"); // because the simulator doesn't has the email app
+                                  }
+                                },
                               ),
                             ],
                           ),
