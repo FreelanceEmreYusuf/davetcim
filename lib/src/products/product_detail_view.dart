@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
@@ -301,6 +302,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: Stack(
           children: <Widget>[
+
             Column(
                 children: <Widget>[
                   SizedBox(height: 10.0),
