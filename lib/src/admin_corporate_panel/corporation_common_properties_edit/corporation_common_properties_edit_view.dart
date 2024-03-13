@@ -2,6 +2,7 @@ import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/sessions/application_cache.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../shared/dto/corporation_organizations_response_dto.dart';
 import '../../../shared/enums/corporation_service_selection_enum.dart';
@@ -56,6 +57,8 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
   final TextEditingController _maxPopulationControl = new TextEditingController();
   final TextEditingController _minReservationAmountControl = new TextEditingController();
   final TextEditingController _minReservationAmountWeekendControl = new TextEditingController();
+  final TextEditingController _latitudeControl = new TextEditingController();
+  final TextEditingController _longitudeControl = new TextEditingController();
 
   final registerFormKey = GlobalKey <FormState> ();
   final registerFormKey2 = GlobalKey <FormState> ();
@@ -92,6 +95,8 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
     _maxPopulationControl.text = corporationModel.maxPopulation.toString();
     _minReservationAmountControl.text = corporationModel.minReservationAmount.toString();
     _minReservationAmountWeekendControl.text = corporationModel.minReservationAmountWeekend.toString();
+    _latitudeControl.text = corporationModel.latitude.toString();
+    _longitudeControl.text = corporationModel.longitude.toString();
 
     for (int i = 0; i < regionList.length; i++) {
       if (regionList[i].id == int.parse(corporationModel.region)) {
@@ -212,6 +217,8 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
         corporationModel.maxPopulation = int.parse(_maxPopulationControl.text);
         corporationModel.minReservationAmount = int.parse(_minReservationAmountControl.text);
         corporationModel.minReservationAmountWeekend = int.parse(_minReservationAmountWeekendControl.text);
+        corporationModel.latitude = double.parse(_latitudeControl.text);
+        corporationModel.longitude = double.parse(_longitudeControl.text);
         corporationModel.organizationUniqueIdentifier = organizationUniqueIdentifier;
         corporationModel.invitationUniqueIdentifier = invitationUniqueIdentifier;
         corporationModel.sequenceOrderUniqueIdentifier = sequenceOrderIdentifier;
@@ -509,6 +516,74 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
                 ),
               ),
               controller: _addresControl,
+              validator: (address) {
+                return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlMax200(address));
+              },
+              maxLines: 1,
+              maxLength: 200,
+            ),//address
+            SizedBox(height: 15.0),
+            TextFormField(
+              style: TextStyle(
+                fontSize: 15.0,
+                color: Colors.black,
+              ),
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$')),
+              ],
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                labelText: "Enlem",
+                filled: true,
+                fillColor: Colors.white,
+                focusColor: Colors.blue,
+                prefixIcon: Icon(
+                  Icons.home_work_sharp,
+                  color: Colors.black54,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              controller: _latitudeControl,
+              validator: (address) {
+                return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlMax200(address));
+              },
+              maxLines: 1,
+              maxLength: 200,
+            ),//address
+            SizedBox(height: 15.0),
+            TextFormField(
+              style: TextStyle(
+                fontSize: 15.0,
+                color: Colors.black,
+              ),
+              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$')),
+              ],
+              decoration: InputDecoration(
+                contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                labelText: "Boylam",
+                filled: true,
+                fillColor: Colors.white,
+                focusColor: Colors.blue,
+                prefixIcon: Icon(
+                  Icons.home_work_sharp,
+                  color: Colors.black54,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0),
+                  borderSide: BorderSide(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              controller: _longitudeControl,
               validator: (address) {
                 return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlMax200(address));
               },

@@ -103,6 +103,24 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Expanded(child: Text("Enlem Bilgisi", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.corporationModel.latitude.toString(), style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(child: Text("Boylam Bilgisi", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
+          Expanded(child: Text(widget.corpReg.corporationModel.longitude.toString(), style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
+        ],
+      ),
+      Divider(indent: 2, color: Colors.black,),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Expanded(child: Text("Maximum Kapasite", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
           Expanded(child: Text(widget.corpReg.corporationModel.maxPopulation.toString(), style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],

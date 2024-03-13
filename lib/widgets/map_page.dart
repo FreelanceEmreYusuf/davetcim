@@ -3,6 +3,10 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class SelectLocationPage extends StatefulWidget {
+  final double latitude;
+  final double longitude;
+  const SelectLocationPage(this.latitude, this.longitude);
+
   @override
   _SelectLocationPageState createState() => _SelectLocationPageState();
 }
@@ -11,16 +15,20 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
   LatLng selectedLocation;
 
   @override
+  void initState() {
+    super.initState();
+    selectedLocation = LatLng(widget.latitude, widget.longitude);
+  }
+
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Konum Seç'),
-      ),
       body: FlutterMap(
         options: MapOptions(
-          center: LatLng(41.0082, 28.9784), // Varsayılan konum (örnek olarak San Francisco)
-          zoom: 10,
-        //TODO  onTap: _handleTap,
+          center: LatLng(widget.latitude, widget.longitude),
+          zoom: 15,
+         // onTap: _handleTap,
         ),
         layers: [
           TileLayerOptions(
@@ -46,36 +54,6 @@ class _SelectLocationPageState extends State<SelectLocationPage> {
             ),
         ],
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            onPressed: _zoomIn,
-            child: Icon(Icons.add),
-          ),
-          SizedBox(height: 16),
-          FloatingActionButton(
-            onPressed: _zoomOut,
-            child: Icon(Icons.remove),
-          ),
-        ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
     );
   }
-
-  void _zoomIn() {
-    setState(() {
-      _mapController.move(_mapController.center, _mapController.zoom + 1);
-    });
-  }
-
-  void _zoomOut() {
-    setState(() {
-      _mapController.move(_mapController.center, _mapController.zoom - 1);
-    });
-  }
-
-  MapController _mapController = MapController();
 }

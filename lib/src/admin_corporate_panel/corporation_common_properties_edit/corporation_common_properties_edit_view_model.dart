@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/dto/corporation_organizations_response_dto.dart';
 import '../../../shared/dto/organization_type_response_dto.dart';
 import '../../../shared/enums/corporation_service_selection_enum.dart';
+import '../../../shared/environments/db_constants.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../corporation_register/common_informations_p2/common_informations_p2_view_model.dart';
 import '../../corporation_register/common_informations_p3/common_informations_p3_view_model.dart';
@@ -105,6 +106,6 @@ class CorporationCommonPropertiesEditViewModel extends ChangeNotifier {
 
   Future<void> setCorporationInfoAndOrganizationTypes(CorporationModel corporationModel) async {
     Map<String, dynamic> corporationMap = corporationModel.toMap();
-    db.editCollectionRef("Corporation", corporationMap);
+    db.editCollectionRef(DBConstants.corporationDb, corporationMap);
   }
 }

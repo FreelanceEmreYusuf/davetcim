@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../../shared/dto/corporation_registration_dto.dart';
 import '../../../shared/models/company_model.dart';
@@ -30,6 +31,8 @@ class CommonInformationsP1View extends StatefulWidget {
 class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
   final TextEditingController _firmNameControl = new TextEditingController();
   final TextEditingController _addresControl = new TextEditingController();
+  final TextEditingController _latitudeControl = new TextEditingController();
+  final TextEditingController _longitudeControl = new TextEditingController();
   final TextEditingController _emailControl = new TextEditingController();
   final TextEditingController _phoneControl = new TextEditingController();
   final TextEditingController _nameControl = new TextEditingController();
@@ -348,6 +351,74 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                 maxLength: 200,
               ),//address
               SizedBox(height: 15.0),
+              TextFormField(
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                ),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$')),
+                ],
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  labelText: "Enlem Bilgisi",
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusColor: Colors.blue,
+                  prefixIcon: Icon(
+                    Icons.home_work_sharp,
+                    color: Colors.black54,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                controller: _latitudeControl,
+                validator: (latitude) {
+                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlMax200(latitude));
+                },
+                maxLines: 1,
+                maxLength: 200,
+              ),//latitude
+              SizedBox(height: 15.0),
+              TextFormField(
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
+                ),
+                keyboardType: TextInputType.numberWithOptions(decimal: true),
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d*$')),
+                ],
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  labelText: "Boylam Bilgisi",
+                  filled: true,
+                  fillColor: Colors.white,
+                  focusColor: Colors.blue,
+                  prefixIcon: Icon(
+                    Icons.home_work_sharp,
+                    color: Colors.black54,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                controller: _longitudeControl,
+                validator: (longitude) {
+                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControlMax200(longitude));
+                },
+                maxLines: 1,
+                maxLength: 200,
+              ),//latitude
+              SizedBox(height: 15.0),
               GestureDetector(
                 child: Card(
                   elevation: 3.0,
@@ -480,6 +551,8 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                           corporationId: new DateTime.now().millisecondsSinceEpoch,
                           corporationName: _nameControl.text,
                           address: _addresControl.text,
+                          latitude: double.parse(_latitudeControl.text),
+                          longitude: double.parse(_longitudeControl.text),
                           telephoneNo: _phoneControl.text,
                           email: _emailControl.text,
                           description: _descriptionControl.text,

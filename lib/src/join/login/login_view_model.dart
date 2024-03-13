@@ -33,8 +33,6 @@ class LoginViewModel extends ChangeNotifier {
         Utils.navigateToPage(context, childPage);
       }
 
-
-
       return true;
     } else {
 

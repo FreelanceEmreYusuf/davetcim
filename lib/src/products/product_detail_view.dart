@@ -4,10 +4,9 @@ import 'package:davetcim/src/products/product_detail_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_map/plugin_api.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../providers/app_provider.dart';
 import '../../shared/dto/basket_user_dto.dart';
 import '../../shared/enums/corporation_event_log_enum.dart';
@@ -23,9 +22,9 @@ import '../../shared/utils/utils.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/bounce_button.dart';
 import '../../widgets/carousel_calender_widget.dart';
-import '../../widgets/contact_widget.dart';
 import '../../widgets/hashtag_widget.dart';
 import '../../widgets/launch_button.dart';
+import '../../widgets/map_page.dart';
 import '../../widgets/star_and_comment.dart';
 import '../admin_corporate_panel/corporation_analysis/corporation_analysis_view_model.dart';
 import '../comments/comments_view.dart';
@@ -65,7 +64,9 @@ class _ProductDetailsState extends State<ProductDetails> {
     return result;
   }
   bool calenderVisibility;
+  bool mapVisibility;
   String buttonText;
+  String buttonMapText;
   IconData icon = Icons.keyboard_arrow_down;
   String districtName = "";
   String regionName = "";
@@ -78,7 +79,9 @@ class _ProductDetailsState extends State<ProductDetails> {
   void initState() {
     getDistrictRegionName(int.parse(widget.corporationModel.district), int.parse(widget.corporationModel.region));
     calenderVisibility = false;
+    mapVisibility = false;
     buttonText = "Takvimi Göster";
+    buttonMapText = "Haritayı Göster";
     callGetImageList();
     callGetHashtagListList();
     callGetReservationList();
@@ -177,7 +180,14 @@ class _ProductDetailsState extends State<ProductDetails> {
     Utils.navigateToPage(context, JoinView(childPage: new ProductDetails(corporationModel: widget.corporationModel)));
   }
 
-
+  void _launchMapsUrl(double latitude, double longitude) async {
+    String url = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 
   int _current = 0;
 
@@ -648,6 +658,33 @@ class _ProductDetailsState extends State<ProductDetails> {
                           )),
                     ]
                   ),
+                  SizedBox(height: MediaQuery.of(context).size.height/30),
+                  Container(
+                    height: 300,
+                    width: double.infinity,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: SelectLocationPage(widget.corporationModel.latitude, widget.corporationModel.longitude),
+                        ),
+                        SizedBox(height: 3), // İstenilen boşluk miktarına göre ayarlayın
+                        Container(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              double latitude = widget.corporationModel.latitude;
+                              double longitude = widget.corporationModel.longitude;
+
+                              // Google Haritalar'a belirli bir latitude ve longitude ile bir yönlendirme yapmak için
+                              _launchMapsUrl(latitude, longitude);
+                            },
+                            child: Text('Navigasyonda Aç'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
                   SizedBox(height: MediaQuery.of(context).size.height/30),
                   Card(
                     elevation: 20,

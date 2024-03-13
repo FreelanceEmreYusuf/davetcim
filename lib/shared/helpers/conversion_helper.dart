@@ -1,4 +1,5 @@
 import 'package:davetcim/shared/helpers/region_district_helper.dart';
+import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 
 import '../environments/db_constants.dart';
@@ -35,6 +36,24 @@ class ConversionHelper {
         detailModel.priceChangedForCount = true;
 
         db.editCollectionRef(DBConstants.reservationDetailDb, detailModel.toMap());
+      }
+    }
+  }
+
+  Future<void> editCorporation() async {
+    var response = await db
+        .getCollectionRef(DBConstants.corporationDb)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        CorporationModel corporationModel = CorporationModel.fromMap(item);
+        corporationModel.latitude = 41.0082;
+        corporationModel.longitude = 28.9784;
+
+        db.editCollectionRef(DBConstants.corporationDb, corporationModel.toMap());
       }
     }
   }

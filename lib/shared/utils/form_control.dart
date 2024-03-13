@@ -165,10 +165,10 @@ class FormControlUtil{
 
   static String getValueStartNumber5Control(String value) {
     String errorMessage = '';
-
-    if(value[0] != "5"){
+/* TODO buraya handle et
+    if(value[0] != "5" && value[0] != "2"){
       errorMessage = LanguageConstants.dialogRegisterUnSuccessPhoneNumberMessage[LanguageConstants.languageFlag];
-    }
+    }*/
 
     return errorMessage;
   }

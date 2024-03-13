@@ -6,7 +6,7 @@ import '../../shared/models/customer_model.dart';
 import '../../shared/sessions/application_cache.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/utils.dart';
-import '../../src/main/MapPage.dart';
+import '../map_page.dart';
 import '../badge.dart';
 import '../bounce_button.dart';
 import '../on_error/somethingWentWrong.dart';
@@ -64,8 +64,8 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                               : Theme.of(context).textTheme.caption.color,
                         ),
                         onTap: (){
-                          Utils.navigateToPage(context, SelectLocationPage());
-                         // widget.pageController.jumpToPage(0);
+                         // Utils.navigateToPage(context, SelectLocationPage());
+                          widget.pageController.jumpToPage(0);
                         },
                         height: MediaQuery.of(context).size.height / 17,
                         width: MediaQuery.of(context).size.width / 10,

@@ -22,6 +22,8 @@ class CorporationModel {
   String region;
   String telephoneNo;
   String email;
+  double latitude;
+  double longitude;
   CorporationServiceSelectionEnum serviceSelection;
   Timestamp recordDate;
   List<String> invitationUniqueIdentifier;
@@ -46,6 +48,8 @@ class CorporationModel {
     this.region,
     this.telephoneNo,
     this.email,
+    this.latitude,
+    this.longitude,
     this.serviceSelection,
     this.recordDate,
     this.invitationUniqueIdentifier,
@@ -72,6 +76,8 @@ class CorporationModel {
     'region': region,
     'telephoneNo': telephoneNo,
     'email': email,
+    'latitude': latitude,
+    'longitude': longitude,
     'serviceSelection': serviceSelection.index,
     'recordDate': recordDate,
     'invitationUniqueIdentifier': invitationUniqueIdentifier,
@@ -98,6 +104,8 @@ class CorporationModel {
     region: map['region'],
     telephoneNo: map['telephoneNo'],
     email: map['email'],
+    latitude: map['latitude'],
+    longitude: map['longitude'],
     serviceSelection: CorporationServiceSelectionEnumConverter.getEnumValue(map['serviceSelection']),
     recordDate: map['recordDate'],
     invitationUniqueIdentifier: List.from(map['invitationUniqueIdentifier']) ,
