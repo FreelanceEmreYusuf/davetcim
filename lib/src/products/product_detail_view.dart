@@ -580,6 +580,32 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height/30),
+                  Container(
+                    height: 300,
+                    width: double.infinity,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: SelectLocationPage(widget.corporationModel.latitude, widget.corporationModel.longitude),
+                        ),
+                        SizedBox(height: 3), // İstenilen boşluk miktarına göre ayarlayın
+                        Container(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              double latitude = widget.corporationModel.latitude;
+                              double longitude = widget.corporationModel.longitude;
+
+                              // Google Haritalar'a belirli bir latitude ve longitude ile bir yönlendirme yapmak için
+                              _launchMapsUrl(latitude, longitude);
+                            },
+                            child: Text('Navigasyonda Aç'),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: MediaQuery.of(context).size.height/30),
                   Card(
                     elevation: 10,
                     shadowColor: Colors.redAccent,
@@ -658,33 +684,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                           )),
                     ]
                   ),
-                  SizedBox(height: MediaQuery.of(context).size.height/30),
-                  Container(
-                    height: 300,
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: SelectLocationPage(widget.corporationModel.latitude, widget.corporationModel.longitude),
-                        ),
-                        SizedBox(height: 3), // İstenilen boşluk miktarına göre ayarlayın
-                        Container(
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              double latitude = widget.corporationModel.latitude;
-                              double longitude = widget.corporationModel.longitude;
-
-                              // Google Haritalar'a belirli bir latitude ve longitude ile bir yönlendirme yapmak için
-                              _launchMapsUrl(latitude, longitude);
-                            },
-                            child: Text('Navigasyonda Aç'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
                   SizedBox(height: MediaQuery.of(context).size.height/30),
                   Card(
                     elevation: 20,
