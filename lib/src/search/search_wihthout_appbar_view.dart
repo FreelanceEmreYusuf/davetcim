@@ -86,7 +86,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/soft_filter_background.jpg'),
+            image: AssetImage('assets/filter_page_background.jpg'),
             fit: BoxFit.cover,
           ),
         ),

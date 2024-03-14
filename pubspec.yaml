@@ -71,6 +71,7 @@ flutter:
     - assets/sponsorship_smaller.png
     - assets/coming_soon.png
     - soft_filter_background.jpg
+    - filter_page_background.jpg
 
   #   - images/a_dot_ham.jpeg
 
