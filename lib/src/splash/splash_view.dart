@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/src/entrance_page/entrance_view.dart';
+import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/walkthrough/walkthrough_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:davetcim/src/walkthrough/walkthrough_view.dart';
+
+import '../entrance_page/entrance_view_model.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -19,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
   changeScreen() async {
     WalkthroughViewModel rm = WalkthroughViewModel();
     if (!await rm.willDemoShowed()) {
-      Utils.navigateToPage(context, EntrancePage());
+      Utils.navigateToPage(context, MainScreen());
     } else {
       Utils.navigateToPage(context, Walkthrough());
     }
@@ -27,9 +30,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   void initState() {
+    callFillFilterScreenSession();
     super.initState();
     SystemChrome.setEnabledSystemUIOverlays([]);
     callNextFlow();
+  }
+
+  void callFillFilterScreenSession() async {
+    EntrancePageModel rm = EntrancePageModel();
+    await rm.fillFilterScreenSession();
   }
 
   void callNextFlow() async {

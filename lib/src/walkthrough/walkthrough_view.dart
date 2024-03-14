@@ -1,5 +1,6 @@
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/src/entrance_page/entrance_view.dart';
+import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/walkthrough/walkthrough_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
@@ -82,11 +83,11 @@ class _WalkthroughState extends State<Walkthrough> {
           child: IntroductionScreen(
             pages: pages,
             onDone: () {
-              Utils.navigateToPage(context, EntrancePage());
+              Utils.navigateToPage(context, MainScreen());
             },
             onSkip: () {
               model.createBypassInfoData();
-              Utils.navigateToPage(context, EntrancePage());
+              Utils.navigateToPage(context, MainScreen());
             },
             showSkipButton: true,
             skip: Text(
