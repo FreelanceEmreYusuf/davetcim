@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
     return WillPopScope(
       onWillPop: () => Future.value(false),
       child: Scaffold(
-        appBar: AppBarMenu(pageName: 'Davetçim', isHomnePageIconVisible: false, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+        appBar: AppBarMenu(pageName: 'Davetcim', isHomnePageIconVisible: false, isNotificationsIconVisible: true, isPopUpMenuActive: true),
         body: PageView(
           physics: NeverScrollableScrollPhysics(),
           controller: _pageController,

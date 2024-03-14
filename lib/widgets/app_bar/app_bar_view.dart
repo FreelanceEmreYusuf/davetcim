@@ -73,7 +73,7 @@ class _AppBarMenu extends State<AppBarMenu> {
       );
     }
       
-  //  if (widget.pageName != 'Davetçim' && )
+  //  if (widget.pageName != 'Davetcim' && )
 
     return ChangeNotifierProvider<AppBarViewModel>(
         create: (_)=>AppBarViewModel(),

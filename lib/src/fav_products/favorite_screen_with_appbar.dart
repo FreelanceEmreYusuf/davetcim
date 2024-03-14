@@ -36,7 +36,7 @@ class _FavoriteScreenWithAppBarState extends State<FavoriteScreenWithAppBar>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: AppBarMenu(pageName: "Davetçim", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: "Davetcim", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(

@@ -13,6 +13,7 @@ import '../../providers/app_provider.dart';
 import '../../shared/environments/const.dart';
 import '../../shared/sessions/user_basket_cache.dart';
 import '../../widgets/on_error/somethingWentWrong.dart';
+import '../../widgets/soft_filter.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -72,12 +73,14 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
             } else if (asyncSnapshot.hasData) {
               List<CorporationModel> corporationList = asyncSnapshot.data;
               return Scaffold(
-                body: Padding(
-                  padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-                  child: ListView(
-                    children: <Widget>[
-                      if(ApplicationCache.userCache != null)
-                        Container(
+                body: ListView(
+                  children: <Widget>[
+                    SoftFilterWidget(),
+                    SizedBox(height: MediaQuery.of(context).size.height / 40,),
+                    if(ApplicationCache.userCache != null)
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+                        child: Container(
                           margin: EdgeInsets.fromLTRB(0, 10.0, 0, 0.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -113,8 +116,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                             ],
                           ),
                         ),
-                      SizedBox(height: 10,),
-                      Stack(
+                      ),
+                    SizedBox(height: 10,),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+                      child: Stack(
                         children: <Widget>[
                           Container(
                             height: MediaQuery.of(context).size.height / 2.4,
@@ -147,8 +153,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 20.0),
-                      Row(
+                    ),
+                    SizedBox(height: 20.0),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
@@ -160,8 +169,11 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10.0),
-                      GridView.builder(
+                    ),
+                    SizedBox(height: 10.0),
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+                      child: GridView.builder(
                         shrinkWrap: true,
                         primary: false,
                         physics: NeverScrollableScrollPhysics(),
@@ -188,10 +200,10 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                           );
                         },
                       ),
+                    ),
 
-                      SizedBox(height: 30),
-                    ],
-                  ),
+                    SizedBox(height: 30),
+                  ],
                 ),
               );
             } else {

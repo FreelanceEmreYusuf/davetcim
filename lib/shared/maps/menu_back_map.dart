@@ -6,7 +6,7 @@ import '../../src/admin_corporate_panel/AdminCorporatePanel.dart';
 
 Map<String, Widget> menuBackMap =
 {
-  'Davetçim': null,
+  'Davetcim': null,
   'Admin Paneli': null,
   'Firma Aktif/Pasif Yönet': AdminPanelPage(),
   'Hizmet Havuzu': AdminPanelPage(),
