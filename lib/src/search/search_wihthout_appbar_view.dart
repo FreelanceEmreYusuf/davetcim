@@ -101,12 +101,12 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Card(
-                  color: Colors.white60,
+                  color: Colors.white70,
                   shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)), // Car
                   child: Padding(
