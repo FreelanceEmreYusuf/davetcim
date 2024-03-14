@@ -84,415 +84,446 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
         backgroundColor: Colors.redAccent,
       ),
       body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              GestureDetector(
-                child: Card(
-                  elevation: 3.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      CupertinoButton(
-                        child: Text(
-                          "Davet Türü",
-                          style: kStyle,
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize),
-                      ),
-                      Text(
-                        invitationList[selectedInvitationIndex].name,
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedInvitationIndex = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  invitationList.length, (int index) {
-                                return new Center(
-                                  child: new Text(invitationList[index].name),
-                                );
-                              })),
-                        );
-                      });
-                },
-              ),
-              Card(
-                elevation: 3.0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
-                  ),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/soft_filter_background.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        foregroundDecoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.transparent,
+              Colors.black.withOpacity(0.1), // Filtre yoğunluğu
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Card(
+                  color: Colors.white60,
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)), // Car
                   child: Padding(
-                    padding: EdgeInsets.fromLTRB(
-                        MediaQuery.of(context).size.width / 20, 0, 0, 0),
-                    child: TextField(
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 15.0,
-                        color: Colors.black,
-                      ),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10.0),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.transparent,
-                          ),
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        hintText: "Davetli Sayısı gir..",
-                        prefixIcon: Icon(
-                          Icons.person,
-                          color: Colors.redAccent,
-                        ),
-                        hintStyle: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.redAccent,
-                        ),
-                      ),
-                      textAlignVertical: TextAlignVertical.center,
-                      maxLines: 1,
-                      keyboardType: TextInputType.number,
-                      controller: _searchControl,
-                    ),
-                  ),
-                ),
-              ),
-              Card(
-                  elevation: 3.0,
-                  child: CheckboxListTile(
-                    title: Text("Tarih filtrelensin mi?"),
-                    value: checkedValue,
-                    onChanged: (newValue) {
-                      setState(() {
-                        checkedValue = newValue;
-                      });
-                    },
-                    controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
-                  )
-              ),
-              Visibility(
-                visible: checkedValue,
-                child: CupertinoPageScaffold(
-                  child: Center(
+                    padding: const EdgeInsets.all(15.0),
                     child: Column(
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            _showDialog(
-                              CupertinoDatePicker(
-                                initialDateTime: date,
-                                mode: CupertinoDatePickerMode.date,
-                                use24hFormat: true,
-                                // This is called when the user changes the date.
-                                onDateTimeChanged: (DateTime newDate) {
-                                  setState(() => date = newDate);
-                                },
+                      children: [
+                            GestureDetector(
+                              child: Card(
+                                elevation: 3.0,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    CupertinoButton(
+                                      child: Text(
+                                        "Davet Türü",
+                                        style: kStyle,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize),
+                                    ),
+                                    Text(
+                                      invitationList[selectedInvitationIndex].name,
+                                      style: TextStyle(fontSize: 18.0),
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                  ],
+                                ),
                               ),
-                            );
-                          },
-                          child: Card(
-                            elevation: 3.0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                CupertinoButton(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize),
-                                  child: Text(
-                                    'Tarih',
-                                    style: kStyle,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Text(
-                                  '${date.day}.${date.month}.${date.year}',
-                                  style: const TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                              ],
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height: 200.0,
+                                        child: CupertinoPicker(
+                                            itemExtent: 32.0,
+                                            onSelectedItemChanged: (int index) {
+                                              setState(() {
+                                                selectedInvitationIndex = index;
+                                              });
+                                            },
+                                            children: new List<Widget>.generate(
+                                                invitationList.length, (int index) {
+                                              return new Center(
+                                                child: new Text(invitationList[index].name),
+                                              );
+                                            })),
+                                      );
+                                    });
+                              },
                             ),
-                          ),
-                        ),
+                            Card(
+                              elevation: 3.0,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(5.0),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(
+                                      MediaQuery.of(context).size.width / 20, 0, 0, 0),
+                                  child: TextField(
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.black,
+                                    ),
+                                    decoration: InputDecoration(
+                                      contentPadding: EdgeInsets.all(10.0),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(5.0),
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                        ),
+                                      ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                        ),
+                                        borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                      hintText: "Davetli Sayısı gir..",
+                                      prefixIcon: Icon(
+                                        Icons.person,
+                                        color: Colors.redAccent,
+                                      ),
+                                      hintStyle: TextStyle(
+                                        fontSize: 15.0,
+                                        color: Colors.redAccent,
+                                      ),
+                                    ),
+                                    textAlignVertical: TextAlignVertical.center,
+                                    maxLines: 1,
+                                    keyboardType: TextInputType.number,
+                                    controller: _searchControl,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Card(
+                                elevation: 3.0,
+                                child: CheckboxListTile(
+                                  title: Text("Tarih filtrelensin mi?"),
+                                  value: checkedValue,
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      checkedValue = newValue;
+                                    });
+                                  },
+                                  controlAffinity: ListTileControlAffinity.leading,  //  <-- leading Checkbox
+                                )
+                            ),
+                            Visibility(
+                              visible: checkedValue,
+                              child: CupertinoPageScaffold(
+                                child: Center(
+                                  child: Column(
+                                    children: <Widget>[
+                                      GestureDetector(
+                                        onTap: () {
+                                          _showDialog(
+                                            CupertinoDatePicker(
+                                              initialDateTime: date,
+                                              mode: CupertinoDatePickerMode.date,
+                                              use24hFormat: true,
+                                              // This is called when the user changes the date.
+                                              onDateTimeChanged: (DateTime newDate) {
+                                                setState(() => date = newDate);
+                                              },
+                                            ),
+                                          );
+                                        },
+                                        child: Card(
+                                          elevation: 3.0,
+                                          child: Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: <Widget>[
+                                              CupertinoButton(
+                                                padding: EdgeInsetsDirectional.fromSTEB(
+                                                    MediaQuery.of(context).size.height /
+                                                        _cardDivisionSize,
+                                                    MediaQuery.of(context).size.height /
+                                                        _cardDivisionSize,
+                                                    MediaQuery.of(context).size.height /
+                                                        _cardDivisionSize,
+                                                    MediaQuery.of(context).size.height /
+                                                        _cardDivisionSize),
+                                                child: Text(
+                                                  'Tarih',
+                                                  style: kStyle,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ),
+                                              Text(
+                                                '${date.day}.${date.month}.${date.year}',
+                                                style: const TextStyle(
+                                                  fontSize: 18.0,
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 20.0,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            GestureDetector(
+                              child: Card(
+                                elevation: 3.0,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    CupertinoButton(
+                                      child: Text(
+                                        "Mekan Türü",
+                                        style: kStyle,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize),
+                                    ),
+                                    Text(
+                                      organizationTypeList[selectedOrganizationIndex].name,
+                                      style: TextStyle(fontSize: 18.0),
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height: 200.0,
+                                        child: CupertinoPicker(
+                                            itemExtent: 32.0,
+                                            onSelectedItemChanged: (int index) {
+                                              setState(() {
+                                                selectedOrganizationIndex = index;
+                                              });
+                                            },
+                                            children: new List<Widget>.generate(
+                                                organizationTypeList.length, (int index) {
+                                              return new Center(
+                                                child: new Text(
+                                                    organizationTypeList[index].name),
+                                              );
+                                            })),
+                                      );
+                                    });
+                              },
+                            ),
+                            GestureDetector(
+                              child: Card(
+                                elevation: 3.0,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    CupertinoButton(
+                                      child: Text(
+                                        "Oturma Düzeni",
+                                        style: kStyle,
+                                      ),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize),
+                                    ),
+                                    Text(
+                                      sequenceOrderList[selectedSeatingArrangement].name,
+                                      style: TextStyle(fontSize: 18.0),
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height: 200.0,
+                                        child: CupertinoPicker(
+                                            itemExtent: 32.0,
+                                            onSelectedItemChanged: (int index) {
+                                              setState(() {
+                                                selectedSeatingArrangement = index;
+                                              });
+                                            },
+                                            children: new List<Widget>.generate(
+                                                sequenceOrderList.length, (int index) {
+                                              return new Center(
+                                                child:
+                                                new Text(sequenceOrderList[index].name),
+                                              );
+                                            })),
+                                      );
+                                    });
+                              },
+                            ),
+                            GestureDetector(
+                              child: Card(
+                                elevation: 3.0,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    CupertinoButton(
+                                      child: Text(
+                                        "İl",
+                                        style: kStyle,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize),
+                                    ),
+                                    Text(
+                                      regionList[selectedRegion].name,
+                                      style: TextStyle(fontSize: 18.0),
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height: 200.0,
+                                        child: CupertinoPicker(
+                                            itemExtent: 32.0,
+                                            onSelectedItemChanged: (int index) async {
+                                              SearchViewModel rm = SearchViewModel();
+                                              districtList = await rm.fillDistrictlist(regionList[index].id);
+                                              setState(() {
+                                                selectedRegion = index;
+                                                districtList = districtList;
+                                                selectedDistrict = 0;
+                                              });
+                                            },
+                                            children: new List<Widget>.generate(
+                                                regionList.length, (int index) {
+                                              return new Center(
+                                                child: new Text(regionList[index].name),
+                                              );
+                                            })),
+                                      );
+                                    });
+                              },
+                            ),
+                            GestureDetector(
+                              child: Card(
+                                elevation: 3.0,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    CupertinoButton(
+                                      child: Text(
+                                        "İlçe",
+                                        style: kStyle,
+                                      ),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize,
+                                          MediaQuery.of(context).size.height /
+                                              _cardDivisionSize),
+                                    ),
+                                    Text(
+                                      districtList[selectedDistrict].name,
+                                      style: TextStyle(fontSize: 18.0),
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              onTap: () {
+                                showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height: 200.0,
+                                        child: CupertinoPicker(
+                                            itemExtent: 32.0,
+                                            onSelectedItemChanged: (int index) {
+                                              setState(() {
+                                                selectedDistrict = index;
+                                              });
+                                            },
+                                            children: new List<Widget>.generate(
+                                                districtList.length, (int index) {
+                                              return new Center(
+                                                child: new Text(districtList[index].name),
+                                              );
+                                            })),
+                                      );
+                                    });
+                              },
+                            ),
                       ],
                     ),
                   ),
                 ),
-              ),
-              GestureDetector(
-                child: Card(
-                  elevation: 3.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      CupertinoButton(
-                        child: Text(
-                          "Mekan Türü",
-                          style: kStyle,
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize),
-                      ),
-                      Text(
-                        organizationTypeList[selectedOrganizationIndex].name,
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                    ],
-                  ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 15,
                 ),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedOrganizationIndex = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  organizationTypeList.length, (int index) {
-                                return new Center(
-                                  child: new Text(
-                                      organizationTypeList[index].name),
-                                );
-                              })),
-                        );
-                      });
-                },
-              ),
-              GestureDetector(
-                child: Card(
-                  elevation: 3.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      CupertinoButton(
-                        child: Text(
-                          "Oturma Düzeni",
-                          style: kStyle,
-                        ),
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize),
-                      ),
-                      Text(
-                        sequenceOrderList[selectedSeatingArrangement].name,
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedSeatingArrangement = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  sequenceOrderList.length, (int index) {
-                                return new Center(
-                                  child:
-                                  new Text(sequenceOrderList[index].name),
-                                );
-                              })),
-                        );
-                      });
-                },
-              ),
-              GestureDetector(
-                child: Card(
-                  elevation: 3.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      CupertinoButton(
-                        child: Text(
-                          "İl",
-                          style: kStyle,
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize),
-                      ),
-                      Text(
-                        regionList[selectedRegion].name,
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) async {
-                                SearchViewModel rm = SearchViewModel();
-                                districtList = await rm.fillDistrictlist(regionList[index].id);
-                                setState(() {
-                                  selectedRegion = index;
-                                  districtList = districtList;
-                                  selectedDistrict = 0;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  regionList.length, (int index) {
-                                return new Center(
-                                  child: new Text(regionList[index].name),
-                                );
-                              })),
-                        );
-                      });
-                },
-              ),
-              GestureDetector(
-                child: Card(
-                  elevation: 3.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      CupertinoButton(
-                        child: Text(
-                          "İlçe",
-                          style: kStyle,
-                        ),
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize),
-                      ),
-                      Text(
-                        districtList[selectedDistrict].name,
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedDistrict = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  districtList.length, (int index) {
-                                return new Center(
-                                  child: new Text(districtList[index].name),
-                                );
-                              })),
-                        );
-                      });
-                },
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 15,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
