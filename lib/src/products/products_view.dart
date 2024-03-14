@@ -2,11 +2,8 @@ import 'package:davetcim/shared/dto/product_filterer_dto.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/src/products/products_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:davetcim/screens/notifications.dart';
-import 'package:davetcim/widgets/badge.dart';
 import 'package:davetcim/widgets/grid_product.dart';
 
-import '../../screens/notifications.dart';
 import '../../shared/sessions/application_cache.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 
