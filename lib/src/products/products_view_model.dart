@@ -90,17 +90,14 @@ class ProductsViewModel extends ChangeNotifier {
         if (filter.sequenceOrderUniqueIdentifier != "0" &&
             !corporationModel.sequenceOrderUniqueIdentifier.contains(filter.sequenceOrderUniqueIdentifier)) {
           isEliminated = true;
-          break;
         }
         if (filter.invitationUniqueIdentifier != "0" &&
             !corporationModel.invitationUniqueIdentifier.contains(filter.invitationUniqueIdentifier)) {
           isEliminated = true;
-          break;
         }
         if (filter.organizationUniqueIdentifier != "0" &&
             !corporationModel.organizationUniqueIdentifier.contains(filter.organizationUniqueIdentifier)) {
           isEliminated = true;
-          break;
         }
 
         for (int j = 0; j < resList.length; j++) {
