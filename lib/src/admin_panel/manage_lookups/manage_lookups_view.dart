@@ -121,7 +121,7 @@ class _ManageLookupsViewState extends State<ManageLookupsView> {
                 return GridLookupItem(lookupModel: item, dbTable: selectedLookup.id);
               },
             ),
-            SizedBox(height: 100,)
+            SizedBox(height: MediaQuery.of(context).size.height / 11,),
           ],
         ),
       ),
