@@ -129,7 +129,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                               //       !loading ? HomeCarousel(homeManager) : Center(child:ProgressIndicator())
                               child: Swiper(
                                 duration: 1500, // Swipe işlemi için animasyon süresi (opsiyonel)
-                                autoplayDelay: 5000, // Otomatik dönme arasındaki bekleme süresi (3 saniye)
+                                autoplayDelay: 5000, // Otomatik dönme arasındaki bekleme süresi (5 saniye)
                                 itemBuilder: (BuildContext context, int index) {
                                   CorporationModel model = popularCorporationModelList[index];
                                   return SliderItem(
