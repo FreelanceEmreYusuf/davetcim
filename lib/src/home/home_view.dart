@@ -76,7 +76,6 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                 body: ListView(
                   children: <Widget>[
                     SoftFilterWidget(),
-                    SizedBox(height: MediaQuery.of(context).size.height / 40,),
                     if(ApplicationCache.userCache != null)
                       Padding(
                         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
@@ -129,7 +128,9 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                               borderRadius: BorderRadius.circular(8.0),
                               //       !loading ? HomeCarousel(homeManager) : Center(child:ProgressIndicator())
                               child: Swiper(
-                                itemBuilder: (BuildContext context,int index){
+                                duration: 1500, // Swipe işlemi için animasyon süresi (opsiyonel)
+                                autoplayDelay: 5000, // Otomatik dönme arasındaki bekleme süresi (3 saniye)
+                                itemBuilder: (BuildContext context, int index) {
                                   CorporationModel model = popularCorporationModelList[index];
                                   return SliderItem(
                                     corporationId: model.corporationId,
@@ -142,13 +143,13 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                                     maxPopulation: model.maxPopulation,
                                     callerPage: null,
                                   );
-                                  //Image.network(corporationList[index].imageUrl,fit: BoxFit.fill,);
                                 },
                                 itemCount: popularCorporationModelList.length,
                                 pagination: SwiperPagination(),
                                 control: SwiperControl(),
                                 autoplay: true,
                               ),
+
                             ),
                           ),
                         ],

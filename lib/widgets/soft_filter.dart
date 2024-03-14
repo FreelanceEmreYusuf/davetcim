@@ -10,12 +10,12 @@ class SoftFilterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 10.0),
+      padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 3.0),
       child: ClipPath(
         clipper: BottomClipper(),
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 2,
+          height: MediaQuery.of(context).size.height / 2.6,
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage('assets/soft_filter_background.jpg'),
