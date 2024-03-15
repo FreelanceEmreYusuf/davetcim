@@ -271,6 +271,8 @@ class _ProductDetailsState extends State<ProductDetails> {
               pagination: SwiperPagination(),
               control: SwiperControl(),
               autoplay: true,
+              duration: 1500, // Swipe işlemi için animasyon süresi (opsiyonel)
+              autoplayDelay: 5000, // Otomatik dönme arasındaki bekleme süresi (5 saniye)
             ),
           ),
         ),

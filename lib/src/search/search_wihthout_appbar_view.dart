@@ -82,6 +82,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
         label: const Text('Filtrele'),
         icon: const Icon(Icons.filter_list),
         backgroundColor: Colors.redAccent,
+        heroTag: 'uniqueTagForFilterButton',
       ),
       body: Container(
         decoration: BoxDecoration(
