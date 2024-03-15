@@ -55,6 +55,27 @@ class SearchViewModel extends ChangeNotifier {
       date,
       startHour,
       endHour,
+      false
+    );
+
+    Utils.navigateToPage(context, ProductsScreen(filter, null));
+  }
+
+  void goToFilterPageFromSoftFilter(BuildContext context, String region, String district,
+      String organizationUniqueIdentifier
+     ) {
+    ProductFiltererDto filter = ProductFiltererDto(
+      region,
+      district,
+      null,
+      organizationUniqueIdentifier,
+      null,
+      "0",
+      false,
+      null,
+      null,
+      null,
+      true
     );
 
     Utils.navigateToPage(context, ProductsScreen(filter, null));

@@ -61,6 +61,10 @@ class ProductsViewModel extends ChangeNotifier {
 
 
   Future<List<CorporationModel>> getCorporationList(ProductFiltererDto filter) async {
+    if (filter.isSoftFilter) {
+      return getSoftFilteredCorporationList(filter);
+    }
+
     Query list = db.getCollectionRef("Corporation");
     list = list.where('isActive', isEqualTo: true);
     if (int.parse(filter.region) > 0) {
@@ -114,5 +118,37 @@ class ProductsViewModel extends ChangeNotifier {
 
     return corpModelList;
 
+  }
+
+  Future<List<CorporationModel>> getSoftFilteredCorporationList(ProductFiltererDto filter) async {
+    Query list = db.getCollectionRef("Corporation");
+    list = list.where('isActive', isEqualTo: true);
+    if (int.parse(filter.region) > 0) {
+      list = list.where('region', isEqualTo: filter.region);
+    }
+    if (!filter.district.contains('00')) {
+      list = list.where('district', isEqualTo: filter.district);
+    }
+
+    var response = await list.get();
+    List<CorporationModel> corpModelList = [];
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        bool isEliminated = false;
+        Map item = list[i].data();
+
+        CorporationModel corporationModel = CorporationModel.fromMap(item);
+        if (filter.organizationUniqueIdentifier != "0" &&
+            !corporationModel.organizationUniqueIdentifier.contains(filter.organizationUniqueIdentifier)) {
+          isEliminated = true;
+        }
+        if (!isEliminated) {
+          corpModelList.add(corporationModel);
+        }
+      }
+    }
+
+    return corpModelList;
   }
 }

@@ -1,11 +1,51 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SoftFilterWidget extends StatelessWidget {
+import '../shared/models/organization_type_model.dart';
+import '../shared/models/region_model.dart';
+import '../shared/sessions/application_cache.dart';
+import '../src/search/search_view_model.dart';
+
+class SoftFilterWidget extends StatefulWidget {
 
   static TextStyle kStyle =
   TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
+
+  @override
+  State<SoftFilterWidget> createState() => _SoftFilterWidgetState();
+}
+
+class _SoftFilterWidgetState extends State<SoftFilterWidget> {
+  List<RegionModel> regionList =
+      ApplicationCache.filterCache.regionModelList;
+
+  List<OrganizationTypeModel> organizationTypeList =
+      ApplicationCache.filterCache.organizationTypeList;
+
+  static TextStyle kStyle =
+  TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
+
   int _cardDivisionSize = 40;
+
+  int selectedRegion = 0;
+
+  int selectedDistrict = 0;
+
+  int selectedOrganizationIndex = 0;
+
+  @override
+  void initState() {
+    firstInitialDistrict();
+  }
+
+  void firstInitialDistrict() async {
+    if (regionList != null && regionList.length > 0) {
+      SearchViewModel rm = SearchViewModel();
+      districtList = await rm.fillDistrictlist(regionList[0].id);
+    } else {
+      firstInitialDistrict();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,9 +110,11 @@ class SoftFilterWidget extends StatelessWidget {
                                       MediaQuery.of(context).size.height /
                                           _cardDivisionSize),
                                 ),
-                                Text(
-                                  "Tümü",
-                                  style: TextStyle(fontSize: 18.0),
+                                Expanded(
+                                  child: Text(
+                                    organizationTypeList[selectedOrganizationIndex].name,
+                                    style: TextStyle(fontSize: 18.0),
+                                  ),
                                 ),
                                 SizedBox(
                                   height: 20.0,
@@ -81,7 +123,32 @@ class SoftFilterWidget extends StatelessWidget {
                             ),
                           ),
                           onTap: () {
-
+                            showModalBottomSheet(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.pop(context, organizationTypeList[selectedOrganizationIndex]); // Seçilen öğeyi geri döndürür
+                                    },
+                                    child: Container(
+                                      height: 200.0,
+                                      child: CupertinoPicker(
+                                          itemExtent: 32.0,
+                                          onSelectedItemChanged: (int index) {
+                                            setState(() {
+                                              selectedOrganizationIndex = index;
+                                            });
+                                          },
+                                          children: new List<Widget>.generate(
+                                              organizationTypeList.length, (int index) {
+                                            return new Center(
+                                              child: new Text(
+                                                  organizationTypeList[index].name),
+                                            );
+                                          })),
+                                    ),
+                                  );
+                                });
                           },
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height / 200,),
@@ -91,7 +158,7 @@ class SoftFilterWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Expanded(
-                              child: GestureDetector(
+                              child:  GestureDetector(
                                 child: Card(
                                   elevation: 3.0,
                                   child: Row(
@@ -113,9 +180,11 @@ class SoftFilterWidget extends StatelessWidget {
                                             MediaQuery.of(context).size.height /
                                                 _cardDivisionSize),
                                       ),
-                                      Text(
-                                        "Tümü",
-                                        style: TextStyle(fontSize: 18.0),
+                                      Expanded(
+                                        child: Text(
+                                          regionList[selectedRegion].name,
+                                          style: TextStyle(fontSize: 18.0),
+                                        ),
                                       ),
                                       SizedBox(
                                         height: 20.0,
@@ -123,14 +192,42 @@ class SoftFilterWidget extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                               onTap: () {
-
+                                onTap: () {
+                                  showModalBottomSheet(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.pop(context, regionList[selectedRegion]); // Seçilen öğeyi geri döndürür
+                                          },
+                                          child: Container(
+                                            height: 200.0,
+                                            child: CupertinoPicker(
+                                                itemExtent: 32.0,
+                                                onSelectedItemChanged: (int index) async {
+                                                  SearchViewModel rm = SearchViewModel();
+                                                  districtList = await rm.fillDistrictlist(regionList[index].id);
+                                                  setState(() {
+                                                    selectedRegion = index;
+                                                    districtList = districtList;
+                                                    selectedDistrict = 0;
+                                                  });
+                                                },
+                                                children: new List<Widget>.generate(
+                                                    regionList.length, (int index) {
+                                                  return new Center(
+                                                    child: new Text(regionList[index].name),
+                                                  );
+                                                })),
+                                          ),
+                                        );
+                                      });
                                 },
                               ),
                             ),
                             SizedBox(height: MediaQuery.of(context).size.height / 200,),
                             Expanded(
-                              child: GestureDetector(
+                              child:  GestureDetector(
                                 child: Card(
                                   elevation: 3.0,
                                   child: Row(
@@ -151,9 +248,11 @@ class SoftFilterWidget extends StatelessWidget {
                                             MediaQuery.of(context).size.height /
                                                 _cardDivisionSize),
                                       ),
-                                      Text(
-                                        "Tümü",
-                                        style: TextStyle(fontSize: 18.0),
+                                      Expanded(
+                                        child: Text(
+                                          districtList[selectedDistrict].name,
+                                          style: TextStyle(fontSize: 18.0),
+                                        ),
                                       ),
                                       SizedBox(
                                         height: 20.0,
@@ -161,11 +260,38 @@ class SoftFilterWidget extends StatelessWidget {
                                     ],
                                   ),
                                 ),
-                                 onTap: () {
-
-                                  },
+                                onTap: () {
+                                  showModalBottomSheet(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context, districtList[selectedDistrict]); // Seçilen öğeyi geri döndürür
+                                        },
+                                        child: Container(
+                                          height: 200.0,
+                                          child: CupertinoPicker(
+                                            itemExtent: 32.0,
+                                            onSelectedItemChanged: (int index) {
+                                              setState(() {
+                                                selectedDistrict = index;
+                                              });
+                                            },
+                                            children: List<Widget>.generate(
+                                                districtList.length, (int index) {
+                                              return Center(
+                                                child: Text(districtList[index].name),
+                                              );
+                                            }
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
                               ),
-                            ), 
+                            ),
                           ],
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height / 25,),
@@ -173,7 +299,14 @@ class SoftFilterWidget extends StatelessWidget {
                           children: [
                             Expanded(
                               child: ElevatedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  SearchViewModel rm = SearchViewModel();
+                                  rm.goToFilterPageFromSoftFilter(context,
+                                      regionList[selectedRegion].id.toString(),
+                                      districtList[selectedDistrict].id.toString(),
+                                      organizationTypeList[selectedOrganizationIndex].id.toString(),
+                                     );
+                                },
                                 style: ElevatedButton.styleFrom(
                                   primary: Colors.blue, // Butonun arka plan rengi
                                   onPrimary: Colors.white, // Buton metin rengi

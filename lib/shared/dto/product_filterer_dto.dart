@@ -9,6 +9,7 @@ class ProductFiltererDto {
   final DateTime date;
   final DateTime startHour;
   final DateTime endHour;
+  final bool isSoftFilter;
 
   const ProductFiltererDto(
       this.region,
@@ -21,5 +22,6 @@ class ProductFiltererDto {
       this.date,
       this.startHour,
       this.endHour,
+      this.isSoftFilter
       );
 }
