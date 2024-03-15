@@ -135,9 +135,11 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                           MediaQuery.of(context).size.height /
                                               _cardDivisionSize),
                                     ),
-                                    Text(
-                                      invitationList[selectedInvitationIndex].name,
-                                      style: TextStyle(fontSize: 18.0),
+                                    Expanded(
+                                      child: Text(
+                                        invitationList[selectedInvitationIndex].name,
+                                        style: TextStyle(fontSize: 18.0),
+                                      ),
                                     ),
                                     SizedBox(
                                       height: 20.0,
@@ -149,21 +151,26 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                 showModalBottomSheet(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return Container(
-                                        height: 200.0,
-                                        child: CupertinoPicker(
-                                            itemExtent: 32.0,
-                                            onSelectedItemChanged: (int index) {
-                                              setState(() {
-                                                selectedInvitationIndex = index;
-                                              });
-                                            },
-                                            children: new List<Widget>.generate(
-                                                invitationList.length, (int index) {
-                                              return new Center(
-                                                child: new Text(invitationList[index].name),
-                                              );
-                                            })),
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context, invitationList[selectedInvitationIndex]); // Seçilen öğeyi geri döndürür
+                                        },
+                                        child: Container(
+                                          height: 200.0,
+                                          child: CupertinoPicker(
+                                              itemExtent: 32.0,
+                                              onSelectedItemChanged: (int index) {
+                                                setState(() {
+                                                  selectedInvitationIndex = index;
+                                                });
+                                              },
+                                              children: new List<Widget>.generate(
+                                                  invitationList.length, (int index) {
+                                                return new Center(
+                                                  child: new Text(invitationList[index].name),
+                                                );
+                                              })),
+                                        ),
                                       );
                                     });
                               },
@@ -272,11 +279,13 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                                   textAlign: TextAlign.center,
                                                 ),
                                               ),
-                                              Text(
-                                                '${date.day}.${date.month}.${date.year}',
-                                                style: const TextStyle(
-                                                  fontSize: 18.0,
-                                                  color: Colors.black,
+                                              Expanded(
+                                                child: Text(
+                                                  '${date.day}.${date.month}.${date.year}',
+                                                  style: const TextStyle(
+                                                    fontSize: 18.0,
+                                                    color: Colors.black,
+                                                  ),
                                                 ),
                                               ),
                                               SizedBox(
@@ -313,9 +322,11 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                           MediaQuery.of(context).size.height /
                                               _cardDivisionSize),
                                     ),
-                                    Text(
-                                      organizationTypeList[selectedOrganizationIndex].name,
-                                      style: TextStyle(fontSize: 18.0),
+                                    Expanded(
+                                      child: Text(
+                                        organizationTypeList[selectedOrganizationIndex].name,
+                                        style: TextStyle(fontSize: 18.0),
+                                      ),
                                     ),
                                     SizedBox(
                                       height: 20.0,
@@ -327,22 +338,27 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                 showModalBottomSheet(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return Container(
-                                        height: 200.0,
-                                        child: CupertinoPicker(
-                                            itemExtent: 32.0,
-                                            onSelectedItemChanged: (int index) {
-                                              setState(() {
-                                                selectedOrganizationIndex = index;
-                                              });
-                                            },
-                                            children: new List<Widget>.generate(
-                                                organizationTypeList.length, (int index) {
-                                              return new Center(
-                                                child: new Text(
-                                                    organizationTypeList[index].name),
-                                              );
-                                            })),
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context, organizationTypeList[selectedOrganizationIndex]); // Seçilen öğeyi geri döndürür
+                                        },
+                                        child: Container(
+                                          height: 200.0,
+                                          child: CupertinoPicker(
+                                              itemExtent: 32.0,
+                                              onSelectedItemChanged: (int index) {
+                                                setState(() {
+                                                  selectedOrganizationIndex = index;
+                                                });
+                                              },
+                                              children: new List<Widget>.generate(
+                                                  organizationTypeList.length, (int index) {
+                                                return new Center(
+                                                  child: new Text(
+                                                      organizationTypeList[index].name),
+                                                );
+                                              })),
+                                        ),
                                       );
                                     });
                               },
@@ -368,9 +384,11 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                           MediaQuery.of(context).size.height /
                                               _cardDivisionSize),
                                     ),
-                                    Text(
-                                      sequenceOrderList[selectedSeatingArrangement].name,
-                                      style: TextStyle(fontSize: 18.0),
+                                    Expanded(
+                                      child: Text(
+                                        sequenceOrderList[selectedSeatingArrangement].name,
+                                        style: TextStyle(fontSize: 18.0),
+                                      ),
                                     ),
                                     SizedBox(
                                       height: 20.0,
@@ -382,22 +400,27 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                 showModalBottomSheet(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return Container(
-                                        height: 200.0,
-                                        child: CupertinoPicker(
-                                            itemExtent: 32.0,
-                                            onSelectedItemChanged: (int index) {
-                                              setState(() {
-                                                selectedSeatingArrangement = index;
-                                              });
-                                            },
-                                            children: new List<Widget>.generate(
-                                                sequenceOrderList.length, (int index) {
-                                              return new Center(
-                                                child:
-                                                new Text(sequenceOrderList[index].name),
-                                              );
-                                            })),
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context, sequenceOrderList[selectedSeatingArrangement]); // Seçilen öğeyi geri döndürür
+                                        },
+                                        child: Container(
+                                          height: 200.0,
+                                          child: CupertinoPicker(
+                                              itemExtent: 32.0,
+                                              onSelectedItemChanged: (int index) {
+                                                setState(() {
+                                                  selectedSeatingArrangement = index;
+                                                });
+                                              },
+                                              children: new List<Widget>.generate(
+                                                  sequenceOrderList.length, (int index) {
+                                                return new Center(
+                                                  child:
+                                                  new Text(sequenceOrderList[index].name),
+                                                );
+                                              })),
+                                        ),
                                       );
                                     });
                               },
@@ -424,9 +447,11 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                           MediaQuery.of(context).size.height /
                                               _cardDivisionSize),
                                     ),
-                                    Text(
-                                      regionList[selectedRegion].name,
-                                      style: TextStyle(fontSize: 18.0),
+                                    Expanded(
+                                      child: Text(
+                                        regionList[selectedRegion].name,
+                                        style: TextStyle(fontSize: 18.0),
+                                      ),
                                     ),
                                     SizedBox(
                                       height: 20.0,
@@ -438,25 +463,30 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                 showModalBottomSheet(
                                     context: context,
                                     builder: (BuildContext context) {
-                                      return Container(
-                                        height: 200.0,
-                                        child: CupertinoPicker(
-                                            itemExtent: 32.0,
-                                            onSelectedItemChanged: (int index) async {
-                                              SearchViewModel rm = SearchViewModel();
-                                              districtList = await rm.fillDistrictlist(regionList[index].id);
-                                              setState(() {
-                                                selectedRegion = index;
-                                                districtList = districtList;
-                                                selectedDistrict = 0;
-                                              });
-                                            },
-                                            children: new List<Widget>.generate(
-                                                regionList.length, (int index) {
-                                              return new Center(
-                                                child: new Text(regionList[index].name),
-                                              );
-                                            })),
+                                      return GestureDetector(
+                                        onTap: () {
+                                          Navigator.pop(context, regionList[selectedRegion]); // Seçilen öğeyi geri döndürür
+                                        },
+                                        child: Container(
+                                          height: 200.0,
+                                          child: CupertinoPicker(
+                                              itemExtent: 32.0,
+                                              onSelectedItemChanged: (int index) async {
+                                                SearchViewModel rm = SearchViewModel();
+                                                districtList = await rm.fillDistrictlist(regionList[index].id);
+                                                setState(() {
+                                                  selectedRegion = index;
+                                                  districtList = districtList;
+                                                  selectedDistrict = 0;
+                                                });
+                                              },
+                                              children: new List<Widget>.generate(
+                                                  regionList.length, (int index) {
+                                                return new Center(
+                                                  child: new Text(regionList[index].name),
+                                                );
+                                              })),
+                                        ),
                                       );
                                     });
                               },
@@ -482,9 +512,11 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                           MediaQuery.of(context).size.height /
                                               _cardDivisionSize),
                                     ),
-                                    Text(
-                                      districtList[selectedDistrict].name,
-                                      style: TextStyle(fontSize: 18.0),
+                                    Expanded(
+                                      child: Text(
+                                        districtList[selectedDistrict].name,
+                                        style: TextStyle(fontSize: 18.0),
+                                      ),
                                     ),
                                     SizedBox(
                                       height: 20.0,
@@ -494,25 +526,33 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                               ),
                               onTap: () {
                                 showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return Container(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.pop(context, districtList[selectedDistrict]); // Seçilen öğeyi geri döndürür
+                                      },
+                                      child: Container(
                                         height: 200.0,
                                         child: CupertinoPicker(
-                                            itemExtent: 32.0,
-                                            onSelectedItemChanged: (int index) {
-                                              setState(() {
-                                                selectedDistrict = index;
-                                              });
-                                            },
-                                            children: new List<Widget>.generate(
-                                                districtList.length, (int index) {
-                                              return new Center(
-                                                child: new Text(districtList[index].name),
-                                              );
-                                            })),
-                                      );
-                                    });
+                                          itemExtent: 32.0,
+                                          onSelectedItemChanged: (int index) {
+                                            setState(() {
+                                              selectedDistrict = index;
+                                            });
+                                          },
+                                          children: List<Widget>.generate(
+                                              districtList.length, (int index) {
+                                            return Center(
+                                              child: Text(districtList[index].name),
+                                            );
+                                          }
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
                               },
                             ),
                       ],
