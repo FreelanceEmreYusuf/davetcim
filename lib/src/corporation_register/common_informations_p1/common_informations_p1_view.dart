@@ -455,25 +455,30 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                   showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) async {
-                                SearchViewModel rm = SearchViewModel();
-                                districtList = await rm.fillDistrictlist(regionList[index].id);
-                                setState(() {
-                                  selectedRegion = index;
-                                  districtList = districtList;
-                                  selectedDistrict = 0;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  regionList.length, (int index) {
-                                return new Center(
-                                  child: new Text(regionList[index].name),
-                                );
-                              })),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context, regionList[selectedRegion]); // Seçilen öğeyi geri döndürür
+                          },
+                          child: Container(
+                            height: 200.0,
+                            child: CupertinoPicker(
+                                itemExtent: 32.0,
+                                onSelectedItemChanged: (int index) async {
+                                  SearchViewModel rm = SearchViewModel();
+                                  districtList = await rm.fillDistrictlist(regionList[index].id);
+                                  setState(() {
+                                    selectedRegion = index;
+                                    districtList = districtList;
+                                    selectedDistrict = 0;
+                                  });
+                                },
+                                children: new List<Widget>.generate(
+                                    regionList.length, (int index) {
+                                  return new Center(
+                                    child: new Text(regionList[index].name),
+                                  );
+                                })),
+                          ),
                         );
                       });
                 },
@@ -514,21 +519,26 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                   showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedDistrict = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  districtList.length, (int index) {
-                                return new Center(
-                                  child: new Text(districtList[index].name),
-                                );
-                              })),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context, districtList[selectedDistrict]); // Seçilen öğeyi geri döndürür
+                          },
+                          child: Container(
+                            height: 200.0,
+                            child: CupertinoPicker(
+                                itemExtent: 32.0,
+                                onSelectedItemChanged: (int index) {
+                                  setState(() {
+                                    selectedDistrict = index;
+                                  });
+                                },
+                                children: new List<Widget>.generate(
+                                    districtList.length, (int index) {
+                                  return new Center(
+                                    child: new Text(districtList[index].name),
+                                  );
+                                })),
+                          ),
                         );
                       });
                 },

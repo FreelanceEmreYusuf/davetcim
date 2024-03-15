@@ -168,21 +168,26 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                   showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedInvitationIndex = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  widget.detailResponse.invitationList.length, (int index) {
-                                return new Center(
-                                  child: new Text(widget.detailResponse.invitationList[index].text),
-                                );
-                              })),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context, widget.detailResponse.invitationList[selectedInvitationIndex]); // Seçilen öğeyi geri döndürür
+                          },
+                          child: Container(
+                            height: 200.0,
+                            child: CupertinoPicker(
+                                itemExtent: 32.0,
+                                onSelectedItemChanged: (int index) {
+                                  setState(() {
+                                    selectedInvitationIndex = index;
+                                  });
+                                },
+                                children: new List<Widget>.generate(
+                                    widget.detailResponse.invitationList.length, (int index) {
+                                  return new Center(
+                                    child: new Text(widget.detailResponse.invitationList[index].text),
+                                  );
+                                })),
+                          ),
                         );
                       });
                 },
@@ -222,22 +227,27 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                   showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedSeatingArrangement = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  widget.detailResponse.sequenceOrderList.length, (int index) {
-                                return new Center(
-                                  child:
-                                      new Text(widget.detailResponse.sequenceOrderList[index].text),
-                                );
-                              })),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context, widget.detailResponse.sequenceOrderList[selectedSeatingArrangement]); // Seçilen öğeyi geri döndürür
+                          },
+                          child: Container(
+                            height: 200.0,
+                            child: CupertinoPicker(
+                                itemExtent: 32.0,
+                                onSelectedItemChanged: (int index) {
+                                  setState(() {
+                                    selectedSeatingArrangement = index;
+                                  });
+                                },
+                                children: new List<Widget>.generate(
+                                    widget.detailResponse.sequenceOrderList.length, (int index) {
+                                  return new Center(
+                                    child:
+                                        new Text(widget.detailResponse.sequenceOrderList[index].text),
+                                  );
+                                })),
+                          ),
                         );
                       });
                 },

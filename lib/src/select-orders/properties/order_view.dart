@@ -142,21 +142,26 @@ class _OrderScreenState extends State<OrderScreen>
                   showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedInvitationIndex = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  widget.basketModel.invitationList.length, (int index) {
-                                return new Center(
-                                  child: new Text(widget.basketModel.invitationList[index].text),
-                                );
-                              })),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context, widget.basketModel.invitationList[selectedInvitationIndex]); // Seçilen öğeyi geri döndürür
+                          },
+                          child: Container(
+                            height: 200.0,
+                            child: CupertinoPicker(
+                                itemExtent: 32.0,
+                                onSelectedItemChanged: (int index) {
+                                  setState(() {
+                                    selectedInvitationIndex = index;
+                                  });
+                                },
+                                children: new List<Widget>.generate(
+                                    widget.basketModel.invitationList.length, (int index) {
+                                  return new Center(
+                                    child: new Text(widget.basketModel.invitationList[index].text),
+                                  );
+                                })),
+                          ),
                         );
                       });
                 },
@@ -196,22 +201,27 @@ class _OrderScreenState extends State<OrderScreen>
                   showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedSeatingArrangement = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  widget.basketModel.sequenceOrderList.length, (int index) {
-                                return new Center(
-                                  child:
-                                      new Text(widget.basketModel.sequenceOrderList[index].text),
-                                );
-                              })),
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context,  widget.basketModel.sequenceOrderList[selectedSeatingArrangement]); // Seçilen öğeyi geri döndürür
+                          },
+                          child: Container(
+                            height: 200.0,
+                            child: CupertinoPicker(
+                                itemExtent: 32.0,
+                                onSelectedItemChanged: (int index) {
+                                  setState(() {
+                                    selectedSeatingArrangement = index;
+                                  });
+                                },
+                                children: new List<Widget>.generate(
+                                    widget.basketModel.sequenceOrderList.length, (int index) {
+                                  return new Center(
+                                    child:
+                                        new Text(widget.basketModel.sequenceOrderList[index].text),
+                                  );
+                                })),
+                          ),
                         );
                       });
                 },
