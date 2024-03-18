@@ -4,7 +4,6 @@ import 'package:davetcim/src/products/product_detail_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../providers/app_provider.dart';
@@ -33,6 +32,7 @@ import '../join/join_view.dart';
 import '../reservation/reservation_view_model.dart';
 import '../select-orders/calender/calendar_view.dart';
 import '../select-orders/properties/order_view_model.dart';
+import 'package:photo_view/photo_view.dart';
 
 class ProductDetails extends StatefulWidget {
   @override
@@ -794,35 +794,54 @@ class _ProductDetailsState extends State<ProductDetails> {
   }
 }
 
-class ImageDetailScreen extends StatefulWidget {
 
+
+class ImageDetailScreen extends StatefulWidget {
   final CorporationModel corporationModel;
   final String image;
+
+  ImageDetailScreen({Key key, @required this.corporationModel, @required this.image}) : super(key: key);
+
   @override
   State<ImageDetailScreen> createState() => _ImageDetailScreenState();
-  ImageDetailScreen(
-      {Key key,
-        @required this.corporationModel, @required this.image})
-      : super(key: key);
 }
 
 class _ImageDetailScreenState extends State<ImageDetailScreen> {
+  double _scale = 0.0;
+  double _previousScale = 1.0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
         child: Center(
-          child: Hero(
-            tag: widget.corporationModel.corporationName,
-            child: Image.network(
-                widget.image,
+          child: PhotoView(
+            imageProvider: NetworkImage(widget.image),
+            minScale: 0.5,
+            maxScale: 3.0,
+            initialScale: _scale,
+            backgroundDecoration: BoxDecoration(
+              color: Colors.transparent,
             ),
           ),
         ),
+        onScaleStart: (ScaleStartDetails details) {
+          setState(() {
+            _previousScale = _scale;
+          });
+        },
+        onScaleUpdate: (ScaleUpdateDetails details) {
+          setState(() {
+            _scale = _previousScale * details.scale;
+          });
+        },
+        onScaleEnd: (ScaleEndDetails details) {
+          setState(() {
+            _previousScale = _scale.clamp(0.5, 3.0);
+          });
+        },
         onTap: () {
-          Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.leftToRightPop));
-          //Navigator.pop(context);
+          Navigator.of(context, rootNavigator: true).pop();
         },
       ),
     );
