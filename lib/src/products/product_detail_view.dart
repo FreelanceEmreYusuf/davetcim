@@ -499,15 +499,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                       elevation: 10,
                       shadowColor: Colors.redAccent,
                       child: Container(
-                        margin: const EdgeInsets.all(0.0),
-                        child: SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
                             LaunchButton(
-                            title: 'Telefon',
+                              title: 'Telefon',
                               value: widget.corporationModel.telephoneNo,
                               icon: Icons.phone,
                               color: Colors.green,
@@ -520,29 +517,29 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 }
                               },
                             ),
-                              SizedBox(height: 5, width: 5,),
-                              LaunchButton(
-                                title: 'Email',
-                                value: widget.corporationModel.email,
-                                icon: Icons.mail,
-                                color: Colors.blueAccent,
-                                context: context,
-                                onPressed: () async {
-                                  Uri uri = Uri.parse(
-                                    'mailto:' + widget.corporationModel.email + '?subject=Davetcim Rezervasyonu HK.&body=Merhaba,',
-                                  );
-                                  if (!await launcher.launchUrl(uri)) {
-                                    debugPrint(
-                                        "Could not launch the uri"); // because the simulator doesn't has the email app
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
+                            SizedBox(width: 16.0), // İkinci düğme ile arasında boşluk bırakın
+                            LaunchButton(
+                              title: 'Email',
+                              value: widget.corporationModel.email,
+                              icon: Icons.mail,
+                              color: Colors.blueAccent,
+                              context: context,
+                              onPressed: () async {
+                                Uri uri = Uri.parse(
+                                  'mailto:' + widget.corporationModel.email + '?subject=Davetcim Rezervasyonu HK.&body=Merhaba,',
+                                );
+                                if (!await launcher.launchUrl(uri)) {
+                                  debugPrint(
+                                      "Could not launch the uri"); // because the simulator doesn't has the email app
+                                }
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
+
                   SizedBox(height: MediaQuery.of(context).size.height/30),
                   Card(
                     elevation: 10,
@@ -594,7 +591,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         SizedBox(height: 3), // İstenilen boşluk miktarına göre ayarlayın
                         Container(
                           width: double.infinity,
-                          child: ElevatedButton(
+                          child: ElevatedButton.icon(
                             onPressed: () {
                               double latitude = widget.corporationModel.latitude;
                               double longitude = widget.corporationModel.longitude;
@@ -602,9 +599,19 @@ class _ProductDetailsState extends State<ProductDetails> {
                               // Google Haritalar'a belirli bir latitude ve longitude ile bir yönlendirme yapmak için
                               _launchMapsUrl(latitude, longitude);
                             },
-                            child: Text('Navigasyonda Aç'),
+                            icon: Icon(Icons.navigation), // Navigasyon ikonu ekleyin
+                            label: Text('Haritada Görüntüle'), // Düğme metni
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.blue, // Düğme arka plan rengi
+                              onPrimary: Colors.white, // Düğme metin rengi
+                              shape: RoundedRectangleBorder( // Düğme şekli
+                                borderRadius: BorderRadius.circular(8.0),
+                              ),
+                              elevation: 4, // Yükseltme
+                            ),
                           ),
                         ),
+
                       ],
                     ),
                   ),
