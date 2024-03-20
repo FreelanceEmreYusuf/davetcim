@@ -11,6 +11,8 @@ import '../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/form_control.dart';
 import '../../shared/utils/utils.dart';
+import '../home/home_view.dart';
+import '../main/main_screen_view.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -124,7 +126,8 @@ class _ProfileState extends State<Profile> {
                         children: <Widget>[
                           InkWell(
                             onTap: () {
-                              Utils.navigateToPage(context, SplashScreen());
+                              ApplicationCache.userCache = null;
+                              Utils.navigateToPage(context, MainScreen());
                             },
                             child: Text(
                               "Çıkış",
