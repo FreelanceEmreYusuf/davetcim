@@ -74,6 +74,7 @@ class _ProfileState extends State<Profile> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
@@ -146,7 +147,6 @@ class _ProfileState extends State<Profile> {
                           ),
                         ),
                       ),
-
                     ],
                   ),
                   flex: 3,
@@ -174,7 +174,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               subtitle: Text(
-                name ,
+                name,
               ),
               trailing: IconButton(
                 icon: Icon(
@@ -275,74 +275,89 @@ class _ProfileState extends State<Profile> {
                 ),
                 onPressed: () {
                   showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          scrollable: true,
-                          title: Text('Şifre Güncelle'),
-                          content: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Form(
-                              key: forgotPasswordForm,
-                              child: Column(
-                                children: <Widget>[
-                                  TextFormField(
-                                    controller:  oldPasswordControl,
-                                    validator: (password) {
-                                      return FormControlUtil.getErrorControl(FormControlUtil.getPasswordCompareControl(oldPasswordControl.text, ApplicationCache.userCache.password));
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: 'Eski Şifre',
-                                      icon: Icon(Icons.person_remove),
-                                    ),
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        scrollable: true,
+                        title: Text('Şifre Güncelle'),
+                        content: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Form(
+                            key: forgotPasswordForm,
+                            child: Column(
+                              children: <Widget>[
+                                TextFormField(
+                                  controller: oldPasswordControl,
+                                  validator: (password) {
+                                    return FormControlUtil.getErrorControl(
+                                      FormControlUtil.getPasswordCompareControl(
+                                        oldPasswordControl.text,
+                                        ApplicationCache.userCache.password,
+                                      ),
+                                    );
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: 'Eski Şifre',
+                                    icon: Icon(Icons.person_remove),
                                   ),
-                                  TextFormField(
-                                    controller:  passwordControl,
-                                    decoration: InputDecoration(
-                                      labelText: 'Yeni Şifre',
-                                      icon: Icon(Icons.person),
-                                    ),
+                                ),
+                                TextFormField(
+                                  controller: passwordControl,
+                                  decoration: InputDecoration(
+                                    labelText: 'Yeni Şifre',
+                                    icon: Icon(Icons.person),
                                   ),
-                                  TextFormField(
-                                    controller:  passwordAgainControl,
-                                    validator: (email) {
-                                      return FormControlUtil.getErrorControl(FormControlUtil.getPasswordCompareControl(passwordControl.text, passwordAgainControl.text));
-                                    },
-                                    decoration: InputDecoration(
-                                      labelText: 'Yeni Şifre Tekrar',
-                                      icon: Icon(Icons.person_add_alt_1 ),
-                                    ),
+                                ),
+                                TextFormField(
+                                  controller: passwordAgainControl,
+                                  validator: (email) {
+                                    return FormControlUtil.getErrorControl(
+                                      FormControlUtil.getPasswordCompareControl(
+                                        passwordControl.text,
+                                        passwordAgainControl.text,
+                                      ),
+                                    );
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: 'Yeni Şifre Tekrar',
+                                    icon: Icon(Icons.person_add_alt_1),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                          actions: [
-                            MaterialButton(
-                                child: Text("Reddet"),
-                                onPressed: () {
-                                  Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
-                                },
+                        ),
+                        actions: [
+                          MaterialButton(
+                            child: Text("Reddet"),
+                            onPressed: () {
+                              Navigator.of(context, rootNavigator: true).pop(
+                                PageTransition(type: PageTransitionType.fade),
+                              );
+                            },
                             elevation: 10,
-                              splashColor: Colors.blue,
-                              color: Colors.redAccent,
-                            ),
-                            MaterialButton(
-                              child: Text("Onayla"),
-                              onPressed: () {
-                                if (forgotPasswordForm.currentState.validate()) {
-                                  ResetPasswdViewModel rpvm = ResetPasswdViewModel();
-                                  rpvm.userResetPassword(context, ApplicationCache.userCache.id, passwordControl.text);
-                                  Navigator.of(context, rootNavigator: true).pop(PageTransition(type: PageTransitionType.fade));
-                                }
-                              },
-                              elevation: 10,
-                              splashColor: Colors.green,
-                              color: Colors.redAccent,
-                            ),
-                          ],
-                        );
-                      });
+                            splashColor: Colors.blue,
+                            color: Colors.redAccent,
+                          ),
+                          MaterialButton(
+                            child: Text("Onayla"),
+                            onPressed: () {
+                              if (forgotPasswordForm.currentState.validate()) {
+                                ResetPasswdViewModel rpvm = ResetPasswdViewModel();
+                                rpvm.userResetPassword(context, ApplicationCache.userCache.id, passwordControl.text);
+                                Navigator.of(context, rootNavigator: true).pop(
+                                  PageTransition(type: PageTransitionType.fade),
+                                );
+                              }
+                            },
+                            elevation: 10,
+                            splashColor: Colors.green,
+                            color: Colors.redAccent,
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 tooltip: "Şifre Değiştir",
               ),
@@ -350,30 +365,25 @@ class _ProfileState extends State<Profile> {
             MediaQuery.of(context).platformBrightness == Brightness.dark
                 ? SizedBox()
                 : ListTile(
-                    title: Text(
-                      "Gece Modu",
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    trailing: Switch(
-                      value: Provider.of<AppProvider>(context).theme ==
-                              Constants.lightTheme
-                          ? false
-                          : true,
-                      onChanged: (v) async {
-                        if (v) {
-                          Provider.of<AppProvider>(context, listen: false)
-                              .setTheme(Constants.darkTheme, "dark");
-                        } else {
-                          Provider.of<AppProvider>(context, listen: false)
-                              .setTheme(Constants.lightTheme, "light");
-                        }
-                      },
-                      activeColor: Theme.of(context).accentColor,
-                    ),
-                  ),
+              title: Text(
+                "Gece Modu",
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              trailing: Switch(
+                value: Provider.of<AppProvider>(context).theme == Constants.lightTheme ? false : true,
+                onChanged: (v) async {
+                  if (v) {
+                    Provider.of<AppProvider>(context, listen: false).setTheme(Constants.darkTheme, "dark");
+                  } else {
+                    Provider.of<AppProvider>(context, listen: false).setTheme(Constants.lightTheme, "light");
+                  }
+                },
+                activeColor: Theme.of(context).accentColor,
+              ),
+            ),
           ],
         ),
       ),

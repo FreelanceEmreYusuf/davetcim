@@ -9,7 +9,7 @@ import '../src/admin_corporate_panel/reservation/reservation_corporate_detail_vi
 import '../src/user_reservations/user_reservation_detail_view.dart';
 
 class ReservationUserCardWidget extends StatefulWidget {
-  final  ReservationModel model;
+  final ReservationModel model;
 
   ReservationUserCardWidget({
     Key key,
@@ -37,9 +37,11 @@ class _ReservationUserCardWidgetState
 
     return Container(
       child: InkWell(
-        onTap: (){
-          Utils.navigateToPage(context,
-              UserResevationDetailScreen(reservationModel : widget.model, isFromNotification: false));
+        onTap: () {
+          Utils.navigateToPage(
+              context,
+              UserResevationDetailScreen(
+                  reservationModel: widget.model, isFromNotification: false));
         },
         child: SingleChildScrollView(
           child: Card(
@@ -53,28 +55,91 @@ class _ReservationUserCardWidgetState
             ),
             child: Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(DateConversionUtils.convertIntTimeToViewString(widget.model.date),
-                    style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 16, color: textColor, fontWeight: FontWeight.bold,),
+                  Text(
+                    DateConversionUtils.convertIntTimeToViewString(widget.model.date),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: textColor,
+                      fontWeight: FontWeight.bold,
+                    ),
                     maxLines: 5,
                   ),
-                  Expanded(
-                    child: Text("\n\n Davet Türü : " + widget.model.invitationType + "\n Davetli Sayısı : " + widget.model.invitationCount.toString() +
-                        "\n Toplam Ücret : " + widget.model.cost.toString()+" TL",
-                      style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 15, color: textColor, fontWeight: FontWeight.bold,),
-                      maxLines: 5,
+                  SizedBox(height: 10),
+                  Text(
+                    'Davet Türü:',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: textColor,
+                      fontWeight: FontWeight.bold,
                     ),
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    widget.model.invitationType,
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: textColor,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Davetli Sayısı:',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: textColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            widget.model.invitationCount.toString(),
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: textColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Toplam Ücret:',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: textColor,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 5),
+                          Text(
+                            '${widget.model.cost} TL',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: textColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
           ),
         ),
-      )
+      ),
     );
   }
-
 }
