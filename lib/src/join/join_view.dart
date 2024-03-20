@@ -57,28 +57,22 @@ class _JoinViewState extends State<JoinView>
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white38,
           labelStyle: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.w800,
+            fontSize: 18.0,
+            fontWeight: FontWeight.w600,
           ),
           unselectedLabelStyle: TextStyle(
-            fontSize: 20.0,
-            fontWeight: FontWeight.w800,
+            fontSize: 18.0,
+            fontWeight: FontWeight.w600,
           ),
           tabs: <Widget>[
-            FittedBox(
-              child: Tab(
-                text: "Giriş Yap",
-              ),
+            Tab(
+              text: "Giriş Yap",
             ),
-            FittedBox(
-              child: Tab(
-                text: "Kayıt Ol",
-              ),
+            Tab(
+              text: "Kayıt Ol",
             ),
-            FittedBox(
-              child: Tab(
-                text: "Salon Kayıt",
-              ),
+            Tab(
+              text: "Salon Kayıt",
             ),
           ],
         ),

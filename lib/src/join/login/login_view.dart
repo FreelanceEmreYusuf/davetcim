@@ -19,147 +19,120 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  final TextEditingController _usernameControl = new TextEditingController();
-  final TextEditingController _passwordControl = new TextEditingController();
+  final TextEditingController _usernameControl = TextEditingController();
+  final TextEditingController _passwordControl = TextEditingController();
   final loginFormKey = GlobalKey<FormState>();
 
   bool loginErrorVisibility = false;
 
   @override
-  Widget build(BuildContext contex) {
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+        padding: const EdgeInsets.all(20.0),
         child: Form(
           key: loginFormKey,
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
-              SizedBox(height: 10.0),
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(
-                  top: 25.0,
+              SizedBox(height: 30.0),
+              Text(
+                "Hesabına Giriş Yap",
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).accentColor,
                 ),
-                child: Text(
-                  "Hesabına Giriş Yap",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor,
-                  ),
-                ),
+                textAlign: TextAlign.center,
               ),
               SizedBox(height: 30.0),
               TextFormField(
                 style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
+                  fontSize: 16.0,
+
                 ),
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Kullanıcı Adı",
-                  filled: true,
-                  fillColor: Colors.transparent,
-                  focusColor: Colors.blue,
-                  prefixIcon: Icon(
-                    Icons.perm_identity,
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
+                  prefixIcon: Icon(Icons.person, ),
+                  border: OutlineInputBorder(),
                 ),
                 controller: _usernameControl,
                 validator: (userName) {
                   return FormControlUtil.getErrorControl(
                       FormControlUtil.getDefaultFormValueControl(userName));
                 },
-                maxLines: 1,
               ),
-              SizedBox(height: 30.0),
+              SizedBox(height: 20.0),
               TextFormField(
                 obscureText: true,
                 style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
+                  fontSize: 16.0,
                 ),
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Şifre",
-                  focusColor: Colors.blue,
-                  filled: true,
-                  fillColor: Colors.transparent,
-                  prefixIcon: Icon(
-                    Icons.lock_outline,
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
+                  prefixIcon: Icon(Icons.lock),
+                  border: OutlineInputBorder(),
                 ),
                 controller: _passwordControl,
                 validator: (password) {
                   return FormControlUtil.getErrorControl(
                       FormControlUtil.getPasswordControl(password));
                 },
-                maxLines: 1,
               ),
               Visibility(
-                  visible: loginErrorVisibility,
-                  child: Container(
-                      child: Text("Kullanıcı adı ya da parolanız doğrulanamadı", style: TextStyle(color: Colors.red)),
-                      padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
-                  )),
-              SizedBox(height: 10.0),
-              Container(
-                alignment: Alignment.centerRight,
-                child: TextButton(
+                visible: loginErrorVisibility,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
                   child: Text(
-                    "Şifremi Unuttum",
-                    style: TextStyle(
-                      fontSize: 14.0,
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).accentColor,
-                    ),
+                    "Kullanıcı adı ya da parolanız doğrulanamadı",
+                    style: TextStyle(color: Colors.red),
+                    textAlign: TextAlign.center,
                   ),
-                  onPressed: () {
-                    Utils.navigateToPage(context, ForgotPasswdView());
-                  },
                 ),
               ),
-              SizedBox(height: 30.0),
-              Container(
-                height: 50.0,
-                child: TextButton(
-                  style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
-                  child: Text(
-                    "GİRİŞ".toUpperCase(),
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
+              SizedBox(height: 20.0),
+              TextButton(
+                onPressed: () {
+                  Utils.navigateToPage(context, ForgotPasswdView());
+                },
+                child: Text(
+                  "Şifremi Unuttum",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    color: Theme.of(context).accentColor,
                   ),
-                  onPressed: () async {
-                    LoginViewModel vm = LoginViewModel();
-                    if (loginFormKey.currentState.validate()) {
-                      bool isRegistered = await vm.userLoginFlow(context,
-                          widget.childPage == null ? new MainScreen() : widget.childPage,
-                          _usernameControl.text, _passwordControl.text);
+                ),
+              ),
+              SizedBox(height: 20.0),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.redAccent,
+                  padding: EdgeInsets.symmetric(vertical: 15.0),
+                ),
+                onPressed: () async {
+                  LoginViewModel vm = LoginViewModel();
+                  if (loginFormKey.currentState.validate()) {
+                    bool isRegistered = await vm.userLoginFlow(
+                      context,
+                      widget.childPage == null ? MainScreen() : widget.childPage,
+                      _usernameControl.text,
+                      _passwordControl.text,
+                    );
 
-                      if (!isRegistered) {
-                        setState(() {
-                          loginErrorVisibility = true;
-                        });
-                      }
-                      // use the email provided here
+                    if (!isRegistered) {
+                      setState(() {
+                        loginErrorVisibility = true;
+                      });
                     }
-                  },
+                  }
+                },
+                child: Text(
+                  "GİRİŞ".toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],

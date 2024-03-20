@@ -13,277 +13,161 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final TextEditingController _usernameControl = new TextEditingController();
-  final TextEditingController _emailControl = new TextEditingController();
-  final TextEditingController _passwordControl = new TextEditingController();
-  final TextEditingController _phoneControl = new TextEditingController();
-  final TextEditingController _nameControl = new TextEditingController();
-  final TextEditingController _surnameControl = new TextEditingController();
-  final TextEditingController _secretQuestionAnswerControl =
-      new TextEditingController();
+  final TextEditingController _usernameControl = TextEditingController();
+  final TextEditingController _emailControl = TextEditingController();
+  final TextEditingController _passwordControl = TextEditingController();
+  final TextEditingController _phoneControl = TextEditingController();
+  final TextEditingController _nameControl = TextEditingController();
+  final TextEditingController _surnameControl = TextEditingController();
+  final TextEditingController _secretQuestionAnswerControl = TextEditingController();
   static List<SecretQuestionsModel> secretQuestionList = [];
   SecretQuestionsModel selectedQuestion;
-  final registerFormKey = GlobalKey <FormState> ();
+  final registerFormKey = GlobalKey<FormState>();
   String formException = "";
-
   bool usernameErrorVisibility = false;
   bool emailErrorVisibility = false;
 
   @override
   void initState() {
+    super.initState();
     callSecretQuestionList();
   }
 
-  void callSecretQuestionList() async{
+  void callSecretQuestionList() async {
     RegisterViewModel rm = RegisterViewModel();
     secretQuestionList = await rm.fillQuestionList();
-
     setState(() {
       secretQuestionList = secretQuestionList;
     });
   }
 
-
   @override
-  Widget build(BuildContext contex){
+  Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      Padding(
-        padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
+      body: Padding(
+        padding: EdgeInsets.all(20.0),
         child: Form(
           key: registerFormKey,
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(
-                  top: 25.0,
-                ),
-                child: Text(
-                  "Yeni Hesap Oluştur",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor,
-                  ),
-                ),
-              ),
-              SizedBox(height: 15.0),
-              TextFormField(
+              SizedBox(height: 30.0),
+              Text(
+                "Yeni Hesap Oluştur",
                 style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).accentColor,
                 ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 20.0),
+              TextFormField(
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "İsim",
-                  filled: true,
-                  fillColor: Colors.transparent,
-                  focusColor: Colors.blue,
-                  prefixIcon: Icon(
-                    Icons.perm_identity,
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
+                  prefixIcon: Icon(Icons.person),
+                  border: OutlineInputBorder(),
                 ),
                 controller: _nameControl,
                 validator: (name) {
                   return FormControlUtil.getErrorControl(
                       FormControlUtil.getStringLenghtBetweenMinandMaxControl(name, 3, 15));
                 },
-                maxLines: 1,
-              ),//İsim
+              ),
               SizedBox(height: 15.0),
               TextFormField(
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                ),
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Soyisim",
-                  filled: true,
-                  fillColor: Colors.transparent,
-                  focusColor: Colors.blue,
-                  prefixIcon: Icon(
-                    Icons.perm_identity,
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
+                  prefixIcon: Icon(Icons.person),
+                  border: OutlineInputBorder(),
                 ),
                 controller: _surnameControl,
                 validator: (surname) {
                   return FormControlUtil.getErrorControl(
                       FormControlUtil.getStringLenghtBetweenMinandMaxControl(surname, 2, 15));
                 },
-                maxLines: 1,
-              ),//Soyisim
+              ),
               SizedBox(height: 15.0),
               TextFormField(
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                ),
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Kullanıcı Adı",
-                  filled: true,
-                  fillColor: Colors.transparent,
-                  focusColor: Colors.blue,
-                  prefixIcon: Icon(
-                    Icons.perm_identity,
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
+                  prefixIcon: Icon(Icons.account_circle),
+                  border: OutlineInputBorder(),
                 ),
                 controller: _usernameControl,
                 validator: (userName) {
                   return FormControlUtil.getErrorControl(
                       FormControlUtil.getStringLenghtBetweenMinandMaxControl(userName, 3, 15));
                 },
-                maxLines: 1,
               ),
               Visibility(
-                  visible: usernameErrorVisibility,
-                  child: Container(
-                      child: Text("Bu kullanıcı adı sistemde kullanılıyor", style: TextStyle(color: Colors.red)),
-                      padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
-                  )),//Kullanıcı Adı
+                visible: usernameErrorVisibility,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    "Bu kullanıcı adı sistemde kullanılıyor",
+                    style: TextStyle(color: Colors.red),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
               SizedBox(height: 15.0),
               TextFormField(
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                ),
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "E-Posta",
-                  filled: true,
-                  fillColor: Colors.transparent,
-                  focusColor: Colors.blue,
-                  prefixIcon: Icon(
-                    Icons.mail_outline,
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
+                  prefixIcon: Icon(Icons.mail_outline),
+                  border: OutlineInputBorder(),
                 ),
                 controller: _emailControl,
                 validator: (email) {
                   return FormControlUtil.getErrorControl(FormControlUtil.getEmailAdressControl(email));
                 },
-                maxLines: 1,
-                keyboardType: TextInputType.emailAddress
+                keyboardType: TextInputType.emailAddress,
               ),
               Visibility(
-                  visible: emailErrorVisibility,
-                  child: Container(
-                      child: Text("Bu email bilgisi sistemde kullanılıyor", style: TextStyle(color: Colors.red)),
-                      padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
-                  )),//E-Posta
+                visible: emailErrorVisibility,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                    "Bu email bilgisi sistemde kullanılıyor",
+                    style: TextStyle(color: Colors.red),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
               SizedBox(height: 15.0),
               TextFormField(
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    labelText: "Telefon Numarası (5XXXXXXXXX)",
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    focusColor: Colors.blue,
-                    prefixIcon: Icon(
-                      Icons.mail_outline,
-                      color: Colors.black,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  controller: _phoneControl,
-                  validator: (phoneNumber) {
-                    return FormControlUtil.getErrorControl(FormControlUtil.getPhoneNumberControl(phoneNumber));
-                  },
-                  maxLines: 1,
-                  keyboardType: TextInputType.number,
-                  maxLength: 10,
-              ),//Telefon Numarası
-              SizedBox(height: 12.0),
+                decoration: InputDecoration(
+                  labelText: "Telefon Numarası",
+                  prefixIcon: Icon(Icons.phone),
+                  border: OutlineInputBorder(),
+                ),
+                controller: _phoneControl,
+                validator: (phoneNumber) {
+                  return FormControlUtil.getErrorControl(FormControlUtil.getPhoneNumberControl(phoneNumber));
+                },
+                keyboardType: TextInputType.phone,
+                maxLength: 10,
+              ),
+              SizedBox(height: 15.0),
               TextFormField(
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    labelText: "Şifre",
-                    filled: true,
-                    fillColor: Colors.transparent,
-                    focusColor: Colors.blue,
-                    prefixIcon: Icon(
-                      Icons.mail_outline,
-                      color: Colors.black,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  controller: _passwordControl,
-                  validator: (passwordControl) {
-                    return FormControlUtil.getErrorControl(FormControlUtil.getPasswordControl(passwordControl));
-                  },
-                  obscureText: true,
-                  maxLines: 1,
-              ),//Şifre
+                decoration: InputDecoration(
+                  labelText: "Şifre",
+                  prefixIcon: Icon(Icons.lock),
+                  border: OutlineInputBorder(),
+                ),
+                controller: _passwordControl,
+                validator: (passwordControl) {
+                  return FormControlUtil.getErrorControl(FormControlUtil.getPasswordControl(passwordControl));
+                },
+                obscureText: true,
+              ),
               SizedBox(height: 15.0),
               DropdownButtonFormField(
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                ),
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Gizli Soru",
-                  filled: true,
-                  fillColor: Colors.transparent,
-                  focusColor: Colors.blue,
-                  prefixIcon: Icon(
-                    Icons.security,
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
+                  prefixIcon: Icon(Icons.security),
+                  border: OutlineInputBorder(),
                 ),
                 isExpanded: true,
                 value: selectedQuestion,
@@ -293,71 +177,47 @@ class _RegisterViewState extends State<RegisterView> {
                   });
                 },
                 items: secretQuestionList.map((SecretQuestionsModel question) {
-                  return new DropdownMenuItem<SecretQuestionsModel>(
+                  return DropdownMenuItem<SecretQuestionsModel>(
                     value: question,
-                    child: new Text(
+                    child: Text(
                       question.questionText,
-                      style: new TextStyle(color: Colors.blue),
+                      style: TextStyle(color: Colors.blue),
                     ),
                   );
                 }).toList(),
-                validator: (selectedQuestionValue){
-                  if(selectedQuestionValue == null)
-                  {
-                    return FormControlUtil.getErrorControl(LanguageConstants.formElementNullValueMessage[LanguageConstants.languageFlag]);
-                  }
-                  else{
+                validator: (selectedQuestionValue) {
+                  if (selectedQuestionValue == null) {
+                    return FormControlUtil.getErrorControl(
+                        LanguageConstants.formElementNullValueMessage[LanguageConstants.languageFlag]);
+                  } else {
                     return null;
                   }
                 },
               ),
               SizedBox(height: 15.0),
               TextFormField(
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                ),
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Cevap",
-                  filled: true,
-                  fillColor: Colors.transparent,
-                  focusColor: Colors.blue,
-                  prefixIcon: Icon(
-                    Icons.question_answer,
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
+                  prefixIcon
+                      : Icon(Icons.question_answer),
+                  border: OutlineInputBorder(),
                 ),
                 controller: _secretQuestionAnswerControl,
                 validator: (secretQuestionAnswer) {
                   return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(secretQuestionAnswer));
                 },
-                maxLines: 1,
-              ),//Cevap
+              ),
               SizedBox(height: 15.0),
               Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 4.0),
                 height: 40.0,
                 child: TextButton(
-                  style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
-                  child: Text(
-                    "Kaydet".toUpperCase(),
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
                   ),
                   onPressed: () async {
                     if (registerFormKey.currentState.validate()) {
-                      String userExistControlWithUserName =
-                          await CustomerHelper.getUserExistingControlWithUserName(_usernameControl.text);
-                      String userExistControlWithEmail =
-                          await CustomerHelper.getUserExistingControlWithEmail(_emailControl.text);
+                      String userExistControlWithUserName = await CustomerHelper.getUserExistingControlWithUserName(_usernameControl.text);
+                      String userExistControlWithEmail = await CustomerHelper.getUserExistingControlWithEmail(_emailControl.text);
                       if (userExistControlWithUserName.isNotEmpty && userExistControlWithEmail.isNotEmpty) {
                         setState(() {
                           usernameErrorVisibility = true;
@@ -387,6 +247,12 @@ class _RegisterViewState extends State<RegisterView> {
                       }
                     }
                   },
+                  child: Text(
+                    "Kaydet".toUpperCase(),
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ],

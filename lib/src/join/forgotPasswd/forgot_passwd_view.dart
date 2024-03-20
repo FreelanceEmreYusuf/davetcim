@@ -23,7 +23,17 @@ class _ForgotPasswdViewState extends State<ForgotPasswdView>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarMenu(pageName: "Şifremi Unuttum", isHomnePageIconVisible: true, isNotificationsIconVisible: false, isPopUpMenuActive: true),
+      appBar: AppBar(
+        backgroundColor: Colors.redAccent,
+        title: Text("Şifremi Unuttum"),
+        centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: TabBarView(
         controller: _tabController,
         children: <Widget>[

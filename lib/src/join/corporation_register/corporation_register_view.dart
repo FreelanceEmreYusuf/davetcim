@@ -12,30 +12,29 @@ import 'corporation_register_view_model.dart';
 
 class CorporationRegisterView extends StatefulWidget {
   @override
-  _CorporationRegisterViewState createState() => _CorporationRegisterViewState();
+  _CorporationRegisterViewState createState() =>
+      _CorporationRegisterViewState();
 }
 
 class _CorporationRegisterViewState extends State<CorporationRegisterView> {
-  final TextEditingController _nameControl = new TextEditingController();
-  final registerFormKey = GlobalKey <FormState> ();
-  bool keyErrorVisibility = false;
+  final TextEditingController _activationKeyControl =
+  TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _keyErrorVisibility = false;
 
   @override
-  Widget build(BuildContext contex){
+  Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      Padding(
+      body: Padding(
         padding: EdgeInsets.fromLTRB(20.0, 0, 20, 0),
         child: Form(
-          key: registerFormKey,
+          key: _formKey,
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
               Container(
                 alignment: Alignment.center,
-                margin: EdgeInsets.only(
-                  top: 25.0,
-                ),
+                margin: EdgeInsets.only(top: 25.0),
                 child: Text(
                   "Salonunu Kaydet",
                   style: TextStyle(
@@ -49,17 +48,16 @@ class _CorporationRegisterViewState extends State<CorporationRegisterView> {
               TextFormField(
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.black,
                 ),
                 decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Salon aktivasyon kodunuzu girin",
                   filled: true,
                   fillColor: Colors.transparent,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
                     Icons.key,
-                    color: Colors.black,
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -68,44 +66,63 @@ class _CorporationRegisterViewState extends State<CorporationRegisterView> {
                     ),
                   ),
                 ),
-                controller: _nameControl,
-                validator: (name) {
-                  return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(name));
+                controller: _activationKeyControl,
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return "Lütfen bir anahtar değeri girin";
+                  }
+                  return null;
                 },
                 maxLines: 1,
-              ),//İsim
-              SizedBox(height: 15),
+              ),
+              SizedBox(height: 15.0),
               Visibility(
-                  visible: keyErrorVisibility,
-                  child: Container(
-                      child: Text("Girilen Anahtar Değeri Bulunamadı", style: TextStyle(color: Colors.red)),
-                      padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
-                  )),
-              SizedBox(height: 15),
+                visible: _keyErrorVisibility,
+                child: Container(
+                  child: Text(
+                    "Girilen Anahtar Değeri Bulunamadı",
+                    style: TextStyle(color: Colors.red),
+                  ),
+                  padding:
+                  EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                ),
+              ),
+              SizedBox(height: 15.0),
               Container(
-                padding: EdgeInsets.fromLTRB(0, 0, 0, 4.0),
                 height: 40.0,
                 child: TextButton(
-                  style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                  ),
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
+                      CorporationRegisterViewModel corporationRegisterViewModel =
+                      CorporationRegisterViewModel();
+                      CompanyModel companyModel =
+                      await corporationRegisterViewModel.getCompanyForKey(
+                          int.parse(_activationKeyControl.text));
+                      if (companyModel == null) {
+                        setState(() {
+                          _keyErrorVisibility = true;
+                        });
+                      } else {
+                        Utils.navigateToPage(
+                          context,
+                          CommonInformationsP1View(
+                            companyModel: companyModel,
+                            registrationKey: int.parse(
+                                _activationKeyControl.text),
+                          ),
+                        );
+                      }
+                    }
+                  },
                   child: Text(
                     "ONAYLA".toUpperCase(),
                     style: TextStyle(
                       color: Colors.white,
                     ),
                   ),
-                  onPressed: () async {
-                    String errorMessage = "";
-                    CorporationRegisterViewModel corporationRegisterViewModel = CorporationRegisterViewModel();
-                    CompanyModel companyModel = await corporationRegisterViewModel.getCompanyForKey(int.parse(_nameControl.text));
-                    if (companyModel == null) {
-                      setState(() {
-                        keyErrorVisibility = true;
-                      });
-                    } else {
-                      Utils.navigateToPage(context, CommonInformationsP1View(companyModel : companyModel, registrationKey: int.parse(_nameControl.text)));
-                    }
-                    //key kontrolü yapılacak değer doğru ise emrenin daha önceden yapmış olduğu salon akyıt sayfasına focuslanacak!
-                  },
                 ),
               ),
             ],
