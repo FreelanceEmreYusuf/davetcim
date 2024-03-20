@@ -121,26 +121,32 @@ class _ProfileState extends State<Profile> {
                         ],
                       ),
                       SizedBox(height: 20.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          InkWell(
-                            onTap: () {
-                              ApplicationCache.userCache = null;
-                              Utils.navigateToPage(context, MainScreen());
-                            },
-                            child: Text(
-                              "Çıkış",
-                              style: TextStyle(
-                                fontSize: 13.0,
-                                fontWeight: FontWeight.w400,
-                                color: Theme.of(context).accentColor,
-                              ),
-                              overflow: TextOverflow.ellipsis,
+                      InkWell(
+                        onTap: () {
+                          ApplicationCache.userCache = null;
+                          Utils.navigateToPage(context, MainScreen());
+                        },
+                        child: Container(
+                          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20.0),
+                            border: Border.all(
+                              color: Theme.of(context).accentColor,
+                              width: 2.0,
                             ),
                           ),
-                        ],
+                          child: Text(
+                            "Çıkış",
+                            style: TextStyle(
+                              fontSize: 13.0,
+                              fontWeight: FontWeight.w400,
+                              color: Theme.of(context).accentColor,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
                       ),
+
                     ],
                   ),
                   flex: 3,

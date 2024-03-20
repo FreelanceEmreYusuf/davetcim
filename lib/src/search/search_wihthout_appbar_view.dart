@@ -192,7 +192,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                       fontSize: 15.0,
-                                      color: Colors.black,
+                                      //color: Colors.black,
                                     ),
                                     decoration: InputDecoration(
                                       contentPadding: EdgeInsets.all(10.0),
@@ -285,7 +285,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                                   '${date.day}.${date.month}.${date.year}',
                                                   style: const TextStyle(
                                                     fontSize: 18.0,
-                                                    color: Colors.black,
+                                                    //color: Colors.black,
                                                   ),
                                                 ),
                                               ),

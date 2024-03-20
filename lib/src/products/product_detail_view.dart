@@ -4,9 +4,7 @@ import 'package:davetcim/src/products/product_detail_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../providers/app_provider.dart';
 import '../../shared/dto/basket_user_dto.dart';
 import '../../shared/enums/corporation_event_log_enum.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
@@ -218,21 +216,24 @@ class _ProductDetailsState extends State<ProductDetails> {
             children: [
               BounceButton(
                 child: Image.asset("assets/sponsorship_smaller.png"),
-                onTap: (){ 
+                onTap: () {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text("Davetcim Sponsoru", style: TextStyle(fontSize: 17, color: Colors.black)), duration: Duration(seconds: 1), backgroundColor: Colors.white,));
+                    SnackBar(
+                      content: Text("Davetcim Sponsoru", style: TextStyle(fontSize: 17, color: Colors.black)),
+                      duration: Duration(seconds: 1),
+                      backgroundColor: Colors.white.withOpacity(0.5), // Arka planı transparan beyaz yapar
+                    ),
+                  );
                 },
                 height: MediaQuery.of(context).size.height / 17,
                 width: MediaQuery.of(context).size.width / 10,
                 duration: Duration(milliseconds: 300),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Provider.of<AppProvider>(context).theme ==
-                      Constants.lightTheme
-                      ? Colors.white
-                      : Colors.black,
+                  color: Colors.transparent, // Gündüz modunda transparan siyah
                 ),
               ),
+
               Text(
                 widget.corporationModel.corporationName,
                 style: TextStyle(

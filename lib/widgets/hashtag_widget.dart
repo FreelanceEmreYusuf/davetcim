@@ -35,21 +35,41 @@ class _HashtagWidgetState extends State<HashtagWidget> {
   List<Widget> listWidget = [];
 
   void loadHashtags() {
-    if(widget.hashtagList.length>0){
-      for(int i=0; i<widget.hashtagList.length; i++){
+    listWidget.clear(); // Önceki widget listesini temizle
+    if (widget.hashtagList.isNotEmpty) {
+      for (int i = 0; i < widget.hashtagList.length; i++) {
         listWidget.add(
-            Card(elevation: 8.0,  child: Text(widget.hashtagList[i], style: hashTagTextStyle,))
-        );
-        listWidget.add(
-            Text(" ", style: normalTextStyle,)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4.0), // Widget'lar arası boşluk
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark ? Colors.white.withOpacity(0.1) : Colors.black.withOpacity(0.1), // Temaya göre arka plan rengi
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Text(
+                widget.hashtagList[i],
+                style: TextStyle(
+                  fontSize: 13,
+                  color: Theme.of(context).brightness == Brightness.dark ? Colors.white : Colors.black, // Temaya göre metin rengi
+                  fontWeight: FontWeight.w500,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ),
+          ),
         );
       }
-    }
-    else
+    } else {
       listWidget.add(
-          Text(" ", style: normalTextStyle,)
+        Text(
+          " ",
+          style: normalTextStyle,
+        ),
       );
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
