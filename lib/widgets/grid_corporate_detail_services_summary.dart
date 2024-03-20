@@ -80,7 +80,7 @@ class _GridCorporateDetailServicesSummaryState
     return Container(
       padding: EdgeInsets.only(left: _paddingLeftValue),
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.transparent,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
