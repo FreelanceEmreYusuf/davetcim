@@ -1,3 +1,4 @@
+import 'package:davetcim/src/join/join_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
@@ -88,9 +89,10 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                         ),
                         onTap: (){
                           if (ApplicationCache.userCache == null) {
+                            Utils.navigateToPage(context, JoinView());
                             ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text("Favori ürünler listenizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
-                                  duration: Duration(seconds: 2),));
+                                SnackBar(content: Text("Favori mekanlar listenizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
+                                  duration: Duration(milliseconds: 2500),));
                           } else {
                             widget.pageController.jumpToPage(1);
                           }
@@ -127,9 +129,10 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                         ),
                         onTap: (){
                           if (ApplicationCache.userCache == null) {
+                            Utils.navigateToPage(context, JoinView());
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Sepetinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
-                                  duration: Duration(seconds: 2),));
+                                  duration: Duration(milliseconds: 2500),));
                           } else {
                             widget.pageController.jumpToPage(3);
                           }
@@ -155,9 +158,10 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                       ),
                         onTap: (){
                           if (ApplicationCache.userCache == null) {
+                            Utils.navigateToPage(context, JoinView());
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Profilinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
-                                  duration: Duration(seconds: 2),));
+                                  duration: Duration(milliseconds: 2500),));
                           } else {
                           widget.pageController.jumpToPage(4);
                           }

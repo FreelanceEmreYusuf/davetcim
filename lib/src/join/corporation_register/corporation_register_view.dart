@@ -37,7 +37,7 @@ class _CorporationRegisterViewState extends State<CorporationRegisterView> {
                   top: 25.0,
                 ),
                 child: Text(
-                  "Salon Kayıt Sayfası",
+                  "Salonunu Kaydet",
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.w700,
