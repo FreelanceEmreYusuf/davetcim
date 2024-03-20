@@ -1,341 +1,227 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../shared/models/organization_type_model.dart';
 import '../shared/models/region_model.dart';
 import '../shared/sessions/application_cache.dart';
 import '../src/search/search_view_model.dart';
 
 class SoftFilterWidget extends StatefulWidget {
-
-  static TextStyle kStyle =
-  TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
-
   @override
   State<SoftFilterWidget> createState() => _SoftFilterWidgetState();
 }
 
 class _SoftFilterWidgetState extends State<SoftFilterWidget> {
-  List<RegionModel> regionList =
-      ApplicationCache.filterCache.regionModelList;
-
+  List<RegionModel> regionList = ApplicationCache.filterCache.regionModelList;
   List<OrganizationTypeModel> organizationTypeList =
       ApplicationCache.filterCache.organizationTypeList;
 
-  static TextStyle kStyle =
-  TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
-
-  int _cardDivisionSize = 40;
-
-  int selectedRegion = 0;
-
-  int selectedDistrict = 0;
-
-  int selectedOrganizationIndex = 0;
+  int _selectedRegion = 0;
+  int _selectedDistrict = 0;
+  int _selectedOrganizationIndex = 0;
 
   @override
   void initState() {
-    firstInitialDistrict();
+    super.initState();
+    _firstInitialDistrict();
   }
 
-  void firstInitialDistrict() async {
+  void _firstInitialDistrict() async {
     if (regionList != null && regionList.length > 0) {
       SearchViewModel rm = SearchViewModel();
       districtList = await rm.fillDistrictlist(regionList[0].id);
     } else {
-      firstInitialDistrict();
+      _firstInitialDistrict();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 3.0),
-      child: ClipPath(
-        clipper: BottomClipper(),
+    return ClipPath(
+      clipper: BottomClipper(),
+      child: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/soft_filter_background.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height / 2.6,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage('assets/soft_filter_background.jpg'),
-              fit: BoxFit.cover,
+          color: Colors.black.withOpacity(0.3), // Arka planın opaklığı
+          padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 10.0),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0),
             ),
-          ),
-          foregroundDecoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Colors.transparent,
-                Colors.black.withOpacity(0.1), // Filtre yoğunluğu
-              ],
-            ),
-          ),
-          child: Container(
-            color: Colors.transparent,
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(8.0, 0, 8, 0),
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0), // Card'ı oval yapar
+            color: Colors.white60,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildFilterCard(
+                    "Mekan Türü",
+                    organizationTypeList[_selectedOrganizationIndex].name,
+                    onTap: () => _showOrganizationTypePicker(context),
                   ),
-                  color: Colors.white60,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        GestureDetector(
-                          child: Card(
-                            elevation: 3.0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                CupertinoButton(
-                                  child: Text(
-                                    "Mekan Türü",
-                                    style: kStyle,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize,
-                                      MediaQuery.of(context).size.height /
-                                          _cardDivisionSize),
-                                ),
-                                Expanded(
-                                  child: Text(
-                                    organizationTypeList[selectedOrganizationIndex].name,
-                                    style: TextStyle(fontSize: 18.0),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                              ],
-                            ),
-                          ),
-                          onTap: () {
-                            showModalBottomSheet(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.pop(context, organizationTypeList[selectedOrganizationIndex]); // Seçilen öğeyi geri döndürür
-                                    },
-                                    child: Container(
-                                      height: 200.0,
-                                      child: CupertinoPicker(
-                                          itemExtent: 32.0,
-                                          onSelectedItemChanged: (int index) {
-                                            setState(() {
-                                              selectedOrganizationIndex = index;
-                                            });
-                                          },
-                                          children: new List<Widget>.generate(
-                                              organizationTypeList.length, (int index) {
-                                            return new Center(
-                                              child: new Text(
-                                                  organizationTypeList[index].name),
-                                            );
-                                          })),
-                                    ),
-                                  );
-                                });
-                          },
+                  SizedBox(height: 15.0),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: _buildFilterCard(
+                          "İl",
+                          regionList[_selectedRegion].name,
+                          onTap: () => _showRegionPicker(context),
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height / 200,),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child:  GestureDetector(
-                                child: Card(
-                                  elevation: 3.0,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      CupertinoButton(
-                                        child: Text(
-                                          "İl",
-                                          style: kStyle,
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            MediaQuery.of(context).size.height /
-                                                _cardDivisionSize,
-                                            MediaQuery.of(context).size.height /
-                                                _cardDivisionSize,
-                                            MediaQuery.of(context).size.height /
-                                                _cardDivisionSize,
-                                            MediaQuery.of(context).size.height /
-                                                _cardDivisionSize),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          regionList[selectedRegion].name,
-                                          style: TextStyle(fontSize: 18.0),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 20.0,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                onTap: () {
-                                  showModalBottomSheet(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            Navigator.pop(context, regionList[selectedRegion]); // Seçilen öğeyi geri döndürür
-                                          },
-                                          child: Container(
-                                            height: 200.0,
-                                            child: CupertinoPicker(
-                                                itemExtent: 32.0,
-                                                onSelectedItemChanged: (int index) async {
-                                                  SearchViewModel rm = SearchViewModel();
-                                                  districtList = await rm.fillDistrictlist(regionList[index].id);
-                                                  setState(() {
-                                                    selectedRegion = index;
-                                                    districtList = districtList;
-                                                    selectedDistrict = 0;
-                                                  });
-                                                },
-                                                children: new List<Widget>.generate(
-                                                    regionList.length, (int index) {
-                                                  return new Center(
-                                                    child: new Text(regionList[index].name),
-                                                  );
-                                                })),
-                                          ),
-                                        );
-                                      });
-                                },
-                              ),
-                            ),
-                            SizedBox(height: MediaQuery.of(context).size.height / 200,),
-                            Expanded(
-                              child:  GestureDetector(
-                                child: Card(
-                                  elevation: 3.0,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      CupertinoButton(
-                                        child: Text(
-                                          "İlçe",
-                                          style: kStyle,
-                                        ),
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            MediaQuery.of(context).size.height /
-                                                _cardDivisionSize,
-                                            MediaQuery.of(context).size.height /
-                                                _cardDivisionSize,
-                                            MediaQuery.of(context).size.height /
-                                                _cardDivisionSize,
-                                            MediaQuery.of(context).size.height /
-                                                _cardDivisionSize),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          districtList[selectedDistrict].name,
-                                          style: TextStyle(fontSize: 18.0),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 20.0,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.pop(context, districtList[selectedDistrict]); // Seçilen öğeyi geri döndürür
-                                        },
-                                        child: Container(
-                                          height: 200.0,
-                                          child: CupertinoPicker(
-                                            itemExtent: 32.0,
-                                            onSelectedItemChanged: (int index) {
-                                              setState(() {
-                                                selectedDistrict = index;
-                                              });
-                                            },
-                                            children: List<Widget>.generate(
-                                                districtList.length, (int index) {
-                                              return Center(
-                                                child: Text(districtList[index].name),
-                                              );
-                                            }
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
+                      ),
+                      SizedBox(width: 15.0),
+                      Expanded(
+                        child: _buildFilterCard(
+                          "İlçe",
+                          districtList[_selectedDistrict].name,
+                          onTap: () => _showDistrictPicker(context),
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height / 25,),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  SearchViewModel rm = SearchViewModel();
-                                  rm.goToFilterPageFromSoftFilter(context,
-                                      regionList[selectedRegion].id.toString(),
-                                      districtList[selectedDistrict].id.toString(),
-                                      organizationTypeList[selectedOrganizationIndex].id.toString(),
-                                     );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.blue, // Butonun arka plan rengi
-                                  onPrimary: Colors.white, // Buton metin rengi
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(25),
-                                        topLeft: Radius.circular(25)),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-                                  child: Text(
-                                    'ARA', // Buton metni
-                                    style: TextStyle(fontSize: MediaQuery.of(context).size.height / 35, letterSpacing: 1.0, fontFamily: 'RobotoMono', ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 20.0),
+                  ElevatedButton(
+                    onPressed: () => _search(),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.blue,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25.0),
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 16.0,
+                        horizontal: 24.0,
+                      ),
+                      child: Text(
+                        'ARA',
+                        style: TextStyle(
+                          fontSize: 16.0,
+                          letterSpacing: 1.0,
                         ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildFilterCard(String title, String value, {Function onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Card(
+        elevation: 3.0,
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: TextStyle(
+                  color: Colors.redAccent,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  value,
+                  style: TextStyle(fontSize: 18.0),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showOrganizationTypePicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200.0,
+          child: CupertinoPicker(
+            itemExtent: 32.0,
+            onSelectedItemChanged: (int index) {
+              setState(() {
+                _selectedOrganizationIndex = index;
+              });
+            },
+            children: organizationTypeList
+                .map((type) => Center(child: Text(type.name)))
+                .toList(),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showRegionPicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200.0,
+          child: CupertinoPicker(
+            itemExtent: 32.0,
+            onSelectedItemChanged: (int index) async {
+              SearchViewModel rm = SearchViewModel();
+              districtList = await rm.fillDistrictlist(regionList[index].id);
+              setState(() {
+                _selectedRegion = index;
+                _selectedDistrict = 0;
+              });
+            },
+            children: regionList
+                .map((region) => Center(child: Text(region.name)))
+                .toList(),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showDistrictPicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200.0,
+          child: CupertinoPicker(
+            itemExtent: 32.0,
+            onSelectedItemChanged: (int index) {
+              setState(() {
+                _selectedDistrict = index;
+              });
+            },
+            children: districtList
+                .map((district) => Center(child: Text(district.name)))
+                .toList(),
+          ),
+        );
+      },
+    );
+  }
+
+  void _search() {
+    SearchViewModel rm = SearchViewModel();
+    rm.goToFilterPageFromSoftFilter(
+      context,
+      regionList[_selectedRegion].id.toString(),
+      districtList[_selectedDistrict].id.toString(),
+      organizationTypeList[_selectedOrganizationIndex].id.toString(),
     );
   }
 }

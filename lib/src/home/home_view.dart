@@ -78,58 +78,53 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                     SoftFilterWidget(),
                     if(ApplicationCache.userCache != null)
                       Padding(
-                        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-                        child: Container(
-                          margin: EdgeInsets.fromLTRB(0, 10.0, 0, 0.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                "Hoşgeldin ",
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              "Hoşgeldin ",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            BounceButton(
+                              onTap: () {},
+                              child: Text(
+                                "@${mdl.getUserName()}",
                                 style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.w800,
+                                  color: Colors.lightGreen,
                                 ),
                               ),
-                              BounceButton(
-                                child: Text(
-                                  "@"+mdl.getUserName(),
-                                  style: TextStyle(
-                                      fontSize: 23,
-                                      fontWeight: FontWeight.w800,
-                                      color: Colors.lightGreen
-                                  ),
-                                ),
-                                onTap: (){
-
-                                },
-                                duration: Duration(milliseconds: 300),
-                                decoration: BoxDecoration(
-                                    color: Provider.of<AppProvider>(context).theme ==
-                                        Constants.lightTheme
-                                        ? Colors.transparent
-                                        : Colors.transparent,
-                                    borderRadius: BorderRadius.circular(20)
-                                ),
+                              duration: Duration(milliseconds: 300),
+                              decoration: BoxDecoration(
+                                color: Provider.of<AppProvider>(context).theme == Constants.lightTheme
+                                    ? Colors.transparent
+                                    : Colors.transparent,
+                                borderRadius: BorderRadius.circular(20),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
-                    SizedBox(height: 10,),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-                      child: Stack(
-                        children: <Widget>[
-                          Container(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Container(
                             height: MediaQuery.of(context).size.height / 2.4,
                             width: MediaQuery.of(context).size.width,
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(8.0),
-                              //       !loading ? HomeCarousel(homeManager) : Center(child:ProgressIndicator())
                               child: Swiper(
-                                duration: 1500, // Swipe işlemi için animasyon süresi (opsiyonel)
-                                autoplayDelay: 5000, // Otomatik dönme arasındaki bekleme süresi (5 saniye)
+                                duration: 1500,
+                                autoplayDelay: 5000,
                                 itemBuilder: (BuildContext context, int index) {
                                   CorporationModel model = popularCorporationModelList[index];
                                   return SliderItem(
@@ -149,61 +144,58 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                                 control: SwiperControl(),
                                 autoplay: true,
                               ),
-
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 20.0),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            "Son Zamanlarda Populer",
-                            style: TextStyle(
-                              fontSize: 23,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10.0),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-                      child: GridView.builder(
-                        shrinkWrap: true,
-                        primary: false,
-                        physics: NeverScrollableScrollPhysics(),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: MediaQuery.of(context).size.width /
-                              (MediaQuery.of(context).size.height / 1.15),
                         ),
-                        itemCount: corporationList == null
-                            ? 0
-                            : corporationList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          CorporationModel item = corporationList[index];
-                          return GridProduct(
-                            corporationId: item.corporationId,
-                            description: item.description,
-                            maxPopulation: item.maxPopulation,
-                            img: item.imageUrl,
-                            isFav: ApplicationCache.isCorporationFavorite(item.corporationId),
-                            name: item.corporationName,
-                            rating: item.averageRating,
-                            raters: item.ratingCount,
-                            callerPage: MainScreen(),
-                          );
-                        },
-                      ),
+                        SizedBox(height: 20),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                "Son Zamanlarda Popüler",
+                                style: TextStyle(
+                                  fontSize: 23,
+                                  fontWeight: FontWeight.w800,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 10),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: GridView.builder(
+                            shrinkWrap: true,
+                            primary: false,
+                            physics: NeverScrollableScrollPhysics(),
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: MediaQuery.of(context).size.width /
+                                  (MediaQuery.of(context).size.height / 1.15),
+                            ),
+                            itemCount: corporationList == null ? 0 : corporationList.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              CorporationModel item = corporationList[index];
+                              return GridProduct(
+                                corporationId: item.corporationId,
+                                description: item.description,
+                                maxPopulation: item.maxPopulation,
+                                img: item.imageUrl,
+                                isFav: ApplicationCache.isCorporationFavorite(item.corporationId),
+                                name: item.corporationName,
+                                rating: item.averageRating,
+                                raters: item.ratingCount,
+                                callerPage: MainScreen(),
+                              );
+                            },
+                          ),
+                        ),
+                        SizedBox(height: 30),
+                      ],
                     ),
 
-                    SizedBox(height: 30),
                   ],
                 ),
               );
