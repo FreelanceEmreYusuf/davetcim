@@ -1,5 +1,5 @@
 import 'package:davetcim/shared/helpers/customer_helper.dart';
-import 'package:davetcim/shared/sessions/application_cache.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/src/join/forgotPasswd/reset_password_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -33,10 +33,10 @@ class _ProfileState extends State<Profile> {
 
   @override
   void initState() {
-    name = ApplicationCache.userCache.name;
-    surname = ApplicationCache.userCache.surname;
-    gsmNo = ApplicationCache.userCache.gsmNo;
-    email = ApplicationCache.userCache.eMail;
+    name = ApplicationContext.userCache.name;
+    surname = ApplicationContext.userCache.surname;
+    gsmNo = ApplicationContext.userCache.gsmNo;
+    email = ApplicationContext.userCache.eMail;
     // TODO: implement initState
     super.initState();
   }
@@ -45,7 +45,7 @@ class _ProfileState extends State<Profile> {
     CustomerHelper customerHelper = CustomerHelper();
     await customerHelper.editCustomer(inputName, surname, email, gsmNo);
     setState(() {
-      name = ApplicationCache.userCache.name;
+      name = ApplicationContext.userCache.name;
     });
   }
 
@@ -53,7 +53,7 @@ class _ProfileState extends State<Profile> {
     CustomerHelper customerHelper = CustomerHelper();
     await customerHelper.editCustomer(name, inputSurname, email, gsmNo);
     setState(() {
-      surname = ApplicationCache.userCache.surname;
+      surname = ApplicationContext.userCache.surname;
     });
   }
 
@@ -61,7 +61,7 @@ class _ProfileState extends State<Profile> {
     CustomerHelper customerHelper = CustomerHelper();
     await customerHelper.editCustomer(name, surname, email, inputGsm);
     setState(() {
-      gsmNo = ApplicationCache.userCache.gsmNo;
+      gsmNo = ApplicationContext.userCache.gsmNo;
     });
   }
 
@@ -69,7 +69,7 @@ class _ProfileState extends State<Profile> {
     CustomerHelper customerHelper = CustomerHelper();
     await customerHelper.editCustomer(name, surname, inputEmail, gsmNo);
     setState(() {
-      email = ApplicationCache.userCache.eMail;
+      email = ApplicationContext.userCache.eMail;
     });
   }
 
@@ -100,7 +100,7 @@ class _ProfileState extends State<Profile> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            ApplicationCache.userCache.username,
+                            ApplicationContext.userCache.username,
                             style: TextStyle(
                               fontSize: 20.0,
                               fontWeight: FontWeight.bold,
@@ -113,7 +113,7 @@ class _ProfileState extends State<Profile> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            ApplicationCache.userCache.eMail,
+                            ApplicationContext.userCache.eMail,
                             style: TextStyle(
                               fontSize: 14.0,
                               fontWeight: FontWeight.bold,
@@ -124,7 +124,7 @@ class _ProfileState extends State<Profile> {
                       SizedBox(height: 20.0),
                       InkWell(
                         onTap: () {
-                          ApplicationCache.userCache = null;
+                          ApplicationContext.userCache = null;
                           Utils.navigateToPage(context, MainScreen());
                         },
                         child: Container(
@@ -292,7 +292,7 @@ class _ProfileState extends State<Profile> {
                                     return FormControlUtil.getErrorControl(
                                       FormControlUtil.getPasswordCompareControl(
                                         oldPasswordControl.text,
-                                        ApplicationCache.userCache.password,
+                                        ApplicationContext.userCache.password,
                                       ),
                                     );
                                   },
@@ -344,7 +344,7 @@ class _ProfileState extends State<Profile> {
                             onPressed: () {
                               if (forgotPasswordForm.currentState.validate()) {
                                 ResetPasswdViewModel rpvm = ResetPasswdViewModel();
-                                rpvm.userResetPassword(context, ApplicationCache.userCache.id, passwordControl.text);
+                                rpvm.userResetPassword(context, ApplicationContext.userCache.id, passwordControl.text);
                                 Navigator.of(context, rootNavigator: true).pop(
                                   PageTransition(type: PageTransitionType.fade),
                                 );

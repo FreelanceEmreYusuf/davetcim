@@ -1,8 +1,7 @@
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/select-orders/summary_basket/summary_basket_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../shared/dto/basket_user_dto.dart';
 import '../../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
@@ -17,19 +16,10 @@ import '../../notifications/notifications_view_model.dart';
 class SummaryBasketScreen extends StatefulWidget {
   @override
   _SummaryBasketScreenState createState() => _SummaryBasketScreenState();
-  final BasketUserDto basketModel;
-
-  SummaryBasketScreen(
-      {Key key,
-        @required this.basketModel,
-      })
-      : super(key: key);
-
 }
 
 class _SummaryBasketScreenState extends State<SummaryBasketScreen>
     with AutomaticKeepAliveClientMixin<SummaryBasketScreen> {
-
 
 
   List<ServicePoolModel> updateServiceList(List<ServicePoolModel> serviceList){
@@ -42,31 +32,31 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   int calculateTotalPrice(){
     int totalPrice = 0;
     totalPrice += int.parse(calculateSessionPrice());
-    if (widget.basketModel.servicePoolModel != null) {
-      for(int i =0; i < widget.basketModel.servicePoolModel.length;i++){
-        if(widget.basketModel.servicePoolModel[i].corporateDetail.priceChangedForCount){
-          totalPrice += widget.basketModel.orderBasketModel.count * widget.basketModel.servicePoolModel[i].corporateDetail.price;
+    if (ApplicationContext.userBasket.servicePoolModel != null) {
+      for(int i =0; i < ApplicationContext.userBasket.servicePoolModel.length;i++){
+        if(ApplicationContext.userBasket.servicePoolModel[i].corporateDetail.priceChangedForCount){
+          totalPrice += ApplicationContext.userBasket.orderBasketModel.count * ApplicationContext.userBasket.servicePoolModel[i].corporateDetail.price;
         }
         else{
-          totalPrice += widget.basketModel.servicePoolModel[i].corporateDetail.price;
+          totalPrice += ApplicationContext.userBasket.servicePoolModel[i].corporateDetail.price;
         }
       }
     }
-    if (widget.basketModel.packageModel != null) {
-      totalPrice += widget.basketModel.orderBasketModel.count *  widget.basketModel.packageModel.price;
+    if (ApplicationContext.userBasket.packageModel != null) {
+      totalPrice += ApplicationContext.userBasket.orderBasketModel.count *  ApplicationContext.userBasket.packageModel.price;
     }
 
-    widget.basketModel.totalPrice = totalPrice;
+    ApplicationContext.userBasket.totalPrice = totalPrice;
     return totalPrice;
   }
 
   String calculateSessionPrice(){
     int sessionCost = 0;
-      if(DateConversionUtils.isWeekendFromIntDate(widget.basketModel.date) ){
-        sessionCost = widget.basketModel.selectedSessionModel.weekendPrice;
+      if(DateConversionUtils.isWeekendFromIntDate(ApplicationContext.userBasket.date) ){
+        sessionCost = ApplicationContext.userBasket.selectedSessionModel.weekendPrice;
       }
       else{
-        sessionCost = widget.basketModel.selectedSessionModel.midweekPrice;
+        sessionCost = ApplicationContext.userBasket.selectedSessionModel.midweekPrice;
       }
 
       return sessionCost.toString();
@@ -79,7 +69,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   }
 
   Widget getPackageWidget() {
-    if (widget.basketModel.packageModel != null) {
+    if (ApplicationContext.userBasket.packageModel != null) {
       return
         SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -92,7 +82,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                  widget.basketModel.packageModel.title,
+                  ApplicationContext.userBasket.packageModel.title,
                   style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
               ),
             ),
@@ -110,13 +100,13 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
             onTap: () async {
               Dialogs.showAlertMessageWithAction(
               context,
-              widget.basketModel.packageModel.title,
-              "Paket İçeriği: "+widget.basketModel.packageModel.body+""
-              "\n\nKişi başı ücret: "+widget.basketModel.packageModel.price.toString()+" TL"
+                  ApplicationContext.userBasket.packageModel.title,
+              "Paket İçeriği: "+ApplicationContext.userBasket.packageModel.body+""
+              "\n\nKişi başı ücret: "+ApplicationContext.userBasket.packageModel.price.toString()+" TL"
               "\n\nDavetli Sayısına Göre Toplam Tutar: "
-              "\nDavetli Sayısı("+widget.basketModel.orderBasketModel.count.toString()+") "
-              "\nKişi Başı Paket Ücreti("+widget.basketModel.packageModel.price.toString()+"TL)"
-              "\nToplam Ücret: "+(widget.basketModel.packageModel.price*widget.basketModel.orderBasketModel.count).toString()+" TL",
+              "\nDavetli Sayısı("+ApplicationContext.userBasket.orderBasketModel.count.toString()+") "
+              "\nKişi Başı Paket Ücreti("+ApplicationContext.userBasket.packageModel.price.toString()+"TL)"
+              "\nToplam Ücret: "+(ApplicationContext.userBasket.packageModel.price*ApplicationContext.userBasket.orderBasketModel.count).toString()+" TL",
               null);
             },
             child: Column(
@@ -143,7 +133,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   }
 
   Widget getServiceWidget() {
-    if (widget.basketModel.servicePoolModel != null) {
+    if (ApplicationContext.userBasket.servicePoolModel != null) {
       return GridView.builder(
         shrinkWrap: true,
         primary: false,
@@ -153,13 +143,13 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
           childAspectRatio: MediaQuery.of(context).size.width /
               (MediaQuery.of(context).size.height / 12),
         ),
-        itemCount: widget.basketModel.servicePoolModel == null
+        itemCount: ApplicationContext.userBasket.servicePoolModel == null
             ? 0
-            : widget.basketModel.servicePoolModel.length,
+            : ApplicationContext.userBasket.servicePoolModel.length,
         itemBuilder: (BuildContext context, int index) {
-          ServicePoolModel item = widget.basketModel.servicePoolModel[index];
+          ServicePoolModel item = ApplicationContext.userBasket.servicePoolModel[index];
 
-          return GridCorporateServicePoolForBasketSummary(servicePoolModel: item, basketModel: widget.basketModel,);
+          return GridCorporateServicePoolForBasketSummary(servicePoolModel: item);
         },
       );
     }
@@ -221,8 +211,8 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                              "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0,10)
-                                  +"\n\nSeans : "+widget.basketModel.selectedSessionModel.name,
+                              "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(ApplicationContext.userBasket.date).toString().substring(0,10)
+                                  +"\n\nSeans : "+ApplicationContext.userBasket.selectedSessionModel.name,
                               style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
                           ),
                         ),
@@ -240,10 +230,10 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                               onTap: () async {
                                 Dialogs.showAlertMessageWithAction(
                                   context,
-                                  widget.basketModel.selectedSessionModel.name,
+                                  ApplicationContext.userBasket.selectedSessionModel.name,
                                   "Organizasyon tarihi : " +
-                                      DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0, 10) +
-                                      "\n\nSeans : " + widget.basketModel.selectedSessionModel.name +
+                                      DateConversionUtils.getDateTimeFromIntDate(ApplicationContext.userBasket.date).toString().substring(0, 10) +
+                                      "\n\nSeans : " + ApplicationContext.userBasket.selectedSessionModel.name +
                                       "\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : " +
                                       calculateSessionPrice() +
                                       "TL",
@@ -307,9 +297,9 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                            "Davetli Sayısı :" + widget.basketModel.orderBasketModel.count.toString()
-                             +"\n\nDavet türü : "+ widget.basketModel.orderBasketModel.invitationType
-                             +"\n\nOturma düzeni : "+ widget.basketModel.orderBasketModel.sequenceOrder,
+                            "Davetli Sayısı :" + ApplicationContext.userBasket.orderBasketModel.count.toString()
+                             +"\n\nDavet türü : "+ ApplicationContext.userBasket.orderBasketModel.invitationType
+                             +"\n\nOturma düzeni : "+ ApplicationContext.userBasket.orderBasketModel.sequenceOrder,
                             style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
                         ),
                       ),
@@ -444,9 +434,9 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
             ),
           ),
           onPressed: ()  {
-            int minReservationAmount = widget.basketModel.corporationModel.minReservationAmount;
-            if(DateConversionUtils.isWeekendFromIntDate(widget.basketModel.date) ){
-              minReservationAmount = widget.basketModel.corporationModel.minReservationAmountWeekend;
+            int minReservationAmount = ApplicationContext.userBasket.corporationModel.minReservationAmount;
+            if(DateConversionUtils.isWeekendFromIntDate(ApplicationContext.userBasket.date) ){
+              minReservationAmount = ApplicationContext.userBasket.corporationModel.minReservationAmountWeekend;
             }
 
             if (minReservationAmount < calculateTotalPrice()) {
@@ -466,15 +456,15 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   }
 
   void createReservationRequest(String description) async{
-    widget.basketModel.servicePoolModel = UserBasketCache.servicePoolModel;
+    ApplicationContext.userBasket.servicePoolModel = UserBasketCache.servicePoolModel;
 
     SummaryBasketViewModel model = SummaryBasketViewModel();
-    ReservationModel reservationResponse = await model.createNewReservation(widget.basketModel, description);
+    ReservationModel reservationResponse = await model.createNewReservation(ApplicationContext.userBasket, description);
     if (reservationResponse == null) {
       Dialogs.showAlertMessage(context, "Üzgünüz", "Siz rezervasyon yaparken başka bir kullanıcı tarafından bu tarihteki bu seans rezerve edildi.");
     } else {
       NotificationsViewModel notificationViewModel = NotificationsViewModel();
-      notificationViewModel.sendNotificationsToAdminCompanyUsers(context, widget.basketModel.corporationModel.corporationId,
+      notificationViewModel.sendNotificationsToAdminCompanyUsers(context, ApplicationContext.userBasket.corporationModel.corporationId,
           0, reservationResponse.id,  description);
       Dialogs.showAlertMessageWithAction(context, "İşlem Mesajı", "Rezervasyon talebiniz alınmıştır. Salon sahibine bildirim gönderilmiştir.", navigateToHomePage);
     }
@@ -482,6 +472,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
 
   void navigateToHomePage(BuildContext context) {
     UserBasketCache.servicePoolModel = [];
+    ApplicationContext.userBasket = null;
     Utils.navigateToPage(context, MainScreen());
   }
 

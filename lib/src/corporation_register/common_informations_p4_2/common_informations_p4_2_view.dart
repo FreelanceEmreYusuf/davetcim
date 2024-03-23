@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/corporation_registration_dto.dart';
 import '../../../shared/dto/service_type_response_dto.dart';
 import '../../../shared/enums/corporation_service_selection_enum.dart';
 import '../../../shared/utils/utils.dart';
@@ -12,13 +11,6 @@ import 'common_informations_p4_2_view_model.dart';
 class CommonInformationsP42View extends StatefulWidget {
   @override
   _CommonInformationsP42ViewState createState() => _CommonInformationsP42ViewState();
-  final CorporationReservationDto corpReg;
-
-  CommonInformationsP42View(
-      {Key key,
-        @required this.corpReg,
-       })
-      : super(key: key);
 }
 
 class _CommonInformationsP42ViewState extends State<CommonInformationsP42View> {
@@ -73,9 +65,9 @@ class _CommonInformationsP42ViewState extends State<CommonInformationsP42View> {
             });
             if (serviceSelectionCount > 1) serviceSelectedValue = 2;
 
-            widget.corpReg.corporationModel.serviceSelection =
+            ApplicationContext.corporationReservation.corporationModel.serviceSelection =
                 CorporationServiceSelectionEnumConverter.getEnumValue(serviceSelectedValue);
-            Utils.navigateToPage(context, CommonInformationsP5View(corpReg: widget.corpReg,));
+            Utils.navigateToPage(context, CommonInformationsP5View());
           },
           label: const Text('Devam Et'),
           icon: const Icon(Icons.navigate_next),

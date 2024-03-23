@@ -135,6 +135,38 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
+              SizedBox(height: 20.0),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.redAccent,
+                  padding: EdgeInsets.symmetric(vertical: 15.0),
+                ),
+                onPressed: () async {
+                  LoginViewModel vm = LoginViewModel();
+                  if (loginFormKey.currentState.validate()) {
+                    bool isRegistered = await vm.userLoginFlow(
+                      context,
+                      widget.childPage == null ? MainScreen() : widget.childPage,
+                      _usernameControl.text,
+                      _passwordControl.text,
+                    );
+
+                    if (!isRegistered) {
+                      setState(() {
+                        loginErrorVisibility = true;
+                      });
+                    }
+                  }
+                },
+                child: Text(
+                  "GOOGLE HESABIYLA BAĞLAN".toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

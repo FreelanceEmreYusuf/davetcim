@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../shared/models/corporation_event_log_model.dart';
-import '../../../shared/sessions/application_cache.dart';
+import '../../../shared/sessions/application_context.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import 'corporation_analysis_pick_firstdate_view.dart';
@@ -34,7 +34,7 @@ class _CorporationAnalysisViewState extends State<CorporationAnalysisView> {
 
   void getScreenModel() async {
     CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
-    corporationEventLogModel = await corporationAnalysisViewModel.getLogForScreen(ApplicationCache.userCache.corporationId);
+    corporationEventLogModel = await corporationAnalysisViewModel.getLogForScreen(ApplicationContext.userCache.corporationId);
     setState(() {
       corporationEventLogModel = corporationEventLogModel;
       hasDataTaken = true;

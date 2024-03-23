@@ -1,33 +1,18 @@
-import 'package:davetcim/shared/models/combo_generic_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/basket_user_dto.dart';
-import '../../../shared/models/reservation_model.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/carousel_calender_order_widget.dart';
-import '../../../widgets/carousel_calender_widget.dart';
-import '../properties/order_view_model.dart';
 
 class CalendarScreen extends StatefulWidget {
   @override
   _CalendarScreenState createState() => _CalendarScreenState();
-  final BasketUserDto basketModel;
-
-  CalendarScreen(
-      {Key key,
-        @required this.basketModel,
-      })
-      : super(key: key);
-
 }
 
 class _CalendarScreenState extends State<CalendarScreen>
     with AutomaticKeepAliveClientMixin<CalendarScreen> {
   static TextStyle kStyle =
       TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
-
-
 
   int selectedSeatingArrangement = 0;
   int selectedInvitationIndex = 0;
@@ -72,7 +57,7 @@ class _CalendarScreenState extends State<CalendarScreen>
       appBar: AppBarMenu(pageName: "Seans Seçimi", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Container(
         child: SingleChildScrollView(
-          child: new Padding(child: CalenderOrderCarousel(basketModel: widget.basketModel, ),
+          child: new Padding(child: CalenderOrderCarousel(),
               padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))),
         ),
       ),

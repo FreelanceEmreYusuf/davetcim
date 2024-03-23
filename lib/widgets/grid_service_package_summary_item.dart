@@ -1,20 +1,8 @@
-import 'package:flutter/cupertino.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
-import '../shared/dto/basket_user_dto.dart';
-import '../shared/enums/corporation_service_selection_enum.dart';
-import '../shared/models/corporation_package_services_model.dart';
 import '../shared/utils/dialogs.dart';
-import '../shared/utils/utils.dart';
-import '../src/select-orders/services/services_view.dart';
-import '../src/select-orders/summary_basket/summary_basket_view.dart';
 
 class GridServicePackageSummaryItem extends StatefulWidget {
-  final BasketUserDto basketModel;
-
-  GridServicePackageSummaryItem({
-    Key key,
-    @required this.basketModel,
-  }) : super(key: key);
 
   @override
   _GridServicePackageSummaryItemState createState() =>
@@ -31,7 +19,7 @@ class _GridServicePackageSummaryItemState
       children: [
         Expanded(
           child: Text(
-              widget.basketModel.packageModel.title, style: TextStyle(
+              ApplicationContext.userBasket.packageModel.title, style: TextStyle(
               fontSize: 18,
               color: Colors.green,
               fontStyle: FontStyle.italic,
@@ -47,9 +35,9 @@ class _GridServicePackageSummaryItemState
                   onTap: () async {
                     Dialogs.showAlertMessageWithAction(
                         context,
-                        widget.basketModel.packageModel.title,
-                        widget.basketModel.packageModel.body +
-                            " \nFiyat:" + widget.basketModel.packageModel.price.toString() + "TL",
+                        ApplicationContext.userBasket.packageModel.title,
+                        ApplicationContext.userBasket.packageModel.body +
+                            " \nFiyat:" + ApplicationContext.userBasket.packageModel.price.toString() + "TL",
                         null);
                   }, // button pressed
                   child: Column(

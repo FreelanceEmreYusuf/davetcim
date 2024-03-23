@@ -1,6 +1,6 @@
 import 'package:davetcim/shared/helpers/notification_helper.dart';
 import 'package:davetcim/shared/models/notification_model.dart';
-import 'package:davetcim/shared/sessions/application_cache.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 import '../shared/utils/language.dart';
 import '../src/notifications/notifications_view_model.dart';
@@ -19,7 +19,7 @@ class _ListTileNotificationsEditingState
     extends State<ListTileNotificationsEditing> {
   void deleteNotification(int id) async {
     NotificationsViewModel notificationsViewModel = NotificationsViewModel();
-    notificationsViewModel.deleteNotification(context, id, ApplicationCache.userCache.id);
+    notificationsViewModel.deleteNotification(context, id, ApplicationContext.userCache.id);
   }
 
   void goToNotificationDetail() async {

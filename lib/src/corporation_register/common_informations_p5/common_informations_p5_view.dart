@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/models/secret_questions_model.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/src/join/register/register_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/corporation_registration_dto.dart';
 import '../../../shared/enums/customer_role_enum.dart';
 import '../../../shared/helpers/customer_helper.dart';
 import '../../../shared/models/customer_model.dart';
@@ -17,15 +16,6 @@ import '../common_informations_p6/common_informations_p6_view.dart';
 class CommonInformationsP5View extends StatefulWidget {
   @override
   _CommonInformationsP5ViewState createState() => _CommonInformationsP5ViewState();
-
-  final CorporationReservationDto corpReg;
-
-  CommonInformationsP5View(
-      {Key key,
-        @required this.corpReg,
-      })
-      : super(key: key);
-
 }
 
 class _CommonInformationsP5ViewState extends State<CommonInformationsP5View> {
@@ -79,7 +69,7 @@ class _CommonInformationsP5ViewState extends State<CommonInformationsP5View> {
             CustomerModel _customer = new CustomerModel(
                 username: _usernameControl.text,
                 id: new DateTime.now().millisecondsSinceEpoch,
-                corporationId: widget.corpReg.corporationModel.corporationId,
+                corporationId: ApplicationContext.corporationReservation.corporationModel.corporationId,
                 gsmNo: _phoneControl.text,
                 isActive: true,
                 name: _nameControl.text,
@@ -92,8 +82,8 @@ class _CommonInformationsP5ViewState extends State<CommonInformationsP5View> {
                 secretQuestionAnswer: _secretQuestionAnswerControl.text,
                 notificationCount: 0,
                 basketCount: 0);
-            widget.corpReg.customerModel = _customer;
-            widget.corpReg.secretQuestionName = selectedQuestion.questionText;
+            ApplicationContext.corporationReservation.customerModel = _customer;
+            ApplicationContext.corporationReservation.secretQuestionName = selectedQuestion.questionText;
 
             String errorMessage = await CustomerHelper.getUserExistingControlWithUserName(_usernameControl.text);
             if (errorMessage.isNotEmpty) {
@@ -101,7 +91,7 @@ class _CommonInformationsP5ViewState extends State<CommonInformationsP5View> {
                 usernameExists= true;
               });
             } else {
-              Utils.navigateToPage(context, CommonInformationsP6View(corpReg: widget.corpReg,));
+              Utils.navigateToPage(context, CommonInformationsP6View());
             }
           }
         },

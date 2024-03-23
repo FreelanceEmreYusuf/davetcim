@@ -1,8 +1,8 @@
 import 'package:davetcim/shared/enums/reservation_status_enum.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../shared/dto/reservation_detail_view_dto.dart';
+import '../../../shared/sessions/reservation_detail_view_dto.dart';
 import '../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
@@ -18,7 +18,6 @@ import '../../user_reservations/user_reservations_view_model.dart';
 import '../reservation/reservation_corporate_view_model.dart';
 import 'all_reservation_corporate_delay_date_view.dart';
 import 'all_reservation_corporate_landing_view.dart';
-import 'all_reservation_corporate_view.dart';
 
 class AllReservationCorporateDetailScreen extends StatefulWidget {
   @override
@@ -378,8 +377,9 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
               itemCount: detailResponse.packageModel == null
                   ? 0 : 1,
               itemBuilder: (BuildContext context, int index) {
+                ApplicationContext.reservationDetail = detailResponse;
                 CorporationPackageServicesModel item = detailResponse.packageModel;
-                return GridCorporateDetailPackageSummary(packageModel: item,  detailModel: detailResponse);
+                return GridCorporateDetailPackageSummary(packageModel: item);
               },
             ),
 
@@ -423,9 +423,9 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                   ? 0
                   : detailResponse.detailList.length,
               itemBuilder: (BuildContext context, int index) {
+                ApplicationContext.reservationDetail = detailResponse;
                 ReservationDetailModel item = detailResponse.detailList[index];
-
-                return GridCorporateDetailServicesSummary(detailRowModel: item, detailModel: detailResponse);
+                return GridCorporateDetailServicesSummary(detailRowModel: item);
               },
             ),
             SizedBox(height: 10.0),

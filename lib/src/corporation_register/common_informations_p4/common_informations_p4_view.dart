@@ -1,24 +1,15 @@
-import 'package:flutter/cupertino.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/corporation_registration_dto.dart';
 import '../../../shared/dto/organization_type_response_dto.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../common_informations_p4_2/common_informations_p4_2_view.dart';
-import '../common_informations_p5/common_informations_p5_view.dart';
 import 'common_informations_p4_view_model.dart';
 
 class CommonInformationsP4View extends StatefulWidget {
   @override
   _CommonInformationsP4ViewState createState() => _CommonInformationsP4ViewState();
-  final CorporationReservationDto corpReg;
-
-  CommonInformationsP4View(
-      {Key key,
-        @required this.corpReg,
-       })
-      : super(key: key);
 }
 
 class _CommonInformationsP4ViewState extends State<CommonInformationsP4View> {
@@ -73,9 +64,10 @@ class _CommonInformationsP4ViewState extends State<CommonInformationsP4View> {
                 sequenceOrderTypes = sequenceOrderTypes + k,
               }
             });
-            widget.corpReg.corporationModel.sequenceOrderUniqueIdentifier = sequenceOrderList;
-            widget.corpReg.sequenceOrderTypes = sequenceOrderTypes;
-            Utils.navigateToPage(context, CommonInformationsP42View(corpReg: widget.corpReg,));
+            ApplicationContext.corporationReservation.corporationModel.sequenceOrderUniqueIdentifier =
+                sequenceOrderList;
+            ApplicationContext.corporationReservation.sequenceOrderTypes = sequenceOrderTypes;
+            Utils.navigateToPage(context, CommonInformationsP42View());
           },
           label: const Text('Devam Et'),
           icon: const Icon(Icons.navigate_next),

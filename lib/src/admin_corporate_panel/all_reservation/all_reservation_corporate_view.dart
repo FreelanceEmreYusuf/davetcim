@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_cache.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
@@ -25,7 +25,7 @@ class _State extends State<AllReservationCorporateView> {
 
   void callGetReservations() async {
     AllReservationCorporateViewModel model = AllReservationCorporateViewModel();
-    reservationList = await model.getAllReservationlist(ApplicationCache.userCache.corporationId);
+    reservationList = await model.getAllReservationlist(ApplicationContext.userCache.corporationId);
 
     setState(() {
       reservationList = reservationList;

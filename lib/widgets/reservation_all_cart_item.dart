@@ -1,7 +1,7 @@
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 
-import '../shared/dto/reservation_detail_view_dto.dart';
+import '../shared/sessions/reservation_detail_view_dto.dart';
 import '../shared/models/corporate_sessions_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';

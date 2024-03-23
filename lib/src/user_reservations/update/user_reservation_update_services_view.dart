@@ -1,8 +1,9 @@
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/src/user_reservations/update/user_reservation_update_summary_basket_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/reservation_detail_view_dto.dart';
+import '../../../shared/sessions/reservation_detail_view_dto.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/service_pool_model.dart';
 import '../../../shared/sessions/user_basket_cache.dart';
@@ -15,14 +16,6 @@ import '../../admin_corporate_panel/service/service_corporate_user_choose/servic
 class UserReservationUpdateServicesScreen extends StatefulWidget {
   @override
   _UserReservationUpdateServicesScreenState createState() => _UserReservationUpdateServicesScreenState();
-  final ReservationDetailViewDto detailResponse;
-
-  UserReservationUpdateServicesScreen(
-      {Key key,
-        @required this.detailResponse,
-      })
-      : super(key: key);
-
 }
 
 class _UserReservationUpdateServicesScreenState extends State<UserReservationUpdateServicesScreen>
@@ -39,22 +32,23 @@ class _UserReservationUpdateServicesScreenState extends State<UserReservationUpd
 
   void setServiceList() async {
     ServiceCorporatePoolViewModel model = ServiceCorporatePoolViewModel();
-    serviceList = updateServiceList(await model.getServiceList(widget.detailResponse.corporateModel.corporationId));
+    serviceList = updateServiceList(await model.getServiceList(
+        ApplicationContext.reservationDetail.corporateModel.corporationId));
 
     if (serviceList.length == 0) {
       navigateToNextScreen();
     }
 
     List<int> selectedServicesIds = [];
-    for (int i  = 0; i < widget.detailResponse.detailList.length; i++) {
-      ReservationDetailModel detailModel = widget.detailResponse.detailList[i];
+    for (int i  = 0; i < ApplicationContext.reservationDetail.detailList.length; i++) {
+      ReservationDetailModel detailModel = ApplicationContext.reservationDetail.detailList[i];
       selectedServicesIds.add(detailModel.foreignId);
     }
 
     ReservationCorporateViewModel reservationCorporateViewModel = ReservationCorporateViewModel();
     UserBasketCache.servicePoolModel =
       await reservationCorporateViewModel.getServicePoolModelDetailedList(selectedServicesIds,
-          widget.detailResponse.reservationModel);
+          ApplicationContext.reservationDetail.reservationModel);
 
     setState(() {
       serviceList = serviceList;
@@ -63,7 +57,7 @@ class _UserReservationUpdateServicesScreenState extends State<UserReservationUpd
   }
 
   void navigateToNextScreen() {
-    Utils.navigateToPage(context, UserReservationUpdateSummaryBasketScreen(detailResponse: widget.detailResponse));
+    Utils.navigateToPage(context, UserReservationUpdateSummaryBasketScreen());
   }
 
   List<ServicePoolModel> updateServiceList(List<ServicePoolModel> serviceList){
@@ -109,7 +103,8 @@ class _UserReservationUpdateServicesScreenState extends State<UserReservationUpd
               itemBuilder: (BuildContext context, int index) {
                 ServicePoolModel item = serviceList[index];
 
-                return UserReservationUpdateGridCorporateServicePoolForBasket(servicePoolModel: item, detailResponse: widget.detailResponse,);
+                return UserReservationUpdateGridCorporateServicePoolForBasket(
+                  servicePoolModel: item);
               },
             ),
           ],
@@ -127,7 +122,7 @@ class _UserReservationUpdateServicesScreenState extends State<UserReservationUpd
             ),
           ),
           onPressed: () {
-           widget.detailResponse.servicePoolModel = UserBasketCache.servicePoolModel;
+            ApplicationContext.reservationDetail.servicePoolModel = UserBasketCache.servicePoolModel;
            navigateToNextScreen();
           },
         ),

@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_cache.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/cupertino.dart';
 import '../../shared/environments/db_constants.dart';
 import '../../shared/models/corporation_event_log_model.dart';
@@ -12,8 +12,8 @@ class HomeViewModel extends ChangeNotifier {
   Database db = Database();
 
   String getUserName() {
-    if (ApplicationCache.userCache != null) {
-      return ApplicationCache.userCache.username;
+    if (ApplicationContext.userCache != null) {
+      return ApplicationContext.userCache.username;
     }
     return "";
   }

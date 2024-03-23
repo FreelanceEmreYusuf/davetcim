@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
-import '../shared/dto/basket_user_dto.dart';
 import '../shared/enums/corporation_service_selection_enum.dart';
 import '../shared/models/corporation_package_services_model.dart';
-import '../shared/sessions/user_basket_cache.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/select-orders/services/services_view.dart';
@@ -11,12 +9,10 @@ import '../src/select-orders/summary_basket/summary_basket_view.dart';
 
 class GridServicePackageItem extends StatefulWidget {
   final CorporationPackageServicesModel packageModel;
-  final BasketUserDto basketModel;
 
   GridServicePackageItem({
     Key key,
     @required this.packageModel,
-    @required this.basketModel,
   }) : super(key: key);
 
   @override
@@ -57,9 +53,9 @@ class _GridServicePackageItemState
                         "Paket İçeriği: "+widget.packageModel.body+""
                         "\n\nKişi başı ücret: "+widget.packageModel.price.toString()+" TL"
                             "\n\nDavetli Sayısına Göre Toplam Tutar: "
-                            "\nDavetli Sayısı("+widget.basketModel.orderBasketModel.count.toString()+") "
+                            "\nDavetli Sayısı("+ApplicationContext.userBasket.orderBasketModel.count.toString()+") "
                             "\nKişi Başı Paket Ücreti("+widget.packageModel.price.toString()+"TL)"
-                            "\nToplam Ücret: "+(widget.packageModel.price*widget.basketModel.orderBasketModel.count).toString()+" TL",
+                            "\nToplam Ücret: "+(widget.packageModel.price * ApplicationContext.userBasket.orderBasketModel.count).toString()+" TL",
                         null);
                   }, // button pressed
                   child: Column(
@@ -81,14 +77,14 @@ class _GridServicePackageItemState
               child: InkWell(
                 splashColor: Colors.deepOrangeAccent, // splash color
                 onTap: () {
-                  widget.basketModel.packageModel = widget.packageModel;
-                  if (widget.basketModel.corporationModel.serviceSelection ==
+                  ApplicationContext.userBasket.packageModel = widget.packageModel;
+                  if (ApplicationContext.userBasket.corporationModel.serviceSelection ==
                       CorporationServiceSelectionEnum.customerSelectsExtraProduct
-                  || widget.basketModel.corporationModel.serviceSelection ==
+                  || ApplicationContext.userBasket.corporationModel.serviceSelection ==
                       CorporationServiceSelectionEnum.customerSelectsBoth) {
-                    Utils.navigateToPage(context, ServicesScreen(basketModel: widget.basketModel));
+                    Utils.navigateToPage(context, ServicesScreen());
                   } else {
-                    Utils.navigateToPage(context, SummaryBasketScreen(basketModel: widget.basketModel));
+                    Utils.navigateToPage(context, SummaryBasketScreen());
                   }
                 }, // button pressed
                 child: Column(

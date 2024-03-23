@@ -1,7 +1,7 @@
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_user_choose/service-corporate_view_model.dart';
 import 'package:flutter/material.dart';
 import '../../../../shared/models/service_pool_model.dart';
-import '../../../../shared/sessions/application_cache.dart';
+import '../../../../shared/sessions/application_context.dart';
 import '../../../../widgets/app_bar/app_bar_view.dart';
 import '../../../../widgets/grid_corporate_service_pool.dart';
 
@@ -24,7 +24,7 @@ class _AdminCorporateServicePoolManagerState extends State<AdminCorporateService
 
   void setServiceList() async {
     ServiceCorporatePoolViewModel model = ServiceCorporatePoolViewModel();
-    serviceList = await model.getServiceList(ApplicationCache.userCache.corporationId);
+    serviceList = await model.getServiceList(ApplicationContext.userCache.corporationId);
 
     setState(() {
       serviceList = serviceList;

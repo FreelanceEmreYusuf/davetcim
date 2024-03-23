@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_cache.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
@@ -27,8 +27,8 @@ class AppBarViewModel extends ChangeNotifier {
   }
 
   int getUserId() {
-    if (ApplicationCache.userCache != null) {
-      return ApplicationCache.userCache.id;
+    if (ApplicationContext.userCache != null) {
+      return ApplicationContext.userCache.id;
     }
     return 0;
   }

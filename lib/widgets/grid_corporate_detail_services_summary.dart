@@ -1,18 +1,14 @@
-import 'package:flutter/cupertino.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
-import '../shared/dto/reservation_detail_view_dto.dart';
 import '../shared/models/reservation_detail_model.dart';
 import '../shared/utils/dialogs.dart';
 
 class GridCorporateDetailServicesSummary extends StatefulWidget {
   final ReservationDetailModel detailRowModel;
-  final ReservationDetailViewDto detailModel;
-
 
   GridCorporateDetailServicesSummary({
     Key key,
-    @required this.detailRowModel,
-    @required this.detailModel,
+    @required this.detailRowModel
   }) : super(key: key);
 
   @override
@@ -56,7 +52,8 @@ class _GridCorporateDetailServicesSummaryState
                       context,
                       widget.detailRowModel.serviceName,
                       //TODO: hizmet için fiyat bilgileri girilecek
-                      "Belirtmiş olduğunuz davetli sayısı : "+widget.detailModel.reservationModel.invitationCount.toString()
+                      "Belirtmiş olduğunuz davetli sayısı : " +
+                          ApplicationContext.reservationDetail.reservationModel.invitationCount.toString()
                           +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
                           +"\n\nHizmetin birim ücreti : "+ widget.detailRowModel.price.toString(),
                       null);
@@ -74,8 +71,6 @@ class _GridCorporateDetailServicesSummaryState
         ),
       ],
     );
-
-
 
     return Container(
       padding: EdgeInsets.only(left: _paddingLeftValue),

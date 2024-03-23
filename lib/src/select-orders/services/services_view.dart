@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/basket_user_dto.dart';
 import '../../../shared/models/service_pool_model.dart';
 import '../../../shared/sessions/user_basket_cache.dart';
 import '../../../shared/utils/utils.dart';
@@ -13,14 +12,6 @@ import '../summary_basket/summary_basket_view.dart';
 class ServicesScreen extends StatefulWidget {
   @override
   _ServicesScreenState createState() => _ServicesScreenState();
-  final BasketUserDto basketModel;
-
-  ServicesScreen(
-      {Key key,
-        @required this.basketModel,
-      })
-      : super(key: key);
-
 }
 
 class _ServicesScreenState extends State<ServicesScreen>
@@ -37,7 +28,8 @@ class _ServicesScreenState extends State<ServicesScreen>
 
   void setServiceList() async {
     ServiceCorporatePoolViewModel model = ServiceCorporatePoolViewModel();
-    serviceList = updateServiceList(await model.getServiceList(widget.basketModel.corporationModel.corporationId));
+    serviceList = updateServiceList(await model.getServiceList(
+        ApplicationContext.userBasket.corporationModel.corporationId));
 
     if (serviceList.length == 0) {
       navigateToNextScreen();
@@ -50,7 +42,7 @@ class _ServicesScreenState extends State<ServicesScreen>
   }
 
   void navigateToNextScreen() {
-    Utils.navigateToPage(context, SummaryBasketScreen(basketModel: widget.basketModel));
+    Utils.navigateToPage(context, SummaryBasketScreen());
   }
 
   List<ServicePoolModel> updateServiceList(List<ServicePoolModel> serviceList){
@@ -59,7 +51,6 @@ class _ServicesScreenState extends State<ServicesScreen>
     }
     return serviceList;
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +87,7 @@ class _ServicesScreenState extends State<ServicesScreen>
               itemBuilder: (BuildContext context, int index) {
                 ServicePoolModel item = serviceList[index];
 
-                return GridCorporateServicePoolForBasket(servicePoolModel: item, basketModel: widget.basketModel,);
+                return GridCorporateServicePoolForBasket(servicePoolModel: item);
               },
             ),
           ],
@@ -114,7 +105,7 @@ class _ServicesScreenState extends State<ServicesScreen>
             ),
           ),
           onPressed: () {
-           widget.basketModel.servicePoolModel = UserBasketCache.servicePoolModel;
+           ApplicationContext.userBasket.servicePoolModel = UserBasketCache.servicePoolModel;
            navigateToNextScreen();
           },
         ),

@@ -9,19 +9,19 @@ import 'package:davetcim/shared/models/organization_type_model.dart';
 import 'package:davetcim/shared/models/region_model.dart';
 import 'package:davetcim/shared/models/sequence_order_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_cache.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/src/products/products_view.dart';
 import 'package:flutter/cupertino.dart';
 
 List<RegionModel> regionList =
-    ApplicationCache.filterCache.regionModelList;
+    ApplicationContext.filterCache.regionModelList;
 List<OrganizationTypeModel> organizationTypeList =
-    ApplicationCache.filterCache.organizationTypeList;
+    ApplicationContext.filterCache.organizationTypeList;
 List<SequenceOrderModel> sequenceOrderList =
-    ApplicationCache.filterCache.sequenceOrderList;
+    ApplicationContext.filterCache.sequenceOrderList;
 List<InvitationTypeModel> invitationList =
-    ApplicationCache.filterCache. invitationTypeList;
+    ApplicationContext.filterCache. invitationTypeList;
 List<DistrictModel> districtList = [
   DistrictModel(
       id: 0, name: 'Tümü', regionId: 0, filteringStatus: 0, sortingIndex: 1)

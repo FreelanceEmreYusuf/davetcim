@@ -1,21 +1,16 @@
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
-import '../shared/dto/reservation_detail_view_dto.dart';
+import '../shared/sessions/reservation_detail_view_dto.dart';
 import '../shared/models/reservation_model.dart';
 import '../shared/utils/utils.dart';
 import '../src/admin_corporate_panel/all_reservation/all_reservation_corporate_view_model.dart';
 import '../src/user_reservations/update/user_reservation_update_reservation_order_view.dart';
 
 class UserReservationUpdateCalenderOrderCarousel extends StatefulWidget {
-
-  final ReservationDetailViewDto detailResponse;
-
-  UserReservationUpdateCalenderOrderCarousel({Key key, @required this.detailResponse})
-  : super(key: key);
-
   @override
   _UserReservationUpdateCalenderOrderCarouselState createState() => _UserReservationUpdateCalenderOrderCarouselState();
 }
@@ -38,7 +33,7 @@ class _UserReservationUpdateCalenderOrderCarouselState extends State<UserReserva
     ///tüm rezervasoynları for döngüsüyle dönerek _markedDateMap nesnesine add edicez
     /// Add more events to _markedDateMap EventList
     super.initState();
-    getReservationDates(widget.detailResponse.corporateModel.corporationId);
+    getReservationDates(ApplicationContext.reservationDetail.corporateModel.corporationId);
   }
 
   void getReservationDates(int corporationId) async {
@@ -82,8 +77,8 @@ class _UserReservationUpdateCalenderOrderCarouselState extends State<UserReserva
       child: CalendarCarousel<Event>(
         onDayPressed: (DateTime date, List<Event> events) {
           this.setState(() => _currentDate = date);
-          widget.detailResponse.reservationModel.date = DateConversionUtils.getCurrentDateAsInt(date);
-          Utils.navigateToPage(context, UserReservationUpdateReservationOrderViewScreen(widget.detailResponse));
+          ApplicationContext.reservationDetail.reservationModel.date = DateConversionUtils.getCurrentDateAsInt(date);
+          Utils.navigateToPage(context, UserReservationUpdateReservationOrderViewScreen());
         },
         weekendTextStyle: TextStyle(
           color: Colors.red,

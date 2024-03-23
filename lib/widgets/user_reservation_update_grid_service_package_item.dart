@@ -1,7 +1,8 @@
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/widgets/user_reservation_update_grid_corporate_service_pool_for_basket_summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../shared/dto/reservation_detail_view_dto.dart';
+import '../shared/sessions/reservation_detail_view_dto.dart';
 import '../shared/enums/corporation_service_selection_enum.dart';
 import '../shared/models/corporation_package_services_model.dart';
 import '../shared/utils/dialogs.dart';
@@ -10,12 +11,10 @@ import '../src/user_reservations/update/user_reservation_update_services_view.da
 
 class UserReservationUpdateGridServicePackageItem extends StatefulWidget {
   final CorporationPackageServicesModel packageModel;
-  final ReservationDetailViewDto detailResponse;
 
   UserReservationUpdateGridServicePackageItem({
     Key key,
     @required this.packageModel,
-    @required this.detailResponse,
   }) : super(key: key);
 
   @override
@@ -56,9 +55,11 @@ class _UserReservationUpdateGridServicePackageItemState
                         "Paket İçeriği: "+widget.packageModel.body+""
                         "\n\nKişi başı ücret: "+widget.packageModel.price.toString()+" TL"
                             "\n\nDavetli Sayısına Göre Toplam Tutar: "
-                            "\nDavetli Sayısı("+widget.detailResponse.orderBasketModel.count.toString()+") "
+                            "\nDavetli Sayısı("+
+                            ApplicationContext.reservationDetail.orderBasketModel.count.toString()+") "
                             "\nKişi Başı Paket Ücreti("+widget.packageModel.price.toString()+"TL)"
-                            "\nToplam Ücret: "+(widget.packageModel.price*widget.detailResponse.orderBasketModel.count).toString()+" TL",
+                            "\nToplam Ücret: "+(widget.packageModel.price *
+                            ApplicationContext.reservationDetail.orderBasketModel.count).toString()+" TL",
                         null);
                   }, // button pressed
                   child: Column(
@@ -80,14 +81,14 @@ class _UserReservationUpdateGridServicePackageItemState
               child: InkWell(
                 splashColor: Colors.deepOrangeAccent, // splash color
                 onTap: () {
-                  widget.detailResponse.packageModel = widget.packageModel;
-                  if (widget.detailResponse.corporateModel.serviceSelection ==
+                  ApplicationContext.reservationDetail.packageModel = widget.packageModel;
+                  if (ApplicationContext.reservationDetail.corporateModel.serviceSelection ==
                       CorporationServiceSelectionEnum.customerSelectsExtraProduct
-                  || widget.detailResponse.corporateModel.serviceSelection ==
+                  || ApplicationContext.reservationDetail.corporateModel.serviceSelection ==
                       CorporationServiceSelectionEnum.customerSelectsBoth) {
-                    Utils.navigateToPage(context, UserReservationUpdateServicesScreen(detailResponse: widget.detailResponse));
+                    Utils.navigateToPage(context, UserReservationUpdateServicesScreen());
                   } else {
-                    Utils.navigateToPage(context, UserReservationUpdateGridCorporateServicePoolForBasketSummary(detailResponse: widget.detailResponse));
+                    Utils.navigateToPage(context, UserReservationUpdateGridCorporateServicePoolForBasketSummary());
                   }
                 }, // button pressed
                 child: Column(

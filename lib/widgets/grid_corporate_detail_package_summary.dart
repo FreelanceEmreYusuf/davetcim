@@ -1,19 +1,14 @@
-import 'package:flutter/cupertino.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
-import '../shared/dto/reservation_detail_view_dto.dart';
 import '../shared/models/corporation_package_services_model.dart';
-import '../shared/models/reservation_detail_model.dart';
 import '../shared/utils/dialogs.dart';
 
 class GridCorporateDetailPackageSummary extends StatefulWidget {
   final CorporationPackageServicesModel packageModel;
-  final ReservationDetailViewDto detailModel;
-
 
   GridCorporateDetailPackageSummary({
     Key key,
-    @required this.packageModel,
-    @required this.detailModel,
+    @required this.packageModel
   }) : super(key: key);
 
   @override
@@ -52,10 +47,12 @@ class _GridCorporateDetailPackageSummaryState
                   Dialogs.showAlertMessageWithAction(
                       context,
                       widget.packageModel.title,
-                      widget.packageModel.body + "\n\nBelirtmiş olduğunuz davetli sayısı : "+widget.detailModel.reservationModel.invitationCount.toString()
+                      widget.packageModel.body + "\n\nBelirtmiş olduğunuz davetli sayısı : " +
+                          ApplicationContext.reservationDetail.reservationModel.invitationCount.toString()
                           +"\n\nHizmetin birim ücreti : "+ widget.packageModel.price.toString()
                           +"\n\nHizmetin toplam ücreti : "+
-                          (widget.packageModel.price * widget.detailModel.reservationModel.invitationCount).toString(),
+                          (widget.packageModel.price *
+                              ApplicationContext.reservationDetail.reservationModel.invitationCount).toString(),
                       null);
                 }, // button pressed
                 child: Column(
@@ -71,8 +68,6 @@ class _GridCorporateDetailPackageSummaryState
         ),
       ],
     );
-
-
 
     return Container(
       padding: EdgeInsets.only(left: _paddingLeftValue),

@@ -1,9 +1,9 @@
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_package/service_corporate_package_view_model.dart';
 import 'package:davetcim/src/select-orders/services/services_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../shared/models/corporation_package_services_model.dart';
-import '../../../shared/dto/basket_user_dto.dart';
 import '../../../shared/enums/corporation_service_selection_enum.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
@@ -12,13 +12,6 @@ import '../summary_basket/summary_basket_view.dart';
 
 
 class ServicesPackageView extends StatefulWidget {
-  final BasketUserDto basketModel;
-
-  ServicesPackageView(
-      {Key key,
-        @required this.basketModel,
-      })
-      : super(key: key);
 
   @override
   _ServicesPackageViewState createState() =>
@@ -38,7 +31,8 @@ class _ServicesPackageViewState extends State<ServicesPackageView> {
 
   void fillPackegeList() async  {
     ServiceCorporatePackageViewModel packageViewModel = ServiceCorporatePackageViewModel();
-    packagesList = await packageViewModel.getPackageList(widget.basketModel.corporationModel.corporationId);
+    packagesList = await packageViewModel.getPackageList(
+        ApplicationContext.userBasket.corporationModel.corporationId);
 
     if (packagesList.length == 0) {
       navigateToNextScreen();
@@ -51,14 +45,14 @@ class _ServicesPackageViewState extends State<ServicesPackageView> {
   }
 
   void navigateToNextScreen() {
-    widget.basketModel.packageModel = null;
-    if (widget.basketModel.corporationModel.serviceSelection ==
+    ApplicationContext.userBasket.packageModel = null;
+    if (ApplicationContext.userBasket.corporationModel.serviceSelection ==
         CorporationServiceSelectionEnum.customerSelectsExtraProduct
-        || widget.basketModel.corporationModel.serviceSelection ==
+        || ApplicationContext.userBasket.corporationModel.serviceSelection ==
             CorporationServiceSelectionEnum.customerSelectsBoth) {
-      Utils.navigateToPage(context, ServicesScreen(basketModel: widget.basketModel));
+      Utils.navigateToPage(context, ServicesScreen());
     } else {
-      Utils.navigateToPage(context, SummaryBasketScreen(basketModel: widget.basketModel));
+      Utils.navigateToPage(context, SummaryBasketScreen());
     }
   }
 
@@ -102,7 +96,7 @@ class _ServicesPackageViewState extends State<ServicesPackageView> {
                   : packagesList.length,
               itemBuilder: (BuildContext context, int index) {
                 CorporationPackageServicesModel item = packagesList[index];
-                return GridServicePackageItem(packageModel: item, basketModel: widget.basketModel,);
+                return GridServicePackageItem(packageModel: item);
               },
             ),
           ],

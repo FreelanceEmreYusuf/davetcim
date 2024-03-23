@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../shared/dto/basket_user_dto.dart';
+import '../../shared/sessions/basket_user_dto.dart';
 import '../../shared/enums/corporation_event_log_enum.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
 import '../../shared/models/combo_generic_model.dart';
 import '../../shared/models/corporation_event_log_model.dart';
 import '../../shared/models/corporation_model.dart';
 import '../../shared/models/reservation_model.dart';
-import '../../shared/sessions/application_cache.dart';
+import '../../shared/sessions/application_context.dart';
 import '../../shared/sessions/user_basket_cache.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/utils.dart';
@@ -170,7 +170,7 @@ class _ProductDetailsState extends State<ProductDetails> {
     FavProductsViewModel mdl = FavProductsViewModel();
     await mdl.editFavoriteProductPage(widget.corporationModel.corporationId, widget.corporationModel.imageUrl, context, null);
     setState(() {
-      isFavorite = ApplicationCache.isCorporationFavorite(widget.corporationModel.corporationId);
+      isFavorite = ApplicationContext.isCorporationFavorite(widget.corporationModel.corporationId);
     });
   }
 
@@ -249,7 +249,7 @@ class _ProductDetailsState extends State<ProductDetails> {
 
     }
 
-    isFavorite = ApplicationCache.isCorporationFavorite(widget.corporationModel.corporationId);
+    isFavorite = ApplicationContext.isCorporationFavorite(widget.corporationModel.corporationId);
 
     Widget img = Stack(
       children: <Widget>[
@@ -777,14 +777,14 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
             onPressed: ()  {
-              if (ApplicationCache.userCache != null){
-                BasketUserDto model = new BasketUserDto(
+              if (ApplicationContext.userCache != null){
+                ApplicationContext.userBasket =  new BasketUserDto(
                     0, widget.corporationModel, 0, widget.corporationModel.maxPopulation,
                     0, invitationList,
                     sequenceOrderList, reservationList,
                     null, null, null, null);
                 UserBasketCache.servicePoolModel = [];
-                Utils.navigateToPage(context, CalendarScreen(basketModel: model));
+                Utils.navigateToPage(context, CalendarScreen());
               }
               else{
                 Dialogs.showAlertMessageWithAction(

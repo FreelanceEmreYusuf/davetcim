@@ -1,11 +1,9 @@
 import 'package:davetcim/shared/enums/corporation_service_selection_enum.dart';
-import 'package:davetcim/shared/models/corporation_model.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/basket_user_dto.dart';
 import '../../../shared/dto/order_basket_dto.dart';
-import '../../../shared/helpers/corporate_helper.dart';
 import '../../../shared/utils/form_control.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
@@ -15,14 +13,6 @@ import '../services/services_view.dart';
 class OrderScreen extends StatefulWidget {
   @override
   _OrderScreenState createState() => _OrderScreenState();
-  final BasketUserDto basketModel;
-
-  OrderScreen(
-      {Key key,
-        @required this.basketModel,
-      })
-      : super(key: key);
-
 }
 
 class _OrderScreenState extends State<OrderScreen>
@@ -71,8 +61,8 @@ class _OrderScreenState extends State<OrderScreen>
   Widget build(BuildContext context) {
     super.build(context);
 
-    if (widget.basketModel.sequenceOrderList.isEmpty ||
-      widget.basketModel.invitationList.isEmpty) {
+    if (ApplicationContext.userBasket.sequenceOrderList.isEmpty ||
+        ApplicationContext.userBasket.invitationList.isEmpty) {
       return Scaffold(appBar:
       AppBarMenu(pageName: "Salon Özellikleri", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
@@ -86,14 +76,14 @@ class _OrderScreenState extends State<OrderScreen>
           if (registerFormKey.currentState.validate()) {
             OrderBasketDto orderBasketModel = new OrderBasketDto(
                 int.parse(personCountControl.text),
-                widget.basketModel.invitationList[selectedInvitationIndex].text,
-                widget.basketModel.sequenceOrderList[selectedSeatingArrangement].text);
-            widget.basketModel.orderBasketModel = orderBasketModel;
-            if (widget.basketModel.corporationModel.serviceSelection == CorporationServiceSelectionEnum.customerSelectsBoth
-              || widget.basketModel.corporationModel.serviceSelection == CorporationServiceSelectionEnum.customerSelectsCorporationPackage) {
-              Utils.navigateToPage(context, ServicesPackageView(basketModel: widget.basketModel));
+                ApplicationContext.userBasket.invitationList[selectedInvitationIndex].text,
+                ApplicationContext.userBasket.sequenceOrderList[selectedSeatingArrangement].text);
+            ApplicationContext.userBasket.orderBasketModel = orderBasketModel;
+            if (ApplicationContext.userBasket.corporationModel.serviceSelection == CorporationServiceSelectionEnum.customerSelectsBoth
+              || ApplicationContext.userBasket.corporationModel.serviceSelection == CorporationServiceSelectionEnum.customerSelectsCorporationPackage) {
+              Utils.navigateToPage(context, ServicesPackageView());
             } else {
-              Utils.navigateToPage(context, ServicesScreen(basketModel: widget.basketModel));
+              Utils.navigateToPage(context, ServicesScreen());
             }
           }
         },
@@ -129,7 +119,7 @@ class _OrderScreenState extends State<OrderScreen>
                                 _cardDivisionSize),
                       ),
                       Text(
-                        widget.basketModel.invitationList[selectedInvitationIndex].text,
+                        ApplicationContext.userBasket.invitationList[selectedInvitationIndex].text,
                         style: TextStyle(fontSize: 18.0),
                       ),
                       SizedBox(
@@ -144,7 +134,7 @@ class _OrderScreenState extends State<OrderScreen>
                       builder: (BuildContext context) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.pop(context, widget.basketModel.invitationList[selectedInvitationIndex]); // Seçilen öğeyi geri döndürür
+                            Navigator.pop(context, ApplicationContext.userBasket.invitationList[selectedInvitationIndex]); // Seçilen öğeyi geri döndürür
                           },
                           child: Container(
                             height: 200.0,
@@ -156,9 +146,9 @@ class _OrderScreenState extends State<OrderScreen>
                                   });
                                 },
                                 children: new List<Widget>.generate(
-                                    widget.basketModel.invitationList.length, (int index) {
+                                    ApplicationContext.userBasket.invitationList.length, (int index) {
                                   return new Center(
-                                    child: new Text(widget.basketModel.invitationList[index].text),
+                                    child: new Text(ApplicationContext.userBasket.invitationList[index].text),
                                   );
                                 })),
                           ),
@@ -188,7 +178,7 @@ class _OrderScreenState extends State<OrderScreen>
                                 _cardDivisionSize),
                       ),
                       Text(
-                        widget.basketModel.sequenceOrderList[selectedSeatingArrangement].text,
+                        ApplicationContext.userBasket.sequenceOrderList[selectedSeatingArrangement].text,
                         style: TextStyle(fontSize: 18.0),
                       ),
                       SizedBox(
@@ -203,7 +193,7 @@ class _OrderScreenState extends State<OrderScreen>
                       builder: (BuildContext context) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.pop(context,  widget.basketModel.sequenceOrderList[selectedSeatingArrangement]); // Seçilen öğeyi geri döndürür
+                            Navigator.pop(context,  ApplicationContext.userBasket.sequenceOrderList[selectedSeatingArrangement]); // Seçilen öğeyi geri döndürür
                           },
                           child: Container(
                             height: 200.0,
@@ -215,10 +205,10 @@ class _OrderScreenState extends State<OrderScreen>
                                   });
                                 },
                                 children: new List<Widget>.generate(
-                                    widget.basketModel.sequenceOrderList.length, (int index) {
+                                    ApplicationContext.userBasket.sequenceOrderList.length, (int index) {
                                   return new Center(
                                     child:
-                                        new Text(widget.basketModel.sequenceOrderList[index].text),
+                                        new Text(ApplicationContext.userBasket.sequenceOrderList[index].text),
                                   );
                                 })),
                           ),
@@ -275,7 +265,7 @@ class _OrderScreenState extends State<OrderScreen>
                           if (errorDesc != null && errorDesc.trim().length > 0) {
                             return errorDesc;
                           } else {
-                            errorDesc = FormControlUtil.getMaxValueControl(int.parse(value), widget.basketModel.maxPopulation,
+                            errorDesc = FormControlUtil.getMaxValueControl(int.parse(value), ApplicationContext.userBasket.maxPopulation,
                                 "Bu salonun max kapasitesi ");
                             return errorDesc;
                           }

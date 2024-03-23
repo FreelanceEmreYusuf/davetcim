@@ -1,20 +1,18 @@
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 
-import '../shared/dto/reservation_detail_view_dto.dart';
 import '../shared/models/corporate_sessions_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/user_reservations/update/user_reservation_update_order_view.dart';
 
 class UserReservationUpdateCartReservationItem extends StatefulWidget {
-  final ReservationDetailViewDto detailResponse;
   final List<CorporateSessionsModel> sessionList;
   final int index;
 
   UserReservationUpdateCartReservationItem(
       {Key key,
-      @required this.detailResponse,
       @required this.sessionList,
       @required this.index
       })
@@ -26,8 +24,8 @@ class UserReservationUpdateCartReservationItem extends StatefulWidget {
 
 class _UserReservationUpdateCartReservationItemState extends State<UserReservationUpdateCartReservationItem> {
   void navigateToBasket()  {
-    widget.detailResponse.selectedSessionModel = widget.sessionList[widget.index];
-    Utils.navigateToPage(context, UserReservationUpdateOrderScreen(detailResponse: widget.detailResponse));
+    ApplicationContext.reservationDetail.selectedSessionModel = widget.sessionList[widget.index];
+    Utils.navigateToPage(context, UserReservationUpdateOrderScreen());
   }
 
   @override
@@ -40,7 +38,7 @@ class _UserReservationUpdateCartReservationItemState extends State<UserReservati
       reserveInfo = "Rezerve Edilmiştir";
       reservationStatusFlag = 1;
     } else if (DateConversionUtils.isOldDate(DateConversionUtils.getDateTimeFromIntDate(
-        widget.detailResponse.reservationModel.date))) {
+        ApplicationContext.reservationDetail.reservationModel.date))) {
       color = Colors.grey;
       reserveInfo = "Bu seansın süresi doldu";
       reservationStatusFlag = 2;
@@ -92,6 +90,4 @@ class _UserReservationUpdateCartReservationItemState extends State<UserReservati
       ),
     );
   }
-
-
 }

@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
-import '../shared/dto/basket_user_dto.dart';
 import '../shared/models/service_pool_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
@@ -9,12 +8,10 @@ import '../src/admin_corporate_panel/service/service_corporate_user_choose/servi
 
 class GridCorporateServicePoolForBasketSummary extends StatefulWidget {
   final ServicePoolModel servicePoolModel;
-  final BasketUserDto basketModel;
 
   GridCorporateServicePoolForBasketSummary({
     Key key,
-    @required this.servicePoolModel,
-    @required this.basketModel,
+    @required this.servicePoolModel
   }) : super(key: key);
 
   @override
@@ -37,7 +34,8 @@ class _GridCorporateServicePoolForBasketSummaryState
     if(!widget.servicePoolModel.hasChild){
       if (widget.servicePoolModel.companyHasService) {
 
-        totalPrice = widget.servicePoolModel.corporateDetail.price * widget.basketModel.orderBasketModel.count;
+        totalPrice = widget.servicePoolModel.corporateDetail.price *
+            ApplicationContext.userBasket.orderBasketModel.count;
         if (!widget.servicePoolModel.corporateDetail.priceChangedForCount) {
           totalPrice = widget.servicePoolModel.corporateDetail.price;
           priceChangeForCount = "Hayır";
@@ -66,7 +64,7 @@ class _GridCorporateServicePoolForBasketSummaryState
                           context,
                           widget.servicePoolModel.serviceName,
                           //TODO: hizmet için fiyat bilgileri girilecek
-                          "Belirtmiş olduğunuz davetli sayısı : "+widget.basketModel.orderBasketModel.count.toString()
+                          "Belirtmiş olduğunuz davetli sayısı : "+ApplicationContext.userBasket.orderBasketModel.count.toString()
                               +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
                               +"\n\nHizmetin birim ücreti : "+ widget.servicePoolModel.corporateDetail.price.toString()+ "TL"
                               "\n\nToplam ücret : "+
@@ -135,5 +133,4 @@ class _GridCorporateServicePoolForBasketSummaryState
     await service.deleteService(widget.servicePoolModel);
     Utils.navigateToPage(context, AdminCorporateServicePoolManager());
   }
-
 }

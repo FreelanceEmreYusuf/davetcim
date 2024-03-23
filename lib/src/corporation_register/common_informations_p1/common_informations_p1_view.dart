@@ -4,11 +4,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../../shared/dto/corporation_registration_dto.dart';
+import '../../../shared/sessions/corporation_registration_dto.dart';
 import '../../../shared/models/company_model.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/region_model.dart';
-import '../../../shared/sessions/application_cache.dart';
+import '../../../shared/sessions/application_context.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../search/search_view_model.dart';
@@ -46,7 +46,7 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
   static TextStyle kStyle =
   TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
   List<RegionModel> regionList =
-      ApplicationCache.filterCache.regionModelList;
+      ApplicationContext.filterCache.regionModelList;
   int selectedRegion = 0;
   int selectedDistrict = 0;
   @override
@@ -578,12 +578,12 @@ class _CommonInformationsP1ViewState extends State<CommonInformationsP1View> {
                           imageUrl: "",
                           isPopularCorporation: false,
                           isActive: true);
-                      CorporationReservationDto corpReg = new CorporationReservationDto(
+                      ApplicationContext.corporationReservation = new CorporationReservationDto(
                         widget.companyModel, corporation, null,
                         regionList[selectedRegion].name, districtList[selectedDistrict].name,
                         "", "", "", "", widget.registrationKey);
 
-                      Utils.navigateToPage(context, CommonInformationsP2View(corpReg : corpReg));
+                      Utils.navigateToPage(context, CommonInformationsP2View());
                       //Utils.navigateToPage(context, CheckBoxListItem());
                     }
                   },

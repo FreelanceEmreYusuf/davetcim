@@ -1,7 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
-import 'package:davetcim/shared/sessions/application_cache.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/src/home/home_view_model.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/widgets/bounce_button.dart';
@@ -37,6 +37,9 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
   @override
   void initState() {
     UserBasketCache.servicePoolModel = [];
+    ApplicationContext.userBasket = null;
+    ApplicationContext.corporationReservation = null;
+    ApplicationContext.reservationDetail = null;
     getOrderedCorporationList();
     getHomeSliderCorporationList();
     super.initState();
@@ -76,7 +79,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                 body: ListView(
                   children: <Widget>[
                     SoftFilterWidget(),
-                    if(ApplicationCache.userCache != null)
+                    if(ApplicationContext.userCache != null)
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: Row(
@@ -130,7 +133,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                                   return SliderItem(
                                     corporationId: model.corporationId,
                                     img: model.imageUrl,
-                                    isFav: ApplicationCache.isCorporationFavorite(model.corporationId),
+                                    isFav: ApplicationContext.isCorporationFavorite(model.corporationId),
                                     name: model.corporationName,
                                     rating: model.averageRating,
                                     raters: model.ratingCount,
@@ -183,7 +186,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                                 description: item.description,
                                 maxPopulation: item.maxPopulation,
                                 img: item.imageUrl,
-                                isFav: ApplicationCache.isCorporationFavorite(item.corporationId),
+                                isFav: ApplicationContext.isCorporationFavorite(item.corporationId),
                                 name: item.corporationName,
                                 rating: item.averageRating,
                                 raters: item.ratingCount,

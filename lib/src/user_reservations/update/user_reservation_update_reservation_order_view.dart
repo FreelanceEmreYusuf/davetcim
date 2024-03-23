@@ -1,7 +1,7 @@
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/src/reservation/reservation_view_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/models/corporate_sessions_model.dart';
 import '../../../shared/utils/date_utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
@@ -11,9 +11,6 @@ import '../../../widgets/user_reservation_update_cart_reservation_item.dart';
 class UserReservationUpdateReservationOrderViewScreen extends StatefulWidget {
   @override
   _UserReservationUpdateReservationOrderViewScreenState createState() => _UserReservationUpdateReservationOrderViewScreenState();
-
-  final ReservationDetailViewDto detailResponse;
-  const UserReservationUpdateReservationOrderViewScreen(this.detailResponse);
 }
 
 class _UserReservationUpdateReservationOrderViewScreenState extends State<UserReservationUpdateReservationOrderViewScreen>  {
@@ -28,9 +25,11 @@ class _UserReservationUpdateReservationOrderViewScreenState extends State<UserRe
 
   void callGetReservationList() async {
     ReservationViewModel rvm = ReservationViewModel();
-    sessionList = await rvm.getSessionReservationExtractionForUpdate(widget.detailResponse.corporateModel.corporationId,
-        widget.detailResponse.reservationModel.date, widget.detailResponse.reservationModel.sessionId,
-        widget.detailResponse.reservationModel.customerId
+    sessionList = await rvm.getSessionReservationExtractionForUpdate(
+        ApplicationContext.reservationDetail.corporateModel.corporationId,
+        ApplicationContext.reservationDetail.reservationModel.date,
+        ApplicationContext.reservationDetail.reservationModel.sessionId,
+        ApplicationContext.reservationDetail.reservationModel.customerId
     );
 
     setState(() {
@@ -43,11 +42,15 @@ class _UserReservationUpdateReservationOrderViewScreenState extends State<UserRe
     double fontSize = 20;
     if (sessionList == null || sessionList.length == 0) {
       return Scaffold(
-        appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(widget.detailResponse.reservationModel.date).toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+        appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(
+            ApplicationContext.reservationDetail.reservationModel.date).toString().substring(0,10),
+            isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       );
     }
     return Scaffold(
-      appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(widget.detailResponse.reservationModel.date).toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(
+          ApplicationContext.reservationDetail.reservationModel.date).toString().substring(0,10),
+          isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: GridView.builder(
@@ -66,7 +69,7 @@ class _UserReservationUpdateReservationOrderViewScreenState extends State<UserRe
               : sessionList.length,
           itemBuilder: (BuildContext context, int index) {
             return UserReservationUpdateCartReservationItem(
-                detailResponse: widget.detailResponse, sessionList: sessionList, index: index);
+                sessionList: sessionList, index: index);
           },
         ),
       ),

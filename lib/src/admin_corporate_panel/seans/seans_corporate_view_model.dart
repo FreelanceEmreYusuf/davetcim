@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/shared/sessions/application_cache.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../shared/environments/db_constants.dart';
@@ -27,7 +27,7 @@ class CorporateSessionsViewModel extends ChangeNotifier {
     CollectionReference servicesListRef =
     db.getCollectionRef(DBConstants.corporationSessionsDb);
     var response = await servicesListRef
-        .where('corporationId', isEqualTo: ApplicationCache.userCache.corporationId).get();
+        .where('corporationId', isEqualTo: ApplicationContext.userCache.corporationId).get();
 
     List<CorporateSessionsModel> sessionsList = [];
     var list = response.docs;
@@ -42,7 +42,7 @@ class CorporateSessionsViewModel extends ChangeNotifier {
   Future<void> addNewSession(String name, int midweekPrice, int weekendPrice) async {
     CorporateSessionsModel sessionModel = new CorporateSessionsModel(
         id: new DateTime.now().millisecondsSinceEpoch,
-        corporationId: ApplicationCache.userCache.corporationId,
+        corporationId: ApplicationContext.userCache.corporationId,
         name: name,
         midweekPrice: midweekPrice,
         weekendPrice: weekendPrice,
@@ -53,7 +53,7 @@ class CorporateSessionsViewModel extends ChangeNotifier {
   Future<void> updateSession(int id, String name, int midweekPrice, int weekendPrice) async {
     CorporateSessionsModel servicePool = new CorporateSessionsModel(
       id: id,
-      corporationId: ApplicationCache.userCache.corporationId,
+      corporationId: ApplicationContext.userCache.corporationId,
       name: name,
       midweekPrice: midweekPrice,
       weekendPrice: weekendPrice,

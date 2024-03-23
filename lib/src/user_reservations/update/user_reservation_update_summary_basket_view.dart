@@ -1,7 +1,6 @@
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
@@ -17,20 +16,10 @@ import '../user_reservations_with_app_bar_view.dart';
 class UserReservationUpdateSummaryBasketScreen extends StatefulWidget {
   @override
   _UserReservationUpdateSummaryBasketScreenState createState() => _UserReservationUpdateSummaryBasketScreenState();
-  final ReservationDetailViewDto detailResponse;
-
-  UserReservationUpdateSummaryBasketScreen(
-      {Key key,
-        @required this.detailResponse,
-      })
-      : super(key: key);
-
 }
 
 class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservationUpdateSummaryBasketScreen>
     with AutomaticKeepAliveClientMixin<UserReservationUpdateSummaryBasketScreen> {
-
-
 
   List<ServicePoolModel> updateServiceList(List<ServicePoolModel> serviceList){
     for(int i=0; i<serviceList.length; i++){
@@ -42,31 +31,33 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
   int calculateTotalPrice(){
     int totalPrice = 0;
     totalPrice += int.parse(calculateSessionPrice());
-    if (widget.detailResponse.servicePoolModel != null) {
-      for(int i =0; i < widget.detailResponse.servicePoolModel.length;i++){
-        if(widget.detailResponse.servicePoolModel[i].corporateDetail.priceChangedForCount){
-          totalPrice += widget.detailResponse.orderBasketModel.count * widget.detailResponse.servicePoolModel[i].corporateDetail.price;
+    if (ApplicationContext.reservationDetail.servicePoolModel != null) {
+      for(int i =0; i < ApplicationContext.reservationDetail.servicePoolModel.length;i++){
+        if(ApplicationContext.reservationDetail.servicePoolModel[i].corporateDetail.priceChangedForCount) {
+          totalPrice += ApplicationContext.reservationDetail.orderBasketModel.count *
+              ApplicationContext.reservationDetail.servicePoolModel[i].corporateDetail.price;
         }
         else{
-          totalPrice += widget.detailResponse.servicePoolModel[i].corporateDetail.price;
+          totalPrice += ApplicationContext.reservationDetail.servicePoolModel[i].corporateDetail.price;
         }
       }
     }
-    if (widget.detailResponse.packageModel != null) {
-      totalPrice += widget.detailResponse.orderBasketModel.count *  widget.detailResponse.packageModel.price;
+    if (ApplicationContext.reservationDetail.packageModel != null) {
+      totalPrice += ApplicationContext.reservationDetail.orderBasketModel.count *
+          ApplicationContext.reservationDetail.packageModel.price;
     }
 
-    widget.detailResponse.reservationModel.cost = totalPrice;
+    ApplicationContext.reservationDetail.reservationModel.cost = totalPrice;
     return totalPrice;
   }
 
   String calculateSessionPrice(){
     int sessionCost = 0;
-      if(DateConversionUtils.isWeekendFromIntDate(widget.detailResponse.reservationModel.date) ){
-        sessionCost = widget.detailResponse.selectedSessionModel.weekendPrice;
+      if(DateConversionUtils.isWeekendFromIntDate(ApplicationContext.reservationDetail.reservationModel.date) ){
+        sessionCost = ApplicationContext.reservationDetail.selectedSessionModel.weekendPrice;
       }
       else{
-        sessionCost = widget.detailResponse.selectedSessionModel.midweekPrice;
+        sessionCost = ApplicationContext.reservationDetail.selectedSessionModel.midweekPrice;
       }
 
       return sessionCost.toString();
@@ -79,7 +70,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
   }
 
   Widget getPackageWidget() {
-    if (widget.detailResponse.packageModel != null) {
+    if (ApplicationContext.reservationDetail.packageModel != null) {
       return
         SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -92,8 +83,9 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
               child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                  widget.detailResponse.packageModel.title,
-                  style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                  ApplicationContext.reservationDetail.packageModel.title,
+                  style: TextStyle(fontSize: 16, color: Colors.black,
+                    fontStyle: FontStyle.normal,fontWeight: FontWeight.bold)
               ),
             ),
           ),
@@ -110,13 +102,14 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
             onTap: () async {
               Dialogs.showAlertMessageWithAction(
               context,
-              widget.detailResponse.packageModel.title,
-              "Paket İçeriği: "+widget.detailResponse.packageModel.body+""
-              "\n\nKişi başı ücret: "+widget.detailResponse.packageModel.price.toString()+" TL"
+                  ApplicationContext.reservationDetail.packageModel.title,
+              "Paket İçeriği: "+ApplicationContext.reservationDetail.packageModel.body+""
+              "\n\nKişi başı ücret: "+ApplicationContext.reservationDetail.packageModel.price.toString()+" TL"
               "\n\nDavetli Sayısına Göre Toplam Tutar: "
-              "\nDavetli Sayısı("+widget.detailResponse.orderBasketModel.count.toString()+") "
-              "\nKişi Başı Paket Ücreti("+widget.detailResponse.packageModel.price.toString()+"TL)"
-              "\nToplam Ücret: "+(widget.detailResponse.packageModel.price*widget.detailResponse.orderBasketModel.count).toString()+" TL",
+              "\nDavetli Sayısı("+ApplicationContext.reservationDetail.orderBasketModel.count.toString()+") "
+              "\nKişi Başı Paket Ücreti("+ApplicationContext.reservationDetail.packageModel.price.toString()+"TL)"
+              "\nToplam Ücret: "+(ApplicationContext.reservationDetail.packageModel.price*
+                  ApplicationContext.reservationDetail.orderBasketModel.count).toString()+" TL",
               null);
             },
             child: Column(
@@ -143,7 +136,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
   }
 
   Widget getServiceWidget() {
-    if (widget.detailResponse.servicePoolModel != null) {
+    if (ApplicationContext.reservationDetail.servicePoolModel != null) {
       return GridView.builder(
         shrinkWrap: true,
         primary: false,
@@ -153,13 +146,13 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
           childAspectRatio: MediaQuery.of(context).size.width /
               (MediaQuery.of(context).size.height / 12),
         ),
-        itemCount: widget.detailResponse.servicePoolModel == null
+        itemCount: ApplicationContext.reservationDetail.servicePoolModel == null
             ? 0
-            : widget.detailResponse.servicePoolModel.length,
+            : ApplicationContext.reservationDetail.servicePoolModel.length,
         itemBuilder: (BuildContext context, int index) {
-          ServicePoolModel item = widget.detailResponse.servicePoolModel[index];
+          ServicePoolModel item = ApplicationContext.reservationDetail.servicePoolModel[index];
 
-          return UserReservationUpdateGridCorporateServicePoolForBasketSummary(servicePoolModel: item, detailResponse: widget.detailResponse,);
+          return UserReservationUpdateGridCorporateServicePoolForBasketSummary(servicePoolModel: item);
         },
       );
     }
@@ -221,9 +214,12 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                              "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(widget.detailResponse.reservationModel.date).toString().substring(0,10)
-                                  +"\n\nSeans : "+widget.detailResponse.selectedSessionModel.name,
-                              style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                              "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(
+                                  ApplicationContext.reservationDetail.reservationModel.date).toString().substring(0,10)
+                                  +"\n\nSeans : "+
+                                  ApplicationContext.reservationDetail.selectedSessionModel.name,
+                              style: TextStyle(fontSize: 16, color: Colors.black,
+                                fontStyle: FontStyle.normal,fontWeight: FontWeight.bold)
                           ),
                         ),
                       ),
@@ -240,10 +236,11 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
                               onTap: () async {
                                 Dialogs.showAlertMessageWithAction(
                                   context,
-                                  widget.detailResponse.selectedSessionModel.name,
+                                  ApplicationContext.reservationDetail.selectedSessionModel.name,
                                   "Organizasyon tarihi : " +
-                                      DateConversionUtils.getDateTimeFromIntDate(widget.detailResponse.reservationModel.date).toString().substring(0, 10) +
-                                      "\n\nSeans : " + widget.detailResponse.selectedSessionModel.name +
+                                      DateConversionUtils.getDateTimeFromIntDate(
+                                          ApplicationContext.reservationDetail.reservationModel.date).toString().substring(0, 10) +
+                                      "\n\nSeans : " + ApplicationContext.reservationDetail.selectedSessionModel.name +
                                       "\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : " +
                                       calculateSessionPrice() +
                                       "TL",
@@ -307,9 +304,9 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                            "Davetli Sayısı :" + widget.detailResponse.orderBasketModel.count.toString()
-                             +"\n\nDavet türü : "+ widget.detailResponse.orderBasketModel.invitationType
-                             +"\n\nOturma düzeni : "+ widget.detailResponse.orderBasketModel.sequenceOrder,
+                            "Davetli Sayısı :" + ApplicationContext.reservationDetail.orderBasketModel.count.toString()
+                             +"\n\nDavet türü : "+ ApplicationContext.reservationDetail.orderBasketModel.invitationType
+                             +"\n\nOturma düzeni : "+ ApplicationContext.reservationDetail.orderBasketModel.sequenceOrder,
                             style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
                         ),
                       ),
@@ -444,9 +441,9 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
             ),
           ),
           onPressed: ()  {
-            int minReservationAmount = widget.detailResponse.corporateModel.minReservationAmount;
-            if(DateConversionUtils.isWeekendFromIntDate(widget.detailResponse.reservationModel.date) ){
-              minReservationAmount = widget.detailResponse.corporateModel.minReservationAmountWeekend;
+            int minReservationAmount = ApplicationContext.reservationDetail.corporateModel.minReservationAmount;
+            if(DateConversionUtils.isWeekendFromIntDate(ApplicationContext.reservationDetail.reservationModel.date) ){
+              minReservationAmount = ApplicationContext.reservationDetail.corporateModel.minReservationAmountWeekend;
             }
 
             if (minReservationAmount < calculateTotalPrice()) {
@@ -466,10 +463,11 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
   }
 
   void createReservationRequest(String description) async{
-    widget.detailResponse.servicePoolModel = UserBasketCache.servicePoolModel;
+    ApplicationContext.reservationDetail.servicePoolModel = UserBasketCache.servicePoolModel;
 
     SummaryBasketViewModel model = SummaryBasketViewModel();
-    ReservationModel reservationResponse = await model.updateUserReservation(widget.detailResponse, description);
+    ReservationModel reservationResponse = await model.updateUserReservation(
+        ApplicationContext.reservationDetail, description);
     if (reservationResponse == null) {
       Dialogs.showAlertMessageWithAction(context, "Üzgünüz", "Siz rezervasyon yaparken rezervasyonunuz onaylandı ya da red edildi.Salon sahibiyle iletişime geçiniz",
           navigateToReservationsPage);

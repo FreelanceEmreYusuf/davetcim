@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../shared/models/organization_type_model.dart';
 import '../shared/models/region_model.dart';
-import '../shared/sessions/application_cache.dart';
+import '../shared/sessions/application_context.dart';
 import '../src/search/search_view_model.dart';
 
 class SoftFilterWidget extends StatefulWidget {
@@ -17,10 +17,10 @@ class SoftFilterWidget extends StatefulWidget {
 
 class _SoftFilterWidgetState extends State<SoftFilterWidget> {
   List<RegionModel> regionList =
-      ApplicationCache.filterCache.regionModelList;
+      ApplicationContext.filterCache.regionModelList;
 
   List<OrganizationTypeModel> organizationTypeList =
-      ApplicationCache.filterCache.organizationTypeList;
+      ApplicationContext.filterCache.organizationTypeList;
 
   static TextStyle kStyle =
   TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);

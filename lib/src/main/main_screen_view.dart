@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_cache.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/src/search/search_wihthout_appbar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +7,7 @@ import 'package:davetcim/src/fav_products/favorite_screen.dart';
 import 'package:davetcim/src/home/home_view.dart';
 import 'package:davetcim/src/profile/profile_view.dart';
 
+import '../../shared/sessions/user_basket_cache.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/app_bar/bottom_app_bar.dart';
 import '../../widgets/bounce_button.dart';
@@ -84,6 +85,10 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     _pageController = PageController();
+    UserBasketCache.servicePoolModel = [];
+    ApplicationContext.userBasket = null;
+    ApplicationContext.corporationReservation = null;
+    ApplicationContext.reservationDetail = null;
   }
 
   @override

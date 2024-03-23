@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_cache.dart';
+import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,7 @@ class ServiceCorporatePackageViewModel extends ChangeNotifier {
         id: new DateTime.now().millisecondsSinceEpoch,
         createDate: Timestamp.now(),
         createIntDate: DateConversionUtils.getTodayAsInt(),
-        corporateId: ApplicationCache.userCache.corporationId,
+        corporateId: ApplicationContext.userCache.corporationId,
         title : title,
         body: body,
         price: price,
