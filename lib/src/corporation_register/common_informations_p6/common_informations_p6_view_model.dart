@@ -25,6 +25,7 @@ class CommonInformationsP6ViewModel extends ChangeNotifier {
       Map items = keyModel.toMap();
       items["isActive"] = false;
       db.editCollectionRef(DBConstants.corporationRegisterKeyDb, items);
+      CorporationRegistrationState.setAsNull();
       Utils.navigateToPage(context, MainScreen());
   }
 }

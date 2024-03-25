@@ -12,6 +12,8 @@ import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
+import '../../../shared/sessions/reservation_edit_state.dart';
+import '../../../shared/sessions/user_basket_state.dart';
 import '../../../shared/utils/date_utils.dart';
 
 class SummaryBasketViewModel extends ChangeNotifier {
@@ -87,6 +89,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
 
     db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
     await createNewReservationDetail(basketModel, reservationId);
+    UserBasketState.setAsNull();
     return reservationModel;
   }
 
@@ -163,6 +166,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
 
     db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
     await updateReservationDetail(detailResponse, reservationId);
+    ReservationEditState.setAsNull();
     return reservationModel;
   }
 
