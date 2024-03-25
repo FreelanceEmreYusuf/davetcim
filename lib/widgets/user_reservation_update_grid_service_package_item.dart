@@ -2,7 +2,7 @@ import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/widgets/user_reservation_update_grid_corporate_service_pool_for_basket_summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../shared/sessions/reservation_detail_view_dto.dart';
+import '../shared/dto/reservation_detail_view_dto.dart';
 import '../shared/enums/corporation_service_selection_enum.dart';
 import '../shared/models/corporation_package_services_model.dart';
 import '../shared/utils/dialogs.dart';

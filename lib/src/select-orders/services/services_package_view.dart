@@ -1,15 +1,14 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_package/service_corporate_package_view_model.dart';
 import 'package:davetcim/src/select-orders/services/services_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/enums/corporation_service_selection_enum.dart';
+import '../../../shared/sessions/user_basket_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_service_package_item.dart';
 import '../summary_basket/summary_basket_view.dart';
-
 
 class ServicesPackageView extends StatefulWidget {
 
@@ -32,7 +31,7 @@ class _ServicesPackageViewState extends State<ServicesPackageView> {
   void fillPackegeList() async  {
     ServiceCorporatePackageViewModel packageViewModel = ServiceCorporatePackageViewModel();
     packagesList = await packageViewModel.getPackageList(
-        ApplicationContext.userBasket.corporationModel.corporationId);
+        UserBasketState.userBasket.corporationModel.corporationId);
 
     if (packagesList.length == 0) {
       navigateToNextScreen();
@@ -45,10 +44,10 @@ class _ServicesPackageViewState extends State<ServicesPackageView> {
   }
 
   void navigateToNextScreen() {
-    ApplicationContext.userBasket.packageModel = null;
-    if (ApplicationContext.userBasket.corporationModel.serviceSelection ==
+    UserBasketState.userBasket.packageModel = null;
+    if (UserBasketState.userBasket.corporationModel.serviceSelection ==
         CorporationServiceSelectionEnum.customerSelectsExtraProduct
-        || ApplicationContext.userBasket.corporationModel.serviceSelection ==
+        || UserBasketState.userBasket.corporationModel.serviceSelection ==
             CorporationServiceSelectionEnum.customerSelectsBoth) {
       Utils.navigateToPage(context, ServicesScreen());
     } else {

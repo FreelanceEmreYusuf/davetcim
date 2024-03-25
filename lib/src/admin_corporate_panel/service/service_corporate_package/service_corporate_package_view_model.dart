@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../shared/models/corporation_package_services_model.dart';
+import '../../../../shared/sessions/user_state.dart';
 import '../../../../shared/utils/date_utils.dart';
 
 
@@ -37,7 +38,7 @@ class ServiceCorporatePackageViewModel extends ChangeNotifier {
         id: new DateTime.now().millisecondsSinceEpoch,
         createDate: Timestamp.now(),
         createIntDate: DateConversionUtils.getTodayAsInt(),
-        corporateId: ApplicationContext.userCache.corporationId,
+        corporateId: UserState.corporationId,
         title : title,
         body: body,
         price: price,

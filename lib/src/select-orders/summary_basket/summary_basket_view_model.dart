@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/user_state.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../../shared/sessions/basket_user_dto.dart';
-import '../../../shared/sessions/reservation_detail_view_dto.dart';
+import '../../../shared/dto/basket_user_dto.dart';
+import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/reservation_status_enum.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
@@ -69,7 +69,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
     ReservationModel reservationModel = new ReservationModel(
       id: reservationId,
       corporationId: basketModel.corporationModel.corporationId,
-      customerId: ApplicationContext.userCache.id,
+      customerId: UserState.id,
       cost: basketModel.totalPrice,
       date: basketModel.date,
       recordDate: Timestamp.now(),
@@ -145,7 +145,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
     ReservationModel reservationModel = new ReservationModel(
         id: reservationId,
         corporationId: detailResponse.corporateModel.corporationId,
-        customerId: ApplicationContext.userCache.id,
+        customerId: UserState.id,
         cost: detailResponse.reservationModel.cost,
         date: detailResponse.reservationModel.date,
         recordDate: Timestamp.now(),

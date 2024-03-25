@@ -3,7 +3,7 @@ import 'package:davetcim/src/corporation_register/common_informations_p3/common_
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/sessions/corporation_registration_dto.dart';
+import '../../../shared/dto/corporation_registration_dto.dart';
 import '../../../shared/dto/organization_type_response_dto.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';

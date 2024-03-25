@@ -14,7 +14,7 @@
       },
       "oauth_client": [
         {
-          "client_id": "860805576914-etvl4opar6jsnk52p8dho31fnaebfotv.apps.googleusercontent.com",
+          "client_id": "860805576914-mk0373oug2qgcae1r9r2ruiq7rgku7su.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -32,7 +32,7 @@
             },
             {
               "client_id": "860805576914-sv7klammbfmbntk6ipnkc45146h1sesp.apps.googleusercontent.com",
-              "client_type": 2,
+               "client_type": 2,
               "ios_info": {
                 "bundle_id": "com.eybsoft.davetcim"
               }

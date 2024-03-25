@@ -1,21 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/src/notifications/notifications_view_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/models/comment_model.dart';
 import '../../shared/models/corporation_model.dart';
-import '../../shared/utils/date_utils.dart';
+import '../../shared/sessions/user_state.dart';
 import '../../shared/utils/utils.dart';
 import '../../widgets/add_comments_widget.dart';
-import '../../widgets/comments_with_editing.dart';
 import '../../widgets/list_tile_comments.dart';
-import '../admin_corporate_panel/corporation_analysis/corporation_analysis_view_model.dart';
 import '../products/product_detail_view.dart';
 
 class CommentsViewModel extends ChangeNotifier {
@@ -23,7 +19,7 @@ class CommentsViewModel extends ChangeNotifier {
 
   Future<void> addUserComment(BuildContext context,
       int corporationId, int star, String comment) async {
-    if (ApplicationContext.userCache != null) {
+    if (UserState != null) {
       await controlAndAddComments(
           context,
           corporationId,
@@ -41,7 +37,7 @@ class CommentsViewModel extends ChangeNotifier {
       CollectionReference docsRef =
         db.getCollectionRef(DBConstants.productCommentsDb);
       var response = await docsRef
-          .where('userId', isEqualTo: ApplicationContext.userCache.id)
+          .where('userId', isEqualTo: UserState.id)
           .where('corporationId', isEqualTo: corporationId)
           .get();
       if (response.docs != null && response.docs.length > 0) {
@@ -74,12 +70,12 @@ class CommentsViewModel extends ChangeNotifier {
     CommentModel commentModel = new CommentModel(
         id: commentId,
         corporationId: corporationId,
-        customerId: ApplicationContext.userCache.id,
+        customerId: UserState.id,
         star: star,
         isApproved: false,
         date: Timestamp.now(),
         comment: comment,
-        userName: ApplicationContext.userCache.username,
+        userName: UserState.username,
        );
 
     db.editCollectionRef("Comments", commentModel.toMap());
@@ -133,7 +129,7 @@ class CommentsViewModel extends ChangeNotifier {
     CollectionReference docsRef =
       db.getCollectionRef(DBConstants.productCommentsDb);
     var response = await docsRef
-        .where('customerId', isEqualTo: ApplicationContext.userCache.id)
+        .where('customerId', isEqualTo: UserState.id)
         .where('corporationId', isEqualTo: corporationId)
         .get();
 
@@ -233,7 +229,7 @@ class CommentsViewModel extends ChangeNotifier {
 
     var response = await docsRef
         .where('corporationId', isEqualTo: corporationId)
-        .where('customerId', isEqualTo: ApplicationContext.userCache.id)
+        .where('customerId', isEqualTo: UserState.id)
         .where('isApproved', isEqualTo: true)
         .get();
 
@@ -245,6 +241,4 @@ class CommentsViewModel extends ChangeNotifier {
 
     return -1;
   }
-
-
 }

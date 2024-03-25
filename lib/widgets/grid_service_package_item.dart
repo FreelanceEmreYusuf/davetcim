@@ -1,7 +1,7 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 import '../shared/enums/corporation_service_selection_enum.dart';
 import '../shared/models/corporation_package_services_model.dart';
+import '../shared/sessions/user_basket_state.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/select-orders/services/services_view.dart';
@@ -53,9 +53,9 @@ class _GridServicePackageItemState
                         "Paket İçeriği: "+widget.packageModel.body+""
                         "\n\nKişi başı ücret: "+widget.packageModel.price.toString()+" TL"
                             "\n\nDavetli Sayısına Göre Toplam Tutar: "
-                            "\nDavetli Sayısı("+ApplicationContext.userBasket.orderBasketModel.count.toString()+") "
+                            "\nDavetli Sayısı("+UserBasketState.userBasket.orderBasketModel.count.toString()+") "
                             "\nKişi Başı Paket Ücreti("+widget.packageModel.price.toString()+"TL)"
-                            "\nToplam Ücret: "+(widget.packageModel.price * ApplicationContext.userBasket.orderBasketModel.count).toString()+" TL",
+                            "\nToplam Ücret: "+(widget.packageModel.price * UserBasketState.userBasket.orderBasketModel.count).toString()+" TL",
                         null);
                   }, // button pressed
                   child: Column(
@@ -77,10 +77,10 @@ class _GridServicePackageItemState
               child: InkWell(
                 splashColor: Colors.deepOrangeAccent, // splash color
                 onTap: () {
-                  ApplicationContext.userBasket.packageModel = widget.packageModel;
-                  if (ApplicationContext.userBasket.corporationModel.serviceSelection ==
+                  UserBasketState.userBasket.packageModel = widget.packageModel;
+                  if (UserBasketState.userBasket.corporationModel.serviceSelection ==
                       CorporationServiceSelectionEnum.customerSelectsExtraProduct
-                  || ApplicationContext.userBasket.corporationModel.serviceSelection ==
+                  || UserBasketState.userBasket.corporationModel.serviceSelection ==
                       CorporationServiceSelectionEnum.customerSelectsBoth) {
                     Utils.navigateToPage(context, ServicesScreen());
                   } else {

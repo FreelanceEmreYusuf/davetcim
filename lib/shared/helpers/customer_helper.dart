@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/language.dart';
 
 import '../environments/db_constants.dart';
 import '../models/customer_model.dart';
+import '../sessions/user_state.dart';
 
 class CustomerHelper {
 
@@ -27,15 +27,12 @@ class CustomerHelper {
 
   Future<void> editCustomer(String name, String surname, String email, String gsmNo) async {
     Database db = Database();
-    CustomerModel customerModel = await getCustomer(ApplicationContext.userCache.id);
+    CustomerModel customerModel = await getCustomer(UserState.id);
     customerModel.name = name;
     customerModel.surname = surname;
     customerModel.eMail = email;
     customerModel.gsmNo = gsmNo;
-    ApplicationContext.userCache.gsmNo = gsmNo;
-    ApplicationContext.userCache.name = name;
-    ApplicationContext.userCache.surname = surname;
-    ApplicationContext.userCache.eMail = email;
+    UserState.setFromCustomer(customerModel);
     await db.editCollectionRef(DBConstants.customerDB, customerModel.toMap());
   }
 
@@ -73,7 +70,4 @@ class CustomerHelper {
 
     return errorMessage;
   }
-
-
-
 }

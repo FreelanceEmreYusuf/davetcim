@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/user_basket_state.dart';
 import 'package:davetcim/src/reservation/reservation_view_model.dart';
 import 'package:flutter/material.dart';
 import '../../shared/models/corporate_sessions_model.dart';
@@ -23,8 +23,8 @@ class _ReservationOrderViewScreenState extends State<ReservationOrderViewScreen>
 
   void callGetReservationList() async {
     ReservationViewModel rvm = ReservationViewModel();
-    reservationList = await rvm.getSessionReservationExtraction(ApplicationContext.userBasket.corporationModel.corporationId,
-        ApplicationContext.userBasket.date);
+    reservationList = await rvm.getSessionReservationExtraction(UserBasketState.userBasket.corporationModel.corporationId,
+        UserBasketState.userBasket.date);
 
     setState(() {
       reservationList = reservationList;
@@ -36,11 +36,12 @@ class _ReservationOrderViewScreenState extends State<ReservationOrderViewScreen>
     double fontSize = 20;
     if (reservationList == null || reservationList.length == 0) {
       return Scaffold(
-        appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(ApplicationContext.userBasket.date).toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+        appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       );
     }
+   // UserBasketState.userBasket.reservationList =
     return Scaffold(
-      appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(ApplicationContext.userBasket.date).toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: GridView.builder(
@@ -59,12 +60,12 @@ class _ReservationOrderViewScreenState extends State<ReservationOrderViewScreen>
               : reservationList.length,
           itemBuilder: (BuildContext context, int index) {
             CorporateSessionsModel item = reservationList[index];
-            ApplicationContext.userBasket.sessionModel = item;
-            return CartReservationItem(reservationList: reservationList, index: index);
+            UserBasketState.userBasket.sessionModel = item;
+            UserBasketState.userBasket.selectedSessionModel = reservationList[index];
+            return CartReservationItem();
           },
         ),
       ),
-
     );
   }
 }

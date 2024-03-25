@@ -10,8 +10,8 @@ import 'package:davetcim/src/user_reservations/user_reservations_view_model.dart
 import 'package:davetcim/src/user_reservations/user_reservations_with_app_bar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../shared/sessions/basket_user_dto.dart';
-import '../../shared/sessions/reservation_detail_view_dto.dart';
+import '../../shared/dto/basket_user_dto.dart';
+import '../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/utils/date_utils.dart';

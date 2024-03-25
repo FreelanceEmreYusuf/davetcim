@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
-import '../../../shared/sessions/user_basket_cache.dart';
+import '../../../shared/sessions/user_basket_state.dart';
 import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/utils.dart';
@@ -32,31 +32,31 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   int calculateTotalPrice(){
     int totalPrice = 0;
     totalPrice += int.parse(calculateSessionPrice());
-    if (ApplicationContext.userBasket.servicePoolModel != null) {
-      for(int i =0; i < ApplicationContext.userBasket.servicePoolModel.length;i++){
-        if(ApplicationContext.userBasket.servicePoolModel[i].corporateDetail.priceChangedForCount){
-          totalPrice += ApplicationContext.userBasket.orderBasketModel.count * ApplicationContext.userBasket.servicePoolModel[i].corporateDetail.price;
+    if (UserBasketState.userBasket.servicePoolModel != null) {
+      for(int i =0; i < UserBasketState.userBasket.servicePoolModel.length;i++){
+        if(UserBasketState.userBasket.servicePoolModel[i].corporateDetail.priceChangedForCount){
+          totalPrice += UserBasketState.userBasket.orderBasketModel.count * UserBasketState.userBasket.servicePoolModel[i].corporateDetail.price;
         }
         else{
-          totalPrice += ApplicationContext.userBasket.servicePoolModel[i].corporateDetail.price;
+          totalPrice += UserBasketState.userBasket.servicePoolModel[i].corporateDetail.price;
         }
       }
     }
-    if (ApplicationContext.userBasket.packageModel != null) {
-      totalPrice += ApplicationContext.userBasket.orderBasketModel.count *  ApplicationContext.userBasket.packageModel.price;
+    if (UserBasketState.userBasket.packageModel != null) {
+      totalPrice += UserBasketState.userBasket.orderBasketModel.count *  UserBasketState.userBasket.packageModel.price;
     }
 
-    ApplicationContext.userBasket.totalPrice = totalPrice;
+    UserBasketState.userBasket.totalPrice = totalPrice;
     return totalPrice;
   }
 
   String calculateSessionPrice(){
     int sessionCost = 0;
-      if(DateConversionUtils.isWeekendFromIntDate(ApplicationContext.userBasket.date) ){
-        sessionCost = ApplicationContext.userBasket.selectedSessionModel.weekendPrice;
+      if(DateConversionUtils.isWeekendFromIntDate(UserBasketState.userBasket.date) ){
+        sessionCost = UserBasketState.userBasket.selectedSessionModel.weekendPrice;
       }
       else{
-        sessionCost = ApplicationContext.userBasket.selectedSessionModel.midweekPrice;
+        sessionCost = UserBasketState.userBasket.selectedSessionModel.midweekPrice;
       }
 
       return sessionCost.toString();
@@ -69,7 +69,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   }
 
   Widget getPackageWidget() {
-    if (ApplicationContext.userBasket.packageModel != null) {
+    if (UserBasketState.userBasket.packageModel != null) {
       return
         SizedBox(
           width: MediaQuery.of(context).size.width,
@@ -82,7 +82,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                  ApplicationContext.userBasket.packageModel.title,
+                  UserBasketState.userBasket.packageModel.title,
                   style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
               ),
             ),
@@ -100,13 +100,13 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
             onTap: () async {
               Dialogs.showAlertMessageWithAction(
               context,
-                  ApplicationContext.userBasket.packageModel.title,
-              "Paket İçeriği: "+ApplicationContext.userBasket.packageModel.body+""
-              "\n\nKişi başı ücret: "+ApplicationContext.userBasket.packageModel.price.toString()+" TL"
+                  UserBasketState.userBasket.packageModel.title,
+              "Paket İçeriği: "+UserBasketState.userBasket.packageModel.body+""
+              "\n\nKişi başı ücret: "+UserBasketState.userBasket.packageModel.price.toString()+" TL"
               "\n\nDavetli Sayısına Göre Toplam Tutar: "
-              "\nDavetli Sayısı("+ApplicationContext.userBasket.orderBasketModel.count.toString()+") "
-              "\nKişi Başı Paket Ücreti("+ApplicationContext.userBasket.packageModel.price.toString()+"TL)"
-              "\nToplam Ücret: "+(ApplicationContext.userBasket.packageModel.price*ApplicationContext.userBasket.orderBasketModel.count).toString()+" TL",
+              "\nDavetli Sayısı("+UserBasketState.userBasket.orderBasketModel.count.toString()+") "
+              "\nKişi Başı Paket Ücreti("+UserBasketState.userBasket.packageModel.price.toString()+"TL)"
+              "\nToplam Ücret: "+(UserBasketState.userBasket.packageModel.price*UserBasketState.userBasket.orderBasketModel.count).toString()+" TL",
               null);
             },
             child: Column(
@@ -133,7 +133,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   }
 
   Widget getServiceWidget() {
-    if (ApplicationContext.userBasket.servicePoolModel != null) {
+    if (UserBasketState.userBasket.servicePoolModel != null) {
       return GridView.builder(
         shrinkWrap: true,
         primary: false,
@@ -143,11 +143,11 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
           childAspectRatio: MediaQuery.of(context).size.width /
               (MediaQuery.of(context).size.height / 12),
         ),
-        itemCount: ApplicationContext.userBasket.servicePoolModel == null
+        itemCount: UserBasketState.userBasket.servicePoolModel == null
             ? 0
-            : ApplicationContext.userBasket.servicePoolModel.length,
+            : UserBasketState.userBasket.servicePoolModel.length,
         itemBuilder: (BuildContext context, int index) {
-          ServicePoolModel item = ApplicationContext.userBasket.servicePoolModel[index];
+          ServicePoolModel item = UserBasketState.userBasket.servicePoolModel[index];
 
           return GridCorporateServicePoolForBasketSummary(servicePoolModel: item);
         },
@@ -211,8 +211,8 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                              "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(ApplicationContext.userBasket.date).toString().substring(0,10)
-                                  +"\n\nSeans : "+ApplicationContext.userBasket.selectedSessionModel.name,
+                              "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0,10)
+                                  +"\n\nSeans : "+UserBasketState.userBasket.selectedSessionModel.name,
                               style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
                           ),
                         ),
@@ -230,10 +230,10 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                               onTap: () async {
                                 Dialogs.showAlertMessageWithAction(
                                   context,
-                                  ApplicationContext.userBasket.selectedSessionModel.name,
+                                  UserBasketState.userBasket.selectedSessionModel.name,
                                   "Organizasyon tarihi : " +
-                                      DateConversionUtils.getDateTimeFromIntDate(ApplicationContext.userBasket.date).toString().substring(0, 10) +
-                                      "\n\nSeans : " + ApplicationContext.userBasket.selectedSessionModel.name +
+                                      DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0, 10) +
+                                      "\n\nSeans : " + UserBasketState.userBasket.selectedSessionModel.name +
                                       "\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : " +
                                       calculateSessionPrice() +
                                       "TL",
@@ -297,9 +297,9 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                            "Davetli Sayısı :" + ApplicationContext.userBasket.orderBasketModel.count.toString()
-                             +"\n\nDavet türü : "+ ApplicationContext.userBasket.orderBasketModel.invitationType
-                             +"\n\nOturma düzeni : "+ ApplicationContext.userBasket.orderBasketModel.sequenceOrder,
+                            "Davetli Sayısı :" + UserBasketState.userBasket.orderBasketModel.count.toString()
+                             +"\n\nDavet türü : "+ UserBasketState.userBasket.orderBasketModel.invitationType
+                             +"\n\nOturma düzeni : "+ UserBasketState.userBasket.orderBasketModel.sequenceOrder,
                             style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
                         ),
                       ),
@@ -434,9 +434,9 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
             ),
           ),
           onPressed: ()  {
-            int minReservationAmount = ApplicationContext.userBasket.corporationModel.minReservationAmount;
-            if(DateConversionUtils.isWeekendFromIntDate(ApplicationContext.userBasket.date) ){
-              minReservationAmount = ApplicationContext.userBasket.corporationModel.minReservationAmountWeekend;
+            int minReservationAmount = UserBasketState.userBasket.corporationModel.minReservationAmount;
+            if(DateConversionUtils.isWeekendFromIntDate(UserBasketState.userBasket.date) ){
+              minReservationAmount = UserBasketState.userBasket.corporationModel.minReservationAmountWeekend;
             }
 
             if (minReservationAmount < calculateTotalPrice()) {
@@ -456,23 +456,23 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   }
 
   void createReservationRequest(String description) async{
-    ApplicationContext.userBasket.servicePoolModel = UserBasketCache.servicePoolModel;
+    UserBasketState.userBasket.servicePoolModel = UserBasketState.servicePoolModel;
 
     SummaryBasketViewModel model = SummaryBasketViewModel();
-    ReservationModel reservationResponse = await model.createNewReservation(ApplicationContext.userBasket, description);
+    ReservationModel reservationResponse = await model.createNewReservation(UserBasketState.userBasket, description);
     if (reservationResponse == null) {
       Dialogs.showAlertMessage(context, "Üzgünüz", "Siz rezervasyon yaparken başka bir kullanıcı tarafından bu tarihteki bu seans rezerve edildi.");
     } else {
       NotificationsViewModel notificationViewModel = NotificationsViewModel();
-      notificationViewModel.sendNotificationsToAdminCompanyUsers(context, ApplicationContext.userBasket.corporationModel.corporationId,
+      notificationViewModel.sendNotificationsToAdminCompanyUsers(context, UserBasketState.userBasket.corporationModel.corporationId,
           0, reservationResponse.id,  description);
       Dialogs.showAlertMessageWithAction(context, "İşlem Mesajı", "Rezervasyon talebiniz alınmıştır. Salon sahibine bildirim gönderilmiştir.", navigateToHomePage);
     }
   }
 
   void navigateToHomePage(BuildContext context) {
-    UserBasketCache.servicePoolModel = [];
-    ApplicationContext.userBasket = null;
+    UserBasketState.servicePoolModel = [];
+    UserBasketState.setAsNull();
     Utils.navigateToPage(context, MainScreen());
   }
 

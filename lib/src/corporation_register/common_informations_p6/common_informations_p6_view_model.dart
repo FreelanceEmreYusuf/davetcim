@@ -6,7 +6,7 @@ import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/sessions/corporation_registration_dto.dart';
+import '../../../shared/dto/corporation_registration_dto.dart';
 import '../../../shared/enums/customer_role_enum.dart';
 import '../../../shared/models/corporation_registration_key_model.dart';
 import '../../admin_panel/corporation/corporation_generate_key_view_model.dart';

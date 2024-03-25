@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
-import '../../../shared/sessions/user_basket_cache.dart';
+import '../../../shared/sessions/user_basket_state.dart';
 import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/utils.dart';
@@ -463,7 +463,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
   }
 
   void createReservationRequest(String description) async{
-    ApplicationContext.reservationDetail.servicePoolModel = UserBasketCache.servicePoolModel;
+    ApplicationContext.reservationDetail.servicePoolModel = UserBasketState.servicePoolModel;
 
     SummaryBasketViewModel model = SummaryBasketViewModel();
     ReservationModel reservationResponse = await model.updateUserReservation(
@@ -477,12 +477,12 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
   }
 
   void navigateToHomePage(BuildContext context) {
-    UserBasketCache.servicePoolModel = [];
+    UserBasketState.servicePoolModel = [];
     Utils.navigateToPage(context, MainScreen());
   }
 
   void navigateToReservationsPage(BuildContext context) {
-    UserBasketCache.servicePoolModel = [];
+    UserBasketState.servicePoolModel = [];
     Utils.navigateToPage(context, UserReservationsWithAppBarScreen());
   }
 

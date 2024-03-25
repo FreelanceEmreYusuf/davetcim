@@ -11,7 +11,8 @@ import 'package:davetcim/widgets/grid_product.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../../shared/environments/const.dart';
-import '../../shared/sessions/user_basket_cache.dart';
+import '../../shared/sessions/user_basket_state.dart';
+import '../../shared/sessions/user_state.dart';
 import '../../widgets/on_error/somethingWentWrong.dart';
 import '../../widgets/soft_filter.dart';
 
@@ -36,8 +37,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
 
   @override
   void initState() {
-    UserBasketCache.servicePoolModel = [];
-    ApplicationContext.userBasket = null;
+    UserBasketState.setAsNull();
     ApplicationContext.corporationReservation = null;
     ApplicationContext.reservationDetail = null;
     getOrderedCorporationList();
@@ -79,7 +79,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                 body: ListView(
                   children: <Widget>[
                     SoftFilterWidget(),
-                    if(ApplicationContext.userCache != null)
+                    if(UserState.isPresent())
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                         child: Row(
@@ -133,7 +133,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                                   return SliderItem(
                                     corporationId: model.corporationId,
                                     img: model.imageUrl,
-                                    isFav: ApplicationContext.isCorporationFavorite(model.corporationId),
+                                    isFav: UserState.isCorporationFavorite(model.corporationId),
                                     name: model.corporationName,
                                     rating: model.averageRating,
                                     raters: model.ratingCount,
@@ -186,7 +186,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                                 description: item.description,
                                 maxPopulation: item.maxPopulation,
                                 img: item.imageUrl,
-                                isFav: ApplicationContext.isCorporationFavorite(item.corporationId),
+                                isFav: UserState.isCorporationFavorite(item.corporationId),
                                 name: item.corporationName,
                                 rating: item.averageRating,
                                 raters: item.ratingCount,

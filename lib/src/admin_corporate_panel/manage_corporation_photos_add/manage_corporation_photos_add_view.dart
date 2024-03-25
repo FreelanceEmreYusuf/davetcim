@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../shared/environments/const.dart';
 import '../../../shared/models/image_model.dart';
+import '../../../shared/sessions/user_state.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../manage_corporation_photos/manage_corporation_photos_view_model.dart.dart';
 import 'manage_corporation_photos_view_model.dart';
@@ -53,7 +53,7 @@ class _State extends State<ManageCorporationPhotosAddView> {
 
   void getCorporationImageList() async {
     ManageCorporationPhotosViewModel manageCorporationPhotosObject = new ManageCorporationPhotosViewModel();
-    imageList = await manageCorporationPhotosObject.getCorporatePhotos(ApplicationContext.userCache.corporationId);
+    imageList = await manageCorporationPhotosObject.getCorporatePhotos(UserState.corporationId);
 
     setState(() {
       imageList = imageList;
@@ -104,7 +104,7 @@ class _State extends State<ManageCorporationPhotosAddView> {
                       child: Text('Kameradan Ekle'),
                       onPressed: () async {
                         getCorporationImageList();
-                        if(ApplicationContext.isCorporationFavorite(ApplicationContext.userCache.corporationId)){
+                        if(UserState.isCorporationFavorite(UserState.corporationId)){
                           if(imageListLenght<25)
                           {
                             await updateCodeFromCamera();

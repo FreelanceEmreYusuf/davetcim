@@ -1,9 +1,8 @@
-import 'package:davetcim/shared/environments/db_constants.dart';
-import 'package:davetcim/src/home/home_view.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/src/join/forgotPasswd/forgot_passwd_view.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../../shared/utils/utils.dart';
 import 'login_view_model.dart';
@@ -19,6 +18,7 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   final TextEditingController _usernameControl = TextEditingController();
   final TextEditingController _passwordControl = TextEditingController();
   final loginFormKey = GlobalKey<FormState>();
@@ -135,6 +135,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
+    /*
               SizedBox(height: 20.0),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -142,6 +143,20 @@ class _LoginViewState extends State<LoginView> {
                   padding: EdgeInsets.symmetric(vertical: 15.0),
                 ),
                 onPressed: () async {
+                  try {
+                    GoogleSignInAccount user = await _googleSignIn.signIn();
+                    if (user != null) {
+                      print('User Email: ${user.email}');
+                      print('User Display Name: ${user.displayName}');
+                      print('User Photo URL: ${user.photoUrl}');
+                      // Kullanıcı başarıyla giriş yaparsa, burada kullanıcının bilgilerini kullanabilirsiniz.
+                    }
+                  } catch (error) {
+                    print('Google Sign-In Error: $error');
+                  }
+
+
+
                   LoginViewModel vm = LoginViewModel();
                   if (loginFormKey.currentState.validate()) {
                     bool isRegistered = await vm.userLoginFlow(
@@ -167,6 +182,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
+              */
             ],
           ),
         ),

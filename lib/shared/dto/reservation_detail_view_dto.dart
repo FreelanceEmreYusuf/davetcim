@@ -9,7 +9,7 @@ import '../models/corporation_model.dart';
 import '../models/customer_model.dart';
 import '../models/reservation_detail_model.dart';
 import '../models/reservation_model.dart';
-import '../dto/order_basket_dto.dart';
+import 'order_basket_dto.dart';
 
 class ReservationDetailViewDto {
   ReservationModel reservationModel;

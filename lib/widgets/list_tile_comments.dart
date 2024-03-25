@@ -1,13 +1,7 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
-import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:davetcim/widgets/star_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-
-import '../shared/enums/corporation_event_log_enum.dart';
-import '../src/admin_corporate_panel/corporation_analysis/corporation_analysis_view_model.dart';
+import '../shared/sessions/user_state.dart';
 import '../src/comments/comments_view_model.dart';
-
 
 class ListTileComments extends StatefulWidget {
   final String comment;
@@ -27,7 +21,7 @@ class _ListTileCommentsState extends State<ListTileComments> {
 
   @override
   Widget build(BuildContext context) {
-    if(ApplicationContext.userCache != null && ApplicationContext.userCache.username == widget.userName)
+    if(UserState.isPresent() && UserState.username == widget.userName)
       trailingWidget = MaterialButton(
         onPressed: () async{
           CommentsViewModel commentsViewModel = CommentsViewModel();

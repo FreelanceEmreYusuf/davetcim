@@ -1,20 +1,9 @@
 import 'package:davetcim/shared/models/comment_model.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
-import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
-import 'package:davetcim/src/admin_corporate_panel/seans/seans_corporate_add_view.dart';
-import 'package:davetcim/src/admin_corporate_panel/seans/seans_corporate_view_model.dart';
 import 'package:davetcim/widgets/corporate_comments_card_widget.dart';
 import 'package:flutter/material.dart';
-import '../../../shared/models/corporate_sessions_model.dart';
-import '../../../shared/models/reservation_model.dart';
-import '../../../shared/utils/utils.dart';
+import '../../../shared/sessions/user_state.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
-import '../../../widgets/reservation_all_corporate_card_widget.dart';
-import '../../../widgets/reservation_corporate_card_widget.dart';
-import '../../../widgets/seans_corporate_card_widget.dart';
-import '../../reservation/reservation_view_model.dart';
 import 'manage_comment_corporate_view_model.dart';
-
 
 class ManageCommentCorporateView extends StatefulWidget {
 
@@ -34,7 +23,7 @@ class _State extends State<ManageCommentCorporateView> {
 
   void callGetComments() async {
     ManageCommentCorporateViewModel model = ManageCommentCorporateViewModel();
-    commentList = await model.getCorporateComments(ApplicationContext.userCache.corporationId);
+    commentList = await model.getCorporateComments(UserState.corporationId);
 
     setState(() {
       commentList = commentList;

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:davetcim/util/foods.dart';
 import 'package:davetcim/widgets/grid_product.dart';
 
 import '../../shared/models/corporation_model.dart';
 import '../../shared/sessions/application_context.dart';
+import '../../shared/sessions/user_state.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import 'fav_products_view_model.dart';
 
@@ -64,7 +64,7 @@ class _FavoriteScreenWithAppBarState extends State<FavoriteScreenWithAppBar>
                   CorporationModel corp = corpModelList[index];
                 return GridProduct(
                   img: corp.imageUrl,
-                  isFav: ApplicationContext.isCorporationFavorite(corp.corporationId),
+                  isFav: UserState.isCorporationFavorite(corp.corporationId),
                   name: corp.corporationName,
                   rating: corp.averageRating,
                   raters: corp.ratingCount,

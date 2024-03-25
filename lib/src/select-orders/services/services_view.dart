@@ -1,8 +1,7 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/models/service_pool_model.dart';
-import '../../../shared/sessions/user_basket_cache.dart';
+import '../../../shared/sessions/user_basket_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_service_pool_for_basket.dart';
@@ -29,7 +28,7 @@ class _ServicesScreenState extends State<ServicesScreen>
   void setServiceList() async {
     ServiceCorporatePoolViewModel model = ServiceCorporatePoolViewModel();
     serviceList = updateServiceList(await model.getServiceList(
-        ApplicationContext.userBasket.corporationModel.corporationId));
+        UserBasketState.userBasket.corporationModel.corporationId));
 
     if (serviceList.length == 0) {
       navigateToNextScreen();
@@ -105,7 +104,7 @@ class _ServicesScreenState extends State<ServicesScreen>
             ),
           ),
           onPressed: () {
-           ApplicationContext.userBasket.servicePoolModel = UserBasketCache.servicePoolModel;
+            UserBasketState.userBasket.servicePoolModel = UserBasketState.servicePoolModel;
            navigateToNextScreen();
           },
         ),

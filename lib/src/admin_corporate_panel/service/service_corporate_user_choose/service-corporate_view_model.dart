@@ -1,12 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 
 import '../../../../shared/environments/db_constants.dart';
 import '../../../../shared/models/service_corporate_pool_model.dart';
 import '../../../../shared/models/service_pool_model.dart';
 import '../../../../shared/services/database.dart';
+import '../../../../shared/sessions/user_state.dart';
 import '../../../admin_panel/service/service_view_model.dart';
 
 
@@ -56,7 +55,7 @@ class ServiceCorporatePoolViewModel extends ChangeNotifier {
     ServiceCorporatePoolModel servicePool = new ServiceCorporatePoolModel(
         id: new DateTime.now().millisecondsSinceEpoch,
         serviceId: servicePoolModel.id,
-        corporateId: ApplicationContext.userCache.corporationId,
+        corporateId: UserState.corporationId,
         price: price,
         priceChangedForCount: priceChangedForCount,
         hasPrice: hasPrice
@@ -69,7 +68,7 @@ class ServiceCorporatePoolViewModel extends ChangeNotifier {
     ServiceCorporatePoolModel servicePool = new ServiceCorporatePoolModel(
         id: serviceCorporatePoolModel.id,
         serviceId: serviceCorporatePoolModel.serviceId,
-        corporateId: ApplicationContext.userCache.corporationId,
+        corporateId: UserState.corporationId,
         price: price,
         priceChangedForCount: priceChangedForCount,
         hasPrice: hasPrice
@@ -81,7 +80,7 @@ class ServiceCorporatePoolViewModel extends ChangeNotifier {
     CollectionReference servicesListRef =
     db.getCollectionRef(DBConstants.corporationServicesDb);
     var response = await servicesListRef
-        .where('corporateId', isEqualTo: ApplicationContext.userCache.corporationId)
+        .where('corporateId', isEqualTo: UserState.corporationId)
         .where('serviceId', isEqualTo: servicePoolModel.id).get();
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
@@ -94,7 +93,7 @@ class ServiceCorporatePoolViewModel extends ChangeNotifier {
     CollectionReference servicesListRef =
     db.getCollectionRef(DBConstants.corporationServicesDb);
     var response = await servicesListRef
-        .where('corporateId', isEqualTo: ApplicationContext.userCache.corporationId)
+        .where('corporateId', isEqualTo: UserState.corporationId)
         .where('serviceId', isEqualTo: serviceId).get();
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;

@@ -22,10 +22,8 @@ class _CalendarScreenState extends State<CalendarScreen>
 
   DateTime date = DateTime.now().toLocal();
   DateTime time = DateTime.now().toLocal();
-  bool checkedValue = false;
-
   DateTime endTime = DateTime.now().toLocal().add(new Duration(hours: 2));
-
+  bool checkedValue = false;
 
   // This shows a CupertinoModalPopup with a reasonable fixed height which hosts CupertinoDatePicker.
   void _showDialog(Widget child) {

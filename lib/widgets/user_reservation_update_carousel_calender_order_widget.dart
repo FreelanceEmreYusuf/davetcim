@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
-import '../shared/sessions/reservation_detail_view_dto.dart';
+import '../shared/dto/reservation_detail_view_dto.dart';
 import '../shared/models/reservation_model.dart';
 import '../shared/utils/utils.dart';
 import '../src/admin_corporate_panel/all_reservation/all_reservation_corporate_view_model.dart';

@@ -1,4 +1,3 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
@@ -6,6 +5,7 @@ import 'package:davetcim/widgets/smooth_star_rating.dart';
 import 'package:page_transition/page_transition.dart';
 import '../shared/helpers/corporate_helper.dart';
 import '../shared/models/corporation_model.dart';
+import '../shared/sessions/user_state.dart';
 import '../src/fav_products/fav_products_view_model.dart';
 import 'bounce_button.dart';
 
@@ -76,7 +76,7 @@ class _SliderItemState extends State<SliderItem> {
             onTap: (){
               FavProductsViewModel mdl = FavProductsViewModel();
               mdl.editFavoriteProductPage(widget.corporationId, widget.img, context, widget.callerPage);
-              if(ApplicationContext.userCache != null){
+              if(UserState.isPresent()){
                 if (isFav) {
                   setState(() {
                     isPageLoad = false;

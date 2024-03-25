@@ -9,19 +9,20 @@ import 'package:davetcim/shared/models/organization_type_model.dart';
 import 'package:davetcim/shared/models/region_model.dart';
 import 'package:davetcim/shared/models/sequence_order_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/src/products/products_view.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../shared/sessions/filter_state.dart';
+
 List<RegionModel> regionList =
-    ApplicationContext.filterCache.regionModelList;
+    FilterState.regionModelList;
 List<OrganizationTypeModel> organizationTypeList =
-    ApplicationContext.filterCache.organizationTypeList;
+    FilterState.organizationTypeList;
 List<SequenceOrderModel> sequenceOrderList =
-    ApplicationContext.filterCache.sequenceOrderList;
+    FilterState.sequenceOrderList;
 List<InvitationTypeModel> invitationList =
-    ApplicationContext.filterCache. invitationTypeList;
+    FilterState.invitationTypeList;
 List<DistrictModel> districtList = [
   DistrictModel(
       id: 0, name: 'Tümü', regionId: 0, filteringStatus: 0, sortingIndex: 1)
@@ -81,9 +82,6 @@ class SearchViewModel extends ChangeNotifier {
     Utils.navigateToPage(context, ProductsScreen(filter, null));
   }
 
-
-
-
   Future<CorporationCardModel> getCorporationCard(int corporationId) async {
     CorporationModel mdl = await getCorporationModel(1);
     String imageURL = await  getImageURL(mdl.corporationId);
@@ -122,5 +120,4 @@ class SearchViewModel extends ChangeNotifier {
       return "";
     }
   }
-
 }

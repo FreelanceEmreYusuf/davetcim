@@ -4,12 +4,10 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 import '../shared/models/reservation_model.dart';
-import '../shared/sessions/application_context.dart';
+import '../shared/sessions/user_state.dart';
 import '../shared/utils/utils.dart';
 import '../src/admin_corporate_panel/all_reservation/all_reservation_corporate_view_model.dart';
 import '../src/admin_corporate_panel/reservation/reservation_only_for_corporate_view.dart';
-import '../src/reservation/reservation_all_order_view.dart';
-import '../src/reservation/reservation_view.dart';
 
 class CalenderCorporateAdminCarousel extends StatefulWidget {
 
@@ -37,7 +35,7 @@ class _CalenderCorporateAdminCarouselState extends State<CalenderCorporateAdminC
 
   void loadDates() async {
     AllReservationCorporateViewModel model = AllReservationCorporateViewModel();
-    reservationList = await model.getAllReservationlistForCalendar(ApplicationContext.userCache.corporationId);
+    reservationList = await model.getAllReservationlistForCalendar(UserState.corporationId);
 
     _markedDateMap.clear();
     for (int i = 0; i < reservationList.length; i++) {
@@ -78,7 +76,7 @@ class _CalenderCorporateAdminCarouselState extends State<CalenderCorporateAdminC
       child: CalendarCarousel<Event>(
         onDayPressed: (DateTime date, List<Event> events) {
           this.setState(() => _currentDate = date);
-          Utils.navigateToPage(context, ReservationOnlyForCorporateViewScreen(ApplicationContext.userCache.corporationId, date));
+          Utils.navigateToPage(context, ReservationOnlyForCorporateViewScreen(UserState.corporationId, date));
         },
         weekendTextStyle: TextStyle(
           color: Colors.red,

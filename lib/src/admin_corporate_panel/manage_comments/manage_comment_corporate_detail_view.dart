@@ -6,7 +6,7 @@ import 'package:davetcim/src/comments/comments_view_model.dart';
 import 'package:davetcim/src/notifications/notifications_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../../shared/sessions/reservation_detail_view_dto.dart';
+import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';

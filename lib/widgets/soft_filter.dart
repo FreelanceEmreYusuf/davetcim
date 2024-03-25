@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../shared/models/organization_type_model.dart';
 import '../shared/models/region_model.dart';
-import '../shared/sessions/application_context.dart';
+import '../shared/sessions/filter_state.dart';
 import '../src/search/search_view_model.dart';
 
 class SoftFilterWidget extends StatefulWidget {
@@ -16,11 +16,8 @@ class SoftFilterWidget extends StatefulWidget {
 }
 
 class _SoftFilterWidgetState extends State<SoftFilterWidget> {
-  List<RegionModel> regionList =
-      ApplicationContext.filterCache.regionModelList;
-
-  List<OrganizationTypeModel> organizationTypeList =
-      ApplicationContext.filterCache.organizationTypeList;
+  List<RegionModel> regionList = FilterState.regionModelList;
+  List<OrganizationTypeModel> organizationTypeList = FilterState.organizationTypeList;
 
   static TextStyle kStyle =
   TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
@@ -35,10 +32,12 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
 
   @override
   void initState() {
+    super.initState();
     firstInitialDistrict();
   }
 
   void firstInitialDistrict() async {
+    regionList = FilterState.regionModelList;
     if (regionList != null && regionList.length > 0) {
       SearchViewModel rm = SearchViewModel();
       districtList = await rm.fillDistrictlist(regionList[0].id);

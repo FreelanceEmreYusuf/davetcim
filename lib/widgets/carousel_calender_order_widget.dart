@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
-import '../shared/sessions/application_context.dart';
+import '../shared/sessions/user_basket_state.dart';
 import '../shared/utils/utils.dart';
 import '../src/reservation/reservation_order_view.dart';
 
@@ -31,13 +31,13 @@ class _CalenderOrderCarouselState extends State<CalenderOrderCarousel> {
 
   void loadDates() {
     _markedDateMap.clear();
-    for (int i = 0; i < ApplicationContext.userBasket.reservationList.length; i++) {
+    for (int i = 0; i < UserBasketState.userBasket.reservationList.length; i++) {
       _markedDateMap.add(
-          DateConversionUtils.getDateTimeFromIntDate(ApplicationContext.userBasket.reservationList[i].date),
+          DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.reservationList[i].date),
           new Event(
             date: DateConversionUtils.getDateTimeFromIntDate(
-                ApplicationContext.userBasket.reservationList[i].date),
-            title: ApplicationContext.userBasket.reservationList[i].description,
+                UserBasketState.userBasket.reservationList[i].date),
+            title: UserBasketState.userBasket.reservationList[i].description,
             //icon: Icon(Icons.access_alarms, color: Colors.blueAccent),
             dot: Container(
               margin: EdgeInsets.symmetric(horizontal: 1.0),
@@ -58,7 +58,7 @@ class _CalenderOrderCarouselState extends State<CalenderOrderCarousel> {
       child: CalendarCarousel<Event>(
         onDayPressed: (DateTime date, List<Event> events) {
           this.setState(() => _currentDate = date);
-          ApplicationContext.userBasket.date = DateConversionUtils.getCurrentDateAsInt(date);
+          UserBasketState.userBasket.date = DateConversionUtils.getCurrentDateAsInt(date);
           Utils.navigateToPage(context, ReservationOrderViewScreen());
         },
         weekendTextStyle: TextStyle(

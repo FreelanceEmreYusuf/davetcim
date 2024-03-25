@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/dto/order_basket_dto.dart';
-import '../../../shared/sessions/reservation_detail_view_dto.dart';
+import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/utils/form_control.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';

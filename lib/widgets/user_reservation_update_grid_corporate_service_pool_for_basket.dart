@@ -1,5 +1,5 @@
 import 'package:davetcim/shared/sessions/application_context.dart';
-import 'package:davetcim/shared/sessions/user_basket_cache.dart';
+import 'package:davetcim/shared/sessions/user_basket_state.dart';
 import 'package:flutter/material.dart';
 import '../shared/models/service_pool_model.dart';
 import '../shared/utils/dialogs.dart';
@@ -33,8 +33,8 @@ class _UserReservationUpdateGridCorporateServicePoolForBasketState
   @override
   Widget build(BuildContext context) {
     if (!widget.servicePoolModel.hasChild) {
-      for(int i = 0; i < UserBasketCache.servicePoolModel.length; i++) {
-        if (widget.servicePoolModel.id == UserBasketCache.servicePoolModel[i].id) {
+      for(int i = 0; i < UserBasketState.servicePoolModel.length; i++) {
+        if (widget.servicePoolModel.id == UserBasketState.servicePoolModel[i].id) {
           buffer = false;
           buttonText= "Çıkar";
           buttonColor = Colors.red;
@@ -123,7 +123,7 @@ class _UserReservationUpdateGridCorporateServicePoolForBasketState
                           buttonColor = Colors.red;
                           buttonIcon = Icons.delete_rounded;
                           textColor = Colors.green;
-                          UserBasketCache.servicePoolModel.add(widget.servicePoolModel);
+                          UserBasketState.servicePoolModel.add(widget.servicePoolModel);
                         }else{
                           //hizmet sepete eklenmemiş, hizmeti sepete eklediğimiz if durumu
                           buttonText= "Ekle";
@@ -132,12 +132,12 @@ class _UserReservationUpdateGridCorporateServicePoolForBasketState
                           textColor = Colors.red;
                           //UserBasketSession.servicePoolModel.remove(widget.servicePoolModel);
                           List<ServicePoolModel> listTemp = [];
-                          for (int i = 0; i < UserBasketCache.servicePoolModel.length; i++) {
-                            if (UserBasketCache.servicePoolModel[i].id != widget.servicePoolModel.id) {
-                              listTemp.add(UserBasketCache.servicePoolModel[i]);
+                          for (int i = 0; i < UserBasketState.servicePoolModel.length; i++) {
+                            if (UserBasketState.servicePoolModel[i].id != widget.servicePoolModel.id) {
+                              listTemp.add(UserBasketState.servicePoolModel[i]);
                             }
                           }
-                          UserBasketCache.servicePoolModel = listTemp;
+                          UserBasketState.servicePoolModel = listTemp;
                         }
                         buffer = !buffer;
                       });

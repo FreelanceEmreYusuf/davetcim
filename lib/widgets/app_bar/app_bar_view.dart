@@ -5,16 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
-import '../../screens/notifications.dart';
 import '../../shared/maps/menu_back_map.dart';
 import '../../shared/models/customer_model.dart';
 import '../../shared/sessions/application_context.dart';
+import '../../shared/sessions/user_state.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/language.dart';
 import '../../shared/utils/utils.dart';
 import '../../src/join/join_view.dart';
 import '../../src/notifications/notifications_view.dart';
-import '../badge.dart';
 import '../bounce_button.dart';
 import '../on_error/somethingWentWrong.dart';
 import '../popup_menu/popup_menu.dart';
@@ -107,7 +106,7 @@ class _AppBarMenu extends State<AppBarMenu> {
                               textColor: Colors.white,
                             ),
                           onPressed: () {
-                            if (ApplicationContext.userCache == null) {
+                            if (!UserState.isPresent()) {
                               showSucessMessage(context);
                             } else {
                               Utils.navigateToPage(context, NotificationsView());

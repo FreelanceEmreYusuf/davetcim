@@ -1,5 +1,5 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
+import '../shared/sessions/user_basket_state.dart';
 import '../shared/utils/dialogs.dart';
 
 class GridServicePackageSummaryItem extends StatefulWidget {
@@ -19,7 +19,7 @@ class _GridServicePackageSummaryItemState
       children: [
         Expanded(
           child: Text(
-              ApplicationContext.userBasket.packageModel.title, style: TextStyle(
+              UserBasketState.userBasket.packageModel.title, style: TextStyle(
               fontSize: 18,
               color: Colors.green,
               fontStyle: FontStyle.italic,
@@ -35,9 +35,9 @@ class _GridServicePackageSummaryItemState
                   onTap: () async {
                     Dialogs.showAlertMessageWithAction(
                         context,
-                        ApplicationContext.userBasket.packageModel.title,
-                        ApplicationContext.userBasket.packageModel.body +
-                            " \nFiyat:" + ApplicationContext.userBasket.packageModel.price.toString() + "TL",
+                        UserBasketState.userBasket.packageModel.title,
+                        UserBasketState.userBasket.packageModel.body +
+                            " \nFiyat:" + UserBasketState.userBasket.packageModel.price.toString() + "TL",
                         null);
                   }, // button pressed
                   child: Column(

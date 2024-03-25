@@ -4,11 +4,8 @@ import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../../shared/environments/const.dart';
 import '../../shared/models/customer_model.dart';
-import '../../shared/sessions/application_context.dart';
-import '../../shared/utils/dialogs.dart';
+import '../../shared/sessions/user_state.dart';
 import '../../shared/utils/utils.dart';
-import '../map_page.dart';
-import '../badge.dart';
 import '../bounce_button.dart';
 import '../on_error/somethingWentWrong.dart';
 import 'app_bar_view_model.dart';
@@ -88,7 +85,7 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                               : Theme.of(context).textTheme.caption.color,
                         ),
                         onTap: (){
-                          if (ApplicationContext.userCache == null) {
+                          if (!UserState.isPresent()) {
                             Utils.navigateToPage(context, JoinView());
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Favori mekanlar listenizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
@@ -128,7 +125,7 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                               : Theme.of(context).textTheme.caption.color,
                         ),
                         onTap: (){
-                          if (ApplicationContext.userCache == null) {
+                          if (!UserState.isPresent()) {
                             Utils.navigateToPage(context, JoinView());
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Sepetinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
@@ -157,7 +154,7 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                             : Theme.of(context).textTheme.caption.color,
                       ),
                         onTap: (){
-                          if (ApplicationContext.userCache == null) {
+                          if (!UserState.isPresent()) {
                             Utils.navigateToPage(context, JoinView());
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Profilinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),

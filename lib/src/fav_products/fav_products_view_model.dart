@@ -1,15 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../../shared/enums/corporation_event_log_enum.dart';
 import '../../shared/environments/db_constants.dart';
 import '../../shared/models/user_fav_products.dart';
 import '../../shared/services/database.dart';
-import '../../shared/sessions/application_context.dart';
-import '../../shared/utils/dialogs.dart';
+import '../../shared/sessions/user_state.dart';
 import '../../shared/utils/language.dart';
 import '../../shared/utils/utils.dart';
 import '../admin_corporate_panel/corporation_analysis/corporation_analysis_view_model.dart';
@@ -21,7 +18,7 @@ class FavProductsViewModel extends ChangeNotifier {
     CollectionReference notRef =
     db.getCollectionRef(DBConstants.favProductsDb);
     var response = await notRef
-        .where('customerId', isEqualTo: ApplicationContext.userCache.id)
+        .where('customerId', isEqualTo: UserState.id)
         .get();
 
     List<int> favProductsList = [];
@@ -38,7 +35,7 @@ class FavProductsViewModel extends ChangeNotifier {
     CollectionReference notRef =
     db.getCollectionRef(DBConstants.corporationDb);
     var response = await notRef
-        .where('id', whereIn: ApplicationContext.favoriteCorporationList)
+        .where('id', whereIn: UserState.favoriteCorporationList)
         .get();
 
     List<CorporationModel> corpModelList = [];
@@ -53,8 +50,7 @@ class FavProductsViewModel extends ChangeNotifier {
   }
 
   Future<void> editFavoriteProductPage(int corporationId, String img, BuildContext context, Widget callerPage) async {
-
-    if (ApplicationContext.userCache == null) {
+    if (!UserState.isPresent() ) {
         ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(LanguageConstants
                 .dialogGoToLoginForFavoriteProduct[LanguageConstants.languageFlag]), duration: Duration(seconds: 1),));
@@ -63,7 +59,7 @@ class FavProductsViewModel extends ChangeNotifier {
       db.getCollectionRef(DBConstants.favProductsDb);
       var response = await docsRef
           .where('corporationId', isEqualTo: corporationId)
-          .where('customerId', isEqualTo: ApplicationContext.userCache.id)
+          .where('customerId', isEqualTo: UserState.id)
           .get();
       var list = response.docs;
 
@@ -73,7 +69,7 @@ class FavProductsViewModel extends ChangeNotifier {
         UserFavProductsModel favProductsModel = new UserFavProductsModel(
             id: new DateTime.now().millisecondsSinceEpoch,
             corporationId: corporationId,
-            customerId: ApplicationContext.userCache.id,
+            customerId: UserState.id,
             image: img,
             recordDate: Timestamp.now());
 
@@ -83,12 +79,11 @@ class FavProductsViewModel extends ChangeNotifier {
       }
 
       FavProductsViewModel favMdl = FavProductsViewModel();
-      ApplicationContext.favoriteCorporationList = await favMdl.getFavProductsList();
+      UserState.favoriteCorporationList = await favMdl.getFavProductsList();
 
       if (callerPage != null) {
         Utils.navigateToPage(context, callerPage);
       }
     }
   }
-
 }

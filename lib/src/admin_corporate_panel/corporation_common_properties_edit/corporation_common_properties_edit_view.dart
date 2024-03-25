@@ -9,6 +9,8 @@ import '../../../shared/enums/corporation_service_selection_enum.dart';
 import '../../../shared/models/company_model.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/region_model.dart';
+import '../../../shared/sessions/filter_state.dart';
+import '../../../shared/sessions/user_state.dart';
 import '../../../shared/utils/form_control.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
@@ -70,7 +72,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
   static TextStyle kStyle =
   TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
   List<RegionModel> regionList =
-      ApplicationContext.filterCache.regionModelList;
+      FilterState.regionModelList;
 
   int selectedRegion = 0;
   int selectedDistrict = 0;
@@ -83,7 +85,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
 
   void fillCorporateInfo() async {
     CorporateHelper corporateHelper = CorporateHelper();
-    CorporationModel corporationModel =  await corporateHelper.getCorporate(ApplicationContext.userCache.corporationId);
+    CorporationModel corporationModel =  await corporateHelper.getCorporate(UserState.corporationId);
     CompanyViewModel cvm = CompanyViewModel();
     CompanyModel companyModel = await cvm.getById(corporationModel.companyId);
     _firmNameControl.text = companyModel.name;
@@ -121,7 +123,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
 
   void callGetOrganizationTypes() async {
     CorporationCommonPropertiesEditViewModel model = CorporationCommonPropertiesEditViewModel();
-    response = await  model.getCorporationOrganizationTypes(ApplicationContext.userCache.corporationId);
+    response = await  model.getCorporationOrganizationTypes(UserState.corporationId);
     values = response.organizationTypeResponse.organizationTypeCheckedMap;
     valuesId = response.organizationTypeResponse.organizationTypeNameIdMap;
     values2 = response.invitationTypeResponse.organizationTypeCheckedMap;
@@ -206,7 +208,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
         });
       } else {
         CorporateHelper corporateHelper = CorporateHelper();
-        CorporationModel corporationModel =  await corporateHelper.getCorporate(ApplicationContext.userCache.corporationId);
+        CorporationModel corporationModel =  await corporateHelper.getCorporate(UserState.corporationId);
         corporationModel.corporationName = _nameControl.text;
         corporationModel.address = _addresControl.text;
         corporationModel.telephoneNo = _phoneControl.text;

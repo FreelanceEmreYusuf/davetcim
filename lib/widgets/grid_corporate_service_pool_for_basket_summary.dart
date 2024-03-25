@@ -1,6 +1,7 @@
 import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 import '../shared/models/service_pool_model.dart';
+import '../shared/sessions/user_basket_state.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/admin_corporate_panel/service/service_corporate_user_choose/service-corporate_view_model.dart';
@@ -35,7 +36,7 @@ class _GridCorporateServicePoolForBasketSummaryState
       if (widget.servicePoolModel.companyHasService) {
 
         totalPrice = widget.servicePoolModel.corporateDetail.price *
-            ApplicationContext.userBasket.orderBasketModel.count;
+            UserBasketState.userBasket.orderBasketModel.count;
         if (!widget.servicePoolModel.corporateDetail.priceChangedForCount) {
           totalPrice = widget.servicePoolModel.corporateDetail.price;
           priceChangeForCount = "Hayır";
@@ -64,7 +65,7 @@ class _GridCorporateServicePoolForBasketSummaryState
                           context,
                           widget.servicePoolModel.serviceName,
                           //TODO: hizmet için fiyat bilgileri girilecek
-                          "Belirtmiş olduğunuz davetli sayısı : "+ApplicationContext.userBasket.orderBasketModel.count.toString()
+                          "Belirtmiş olduğunuz davetli sayısı : "+UserBasketState.userBasket.orderBasketModel.count.toString()
                               +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
                               +"\n\nHizmetin birim ücreti : "+ widget.servicePoolModel.corporateDetail.price.toString()+ "TL"
                               "\n\nToplam ücret : "+

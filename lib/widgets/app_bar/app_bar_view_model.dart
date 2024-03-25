@@ -2,12 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/src/join/join_view.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../../shared/sessions/user_state.dart';
 
 class AppBarViewModel extends ChangeNotifier {
   Database db = Database();
@@ -27,8 +28,8 @@ class AppBarViewModel extends ChangeNotifier {
   }
 
   int getUserId() {
-    if (ApplicationContext.userCache != null) {
-      return ApplicationContext.userCache.id;
+    if (UserState.isPresent()) {
+      return UserState.id;
     }
     return 0;
   }

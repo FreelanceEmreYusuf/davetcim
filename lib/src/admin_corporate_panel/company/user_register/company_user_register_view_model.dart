@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
-import 'package:davetcim/shared/helpers/customer_helper.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/models/secret_questions_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
@@ -12,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../shared/enums/customer_role_enum.dart';
+import '../../../../shared/sessions/user_state.dart';
 import '../add_corporation/corporation_add_view.dart';
 
 class CompanyUserRegisterViewModel extends ChangeNotifier {
@@ -43,7 +42,7 @@ class CompanyUserRegisterViewModel extends ChangeNotifier {
       String selectedQuestionAnswer) async {
     CustomerModel _customer = new CustomerModel(
         username: _usernameControl,
-        id: ApplicationContext.userCache.id,
+        id: UserState.id,
         corporationId: 0,
         gsmNo: _phoneControl,
         isActive: true,

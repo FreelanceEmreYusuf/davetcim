@@ -3,10 +3,10 @@ import 'package:davetcim/src/user_reservations/update/user_reservation_update_su
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/sessions/reservation_detail_view_dto.dart';
+import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/service_pool_model.dart';
-import '../../../shared/sessions/user_basket_cache.dart';
+import '../../../shared/sessions/user_basket_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/user_reservation_update_grid_corporate_service_pool_for_basket.dart';
@@ -46,7 +46,7 @@ class _UserReservationUpdateServicesScreenState extends State<UserReservationUpd
     }
 
     ReservationCorporateViewModel reservationCorporateViewModel = ReservationCorporateViewModel();
-    UserBasketCache.servicePoolModel =
+    UserBasketState.servicePoolModel =
       await reservationCorporateViewModel.getServicePoolModelDetailedList(selectedServicesIds,
           ApplicationContext.reservationDetail.reservationModel);
 
@@ -122,7 +122,7 @@ class _UserReservationUpdateServicesScreenState extends State<UserReservationUpd
             ),
           ),
           onPressed: () {
-            ApplicationContext.reservationDetail.servicePoolModel = UserBasketCache.servicePoolModel;
+            ApplicationContext.reservationDetail.servicePoolModel = UserBasketState.servicePoolModel;
            navigateToNextScreen();
           },
         ),

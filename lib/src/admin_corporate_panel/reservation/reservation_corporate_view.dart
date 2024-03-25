@@ -1,8 +1,8 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/environments/const.dart';
 import '../../../shared/models/reservation_model.dart';
+import '../../../shared/sessions/user_state.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/reservation_corporate_card_widget.dart';
 
@@ -24,7 +24,7 @@ class _State extends State<ReservationCorporateView> {
 
   void callGetReservations() async {
     ReservationCorporateViewModel model = ReservationCorporateViewModel();
-    reservationList = await model.getReservationlist(ApplicationContext.userCache.corporationId);
+    reservationList = await model.getReservationlist(UserState.corporationId);
 
     setState(() {
       reservationList = reservationList;

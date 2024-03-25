@@ -1,9 +1,9 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/models/image_model.dart';
+import '../../../shared/sessions/user_state.dart';
 import 'manage_corporation_photos_view_model.dart.dart';
 
 
@@ -27,7 +27,7 @@ class _ManageCorporationPhotosViewState extends State<ManageCorporationPhotosVie
 
   Future<void>getCorporationImages() async{
     ManageCorporationPhotosViewModel corporationPhotosViewModel = ManageCorporationPhotosViewModel();
-    list = await corporationPhotosViewModel.getCorporatePhotos(ApplicationContext.userCache.corporationId);
+    list = await corporationPhotosViewModel.getCorporatePhotos(UserState.corporationId);
     setState(() {
       list = list;
       hasDataTaken = true;

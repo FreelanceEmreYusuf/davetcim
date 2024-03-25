@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../shared/sessions/application_context.dart';
+import '../../shared/sessions/user_state.dart';
 
 class AppBarIconBadge extends StatefulWidget {
   final IconData icon;
@@ -32,9 +31,9 @@ void initState() {
 @override
 class _AppBarIconBadgeState extends State<AppBarIconBadge> {
   String getUserNotificationCount() {
-    if (ApplicationContext.userCache != null) {
+    if (UserState.isPresent()) {
       setState(() {
-        notificationCount = ApplicationContext.notificationCount;
+        notificationCount = UserState.notificationCount;
       });
     } else
       notificationCount = 0;

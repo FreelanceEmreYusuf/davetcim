@@ -2,7 +2,7 @@ import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
 import 'package:flutter/material.dart';
-import '../../../shared/sessions/reservation_detail_view_dto.dart';
+import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/corporation_event_log_enum.dart';
 import '../../../shared/helpers/reservation_helper.dart';
 import '../../../shared/models/corporation_package_services_model.dart';

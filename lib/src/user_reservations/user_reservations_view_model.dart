@@ -3,12 +3,12 @@ import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/service_corporate_pool_model.dart';
 import 'package:davetcim/shared/models/service_pool_model.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/user_state.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../shared/sessions/reservation_detail_view_dto.dart';
+import '../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/reservation_status_enum.dart';
 import '../../../shared/helpers/customer_helper.dart';
 import '../../../shared/models/reservation_detail_model.dart';
@@ -16,7 +16,6 @@ import '../../../shared/models/reservation_model.dart';
 import '../../../shared/services/database.dart';
 import '../../shared/models/corporation_model.dart';
 import '../../shared/models/corporation_package_services_model.dart';
-import '../admin_corporate_panel/seans/seans_corporate_view_model.dart';
 
 class UserReservationsViewModel extends ChangeNotifier {
   Database db = Database();
@@ -24,7 +23,7 @@ class UserReservationsViewModel extends ChangeNotifier {
   Future<List<ReservationModel>> getReservationlist() async {
     var response = await db
         .getCollectionRef("CorporationReservations")
-        .where('customerId', isEqualTo: ApplicationContext.userCache.id)
+        .where('customerId', isEqualTo: UserState.id)
         .where('reservationStatus', whereIn: ReservationStatusEnumConverter.userViewedReservationStatus()) 
         .orderBy('recordDate', descending: true)
         .get();
@@ -154,6 +153,4 @@ class UserReservationsViewModel extends ChangeNotifier {
     reservationMap["isActive"] = false;
     db.editCollectionRef(DBConstants.corporationReservationsDb, reservationMap);
   }
-
-
 }

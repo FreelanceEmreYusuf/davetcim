@@ -5,7 +5,7 @@ import '../models/combo_generic_model.dart';
 import '../models/corporate_sessions_model.dart';
 import '../models/corporation_package_services_model.dart';
 import '../models/reservation_model.dart';
-import '../dto/order_basket_dto.dart';
+import 'order_basket_dto.dart';
 
 class BasketUserDto {
   int sessionId;
@@ -21,7 +21,6 @@ class BasketUserDto {
   OrderBasketDto orderBasketModel;
   CorporationPackageServicesModel packageModel;
   List<ServicePoolModel> servicePoolModel;
-
 
   BasketUserDto(
       this.sessionId,

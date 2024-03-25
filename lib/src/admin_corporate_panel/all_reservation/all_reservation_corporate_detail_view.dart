@@ -2,7 +2,7 @@ import 'package:davetcim/shared/enums/reservation_status_enum.dart';
 import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../shared/sessions/reservation_detail_view_dto.dart';
+import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';

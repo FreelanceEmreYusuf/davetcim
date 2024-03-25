@@ -1,5 +1,4 @@
 import 'package:davetcim/shared/models/secret_questions_model.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/src/join/register/register_view_model.dart';
@@ -7,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../shared/helpers/customer_helper.dart';
+import '../../../../shared/sessions/user_state.dart';
 import 'company_user_register_view_model.dart';
 
 class CompanyUserRegisterView extends StatefulWidget {
@@ -38,10 +38,10 @@ class _CompanyUserRegisterViewState extends State<CompanyUserRegisterView> {
   }
 
   void fillDefinedAreas() async{
-    emailControl.text = ApplicationContext.userCache.eMail;
-    phoneControl.text = ApplicationContext.userCache.gsmNo;
-    nameControl.text = ApplicationContext.userCache.name;
-    surnameControl.text = ApplicationContext.userCache.surname;
+    emailControl.text = UserState.eMail;
+    phoneControl.text = UserState.gsmNo;
+    nameControl.text = UserState.name;
+    surnameControl.text = UserState.surname;
   }
 
   void callSecretQuestionList() async{
