@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/models/secret_questions_model.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/src/join/register/register_view_model.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/enums/customer_role_enum.dart';
 import '../../../shared/helpers/customer_helper.dart';
 import '../../../shared/models/customer_model.dart';
+import '../../../shared/sessions/corporation_registration_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../common_informations_p6/common_informations_p6_view.dart';
@@ -69,7 +69,7 @@ class _CommonInformationsP5ViewState extends State<CommonInformationsP5View> {
             CustomerModel _customer = new CustomerModel(
                 username: _usernameControl.text,
                 id: new DateTime.now().millisecondsSinceEpoch,
-                corporationId: ApplicationContext.corporationReservation.corporationModel.corporationId,
+                corporationId: CorporationRegistrationState.corporationReservation.corporationModel.corporationId,
                 gsmNo: _phoneControl.text,
                 isActive: true,
                 name: _nameControl.text,
@@ -82,8 +82,8 @@ class _CommonInformationsP5ViewState extends State<CommonInformationsP5View> {
                 secretQuestionAnswer: _secretQuestionAnswerControl.text,
                 notificationCount: 0,
                 basketCount: 0);
-            ApplicationContext.corporationReservation.customerModel = _customer;
-            ApplicationContext.corporationReservation.secretQuestionName = selectedQuestion.questionText;
+            CorporationRegistrationState.corporationReservation.customerModel = _customer;
+            CorporationRegistrationState.corporationReservation.secretQuestionName = selectedQuestion.questionText;
 
             String errorMessage = await CustomerHelper.getUserExistingControlWithUserName(_usernameControl.text);
             if (errorMessage.isNotEmpty) {

@@ -1,9 +1,7 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/user_reservations/update/user_reservation_update_summary_basket_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/service_pool_model.dart';
 import '../../../shared/sessions/user_basket_state.dart';
@@ -33,22 +31,22 @@ class _UserReservationUpdateServicesScreenState extends State<UserReservationUpd
   void setServiceList() async {
     ServiceCorporatePoolViewModel model = ServiceCorporatePoolViewModel();
     serviceList = updateServiceList(await model.getServiceList(
-        ApplicationContext.reservationDetail.corporateModel.corporationId));
+        ReservationEditState.reservationDetail.corporateModel.corporationId));
 
     if (serviceList.length == 0) {
       navigateToNextScreen();
     }
 
     List<int> selectedServicesIds = [];
-    for (int i  = 0; i < ApplicationContext.reservationDetail.detailList.length; i++) {
-      ReservationDetailModel detailModel = ApplicationContext.reservationDetail.detailList[i];
+    for (int i  = 0; i < ReservationEditState.reservationDetail.detailList.length; i++) {
+      ReservationDetailModel detailModel = ReservationEditState.reservationDetail.detailList[i];
       selectedServicesIds.add(detailModel.foreignId);
     }
 
     ReservationCorporateViewModel reservationCorporateViewModel = ReservationCorporateViewModel();
     UserBasketState.servicePoolModel =
       await reservationCorporateViewModel.getServicePoolModelDetailedList(selectedServicesIds,
-          ApplicationContext.reservationDetail.reservationModel);
+          ReservationEditState.reservationDetail.reservationModel);
 
     setState(() {
       serviceList = serviceList;
@@ -122,7 +120,7 @@ class _UserReservationUpdateServicesScreenState extends State<UserReservationUpd
             ),
           ),
           onPressed: () {
-            ApplicationContext.reservationDetail.servicePoolModel = UserBasketState.servicePoolModel;
+            ReservationEditState.reservationDetail.servicePoolModel = UserBasketState.servicePoolModel;
            navigateToNextScreen();
           },
         ),

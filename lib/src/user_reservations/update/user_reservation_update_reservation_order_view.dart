@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/reservation/reservation_view_model.dart';
 import 'package:flutter/material.dart';
 
@@ -26,10 +26,10 @@ class _UserReservationUpdateReservationOrderViewScreenState extends State<UserRe
   void callGetReservationList() async {
     ReservationViewModel rvm = ReservationViewModel();
     sessionList = await rvm.getSessionReservationExtractionForUpdate(
-        ApplicationContext.reservationDetail.corporateModel.corporationId,
-        ApplicationContext.reservationDetail.reservationModel.date,
-        ApplicationContext.reservationDetail.reservationModel.sessionId,
-        ApplicationContext.reservationDetail.reservationModel.customerId
+        ReservationEditState.reservationDetail.corporateModel.corporationId,
+        ReservationEditState.reservationDetail.reservationModel.date,
+        ReservationEditState.reservationDetail.reservationModel.sessionId,
+        ReservationEditState.reservationDetail.reservationModel.customerId
     );
 
     setState(() {
@@ -43,13 +43,13 @@ class _UserReservationUpdateReservationOrderViewScreenState extends State<UserRe
     if (sessionList == null || sessionList.length == 0) {
       return Scaffold(
         appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(
-            ApplicationContext.reservationDetail.reservationModel.date).toString().substring(0,10),
+            ReservationEditState.reservationDetail.reservationModel.date).toString().substring(0,10),
             isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       );
     }
     return Scaffold(
       appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(
-          ApplicationContext.reservationDetail.reservationModel.date).toString().substring(0,10),
+          ReservationEditState.reservationDetail.reservationModel.date).toString().substring(0,10),
           isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),

@@ -18,7 +18,6 @@ class GridProduct extends StatefulWidget {
   final String description;
   final int corporationId;
   final int maxPopulation;
-  final Widget callerPage;
 
   GridProduct(
       {Key key,
@@ -29,8 +28,7 @@ class GridProduct extends StatefulWidget {
       @required this.raters,
       @required this.description,
       @required this.corporationId,
-      @required this.maxPopulation,
-      @required this.callerPage,
+      @required this.maxPopulation
       })
       : super(key: key);
 

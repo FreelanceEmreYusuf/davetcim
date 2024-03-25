@@ -1,7 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/home/home_view_model.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/widgets/bounce_button.dart';
@@ -11,6 +11,8 @@ import 'package:davetcim/widgets/grid_product.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../../shared/environments/const.dart';
+import '../../shared/sessions/corporation_registration_state.dart';
+import '../../shared/sessions/product_filterer_state.dart';
 import '../../shared/sessions/user_basket_state.dart';
 import '../../shared/sessions/user_state.dart';
 import '../../widgets/on_error/somethingWentWrong.dart';
@@ -38,8 +40,9 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
   @override
   void initState() {
     UserBasketState.setAsNull();
-    ApplicationContext.corporationReservation = null;
-    ApplicationContext.reservationDetail = null;
+    CorporationRegistrationState.setAsNull();
+    ReservationEditState.setAsNull();
+    ProductFiltererState.setAsNull();
     getOrderedCorporationList();
     getHomeSliderCorporationList();
     super.initState();
@@ -189,8 +192,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                                 isFav: UserState.isCorporationFavorite(item.corporationId),
                                 name: item.corporationName,
                                 rating: item.averageRating,
-                                raters: item.ratingCount,
-                                callerPage: MainScreen(),
+                                raters: item.ratingCount
                               );
                             },
                           ),

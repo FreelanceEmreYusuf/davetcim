@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../../screens/notifications.dart';
-import '../../shared/sessions/application_context.dart';
+import '../../shared/sessions/reservation_edit_state.dart';
 import '../../shared/sessions/user_state.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/language.dart';

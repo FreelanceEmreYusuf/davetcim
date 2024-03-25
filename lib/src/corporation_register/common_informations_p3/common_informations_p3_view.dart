@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../shared/dto/organization_type_response_dto.dart';
-import '../../../shared/sessions/application_context.dart';
+import '../../../shared/sessions/corporation_registration_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../common_informations_p4/common_informations_p4_view.dart';
@@ -64,9 +64,9 @@ class _CommonInformationsP3ViewState extends State<CommonInformationsP3View> {
                 invitationTypes = invitationTypes + k,
               }
             });
-            ApplicationContext.corporationReservation.corporationModel.invitationUniqueIdentifier =
+            CorporationRegistrationState.corporationReservation.corporationModel.invitationUniqueIdentifier =
                 invitationIdentifierList;
-            ApplicationContext.corporationReservation.invitationTypes = invitationTypes;
+            CorporationRegistrationState.corporationReservation.invitationTypes = invitationTypes;
             Utils.navigateToPage(context, CommonInformationsP4View());
           },
           label: const Text('Devam Et'),

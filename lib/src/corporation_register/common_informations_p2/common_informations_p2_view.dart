@@ -1,10 +1,8 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:davetcim/src/corporation_register/common_informations_p3/common_informations_p3_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../../shared/dto/corporation_registration_dto.dart';
 import '../../../shared/dto/organization_type_response_dto.dart';
+import '../../../shared/sessions/corporation_registration_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import 'common_informations_p2_view_model.dart';
@@ -66,9 +64,9 @@ class _CommonInformationsP2ViewState extends State<CommonInformationsP2View> {
                 organizationTypes = organizationTypes + k,
               }
             });
-            ApplicationContext.corporationReservation.corporationModel.organizationUniqueIdentifier =
+            CorporationRegistrationState.corporationReservation.corporationModel.organizationUniqueIdentifier =
                 organizationUniqueIdentifier;
-            ApplicationContext.corporationReservation.organizationTypes = organizationTypes;
+            CorporationRegistrationState.corporationReservation.organizationTypes = organizationTypes;
             Utils.navigateToPage(context, CommonInformationsP3View());
           },
           label: const Text('Devam Et'),

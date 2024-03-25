@@ -4,7 +4,7 @@ import 'package:davetcim/shared/models/invitation_type_model.dart';
 import 'package:davetcim/shared/models/organization_type_model.dart';
 import 'package:davetcim/shared/models/sequence_order_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/filter_state.dart';
+import 'package:davetcim/shared/sessions/organization_items_state.dart';
 import 'package:flutter/cupertino.dart';
 import '../../shared/helpers/region_district_helper.dart';
 import '../../shared/models/region_model.dart';
@@ -13,14 +13,14 @@ class EntrancePageModel extends ChangeNotifier {
   Database db = Database();
 
   Future<void> fillFilterScreenSession() async {
-    if (!FilterState.isPresent()) {
+    if (!OrganizationItemsState.isPresent()) {
       RegionDistrictHelper regionDistrictHelper = RegionDistrictHelper();
       List<OrganizationTypeModel> organizationTypeList = await fillOrganizationTypeList();
       List<InvitationTypeModel> invitationTypeList = await fillInvitationTypeList();
       List<SequenceOrderModel> sequenceOrderList = await fillSequenceOrderList();
       List<RegionModel> regionList = await regionDistrictHelper.fillRegionList();
 
-      FilterState.set(organizationTypeList,
+      OrganizationItemsState.set(organizationTypeList,
           invitationTypeList,
           sequenceOrderList,
           regionList);

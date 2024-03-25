@@ -1,3 +1,4 @@
+import 'package:davetcim/shared/sessions/corporation_registration_state.dart';
 import 'package:davetcim/src/admin_corporate_panel/manage_comments/manage_comment_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/seans/seans_corporate_view.dart';
@@ -6,7 +7,6 @@ import 'package:davetcim/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/environments/const.dart';
-import '../../shared/sessions/application_context.dart';
 import '../../shared/utils/utils.dart';
 import 'all_reservation/all_reservation_corporate_landing_view.dart';
 import 'corporation_analysis/corporation_analysis_view.dart';
@@ -155,7 +155,7 @@ class _State extends State<AdminCorporatePanelPage> {
 
   @override
   void initState() {
-    ApplicationContext.corporationReservation = null;
+    CorporationRegistrationState.setAsNull();
     super.initState();
   }
 }

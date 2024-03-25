@@ -1,16 +1,9 @@
 import 'package:davetcim/shared/enums/reservation_status_enum.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
-import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view.dart';
-import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
-import 'package:davetcim/src/main/main_screen_view.dart';
-import 'package:davetcim/src/select-orders/summary_basket/summary_basket_view_model.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/user_reservations/update/user_reservation_update_calendar_view.dart';
-import 'package:davetcim/src/user_reservations/user_reservations_view.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_view_model.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_with_app_bar_view.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../shared/dto/basket_user_dto.dart';
 import '../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
@@ -21,7 +14,6 @@ import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
 import '../../shared/models/corporation_package_services_model.dart';
 import '../../widgets/grid_corporate_detail_package_summary.dart';
-import '../../widgets/grid_service_package_summary_item.dart';
 import '../notifications/notifications_view.dart';
 
 class UserResevationDetailScreen extends StatefulWidget {
@@ -363,7 +355,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
               itemCount: detailResponse.packageModel == null
                   ? 0 : 1,
               itemBuilder: (BuildContext context, int index) {
-                ApplicationContext.reservationDetail = detailResponse;
+                ReservationEditState.reservationDetail = detailResponse;
                 CorporationPackageServicesModel item = detailResponse.packageModel;
                 return GridCorporateDetailPackageSummary(packageModel: item);
               },
@@ -406,7 +398,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                   ? 0
                   : detailResponse.detailList.length,
               itemBuilder: (BuildContext context, int index) {
-                ApplicationContext.reservationDetail = detailResponse;
+                ReservationEditState.reservationDetail = detailResponse;
                 ReservationDetailModel item = detailResponse.detailList[index];
                 return GridCorporateDetailServicesSummary(detailRowModel: item);
               },
@@ -473,7 +465,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                           ),
                         ),
                         onPressed: () async {
-                          ApplicationContext.reservationDetail = detailResponse;
+                          ReservationEditState.reservationDetail = detailResponse;
                           Utils.navigateToPage(context, UserReservationUpdateCalendarScreen());
                         },
                       ),

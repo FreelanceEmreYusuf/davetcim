@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
@@ -33,7 +33,7 @@ class _UserReservationUpdateCalenderOrderCarouselState extends State<UserReserva
     ///tüm rezervasoynları for döngüsüyle dönerek _markedDateMap nesnesine add edicez
     /// Add more events to _markedDateMap EventList
     super.initState();
-    getReservationDates(ApplicationContext.reservationDetail.corporateModel.corporationId);
+    getReservationDates(ReservationEditState.reservationDetail.corporateModel.corporationId);
   }
 
   void getReservationDates(int corporationId) async {
@@ -77,7 +77,7 @@ class _UserReservationUpdateCalenderOrderCarouselState extends State<UserReserva
       child: CalendarCarousel<Event>(
         onDayPressed: (DateTime date, List<Event> events) {
           this.setState(() => _currentDate = date);
-          ApplicationContext.reservationDetail.reservationModel.date = DateConversionUtils.getCurrentDateAsInt(date);
+          ReservationEditState.reservationDetail.reservationModel.date = DateConversionUtils.getCurrentDateAsInt(date);
           Utils.navigateToPage(context, UserReservationUpdateReservationOrderViewScreen());
         },
         weekendTextStyle: TextStyle(

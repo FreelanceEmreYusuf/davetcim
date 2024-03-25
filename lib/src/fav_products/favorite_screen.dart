@@ -62,7 +62,6 @@ class _FavoriteScreenState extends State<FavoriteScreen>
                   name: corp.corporationName,
                   rating: corp.averageRating,
                   raters: corp.ratingCount,
-                  callerPage: FavoriteScreenWithAppBar(),
                   maxPopulation: corp.maxPopulation,
                   corporationId: corp.corporationId,
                   description: corp.description,

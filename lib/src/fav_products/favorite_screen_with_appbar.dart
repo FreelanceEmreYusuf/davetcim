@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:davetcim/widgets/grid_product.dart';
 
 import '../../shared/models/corporation_model.dart';
-import '../../shared/sessions/application_context.dart';
+import '../../shared/sessions/reservation_edit_state.dart';
 import '../../shared/sessions/user_state.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import 'fav_products_view_model.dart';
@@ -68,7 +68,6 @@ class _FavoriteScreenWithAppBarState extends State<FavoriteScreenWithAppBar>
                   name: corp.corporationName,
                   rating: corp.averageRating,
                   raters: corp.ratingCount,
-                  callerPage: FavoriteScreenWithAppBar(),
                   maxPopulation: corp.maxPopulation,
                   corporationId: corp.corporationId,
                   description: corp.description,

@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/search/search_wihthout_appbar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_view.dart';
@@ -6,6 +6,8 @@ import 'package:davetcim/src/fav_products/favorite_screen.dart';
 import 'package:davetcim/src/home/home_view.dart';
 import 'package:davetcim/src/profile/profile_view.dart';
 
+import '../../shared/sessions/corporation_registration_state.dart';
+import '../../shared/sessions/product_filterer_state.dart';
 import '../../shared/sessions/user_basket_state.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/app_bar/bottom_app_bar.dart';
@@ -85,8 +87,9 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     _pageController = PageController();
     UserBasketState.setAsNull();
-    ApplicationContext.corporationReservation = null;
-    ApplicationContext.reservationDetail = null;
+    ReservationEditState.setAsNull();
+    CorporationRegistrationState.setAsNull();
+    ProductFiltererState.setAsNull();
   }
 
   @override

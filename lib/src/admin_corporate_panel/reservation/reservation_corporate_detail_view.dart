@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
 import 'package:flutter/material.dart';
@@ -318,7 +318,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
               itemCount: detailResponse.packageModel == null
                   ? 0 : 1,
               itemBuilder: (BuildContext context, int index) {
-                ApplicationContext.reservationDetail = detailResponse;
+                ReservationEditState.reservationDetail = detailResponse;
                 CorporationPackageServicesModel item = detailResponse.packageModel;
                 return GridCorporateDetailPackageSummary(packageModel: item);
               },
@@ -361,7 +361,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                   ? 0
                   : detailResponse.detailList.length,
               itemBuilder: (BuildContext context, int index) {
-                ApplicationContext.reservationDetail = detailResponse;
+                ReservationEditState.reservationDetail = detailResponse;
                 ReservationDetailModel item = detailResponse.detailList[index];
                 return GridCorporateDetailServicesSummary(detailRowModel: item);
               },

@@ -1,7 +1,7 @@
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/shared/sessions/user_state.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/cupertino.dart';

@@ -1,8 +1,8 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/dto/service_type_response_dto.dart';
 import '../../../shared/enums/corporation_service_selection_enum.dart';
+import '../../../shared/sessions/corporation_registration_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../common_informations_p5/common_informations_p5_view.dart';
@@ -65,7 +65,7 @@ class _CommonInformationsP42ViewState extends State<CommonInformationsP42View> {
             });
             if (serviceSelectionCount > 1) serviceSelectedValue = 2;
 
-            ApplicationContext.corporationReservation.corporationModel.serviceSelection =
+            CorporationRegistrationState.corporationReservation.corporationModel.serviceSelection =
                 CorporationServiceSelectionEnumConverter.getEnumValue(serviceSelectedValue);
             Utils.navigateToPage(context, CommonInformationsP5View());
           },

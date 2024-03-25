@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:flutter/material.dart';
 import '../shared/models/corporation_package_services_model.dart';
 import '../shared/utils/dialogs.dart';
@@ -48,11 +48,11 @@ class _GridCorporateDetailPackageSummaryState
                       context,
                       widget.packageModel.title,
                       widget.packageModel.body + "\n\nBelirtmiş olduğunuz davetli sayısı : " +
-                          ApplicationContext.reservationDetail.reservationModel.invitationCount.toString()
+                          ReservationEditState.reservationDetail.reservationModel.invitationCount.toString()
                           +"\n\nHizmetin birim ücreti : "+ widget.packageModel.price.toString()
                           +"\n\nHizmetin toplam ücreti : "+
                           (widget.packageModel.price *
-                              ApplicationContext.reservationDetail.reservationModel.invitationCount).toString(),
+                              ReservationEditState.reservationDetail.reservationModel.invitationCount).toString(),
                       null);
                 }, // button pressed
                 child: Column(

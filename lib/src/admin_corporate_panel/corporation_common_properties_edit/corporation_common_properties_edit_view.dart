@@ -1,5 +1,5 @@
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +9,7 @@ import '../../../shared/enums/corporation_service_selection_enum.dart';
 import '../../../shared/models/company_model.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/region_model.dart';
-import '../../../shared/sessions/filter_state.dart';
+import '../../../shared/sessions/organization_items_state.dart';
 import '../../../shared/sessions/user_state.dart';
 import '../../../shared/utils/form_control.dart';
 import '../../../shared/utils/utils.dart';
@@ -72,7 +72,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
   static TextStyle kStyle =
   TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
   List<RegionModel> regionList =
-      FilterState.regionModelList;
+      OrganizationItemsState.regionModelList;
 
   int selectedRegion = 0;
   int selectedDistrict = 0;

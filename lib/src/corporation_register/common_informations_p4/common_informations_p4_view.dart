@@ -1,7 +1,8 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/dto/organization_type_response_dto.dart';
+import '../../../shared/sessions/corporation_registration_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../common_informations_p4_2/common_informations_p4_2_view.dart';
@@ -64,9 +65,9 @@ class _CommonInformationsP4ViewState extends State<CommonInformationsP4View> {
                 sequenceOrderTypes = sequenceOrderTypes + k,
               }
             });
-            ApplicationContext.corporationReservation.corporationModel.sequenceOrderUniqueIdentifier =
+            CorporationRegistrationState.corporationReservation.corporationModel.sequenceOrderUniqueIdentifier =
                 sequenceOrderList;
-            ApplicationContext.corporationReservation.sequenceOrderTypes = sequenceOrderTypes;
+            CorporationRegistrationState.corporationReservation.sequenceOrderTypes = sequenceOrderTypes;
             Utils.navigateToPage(context, CommonInformationsP42View());
           },
           label: const Text('Devam Et'),

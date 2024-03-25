@@ -10,7 +10,7 @@ import 'package:davetcim/widgets/smooth_star_rating.dart';
 import '../../shared/dto/basket_user_dto.dart';
 import '../../shared/models/combo_generic_model.dart';
 import '../../shared/models/reservation_model.dart';
-import '../../shared/sessions/application_context.dart';
+import '../../shared/sessions/reservation_edit_state.dart';
 import '../../shared/sessions/user_basket_state.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/utils.dart';

@@ -13,16 +13,17 @@ import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/src/products/products_view.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../shared/sessions/filter_state.dart';
+import '../../shared/sessions/organization_items_state.dart';
+import '../../shared/sessions/product_filterer_state.dart';
 
 List<RegionModel> regionList =
-    FilterState.regionModelList;
+    OrganizationItemsState.regionModelList;
 List<OrganizationTypeModel> organizationTypeList =
-    FilterState.organizationTypeList;
+    OrganizationItemsState.organizationTypeList;
 List<SequenceOrderModel> sequenceOrderList =
-    FilterState.sequenceOrderList;
+    OrganizationItemsState.sequenceOrderList;
 List<InvitationTypeModel> invitationList =
-    FilterState.invitationTypeList;
+    OrganizationItemsState.invitationTypeList;
 List<DistrictModel> districtList = [
   DistrictModel(
       id: 0, name: 'Tümü', regionId: 0, filteringStatus: 0, sortingIndex: 1)
@@ -45,7 +46,7 @@ class SearchViewModel extends ChangeNotifier {
       DateTime date,
       DateTime startHour,
       DateTime endHour) {
-    ProductFiltererDto filter = ProductFiltererDto(
+    ProductFiltererState.setFilter(
       region,
       district,
       invitationUniqueIdentifier,
@@ -55,31 +56,23 @@ class SearchViewModel extends ChangeNotifier {
       isTimeFilterEnabled,
       date,
       startHour,
-      endHour,
-      false
+      endHour
     );
 
-    Utils.navigateToPage(context, ProductsScreen(filter, null));
+    Utils.navigateToPage(context, ProductsScreen(null));
   }
 
   void goToFilterPageFromSoftFilter(BuildContext context, String region, String district,
       String organizationUniqueIdentifier
      ) {
-    ProductFiltererDto filter = ProductFiltererDto(
+
+    ProductFiltererState.setSoftFilter(
       region,
       district,
-      null,
-      organizationUniqueIdentifier,
-      null,
-      "0",
-      false,
-      null,
-      null,
-      null,
-      true
+      organizationUniqueIdentifier
     );
 
-    Utils.navigateToPage(context, ProductsScreen(filter, null));
+    Utils.navigateToPage(context, ProductsScreen(null));
   }
 
   Future<CorporationCardModel> getCorporationCard(int corporationId) async {

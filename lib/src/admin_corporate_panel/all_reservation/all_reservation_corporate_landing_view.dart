@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../../../providers/app_provider.dart';
 import '../../../shared/environments/const.dart';
 import '../../../shared/models/reservation_model.dart';
-import '../../../shared/sessions/application_context.dart';
+import '../../../shared/sessions/reservation_edit_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/bounce_button.dart';

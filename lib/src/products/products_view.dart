@@ -10,10 +10,8 @@ import '../../widgets/app_bar/app_bar_view.dart';
 class ProductsScreen extends StatefulWidget {
   @override
   _ProductsScreenState createState() => _ProductsScreenState();
-
-  final ProductFiltererDto filter;
   final List<CorporationModel> corporationInputList;
-  const ProductsScreen(this.filter, this.corporationInputList);
+  const ProductsScreen(this.corporationInputList);
 }
 
 class _ProductsScreenState extends State<ProductsScreen>  {
@@ -32,7 +30,7 @@ class _ProductsScreenState extends State<ProductsScreen>  {
       corporationList = widget.corporationInputList;
     } else {
       ProductsViewModel mdl = new ProductsViewModel();
-      corporationList = await mdl.getCorporationList(widget.filter);
+      corporationList = await mdl.getCorporationList();
     }
 
     setState(() {
@@ -79,8 +77,7 @@ class _ProductsScreenState extends State<ProductsScreen>  {
                     raters: item.ratingCount,
                     description: item.description,
                     corporationId: item.corporationId,
-                    maxPopulation: item.maxPopulation,
-                    callerPage: ProductsScreen(widget.filter, corporationList),
+                    maxPopulation: item.maxPopulation
                   );
                 },
               ),

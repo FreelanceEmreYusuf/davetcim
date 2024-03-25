@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/admin_corporate_panel/service/service_corporate_package/service_corporate_package_view_model.dart';
 import 'package:davetcim/src/user_reservations/update/user_reservation_update_services_view.dart';
 import 'package:davetcim/src/user_reservations/update/user_reservation_update_summary_basket_view.dart';
@@ -31,7 +31,7 @@ class _UserReservationUpdateServicesPackageViewState extends State<UserReservati
   void fillPackegeList() async  {
     ServiceCorporatePackageViewModel packageViewModel = ServiceCorporatePackageViewModel();
     packagesList = await packageViewModel.getPackageList(
-        ApplicationContext.reservationDetail.corporateModel.corporationId);
+        ReservationEditState.reservationDetail.corporateModel.corporationId);
 
     if (packagesList.length == 0) {
       navigateToNextScreen();
@@ -44,10 +44,10 @@ class _UserReservationUpdateServicesPackageViewState extends State<UserReservati
   }
 
   void navigateToNextScreen() {
-    ApplicationContext.reservationDetail.packageModel = null;
-    if (ApplicationContext.reservationDetail.corporateModel.serviceSelection ==
+    ReservationEditState.reservationDetail.packageModel = null;
+    if (ReservationEditState.reservationDetail.corporateModel.serviceSelection ==
         CorporationServiceSelectionEnum.customerSelectsExtraProduct
-        || ApplicationContext.reservationDetail.corporateModel.serviceSelection ==
+        || ReservationEditState.reservationDetail.corporateModel.serviceSelection ==
             CorporationServiceSelectionEnum.customerSelectsBoth) {
       Utils.navigateToPage(context, UserReservationUpdateServicesScreen());
     } else {

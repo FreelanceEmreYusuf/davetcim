@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:flutter/material.dart';
 import '../shared/models/service_pool_model.dart';
 import '../shared/utils/dialogs.dart';
@@ -35,7 +35,7 @@ class _UserReservationUpdateGridCorporateServicePoolForBasketSummaryState
       if (widget.servicePoolModel.companyHasService) {
 
         totalPrice = widget.servicePoolModel.corporateDetail.price *
-            ApplicationContext.reservationDetail.orderBasketModel.count;
+            ReservationEditState.reservationDetail.orderBasketModel.count;
         if (!widget.servicePoolModel.corporateDetail.priceChangedForCount) {
           totalPrice = widget.servicePoolModel.corporateDetail.price;
           priceChangeForCount = "Hayır";
@@ -65,7 +65,7 @@ class _UserReservationUpdateGridCorporateServicePoolForBasketSummaryState
                           widget.servicePoolModel.serviceName,
                           //TODO: hizmet için fiyat bilgileri girilecek
                           "Belirtmiş olduğunuz davetli sayısı : " +
-                              ApplicationContext.reservationDetail.orderBasketModel.count.toString()
+                              ReservationEditState.reservationDetail.orderBasketModel.count.toString()
                               +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
                               +"\n\nHizmetin birim ücreti : "+ widget.servicePoolModel.corporateDetail.price.toString()+ "TL"
                               "\n\nToplam ücret : "+

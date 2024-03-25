@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +24,7 @@ class UserReservationUpdateCartReservationItem extends StatefulWidget {
 
 class _UserReservationUpdateCartReservationItemState extends State<UserReservationUpdateCartReservationItem> {
   void navigateToBasket()  {
-    ApplicationContext.reservationDetail.selectedSessionModel = widget.sessionList[widget.index];
+    ReservationEditState.reservationDetail.selectedSessionModel = widget.sessionList[widget.index];
     Utils.navigateToPage(context, UserReservationUpdateOrderScreen());
   }
 
@@ -38,7 +38,7 @@ class _UserReservationUpdateCartReservationItemState extends State<UserReservati
       reserveInfo = "Rezerve Edilmiştir";
       reservationStatusFlag = 1;
     } else if (DateConversionUtils.isOldDate(DateConversionUtils.getDateTimeFromIntDate(
-        ApplicationContext.reservationDetail.reservationModel.date))) {
+        ReservationEditState.reservationDetail.reservationModel.date))) {
       color = Colors.grey;
       reserveInfo = "Bu seansın süresi doldu";
       reservationStatusFlag = 2;

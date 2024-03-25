@@ -3,7 +3,7 @@ import 'package:davetcim/shared/models/organization_type_model.dart';
 import 'package:davetcim/shared/models/region_model.dart';
 import 'package:davetcim/shared/models/sequence_order_model.dart';
 
-class FilterState {
+class OrganizationItemsState {
   static List<OrganizationTypeModel> organizationTypeList;
   static List<InvitationTypeModel> invitationTypeList;
   static List<SequenceOrderModel> sequenceOrderList;

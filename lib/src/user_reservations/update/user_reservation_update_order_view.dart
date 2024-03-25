@@ -1,12 +1,11 @@
 import 'package:davetcim/shared/enums/corporation_service_selection_enum.dart';
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/user_reservations/update/user_reservation_update_services_package_view.dart';
 import 'package:davetcim/src/user_reservations/update/user_reservation_update_services_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../shared/dto/order_basket_dto.dart';
-import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/utils/form_control.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
@@ -65,24 +64,24 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
 
   void fillOrderViewParams() async {
     OrderViewModel rm = OrderViewModel();
-    ApplicationContext.reservationDetail.invitationList =
-      await rm.getInvitationIdentifiers(ApplicationContext.reservationDetail.corporateModel.corporationId);
-    ApplicationContext.reservationDetail.sequenceOrderList =
-    await rm.getSequenceOrderIdentifiers(ApplicationContext.reservationDetail.corporateModel.corporationId);
+    ReservationEditState.reservationDetail.invitationList =
+      await rm.getInvitationIdentifiers(ReservationEditState.reservationDetail.corporateModel.corporationId);
+    ReservationEditState.reservationDetail.sequenceOrderList =
+    await rm.getSequenceOrderIdentifiers(ReservationEditState.reservationDetail.corporateModel.corporationId);
 
-    for (int i = 0; i < ApplicationContext.reservationDetail.invitationList.length; i++) {
-      if (ApplicationContext.reservationDetail.invitationList[i].text ==
-          ApplicationContext.reservationDetail.reservationModel.invitationType) {
+    for (int i = 0; i < ReservationEditState.reservationDetail.invitationList.length; i++) {
+      if (ReservationEditState.reservationDetail.invitationList[i].text ==
+          ReservationEditState.reservationDetail.reservationModel.invitationType) {
         selectedInvitationIndex = i;
       }
     }
-    for (int i = 0; i < ApplicationContext.reservationDetail.sequenceOrderList.length; i++) {
-      if (ApplicationContext.reservationDetail.sequenceOrderList[i].text ==
-          ApplicationContext.reservationDetail.reservationModel.seatingArrangement) {
+    for (int i = 0; i < ReservationEditState.reservationDetail.sequenceOrderList.length; i++) {
+      if (ReservationEditState.reservationDetail.sequenceOrderList[i].text ==
+          ReservationEditState.reservationDetail.reservationModel.seatingArrangement) {
         selectedSeatingArrangement = i;
       }
     }
-    personCountControl.text = ApplicationContext.reservationDetail.reservationModel.invitationCount.toString();
+    personCountControl.text = ReservationEditState.reservationDetail.reservationModel.invitationCount.toString();
 
     setState(() {
       selectedInvitationIndex = selectedInvitationIndex;
@@ -109,12 +108,12 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
           if (registerFormKey.currentState.validate()) {
             OrderBasketDto orderBasketModel = new OrderBasketDto(
                 int.parse(personCountControl.text),
-                ApplicationContext.reservationDetail.invitationList[selectedInvitationIndex].text,
-                ApplicationContext.reservationDetail.sequenceOrderList[selectedSeatingArrangement].text);
-            ApplicationContext.reservationDetail.orderBasketModel = orderBasketModel;
-            if (ApplicationContext.reservationDetail.corporateModel.serviceSelection ==
+                ReservationEditState.reservationDetail.invitationList[selectedInvitationIndex].text,
+                ReservationEditState.reservationDetail.sequenceOrderList[selectedSeatingArrangement].text);
+            ReservationEditState.reservationDetail.orderBasketModel = orderBasketModel;
+            if (ReservationEditState.reservationDetail.corporateModel.serviceSelection ==
                 CorporationServiceSelectionEnum.customerSelectsBoth
-              || ApplicationContext.reservationDetail.corporateModel.serviceSelection ==
+              || ReservationEditState.reservationDetail.corporateModel.serviceSelection ==
                     CorporationServiceSelectionEnum.customerSelectsCorporationPackage) {
               Utils.navigateToPage(context, UserReservationUpdateServicesPackageView());
             } else {
@@ -154,7 +153,7 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                                 _cardDivisionSize),
                       ),
                       Text(
-                        ApplicationContext.reservationDetail.invitationList[selectedInvitationIndex].text,
+                        ReservationEditState.reservationDetail.invitationList[selectedInvitationIndex].text,
                         style: TextStyle(fontSize: 18.0),
                       ),
                       SizedBox(
@@ -170,7 +169,7 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                         return GestureDetector(
                           onTap: () {
                             Navigator.pop(context,
-                                ApplicationContext.reservationDetail.invitationList[selectedInvitationIndex]); // Seçilen öğeyi geri döndürür
+                                ReservationEditState.reservationDetail.invitationList[selectedInvitationIndex]); // Seçilen öğeyi geri döndürür
                           },
                           child: Container(
                             height: 200.0,
@@ -182,9 +181,9 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                                   });
                                 },
                                 children: new List<Widget>.generate(
-                                    ApplicationContext.reservationDetail.invitationList.length, (int index) {
+                                    ReservationEditState.reservationDetail.invitationList.length, (int index) {
                                   return new Center(
-                                    child: new Text(ApplicationContext.reservationDetail.invitationList[index].text),
+                                    child: new Text(ReservationEditState.reservationDetail.invitationList[index].text),
                                   );
                                 })),
                           ),
@@ -214,7 +213,7 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                                 _cardDivisionSize),
                       ),
                       Text(
-                        ApplicationContext.reservationDetail.sequenceOrderList[selectedSeatingArrangement].text,
+                        ReservationEditState.reservationDetail.sequenceOrderList[selectedSeatingArrangement].text,
                         style: TextStyle(fontSize: 18.0),
                       ),
                       SizedBox(
@@ -230,7 +229,7 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                         return GestureDetector(
                           onTap: () {
                             Navigator.pop(context,
-                                ApplicationContext.reservationDetail.sequenceOrderList[selectedSeatingArrangement]); // Seçilen öğeyi geri döndürür
+                                ReservationEditState.reservationDetail.sequenceOrderList[selectedSeatingArrangement]); // Seçilen öğeyi geri döndürür
                           },
                           child: Container(
                             height: 200.0,
@@ -242,10 +241,10 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                                   });
                                 },
                                 children: new List<Widget>.generate(
-                                    ApplicationContext.reservationDetail.sequenceOrderList.length, (int index) {
+                                    ReservationEditState.reservationDetail.sequenceOrderList.length, (int index) {
                                   return new Center(
                                     child:
-                                        new Text(ApplicationContext.reservationDetail.sequenceOrderList[index].text),
+                                        new Text(ReservationEditState.reservationDetail.sequenceOrderList[index].text),
                                   );
                                 })),
                           ),
@@ -303,7 +302,7 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                             return errorDesc;
                           } else {
                             errorDesc = FormControlUtil.getMaxValueControl(
-                                int.parse(value), ApplicationContext.reservationDetail.corporateModel.maxPopulation,
+                                int.parse(value), ReservationEditState.reservationDetail.corporateModel.maxPopulation,
                                 "Bu salonun max kapasitesi ");
                             return errorDesc;
                           }

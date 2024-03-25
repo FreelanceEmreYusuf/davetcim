@@ -1,4 +1,4 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
+import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/widgets/user_reservation_update_grid_corporate_service_pool_for_basket_summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -56,10 +56,10 @@ class _UserReservationUpdateGridServicePackageItemState
                         "\n\nKişi başı ücret: "+widget.packageModel.price.toString()+" TL"
                             "\n\nDavetli Sayısına Göre Toplam Tutar: "
                             "\nDavetli Sayısı("+
-                            ApplicationContext.reservationDetail.orderBasketModel.count.toString()+") "
+                            ReservationEditState.reservationDetail.orderBasketModel.count.toString()+") "
                             "\nKişi Başı Paket Ücreti("+widget.packageModel.price.toString()+"TL)"
                             "\nToplam Ücret: "+(widget.packageModel.price *
-                            ApplicationContext.reservationDetail.orderBasketModel.count).toString()+" TL",
+                            ReservationEditState.reservationDetail.orderBasketModel.count).toString()+" TL",
                         null);
                   }, // button pressed
                   child: Column(
@@ -81,10 +81,10 @@ class _UserReservationUpdateGridServicePackageItemState
               child: InkWell(
                 splashColor: Colors.deepOrangeAccent, // splash color
                 onTap: () {
-                  ApplicationContext.reservationDetail.packageModel = widget.packageModel;
-                  if (ApplicationContext.reservationDetail.corporateModel.serviceSelection ==
+                  ReservationEditState.reservationDetail.packageModel = widget.packageModel;
+                  if (ReservationEditState.reservationDetail.corporateModel.serviceSelection ==
                       CorporationServiceSelectionEnum.customerSelectsExtraProduct
-                  || ApplicationContext.reservationDetail.corporateModel.serviceSelection ==
+                  || ReservationEditState.reservationDetail.corporateModel.serviceSelection ==
                       CorporationServiceSelectionEnum.customerSelectsBoth) {
                     Utils.navigateToPage(context, UserReservationUpdateServicesScreen());
                   } else {

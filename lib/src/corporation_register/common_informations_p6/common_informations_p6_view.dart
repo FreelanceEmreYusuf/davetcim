@@ -1,6 +1,6 @@
-import 'package:davetcim/shared/sessions/application_context.dart';
 import 'package:flutter/material.dart';
 
+import '../../../shared/sessions/corporation_registration_state.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import 'common_informations_p6_view_model.dart';
 
@@ -60,7 +60,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Firma Adı", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.companyModel.name,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.companyModel.name,
             style: textStyleText, maxLines: 2, textAlign: TextAlign.center,)),
         ],
       ),
@@ -70,7 +70,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(child: Text("Salon Adı", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-              Expanded(child: Text(ApplicationContext.corporationReservation.corporationModel.corporationName,
+              Expanded(child: Text(CorporationRegistrationState.corporationReservation.corporationModel.corporationName,
                 style: textStyleText, maxLines: 2, textAlign: TextAlign.center,)),
             ],
           ),
@@ -80,7 +80,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(child: Text("Salon Açıklaması", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-                Expanded(child: Text(ApplicationContext.corporationReservation.corporationModel.description,
+                Expanded(child: Text(CorporationRegistrationState.corporationReservation.corporationModel.description,
                   style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
               ],
             ),
@@ -90,7 +90,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Adres", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.corporationModel.address,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.corporationModel.address,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -100,7 +100,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Enlem Bilgisi", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.corporationModel.latitude.toString(),
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.corporationModel.latitude.toString(),
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -110,7 +110,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Boylam Bilgisi", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.corporationModel.longitude.toString(),
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.corporationModel.longitude.toString(),
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -120,7 +120,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Maximum Kapasite", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.corporationModel.maxPopulation.toString(),
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.corporationModel.maxPopulation.toString(),
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -130,7 +130,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Telefon numarası", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.corporationModel.telephoneNo,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.corporationModel.telephoneNo,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -140,7 +140,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Email adresi", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.corporationModel.email,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.corporationModel.email,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -150,7 +150,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("İl", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.regionName,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.regionName,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -160,7 +160,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("İlçe", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.districtName,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.districtName,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -170,7 +170,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Sunduğu Davet Türü Hizmetleri", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.invitationTypes,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.invitationTypes,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -180,7 +180,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Salon Özellikleri", style: textStyleTitle, maxLines: 2, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.organizationTypes,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.organizationTypes,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -190,7 +190,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Sunulan Masa Düzenleri ve Tipleri", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.sequenceOrderTypes,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.sequenceOrderTypes,
             style: textStyleText, maxLines: 10,textAlign: TextAlign.center,)),
         ],
       ),
@@ -218,7 +218,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("İsim", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.customerModel.name,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.customerModel.name,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -228,7 +228,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Soy İsim", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.customerModel.surname,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.customerModel.surname,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -238,7 +238,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Telefon", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.customerModel.gsmNo,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.customerModel.gsmNo,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -248,7 +248,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Kullanıcı Adı", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.customerModel.username,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.customerModel.username,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -258,7 +258,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Şifre", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.customerModel.password,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.customerModel.password,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -268,7 +268,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Email Adresi", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.customerModel.eMail,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.customerModel.eMail,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -278,7 +278,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Hesap Kurtarma Gizli Sorusu", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.secretQuestionName,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.secretQuestionName,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
@@ -288,7 +288,7 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(child: Text("Cevap", style: textStyleTitle, maxLines: 3, textAlign: TextAlign.start,)),
-          Expanded(child: Text(ApplicationContext.corporationReservation.customerModel.secretQuestionAnswer,
+          Expanded(child: Text(CorporationRegistrationState.corporationReservation.customerModel.secretQuestionAnswer,
             style: textStyleText, maxLines: 10, textAlign: TextAlign.center,)),
         ],
       ),
