@@ -1,5 +1,6 @@
 import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:flutter/material.dart';
+import '../shared/helpers/general_helper.dart';
 import '../shared/models/reservation_detail_model.dart';
 import '../shared/utils/dialogs.dart';
 
@@ -55,7 +56,7 @@ class _GridCorporateDetailServicesSummaryState
                       "Belirtmiş olduğunuz davetli sayısı : " +
                           ReservationEditState.reservationDetail.reservationModel.invitationCount.toString()
                           +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
-                          +"\n\nHizmetin birim ücreti : "+ widget.detailRowModel.price.toString(),
+                          +"\n\nHizmetin birim ücreti : "+ GeneralHelper.formatMoney(widget.detailRowModel.price.toString()),
                       null);
                 }, // button pressed
                 child: Column(

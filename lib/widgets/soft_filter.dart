@@ -76,7 +76,10 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
             child: Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
-                padding: EdgeInsets.fromLTRB(8.0, 0, 8, 0),
+                padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.height /
+                    _cardDivisionSize, MediaQuery.of(context).size.height /
+                    _cardDivisionSize+5, MediaQuery.of(context).size.height /
+                    _cardDivisionSize, 0),
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0), // Card'ı oval yapar
@@ -294,38 +297,45 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                           ],
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height / 25,),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  SearchViewModel rm = SearchViewModel();
-                                  rm.goToFilterPageFromSoftFilter(context,
-                                    regionList[selectedRegion].id.toString(),
-                                    districtList[selectedDistrict].id.toString(),
-                                    organizationTypeList[selectedOrganizationIndex].id.toString(),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.blue, // Butonun arka plan rengi
-                                  onPrimary: Colors.white, // Buton metin rengi
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                        topRight: Radius.circular(25),
-                                        topLeft: Radius.circular(25)),
+                        Padding(
+                          padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.height / 25, 0, MediaQuery.of(context).size.height / 25, 0),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    SearchViewModel rm = SearchViewModel();
+                                    rm.goToFilterPageFromSoftFilter(context,
+                                      regionList[selectedRegion].id.toString(),
+                                      districtList[selectedDistrict].id.toString(),
+                                      organizationTypeList[selectedOrganizationIndex].id.toString(),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Colors.blue, // Buton rengi
+                                    onPrimary: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(25), // Kenar yarıçapı
+                                    ),
                                   ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-                                  child: Text(
-                                    'ARA', // Buton metni
-                                    style: TextStyle(fontSize: MediaQuery.of(context).size.height / 35, letterSpacing: 1.0, fontFamily: 'RobotoMono', ),
+                                  child: Padding(
+                                    //padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0),
+                                    padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 10, MediaQuery.of(context).size.height / 50, MediaQuery.of(context).size.width / 10, MediaQuery.of(context).size.height / 35),
+                                    child: Text(
+                                      'Filtrele', // Buton metni
+                                      style: TextStyle(
+                                        fontSize: MediaQuery.of(context).size.height / 35,
+                                        letterSpacing: 1.0,
+                                        fontFamily: 'RobotoMono',
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
+
                       ],
                     ),
                   ),

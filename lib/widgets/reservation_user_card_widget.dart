@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../shared/enums/reservation_status_enum.dart';
+import '../shared/helpers/general_helper.dart';
 import '../shared/models/reservation_model.dart';
 import '../shared/utils/date_utils.dart';
 import '../shared/utils/utils.dart';
@@ -124,7 +125,7 @@ class _ReservationUserCardWidgetState
                           ),
                           SizedBox(height: 5),
                           Text(
-                            '${widget.model.cost} TL',
+                            '${GeneralHelper.formatMoney(widget.model.cost.toString())} TL',
                             style: TextStyle(
                               fontSize: 15,
                               color: textColor,

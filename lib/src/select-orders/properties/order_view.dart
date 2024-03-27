@@ -116,9 +116,11 @@ class _OrderScreenState extends State<OrderScreen>
                             MediaQuery.of(context).size.height /
                                 _cardDivisionSize),
                       ),
-                      Text(
-                        UserBasketState.userBasket.invitationList[selectedInvitationIndex].text,
-                        style: TextStyle(fontSize: 18.0),
+                      Expanded(
+                        child: Text(
+                          UserBasketState.userBasket.invitationList[selectedInvitationIndex].text,
+                          style: TextStyle(fontSize: 18.0),
+                        ),
                       ),
                       SizedBox(
                         height: 20.0,
@@ -175,9 +177,11 @@ class _OrderScreenState extends State<OrderScreen>
                             MediaQuery.of(context).size.height /
                                 _cardDivisionSize),
                       ),
-                      Text(
-                        UserBasketState.userBasket.sequenceOrderList[selectedSeatingArrangement].text,
-                        style: TextStyle(fontSize: 18.0),
+                      Expanded(
+                        child: Text(
+                          UserBasketState.userBasket.sequenceOrderList[selectedSeatingArrangement].text,
+                          style: TextStyle(fontSize: 18.0),
+                        ),
                       ),
                       SizedBox(
                         height: 20.0,

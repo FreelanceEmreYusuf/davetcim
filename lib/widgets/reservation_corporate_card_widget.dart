@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../shared/helpers/general_helper.dart';
 import '../shared/models/reservation_model.dart';
 import '../shared/utils/date_utils.dart';
 import '../shared/utils/utils.dart';
@@ -54,7 +55,7 @@ class _ReservationCorporateCardWidgetState
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text("\n\n Davet Türü : " + widget.model.invitationType + "\n Davetli Sayısı : " + widget.model.invitationCount.toString() +
-                          "\n Toplam Ücret : " + widget.model.cost.toString()+" TL",
+                          "\n Toplam Ücret : " + GeneralHelper.formatMoney(widget.model.cost.toString())+" TL",
                         style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold,),
                         maxLines: 5,
                       ),

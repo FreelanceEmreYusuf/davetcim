@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../shared/dto/reservation_detail_view_dto.dart';
 import '../shared/enums/corporation_service_selection_enum.dart';
+import '../shared/helpers/general_helper.dart';
 import '../shared/models/corporation_package_services_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
@@ -53,13 +54,13 @@ class _UserReservationUpdateGridServicePackageItemState
                         context,
                         widget.packageModel.title,
                         "Paket İçeriği: "+widget.packageModel.body+""
-                        "\n\nKişi başı ücret: "+widget.packageModel.price.toString()+" TL"
+                        "\n\nKişi başı ücret: "+GeneralHelper.formatMoney(widget.packageModel.price.toString())+" TL"
                             "\n\nDavetli Sayısına Göre Toplam Tutar: "
                             "\nDavetli Sayısı("+
                             ReservationEditState.reservationDetail.orderBasketModel.count.toString()+") "
-                            "\nKişi Başı Paket Ücreti("+widget.packageModel.price.toString()+"TL)"
-                            "\nToplam Ücret: "+(widget.packageModel.price *
-                            ReservationEditState.reservationDetail.orderBasketModel.count).toString()+" TL",
+                            "\nKişi Başı Paket Ücreti("+GeneralHelper.formatMoney(widget.packageModel.price.toString())+"TL)"
+                            "\nToplam Ücret: "+GeneralHelper.formatMoney((widget.packageModel.price *
+                            ReservationEditState.reservationDetail.orderBasketModel.count).toString())+" TL",
                         null);
                   }, // button pressed
                   child: Column(

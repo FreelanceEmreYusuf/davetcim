@@ -2,6 +2,7 @@ import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/enums/dialog_input_validator_type_enum.dart';
+import '../../../shared/helpers/general_helper.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
 import '../../../shared/sessions/user_basket_state.dart';
@@ -104,12 +105,12 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
               context,
                   ReservationEditState.reservationDetail.packageModel.title,
               "Paket İçeriği: "+ReservationEditState.reservationDetail.packageModel.body+""
-              "\n\nKişi başı ücret: "+ReservationEditState.reservationDetail.packageModel.price.toString()+" TL"
+              "\n\nKişi başı ücret: "+GeneralHelper.formatMoney(ReservationEditState.reservationDetail.packageModel.price.toString())+" TL"
               "\n\nDavetli Sayısına Göre Toplam Tutar: "
               "\nDavetli Sayısı("+ReservationEditState.reservationDetail.orderBasketModel.count.toString()+") "
-              "\nKişi Başı Paket Ücreti("+ReservationEditState.reservationDetail.packageModel.price.toString()+"TL)"
-              "\nToplam Ücret: "+(ReservationEditState.reservationDetail.packageModel.price*
-                  ReservationEditState.reservationDetail.orderBasketModel.count).toString()+" TL",
+              "\nKişi Başı Paket Ücreti("+GeneralHelper.formatMoney(ReservationEditState.reservationDetail.packageModel.price.toString())+"TL)"
+              "\nToplam Ücret: "+GeneralHelper.formatMoney((ReservationEditState.reservationDetail.packageModel.price*
+                  ReservationEditState.reservationDetail.orderBasketModel.count).toString())+" TL",
               null);
             },
             child: Column(
@@ -242,7 +243,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
                                           ReservationEditState.reservationDetail.reservationModel.date).toString().substring(0, 10) +
                                       "\n\nSeans : " + ReservationEditState.reservationDetail.selectedSessionModel.name +
                                       "\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : " +
-                                      calculateSessionPrice() +
+                                    GeneralHelper.formatMoney(calculateSessionPrice()) +
                                       "TL",
                                   null,
                                 );

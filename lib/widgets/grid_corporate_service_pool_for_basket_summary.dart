@@ -1,5 +1,6 @@
 import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:flutter/material.dart';
+import '../shared/helpers/general_helper.dart';
 import '../shared/models/service_pool_model.dart';
 import '../shared/sessions/user_basket_state.dart';
 import '../shared/utils/dialogs.dart';
@@ -44,40 +45,43 @@ class _GridCorporateServicePoolForBasketSummaryState
 
         row = Row(
           children: [
-            FittedBox(
+            Expanded(
+              flex: 3,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                     widget.servicePoolModel.serviceName.replaceAll("-", ""), style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
               ),
             ),
-            Spacer(),
-            SizedBox.fromSize(
-              size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
-              child: ClipPath(
-                child: Material(
-                  borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
-                  color: Colors.grey, // button color
-                  child: InkWell(
-                    splashColor: Colors.deepOrangeAccent, // splash color
-                    onTap: () async {
-                      Dialogs.showAlertMessageWithAction(
-                          context,
-                          widget.servicePoolModel.serviceName,
-                          //TODO: hizmet için fiyat bilgileri girilecek
-                          "Belirtmiş olduğunuz davetli sayısı : "+UserBasketState.userBasket.orderBasketModel.count.toString()
-                              +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
-                              +"\n\nHizmetin birim ücreti : "+ widget.servicePoolModel.corporateDetail.price.toString()+ "TL"
-                              "\n\nToplam ücret : "+
-                              totalPrice.toString() + "TL",
-                          null);
-                    }, // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        FittedBox(child: Icon(Icons.info_outline, color: Colors.white)), // icon
-                        FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
-                      ],
+            Expanded(
+              flex: 1,
+              child: SizedBox.fromSize(
+                size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
+                child: ClipPath(
+                  child: Material(
+                    borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
+                    color: Colors.grey, // button color
+                    child: InkWell(
+                      splashColor: Colors.deepOrangeAccent, // splash color
+                      onTap: () async {
+                        Dialogs.showAlertMessageWithAction(
+                            context,
+                            widget.servicePoolModel.serviceName,
+                            //TODO: hizmet için fiyat bilgileri girilecek
+                            "Belirtmiş olduğunuz davetli sayısı : "+UserBasketState.userBasket.orderBasketModel.count.toString()
+                                +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
+                                +"\n\nHizmetin birim ücreti : "+ GeneralHelper.formatMoney(widget.servicePoolModel.corporateDetail.price.toString())+ "TL"
+                                "\n\nToplam ücret : "+
+                            GeneralHelper.formatMoney(totalPrice.toString()) + "TL",
+                            null);
+                      }, // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          FittedBox(child: Icon(Icons.info_outline, color: Colors.white)), // icon
+                          FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
+                        ],
+                      ),
                     ),
                   ),
                 ),

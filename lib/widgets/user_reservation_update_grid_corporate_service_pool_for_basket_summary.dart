@@ -1,5 +1,6 @@
 import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:flutter/material.dart';
+import '../shared/helpers/general_helper.dart';
 import '../shared/models/service_pool_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
@@ -67,9 +68,9 @@ class _UserReservationUpdateGridCorporateServicePoolForBasketSummaryState
                           "Belirtmiş olduğunuz davetli sayısı : " +
                               ReservationEditState.reservationDetail.orderBasketModel.count.toString()
                               +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
-                              +"\n\nHizmetin birim ücreti : "+ widget.servicePoolModel.corporateDetail.price.toString()+ "TL"
+                              +"\n\nHizmetin birim ücreti : "+ GeneralHelper.formatMoney(widget.servicePoolModel.corporateDetail.price.toString())+ "TL"
                               "\n\nToplam ücret : "+
-                              totalPrice.toString() + "TL",
+                          GeneralHelper.formatMoney(totalPrice.toString()) + "TL",
                           null);
                     }, // button pressed
                     child: Column(

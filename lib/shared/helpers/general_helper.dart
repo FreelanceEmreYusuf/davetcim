@@ -73,4 +73,23 @@ class GeneralHelper {
     return text.replaceAll("\\n", "\n");
   }
 
+  static String formatMoney(String amount) {
+    String formattedAmount = '';
+
+    int length = amount.length;
+    int dotIndex = length % 3;
+
+    if (dotIndex != 0) {
+      formattedAmount += amount.substring(0, dotIndex) + '.';
+    }
+
+    for (int i = dotIndex; i < length; i += 3) {
+      formattedAmount += amount.substring(i, i + 3) + '.';
+    }
+
+    formattedAmount = formattedAmount.substring(0, formattedAmount.length - 1);
+
+    return formattedAmount;
+  }
+
 }

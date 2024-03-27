@@ -12,6 +12,7 @@ import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
+import '../../shared/helpers/general_helper.dart';
 import '../../shared/models/corporation_package_services_model.dart';
 import '../../widgets/grid_corporate_detail_package_summary.dart';
 import '../notifications/notifications_view.dart';
@@ -228,7 +229,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                                     detailResponse.reservationModel.sessionName,
                                     "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
                                         +"\n\nSeans : "+ detailResponse.reservationModel.sessionName
-                                        +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ detailResponse.reservationModel.sessionCost.toString()+ "TL",
+                                        +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ GeneralHelper.formatMoney(detailResponse.reservationModel.sessionCost.toString())+ "TL",
                                     null);
                               }, // button pressed
                               child: Column(

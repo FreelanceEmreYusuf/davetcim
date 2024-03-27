@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../shared/enums/corporation_service_selection_enum.dart';
+import '../shared/helpers/general_helper.dart';
 import '../shared/models/corporation_package_services_model.dart';
 import '../shared/sessions/user_basket_state.dart';
 import '../shared/utils/dialogs.dart';
@@ -51,11 +52,11 @@ class _GridServicePackageItemState
                         context,
                         widget.packageModel.title,
                         "Paket İçeriği: "+widget.packageModel.body+""
-                        "\n\nKişi başı ücret: "+widget.packageModel.price.toString()+" TL"
+                        "\n\nKişi başı ücret: "+GeneralHelper.formatMoney(widget.packageModel.price.toString())+" TL"
                             "\n\nDavetli Sayısına Göre Toplam Tutar: "
                             "\nDavetli Sayısı("+UserBasketState.userBasket.orderBasketModel.count.toString()+") "
-                            "\nKişi Başı Paket Ücreti("+widget.packageModel.price.toString()+"TL)"
-                            "\nToplam Ücret: "+(widget.packageModel.price * UserBasketState.userBasket.orderBasketModel.count).toString()+" TL",
+                            "\nKişi Başı Paket Ücreti("+GeneralHelper.formatMoney(widget.packageModel.price.toString())+"TL)"
+                            "\nToplam Ücret: "+GeneralHelper.formatMoney((widget.packageModel.price * UserBasketState.userBasket.orderBasketModel.count).toString())+" TL",
                         null);
                   }, // button pressed
                   child: Column(

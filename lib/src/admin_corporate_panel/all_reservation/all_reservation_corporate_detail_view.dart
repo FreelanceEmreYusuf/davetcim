@@ -3,6 +3,7 @@ import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../shared/dto/reservation_detail_view_dto.dart';
+import '../../../shared/helpers/general_helper.dart';
 import '../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
@@ -243,7 +244,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                                       detailResponse.reservationModel.sessionName,
                                       "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
                                           +"\n\nSeans : "+ detailResponse.reservationModel.sessionName
-                                          +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ detailResponse.reservationModel.sessionCost.toString()+ "TL",
+                                          +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ GeneralHelper.formatMoney(detailResponse.reservationModel.sessionCost.toString())+ "TL",
                                       null);
                                 }, // button pressed
                                 child: Column(

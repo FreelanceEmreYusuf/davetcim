@@ -1,3 +1,4 @@
+import 'package:davetcim/shared/helpers/general_helper.dart';
 import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/select-orders/summary_basket/summary_basket_view_model.dart';
@@ -78,7 +79,8 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
             color: Colors.white54,
             child: Row(
                 children: [
-              FittedBox(
+              Expanded(
+                flex: 3,
               child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
@@ -87,37 +89,39 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               ),
             ),
           ),
-          Spacer(),
-          SizedBox.fromSize(
-            size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
-            child: ClipRRect(
-            borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
-            //circular(30.0), // Yuvarlak köşe için bir değer belirtin
-            child: Material(
-            color: Colors.grey,
-            child: InkWell(
-            splashColor: Colors.deepOrangeAccent,
-            onTap: () async {
-              Dialogs.showAlertMessageWithAction(
-              context,
-                  UserBasketState.userBasket.packageModel.title,
-              "Paket İçeriği: "+UserBasketState.userBasket.packageModel.body+""
-              "\n\nKişi başı ücret: "+UserBasketState.userBasket.packageModel.price.toString()+" TL"
-              "\n\nDavetli Sayısına Göre Toplam Tutar: "
-              "\nDavetli Sayısı("+UserBasketState.userBasket.orderBasketModel.count.toString()+") "
-              "\nKişi Başı Paket Ücreti("+UserBasketState.userBasket.packageModel.price.toString()+"TL)"
-              "\nToplam Ücret: "+(UserBasketState.userBasket.packageModel.price*UserBasketState.userBasket.orderBasketModel.count).toString()+" TL",
-              null);
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
-                FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
-              ],
-            ),
-            ),
-            ),
+          Expanded(
+            flex: 1,
+            child: SizedBox.fromSize(
+              size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
+              child: ClipRRect(
+              borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
+              //circular(30.0), // Yuvarlak köşe için bir değer belirtin
+              child: Material(
+              color: Colors.grey,
+              child: InkWell(
+              splashColor: Colors.deepOrangeAccent,
+              onTap: () async {
+                Dialogs.showAlertMessageWithAction(
+                context,
+                    UserBasketState.userBasket.packageModel.title,
+                "Paket İçeriği: "+UserBasketState.userBasket.packageModel.body+""
+                "\n\nKişi başı ücret: "+GeneralHelper.formatMoney(UserBasketState.userBasket.packageModel.price.toString())+" TL"
+                "\n\nDavetli Sayısına Göre Toplam Tutar: "
+                "\nDavetli Sayısı("+UserBasketState.userBasket.orderBasketModel.count.toString()+") "
+                "\nKişi Başı Paket Ücreti("+GeneralHelper.formatMoney(UserBasketState.userBasket.packageModel.price.toString())+"TL)"
+                "\nToplam Ücret: "+GeneralHelper.formatMoney((UserBasketState.userBasket.packageModel.price*UserBasketState.userBasket.orderBasketModel.count).toString())+" TL",
+                null);
+              },
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
+                  FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
+                ],
+              ),
+              ),
+              ),
+              ),
             ),
           ),
           ],
@@ -189,7 +193,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    FittedBox(
+                    Expanded(
                       child: Text(
                           " TARİH & SEANS", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
                     ),
@@ -207,7 +211,8 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                   color: Colors.white54,
                   child: Row(
                     children: [
-                      FittedBox(
+                      Expanded(
+                        flex: 3,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
@@ -217,35 +222,37 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                           ),
                         ),
                       ),
-                      Spacer(),
-                      SizedBox.fromSize(
-                        size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
-                          //circular(30.0), // Yuvarlak köşe için bir değer belirtin
-                          child: Material(
-                            color: Colors.grey,
-                            child: InkWell(
-                              splashColor: Colors.deepOrangeAccent,
-                              onTap: () async {
-                                Dialogs.showAlertMessageWithAction(
-                                  context,
-                                  UserBasketState.userBasket.selectedSessionModel.name,
-                                  "Organizasyon tarihi : " +
-                                      DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0, 10) +
-                                      "\n\nSeans : " + UserBasketState.userBasket.selectedSessionModel.name +
-                                      "\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : " +
-                                      calculateSessionPrice() +
-                                      "TL",
-                                  null,
-                                );
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
-                                  FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
-                                ],
+                      Expanded(
+                        flex: 1,
+                        child: SizedBox.fromSize(
+                          size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
+                            //circular(30.0), // Yuvarlak köşe için bir değer belirtin
+                            child: Material(
+                              color: Colors.grey,
+                              child: InkWell(
+                                splashColor: Colors.deepOrangeAccent,
+                                onTap: () async {
+                                  Dialogs.showAlertMessageWithAction(
+                                    context,
+                                    UserBasketState.userBasket.selectedSessionModel.name,
+                                    "Organizasyon tarihi : " +
+                                        DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0, 10) +
+                                        "\n\nSeans : " + UserBasketState.userBasket.selectedSessionModel.name +
+                                        "\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : " +
+                                      GeneralHelper.formatMoney(calculateSessionPrice()) +
+                                        "TL",
+                                    null,
+                                  );
+                                },
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
+                                    FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -277,7 +284,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    FittedBox(
+                    Expanded(
                       child: Text(
                           " ORGANİZASYON DETAYLARI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
                     ),
@@ -293,7 +300,8 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                 color: Colors.white54,
                 child: Row(
                   children: [
-                    FittedBox(
+                    Expanded(
+                      flex: 3,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
@@ -304,29 +312,31 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                         ),
                       ),
                     ),
-                    Spacer(),
-                    SizedBox.fromSize(
-                      size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
-                        //circular(30.0), // Yuvarlak köşe için bir değer belirtin
-                        child: Material(
-                          color: Colors.grey,
-                          child: InkWell(
-                            splashColor: Colors.deepOrangeAccent,
-                            onTap: () async {
-                              Dialogs.showAlertMessageWithAction(
-                                  context,
-                                  "Bilgi",
-                                  "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",
-                                  null);
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
-                                FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
-                              ],
+                    Expanded(
+                      flex: 1,
+                      child: SizedBox.fromSize(
+                        size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
+                          //circular(30.0), // Yuvarlak köşe için bir değer belirtin
+                          child: Material(
+                            color: Colors.grey,
+                            child: InkWell(
+                              splashColor: Colors.deepOrangeAccent,
+                              onTap: () async {
+                                Dialogs.showAlertMessageWithAction(
+                                    context,
+                                    "Bilgi",
+                                    "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",
+                                    null);
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
+                                  FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -353,7 +363,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    FittedBox(
+                    Expanded(
                       child: Text(
                           " PAKET SEÇİMİ", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
                     ),
@@ -380,7 +390,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    FittedBox(
+                    Expanded(
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
@@ -398,8 +408,8 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
           ],
         ),
       ),
-      floatingActionButton: Container(
-        height: MediaQuery.of(context).size.height / 13,
+      floatingActionButton: SizedBox(
+        width: double.infinity, // Card'ın genişliği ekrana sığacak şekilde ayarlanır
         child: Card(
           color: Colors.redAccent,
           semanticContainer: true,
@@ -409,19 +419,41 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
-          child:  Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                  "Toplam Tutar :", style: TextStyle(fontSize: 20, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
-              SizedBox(width: MediaQuery.of(context).size.width /4),
-              Text(
-                  " "+calculateTotalPrice().toString()+" TL ", style: TextStyle(fontSize: 20, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween, // Metinler arasında boşluk olması için MainAxisAlignment.spaceBetween kullanılır
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(width: MediaQuery.of(context).size.width / 40,),
+                Expanded(
+                  child: Text(
+                    "Toplam Tutar :",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Text(
+                    " " + GeneralHelper.formatMoney(calculateTotalPrice().toString()) + " TL ",
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white,
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
+
       bottomNavigationBar: Container(
         padding: EdgeInsets.all(5.0),
         height: 50.0,
@@ -446,7 +478,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               Dialogs.showAlertMessageWithAction(
                   context,
                   "Uyarı",
-                  "Minimum rezervasyon tutarı; bu salon ve belirlenen tarih için " + minReservationAmount.toString() + " TL dir",
+                  "Minimum rezervasyon tutarı; bu salon ve belirlenen tarih için " + GeneralHelper.formatMoney(minReservationAmount.toString()) + " TL dir",
                   null);
             }
           },
