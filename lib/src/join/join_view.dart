@@ -65,14 +65,20 @@ class _JoinViewState extends State<JoinView>
             fontWeight: FontWeight.w600,
           ),
           tabs: <Widget>[
-            Tab(
-              text: "Giriş Yap",
+            FittedBox(
+              child: Tab(
+                text: "Giriş Yap",
+              ),
             ),
-            Tab(
-              text: "Kayıt Ol",
+            FittedBox(
+              child: Tab( 
+                text: "Kayıt Ol",
+              ),
             ),
-            Tab(
-              text: "Salon Kayıt",
+            FittedBox(
+              child: Tab(
+                text: "Salon Kayıt",
+              ),
             ),
           ],
         ),

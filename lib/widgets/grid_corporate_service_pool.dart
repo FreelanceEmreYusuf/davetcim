@@ -47,8 +47,7 @@ class _GridCorporateServicePoolState
       if (widget.servicePoolModel.companyHasService) {
         row = Row(
           children: [
-            FittedBox(
-              fit: BoxFit.scaleDown,
+            Expanded(
               child: Text(
                   widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 18, color: Colors.green, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
             ),
@@ -69,8 +68,8 @@ class _GridCorporateServicePoolState
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.update, color: Colors.white), // icon
-                        Text("Güncelle", style: TextStyle(color: Colors.white)),
+                        Expanded(child: Icon(Icons.update, color: Colors.white)), // icon
+                        Expanded(child: Text("Güncelle", style: TextStyle(color: Colors.white))),
                       ],
                     ),
                   ),
@@ -97,8 +96,8 @@ class _GridCorporateServicePoolState
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.delete, color: Colors.white), // icon
-                        Text("Sil", style: TextStyle(color: Colors.white)),
+                        Expanded(child: Icon(Icons.delete, color: Colors.white)), // icon
+                        Expanded(child: Text("Sil", style: TextStyle(color: Colors.white))),
                       ],
                     ),
                   ),
@@ -110,8 +109,7 @@ class _GridCorporateServicePoolState
       } else {
         row = Row(
           children: [
-            FittedBox(
-              fit: BoxFit.scaleDown,
+            Expanded(
               child: Text(
                   widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 18, color: Colors.red, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
             ),
@@ -129,8 +127,8 @@ class _GridCorporateServicePoolState
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Icon(Icons.add, color: Colors.white), // icon
-                        Text("Ekle", style: TextStyle(color: Colors.white)),
+                        Expanded(child: Icon(Icons.add, color: Colors.white)), // icon
+                        Expanded(child: Text("Ekle", style: TextStyle(color: Colors.white))),
                       ],
                     ),
                   ),
@@ -143,8 +141,7 @@ class _GridCorporateServicePoolState
     } else {
       row = Row(
         children: [
-          FittedBox(
-            fit: BoxFit.scaleDown,
+          Expanded(
             child: Text(
                 widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
           ),

@@ -29,7 +29,7 @@ class _GridPackageItemState
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        FittedBox(
+        Expanded(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -56,8 +56,8 @@ class _GridPackageItemState
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Icon(Icons.update, color: Colors.white), // icon
-                      Text("Güncelle", style: TextStyle(color: Colors.white)),
+                      Expanded(child: Icon(Icons.update, color: Colors.white)), // icon
+                      Expanded(child: Text("Güncelle", style: TextStyle(color: Colors.white))),
                     ],
                   ),
                 ),
@@ -78,8 +78,8 @@ class _GridPackageItemState
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    FittedBox(child: Icon(Icons.delete, color: Colors.white)), // icon
-                    FittedBox(child: Text("Sil", style: TextStyle(color: Colors.white))),
+                    Expanded(child: Icon(Icons.delete, color: Colors.white)), // icon
+                    Expanded(child: Text("Sil", style: TextStyle(color: Colors.white))),
                   ],
                 ),
               ),

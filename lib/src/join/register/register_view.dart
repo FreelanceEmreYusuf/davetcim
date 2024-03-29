@@ -26,6 +26,8 @@ class _RegisterViewState extends State<RegisterView> {
   String formException = "";
   bool usernameErrorVisibility = false;
   bool emailErrorVisibility = false;
+  bool _passwordVisible = false; // Şifrenin görünürlüğünü kontrol etmek için
+  bool _answerVisible = false; // Cevabın görünürlüğünü kontrol etmek için
 
   @override
   void initState() {
@@ -154,13 +156,23 @@ class _RegisterViewState extends State<RegisterView> {
                 decoration: InputDecoration(
                   labelText: "Şifre",
                   prefixIcon: Icon(Icons.lock),
+                  suffixIcon: IconButton( // Göz simgesi eklendi
+                    icon: Icon(
+                      _passwordVisible ? Icons.visibility : Icons.visibility_off
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _passwordVisible = !_passwordVisible;
+                      });
+                    },
+                  ),
                   border: OutlineInputBorder(),
                 ),
                 controller: _passwordControl,
                 validator: (passwordControl) {
                   return FormControlUtil.getErrorControl(FormControlUtil.getPasswordControl(passwordControl));
                 },
-                obscureText: true,
+                obscureText: !_passwordVisible, // Şifre görünürlüğü burada kontrol ediliyor
               ),
               SizedBox(height: 15.0),
               DropdownButtonFormField(
@@ -198,14 +210,24 @@ class _RegisterViewState extends State<RegisterView> {
               TextFormField(
                 decoration: InputDecoration(
                   labelText: "Cevap",
-                  prefixIcon
-                      : Icon(Icons.question_answer),
+                  prefixIcon: Icon(Icons.question_answer),
+                  suffixIcon: IconButton( // Göz simgesi eklendi
+                    icon: Icon(
+                      _answerVisible ? Icons.visibility : Icons.visibility_off
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _answerVisible = !_answerVisible;
+                      });
+                    },
+                  ),
                   border: OutlineInputBorder(),
                 ),
                 controller: _secretQuestionAnswerControl,
                 validator: (secretQuestionAnswer) {
                   return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(secretQuestionAnswer));
                 },
+                obscureText: !_answerVisible, // Cevap görünürlüğü burada kontrol ediliyor
               ),
               SizedBox(height: 15.0),
               Container(

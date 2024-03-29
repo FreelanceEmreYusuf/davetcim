@@ -1,10 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/src/join/forgotPasswd/forgot_passwd_view.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-
-import '../../../shared/utils/utils.dart';
 import 'login_view_model.dart';
 
 class LoginView extends StatefulWidget {
@@ -24,6 +22,7 @@ class _LoginViewState extends State<LoginView> {
   final loginFormKey = GlobalKey<FormState>();
 
   bool loginErrorVisibility = false;
+  bool isObscure = true; // State for password visibility
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +48,10 @@ class _LoginViewState extends State<LoginView> {
               TextFormField(
                 style: TextStyle(
                   fontSize: 16.0,
-
                 ),
                 decoration: InputDecoration(
                   labelText: "Kullanıcı Adı",
-                  prefixIcon: Icon(Icons.person, ),
+                  prefixIcon: Icon(Icons.person),
                   border: OutlineInputBorder(),
                 ),
                 controller: _usernameControl,
@@ -64,13 +62,24 @@ class _LoginViewState extends State<LoginView> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
-                obscureText: true,
+                obscureText: isObscure, // Toggle visibility based on state
                 style: TextStyle(
                   fontSize: 16.0,
                 ),
                 decoration: InputDecoration(
                   labelText: "Şifre",
                   prefixIcon: Icon(Icons.lock),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      // Toggle icon based on password visibility
+                      isObscure ? Icons.visibility : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        isObscure = !isObscure; // Toggle password visibility
+                      });
+                    },
+                  ),
                   border: OutlineInputBorder(),
                 ),
                 controller: _passwordControl,
@@ -93,7 +102,13 @@ class _LoginViewState extends State<LoginView> {
               SizedBox(height: 20.0),
               TextButton(
                 onPressed: () {
-                  Utils.navigateToPage(context, ForgotPasswdView());
+                  // Navigate to forgot password view
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ForgotPasswdView(),
+                    ),
+                  );
                 },
                 child: Text(
                   "Şifremi Unuttum",
@@ -110,6 +125,7 @@ class _LoginViewState extends State<LoginView> {
                   padding: EdgeInsets.symmetric(vertical: 15.0),
                 ),
                 onPressed: () async {
+                  // Handle login
                   LoginViewModel vm = LoginViewModel();
                   if (loginFormKey.currentState.validate()) {
                     bool isRegistered = await vm.userLoginFlow(
@@ -135,54 +151,6 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
-    /*
-              SizedBox(height: 20.0),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.redAccent,
-                  padding: EdgeInsets.symmetric(vertical: 15.0),
-                ),
-                onPressed: () async {
-                  try {
-                    GoogleSignInAccount user = await _googleSignIn.signIn();
-                    if (user != null) {
-                      print('User Email: ${user.email}');
-                      print('User Display Name: ${user.displayName}');
-                      print('User Photo URL: ${user.photoUrl}');
-                      // Kullanıcı başarıyla giriş yaparsa, burada kullanıcının bilgilerini kullanabilirsiniz.
-                    }
-                  } catch (error) {
-                    print('Google Sign-In Error: $error');
-                  }
-
-
-
-                  LoginViewModel vm = LoginViewModel();
-                  if (loginFormKey.currentState.validate()) {
-                    bool isRegistered = await vm.userLoginFlow(
-                      context,
-                      widget.childPage == null ? MainScreen() : widget.childPage,
-                      _usernameControl.text,
-                      _passwordControl.text,
-                    );
-
-                    if (!isRegistered) {
-                      setState(() {
-                        loginErrorVisibility = true;
-                      });
-                    }
-                  }
-                },
-                child: Text(
-                  "GOOGLE HESABIYLA BAĞLAN".toUpperCase(),
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-              */
             ],
           ),
         ),
