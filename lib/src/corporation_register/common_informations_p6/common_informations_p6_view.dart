@@ -49,8 +49,10 @@ class _CommonInformationsP6ViewState extends State<CommonInformationsP6View> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                    " SALON BİLGİLERİ", style: TextStyle(fontSize: 23, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                Expanded(
+                  child: Text(
+                      " SALON BİLGİLERİ", style: TextStyle(fontSize: 23, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                ),
               ],
             ),
           ),

@@ -79,77 +79,80 @@ class _ProfileState extends State<Profile> {
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(left: 10.0, right: 10.0),
-                  child: Icon(
-                    Icons.person,
-                    color: Colors.redAccent,
-                    size: MediaQuery.of(context).size.height / 6,
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                    child: Icon(
+                      Icons.person,
+                      color: Colors.redAccent,
+                      size: MediaQuery.of(context).size.height / 6,
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            UserState.username,
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              UserState.username,
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 5.0),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            UserState.eMail,
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold,
+                          ],
+                        ),
+                        SizedBox(height: 5.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Text(
+                              UserState.eMail,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 20.0),
-                      InkWell(
-                        onTap: () {
-                          UserState.setAsNull();
-                          Utils.navigateToPage(context, MainScreen());
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20.0),
-                            border: Border.all(
-                              color: Theme.of(context).accentColor,
-                              width: 2.0,
+                          ],
+                        ),
+                        SizedBox(height: 20.0),
+                        InkWell(
+                          onTap: () {
+                            UserState.setAsNull();
+                            Utils.navigateToPage(context, MainScreen());
+                          },
+                          child: Container(
+                            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              border: Border.all(
+                                color: Theme.of(context).accentColor,
+                                width: 2.0,
+                              ),
                             ),
-                          ),
-                          child: Text(
-                            "Çıkış",
-                            style: TextStyle(
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.w400,
-                              color: Theme.of(context).accentColor,
+                            child: Text(
+                              "Çıkış",
+                              style: TextStyle(
+                                fontSize: 13.0,
+                                fontWeight: FontWeight.w400,
+                                color: Theme.of(context).accentColor,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                    flex: 3,
                   ),
-                  flex: 3,
-                ),
-              ],
+                ],
+              ),
             ),
             Divider(),
             Container(height: 15.0),

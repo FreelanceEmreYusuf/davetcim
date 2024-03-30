@@ -41,7 +41,7 @@ class _ServiceCorporatePackageViewState extends State<ServiceCorporatePackageVie
         onPressed: () {
            Utils.navigateToPage(context, ServiceCorporatePackageAddView());
         },
-        label: Text('Yeni Ekle', style: TextStyle(fontSize: 15), maxLines: 2),
+        label: Expanded(child: Text('Yeni Ekle', style: TextStyle(fontSize: 15), maxLines: 2)),
         icon: Icon(Icons.add_circle),
         backgroundColor: Colors.redAccent,
       ),

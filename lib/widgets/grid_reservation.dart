@@ -28,21 +28,25 @@ class GridReservation extends StatelessWidget {
         child: ListView(
           children: <Widget>[
             ListTile(
-              title: Text(
-                "Başlangıç Saati :" + DateConversionUtils.convertIntTimeToString(startTime),
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
+              title: Expanded(
+                child: Text(
+                  "Başlangıç Saati :" + DateConversionUtils.convertIntTimeToString(startTime),
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),
             SizedBox(height: 10.0),
             ListTile(
-              title: Text(
-                "Bitiş Saati :" + DateConversionUtils.convertIntTimeToString(endTime),
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
+              title: Expanded(
+                child: Text(
+                  "Bitiş Saati :" + DateConversionUtils.convertIntTimeToString(endTime),
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),

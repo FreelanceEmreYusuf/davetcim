@@ -70,12 +70,14 @@ class _CompanyUserRegisterViewState extends State<CompanyUserRegisterView> {
                 margin: EdgeInsets.only(
                   top: 25.0,
                 ),
-                child: Text(
-                  "Yeni Hesap Oluştur",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor,
+                child: Expanded(
+                  child: Text(
+                    "Yeni Hesap Oluştur",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).accentColor,
+                    ),
                   ),
                 ),
               ),
@@ -169,7 +171,7 @@ class _CompanyUserRegisterViewState extends State<CompanyUserRegisterView> {
               Visibility(
                   visible: usernameErrorVisibility,
                   child: Container(
-                      child: Text("Bu kullanıcı adı sistemde kullanılıyor", style: TextStyle(color: Colors.red)),
+                      child: Expanded(child: Text("Bu kullanıcı adı sistemde kullanılıyor", style: TextStyle(color: Colors.red))),
                       padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
                   )),//Kullanıcı Adı//Kullanıcı Adı
               SizedBox(height: 15.0),
@@ -205,7 +207,7 @@ class _CompanyUserRegisterViewState extends State<CompanyUserRegisterView> {
               Visibility(
                   visible: emailErrorVisibility,
                   child: Container(
-                      child: Text("Bu email bilgisi sistemde kullanılıyor", style: TextStyle(color: Colors.red)),
+                      child: Expanded(child: Text("Bu email bilgisi sistemde kullanılıyor", style: TextStyle(color: Colors.red))),
                       padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
                   )),//E-Posta//E-Posta
               SizedBox(height: 15.0),
@@ -302,9 +304,11 @@ class _CompanyUserRegisterViewState extends State<CompanyUserRegisterView> {
                 items: secretQuestionList.map((SecretQuestionsModel question) {
                   return new DropdownMenuItem<SecretQuestionsModel>(
                     value: question,
-                    child: new Text(
-                      question.questionText,
-                      style: new TextStyle(color: Colors.black),
+                    child: Expanded(
+                      child: new Text(
+                        question.questionText,
+                        style: new TextStyle(color: Colors.black),
+                      ),
                     ),
                   );
                 }).toList(),

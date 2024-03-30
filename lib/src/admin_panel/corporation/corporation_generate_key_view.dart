@@ -83,9 +83,11 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
                   return new DropdownMenuItem<CompanyModel>(
                     value: company,
                     child: FittedBox(
-                      child: new Text(
-                        company.name,
-                        style: new TextStyle(color: Colors.black),
+                      child: Expanded(
+                        child: new Text(
+                          company.name,
+                          style: new TextStyle(color: Colors.black),
+                        ),
                       ),
                     ),
                   );
@@ -132,9 +134,11 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
                   visible: keyVisibility,
                   child: Container(
                       child: Center(child: FittedBox(
-                        child: Text("Salon Kayıt İşlemi için Üretilen Key", style: TextStyle(fontSize: 20,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.black,),),
+                        child: Expanded(
+                          child: Text("Salon Kayıt İşlemi için Üretilen Key", style: TextStyle(fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black,),),
+                        ),
                       )),
                       padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
                   )),
@@ -147,7 +151,7 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
                         onPressed: () {
                           Clipboard.setData( ClipboardData(text: keyNumber.toString())).then((_) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(keyNumber.toString()+" değeri başarı ile kopyalandı.")));
+                                SnackBar(content: Expanded(child: Text(keyNumber.toString()+" değeri başarı ile kopyalandı."))));
                           });
                         },
                         color: Colors.black45,
@@ -158,12 +162,14 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
                               Icons.copy,
                               color: Colors.white,
                             ),
-                            Text(
-                              keyNumber.toString(),
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
+                            Expanded(
+                              child: Text( 
+                                keyNumber.toString(),
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ],

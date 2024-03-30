@@ -47,11 +47,15 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
               ),
             ),
             SizedBox(height: 20.0),
-            Text(
-              "$catie",
-              style: TextStyle(
-                fontSize: 23,
-                fontWeight: FontWeight.w800,
+            Expanded(
+              child: Expanded(
+                child: Text(
+                  "$catie",
+                  style: TextStyle(
+                    fontSize: 23,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
               ),
             ),
             Divider(),

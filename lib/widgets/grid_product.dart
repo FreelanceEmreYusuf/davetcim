@@ -112,23 +112,26 @@ class _GridProductState extends State<GridProduct> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
-            child: Row(
-              children: <Widget>[
-                SmoothStarRating(
-                  starCount: 5,
-                  color: Constants.ratingBG,
-                  allowHalfRating: true,
-                  rating: widget.rating,
-                  size: 13.0,
-                ),
-                Text(
-                  " ${widget.rating.toStringAsFixed(2)} (${widget.raters} Reviews)",
-                  style: TextStyle(
-                    fontSize: 13.0,
+            padding: EdgeInsets.only(bottom: 5.0, top: 2.0, left: 3, right: 3),
+            child: FittedBox(
+              child: Row(
+                children: <Widget>[
+                  SmoothStarRating(
+                    starCount: 5,
+                    color: Constants.ratingBG,
+                    allowHalfRating: true,
+                    rating: widget.rating,
+                    size: 13.0,
+                    borderColor: Constants.ratingBG,
                   ),
-                ),
-              ],
+                  Text( 
+                    " (${widget.raters} Değerlendirme)",
+                    style: TextStyle(
+                      fontSize: 13.0,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

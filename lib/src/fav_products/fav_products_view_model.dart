@@ -52,8 +52,10 @@ class FavProductsViewModel extends ChangeNotifier {
   Future<void> editFavoriteProductPage(int corporationId, String img, BuildContext context, Widget callerPage) async {
     if (!UserState.isPresent() ) {
         ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(LanguageConstants
-                .dialogGoToLoginForFavoriteProduct[LanguageConstants.languageFlag]), duration: Duration(seconds: 1),));
+            SnackBar(content: Expanded(
+              child: Text(LanguageConstants
+                  .dialogGoToLoginForFavoriteProduct[LanguageConstants.languageFlag]),
+            ), duration: Duration(seconds: 1),));
     } else {
       CollectionReference docsRef =
       db.getCollectionRef(DBConstants.favProductsDb);

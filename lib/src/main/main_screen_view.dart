@@ -1,4 +1,5 @@
 import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
+import 'package:davetcim/src/join/join_view.dart';
 import 'package:davetcim/src/search/search_wihthout_appbar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_view.dart';

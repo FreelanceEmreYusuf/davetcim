@@ -1,4 +1,7 @@
+import 'package:davetcim/src/fav_products/favorite_screen_with_appbar.dart';
 import 'package:davetcim/src/join/join_view.dart';
+import 'package:davetcim/src/profile/profile_view.dart';
+import 'package:davetcim/src/user_reservations/user_reservations_with_app_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
@@ -6,6 +9,7 @@ import '../../shared/environments/const.dart';
 import '../../shared/models/customer_model.dart';
 import '../../shared/sessions/user_state.dart';
 import '../../shared/utils/utils.dart';
+import '../../src/profile/profile_view_with_app_bar.dart';
 import '../bounce_button.dart';
 import '../on_error/somethingWentWrong.dart';
 import 'app_bar_view_model.dart';
@@ -28,6 +32,7 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
   Widget build(BuildContext context) {
     double fontSize = 20;
     AppBarViewModel mdl = new AppBarViewModel();
+    Color isLoginColor = UserState.isPresent() ? Colors.lightGreen :  Theme.of(context).textTheme.caption.color;
 
     return ChangeNotifierProvider<AppBarViewModel>(
         create: (_)=>AppBarViewModel(),
@@ -86,7 +91,7 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                         ),
                         onTap: (){
                           if (!UserState.isPresent()) {
-                            Utils.navigateToPage(context, JoinView());
+                            Utils.navigateToPage(context, JoinView(childPage: new FavoriteScreenWithAppBar()));
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Favori mekanlar listenizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
                                   duration: Duration(milliseconds: 2500),));
@@ -126,7 +131,7 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                         ),
                         onTap: (){
                           if (!UserState.isPresent()) {
-                            Utils.navigateToPage(context, JoinView());
+                            Utils.navigateToPage(context, JoinView(childPage: new UserReservationsWithAppBarScreen()));
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Sepetinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
                                   duration: Duration(milliseconds: 2500),));
@@ -147,15 +152,15 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                       ),
                       BounceButton(
                         child: Icon(
-                        Icons.person,
-                        size: MediaQuery.of(context).size.height / 22,
-                        color: widget.page == 4
-                            ? Theme.of(context).accentColor
-                            : Theme.of(context).textTheme.caption.color,
-                      ),
+                          Icons.person,
+                          size: MediaQuery.of(context).size.height / 22,
+                          color: widget.page == 4
+                              ? Theme.of(context).accentColor
+                              : isLoginColor,
+                        ),
                         onTap: (){
                           if (!UserState.isPresent()) {
-                            Utils.navigateToPage(context, JoinView());
+                            Utils.navigateToPage(context, JoinView(childPage: new ProfileWithAppBar()));
                             ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text("Profilinizi görüntüleyebilmek için öncelikli üye girişi yapmalısınız."),
                                   duration: Duration(milliseconds: 2500),));

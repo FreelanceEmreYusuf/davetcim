@@ -99,15 +99,151 @@ class _SliderItemState extends State<SliderItem> {
             ),
           ),
         ),
+
+        Positioned(
+          top: 0,
+          right: 0,
+          child: Padding(
+            padding: EdgeInsets.only(top: 10.0, right: 5,),
+            child: Container(
+              child: SmoothStarRating(
+                starCount: 5,
+                color: Constants.ratingBG,
+                allowHalfRating: true,
+                rating: widget.rating,
+                size: 25,
+                borderColor: Constants.ratingBG,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 10.0, left: 5,),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white38,
+                borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomLeft: Radius.zero, bottomRight:  Radius.circular(20), topLeft: Radius.zero,), // Oval şekil için kenar yarıçapını belirler
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 3.0, left: 8, right: 12, top: 3),
+                child: Container(
+                  child: Text(
+                    "${widget.name}",
+                    style: TextStyle(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black,
+                    ),
+                    maxLines: 2,
+                  ),
+                ),
+              ),
+            ),
+
+          ),
+        ),
       ],
     );
 
     if(widget.img == null || widget.img.isEmpty ){
-      image = Icon(
-        Icons.home_filled,
-        size: 150.0,
-        color: Colors.redAccent,
+      image = Stack(
+        children: <Widget>[
+          Container(
+            height: MediaQuery.of(context).size.height / 3.2,
+            width: MediaQuery.of(context).size.width,
+            child: Icon(
+              Icons.home_filled,
+              size: 150.0,
+              color: Colors.redAccent,
+            ),
+          ),
+          Positioned(
+            right: -MediaQuery.of(context).size.height / 50,
+            bottom: MediaQuery.of(context).size.height / 70,
+            child: BounceButton(
+              child: Icon(
+                isFav ? Icons.favorite : Icons.favorite_border,
+                color: Colors.red,
+                size: MediaQuery.of(context).size.width / 18,
+              ),
+              onTap: (){
+                FavProductsViewModel mdl = FavProductsViewModel();
+                mdl.editFavoriteProductPage(widget.corporationId, widget.img, context, widget.callerPage);
+                if(UserState.isPresent()){
+                  if (isFav) {
+                    setState(() {
+                      isPageLoad = false;
+                      isFav = false;
+                    });
+                  } else {
+                    setState(() {
+                      isPageLoad = false;
+                      isFav = true;
+                    });
+                  }
+                }
+              },
+              height: MediaQuery.of(context).size.height / 15,
+              width: MediaQuery.of(context).size.width / 3,
+              duration: Duration(milliseconds: 300),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Theme.of(context).brightness == Brightness.dark ? Colors.white12 : Colors.black12, // Temaya göre metin rengi
+              ),
+            ),
+          ),
+
+          Positioned(
+            top: 0,
+            right: 0,
+            child: Padding(
+              padding: EdgeInsets.only(top: 10.0, right: 5,),
+              child: Container(
+                child: SmoothStarRating(
+                  starCount: 5,
+                  color: Constants.ratingBG,
+                  allowHalfRating: true,
+                  rating: widget.rating,
+                  size: 25,
+                  borderColor: Constants.ratingBG,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 10.0, left: 5,),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white38,
+                  borderRadius: BorderRadius.only(topRight: Radius.circular(20), bottomLeft: Radius.zero, bottomRight:  Radius.circular(20), topLeft: Radius.zero,), // Oval şekil için kenar yarıçapını belirler
+                ),
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 3.0, left: 8, right: 12, top: 3),
+                  child: Container(
+                    child: Text(
+                      "${widget.name}",
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.black,
+                      ),
+                      maxLines: 2,
+                    ),
+                  ),
+                ),
+              ),
+
+            ),
+          ),
+        ],
       );
+
     }
     return InkWell(
       child: ListView(
@@ -115,38 +251,6 @@ class _SliderItemState extends State<SliderItem> {
         primary: false,
         children: <Widget>[
           image,
-          Padding(
-            padding: EdgeInsets.only(bottom: 2.0, top: 8.0),
-            child: Text(
-              "${widget.name}",
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w900,
-              ),
-              maxLines: 2,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
-            child: Row(
-              children: <Widget>[
-                SmoothStarRating(
-                  starCount: 5,
-                  color: Constants.ratingBG,
-                  allowHalfRating: true,
-                  rating: widget.rating,
-                  size: 13.0,
-                ),
-                Text(
-                  widget.rating.toStringAsFixed(2)+"(${widget.raters} Reviews)",
-                  //" $rating ($raters Reviews)",
-                  style: TextStyle(
-                    fontSize: 14,
-                  ),
-                ),
-              ],
-            ),
-          ),
         ],
       ),
       onTap: () async {

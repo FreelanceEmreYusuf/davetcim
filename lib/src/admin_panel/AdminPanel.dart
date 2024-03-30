@@ -31,10 +31,12 @@ class _State extends State<AdminPanelPage> {
                     // ignore: deprecated_member_use
                     child: TextButton(
                       style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("YENİ FİRMA EKLE",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),),
+                      child: Expanded(
+                        child: Text("YENİ FİRMA EKLE",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                      ),
                       onPressed: () {
                         Utils.navigateToPage(context, CompanyAddView());
                       },
@@ -46,10 +48,12 @@ class _State extends State<AdminPanelPage> {
                     // ignore: deprecated_member_use
                     child: TextButton(
                       style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("YENİ SALON EKLE",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),),
+                      child: Expanded(
+                        child: Text("YENİ SALON EKLE", 
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                      ),
                       onPressed: () {
                         Utils.navigateToPage(context, CorporationGenerateKeyView());
                       },
@@ -61,10 +65,12 @@ class _State extends State<AdminPanelPage> {
                     // ignore: deprecated_member_use
                     child: TextButton(
                       style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("SALON AKTİF/PASİF",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),),
+                      child: Expanded(
+                        child: Text("SALON AKTİF/PASİF", 
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                      ),
                       onPressed: () {
                         Utils.navigateToPage(context, CorporationActivePassiveView());
                       },
@@ -76,10 +82,12 @@ class _State extends State<AdminPanelPage> {
                     // ignore: deprecated_member_use
                     child: TextButton(
                       style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
-                      child: Text("HİZMET HAVUZU",
-                        style: TextStyle(
-                        color: Colors.white,
-                      ),),
+                      child: Expanded(
+                        child: Text("HİZMET HAVUZU", 
+                          style: TextStyle(
+                          color: Colors.white,
+                        ),),
+                      ),
                       onPressed: () {
                         Utils.navigateToPage(context, AdminServicePoolManager());
                       },
@@ -91,10 +99,12 @@ class _State extends State<AdminPanelPage> {
                     // ignore: deprecated_member_use
                     child: TextButton(
                       style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
-                      child: Text("SALON ÖZELLİK YÖNET",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),),
+                      child: Expanded(
+                        child: Text("SALON ÖZELLİK YÖNET", 
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                      ),
                       onPressed: () {
                         Utils.navigateToPage(context, ManageLookupsView());
                       },

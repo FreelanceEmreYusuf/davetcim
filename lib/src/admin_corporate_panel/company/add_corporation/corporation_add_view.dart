@@ -44,12 +44,14 @@ class _CorporationAddViewState extends State<CorporationAddView> {
                 margin: EdgeInsets.only(
                   top: 25.0,
                 ),
-                child: Text(
-                  "Yeni Salon Oluştur",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w700,
-                    color: Theme.of(context).accentColor,
+                child: Expanded(
+                  child: Text(
+                    "Yeni Salon Oluştur",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w700,
+                      color: Theme.of(context).accentColor,
+                    ),
                   ),
                 ),
               ),

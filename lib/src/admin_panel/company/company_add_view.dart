@@ -162,7 +162,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
               Visibility(
                   visible: usernameErrorVisibility,
                   child: Container(
-                      child: Text("Bu kullanıcı adı sistemde kullanılıyor", style: TextStyle(color: Colors.red)),
+                      child: Expanded(child: Text("Bu kullanıcı adı sistemde kullanılıyor", style: TextStyle(color: Colors.red))),
                       padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
                   )),//Kullanıcı Adı//Kullanıcı Adı//Kullanıcı Adı
               SizedBox(height: 15.0),
@@ -198,7 +198,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
               Visibility(
                   visible: emailErrorVisibility,
                   child: Container(
-                      child: Text("Bu email bilgisi sistemde kullanılıyor", style: TextStyle(color: Colors.red)),
+                      child: Expanded(child: Text("Bu email bilgisi sistemde kullanılıyor", style: TextStyle(color: Colors.red))),
                       padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
                   )),//E-Posta//E-Posta//E-Posta
               SizedBox(height: 15.0),

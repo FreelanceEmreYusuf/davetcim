@@ -82,47 +82,30 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                 body: ListView(
                   children: <Widget>[
                     SoftFilterWidget(),
-                    if(UserState.isPresent())
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              "Hoşgeldin ",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            BounceButton(
-                              onTap: () {},
-                              child: Text(
-                                "@${mdl.getUserName()}",
-                                style: TextStyle(
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.w800,
-                                  color: Colors.lightGreen,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 300),
-                              decoration: BoxDecoration(
-                                color: Provider.of<AppProvider>(context).theme == Constants.lightTheme
-                                    ? Colors.transparent
-                                    : Colors.transparent,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 10),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Expanded(
+                                child: Text(
+                                  "Davetcim Sponsorları",
+                                  style: TextStyle(
+                                    fontSize: 23,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 5),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 3),
                           child: Container(
                             height: MediaQuery.of(context).size.height / 2.4,
                             width: MediaQuery.of(context).size.width,
@@ -153,23 +136,25 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 5),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Text(
-                                "Son Zamanlarda Popüler",
-                                style: TextStyle(
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.w800,
+                              Expanded(
+                                child: Text(
+                                  "Son Zamanlarda Popüler",
+                                  style: TextStyle(
+                                    fontSize: 23,
+                                    fontWeight: FontWeight.w800,
+                                  ),
                                 ),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 10),
+                        SizedBox(height: 5),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           child: GridView.builder(

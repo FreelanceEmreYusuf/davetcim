@@ -37,7 +37,7 @@ class _FavoriteScreenState extends State<FavoriteScreen>
           children: <Widget>[
             SizedBox(height: 10.0),
             Text(
-              "Favori Salonlarım",
+              "Favori Mekanlarım",
               style: TextStyle(
                 fontSize: 23,
                 fontWeight: FontWeight.w800,

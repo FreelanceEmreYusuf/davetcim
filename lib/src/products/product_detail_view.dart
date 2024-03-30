@@ -1,4 +1,5 @@
 import 'package:card_swiper/card_swiper.dart';
+import 'package:davetcim/shared/helpers/general_helper.dart';
 import 'package:davetcim/src/comments/comments_view_model.dart';
 import 'package:davetcim/src/products/product_detail_view_model.dart';
 import 'package:flutter/material.dart';
@@ -337,26 +338,25 @@ class _ProductDetailsState extends State<ProductDetails> {
                             Column(
                               children: [
                                 SmoothStarRating(
-                                  starCount: widget.corporationModel.averageRating.round(),
+                                  starCount: 5,
                                   color: Constants.ratingBG,
                                   allowHalfRating: true,
-                                  rating: 5.0,
-                                  size: MediaQuery.of(context).size.height/25,
+                                  rating: widget.corporationModel.averageRating,
+                                  size: 30,
+                                  borderColor: Constants.ratingBG,
                                 ),
-                                Text(
-                                  widget.corporationModel.averageRating.toStringAsFixed(2) + ' Puan',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.orange
-                                  ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "("+GeneralHelper.formatMoney(widget.corporationModel.ratingCount.toString())  + ' Değerlendirme)',
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          color: Colors.redAccent
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                   widget.corporationModel.ratingCount.toString() + ' Yorum',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.redAccent
-                                  ),
-                                ),
+
                               ],
                             ),
                             Column(
@@ -370,7 +370,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                   ),
                                 ),
                                 Text(
-                                  widget.corporationModel.maxPopulation.toString(),
+                                  GeneralHelper.formatMoney(widget.corporationModel.maxPopulation.toString()) ,
                                   style: TextStyle(
                                     fontSize: 15.0,
                                     color: Colors.deepOrangeAccent
@@ -438,7 +438,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       ),
                                     ),
                                     Text(
-                                      corporationEventLogModel.visitCount.toString(),
+                                      GeneralHelper.formatMoney(corporationEventLogModel.visitCount.toString()),
                                       style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.deepOrangeAccent
@@ -457,7 +457,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       ),
                                     ),
                                     Text(
-                                      corporationEventLogModel.visitCountMonth.toString(),
+                                        GeneralHelper.formatMoney(corporationEventLogModel.visitCountMonth.toString()) ,
                                       style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.deepOrangeAccent
@@ -476,7 +476,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                       ),
                                     ),
                                     Text(
-                                      corporationEventLogModel.visitCountYear.toString(),
+                                      GeneralHelper.formatMoney(corporationEventLogModel.visitCountYear.toString()),
                                       style: TextStyle(
                                           fontSize: 15.0,
                                           color: Colors.deepOrangeAccent
@@ -497,43 +497,45 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: Card(
                       elevation: 10,
                       shadowColor: Colors.redAccent,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            LaunchButton(
-                              title: 'Telefon',
-                              value: widget.corporationModel.telephoneNo,
-                              icon: Icons.phone,
-                              color: Colors.green,
-                              context: context,
-                              onPressed: () async {
-                                Uri uri = Uri.parse('tel:' + widget.corporationModel.telephoneNo);
-                                if (!await launcher.launchUrl(uri)) {
-                                  debugPrint(
-                                      "Could not launch the uri"); // because the simulator doesn't has the phone app
-                                }
-                              },
-                            ),
-                            SizedBox(width: 16.0), // İkinci düğme ile arasında boşluk bırakın
-                            LaunchButton(
-                              title: 'Email',
-                              value: widget.corporationModel.email,
-                              icon: Icons.mail,
-                              color: Colors.blueAccent,
-                              context: context,
-                              onPressed: () async {
-                                Uri uri = Uri.parse(
-                                  'mailto:' + widget.corporationModel.email + '?subject=Davetcim Rezervasyonu HK.&body=Merhaba,',
-                                );
-                                if (!await launcher.launchUrl(uri)) {
-                                  debugPrint(
-                                      "Could not launch the uri"); // because the simulator doesn't has the email app
-                                }
-                              },
-                            ),
-                          ],
+                      child: FittedBox(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              LaunchButton(
+                                title: 'Telefon',
+                                value: widget.corporationModel.telephoneNo,
+                                icon: Icons.phone,
+                                color: Colors.green,
+                                context: context,
+                                onPressed: () async {
+                                  Uri uri = Uri.parse('tel:' + widget.corporationModel.telephoneNo);
+                                  if (!await launcher.launchUrl(uri)) {
+                                    debugPrint(
+                                        "Could not launch the uri"); // because the simulator doesn't has the phone app
+                                  }
+                                },
+                              ),
+                              SizedBox(width: 16.0), // İkinci düğme ile arasında boşluk bırakın
+                              LaunchButton(
+                                title: 'Email',
+                                value: widget.corporationModel.email,
+                                icon: Icons.mail,
+                                color: Colors.blueAccent,
+                                context: context,
+                                onPressed: () async {
+                                  Uri uri = Uri.parse(
+                                    'mailto:' + widget.corporationModel.email + '?subject=Davetcim Rezervasyonu HK.&body=Merhaba,',
+                                  );
+                                  if (!await launcher.launchUrl(uri)) {
+                                    debugPrint(
+                                        "Could not launch the uri"); // because the simulator doesn't has the email app
+                                  }
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
