@@ -16,6 +16,7 @@ class CorporationRegistrationState {
     corporationReservation = CorporationReservationDto(companyModel,
         corporationModel, null, regionName, districtName, "", "", "", "",
         registrationKey);
+    companyModel = null;
   }
 
   static void setAsNull() {

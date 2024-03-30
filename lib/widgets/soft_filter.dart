@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../shared/models/organization_type_model.dart';
 import '../shared/models/region_model.dart';
 import '../shared/sessions/organization_items_state.dart';
+import '../shared/sessions/organization_type_state.dart';
 import '../src/search/search_view_model.dart';
+import 'filter_items/organization_modal_content.dart';
 
 class SoftFilterWidget extends StatefulWidget {
 
@@ -17,17 +18,13 @@ class SoftFilterWidget extends StatefulWidget {
 
 class _SoftFilterWidgetState extends State<SoftFilterWidget> {
   List<RegionModel> regionList = OrganizationItemsState.regionModelList;
-  List<OrganizationTypeModel> organizationTypeList = OrganizationItemsState.organizationTypeList;
 
   static TextStyle kStyle =
   TextStyle(color: Colors.redAccent, fontWeight: FontWeight.w500);
 
   int _cardDivisionSize = 40;
-
   int selectedRegion = 0;
-
   int selectedDistrict = 0;
-
   int selectedOrganizationIndex = 0;
 
   @override
@@ -35,6 +32,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
     super.initState();
     firstInitialDistrict();
   }
+
 
   void firstInitialDistrict() async {
     regionList = OrganizationItemsState.regionModelList;
@@ -44,6 +42,27 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
     } else {
       firstInitialDistrict();
     }
+  }
+
+  void showOrganizationModalSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            OrganizationModalContent(),
+            SizedBox(height: 10),
+            RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Tamamla"),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -105,54 +124,16 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                       textAlign: TextAlign.center,
                                     ),
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        MediaQuery.of(context).size.height /
-                                            _cardDivisionSize,
-                                        MediaQuery.of(context).size.height /
-                                            _cardDivisionSize,
-                                        MediaQuery.of(context).size.height /
-                                            _cardDivisionSize,
-                                        MediaQuery.of(context).size.height /
-                                            _cardDivisionSize),
-                                  ),
-                                  Expanded(
-                                    child: Text(
-                                      organizationTypeList[selectedOrganizationIndex].name,
-                                      style: TextStyle(fontSize: 18.0),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 20.0,
+                                        MediaQuery.of(context).size.height / _cardDivisionSize,
+                                        MediaQuery.of(context).size.height / _cardDivisionSize,
+                                        MediaQuery.of(context).size.height / _cardDivisionSize,
+                                        MediaQuery.of(context).size.height / _cardDivisionSize),
                                   ),
                                 ],
                               ),
                             ),
                             onTap: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.pop(context, organizationTypeList[selectedOrganizationIndex]); // Seçilen öğeyi geri döndürür
-                                      },
-                                      child: Container(
-                                        height: 200.0,
-                                        child: CupertinoPicker(
-                                            itemExtent: 32.0,
-                                            onSelectedItemChanged: (int index) {
-                                              setState(() {
-                                                selectedOrganizationIndex = index;
-                                              });
-                                            },
-                                            children: new List<Widget>.generate(
-                                                organizationTypeList.length, (int index) {
-                                              return new Center(
-                                                child: new Text(
-                                                    organizationTypeList[index].name),
-                                              );
-                                            })),
-                                      ),
-                                    );
-                                  });
+                              showOrganizationModalSheet();
                             },
                           ),
                         ),
@@ -316,7 +297,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                       rm.goToFilterPageFromSoftFilter(context,
                                         regionList[selectedRegion].id.toString(),
                                         districtList[selectedDistrict].id.toString(),
-                                        organizationTypeList[selectedOrganizationIndex].id.toString(),
+                                        OrganizationTypeState.organizationTypeList,
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(

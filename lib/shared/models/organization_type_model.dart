@@ -7,12 +7,14 @@ class OrganizationTypeModel {
   final String name;
   final int filteringStatus;
   final int sortingIndex;
+  bool  isChecked;
 
   OrganizationTypeModel({
     this.id,
     this.name,
     this.filteringStatus,
-    this.sortingIndex
+    this.sortingIndex,
+    this.isChecked
   });
 
   ///Object to map

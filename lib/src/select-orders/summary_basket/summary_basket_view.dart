@@ -1,11 +1,11 @@
 import 'package:davetcim/shared/helpers/general_helper.dart';
-import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/select-orders/summary_basket/summary_basket_view_model.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
+import '../../../shared/sessions/state_management.dart';
 import '../../../shared/sessions/user_basket_state.dart';
 import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';
@@ -503,8 +503,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   }
 
   void navigateToHomePage(BuildContext context) {
-    UserBasketState.servicePoolModel = [];
-    UserBasketState.setAsNull();
+    StateManagement.disposeStates();
     Utils.navigateToPage(context, MainScreen());
   }
 

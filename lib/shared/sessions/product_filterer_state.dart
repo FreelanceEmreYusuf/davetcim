@@ -1,4 +1,5 @@
 import '../dto/product_filterer_dto.dart';
+import '../models/organization_type_model.dart';
 
 class ProductFiltererState {
   static ProductFiltererDto filter;
@@ -9,7 +10,7 @@ class ProductFiltererState {
 
   static void setFilter(String region, String district,
       String invitationUniqueIdentifier,
-      String organizationUniqueIdentifier,
+      List<OrganizationTypeModel> organizationTypeList,
       String sequenceOrderUniqueIdentifier,
       String maxPopulation,
       bool isTimeFilterEnabled,
@@ -20,7 +21,7 @@ class ProductFiltererState {
           region,
           district,
           invitationUniqueIdentifier,
-          organizationUniqueIdentifier,
+          organizationTypeList,
           sequenceOrderUniqueIdentifier,
           maxPopulation,
           isTimeFilterEnabled,
@@ -32,12 +33,12 @@ class ProductFiltererState {
   }
 
   static void setSoftFilter(String region, String district,
-      String organizationUniqueIdentifier) {
+    List<OrganizationTypeModel> organizationTypeList) {
       filter = ProductFiltererDto(
           region,
           district,
           null,
-          organizationUniqueIdentifier,
+          organizationTypeList,
           null,
           "0",
           false,

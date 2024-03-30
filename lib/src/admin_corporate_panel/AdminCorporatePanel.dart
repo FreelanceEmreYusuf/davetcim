@@ -1,4 +1,5 @@
 import 'package:davetcim/shared/sessions/corporation_registration_state.dart';
+import 'package:davetcim/shared/sessions/state_management.dart';
 import 'package:davetcim/src/admin_corporate_panel/manage_comments/manage_comment_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/seans/seans_corporate_view.dart';
@@ -155,7 +156,7 @@ class _State extends State<AdminCorporatePanelPage> {
 
   @override
   void initState() {
-    CorporationRegistrationState.setAsNull();
+    StateManagement.disposeStates();
     super.initState();
   }
 }

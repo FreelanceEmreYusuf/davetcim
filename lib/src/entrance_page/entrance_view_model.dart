@@ -36,7 +36,9 @@ class EntrancePageModel extends ChangeNotifier {
     List<OrganizationTypeModel> organizationList = [];
     list.forEach((organizationType) {
       Map item = organizationType.data();
-      organizationList.add(OrganizationTypeModel.fromMap(item));
+      OrganizationTypeModel organizationTypeModel = OrganizationTypeModel.fromMap(item);
+      organizationTypeModel.isChecked = false;
+      organizationList.add(organizationTypeModel);
     });
 
     return organizationList;

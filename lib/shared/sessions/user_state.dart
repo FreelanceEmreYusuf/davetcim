@@ -33,6 +33,7 @@ class UserState {
     password = customer.password;
     notificationCount = customer.notificationCount;
     basketCount = customer.basketCount;
+    customer = null;
   }
 
   static void setAsNull() {

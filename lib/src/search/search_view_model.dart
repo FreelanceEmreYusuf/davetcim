@@ -1,4 +1,3 @@
-import 'package:davetcim/shared/dto/product_filterer_dto.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/helpers/region_district_helper.dart';
 import 'package:davetcim/shared/models/corporation_card_model.dart';
@@ -18,8 +17,6 @@ import '../../shared/sessions/product_filterer_state.dart';
 
 List<RegionModel> regionList =
     OrganizationItemsState.regionModelList;
-List<OrganizationTypeModel> organizationTypeList =
-    OrganizationItemsState.organizationTypeList;
 List<SequenceOrderModel> sequenceOrderList =
     OrganizationItemsState.sequenceOrderList;
 List<InvitationTypeModel> invitationList =
@@ -39,7 +36,7 @@ class SearchViewModel extends ChangeNotifier {
 
   void goToFilterPage(BuildContext context, String region, String district,
       String invitationUniqueIdentifier,
-      String organizationUniqueIdentifier,
+      List<OrganizationTypeModel> organizationTypeList,
       String sequenceOrderUniqueIdentifier,
       String maxPopulation,
       bool isTimeFilterEnabled,
@@ -50,7 +47,7 @@ class SearchViewModel extends ChangeNotifier {
       region,
       district,
       invitationUniqueIdentifier,
-      organizationUniqueIdentifier,
+      organizationTypeList,
       sequenceOrderUniqueIdentifier,
       maxPopulation,
       isTimeFilterEnabled,
@@ -63,13 +60,11 @@ class SearchViewModel extends ChangeNotifier {
   }
 
   void goToFilterPageFromSoftFilter(BuildContext context, String region, String district,
-      String organizationUniqueIdentifier
+      List<OrganizationTypeModel> organizationTypeList
      ) {
 
     ProductFiltererState.setSoftFilter(
-      region,
-      district,
-      organizationUniqueIdentifier
+      region, district, organizationTypeList
     );
 
     Utils.navigateToPage(context, ProductsScreen(null));

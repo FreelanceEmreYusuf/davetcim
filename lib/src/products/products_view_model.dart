@@ -3,10 +3,12 @@ import 'package:davetcim/shared/dto/product_filterer_dto.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/services/database.dart';
+import 'package:davetcim/shared/sessions/state_management.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../shared/models/corporate_sessions_model.dart';
+import '../../shared/models/organization_type_model.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/sessions/product_filterer_state.dart';
 import '../reservation/reservation_view_model.dart';
@@ -103,10 +105,19 @@ class ProductsViewModel extends ChangeNotifier {
                 ProductFiltererState.filter.invitationUniqueIdentifier)) {
           isEliminated = true;
         }
-        if (ProductFiltererState.filter.organizationUniqueIdentifier != "0" &&
-            !corporationModel.organizationUniqueIdentifier.contains(
-                ProductFiltererState.filter.organizationUniqueIdentifier)) {
+        if (ProductFiltererState.filter.organizationTypeList != null) {
           isEliminated = true;
+          for (int i = 0; i < ProductFiltererState.filter.organizationTypeList.length; i++) {
+            OrganizationTypeModel organizationTypeModel =
+                ProductFiltererState.filter.organizationTypeList[i];
+            if (!organizationTypeModel.isChecked) {
+              continue;
+            }
+            if (corporationModel.organizationUniqueIdentifier.contains(organizationTypeModel.id.toString())) {
+              isEliminated = false;
+              break;
+            }
+          }
         }
 
         for (int j = 0; j < resList.length; j++) {
@@ -121,7 +132,7 @@ class ProductsViewModel extends ChangeNotifier {
       }
     }
 
-    ProductFiltererState.setAsNull();
+    StateManagement.disposeStates();
     return corpModelList;
 
   }
@@ -145,10 +156,19 @@ class ProductsViewModel extends ChangeNotifier {
         Map item = list[i].data();
 
         CorporationModel corporationModel = CorporationModel.fromMap(item);
-        if (ProductFiltererState.filter.organizationUniqueIdentifier != "0" &&
-            !corporationModel.organizationUniqueIdentifier.contains(
-                ProductFiltererState.filter.organizationUniqueIdentifier)) {
+        if (ProductFiltererState.filter.organizationTypeList != null) {
           isEliminated = true;
+          for (int i = 0; i < ProductFiltererState.filter.organizationTypeList.length; i++) {
+            OrganizationTypeModel organizationTypeModel =
+            ProductFiltererState.filter.organizationTypeList[i];
+            if (!organizationTypeModel.isChecked) {
+              continue;
+            }
+            if (corporationModel.organizationUniqueIdentifier.contains(organizationTypeModel.id.toString())) {
+              isEliminated = false;
+              break;
+            }
+          }
         }
         if (!isEliminated) {
           corpModelList.add(corporationModel);
@@ -156,7 +176,7 @@ class ProductsViewModel extends ChangeNotifier {
       }
     }
 
-    ProductFiltererState.setAsNull();
+    StateManagement.disposeStates();
     return corpModelList;
   }
 }

@@ -2,6 +2,9 @@ import 'package:davetcim/src/search/search_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../shared/sessions/organization_type_state.dart';
+import '../../widgets/filter_items/organization_modal_content.dart';
+
 class SearchWithoutAppBarScreen extends StatefulWidget {
   @override
   _SearchWithoutAppBarScreenState createState() => _SearchWithoutAppBarScreenState();
@@ -61,6 +64,27 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
     }
   }
 
+  void showOrganizationModalSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            OrganizationModalContent(),
+            SizedBox(height: 10),
+            RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Tamamla"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -71,7 +95,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
           rm.goToFilterPage(context, regionList[selectedRegion].id.toString(),
               districtList[selectedDistrict].id.toString(),
               invitationList[selectedInvitationIndex].id.toString(),
-              organizationTypeList[selectedOrganizationIndex].id.toString(),
+              OrganizationTypeState.organizationTypeList,
               sequenceOrderList[selectedSeatingArrangement].id.toString(),
               _searchControl.text,
               checkedValue,
@@ -323,45 +347,11 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                           MediaQuery.of(context).size.height /
                                               _cardDivisionSize),
                                     ),
-                                    Expanded(
-                                      child: Text(
-                                        organizationTypeList[selectedOrganizationIndex].name,
-                                        style: TextStyle(fontSize: 18.0),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 20.0,
-                                    ),
                                   ],
                                 ),
                               ),
                               onTap: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.pop(context, organizationTypeList[selectedOrganizationIndex]); // Seçilen öğeyi geri döndürür
-                                        },
-                                        child: Container(
-                                          height: 200.0,
-                                          child: CupertinoPicker(
-                                              itemExtent: 32.0,
-                                              onSelectedItemChanged: (int index) {
-                                                setState(() {
-                                                  selectedOrganizationIndex = index;
-                                                });
-                                              },
-                                              children: new List<Widget>.generate(
-                                                  organizationTypeList.length, (int index) {
-                                                return new Center(
-                                                  child: new Text(
-                                                      organizationTypeList[index].name),
-                                                );
-                                              })),
-                                        ),
-                                      );
-                                    });
+                                showOrganizationModalSheet();
                               },
                             ),
                             GestureDetector(

@@ -1,19 +1,12 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
-import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
+import 'package:davetcim/shared/sessions/state_management.dart';
 import 'package:davetcim/src/home/home_view_model.dart';
-import 'package:davetcim/src/main/main_screen_view.dart';
-import 'package:davetcim/widgets/bounce_button.dart';
 import 'package:davetcim/widgets/slider_item.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/widgets/grid_product.dart';
 import 'package:provider/provider.dart';
-import '../../providers/app_provider.dart';
-import '../../shared/environments/const.dart';
-import '../../shared/sessions/corporation_registration_state.dart';
-import '../../shared/sessions/product_filterer_state.dart';
-import '../../shared/sessions/user_basket_state.dart';
 import '../../shared/sessions/user_state.dart';
 import '../../widgets/on_error/somethingWentWrong.dart';
 import '../../widgets/soft_filter.dart';
@@ -39,10 +32,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
 
   @override
   void initState() {
-    UserBasketState.setAsNull();
-    CorporationRegistrationState.setAsNull();
-    ReservationEditState.setAsNull();
-    ProductFiltererState.setAsNull();
+    StateManagement.disposeStates();
     getOrderedCorporationList();
     getHomeSliderCorporationList();
     super.initState();

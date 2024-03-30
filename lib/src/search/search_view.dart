@@ -2,7 +2,9 @@ import 'package:davetcim/src/search/search_view_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../shared/sessions/organization_type_state.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
+import '../../widgets/filter_items/organization_modal_content.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -18,7 +20,6 @@ class _SearchScreenState extends State<SearchScreen>
   int selectedDistrict = 0;
   int selectedSeatingArrangement = 0;
   int selectedInvitationIndex = 0;
-  int selectedOrganizationIndex = 0;
   int _cardDivisionSize = 20;
   final TextEditingController _searchControl = new TextEditingController();
 
@@ -63,6 +64,27 @@ class _SearchScreenState extends State<SearchScreen>
     }
   }
 
+  void showOrganizationModalSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            OrganizationModalContent(),
+            SizedBox(height: 10),
+            RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Tamamla"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -73,7 +95,7 @@ class _SearchScreenState extends State<SearchScreen>
           rm.goToFilterPage(context, regionList[selectedRegion].id.toString(),
               districtList[selectedDistrict].id.toString(),
               invitationList[selectedInvitationIndex].id.toString(),
-              organizationTypeList[selectedOrganizationIndex].id.toString(),
+              OrganizationTypeState.organizationTypeList,
               sequenceOrderList[selectedSeatingArrangement].id.toString(),
               _searchControl.text,
               checkedValue,
@@ -291,38 +313,11 @@ class _SearchScreenState extends State<SearchScreen>
                             MediaQuery.of(context).size.height /
                                 _cardDivisionSize),
                       ),
-                      Text(
-                        organizationTypeList[selectedOrganizationIndex].name,
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
                     ],
                   ),
                 ),
                 onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedOrganizationIndex = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  organizationTypeList.length, (int index) {
-                                return new Center(
-                                  child: new Text(
-                                      organizationTypeList[index].name),
-                                );
-                              })),
-                        );
-                      });
+                  showOrganizationModalSheet();
                 },
               ),
               GestureDetector(

@@ -1,5 +1,6 @@
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/services/database.dart';
+import 'package:davetcim/shared/sessions/state_management.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class CommonInformationsP6ViewModel extends ChangeNotifier {
       Map items = keyModel.toMap();
       items["isActive"] = false;
       db.editCollectionRef(DBConstants.corporationRegisterKeyDb, items);
-      CorporationRegistrationState.setAsNull();
+      StateManagement.disposeStates();
       Utils.navigateToPage(context, MainScreen());
   }
 }

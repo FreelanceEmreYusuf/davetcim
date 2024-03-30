@@ -22,5 +22,10 @@ class OrganizationItemsState {
     invitationTypeList = invitationTypeListParam;
     sequenceOrderList = sequenceOrderListParam;
     regionModelList = regionModelListParam;
+
+    invitationTypeListParam = null;
+    invitationTypeListParam = null;
+    sequenceOrderListParam = null;
+    regionModelListParam = null;
   }
 }

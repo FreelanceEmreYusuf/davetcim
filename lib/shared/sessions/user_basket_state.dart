@@ -23,6 +23,11 @@ class UserBasketState {
         0, invitationList,
         sequenceOrderList, reservationList,
         null, null, null, null);
+
+    corporationModel = null;
+    sequenceOrderList = null;
+    invitationList = null;
+    reservationList = null;
   }
 
   static void setAsNull() {
