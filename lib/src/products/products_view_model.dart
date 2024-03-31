@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/shared/dto/product_filterer_dto.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/services/database.dart';
@@ -8,6 +7,7 @@ import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../shared/models/corporate_sessions_model.dart';
+import '../../shared/models/invitation_type_model.dart';
 import '../../shared/models/organization_type_model.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/sessions/product_filterer_state.dart';
@@ -62,7 +62,6 @@ class ProductsViewModel extends ChangeNotifier {
     return corpModelListIDs;
   }
 
-
   Future<List<CorporationModel>> getCorporationList() async {
     if (ProductFiltererState.filter.isSoftFilter) {
       return getSoftFilteredCorporationList();
@@ -95,15 +94,33 @@ class ProductsViewModel extends ChangeNotifier {
         Map item = list[i].data();
 
         CorporationModel corporationModel = CorporationModel.fromMap(item);
-        if (ProductFiltererState.filter.sequenceOrderUniqueIdentifier != "0" &&
-            !corporationModel.sequenceOrderUniqueIdentifier.contains(
-                ProductFiltererState.filter.sequenceOrderUniqueIdentifier)) {
+        if (ProductFiltererState.filter.sequenceOrderList != null) {
           isEliminated = true;
+          for (int i = 0; i < ProductFiltererState.filter.sequenceOrderList.length; i++) {
+            InvitationTypeModel invitationTypeModel =
+            ProductFiltererState.filter.invitationTypeList[i];
+            if (!invitationTypeModel.isChecked) {
+              continue;
+            }
+            if (corporationModel.invitationUniqueIdentifier.contains(invitationTypeModel.id.toString())) {
+              isEliminated = false;
+              break;
+            }
+          }
         }
-        if (ProductFiltererState.filter.invitationUniqueIdentifier != "0" &&
-            !corporationModel.invitationUniqueIdentifier.contains(
-                ProductFiltererState.filter.invitationUniqueIdentifier)) {
+        if (ProductFiltererState.filter.invitationTypeList != null) {
           isEliminated = true;
+          for (int i = 0; i < ProductFiltererState.filter.invitationTypeList.length; i++) {
+            InvitationTypeModel invitationTypeModel =
+              ProductFiltererState.filter.invitationTypeList[i];
+            if (!invitationTypeModel.isChecked) {
+              continue;
+            }
+            if (corporationModel.invitationUniqueIdentifier.contains(invitationTypeModel.id.toString())) {
+              isEliminated = false;
+              break;
+            }
+          }
         }
         if (ProductFiltererState.filter.organizationTypeList != null) {
           isEliminated = true;
@@ -132,9 +149,7 @@ class ProductsViewModel extends ChangeNotifier {
       }
     }
 
-    StateManagement.disposeStates();
     return corpModelList;
-
   }
 
   Future<List<CorporationModel>> getSoftFilteredCorporationList() async {

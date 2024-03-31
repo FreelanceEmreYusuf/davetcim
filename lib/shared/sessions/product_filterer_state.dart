@@ -1,4 +1,7 @@
+import 'package:davetcim/shared/models/sequence_order_model.dart';
+
 import '../dto/product_filterer_dto.dart';
+import '../models/invitation_type_model.dart';
 import '../models/organization_type_model.dart';
 
 class ProductFiltererState {
@@ -9,9 +12,9 @@ class ProductFiltererState {
   }
 
   static void setFilter(String region, String district,
-      String invitationUniqueIdentifier,
+      List<InvitationTypeModel> invitationTypeList,
       List<OrganizationTypeModel> organizationTypeList,
-      String sequenceOrderUniqueIdentifier,
+      List<SequenceOrderModel> sequenceOrderList,
       String maxPopulation,
       bool isTimeFilterEnabled,
       DateTime date,
@@ -20,9 +23,9 @@ class ProductFiltererState {
       filter = ProductFiltererDto(
           region,
           district,
-          invitationUniqueIdentifier,
+          invitationTypeList,
           organizationTypeList,
-          sequenceOrderUniqueIdentifier,
+          sequenceOrderList,
           maxPopulation,
           isTimeFilterEnabled,
           date,

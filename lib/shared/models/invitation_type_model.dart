@@ -7,12 +7,14 @@ class InvitationTypeModel {
   final String name;
   final int filteringStatus;
   final int sortingIndex;
+  bool  isChecked;
 
   InvitationTypeModel({
     this.id,
     this.name,
     this.filteringStatus,
     this.sortingIndex,
+    this.isChecked
   });
 
   ///Object to map

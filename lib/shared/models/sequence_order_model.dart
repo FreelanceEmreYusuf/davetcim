@@ -7,12 +7,14 @@ class SequenceOrderModel {
   final String name;
   final int filteringStatus;
   final int sortingIndex;
+  bool  isChecked;
 
   SequenceOrderModel({
     this.id,
     this.name,
     this.filteringStatus,
     this.sortingIndex,
+    this.isChecked
   });
 
   ///Object to map

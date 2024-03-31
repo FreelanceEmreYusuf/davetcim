@@ -35,9 +35,9 @@ class SearchViewModel extends ChangeNotifier {
   }
 
   void goToFilterPage(BuildContext context, String region, String district,
-      String invitationUniqueIdentifier,
+      List<InvitationTypeModel> invitationTypeList,
       List<OrganizationTypeModel> organizationTypeList,
-      String sequenceOrderUniqueIdentifier,
+      List<SequenceOrderModel> sequenceOrderList,
       String maxPopulation,
       bool isTimeFilterEnabled,
       DateTime date,
@@ -46,9 +46,9 @@ class SearchViewModel extends ChangeNotifier {
     ProductFiltererState.setFilter(
       region,
       district,
-      invitationUniqueIdentifier,
+      invitationTypeList,
       organizationTypeList,
-      sequenceOrderUniqueIdentifier,
+      sequenceOrderList,
       maxPopulation,
       isTimeFilterEnabled,
       date,

@@ -3,6 +3,7 @@ import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/shared/sessions/user_basket_state.dart';
 
 import 'corporation_registration_state.dart';
+import 'organization_items_state.dart';
 import 'organization_type_state.dart';
 
 class StateManagement {
@@ -12,7 +13,6 @@ class StateManagement {
     ReservationEditState.setAsNull();
     ProductFiltererState.setAsNull();
     OrganizationTypeState.setAsNull();
+    OrganizationItemsState.resetItems();
   }
-
-
 }

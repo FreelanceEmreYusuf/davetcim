@@ -51,14 +51,27 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            OrganizationModalContent(),
-            SizedBox(height: 10),
-            RaisedButton(
-              onPressed: () {
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+              ),
+              onPressed: ()  {
+                setState(() {
+                  regionList = regionList;
+                });
                 Navigator.pop(context);
               },
-              child: Text("Tamamla"),
+              child: Text(
+                "TAMAMLA".toUpperCase(),
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
+            SizedBox(height: 10),
+            OrganizationModalContent(),
           ],
         );
       },
@@ -128,6 +141,15 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                         MediaQuery.of(context).size.height / _cardDivisionSize,
                                         MediaQuery.of(context).size.height / _cardDivisionSize,
                                         MediaQuery.of(context).size.height / _cardDivisionSize),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      OrganizationTypeState.getOrganizationSelectionText(),
+                                      style: TextStyle(fontSize: 18.0),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.0,
                                   ),
                                 ],
                               ),

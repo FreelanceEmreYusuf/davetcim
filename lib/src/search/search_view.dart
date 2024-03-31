@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 
 import '../../shared/sessions/organization_type_state.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
+import '../../widgets/filter_items/invitation_modal_content.dart';
 import '../../widgets/filter_items/organization_modal_content.dart';
+import '../../widgets/filter_items/sequence_order_modal_content.dart';
 
 class SearchScreen extends StatefulWidget {
   @override
@@ -18,8 +20,6 @@ class _SearchScreenState extends State<SearchScreen>
 
   int selectedRegion = 0;
   int selectedDistrict = 0;
-  int selectedSeatingArrangement = 0;
-  int selectedInvitationIndex = 0;
   int _cardDivisionSize = 20;
   final TextEditingController _searchControl = new TextEditingController();
 
@@ -85,6 +85,68 @@ class _SearchScreenState extends State<SearchScreen>
     );
   }
 
+  void showInvitationModalSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+              ),
+              onPressed: ()  {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "TAMAMLA".toUpperCase(),
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            InvitationModalContent(),
+          ],
+        );
+      },
+    );
+  }
+
+  void showSequenceOrderModalSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+              ),
+              onPressed: ()  {
+                Navigator.pop(context);
+              },
+              child: Text(
+                "TAMAMLA".toUpperCase(),
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            SequenceOrderModalContent(),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -94,9 +156,9 @@ class _SearchScreenState extends State<SearchScreen>
           SearchViewModel rm = SearchViewModel();
           rm.goToFilterPage(context, regionList[selectedRegion].id.toString(),
               districtList[selectedDistrict].id.toString(),
-              invitationList[selectedInvitationIndex].id.toString(),
+              OrganizationTypeState.invitationTypeList,
               OrganizationTypeState.organizationTypeList,
-              sequenceOrderList[selectedSeatingArrangement].id.toString(),
+              OrganizationTypeState.sequenceOrderList,
               _searchControl.text,
               checkedValue,
               date,
@@ -134,37 +196,11 @@ class _SearchScreenState extends State<SearchScreen>
                             MediaQuery.of(context).size.height /
                                 _cardDivisionSize),
                       ),
-                      Text(
-                        invitationList[selectedInvitationIndex].name,
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
                     ],
                   ),
                 ),
                 onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedInvitationIndex = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  invitationList.length, (int index) {
-                                return new Center(
-                                  child: new Text(invitationList[index].name),
-                                );
-                              })),
-                        );
-                      });
+                  showInvitationModalSheet();
                 },
               ),
               Card(
@@ -342,7 +378,7 @@ class _SearchScreenState extends State<SearchScreen>
                                 _cardDivisionSize),
                       ),
                       Text(
-                        sequenceOrderList[selectedSeatingArrangement].name,
+                        OrganizationTypeState.getSequenceOrderSelectionText(),
                         style: TextStyle(fontSize: 18.0),
                       ),
                       SizedBox(
@@ -352,27 +388,7 @@ class _SearchScreenState extends State<SearchScreen>
                   ),
                 ),
                 onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return Container(
-                          height: 200.0,
-                          child: CupertinoPicker(
-                              itemExtent: 32.0,
-                              onSelectedItemChanged: (int index) {
-                                setState(() {
-                                  selectedSeatingArrangement = index;
-                                });
-                              },
-                              children: new List<Widget>.generate(
-                                  sequenceOrderList.length, (int index) {
-                                return new Center(
-                                  child:
-                                      new Text(sequenceOrderList[index].name),
-                                );
-                              })),
-                        );
-                      });
+                  showSequenceOrderModalSheet();
                 },
               ),
               GestureDetector(

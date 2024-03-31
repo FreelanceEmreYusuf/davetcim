@@ -28,4 +28,16 @@ class OrganizationItemsState {
     sequenceOrderListParam = null;
     regionModelListParam = null;
   }
+
+  static void resetItems() {
+    for(int i = 0; i < organizationTypeList.length; i++)  {
+      organizationTypeList[i].isChecked = false;
+    }
+    for(int i = 0; i < invitationTypeList.length; i++)  {
+      invitationTypeList[i].isChecked = false;
+    }
+    for(int i = 0; i < sequenceOrderList.length; i++)  {
+      sequenceOrderList[i].isChecked = false;
+    }
+  }
 }

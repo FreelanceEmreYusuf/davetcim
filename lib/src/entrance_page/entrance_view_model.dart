@@ -53,7 +53,9 @@ class EntrancePageModel extends ChangeNotifier {
     List<InvitationTypeModel> invitationTypeList = [];
     list.forEach((invitationType) {
       Map item = invitationType.data();
-      invitationTypeList.add(InvitationTypeModel.fromMap(item));
+      InvitationTypeModel invitationTypeModel = InvitationTypeModel.fromMap(item);
+      invitationTypeModel.isChecked = false;
+      invitationTypeList.add(invitationTypeModel);
     });
 
     return invitationTypeList;
@@ -68,7 +70,9 @@ class EntrancePageModel extends ChangeNotifier {
     List<SequenceOrderModel> sequenceOrderList = [];
     list.forEach((sequenceOrder) {
       Map item = sequenceOrder.data();
-      sequenceOrderList.add(SequenceOrderModel.fromMap(item));
+      SequenceOrderModel sequenceOrderModel = SequenceOrderModel.fromMap(item);
+      sequenceOrderModel.isChecked = false;
+      sequenceOrderList.add(sequenceOrderModel);
     });
 
     return sequenceOrderList;

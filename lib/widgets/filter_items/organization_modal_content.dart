@@ -13,7 +13,7 @@ class _OrganizationModalContentState extends State<OrganizationModalContent> {
 
   @override
   Widget build(BuildContext context) {
-    if (OrganizationTypeState.isPresent()) {
+    if (OrganizationTypeState.isOrganizationPresent()) {
       organizationTypeList = OrganizationTypeState.organizationTypeList;
     }
     return Expanded(
@@ -34,10 +34,20 @@ class _OrganizationModalContentState extends State<OrganizationModalContent> {
                   title: Text(organizationTypeList[index].name),
                   value: organizationTypeList[index].isChecked ?? false,
                   onChanged: (bool value) {
-                    OrganizationTypeState.set(organizationTypeList);
-                    setState(() {
-                      organizationTypeList[index].isChecked = value;
-                    });
+                    if (organizationTypeList[index].id == 0) {
+                      for (int i = 0; i < organizationTypeList.length; i++) {
+                        organizationTypeList[i].isChecked = value;
+                      }
+                      OrganizationTypeState.setOrganization(organizationTypeList);
+                      setState(() {
+                        organizationTypeList = organizationTypeList;
+                      });
+                    } else {
+                      OrganizationTypeState.setOrganization(organizationTypeList);
+                      setState(() {
+                        organizationTypeList[index].isChecked = value;
+                      });
+                    }
                   },
                 );
               },

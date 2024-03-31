@@ -1,8 +1,10 @@
 import 'package:davetcim/src/search/search_view_model.dart';
+import 'package:davetcim/widgets/filter_items/sequence_order_modal_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/sessions/organization_type_state.dart';
+import '../../widgets/filter_items/invitation_modal_content.dart';
 import '../../widgets/filter_items/organization_modal_content.dart';
 
 class SearchWithoutAppBarScreen extends StatefulWidget {
@@ -18,8 +20,6 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
   int selectedRegion = 0;
   int selectedDistrict = 0;
   int selectedSeatingArrangement = 0;
-  int selectedInvitationIndex = 0;
-  int selectedOrganizationIndex = 0;
   int _cardDivisionSize = 20;
   final TextEditingController _searchControl = new TextEditingController();
 
@@ -71,14 +71,95 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
         return Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            OrganizationModalContent(),
-            SizedBox(height: 10),
-            RaisedButton(
-              onPressed: () {
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+              ),
+              onPressed: ()  {
+                setState(() {
+                  regionList = regionList;
+                });
                 Navigator.pop(context);
               },
-              child: Text("Tamamla"),
+              child: Text(
+                "TAMAMLA".toUpperCase(),
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
             ),
+            SizedBox(height: 10),
+            OrganizationModalContent(),
+          ],
+        );
+      },
+    );
+  }
+
+  void showInvitationModalSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+              ),
+              onPressed: ()  {
+                setState(() {
+                  regionList = regionList;
+                });
+                Navigator.pop(context);
+              },
+              child: Text(
+                "TAMAMLA".toUpperCase(),
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            InvitationModalContent(),
+          ],
+        );
+      },
+    );
+  }
+
+  void showSequenceOrderModalSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+              ),
+              onPressed: ()  {
+                setState(() {
+                  regionList = regionList;
+                });
+                Navigator.pop(context);
+              },
+              child: Text(
+                "TAMAMLA".toUpperCase(),
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            SequenceOrderModalContent(),
           ],
         );
       },
@@ -94,9 +175,9 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
           SearchViewModel rm = SearchViewModel();
           rm.goToFilterPage(context, regionList[selectedRegion].id.toString(),
               districtList[selectedDistrict].id.toString(),
-              invitationList[selectedInvitationIndex].id.toString(),
+              OrganizationTypeState.invitationTypeList,
               OrganizationTypeState.organizationTypeList,
-              sequenceOrderList[selectedSeatingArrangement].id.toString(),
+              OrganizationTypeState.sequenceOrderList,
               _searchControl.text,
               checkedValue,
               date,
@@ -162,7 +243,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                     ),
                                     Expanded(
                                       child: Text(
-                                        invitationList[selectedInvitationIndex].name,
+                                        OrganizationTypeState.getInvitationSelectionText(),
                                         style: TextStyle(fontSize: 18.0),
                                       ),
                                     ),
@@ -173,31 +254,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                 ),
                               ),
                               onTap: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.pop(context, invitationList[selectedInvitationIndex]); // Seçilen öğeyi geri döndürür
-                                        },
-                                        child: Container(
-                                          height: 200.0,
-                                          child: CupertinoPicker(
-                                              itemExtent: 32.0,
-                                              onSelectedItemChanged: (int index) {
-                                                setState(() {
-                                                  selectedInvitationIndex = index;
-                                                });
-                                              },
-                                              children: new List<Widget>.generate(
-                                                  invitationList.length, (int index) {
-                                                return new Center(
-                                                  child: new Text(invitationList[index].name),
-                                                );
-                                              })),
-                                        ),
-                                      );
-                                    });
+                                showInvitationModalSheet();
                               },
                             ),
                             Card(
@@ -347,6 +404,15 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                           MediaQuery.of(context).size.height /
                                               _cardDivisionSize),
                                     ),
+                                    Expanded(
+                                      child: Text(
+                                        OrganizationTypeState.getOrganizationSelectionText(),
+                                        style: TextStyle(fontSize: 18.0),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: 20.0,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -377,7 +443,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                     ),
                                     Expanded(
                                       child: Text(
-                                        sequenceOrderList[selectedSeatingArrangement].name,
+                                        OrganizationTypeState.getSequenceOrderSelectionText(),
                                         style: TextStyle(fontSize: 18.0),
                                       ),
                                     ),
@@ -388,32 +454,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                 ),
                               ),
                               onTap: () {
-                                showModalBottomSheet(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return GestureDetector(
-                                        onTap: () {
-                                          Navigator.pop(context, sequenceOrderList[selectedSeatingArrangement]); // Seçilen öğeyi geri döndürür
-                                        },
-                                        child: Container(
-                                          height: 200.0,
-                                          child: CupertinoPicker(
-                                              itemExtent: 32.0,
-                                              onSelectedItemChanged: (int index) {
-                                                setState(() {
-                                                  selectedSeatingArrangement = index;
-                                                });
-                                              },
-                                              children: new List<Widget>.generate(
-                                                  sequenceOrderList.length, (int index) {
-                                                return new Center(
-                                                  child:
-                                                  new Text(sequenceOrderList[index].name),
-                                                );
-                                              })),
-                                        ),
-                                      );
-                                    });
+                                showSequenceOrderModalSheet();
                               },
                             ),
                             GestureDetector(
