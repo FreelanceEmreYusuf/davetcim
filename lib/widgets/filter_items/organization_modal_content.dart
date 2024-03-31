@@ -20,9 +20,13 @@ class _OrganizationModalContentState extends State<OrganizationModalContent> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            "Mekan Türü",
-            textAlign: TextAlign.center,
+          Padding(
+            padding: EdgeInsets.fromLTRB(0.0, 10, 0.0, 10),
+            child: Text(
+              "Mekan Türü",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5,),
+            ),
           ),
           SizedBox(height: 10),
           Expanded( // ListView.builder'ı Expanded ile sarmalama

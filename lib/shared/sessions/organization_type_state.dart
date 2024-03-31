@@ -48,10 +48,10 @@ class OrganizationTypeState {
       if (filteredList.length == 1)  {
         return filteredList[0].name;
       } else if (filteredList.length > 1 ) {
-        return filteredList.length.toString() + " Adet Seçili";
+        return "Seçili ("+filteredList.length.toString() + " Adet)";
       }
     }
-    return "Seçilmemiş";
+    return "Seçiniz";
   }
 
   static String getInvitationSelectionText() {
@@ -60,10 +60,11 @@ class OrganizationTypeState {
       if (filteredList.length == 1) {
         return filteredList[0].name;
       } else if (filteredList.length > 0) {
-        return filteredList.length.toString() + " Adet Seçili";
+        return "Seçili ("+filteredList.length.toString() + " Adet)";
+
       }
     }
-    return "Seçilmemiş";
+    return "Seçiniz";
   }
 
   static String getSequenceOrderSelectionText() {
@@ -72,10 +73,10 @@ class OrganizationTypeState {
       if (filteredList.length == 1)  {
         return filteredList[0].name;
       } else if (filteredList.length > 0) {
-        return filteredList.length.toString() + " Adet Seçili";
+        return "Seçili ("+filteredList.length.toString() + " Adet)";
       }
     }
-    return "Seçilmemiş";
+    return "Seçiniz";
   }
 
   static String getDistrictSelectionText() {
@@ -84,10 +85,10 @@ class OrganizationTypeState {
       if (filteredList.length == 1)  {
         return filteredList[0].name;
       } else if (filteredList.length > 0) {
-        return filteredList.length.toString() + " Adet Seçili";
+        return "Seçili ("+filteredList.length.toString() + " Adet)";
       }
     }
-    return "Seçilmemiş";
+    return "Seçiniz";
   }
 
   static void setAsNull() {

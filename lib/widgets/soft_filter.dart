@@ -48,31 +48,44 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
   void showOrganizationModalSheet() {
     showModalBottomSheet(
       context: context,
+      isDismissible: false,
       builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
+        return Stack(
           children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-              ),
-              onPressed: ()  {
-                setState(() {
-                  regionList = regionList;
-                });
-                Navigator.pop(context);
-              },
-              child: Text(
-                "TAMAMLA".toUpperCase(),
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height / 100,),
+                OrganizationModalContent(),
+                SizedBox(height: MediaQuery.of(context).size.height / 15,),
+              ],
+            ),
+            Positioned(
+              bottom: MediaQuery.of(context).size.height / 150,
+              right: MediaQuery.of(context).size.width / 150,
+              left: MediaQuery.of(context).size.width / 150,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                  ),
+                  onPressed: ()  {
+                    setState(() {
+                      regionList = regionList;
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "EKLE".toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            OrganizationModalContent(),
           ],
         );
       },
@@ -82,31 +95,42 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
   void showDistrictModalSheet() {
     showModalBottomSheet(
       context: context,
+      isDismissible: false,
       builder: (BuildContext context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
+        return Stack(
           children: [
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                primary: Colors.green,
-              ),
-              onPressed: ()  {
-                setState(() {
-                  regionList = regionList;
-                });
-                Navigator.pop(context);
-              },
-              child: Text(
-                "TAMAMLA".toUpperCase(),
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(height: MediaQuery.of(context).size.height / 100,),
+                DistrictModalContent(),
+                SizedBox(height: MediaQuery.of(context).size.height / 15,),
+              ],
+            ),
+            Positioned(
+              bottom: MediaQuery.of(context).size.height / 150,
+              right: MediaQuery.of(context).size.width / 150,
+              left: MediaQuery.of(context).size.width / 150,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: ElevatedButton(
+                  onPressed: ()  {
+                    setState(() {
+                      regionList = regionList;
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "EKLE".toUpperCase(),
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),
-            SizedBox(height: 10),
-            DistrictModalContent(),
           ],
         );
       },
