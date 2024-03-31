@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import '../shared/enums/reservation_status_enum.dart';
 import '../shared/helpers/general_helper.dart';
 import '../shared/models/reservation_model.dart';
@@ -45,6 +46,7 @@ class _ReservationUserCardWidgetState
                   reservationModel: widget.model, isFromNotification: false));
         },
         child: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
           child: Card(
             color: color,
             semanticContainer: true,

@@ -4,6 +4,7 @@ import '../../../shared/environments/const.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/sessions/user_state.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/no_found_notification_screen.dart';
 import '../../../widgets/reservation_corporate_card_widget.dart';
 
 class ReservationCorporateView extends StatefulWidget {
@@ -76,40 +77,11 @@ class _State extends State<ReservationCorporateView> {
       return Scaffold(
         appBar: AppBarMenu(pageName: "Aktif Talepler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
         body: Padding(
-            padding: EdgeInsets.all(10),
-            child: Center(
-              child: Container(
-                padding: EdgeInsets.all(10),
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    'Aktif rezervasyon bulunamadı',
-                    softWrap: true,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white60,
-                      fontStyle: FontStyle.italic,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(10.0, 10.0),
-                          blurRadius: 2.0,
-                          color: Colors.black54,
-                        ),
-                        Shadow(
-                          offset: Offset(10.0, 10.0),
-                          blurRadius: 1.0,
-                          color: Colors.black54,
-                        ),
-                      ],
-                      fontFamily: 'RobotoMono',
-                    ),
-                    overflow: TextOverflow.clip,
-                  ),
-                ),
-                color: Constants.lightPrimary,
-              ),
-            )),
+          padding: const EdgeInsets.all(10.0),
+          child: NoFoundDataScreen(keyText: "Rezervasyon bulunamadı"),
+        ),
       );
+
     }
   }
 }

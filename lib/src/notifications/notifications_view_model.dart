@@ -49,7 +49,7 @@ class NotificationsViewModel extends ChangeNotifier {
         ));
       }
     } else {
-      listings.add(NoFoundNotificationScreen());
+      listings.add(NoFoundDataScreen(keyText: "Bildirim bulunamadı",));
     }
     return listings;
   }

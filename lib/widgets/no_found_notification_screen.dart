@@ -2,13 +2,18 @@ import 'package:flutter/material.dart';
 
 import '../shared/utils/language.dart';
 
-class NoFoundNotificationScreen extends StatefulWidget {
+class NoFoundDataScreen extends StatefulWidget {
+  final String keyText;
+  NoFoundDataScreen(
+      {Key key,
+        @required this.keyText,})
+      : super(key: key);
   @override
-  _NoFoundNotificationScreenState createState() =>
-      _NoFoundNotificationScreenState();
+  _NoFoundDataScreenState createState() =>
+      _NoFoundDataScreenState();
 }
 
-class _NoFoundNotificationScreenState extends State<NoFoundNotificationScreen> {
+class _NoFoundDataScreenState extends State<NoFoundDataScreen> {
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -21,7 +26,7 @@ class _NoFoundNotificationScreenState extends State<NoFoundNotificationScreen> {
         ),
       ),
       title: Text(
-          LanguageConstants.bildirimBulunamadi[LanguageConstants.languageFlag]),
+          widget.keyText),
     );
   }
 }
