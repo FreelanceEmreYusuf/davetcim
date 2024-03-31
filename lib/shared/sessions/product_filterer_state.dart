@@ -1,6 +1,7 @@
 import 'package:davetcim/shared/models/sequence_order_model.dart';
 
 import '../dto/product_filterer_dto.dart';
+import '../models/district_model.dart';
 import '../models/invitation_type_model.dart';
 import '../models/organization_type_model.dart';
 
@@ -11,7 +12,8 @@ class ProductFiltererState {
     return filter != null;
   }
 
-  static void setFilter(String region, String district,
+  static void setFilter(String region,
+      List<DistrictModel> districtList,
       List<InvitationTypeModel> invitationTypeList,
       List<OrganizationTypeModel> organizationTypeList,
       List<SequenceOrderModel> sequenceOrderList,
@@ -22,7 +24,7 @@ class ProductFiltererState {
       DateTime endHour) {
       filter = ProductFiltererDto(
           region,
-          district,
+          districtList,
           invitationTypeList,
           organizationTypeList,
           sequenceOrderList,
@@ -35,11 +37,12 @@ class ProductFiltererState {
       );
   }
 
-  static void setSoftFilter(String region, String district,
+  static void setSoftFilter(String region,
+    List<DistrictModel> districtList,
     List<OrganizationTypeModel> organizationTypeList) {
       filter = ProductFiltererDto(
           region,
-          district,
+          districtList,
           null,
           organizationTypeList,
           null,

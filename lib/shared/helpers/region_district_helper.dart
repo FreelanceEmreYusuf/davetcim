@@ -52,7 +52,9 @@ class RegionDistrictHelper {
     List<DistrictModel> districtList = [];
     list.forEach((region) {
       Map item = region.data();
-      districtList.add(DistrictModel.fromMap(item));
+      DistrictModel districtModel = DistrictModel.fromMap(item);
+      districtModel.isChecked = false;
+      districtList.add(districtModel);
     });
 
     return districtList;

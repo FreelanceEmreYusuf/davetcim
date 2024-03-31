@@ -1,4 +1,5 @@
 import 'package:davetcim/src/search/search_view_model.dart';
+import 'package:davetcim/widgets/filter_items/district_modal_content.dart';
 import 'package:davetcim/widgets/filter_items/sequence_order_modal_content.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +60,11 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
     if (regionList != null && regionList.length > 0) {
       SearchViewModel rm = SearchViewModel();
       districtList = await rm.fillDistrictlist(regionList[0].id);
+      OrganizationTypeState.setDistrict(districtList);
+
+      setState(() {
+        districtList = districtList;
+      });
     } else {
       firstInitialDistrict();
     }
@@ -166,6 +172,40 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
     );
   }
 
+  void showDistrictModalSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+              ),
+              onPressed: ()  {
+                setState(() {
+                  regionList = regionList;
+                });
+                Navigator.pop(context);
+              },
+              child: Text(
+                "TAMAMLA".toUpperCase(),
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            DistrictModalContent(),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -174,7 +214,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
         onPressed: () {
           SearchViewModel rm = SearchViewModel();
           rm.goToFilterPage(context, regionList[selectedRegion].id.toString(),
-              districtList[selectedDistrict].id.toString(),
+              OrganizationTypeState.districtList,
               OrganizationTypeState.invitationTypeList,
               OrganizationTypeState.organizationTypeList,
               OrganizationTypeState.sequenceOrderList,
@@ -506,6 +546,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                               onSelectedItemChanged: (int index) async {
                                                 SearchViewModel rm = SearchViewModel();
                                                 districtList = await rm.fillDistrictlist(regionList[index].id);
+                                                OrganizationTypeState.districtList = districtList;
                                                 setState(() {
                                                   selectedRegion = index;
                                                   districtList = districtList;
@@ -546,7 +587,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                     ),
                                     Expanded(
                                       child: Text(
-                                        districtList[selectedDistrict].name,
+                                          OrganizationTypeState.getDistrictSelectionText(),
                                         style: TextStyle(fontSize: 18.0),
                                       ),
                                     ),
@@ -557,34 +598,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                 ),
                               ),
                               onTap: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: (BuildContext context) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.pop(context, districtList[selectedDistrict]); // Seçilen öğeyi geri döndürür
-                                      },
-                                      child: Container(
-                                        height: 200.0,
-                                        child: CupertinoPicker(
-                                          itemExtent: 32.0,
-                                          onSelectedItemChanged: (int index) {
-                                            setState(() {
-                                              selectedDistrict = index;
-                                            });
-                                          },
-                                          children: List<Widget>.generate(
-                                              districtList.length, (int index) {
-                                            return Center(
-                                              child: Text(districtList[index].name),
-                                            );
-                                          }
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                );
+                                showDistrictModalSheet();
                               },
                             ),
                       ],

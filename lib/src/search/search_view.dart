@@ -155,7 +155,7 @@ class _SearchScreenState extends State<SearchScreen>
         onPressed: () {
           SearchViewModel rm = SearchViewModel();
           rm.goToFilterPage(context, regionList[selectedRegion].id.toString(),
-              districtList[selectedDistrict].id.toString(),
+              OrganizationTypeState.districtList,
               OrganizationTypeState.invitationTypeList,
               OrganizationTypeState.organizationTypeList,
               OrganizationTypeState.sequenceOrderList,

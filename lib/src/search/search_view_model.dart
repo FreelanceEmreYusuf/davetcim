@@ -13,6 +13,7 @@ import 'package:davetcim/src/products/products_view.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../shared/sessions/organization_items_state.dart';
+import '../../shared/sessions/organization_type_state.dart';
 import '../../shared/sessions/product_filterer_state.dart';
 
 List<RegionModel> regionList =
@@ -34,7 +35,8 @@ class SearchViewModel extends ChangeNotifier {
     return await regionDistrictHelper.fillDistrictList(regionCode);
   }
 
-  void goToFilterPage(BuildContext context, String region, String district,
+  void goToFilterPage(BuildContext context, String region,
+      List<DistrictModel> districtList,
       List<InvitationTypeModel> invitationTypeList,
       List<OrganizationTypeModel> organizationTypeList,
       List<SequenceOrderModel> sequenceOrderList,
@@ -45,7 +47,7 @@ class SearchViewModel extends ChangeNotifier {
       DateTime endHour) {
     ProductFiltererState.setFilter(
       region,
-      district,
+      districtList,
       invitationTypeList,
       organizationTypeList,
       sequenceOrderList,
@@ -59,12 +61,13 @@ class SearchViewModel extends ChangeNotifier {
     Utils.navigateToPage(context, ProductsScreen(null));
   }
 
-  void goToFilterPageFromSoftFilter(BuildContext context, String region, String district,
+  void goToFilterPageFromSoftFilter(BuildContext context, String region,
+      List<DistrictModel> districtList,
       List<OrganizationTypeModel> organizationTypeList
      ) {
 
     ProductFiltererState.setSoftFilter(
-      region, district, organizationTypeList
+      region, districtList, organizationTypeList
     );
 
     Utils.navigateToPage(context, ProductsScreen(null));

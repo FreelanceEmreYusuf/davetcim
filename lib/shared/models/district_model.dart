@@ -6,6 +6,7 @@ class DistrictModel {
   final int regionId;
   final int filteringStatus;
   final int sortingIndex;
+  bool isChecked;
 
   DistrictModel({
     this.id,
@@ -13,6 +14,7 @@ class DistrictModel {
     this.regionId,
     this.filteringStatus,
     this.sortingIndex,
+    this.isChecked
   });
 
   ///Object to map

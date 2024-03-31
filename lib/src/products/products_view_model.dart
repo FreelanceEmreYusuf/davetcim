@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
+import 'package:davetcim/shared/models/sequence_order_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/sessions/state_management.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../shared/models/corporate_sessions_model.dart';
+import '../../shared/models/district_model.dart';
 import '../../shared/models/invitation_type_model.dart';
 import '../../shared/models/organization_type_model.dart';
 import '../../shared/models/reservation_model.dart';
@@ -72,9 +74,6 @@ class ProductsViewModel extends ChangeNotifier {
     if (int.parse(ProductFiltererState.filter.region) > 0) {
       list = list.where('region', isEqualTo: ProductFiltererState.filter.region);
     }
-    if (!ProductFiltererState.filter.district.contains('00')) {
-      list = list.where('district', isEqualTo: ProductFiltererState.filter.district);
-    }
     if (ProductFiltererState.filter.maxPopulation.isNotEmpty) {
       list = list.where('maxPopulation', isGreaterThanOrEqualTo:
       int.parse(ProductFiltererState.filter.maxPopulation));
@@ -94,15 +93,27 @@ class ProductsViewModel extends ChangeNotifier {
         Map item = list[i].data();
 
         CorporationModel corporationModel = CorporationModel.fromMap(item);
+        if (ProductFiltererState.filter.districtList != null) {
+          isEliminated = true;
+          for (int i = 0; i < ProductFiltererState.filter.districtList.length; i++) {
+            DistrictModel districtModel = ProductFiltererState.filter.districtList[i];
+            if (!districtModel.isChecked) {
+              continue;
+            }
+            if (corporationModel.district == districtModel.id.toString()) {
+              isEliminated = false;
+              break;
+            }
+          }
+        }
         if (ProductFiltererState.filter.sequenceOrderList != null) {
           isEliminated = true;
           for (int i = 0; i < ProductFiltererState.filter.sequenceOrderList.length; i++) {
-            InvitationTypeModel invitationTypeModel =
-            ProductFiltererState.filter.invitationTypeList[i];
-            if (!invitationTypeModel.isChecked) {
+            SequenceOrderModel sequenceOrderModel = ProductFiltererState.filter.sequenceOrderList[i];
+            if (!sequenceOrderModel.isChecked) {
               continue;
             }
-            if (corporationModel.invitationUniqueIdentifier.contains(invitationTypeModel.id.toString())) {
+            if (corporationModel.invitationUniqueIdentifier.contains(sequenceOrderModel.id.toString())) {
               isEliminated = false;
               break;
             }
@@ -158,9 +169,6 @@ class ProductsViewModel extends ChangeNotifier {
     if (int.parse(ProductFiltererState.filter.region) > 0) {
       list = list.where('region', isEqualTo: ProductFiltererState.filter.region);
     }
-    if (!ProductFiltererState.filter.district.contains('00')) {
-      list = list.where('district', isEqualTo: ProductFiltererState.filter.district);
-    }
 
     var response = await list.get();
     List<CorporationModel> corpModelList = [];
@@ -171,6 +179,19 @@ class ProductsViewModel extends ChangeNotifier {
         Map item = list[i].data();
 
         CorporationModel corporationModel = CorporationModel.fromMap(item);
+        if (ProductFiltererState.filter.districtList != null) {
+          isEliminated = true;
+          for (int i = 0; i < ProductFiltererState.filter.districtList.length; i++) {
+            DistrictModel districtModel = ProductFiltererState.filter.districtList[i];
+            if (!districtModel.isChecked) {
+              continue;
+            }
+            if (corporationModel.district == districtModel.id.toString()) {
+              isEliminated = false;
+              break;
+            }
+          }
+        }
         if (ProductFiltererState.filter.organizationTypeList != null) {
           isEliminated = true;
           for (int i = 0; i < ProductFiltererState.filter.organizationTypeList.length; i++) {

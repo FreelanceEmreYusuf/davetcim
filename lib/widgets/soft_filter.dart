@@ -5,6 +5,7 @@ import '../shared/models/region_model.dart';
 import '../shared/sessions/organization_items_state.dart';
 import '../shared/sessions/organization_type_state.dart';
 import '../src/search/search_view_model.dart';
+import 'filter_items/district_modal_content.dart';
 import 'filter_items/organization_modal_content.dart';
 
 class SoftFilterWidget extends StatefulWidget {
@@ -29,7 +30,6 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
 
   @override
   void initState() {
-    super.initState();
     firstInitialDistrict();
   }
 
@@ -39,6 +39,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
     if (regionList != null && regionList.length > 0) {
       SearchViewModel rm = SearchViewModel();
       districtList = await rm.fillDistrictlist(regionList[0].id);
+      OrganizationTypeState.setDistrict(districtList);
     } else {
       firstInitialDistrict();
     }
@@ -72,6 +73,40 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
             ),
             SizedBox(height: 10),
             OrganizationModalContent(),
+          ],
+        );
+      },
+    );
+  }
+
+  void showDistrictModalSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.green,
+              ),
+              onPressed: ()  {
+                setState(() {
+                  regionList = regionList;
+                });
+                Navigator.pop(context);
+              },
+              child: Text(
+                "TAMAMLA".toUpperCase(),
+                style: TextStyle(
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            DistrictModalContent(),
           ],
         );
       },
@@ -217,6 +252,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                                   onSelectedItemChanged: (int index) async {
                                                     SearchViewModel rm = SearchViewModel();
                                                     districtList = await rm.fillDistrictlist(regionList[index].id);
+                                                    OrganizationTypeState.districtList = districtList;
                                                     setState(() {
                                                       selectedRegion = index;
                                                       districtList = districtList;
@@ -260,7 +296,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                         ),
                                         Expanded(
                                           child: Text(
-                                            districtList[selectedDistrict].name,
+                                            OrganizationTypeState.getDistrictSelectionText(),
                                             style: TextStyle(fontSize: 18.0),
                                           ),
                                         ),
@@ -271,34 +307,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                     ),
                                   ),
                                   onTap: () {
-                                    showModalBottomSheet(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            Navigator.pop(context, districtList[selectedDistrict]); // Seçilen öğeyi geri döndürür
-                                          },
-                                          child: Container(
-                                            height: 200.0,
-                                            child: CupertinoPicker(
-                                              itemExtent: 32.0,
-                                              onSelectedItemChanged: (int index) {
-                                                setState(() {
-                                                  selectedDistrict = index;
-                                                });
-                                              },
-                                              children: List<Widget>.generate(
-                                                  districtList.length, (int index) {
-                                                return Center(
-                                                  child: Text(districtList[index].name),
-                                                );
-                                              }
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    );
+                                    showDistrictModalSheet();
                                   },
                                 ),
                               ),
@@ -318,7 +327,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                       SearchViewModel rm = SearchViewModel();
                                       rm.goToFilterPageFromSoftFilter(context,
                                         regionList[selectedRegion].id.toString(),
-                                        districtList[selectedDistrict].id.toString(),
+                                        OrganizationTypeState.districtList,
                                         OrganizationTypeState.organizationTypeList,
                                       );
                                     },

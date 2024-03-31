@@ -1,3 +1,4 @@
+import '../models/district_model.dart';
 import '../models/invitation_type_model.dart';
 import '../models/organization_type_model.dart';
 import '../models/sequence_order_model.dart';
@@ -7,6 +8,7 @@ class OrganizationTypeState {
   static List<OrganizationTypeModel> organizationTypeList;
   static List<InvitationTypeModel> invitationTypeList;
   static List<SequenceOrderModel> sequenceOrderList;
+  static List<DistrictModel> districtList;
 
   static bool isOrganizationPresent() {
     return organizationTypeList != null;
@@ -20,6 +22,10 @@ class OrganizationTypeState {
     return sequenceOrderList != null;
   }
 
+  static bool isDistrictPresent() {
+    return districtList != null;
+  }
+
   static void setOrganization(List<OrganizationTypeModel> organizationTypeParamList) {
     organizationTypeList = organizationTypeParamList;
   }
@@ -30,6 +36,10 @@ class OrganizationTypeState {
 
   static void setSequenceOrder(List<SequenceOrderModel> sequenceOrderParamList) {
     sequenceOrderList = sequenceOrderParamList;
+  }
+
+  static void setDistrict(List<DistrictModel> districtParamList) {
+    districtList = districtParamList;
   }
 
   static String getOrganizationSelectionText() {
@@ -68,9 +78,22 @@ class OrganizationTypeState {
     return "Seçilmemiş";
   }
 
+  static String getDistrictSelectionText() {
+    if (districtList != null && districtList.length > 0) {
+      List<DistrictModel> filteredList = districtList.where((item) => item.isChecked).toList();
+      if (filteredList.length == 1)  {
+        return filteredList[0].name;
+      } else if (filteredList.length > 0) {
+        return filteredList.length.toString() + " Adet Seçili";
+      }
+    }
+    return "Seçilmemiş";
+  }
+
   static void setAsNull() {
     organizationTypeList = null;
     invitationTypeList = null;
     sequenceOrderList = null;
+    districtList = null;
   }
 }
