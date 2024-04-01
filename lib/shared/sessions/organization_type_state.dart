@@ -56,7 +56,8 @@ class OrganizationTypeState {
 
   static String getInvitationSelectionText() {
     if (invitationTypeList != null && invitationTypeList.length > 0) {
-      List<InvitationTypeModel> filteredList = invitationTypeList.where((item) => item.isChecked).toList();
+      List<InvitationTypeModel> filteredList = invitationTypeList.where(
+              (item) => item.isChecked && item.id > 0).toList();
       if (filteredList.length == 1) {
         return filteredList[0].name;
       } else if (filteredList.length > 0) {
@@ -69,7 +70,8 @@ class OrganizationTypeState {
 
   static String getSequenceOrderSelectionText() {
     if (sequenceOrderList != null && sequenceOrderList.length > 0) {
-      List<SequenceOrderModel> filteredList = sequenceOrderList.where((item) => item.isChecked).toList();
+      List<SequenceOrderModel> filteredList = sequenceOrderList.where(
+              (item) => item.isChecked && item.id > 0).toList();
       if (filteredList.length == 1)  {
         return filteredList[0].name;
       } else if (filteredList.length > 0) {
@@ -81,7 +83,8 @@ class OrganizationTypeState {
 
   static String getDistrictSelectionText() {
     if (districtList != null && districtList.length > 0) {
-      List<DistrictModel> filteredList = districtList.where((item) => item.isChecked).toList();
+      List<DistrictModel> filteredList = districtList.where(
+              (item) => item.isChecked && !item.id.toString().endsWith("00")).toList();
       if (filteredList.length == 1)  {
         return filteredList[0].name;
       } else if (filteredList.length > 0) {

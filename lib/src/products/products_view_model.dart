@@ -3,7 +3,6 @@ import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/models/sequence_order_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/state_management.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -106,7 +105,7 @@ class ProductsViewModel extends ChangeNotifier {
             }
           }
         }
-        if (ProductFiltererState.filter.sequenceOrderList != null) {
+        if (!isEliminated && ProductFiltererState.filter.sequenceOrderList != null) {
           isEliminated = true;
           for (int i = 0; i < ProductFiltererState.filter.sequenceOrderList.length; i++) {
             SequenceOrderModel sequenceOrderModel = ProductFiltererState.filter.sequenceOrderList[i];
@@ -119,7 +118,7 @@ class ProductsViewModel extends ChangeNotifier {
             }
           }
         }
-        if (ProductFiltererState.filter.invitationTypeList != null) {
+        if (!isEliminated && ProductFiltererState.filter.invitationTypeList != null) {
           isEliminated = true;
           for (int i = 0; i < ProductFiltererState.filter.invitationTypeList.length; i++) {
             InvitationTypeModel invitationTypeModel =
@@ -133,7 +132,7 @@ class ProductsViewModel extends ChangeNotifier {
             }
           }
         }
-        if (ProductFiltererState.filter.organizationTypeList != null) {
+        if (!isEliminated && ProductFiltererState.filter.organizationTypeList != null) {
           isEliminated = true;
           for (int i = 0; i < ProductFiltererState.filter.organizationTypeList.length; i++) {
             OrganizationTypeModel organizationTypeModel =
@@ -148,12 +147,15 @@ class ProductsViewModel extends ChangeNotifier {
           }
         }
 
-        for (int j = 0; j < resList.length; j++) {
-          if (corporationModel.corporationId == resList[j]) {
-            isEliminated = true;
-            break;
+        if (!isEliminated) {
+          for (int j = 0; j < resList.length; j++) {
+            if (corporationModel.corporationId == resList[j]) {
+              isEliminated = true;
+              break;
+            }
           }
         }
+
         if (!isEliminated) {
           corpModelList.add(corporationModel);
         }
@@ -192,7 +194,7 @@ class ProductsViewModel extends ChangeNotifier {
             }
           }
         }
-        if (ProductFiltererState.filter.organizationTypeList != null) {
+        if (!isEliminated && ProductFiltererState.filter.organizationTypeList != null) {
           isEliminated = true;
           for (int i = 0; i < ProductFiltererState.filter.organizationTypeList.length; i++) {
             OrganizationTypeModel organizationTypeModel =
@@ -212,7 +214,6 @@ class ProductsViewModel extends ChangeNotifier {
       }
     }
 
-    StateManagement.disposeStates();
     return corpModelList;
   }
 }

@@ -21,7 +21,7 @@ class HomeViewModel extends ChangeNotifier {
   Stream<List<CorporationModel>> getHomeCorporationList(List<int> corporationsOrderedId)  {
     if(corporationsOrderedId.isNotEmpty){
       Stream<List<DocumentSnapshot>> corporationDocList = db.getCollectionRef("Corporation")
-          .where("id", whereIn: corporationsOrderedId)
+       //   .where("id", whereIn: corporationsOrderedId)
           .where('isActive', isEqualTo: true)
           .snapshots()
           .map((event) {

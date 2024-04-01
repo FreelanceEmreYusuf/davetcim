@@ -70,6 +70,9 @@ class _DistrictModalContentState extends State<DistrictModalContent> {
                       OrganizationTypeState.setDistrict(districtList);
                       setState(() {
                         districtList[index].isChecked = value;
+                        if (!value) {
+                          districtList[0].isChecked = value;
+                        }
                       });
                     }
                   },
