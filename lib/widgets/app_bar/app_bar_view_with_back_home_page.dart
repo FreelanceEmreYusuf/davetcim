@@ -2,20 +2,16 @@ import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/widgets/app_bar/icon_badge_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
-import '../../shared/maps/menu_back_map.dart';
 import '../../shared/models/customer_model.dart';
-import '../../shared/sessions/reservation_edit_state.dart';
 import '../../shared/sessions/user_state.dart';
-import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/language.dart';
 import '../../shared/utils/utils.dart';
-import '../../src/home/home_view.dart';
 import '../../src/join/join_view.dart';
 import '../../src/notifications/notifications_view.dart';
 import '../bounce_button.dart';
+import '../modal_content/info_modal_content.dart';
 import '../on_error/somethingWentWrong.dart';
 import '../popup_menu/popup_menu.dart';
 import 'app_bar_view_model.dart';
@@ -38,7 +34,7 @@ class AppBarMenuBackToHomePage extends StatefulWidget implements PreferredSizeWi
 class _AppBarMenu extends State<AppBarMenuBackToHomePage> {
   @override
   static void showSucessMessage(BuildContext context) {
-    Dialogs.showAlertMessageWithAction(
+    InfoModalContent.showInfoModalContent(
         context,
         "",
         LanguageConstants

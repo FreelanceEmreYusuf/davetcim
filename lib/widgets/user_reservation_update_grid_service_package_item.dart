@@ -9,6 +9,7 @@ import '../shared/models/corporation_package_services_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/user_reservations/update/user_reservation_update_services_view.dart';
+import 'modal_content/info_modal_content.dart';
 
 class UserReservationUpdateGridServicePackageItem extends StatefulWidget {
   final CorporationPackageServicesModel packageModel;
@@ -50,7 +51,7 @@ class _UserReservationUpdateGridServicePackageItemState
                 child: InkWell(
                   splashColor: Colors.deepOrangeAccent, // splash color
                   onTap: () async {
-                    Dialogs.showAlertMessageWithAction(
+                    InfoModalContent.showInfoModalContent(
                         context,
                         widget.packageModel.title,
                         "Paket İçeriği: "+widget.packageModel.body+""

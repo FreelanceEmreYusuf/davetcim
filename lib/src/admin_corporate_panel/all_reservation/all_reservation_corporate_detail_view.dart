@@ -14,6 +14,7 @@ import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_package_summary.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
+import '../../../widgets/modal_content/info_modal_content.dart';
 import '../../notifications/notifications_view_model.dart';
 import '../../user_reservations/user_reservations_view_model.dart';
 import '../reservation/reservation_corporate_view_model.dart';
@@ -239,7 +240,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                                 splashColor: Colors.deepOrangeAccent, // splash color
                                 onTap: () async {
                                   //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
-                                  Dialogs.showAlertMessageWithAction(
+                                  InfoModalContent.showInfoModalContent(
                                       context,
                                       detailResponse.reservationModel.sessionName,
                                       "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
@@ -318,7 +319,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                             splashColor: Colors.deepOrangeAccent, // splash color
                             onTap: () async {
                               //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
-                              Dialogs.showAlertMessageWithAction(
+                              InfoModalContent.showInfoModalContent(
                                   context,
                                   "Bilgi",
                                   "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",

@@ -3,10 +3,10 @@ import '../shared/enums/corporation_service_selection_enum.dart';
 import '../shared/helpers/general_helper.dart';
 import '../shared/models/corporation_package_services_model.dart';
 import '../shared/sessions/user_basket_state.dart';
-import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/select-orders/services/services_view.dart';
 import '../src/select-orders/summary_basket/summary_basket_view.dart';
+import 'modal_content/info_modal_content.dart';
 
 class GridServicePackageItem extends StatefulWidget {
   final CorporationPackageServicesModel packageModel;
@@ -48,7 +48,7 @@ class _GridServicePackageItemState
                 child: InkWell(
                   splashColor: Colors.deepOrangeAccent, // splash color
                   onTap: () async {
-                    Dialogs.showAlertMessageWithAction(
+                    InfoModalContent.showInfoModalContent(
                         context,
                         widget.packageModel.title,
                         "Paket İçeriği: "+widget.packageModel.body+""

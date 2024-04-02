@@ -14,7 +14,6 @@ import '../../shared/models/corporation_model.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/sessions/user_basket_state.dart';
 import '../../shared/sessions/user_state.dart';
-import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/utils.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/bounce_button.dart';
@@ -22,6 +21,7 @@ import '../../widgets/carousel_calender_widget.dart';
 import '../../widgets/hashtag_widget.dart';
 import '../../widgets/launch_button.dart';
 import '../../widgets/map_page.dart';
+import '../../widgets/modal_content/info_modal_content.dart';
 import '../../widgets/star_and_comment.dart';
 import '../admin_corporate_panel/corporation_analysis/corporation_analysis_view_model.dart';
 import '../comments/comments_view.dart';
@@ -783,7 +783,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 Utils.navigateToPage(context, CalendarScreen());
               }
               else{
-                Dialogs.showAlertMessageWithAction(
+                InfoModalContent.showInfoModalContent(
                     context,
                     "Üye girişi uyarısı",
                     "Sepetinizi oluşturabilmeniz için önce üye girişi yapmalısınız.",

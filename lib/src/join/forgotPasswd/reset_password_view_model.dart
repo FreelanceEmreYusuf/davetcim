@@ -10,6 +10,7 @@ import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../widgets/modal_content/info_modal_content.dart';
 import '../join_view.dart';
 
 class ResetPasswdViewModel extends ChangeNotifier {
@@ -51,7 +52,7 @@ class ResetPasswdViewModel extends ChangeNotifier {
   }
 
   void showSucessMessage(BuildContext context) {
-    Dialogs.showAlertMessageWithAction(
+    InfoModalContent.showInfoModalContent(
         context,
         LanguageConstants.dialogSuccessHeader[LanguageConstants.languageFlag],
         LanguageConstants

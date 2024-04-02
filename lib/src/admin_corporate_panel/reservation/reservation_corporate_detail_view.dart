@@ -10,11 +10,11 @@ import '../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/utils/date_utils.dart';
-import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_package_summary.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
+import '../../../widgets/modal_content/info_modal_content.dart';
 import '../../notifications/notifications_view.dart';
 import '../../notifications/notifications_view_model.dart';
 import '../../user_reservations/user_reservations_view_model.dart';
@@ -190,7 +190,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                               splashColor: Colors.deepOrangeAccent, // splash color
                               onTap: () async {
                                 //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
-                                Dialogs.showAlertMessageWithAction(
+                                InfoModalContent.showInfoModalContent(
                                     context,
                                     detailResponse.reservationModel.sessionName,
                                     "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
@@ -262,7 +262,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                             splashColor: Colors.deepOrangeAccent, // splash color
                             onTap: () async {
                               //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
-                              Dialogs.showAlertMessageWithAction(
+                              InfoModalContent.showInfoModalContent(
                                   context,
                                   "Bilgi",
                                   "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",
@@ -428,7 +428,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                       ),
                       onPressed: () async {
                         if (await hasReservationChangedByUser()) {
-                          Dialogs.showAlertMessageWithAction(context, "Üzgünüz", "Bu rezervasyon, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
+                          InfoModalContent.showInfoModalContent(context, "Üzgünüz", "Bu rezervasyon, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
                               navigateToReservationsPage);
                         } else {
                           ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
@@ -468,7 +468,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                       ),
                       onPressed: () async {
                         if (await hasReservationChangedByUser()) {
-                          Dialogs.showAlertMessageWithAction(context, "Üzgünüz", "Bu rezervasyon, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
+                          InfoModalContent.showInfoModalContent(context, "Üzgünüz", "Bu rezervasyon, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
                               navigateToReservationsPage);
                         } else {
                           ReservationCorporateViewModel rcm = ReservationCorporateViewModel();

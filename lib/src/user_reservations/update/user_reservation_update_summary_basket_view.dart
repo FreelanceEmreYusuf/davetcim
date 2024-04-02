@@ -10,6 +10,7 @@ import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/modal_content/info_modal_content.dart';
 import '../../../widgets/user_reservation_update_grid_corporate_service_pool_for_basket_summary.dart';
 import '../../select-orders/summary_basket/summary_basket_view_model.dart';
 import '../user_reservations_with_app_bar_view.dart';
@@ -101,7 +102,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
             child: InkWell(
             splashColor: Colors.deepOrangeAccent,
             onTap: () async {
-              Dialogs.showAlertMessageWithAction(
+              InfoModalContent.showInfoModalContent(
               context,
                   ReservationEditState.reservationDetail.packageModel.title,
               "Paket İçeriği: "+ReservationEditState.reservationDetail.packageModel.body+""
@@ -235,7 +236,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
                             child: InkWell(
                               splashColor: Colors.deepOrangeAccent,
                               onTap: () async {
-                                Dialogs.showAlertMessageWithAction(
+                                InfoModalContent.showInfoModalContent(
                                   context,
                                   ReservationEditState.reservationDetail.selectedSessionModel.name,
                                   "Organizasyon tarihi : " +
@@ -323,7 +324,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
                           child: InkWell(
                             splashColor: Colors.deepOrangeAccent,
                             onTap: () async {
-                              Dialogs.showAlertMessageWithAction(
+                              InfoModalContent.showInfoModalContent(
                                   context,
                                   "Bilgi",
                                   "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",
@@ -451,7 +452,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
               Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", "İptal", "Sepeti Onayla", "Mesajınızı Girin", 10,
                   createReservationRequest, DailogInmputValidatorTypeEnum.richText);
             } else {
-              Dialogs.showAlertMessageWithAction(
+              InfoModalContent.showInfoModalContent(
                   context,
                   "Uyarı",
                   "Minimum rezervasyon tutarı; bu salon ve belirlenen tarih için " + minReservationAmount.toString() + " TL dir",
@@ -470,10 +471,10 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
     ReservationModel reservationResponse = await model.updateUserReservation(
         ReservationEditState.reservationDetail, description);
     if (reservationResponse == null) {
-      Dialogs.showAlertMessageWithAction(context, "Üzgünüz", "Siz rezervasyon yaparken rezervasyonunuz onaylandı ya da red edildi.Salon sahibiyle iletişime geçiniz",
+      InfoModalContent.showInfoModalContent(context, "Üzgünüz", "Siz rezervasyon yaparken rezervasyonunuz onaylandı ya da red edildi.Salon sahibiyle iletişime geçiniz",
           navigateToReservationsPage);
     } else {
-      Dialogs.showAlertMessageWithAction(context, "İşlem Mesajı", "Rezervasyon talebiniz güncellenmiştir.", navigateToHomePage);
+      InfoModalContent.showInfoModalContent(context, "İşlem Mesajı", "Rezervasyon talebiniz güncellenmiştir.", navigateToHomePage);
     }
   }
 

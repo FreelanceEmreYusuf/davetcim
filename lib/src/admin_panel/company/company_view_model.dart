@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/shared/helpers/customer_helper.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -11,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/enums/customer_role_enum.dart';
 import '../../../shared/environments/db_constants.dart';
 import '../../../shared/models/company_model.dart';
+import '../../../widgets/modal_content/info_modal_content.dart';
 import '../AdminPanel.dart';
 
 class CompanyViewModel extends ChangeNotifier {
@@ -88,7 +87,7 @@ class CompanyViewModel extends ChangeNotifier {
 
 
   void showSucessMessage(BuildContext context) {
-    Dialogs.showAlertMessageWithAction(
+    InfoModalContent.showInfoModalContent(
         context,
         LanguageConstants.dialogSuccessHeader[LanguageConstants.languageFlag],
         LanguageConstants

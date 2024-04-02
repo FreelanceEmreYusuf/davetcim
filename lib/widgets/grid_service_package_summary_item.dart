@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../shared/sessions/user_basket_state.dart';
-import '../shared/utils/dialogs.dart';
+import 'modal_content/info_modal_content.dart';
 
 class GridServicePackageSummaryItem extends StatefulWidget {
 
@@ -33,7 +33,7 @@ class _GridServicePackageSummaryItemState
                 child: InkWell(
                   splashColor: Colors.deepOrangeAccent, // splash color
                   onTap: () async {
-                    Dialogs.showAlertMessageWithAction(
+                    InfoModalContent.showInfoModalContent(
                         context,
                         UserBasketState.userBasket.packageModel.title,
                         UserBasketState.userBasket.packageModel.body +

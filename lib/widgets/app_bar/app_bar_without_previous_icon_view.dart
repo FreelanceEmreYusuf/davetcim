@@ -5,13 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/app_provider.dart';
 import '../../screens/notifications.dart';
-import '../../shared/sessions/reservation_edit_state.dart';
 import '../../shared/sessions/user_state.dart';
-import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/language.dart';
 import '../../shared/utils/utils.dart';
 import '../../src/join/join_view.dart';
 import '../bounce_button.dart';
+import '../modal_content/info_modal_content.dart';
 import '../popup_menu/popup_menu.dart';
 import 'app_bar_view_model.dart';
 
@@ -33,7 +32,7 @@ class AppBarMenuWithOutPreviousPageIcon extends StatefulWidget implements Prefer
 class _AppBarMenu extends State<AppBarMenuWithOutPreviousPageIcon> {
   @override
   static void showSucessMessage(BuildContext context) {
-    Dialogs.showAlertMessageWithAction(
+    InfoModalContent.showInfoModalContent(
         context,
         "",
         LanguageConstants

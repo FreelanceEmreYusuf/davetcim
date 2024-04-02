@@ -6,6 +6,7 @@ import '../shared/models/corporate_sessions_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/user_reservations/update/user_reservation_update_order_view.dart';
+import 'modal_content/info_modal_content.dart';
 
 class UserReservationUpdateCartReservationItem extends StatefulWidget {
   final List<CorporateSessionsModel> sessionList;
@@ -49,15 +50,15 @@ class _UserReservationUpdateCartReservationItemState extends State<UserReservati
       child: InkWell(
         onTap: ()  {
           if (reservationStatusFlag == 1) {
-            Dialogs.showAlertMessage(
+            InfoModalContent.showInfoModalContent(
                 context,
                 "Tarih Seçim Uyarısı",
-                "Bu seans rezerve edilmiştir");
+                "Bu seans rezerve edilmiştir", null);
           } else if (reservationStatusFlag == 2) {
-            Dialogs.showAlertMessage(
+            InfoModalContent.showInfoModalContent(
                 context,
                 "Tarih Seçim Uyarısı",
-                "Geçmiş tarihli rezervasyon yapılamaz");
+                "Geçmiş tarihli rezervasyon yapılamaz", null);
           } else {
             navigateToBasket();
            /* TODO : Dialogs.showDialogMessage(

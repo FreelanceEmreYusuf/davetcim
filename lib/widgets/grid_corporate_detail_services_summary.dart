@@ -2,7 +2,7 @@ import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:flutter/material.dart';
 import '../shared/helpers/general_helper.dart';
 import '../shared/models/reservation_detail_model.dart';
-import '../shared/utils/dialogs.dart';
+import 'modal_content/info_modal_content.dart';
 
 class GridCorporateDetailServicesSummary extends StatefulWidget {
   final ReservationDetailModel detailRowModel;
@@ -49,7 +49,7 @@ class _GridCorporateDetailServicesSummaryState
               child: InkWell(
                 splashColor: Colors.deepOrangeAccent, // splash color
                 onTap: () async {
-                  Dialogs.showAlertMessageWithAction(
+                  InfoModalContent.showInfoModalContent(
                       context,
                       widget.detailRowModel.serviceName,
                       //TODO: hizmet için fiyat bilgileri girilecek

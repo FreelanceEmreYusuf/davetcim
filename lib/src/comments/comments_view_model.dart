@@ -12,6 +12,7 @@ import '../../shared/sessions/user_state.dart';
 import '../../shared/utils/utils.dart';
 import '../../widgets/add_comments_widget.dart';
 import '../../widgets/list_tile_comments.dart';
+import '../../widgets/modal_content/info_modal_content.dart';
 import '../products/product_detail_view.dart';
 
 class CommentsViewModel extends ChangeNotifier {
@@ -41,22 +42,22 @@ class CommentsViewModel extends ChangeNotifier {
           .where('corporationId', isEqualTo: corporationId)
           .get();
       if (response.docs != null && response.docs.length > 0) {
-        Dialogs.showAlertMessage(
+        InfoModalContent.showInfoModalContent(
             context,
             LanguageConstants
                 .dialogUnSuccessHeader[LanguageConstants.languageFlag],
             LanguageConstants
-                .processDeletePreviousMessage[LanguageConstants.languageFlag]);
+                .processDeletePreviousMessage[LanguageConstants.languageFlag], null);
       } else {
         editUserComment(context, corporationId, star, comment);
       }
     } else {
-      Dialogs.showAlertMessage(
+      InfoModalContent.showInfoModalContent(
           context,
           LanguageConstants
               .dialogUnSuccessHeader[LanguageConstants.languageFlag],
           LanguageConstants
-              .dialogEmptyCommentMessage[LanguageConstants.languageFlag]);
+              .dialogEmptyCommentMessage[LanguageConstants.languageFlag], null);
     }
   }
 
@@ -83,11 +84,11 @@ class CommentsViewModel extends ChangeNotifier {
     NotificationsViewModel notificationViewModel = NotificationsViewModel();
     notificationViewModel.sendNotificationsToAdminCompanyUsers(context, corporationId, commentId, 0, comment);
 
-    Dialogs.showAlertMessage(
+    InfoModalContent.showInfoModalContent(
         context,
         LanguageConstants.dialogSuccessHeader[LanguageConstants.languageFlag],
         LanguageConstants
-            .dialogCommentSuccessMessage[LanguageConstants.languageFlag]);
+            .dialogCommentSuccessMessage[LanguageConstants.languageFlag], null);
   }
 
   Future<List<Widget>> getCorporationComments(int corporationId) async {

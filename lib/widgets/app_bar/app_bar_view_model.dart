@@ -2,22 +2,21 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/src/join/join_view.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../shared/sessions/user_state.dart';
+import '../modal_content/info_modal_content.dart';
 
 class AppBarViewModel extends ChangeNotifier {
   Database db = Database();
 
   void showSucessMessage(BuildContext context) {
-    Dialogs.showAlertMessageWithAction(
+    InfoModalContent.showInfoModalContent(
         context,
         "",
-        //LanguageConstants.dialogSuccessHeader[LanguageConstants.languageFlag],
         LanguageConstants
             .dialogGoToLoginFromNotification[LanguageConstants.languageFlag],
         pushToJoinPage);
