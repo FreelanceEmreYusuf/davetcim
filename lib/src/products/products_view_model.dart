@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:davetcim/shared/dto/product_filterer_dto.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/models/sequence_order_model.dart';
@@ -93,56 +94,58 @@ class ProductsViewModel extends ChangeNotifier {
 
         CorporationModel corporationModel = CorporationModel.fromMap(item);
         if (ProductFiltererState.filter.districtList != null) {
-          isEliminated = true;
-          for (int i = 0; i < ProductFiltererState.filter.districtList.length; i++) {
-            DistrictModel districtModel = ProductFiltererState.filter.districtList[i];
-            if (!districtModel.isChecked) {
-              continue;
-            }
-            if (corporationModel.district == districtModel.id.toString()) {
-              isEliminated = false;
-              break;
+          List<DistrictModel> checkedDistrictList = ProductFiltererState.filter.districtList.where(
+                  (item) => item.isChecked && !item.id.toString().endsWith("00")).toList();
+          if (checkedDistrictList.length > 0) {
+            isEliminated = true;
+            for (int i = 0; i < checkedDistrictList.length; i++) {
+              DistrictModel districtModel = checkedDistrictList[i];
+              if (corporationModel.district == districtModel.id.toString()) {
+                isEliminated = false;
+                break;
+              }
             }
           }
         }
         if (!isEliminated && ProductFiltererState.filter.sequenceOrderList != null) {
-          isEliminated = true;
-          for (int i = 0; i < ProductFiltererState.filter.sequenceOrderList.length; i++) {
-            SequenceOrderModel sequenceOrderModel = ProductFiltererState.filter.sequenceOrderList[i];
-            if (!sequenceOrderModel.isChecked) {
-              continue;
-            }
-            if (corporationModel.invitationUniqueIdentifier.contains(sequenceOrderModel.id.toString())) {
-              isEliminated = false;
-              break;
+          List<SequenceOrderModel> checkedSequenceOrderList = ProductFiltererState.filter.sequenceOrderList.where(
+                  (item) => item.isChecked && item.id > 0).toList();
+          if (checkedSequenceOrderList.length > 0) {
+            isEliminated = true;
+            for (int i = 0; i < checkedSequenceOrderList.length; i++) {
+              SequenceOrderModel sequenceOrderModel = checkedSequenceOrderList[i];
+              if (corporationModel.invitationUniqueIdentifier.contains(sequenceOrderModel.id.toString())) {
+                isEliminated = false;
+                break;
+              }
             }
           }
         }
         if (!isEliminated && ProductFiltererState.filter.invitationTypeList != null) {
-          isEliminated = true;
-          for (int i = 0; i < ProductFiltererState.filter.invitationTypeList.length; i++) {
-            InvitationTypeModel invitationTypeModel =
-              ProductFiltererState.filter.invitationTypeList[i];
-            if (!invitationTypeModel.isChecked) {
-              continue;
-            }
-            if (corporationModel.invitationUniqueIdentifier.contains(invitationTypeModel.id.toString())) {
-              isEliminated = false;
-              break;
+          List<InvitationTypeModel> checkedInvitationTypeList = ProductFiltererState.filter.invitationTypeList.where(
+                  (item) => item.isChecked && item.id > 0).toList();
+          if (checkedInvitationTypeList.length > 0) {
+            isEliminated = true;
+            for (int i = 0; i < checkedInvitationTypeList.length; i++) {
+              InvitationTypeModel invitationTypeModel = checkedInvitationTypeList[i];
+              if (corporationModel.invitationUniqueIdentifier.contains(invitationTypeModel.id.toString())) {
+                isEliminated = false;
+                break;
+              }
             }
           }
         }
         if (!isEliminated && ProductFiltererState.filter.organizationTypeList != null) {
-          isEliminated = true;
-          for (int i = 0; i < ProductFiltererState.filter.organizationTypeList.length; i++) {
-            OrganizationTypeModel organizationTypeModel =
-                ProductFiltererState.filter.organizationTypeList[i];
-            if (!organizationTypeModel.isChecked) {
-              continue;
-            }
-            if (corporationModel.organizationUniqueIdentifier.contains(organizationTypeModel.id.toString())) {
-              isEliminated = false;
-              break;
+          List<OrganizationTypeModel> checkedOrganizationTypeList = ProductFiltererState.filter.organizationTypeList.where(
+                  (item) => item.isChecked && item.id > 0).toList();
+          if (checkedOrganizationTypeList.length > 0) {
+            isEliminated = true;
+            for (int i = 0; i < checkedOrganizationTypeList.length; i++) {
+              OrganizationTypeModel organizationTypeModel = checkedOrganizationTypeList[i];
+              if (corporationModel.organizationUniqueIdentifier.contains(organizationTypeModel.id.toString())) {
+                isEliminated = false;
+                break;
+              }
             }
           }
         }
@@ -182,29 +185,30 @@ class ProductsViewModel extends ChangeNotifier {
 
         CorporationModel corporationModel = CorporationModel.fromMap(item);
         if (ProductFiltererState.filter.districtList != null) {
-          isEliminated = true;
-          for (int i = 0; i < ProductFiltererState.filter.districtList.length; i++) {
-            DistrictModel districtModel = ProductFiltererState.filter.districtList[i];
-            if (!districtModel.isChecked) {
-              continue;
-            }
-            if (corporationModel.district == districtModel.id.toString()) {
-              isEliminated = false;
-              break;
+          List<DistrictModel> checkedDistrictList = ProductFiltererState.filter.districtList.where(
+                  (item) => item.isChecked && !item.id.toString().endsWith("00")).toList();
+          if (checkedDistrictList.length > 0) {
+            isEliminated = true;
+            for (int i = 0; i < checkedDistrictList.length; i++) {
+              DistrictModel districtModel = checkedDistrictList[i];
+              if (corporationModel.district == districtModel.id.toString()) {
+                isEliminated = false;
+                break;
+              }
             }
           }
         }
         if (!isEliminated && ProductFiltererState.filter.organizationTypeList != null) {
-          isEliminated = true;
-          for (int i = 0; i < ProductFiltererState.filter.organizationTypeList.length; i++) {
-            OrganizationTypeModel organizationTypeModel =
-            ProductFiltererState.filter.organizationTypeList[i];
-            if (!organizationTypeModel.isChecked) {
-              continue;
-            }
-            if (corporationModel.organizationUniqueIdentifier.contains(organizationTypeModel.id.toString())) {
-              isEliminated = false;
-              break;
+          List<OrganizationTypeModel> checkedOrganizationTypeList = ProductFiltererState.filter.organizationTypeList.where(
+                  (item) => item.isChecked && item.id > 0).toList();
+          if (checkedOrganizationTypeList.length > 0) {
+            isEliminated = true;
+            for (int i = 0; i < checkedOrganizationTypeList.length; i++) {
+              OrganizationTypeModel organizationTypeModel = checkedOrganizationTypeList[i];
+              if (corporationModel.organizationUniqueIdentifier.contains(organizationTypeModel.id.toString())) {
+                isEliminated = false;
+                break;
+              }
             }
           }
         }
