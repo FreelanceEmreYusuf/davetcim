@@ -175,6 +175,7 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                             height: 200.0,
                             child: CupertinoPicker(
                                 itemExtent: 32.0,
+                                scrollController: FixedExtentScrollController(initialItem: selectedInvitationIndex),
                                 onSelectedItemChanged: (int index) {
                                   setState(() {
                                     selectedInvitationIndex = index;
@@ -235,6 +236,7 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                             height: 200.0,
                             child: CupertinoPicker(
                                 itemExtent: 32.0,
+                                scrollController: FixedExtentScrollController(initialItem: selectedSeatingArrangement),
                                 onSelectedItemChanged: (int index) {
                                   setState(() {
                                     selectedSeatingArrangement = index;

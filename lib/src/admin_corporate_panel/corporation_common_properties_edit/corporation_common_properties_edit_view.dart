@@ -637,6 +637,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
                           height: 200.0,
                           child: CupertinoPicker(
                               itemExtent: 32.0,
+                              scrollController: FixedExtentScrollController(initialItem: selectedRegion),
                               onSelectedItemChanged: (int index) async {
                                 SearchViewModel rm = SearchViewModel();
                                 districtList = await rm.fillDistrictlist(regionList[index].id);
@@ -701,6 +702,7 @@ class _CorporationCommonPropertiesEditViewState extends State<CorporationCommonP
                           height: 200.0,
                           child: CupertinoPicker(
                               itemExtent: 32.0,
+                              scrollController: FixedExtentScrollController(initialItem: selectedDistrict),
                               onSelectedItemChanged: (int index) {
                                 setState(() {
                                   selectedDistrict = index;

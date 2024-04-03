@@ -588,6 +588,7 @@ class _SearchWithoutAppBarScreenState extends State<SearchWithoutAppBarScreen>
                                           height: 200.0,
                                           child: CupertinoPicker(
                                               itemExtent: 32.0,
+                                              scrollController: FixedExtentScrollController(initialItem: selectedRegion),
                                               onSelectedItemChanged: (int index) async {
                                                 SearchViewModel rm = SearchViewModel();
                                                 districtList = await rm.fillDistrictlist(regionList[index].id);
