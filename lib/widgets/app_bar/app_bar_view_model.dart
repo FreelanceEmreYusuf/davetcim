@@ -8,13 +8,13 @@ import 'package:davetcim/src/join/join_view.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../shared/sessions/user_state.dart';
-import '../modal_content/info_modal_content.dart';
+import '../../shared/utils/dialogs.dart';
 
 class AppBarViewModel extends ChangeNotifier {
   Database db = Database();
 
   void showSucessMessage(BuildContext context) {
-    InfoModalContent.showInfoModalContent(
+    Dialogs.showInfoModalContent(
         context,
         "",
         LanguageConstants

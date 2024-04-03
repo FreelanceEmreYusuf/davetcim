@@ -6,6 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../shared/environments/const.dart';
 import '../../../shared/models/image_model.dart';
 import '../../../shared/sessions/user_state.dart';
+import '../../../shared/utils/dialogs.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/modal_content/info_modal_content.dart';
 import '../manage_corporation_photos/manage_corporation_photos_view_model.dart.dart';
@@ -90,7 +91,7 @@ class _State extends State<ManageCorporationPhotosAddView> {
                             await updateCodeFromGalery();
                           }
                         else
-                          InfoModalContent.showInfoModalContent(
+                          Dialogs.showInfoModalContent(
                               context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.", null);
                       },
                     )),
@@ -111,7 +112,7 @@ class _State extends State<ManageCorporationPhotosAddView> {
                             await updateCodeFromCamera();
                           }
                           else
-                            InfoModalContent.showInfoModalContent(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.", null);
+                            Dialogs.showInfoModalContent(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.", null);
                         }
                         else{
                           if(imageListLenght<10)
@@ -119,7 +120,7 @@ class _State extends State<ManageCorporationPhotosAddView> {
                             await updateCodeFromCamera();
                           }
                           else
-                            InfoModalContent.showInfoModalContent(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.", null);
+                            Dialogs.showInfoModalContent(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.", null);
                         }
                       },
                     )),

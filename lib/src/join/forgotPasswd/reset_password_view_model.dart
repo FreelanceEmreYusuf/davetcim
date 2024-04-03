@@ -52,7 +52,7 @@ class ResetPasswdViewModel extends ChangeNotifier {
   }
 
   void showSucessMessage(BuildContext context) {
-    InfoModalContent.showInfoModalContent(
+    Dialogs.showInfoModalContent(
         context,
         LanguageConstants.dialogSuccessHeader[LanguageConstants.languageFlag],
         LanguageConstants

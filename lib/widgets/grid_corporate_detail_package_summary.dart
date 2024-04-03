@@ -2,7 +2,7 @@ import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:flutter/material.dart';
 import '../shared/helpers/general_helper.dart';
 import '../shared/models/corporation_package_services_model.dart';
-import 'modal_content/info_modal_content.dart';
+import '../shared/utils/dialogs.dart';
 
 class GridCorporateDetailPackageSummary extends StatefulWidget {
   final CorporationPackageServicesModel packageModel;
@@ -45,7 +45,7 @@ class _GridCorporateDetailPackageSummaryState
               child: InkWell(
                 splashColor: Colors.deepOrangeAccent, // splash color
                 onTap: () async {
-                  InfoModalContent.showInfoModalContent(
+                  Dialogs.showInfoModalContent(
                       context,
                       widget.packageModel.title,
                       widget.packageModel.body + "\n\nBelirtmiş olduğunuz davetli sayısı : " +

@@ -102,7 +102,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               child: InkWell(
               splashColor: Colors.deepOrangeAccent,
               onTap: () async {
-                InfoModalContent.showInfoModalContent(
+                Dialogs.showInfoModalContent(
                 context,
                 UserBasketState.userBasket.packageModel.title,
                 "Paket İçeriği: "+UserBasketState.userBasket.packageModel.body+""
@@ -235,7 +235,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                               child: InkWell(
                                 splashColor: Colors.deepOrangeAccent,
                                 onTap: () async {
-                                  InfoModalContent.showInfoModalContent(context,
+                                  Dialogs.showInfoModalContent(context,
                                       UserBasketState.userBasket.selectedSessionModel.name,
                                       "Organizasyon tarihi : " +
                                           DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0, 10) +
@@ -322,7 +322,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                             child: InkWell(
                               splashColor: Colors.deepOrangeAccent,
                               onTap: () async {
-                                InfoModalContent.showInfoModalContent(context,
+                                Dialogs.showInfoModalContent(context,
                                     "Bilgi",
                                     "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",
                                     null);
@@ -472,7 +472,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", "İptal", "Sepeti Onayla", "Mesajınızı Girin", 10,
                   createReservationRequest, DailogInmputValidatorTypeEnum.richText);
             } else {
-              InfoModalContent.showInfoModalContent(
+              Dialogs.showInfoModalContent(
                   context,
                   "Uyarı",
                   "Minimum rezervasyon tutarı; bu salon ve belirlenen tarih için " + GeneralHelper.formatMoney(minReservationAmount.toString()) + " TL dir",
@@ -490,12 +490,12 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
     SummaryBasketViewModel model = SummaryBasketViewModel();
     ReservationModel reservationResponse = await model.createNewReservation(UserBasketState.userBasket, description);
     if (reservationResponse == null) {
-      InfoModalContent.showInfoModalContent(context, "Üzgünüz", "Siz rezervasyon yaparken başka bir kullanıcı tarafından bu tarihteki bu seans rezerve edildi.", null);
+      Dialogs.showInfoModalContent(context, "Üzgünüz", "Siz rezervasyon yaparken başka bir kullanıcı tarafından bu tarihteki bu seans rezerve edildi.", null);
     } else {
       NotificationsViewModel notificationViewModel = NotificationsViewModel();
       notificationViewModel.sendNotificationsToAdminCompanyUsers(context, UserBasketState.userBasket.corporationModel.corporationId,
           0, reservationResponse.id,  description);
-      InfoModalContent.showInfoModalContent(context, "İşlem Mesajı", "Rezervasyon talebiniz alınmıştır. Salon sahibine bildirim gönderilmiştir.", navigateToHomePage);
+      Dialogs.showInfoModalContent(context, "İşlem Mesajı", "Rezervasyon talebiniz alınmıştır. Salon sahibine bildirim gönderilmiştir.", navigateToHomePage);
     }
   }
 

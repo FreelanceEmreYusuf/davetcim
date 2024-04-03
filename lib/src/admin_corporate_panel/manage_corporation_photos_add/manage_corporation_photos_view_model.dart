@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../shared/services/database.dart';
 import '../../../shared/sessions/user_state.dart';
-import '../../../widgets/modal_content/info_modal_content.dart';
+import '../../../shared/utils/dialogs.dart';
 
 class ManageCorporationPhotosAddViewModel extends ChangeNotifier {
   Database db = Database();
@@ -33,7 +33,7 @@ class ManageCorporationPhotosAddViewModel extends ChangeNotifier {
 
     db.editCollectionRef(DBConstants.imagesDb, imageModel.toMap());
 
-    InfoModalContent.showInfoModalContent(
+    Dialogs.showInfoModalContent(
       context,
       'Yükleme Bilgisi',
       'Resminiz Başarıyla Yüklendi', null

@@ -3,12 +3,12 @@ import 'package:davetcim/shared/utils/utils.dart';
 import 'package:davetcim/src/join/join_view.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../widgets/modal_content/info_modal_content.dart';
+import '../../shared/utils/dialogs.dart';
 
 class MainScreenViewModel extends ChangeNotifier {
 
   void navigateToLogin(BuildContext context) {
-    InfoModalContent.showInfoModalContent(
+    Dialogs.showInfoModalContent(
         context,
         LanguageConstants.dialogSuccessHeader[LanguageConstants.languageFlag],
         LanguageConstants

@@ -1,15 +1,12 @@
 import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/widgets/user_reservation_update_grid_corporate_service_pool_for_basket_summary.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../shared/dto/reservation_detail_view_dto.dart';
 import '../shared/enums/corporation_service_selection_enum.dart';
 import '../shared/helpers/general_helper.dart';
 import '../shared/models/corporation_package_services_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/user_reservations/update/user_reservation_update_services_view.dart';
-import 'modal_content/info_modal_content.dart';
 
 class UserReservationUpdateGridServicePackageItem extends StatefulWidget {
   final CorporationPackageServicesModel packageModel;
@@ -51,7 +48,7 @@ class _UserReservationUpdateGridServicePackageItemState
                 child: InkWell(
                   splashColor: Colors.deepOrangeAccent, // splash color
                   onTap: () async {
-                    InfoModalContent.showInfoModalContent(
+                    Dialogs.showInfoModalContent(
                         context,
                         widget.packageModel.title,
                         "Paket İçeriği: "+widget.packageModel.body+""

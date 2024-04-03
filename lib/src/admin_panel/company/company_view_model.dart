@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/enums/customer_role_enum.dart';
 import '../../../shared/environments/db_constants.dart';
 import '../../../shared/models/company_model.dart';
-import '../../../widgets/modal_content/info_modal_content.dart';
+import '../../../shared/utils/dialogs.dart';
 import '../AdminPanel.dart';
 
 class CompanyViewModel extends ChangeNotifier {
@@ -87,7 +87,7 @@ class CompanyViewModel extends ChangeNotifier {
 
 
   void showSucessMessage(BuildContext context) {
-    InfoModalContent.showInfoModalContent(
+    Dialogs.showInfoModalContent(
         context,
         LanguageConstants.dialogSuccessHeader[LanguageConstants.languageFlag],
         LanguageConstants

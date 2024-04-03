@@ -8,12 +8,12 @@ import '../../providers/app_provider.dart';
 import '../../shared/maps/menu_back_map.dart';
 import '../../shared/models/customer_model.dart';
 import '../../shared/sessions/user_state.dart';
+import '../../shared/utils/dialogs.dart';
 import '../../shared/utils/language.dart';
 import '../../shared/utils/utils.dart';
 import '../../src/join/join_view.dart';
 import '../../src/notifications/notifications_view.dart';
 import '../bounce_button.dart';
-import '../modal_content/info_modal_content.dart';
 import '../on_error/somethingWentWrong.dart';
 import '../popup_menu/popup_menu.dart';
 import 'app_bar_view_model.dart';
@@ -36,7 +36,7 @@ class AppBarMenu extends StatefulWidget implements PreferredSizeWidget {
 class _AppBarMenu extends State<AppBarMenu> {
   @override
   static void showSucessMessage(BuildContext context) {
-    InfoModalContent.showInfoModalContent(
+    Dialogs.showInfoModalContent(
         context,
         "",
         LanguageConstants

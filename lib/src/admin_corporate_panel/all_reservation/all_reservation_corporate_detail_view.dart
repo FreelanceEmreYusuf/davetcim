@@ -240,7 +240,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                                 splashColor: Colors.deepOrangeAccent, // splash color
                                 onTap: () async {
                                   //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
-                                  InfoModalContent.showInfoModalContent(
+                                  Dialogs.showInfoModalContent(
                                       context,
                                       detailResponse.reservationModel.sessionName,
                                       "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
@@ -319,7 +319,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                             splashColor: Colors.deepOrangeAccent, // splash color
                             onTap: () async {
                               //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
-                              InfoModalContent.showInfoModalContent(
+                              Dialogs.showInfoModalContent(
                                   context,
                                   "Bilgi",
                                   "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",

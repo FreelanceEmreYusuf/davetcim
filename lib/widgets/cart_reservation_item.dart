@@ -2,9 +2,9 @@ import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../shared/sessions/user_basket_state.dart';
+import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/select-orders/properties/order_view.dart';
-import 'modal_content/info_modal_content.dart';
 
 class CartReservationItem extends StatefulWidget {
   @override
@@ -37,12 +37,12 @@ class _CartReservationItemState extends State<CartReservationItem> {
       child: InkWell(
         onTap: ()  {
           if (reservationStatusFlag == 1) {
-            InfoModalContent.showInfoModalContent(
+            Dialogs.showInfoModalContent(
                 context,
                 "Tarih Seçim Uyarısı",
                 "Bu seans rezerve edilmiştir", null);
           } else if (reservationStatusFlag == 2) {
-            InfoModalContent.showInfoModalContent(
+            Dialogs.showInfoModalContent(
                 context,
                 "Tarih Seçim Uyarısı",
                 "Geçmiş tarihli rezervasyon yapılamaz", null);

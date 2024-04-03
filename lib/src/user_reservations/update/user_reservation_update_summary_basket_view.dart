@@ -102,7 +102,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
             child: InkWell(
             splashColor: Colors.deepOrangeAccent,
             onTap: () async {
-              InfoModalContent.showInfoModalContent(
+              Dialogs.showInfoModalContent(
               context,
                   ReservationEditState.reservationDetail.packageModel.title,
               "Paket İçeriği: "+ReservationEditState.reservationDetail.packageModel.body+""
@@ -236,7 +236,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
                             child: InkWell(
                               splashColor: Colors.deepOrangeAccent,
                               onTap: () async {
-                                InfoModalContent.showInfoModalContent(
+                                Dialogs.showInfoModalContent(
                                   context,
                                   ReservationEditState.reservationDetail.selectedSessionModel.name,
                                   "Organizasyon tarihi : " +
@@ -324,7 +324,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
                           child: InkWell(
                             splashColor: Colors.deepOrangeAccent,
                             onTap: () async {
-                              InfoModalContent.showInfoModalContent(
+                              Dialogs.showInfoModalContent(
                                   context,
                                   "Bilgi",
                                   "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",
@@ -452,7 +452,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
               Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", "İptal", "Sepeti Onayla", "Mesajınızı Girin", 10,
                   createReservationRequest, DailogInmputValidatorTypeEnum.richText);
             } else {
-              InfoModalContent.showInfoModalContent(
+              Dialogs.showInfoModalContent(
                   context,
                   "Uyarı",
                   "Minimum rezervasyon tutarı; bu salon ve belirlenen tarih için " + minReservationAmount.toString() + " TL dir",
@@ -471,10 +471,10 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
     ReservationModel reservationResponse = await model.updateUserReservation(
         ReservationEditState.reservationDetail, description);
     if (reservationResponse == null) {
-      InfoModalContent.showInfoModalContent(context, "Üzgünüz", "Siz rezervasyon yaparken rezervasyonunuz onaylandı ya da red edildi.Salon sahibiyle iletişime geçiniz",
+      Dialogs.showInfoModalContent(context, "Üzgünüz", "Siz rezervasyon yaparken rezervasyonunuz onaylandı ya da red edildi.Salon sahibiyle iletişime geçiniz",
           navigateToReservationsPage);
     } else {
-      InfoModalContent.showInfoModalContent(context, "İşlem Mesajı", "Rezervasyon talebiniz güncellenmiştir.", navigateToHomePage);
+      Dialogs.showInfoModalContent(context, "İşlem Mesajı", "Rezervasyon talebiniz güncellenmiştir.", navigateToHomePage);
     }
   }
 

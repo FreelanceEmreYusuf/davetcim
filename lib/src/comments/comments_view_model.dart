@@ -42,7 +42,7 @@ class CommentsViewModel extends ChangeNotifier {
           .where('corporationId', isEqualTo: corporationId)
           .get();
       if (response.docs != null && response.docs.length > 0) {
-        InfoModalContent.showInfoModalContent(
+        Dialogs.showInfoModalContent(
             context,
             LanguageConstants
                 .dialogUnSuccessHeader[LanguageConstants.languageFlag],
@@ -52,7 +52,7 @@ class CommentsViewModel extends ChangeNotifier {
         editUserComment(context, corporationId, star, comment);
       }
     } else {
-      InfoModalContent.showInfoModalContent(
+      Dialogs.showInfoModalContent(
           context,
           LanguageConstants
               .dialogUnSuccessHeader[LanguageConstants.languageFlag],
@@ -84,7 +84,7 @@ class CommentsViewModel extends ChangeNotifier {
     NotificationsViewModel notificationViewModel = NotificationsViewModel();
     notificationViewModel.sendNotificationsToAdminCompanyUsers(context, corporationId, commentId, 0, comment);
 
-    InfoModalContent.showInfoModalContent(
+    Dialogs.showInfoModalContent(
         context,
         LanguageConstants.dialogSuccessHeader[LanguageConstants.languageFlag],
         LanguageConstants

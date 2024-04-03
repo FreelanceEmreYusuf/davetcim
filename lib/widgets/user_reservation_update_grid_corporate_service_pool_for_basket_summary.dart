@@ -2,10 +2,10 @@ import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:flutter/material.dart';
 import '../shared/helpers/general_helper.dart';
 import '../shared/models/service_pool_model.dart';
+import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/admin_corporate_panel/service/service_corporate_user_choose/service-corporate_view_model.dart';
 import '../src/admin_corporate_panel/service/service_corporate_user_choose/service_corporate_view.dart';
-import 'modal_content/info_modal_content.dart';
 
 class UserReservationUpdateGridCorporateServicePoolForBasketSummary extends StatefulWidget {
   final ServicePoolModel servicePoolModel;
@@ -61,7 +61,7 @@ class _UserReservationUpdateGridCorporateServicePoolForBasketSummaryState
                   child: InkWell(
                     splashColor: Colors.deepOrangeAccent, // splash color
                     onTap: () async {
-                      InfoModalContent.showInfoModalContent(
+                      Dialogs.showInfoModalContent(
                           context,
                           widget.servicePoolModel.serviceName,
                           //TODO: hizmet için fiyat bilgileri girilecek
