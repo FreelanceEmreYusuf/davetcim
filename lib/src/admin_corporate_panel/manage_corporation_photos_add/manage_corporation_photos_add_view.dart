@@ -8,7 +8,6 @@ import '../../../shared/models/image_model.dart';
 import '../../../shared/sessions/user_state.dart';
 import '../../../shared/utils/dialogs.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
-import '../../../widgets/modal_content/info_modal_content.dart';
 import '../manage_corporation_photos/manage_corporation_photos_view_model.dart.dart';
 import 'manage_corporation_photos_view_model.dart';
 

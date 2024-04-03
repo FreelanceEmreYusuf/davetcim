@@ -10,7 +10,6 @@ import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
-import '../../../widgets/modal_content/info_modal_content.dart';
 import '../../../widgets/user_reservation_update_grid_corporate_service_pool_for_basket_summary.dart';
 import '../../select-orders/summary_basket/summary_basket_view_model.dart';
 import '../user_reservations_with_app_bar_view.dart';

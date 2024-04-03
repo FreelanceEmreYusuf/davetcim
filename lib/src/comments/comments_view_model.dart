@@ -12,7 +12,6 @@ import '../../shared/sessions/user_state.dart';
 import '../../shared/utils/utils.dart';
 import '../../widgets/add_comments_widget.dart';
 import '../../widgets/list_tile_comments.dart';
-import '../../widgets/modal_content/info_modal_content.dart';
 import '../products/product_detail_view.dart';
 
 class CommentsViewModel extends ChangeNotifier {
