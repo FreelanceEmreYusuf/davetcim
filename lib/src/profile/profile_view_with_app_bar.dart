@@ -198,7 +198,7 @@ class _ProfileWithAppBarState extends State<ProfileWithAppBar> {
                     size: 20.0,
                   ),
                   onPressed: () {
-                    Dialogs.showDialogMessageWithInputBox(context, "İsim Güncelle", "Vazgeç", "Onayla", name, 2,
+                    Dialogs.showDialogModalContentWithInputBox(context, "İsim Güncelle", "Vazgeç", "Onayla", name, 2,
                         editCustomerName, DailogInmputValidatorTypeEnum.name);
                   },
                   tooltip: "Ad Güncelle",
@@ -221,7 +221,7 @@ class _ProfileWithAppBarState extends State<ProfileWithAppBar> {
                     size: 20.0,
                   ),
                   onPressed: () {
-                    Dialogs.showDialogMessageWithInputBox(context, "Soyisim Güncelle", "Vazgeç", "Onayla", surname, 2,
+                    Dialogs.showDialogModalContentWithInputBox(context, "Soyisim Güncelle", "Vazgeç", "Onayla", surname, 2,
                         editCustomerSurname, DailogInmputValidatorTypeEnum.surname);
                   },
                   tooltip: "Soyad Güncelle",
@@ -244,7 +244,7 @@ class _ProfileWithAppBarState extends State<ProfileWithAppBar> {
                     size: 20.0,
                   ),
                   onPressed: () {
-                    Dialogs.showDialogMessageWithInputBox(context, "Email Güncelle", "Vazgeç", "Onayla", email, 2,
+                    Dialogs.showDialogModalContentWithInputBox(context, "Email Güncelle", "Vazgeç", "Onayla", email, 2,
                         editCustomerEmail, DailogInmputValidatorTypeEnum.email);
                   },
                   tooltip: "Email Güncelle",
@@ -267,7 +267,7 @@ class _ProfileWithAppBarState extends State<ProfileWithAppBar> {
                     size: 20.0,
                   ),
                   onPressed: () {
-                    Dialogs.showDialogMessageWithInputBox(context, "Telefon Güncelle", "Vazgeç", "Onayla", gsmNo, 2,
+                    Dialogs.showDialogModalContentWithInputBox(context, "Telefon Güncelle", "Vazgeç", "Onayla", gsmNo, 2,
                         editCustomerGSMNo, DailogInmputValidatorTypeEnum.telephone);
                   },
                   tooltip: "Telefon Numarası Güncelle",

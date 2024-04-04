@@ -448,7 +448,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
             }
 
             if (minReservationAmount < calculateTotalPrice()) {
-              Dialogs.showDialogMessageWithInputBox(context, "Sepet Mesajı", "İptal", "Sepeti Onayla", "Mesajınızı Girin", 10,
+              Dialogs.showDialogModalContentWithInputBox(context, "Sepet Mesajı", "İptal", "Sepeti Onayla", "Mesajınızı Girin", 10,
                   createReservationRequest, DailogInmputValidatorTypeEnum.richText);
             } else {
               Dialogs.showInfoModalContent(
