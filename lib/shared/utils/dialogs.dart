@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/shared/utils/utils.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import '../../src/join/join_view.dart';
@@ -84,6 +83,103 @@ class Dialogs {
       },
     );
   }
+
+  static void showDialogModalContentWithInputBox(BuildContext context, String title, String cancelButtonText,
+      String okButtonText, String labelText, int maxLines, Function method, DailogInmputValidatorTypeEnum validationType) {
+    final TextEditingController inputMessageControl = new TextEditingController();
+    final registerFormKey = GlobalKey<FormState>();
+    final FocusNode _focusNode = FocusNode();
+
+    FormFieldValidator<String> validator;
+    TextInputType inputType = TextInputType.text;
+    if (validationType == DailogInmputValidatorTypeEnum.name) {
+      validator = (name) {
+        return FormControlUtil.getErrorControl(
+            FormControlUtil.getStringLenghtBetweenMinandMaxControl(name, 3, 15));
+      };
+    } else if (validationType == DailogInmputValidatorTypeEnum.surname) {
+      validator = (surname) {
+        return FormControlUtil.getErrorControl(
+            FormControlUtil.getStringLenghtBetweenMinandMaxControl(surname, 2, 15));
+      };
+    } else if (validationType == DailogInmputValidatorTypeEnum.telephone) {
+      inputType = TextInputType.number;
+      validator = (phoneNumber) {
+        return FormControlUtil.getErrorControl(FormControlUtil.getPhoneNumberControl(phoneNumber));
+      };
+    } else if (validationType == DailogInmputValidatorTypeEnum.email) {
+      validator = (email) {
+        return FormControlUtil.getErrorControl(FormControlUtil.getEmailAdressControl(email));
+      };
+    } else {
+      validator = (anything) {
+        return FormControlUtil.getErrorControl(
+            FormControlUtil.getStringLenghtBetweenMinandMaxControl(anything, 0, 1500));
+      };
+    }
+
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Form(
+          key: registerFormKey,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
+                ),
+                SizedBox(height: 20),
+                TextFormField(
+                  focusNode: _focusNode,
+                  validator: validator,
+                  keyboardType: inputType,
+                  decoration: InputDecoration(
+                    labelText: labelText,
+                    icon: Icon(Icons.update),
+                  ),
+                  controller: inputMessageControl,
+                  onTap: () {}, // Klavyenin açılmasını engeller
+                ),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.3,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.green),
+                      onPressed: () {
+                        if (registerFormKey.currentState.validate()) {
+                          method(inputMessageControl.text);
+                          Navigator.pop(context);
+                        }
+                      },
+                      child: Text(okButtonText),
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(primary: Colors.redAccent),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(cancelButtonText),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 
 
   static showAlertMessage(BuildContext context, String title, String message) {
