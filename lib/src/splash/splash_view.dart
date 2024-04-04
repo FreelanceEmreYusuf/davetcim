@@ -32,7 +32,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     callFillFilterScreenSession();
     super.initState();
-    SystemChrome.setEnabledSystemUIOverlays([]);
     callNextFlow();
   }
 

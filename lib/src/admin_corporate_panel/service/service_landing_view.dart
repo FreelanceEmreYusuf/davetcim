@@ -29,7 +29,6 @@ class _ServiceLandingViewState extends State<ServiceLandingView>
     super.initState();
     _tabController = TabController(vsync: this, initialIndex: 0, length: 2);
     _tabController.index = widget.pageIndex;
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
 
   @override
