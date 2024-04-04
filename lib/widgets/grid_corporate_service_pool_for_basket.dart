@@ -98,8 +98,8 @@ class _GridCorporateServicePoolForBasketState
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        FittedBox(child: Icon(Icons.info_outline, color: Colors.white)), // icon
-                        FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
+                        Expanded(child: Icon(Icons.info_outline, color: Colors.white)), // icon
+                        Expanded(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
                       ],
                     ),
                   ),
@@ -145,8 +145,8 @@ class _GridCorporateServicePoolForBasketState
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        FittedBox(child: Icon(buttonIcon, color: Colors.white)), // icon
-                        FittedBox(child: Text(buttonText, style: TextStyle(color: Colors.white))),
+                        Expanded(child: Icon(buttonIcon, color: Colors.white)), // icon
+                        Expanded(child: Text(buttonText, style: TextStyle(color: Colors.white))),
                       ],
                     ),
                   ),

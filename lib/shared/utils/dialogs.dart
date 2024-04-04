@@ -11,57 +11,80 @@ import 'language.dart';
 class Dialogs {
 
   static void showInfoModalContent(
-      BuildContext context, String header, String text, Function method) {
+      BuildContext context,
+      String header,
+      String text,
+      Function method,
+      ) {
     showModalBottomSheet(
       context: context,
-      isDismissible: false,
       builder: (BuildContext context) {
-        return Stack(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  header,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
+        bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+        Color backgroundColor = isDarkMode ? Colors.grey[900] : Colors.white;
+        Color textColor = isDarkMode ? Colors.white : Colors.black;
+        Color buttonColor = isDarkMode ? Colors.blue : Colors.blue;
+
+        return Container(
+          padding: EdgeInsets.all(20.0),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                header,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                  color: textColor,
                 ),
-                SizedBox(height: 20),
-                Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+              ),
+              SizedBox(height: 20),
+              Text(
+                text,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: textColor,
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height / 10,),
-              ],),
-            Positioned(
-              bottom: MediaQuery.of(context).size.height / 150,
-              right: MediaQuery.of(context).size.width / 150,
-              left: MediaQuery.of(context).size.width / 150,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                  onPressed: ()  {
-                    Navigator.pop(context);
-                    if (method != null) {
-                      method(context);
-                    }
-                  },
-                  child: Text(
-                    "Tamam",
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  if (method != null) {
+                    method(context);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: buttonColor,
+                  onPrimary: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
                 ),
-              ),),
-          ],
+                child: Text(
+                  "Tamam",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       },
     );
   }
+
 
   static showAlertMessage(BuildContext context, String title, String message) {
     // set up the button
