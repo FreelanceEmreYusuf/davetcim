@@ -35,7 +35,7 @@ class _State extends State<ManageCorporationPhotosAddView> {
 
     if (pickedFile != null) {
       final image = File(pickedFile.path);
-      final resizedImage = await _resizeImage(image, targetSize: 2);
+      final resizedImage = await _resizeImage(image, targetSize: 1);
       setState(() {
         _imageFile = resizedImage;
       });
@@ -48,7 +48,7 @@ class _State extends State<ManageCorporationPhotosAddView> {
 
     if (pickedFile != null) {
       final image = File(pickedFile.path);
-      final resizedImage = await _resizeImage(image, targetSize: 2);
+      final resizedImage = await _resizeImage(image, targetSize: 1);
       setState(() {
         _imageFile = resizedImage;
       });
