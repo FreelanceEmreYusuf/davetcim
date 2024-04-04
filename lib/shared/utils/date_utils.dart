@@ -1,5 +1,6 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class DateConversionUtils {
   static int getCurrentDateAsInt(DateTime dt) {
@@ -21,6 +22,10 @@ class DateConversionUtils {
       int.parse(intDate.toString().substring(4, 6)),
       int.parse(intDate.toString().substring(6, 8))
     );
+  }
+
+  static String dateTimeToString(DateTime dateTime) {
+    return DateFormat('dd MMMM yyyy', 'tr_TR').format(dateTime);
   }
 
   static int getWeekDayFromIntDate(int intDate) {

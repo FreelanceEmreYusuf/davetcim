@@ -106,7 +106,7 @@ class _GridCorporateServicePoolForBasketSummaryState
     return Container(
       padding: EdgeInsets.only(left: _paddingLeftValue),
       decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.white24,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,

@@ -7,6 +7,7 @@ import '../../../shared/dto/order_basket_dto.dart';
 import '../../../shared/utils/form_control.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/expanded_card_widget.dart';
 import '../services/services_package_view.dart';
 import '../services/services_view.dart';
 
@@ -91,202 +92,222 @@ class _OrderScreenState extends State<OrderScreen>
       ),
       appBar: AppBarMenu(pageName: "Salon Özellikleri", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              GestureDetector(
-                child: Card(
-                  elevation: 3.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      CupertinoButton(
-                        child: Text(
-                          "Davet Türü",
-                          style: kStyle,
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize),
-                      ),
-                      Expanded(
-                        child: Text(
-                          UserBasketState.userBasket.invitationList[selectedInvitationIndex].text,
-                          style: TextStyle(fontSize: 18.0),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context, UserBasketState.userBasket.invitationList[selectedInvitationIndex]); // Seçilen öğeyi geri döndürür
-                          },
-                          child: Container(
-                            height: 200.0,
-                            child: CupertinoPicker(
-                                itemExtent: 32.0,
-                                scrollController: FixedExtentScrollController(initialItem: selectedInvitationIndex),
-                                onSelectedItemChanged: (int index) {
-                                  setState(() {
-                                    selectedInvitationIndex = index;
-                                  });
-                                },
-                                children: new List<Widget>.generate(
-                                    UserBasketState.userBasket.invitationList.length, (int index) {
-                                  return new Center(
-                                    child: new Text(UserBasketState.userBasket.invitationList[index].text),
-                                  );
-                                })),
-                          ),
-                        );
-                      });
-                },
-              ),
-              GestureDetector(
-                child: Card(
-                  elevation: 3.0,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      CupertinoButton(
-                        child: Text(
-                          "Oturma Düzeni",
-                          style: kStyle,
-                        ),
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize),
-                      ),
-                      Expanded(
-                        child: Text(
-                          UserBasketState.userBasket.sequenceOrderList[selectedSeatingArrangement].text,
-                          style: TextStyle(fontSize: 18.0),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                    ],
-                  ),
-                ),
-                onTap: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context, UserBasketState.userBasket.sequenceOrderList[selectedSeatingArrangement]); // Seçilen öğeyi geri döndürür
-                          },
-                          child: Container(
-                            height: 200.0,
-                            child: CupertinoPicker(
-                                itemExtent: 32.0,
-                                scrollController: FixedExtentScrollController(initialItem: selectedSeatingArrangement),
-                                onSelectedItemChanged: (int index) {
-                                  setState(() {
-                                    selectedSeatingArrangement = index;
-                                  });
-                                },
-                                children: new List<Widget>.generate(
-                                    UserBasketState.userBasket.sequenceOrderList.length, (int index) {
-                                  return new Center(
-                                    child:
-                                        new Text(UserBasketState.userBasket.sequenceOrderList[index].text),
-                                  );
-                                })),
-                          ),
-                        );
-                      });
-                },
-              ),
-              Form(
-                key: registerFormKey,
-                child: Card(
-                  elevation: 3.0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(5.0),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          MediaQuery.of(context).size.width / 20, 0, 0, 0),
-                      child: TextFormField(
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 15.0,
-                          color: Colors.black,
-                        ),
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(10.0),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.white,
-                            ),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          hintText: "Davetli Sayısı gir..",
-                          prefixIcon: Icon(
-                            Icons.person,
-                            color: Colors.redAccent,
-                          ),
-                          hintStyle: TextStyle(
-                            fontSize: 15.0,
-                            color: Colors.redAccent,
-                          ),
-                        ),
-                        validator: (value) {
-                          String errorDesc = FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));
-                          if (errorDesc != null && errorDesc.trim().length > 0) {
-                            return errorDesc;
-                          } else {
-                            errorDesc = FormControlUtil.getMaxValueControl(int.parse(value), UserBasketState.userBasket.maxPopulation,
-                                "Bu salonun max kapasitesi ");
-                            return errorDesc;
-                          }
-                        },
-                        textAlignVertical: TextAlignVertical.center,
-                        maxLines: 1,
-                        keyboardType: TextInputType.number,
-                        controller: personCountControl,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height / 15,
-              ),
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/filter_page_background.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        foregroundDecoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.transparent,
+              Colors.black.withOpacity(0.1), // Filtre yoğunluğu
             ],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                GestureDetector(
+                  child: Card(
+                    elevation: 3.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        CupertinoButton(
+                          child: Text(
+                            "Davet Türü",
+                            style: kStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize,
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize,
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize,
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize),
+                        ),
+                        Expanded(
+                          child: Text(
+                            UserBasketState.userBasket.invitationList[selectedInvitationIndex].text,
+                            style: TextStyle(fontSize: 18.0),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context, UserBasketState.userBasket.invitationList[selectedInvitationIndex]); // Seçilen öğeyi geri döndürür
+                            },
+                            child: Container(
+                              height: 200.0,
+                              child: CupertinoPicker(
+                                  itemExtent: 32.0,
+                                  scrollController: FixedExtentScrollController(initialItem: selectedInvitationIndex),
+                                  onSelectedItemChanged: (int index) {
+                                    setState(() {
+                                      selectedInvitationIndex = index;
+                                    });
+                                  },
+                                  children: new List<Widget>.generate(
+                                      UserBasketState.userBasket.invitationList.length, (int index) {
+                                    return new Center(
+                                      child: new Text(UserBasketState.userBasket.invitationList[index].text),
+                                    );
+                                  })),
+                            ),
+                          );
+                        });
+                  },
+                ),
+                GestureDetector(
+                  child: Card(
+                    elevation: 3.0,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        CupertinoButton(
+                          child: Text(
+                            "Oturma Düzeni",
+                            style: kStyle,
+                          ),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize,
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize,
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize,
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize),
+                        ),
+                        Expanded(
+                          child: Text(
+                            UserBasketState.userBasket.sequenceOrderList[selectedSeatingArrangement].text,
+                            style: TextStyle(fontSize: 18.0),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context, UserBasketState.userBasket.sequenceOrderList[selectedSeatingArrangement]); // Seçilen öğeyi geri döndürür
+                            },
+                            child: Container(
+                              height: 200.0,
+                              child: CupertinoPicker(
+                                  itemExtent: 32.0,
+                                  scrollController: FixedExtentScrollController(initialItem: selectedSeatingArrangement),
+                                  onSelectedItemChanged: (int index) {
+                                    setState(() {
+                                      selectedSeatingArrangement = index;
+                                    });
+                                  },
+                                  children: new List<Widget>.generate(
+                                      UserBasketState.userBasket.sequenceOrderList.length, (int index) {
+                                    return new Center(
+                                      child:
+                                          new Text(UserBasketState.userBasket.sequenceOrderList[index].text),
+                                    );
+                                  })),
+                            ),
+                          );
+                        });
+                  },
+                ),
+                Form(
+                  key: registerFormKey,
+                  child: Card(
+                    elevation: 3.0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(5.0),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(
+                            MediaQuery.of(context).size.width / 20, 0, 0, 0),
+                        child: TextFormField(
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 15.0,
+                            color: Colors.black,
+                          ),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.all(10.0),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.white,
+                              ),
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                            hintText: "Davetli Sayısı gir..",
+                            prefixIcon: Icon(
+                              Icons.person,
+                              color: Colors.redAccent,
+                            ),
+                            hintStyle: TextStyle(
+                              fontSize: 15.0,
+                              color: Colors.redAccent,
+                            ),
+                          ),
+                          validator: (value) {
+                            String errorDesc = FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));
+                            if (errorDesc != null && errorDesc.trim().length > 0) {
+                              return errorDesc;
+                            } else {
+                              errorDesc = FormControlUtil.getMaxValueControl(int.parse(value), UserBasketState.userBasket.maxPopulation,
+                                  "Bu salonun max kapasitesi ");
+                              return errorDesc;
+                            }
+                          },
+                          textAlignVertical: TextAlignVertical.center,
+                          maxLines: 1,
+                          keyboardType: TextInputType.number,
+                          controller: personCountControl,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 15,
+                ),
+              ],
+            ),
           ),
         ),
       ),

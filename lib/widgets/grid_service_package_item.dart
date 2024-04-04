@@ -7,6 +7,7 @@ import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/select-orders/services/services_view.dart';
 import '../src/select-orders/summary_basket/summary_basket_view.dart';
+import 'expanded_card_widget.dart';
 
 class GridServicePackageItem extends StatefulWidget {
   final CorporationPackageServicesModel packageModel;
@@ -31,50 +32,54 @@ class _GridServicePackageItemState
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        FittedBox(
-          child: Text(
-              widget.packageModel.title, style: TextStyle(
-              fontSize: 18,
-              color: Colors.green,
-              fontStyle: FontStyle.italic,
-              fontWeight: FontWeight.bold)),
-        ),
-        Spacer(),
         Expanded(
-            child: ClipPath(
-              child: Material(
-                borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
-                color: Colors.grey, // button color
-                child: InkWell(
-                  splashColor: Colors.deepOrangeAccent, // splash color
-                  onTap: () async {
-                    Dialogs.showInfoModalContent(
-                        context,
-                        widget.packageModel.title,
-                        "Paket İçeriği: "+widget.packageModel.body+""
-                        "\n\nKişi başı ücret: "+GeneralHelper.formatMoney(widget.packageModel.price.toString())+" TL"
-                            "\n\nDavetli Sayısına Göre Toplam Tutar: "
-                            "\nDavetli Sayısı("+UserBasketState.userBasket.orderBasketModel.count.toString()+") "
-                            "\nKişi Başı Paket Ücreti("+GeneralHelper.formatMoney(widget.packageModel.price.toString())+"TL)"
-                            "\nToplam Ücret: "+GeneralHelper.formatMoney((widget.packageModel.price * UserBasketState.userBasket.orderBasketModel.count).toString())+" TL",
-                        null);
-                  }, // button pressed
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(child: Icon(Icons.info, color: Colors.white)), // icon
-                      Expanded(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
-                    ],
-                  ),
+          flex: 3,
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(5.0, 0, 0.0, 0),
+            child: Text(
+                widget.packageModel.title, style: TextStyle(
+                fontSize: 18,
+                color: Colors.green,
+                fontStyle: FontStyle.italic,
+                fontWeight: FontWeight.bold)),
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: ClipPath(
+            child: Material(
+              borderRadius: BorderRadius.horizontal(left: Radius.circular(5.0)),
+              color: Colors.grey, // button color
+              child: InkWell(
+                splashColor: Colors.deepOrangeAccent, // splash color
+                onTap: () async {
+                  Dialogs.showInfoModalContent(
+                      context,
+                      widget.packageModel.title,
+                      "Paket İçeriği: "+widget.packageModel.body+""
+                      "\n\nKişi başı ücret: "+GeneralHelper.formatMoney(widget.packageModel.price.toString())+" TL"
+                          "\n\nDavetli Sayısına Göre Toplam Tutar: "
+                          "\nDavetli Sayısı("+UserBasketState.userBasket.orderBasketModel.count.toString()+") "
+                          "\nKişi Başı Paket Ücreti("+GeneralHelper.formatMoney(widget.packageModel.price.toString())+"TL)"
+                          "\nToplam Ücret: "+GeneralHelper.formatMoney((widget.packageModel.price * UserBasketState.userBasket.orderBasketModel.count).toString())+" TL",
+                      null);
+                }, // button pressed
+                child: Column(
+                  children: <Widget>[
+                    Expanded(child: Icon(Icons.info, color: Colors.white)), // icon
+                    Expanded(child: Text("Bilgi", style: TextStyle(color: Colors.white))), 
+                  ],
                 ),
               ),
             ),
           ),
+        ),
         Expanded(
+          flex: 1,
           child: ClipPath(
             child: Material(
               color: Colors.green, // button color
-              borderRadius: BorderRadius.horizontal(right: Radius.circular(30.0)),
+              borderRadius: BorderRadius.horizontal(right: Radius.circular(5.0)),
               child: InkWell(
                 splashColor: Colors.deepOrangeAccent, // splash color
                 onTap: () {
@@ -92,7 +97,7 @@ class _GridServicePackageItemState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Expanded(child: Icon(Icons.select_all, color: Colors.white)), // icon
-                    Expanded(child: Text("Seç", style: TextStyle(color: Colors.white))), 
+                    Expanded(child: Text("Seç", style: TextStyle(color: Colors.white))),
                   ],
                 ),
               ),
@@ -103,30 +108,19 @@ class _GridServicePackageItemState
     );
 
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height / 13,
-            child: Card(
-              color: Colors.white54,
-              semanticContainer: true,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20.0),
-                  bottomRight: Radius.circular(20.0),
-                ),
-              ),
-              child: row, // Burada row widgetını kullanmalısınız.
-              elevation: 10,
-            ),
+      child: Card(
+        color: Colors.white54,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(5.0),
+            bottomRight: Radius.circular(5.0),
+            topLeft: Radius.circular(5.0),
+            bottomLeft: Radius.circular(5.0),
           ),
-        ],
+        ),
+        child: row, // Burada row widgetını kullanmalısınız.
+        elevation: 10,
       ),
     );
   }

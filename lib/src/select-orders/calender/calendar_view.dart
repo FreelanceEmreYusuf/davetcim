@@ -54,6 +54,23 @@ class _CalendarScreenState extends State<CalendarScreen>
     return Scaffold(
       appBar: AppBarMenu(pageName: "Seans Seçimi", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/filter_page_background.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        foregroundDecoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.transparent,
+              Colors.black.withOpacity(0.1), // Filtre yoğunluğu
+            ],
+          ),
+        ),
         child: SingleChildScrollView(
           child: new Padding(child: CalenderOrderCarousel(),
               padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))),

@@ -169,43 +169,147 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
     super.build(context);
     return Scaffold(
       appBar: AppBarMenu(pageName: "Sepet Özeti", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-        child: ListView(
-          children: <Widget>[
-            //Tarih ve seans
-            SizedBox(height: 10.0),
-            Container(
-              height: MediaQuery.of(context).size.height / 13,
-              child: Card(
-                color: Colors.redAccent,
-                semanticContainer: true,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                shadowColor: Colors.black,
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20.0),
-                  bottomRight: Radius.circular(20.0),
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/filter_page_background.jpg'),
+            fit: BoxFit.cover,
+          ),
+        ),
+        foregroundDecoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.transparent,
+              Colors.black.withOpacity(0.1), // Filtre yoğunluğu
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+          child: ListView(
+            children: <Widget>[
+              //Tarih ve seans
+              SizedBox(height: 10.0),
+              Container(
+                height: MediaQuery.of(context).size.height / 13,
+                child: Card(
+                  color: Colors.redAccent,
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shadowColor: Colors.black,
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0),
+                  ),
+                ),
+                  child:  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Text(
+                            " TARİH & SEANS", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text(
-                          " TARİH & SEANS", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+              Divider(),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width-MediaQuery.of(context).size.width /20,
+                  child: Card(
+                    elevation: 10,
+                    color: Colors.white54,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                                "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0,10)
+                                    +"\n\nSeans : "+UserBasketState.userBasket.selectedSessionModel.name,
+                                style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: SizedBox.fromSize(
+                            size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
+                              //circular(30.0), // Yuvarlak köşe için bir değer belirtin
+                              child: Material(
+                                color: Colors.grey,
+                                child: InkWell(
+                                  splashColor: Colors.deepOrangeAccent,
+                                  onTap: () async {
+                                    Dialogs.showInfoModalContent(context,
+                                        UserBasketState.userBasket.selectedSessionModel.name,
+                                        "Organizasyon tarihi : " +
+                                            DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0, 10) +
+                                            "\n\nSeans : " + UserBasketState.userBasket.selectedSessionModel.name +
+                                            "\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : " +
+                                            GeneralHelper.formatMoney(calculateSessionPrice()) +
+                                            "TL", null);
+                                  },
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
+                                      FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-            Divider(),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width-MediaQuery.of(context).size.width /20,
+
+              //order list
+              SizedBox(height: 10.0),
+              Container(
+                height: MediaQuery.of(context).size.height / 13,
+                child: Card(
+                  color: Colors.redAccent,
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shadowColor: Colors.black,
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(20.0),
+                      bottomRight: Radius.circular(20.0),
+                    ),
+                  ),
+                  child:  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Text(
+                            " ORGANİZASYON DETAYLARI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Divider(),
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
                 child: Card(
                   elevation: 10,
                   color: Colors.white54,
@@ -216,8 +320,9 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
-                              "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0,10)
-                                  +"\n\nSeans : "+UserBasketState.userBasket.selectedSessionModel.name,
+                              "Davetli Sayısı :" + UserBasketState.userBasket.orderBasketModel.count.toString()
+                               +"\n\nDavet türü : "+ UserBasketState.userBasket.orderBasketModel.invitationType
+                               +"\n\nOturma düzeni : "+ UserBasketState.userBasket.orderBasketModel.sequenceOrder,
                               style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
                           ),
                         ),
@@ -235,13 +340,9 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                                 splashColor: Colors.deepOrangeAccent,
                                 onTap: () async {
                                   Dialogs.showInfoModalContent(context,
-                                      UserBasketState.userBasket.selectedSessionModel.name,
-                                      "Organizasyon tarihi : " +
-                                          DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0, 10) +
-                                          "\n\nSeans : " + UserBasketState.userBasket.selectedSessionModel.name +
-                                          "\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : " +
-                                          GeneralHelper.formatMoney(calculateSessionPrice()) +
-                                          "TL", null);
+                                      "Bilgi",
+                                      "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",
+                                      null);
                                 },
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -259,149 +360,67 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                   ),
                 ),
               ),
-            ),
-
-            //order list
-            SizedBox(height: 10.0),
-            Container(
-              height: MediaQuery.of(context).size.height / 13,
-              child: Card(
-                color: Colors.redAccent,
-                semanticContainer: true,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                shadowColor: Colors.black,
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20.0),
-                    bottomRight: Radius.circular(20.0),
+              //paket seçimi
+              Divider(),
+              Container(
+                height: MediaQuery.of(context).size.height / 13,
+                child: Card(
+                  color: Colors.redAccent,
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shadowColor: Colors.black,
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child:  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Text(
+                            " PAKET SEÇİMİ", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                      ),
+                    ],
                   ),
                 ),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text(
-                          " ORGANİZASYON DETAYLARI", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
-                    ),
-                  ],
-                ),
               ),
-            ),
-            Divider(),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Card(
-                elevation: 10,
-                color: Colors.white54,
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                            "Davetli Sayısı :" + UserBasketState.userBasket.orderBasketModel.count.toString()
-                             +"\n\nDavet türü : "+ UserBasketState.userBasket.orderBasketModel.invitationType
-                             +"\n\nOturma düzeni : "+ UserBasketState.userBasket.orderBasketModel.sequenceOrder,
-                            style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+              SizedBox(height: 10.0),
+              getPackageWidget(),
+              //hizmetler
+              SizedBox(height: 10.0),
+              Container(
+                height: MediaQuery.of(context).size.height / 13,
+                child: Card(
+                  color: Colors.redAccent,
+                  semanticContainer: true,
+                  clipBehavior: Clip.antiAliasWithSaveLayer,
+                  shadowColor: Colors.black,
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child:  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                              "HİZMETLER", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
                         ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: SizedBox.fromSize(
-                        size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
-                          //circular(30.0), // Yuvarlak köşe için bir değer belirtin
-                          child: Material(
-                            color: Colors.grey,
-                            child: InkWell(
-                              splashColor: Colors.deepOrangeAccent,
-                              onTap: () async {
-                                Dialogs.showInfoModalContent(context,
-                                    "Bilgi",
-                                    "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",
-                                    null);
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
-                                  FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            //paket seçimi
-            Divider(),
-            Container(
-              height: MediaQuery.of(context).size.height / 13,
-              child: Card(
-                color: Colors.redAccent,
-                semanticContainer: true,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                shadowColor: Colors.black,
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Text(
-                          " PAKET SEÇİMİ", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(height: 10.0),
-            getPackageWidget(),
-            //hizmetler
-            SizedBox(height: 10.0),
-            Container(
-              height: MediaQuery.of(context).size.height / 13,
-              child: Card(
-                color: Colors.redAccent,
-                semanticContainer: true,
-                clipBehavior: Clip.antiAliasWithSaveLayer,
-                shadowColor: Colors.black,
-                elevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                            "HİZMETLER", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Divider(),
-            getServiceWidget(),
-            SizedBox(height: MediaQuery.of(context).size.height / 5,),
+              Divider(),
+              getServiceWidget(),
+              SizedBox(height: MediaQuery.of(context).size.height / 5,),
 
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: SizedBox(
