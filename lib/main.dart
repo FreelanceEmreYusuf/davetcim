@@ -10,12 +10,7 @@ import 'providers/app_provider.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.redAccent,
-      systemNavigationBarColor: Colors.redAccent,
-    ),
-  );
+  SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   GeneralHelper model = new GeneralHelper();
   if(await model.checkInsurance()){
     runApp(
@@ -85,18 +80,6 @@ class ErrorPage extends StatelessWidget {
             ),
           ),
         );
-
-
-          
-          /*MaterialApp(
-          key: appProvider.key,
-          debugShowCheckedModeBanner: false,
-          navigatorKey: appProvider.navigatorKey,
-          title: Constants.appName,
-          theme: appProvider.theme,
-          darkTheme: Constants.darkTheme,
-          home: SplashScreen(),
-        );*/
       },
     );
   }

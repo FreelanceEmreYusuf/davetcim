@@ -62,8 +62,8 @@ class _GridServicePackageItemState
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      FittedBox(child: Icon(Icons.info, color: Colors.white)), // icon
-                      FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
+                      Expanded(child: Icon(Icons.info, color: Colors.white)), // icon
+                      Expanded(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
                     ],
                   ),
                 ),
@@ -91,8 +91,8 @@ class _GridServicePackageItemState
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Icon(Icons.select_all, color: Colors.white), // icon
-                    Text("Seç", style: TextStyle(color: Colors.white)),
+                    Expanded(child: Icon(Icons.select_all, color: Colors.white)), // icon
+                    Expanded(child: Text("Seç", style: TextStyle(color: Colors.white))), 
                   ],
                 ),
               ),

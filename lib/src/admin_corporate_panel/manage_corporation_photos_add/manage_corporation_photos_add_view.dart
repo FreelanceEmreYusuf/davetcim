@@ -1,15 +1,17 @@
 import 'dart:io';
 
+import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../shared/environments/const.dart';
 import '../../../shared/models/image_model.dart';
 import '../../../shared/sessions/user_state.dart';
-import '../../../shared/utils/dialogs.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../manage_corporation_photos/manage_corporation_photos_view_model.dart.dart';
 import 'manage_corporation_photos_view_model.dart';
+import 'package:image/image.dart' as img;
+import 'package:path_provider/path_provider.dart';
 
 class ManageCorporationPhotosAddView extends StatefulWidget {
   @override
@@ -25,31 +27,75 @@ class _State extends State<ManageCorporationPhotosAddView> {
   final picker = ImagePicker();
   List<ImageModel> imageList = [];
   int imageListLenght = 0;
+  File _imageFile;
 
-  Future updateCodeFromCamera() async {
-    final pickedFile =
-    await picker.getImage(source: ImageSource.camera, imageQuality: 50);
-    addTFileToSystem(pickedFile);
-  }
 
-  Future updateCodeFromGalery() async {
-    final pickedFile =
-    await picker.getImage(source: ImageSource.gallery, imageQuality: 50);
-    addTFileToSystem(pickedFile);
-  }
-
-  void addTFileToSystem(PickedFile pickedFile) async {
-    setState(() {
-      if (pickedFile != null) {
-        image = File(pickedFile.path);
-      }
-    });
+  Future<void> _getImageFromCamera() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
 
     if (pickedFile != null) {
-      ManageCorporationPhotosAddViewModel manageCorporationPhotosAddViewModel = ManageCorporationPhotosAddViewModel();
-      await manageCorporationPhotosAddViewModel.uploadImage(context, image);
+      final image = File(pickedFile.path);
+      final resizedImage = await _resizeImage(image, targetSize: 1);
+      setState(() {
+        _imageFile = resizedImage;
+      });
+      addTFileToSystem(_imageFile);
     }
   }
+
+  Future<void> _getImageFromGallery() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      final image = File(pickedFile.path);
+      final resizedImage = await _resizeImage(image, targetSize: 1);
+      setState(() {
+        _imageFile = resizedImage;
+      });
+      addTFileToSystem(_imageFile);
+    }
+  }
+
+  Future<File> _resizeImage(File image, {int targetSize = 3}) async {
+    // Dosyanın boyutunu kontrol et
+    final imageSize = await image.length();
+
+    // Dosya boyutunu MB cinsine çevir
+    final double fileSizeInMB = imageSize / (1024 * 1024);
+
+    // Dosya boyutu hedef boyuttan büyükse yeniden boyutlandır
+    if (fileSizeInMB > targetSize) {
+      // Resmi oku
+      final img.Image originalImage = img.decodeImage(await image.readAsBytes());
+
+      // Hedef boyuta göre genişliği yeniden hesapla
+      final double targetWidth = originalImage.width * (targetSize / fileSizeInMB);
+      final double targetHeight = originalImage.height * (targetSize / fileSizeInMB);
+
+      // Yeniden boyutlandırma işlemi
+      final resizedImage = img.copyResize(originalImage, width: targetWidth.toInt(), height: targetHeight.toInt());
+
+      // Yeniden boyutlandırılmış resmi dosyaya yaz
+      final tempDir = await getTemporaryDirectory();
+      final tempPath = tempDir.path;
+      final resizedImagePath = '$tempPath/resized_image.jpg';
+      File resizedImageFile = File(resizedImagePath)
+        ..writeAsBytesSync(img.encodeJpg(resizedImage, quality: 85));
+
+      return resizedImageFile;
+    } else {
+      // Dosya boyutu hedef boyuttan küçükse, dosyayı değiştirmeden geri döndür
+      return image;
+    }
+  }
+
+  void addTFileToSystem(File imageFile) async {
+    if (imageFile != null) {
+      ManageCorporationPhotosAddViewModel manageCorporationPhotosAddViewModel = ManageCorporationPhotosAddViewModel();
+      await manageCorporationPhotosAddViewModel.uploadImage(context, imageFile);
+    }
+  }
+
 
   void getCorporationImageList() async {
     ManageCorporationPhotosViewModel manageCorporationPhotosObject = new ManageCorporationPhotosViewModel();
@@ -60,12 +106,7 @@ class _State extends State<ManageCorporationPhotosAddView> {
       imageListLenght = imageList.length;
     });
   }
-/*
-  @override
-  void initState() {
-    super.initState();
-    getCorporationImageList();
-  }*/
+
 
   @override
   Widget build(BuildContext context) {
@@ -85,13 +126,23 @@ class _State extends State<ManageCorporationPhotosAddView> {
                       child: Text('Galeriden Ekle'),
                       onPressed: () async {
                         getCorporationImageList();
-                        if(imageListLenght<9)
+                        if(UserState.isCorporationFavorite(UserState.corporationId)){
+                          if(imageListLenght<=20)
                           {
-                            await updateCodeFromGalery();
+                            await _getImageFromGallery();
                           }
-                        else
-                          Dialogs.showInfoModalContent(
-                              context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.", null);
+                          else
+                            Dialogs.showAlertMessage(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.");
+                        }
+                        else{
+                          if(imageListLenght<=10)
+                          {
+                            await _getImageFromGallery();
+                          }
+                          else
+                            Dialogs.showAlertMessage(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin veya vip üyelik paketinizi"
+                                " VIP pakete yükseltin.");
+                        }
                       },
                     )),
                 SizedBox(height: 20.0),
@@ -106,20 +157,21 @@ class _State extends State<ManageCorporationPhotosAddView> {
                       onPressed: () async {
                         getCorporationImageList();
                         if(UserState.isCorporationFavorite(UserState.corporationId)){
-                          if(imageListLenght<25)
+                          if(imageListLenght<=20)
                           {
-                            await updateCodeFromCamera();
+                            await _getImageFromCamera();
                           }
                           else
-                            Dialogs.showInfoModalContent(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.", null);
+                            Dialogs.showAlertMessage(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.");
                         }
                         else{
-                          if(imageListLenght<10)
+                          if(imageListLenght<=10)
                           {
-                            await updateCodeFromCamera();
+                            await _getImageFromCamera();
                           }
                           else
-                            Dialogs.showInfoModalContent(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin.", null);
+                            Dialogs.showAlertMessage(context, "Uyarı", "Maximum resim yükleme sınırına ulaştınız yeni resim yüklemek için lütfen mevcut resimlerinizden birini silin veya vip üyelik paketinizi"
+                                " VIP pakete yükseltin.");
                         }
                       },
                     )),

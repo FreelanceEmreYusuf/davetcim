@@ -11,291 +11,80 @@ import 'language.dart';
 class Dialogs {
 
   static void showInfoModalContent(
-      BuildContext context, String header, String text,
-      Function method) {
+      BuildContext context,
+      String header,
+      String text,
+      Function method,
+      ) {
     showModalBottomSheet(
       context: context,
-      isDismissible: false,
       builder: (BuildContext context) {
-        return Stack(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  header,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 10,),
-              ],),
-            Positioned(
-              bottom: MediaQuery.of(context).size.height / 150,
-              right: MediaQuery.of(context).size.width / 150,
-              left: MediaQuery.of(context).size.width / 150,
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                child: ElevatedButton(
-                  onPressed: ()  {
-                    Navigator.pop(context);
-                    if (method != null) {
-                      method(context);
-                    }
-                  },
-                  child: Text(
-                    "Tamam",
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),),
-          ],
-        );
-      },
-    );
-  }
+        bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+        Color backgroundColor = isDarkMode ? Colors.grey[900] : Colors.white;
+        Color textColor = isDarkMode ? Colors.white : Colors.black;
+        Color buttonColor = isDarkMode ? Colors.blue : Colors.blue;
 
-  static void showDialogModalContent(
-      BuildContext context, String header, String text, Function method, String functionInput) {
-    showModalBottomSheet(
-      context: context,
-      isDismissible: false,
-      builder: (BuildContext context) {
-        return Stack(
-          children: [
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  header,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
-                ),
-                SizedBox(height: 20),
-                Text(
-                  text,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                ),
-                SizedBox(height: MediaQuery.of(context).size.height / 10,),
-              ],),
-            Positioned(
-              bottom: MediaQuery.of(context).size.height / 150,
-              right: MediaQuery.of(context).size.width / 150,
-              left: MediaQuery.of(context).size.width / 150,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      flex: 1,
-                      fit: FlexFit.tight,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height / 15,
-                        child: TextButton(
-                          style: TextButton.styleFrom(backgroundColor: Colors.green,),
-                          child: Text(
-                            "EVET".toUpperCase(),
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          onPressed: () async {
-                            Navigator.pop(context);
-                            if (method != null) {
-                              if (functionInput == '') {
-                                method();
-                              } else {
-                                method(functionInput);
-                              }
-                            }
-                          },
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      flex: 1,
-                      fit: FlexFit.tight,
-                      child: Container(
-                        height: MediaQuery.of(context).size.height / 15,
-                        child: TextButton(
-                          style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
-                          child: Text(
-                            "HAYIR".toUpperCase(),
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                          onPressed: () async {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),),
-          ],
-        );
-      },
-    );
-  }
-
-  static void showDialogModalContentWithInputBox(BuildContext context, String title, String cancelButtonText,
-      String okButtonText, String labelText, int maxLines, Function method, DailogInmputValidatorTypeEnum validationType) {
-    showModalBottomSheet(
-      context: context,
-      isDismissible: false,
-      builder: (BuildContext context) {
-        final TextEditingController inputMessageControl = new TextEditingController();
-        final registerFormKey = GlobalKey <FormState> ();
-
-        FormFieldValidator<String> validator;
-        TextInputType inputType = TextInputType.text;
-        if (validationType == DailogInmputValidatorTypeEnum.name) {
-          validator = (name) {
-            return FormControlUtil.getErrorControl(
-                FormControlUtil.getStringLenghtBetweenMinandMaxControl(name, 3, 15));
-          };
-        } else if (validationType == DailogInmputValidatorTypeEnum.surname) {
-          validator = (surname) {
-            return FormControlUtil.getErrorControl(
-                FormControlUtil.getStringLenghtBetweenMinandMaxControl(surname, 2, 15));
-          };
-        } else if (validationType == DailogInmputValidatorTypeEnum.telephone) {
-          inputType = TextInputType.number;
-          validator = (phoneNumber) {
-            return FormControlUtil.getErrorControl(FormControlUtil.getPhoneNumberControl(phoneNumber));
-          };
-        } else if (validationType == DailogInmputValidatorTypeEnum.email) {
-          validator = (email) {
-            return FormControlUtil.getErrorControl(FormControlUtil.getEmailAdressControl(email));
-          };
-        } else {
-          validator = (anything) {
-            return FormControlUtil.getErrorControl(
-                FormControlUtil.getStringLenghtBetweenMinandMaxControl(anything, 0, 1500));
-          };
-        }
-
-
-        return Form(
-          key: registerFormKey,
-          child: Stack(
+        return Container(
+          padding: EdgeInsets.all(20.0),
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
+            ),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    title,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
+              Text(
+                header,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                  color: textColor,
+                ),
+              ),
+              SizedBox(height: 20),
+              Text(
+                text,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16,
+                  color: textColor,
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  if (method != null) {
+                    method(context);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: buttonColor,
+                  onPrimary: Colors.white,
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
-                  SizedBox(height: 20),
-                  TextFormField(
-                    validator: validator,
-                    keyboardType: inputType,
-                    style: TextStyle(
-                      fontSize: 15.0,
-                      color: Colors.black,
-                    ),
-                    decoration: InputDecoration(
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      labelText: labelText,
-                      filled: true,
-                      fillColor: Colors.white,
-                      focusColor: Colors.blue,
-                      prefixIcon: Icon(
-                        Icons.message,
-                        color: Colors.black,
-                      ),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                        borderSide: BorderSide(
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    controller: inputMessageControl,
-                    maxLines: maxLines,
+                ),
+                child: Text(
+                  "Tamam",
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],),
-              Positioned(
-                bottom: MediaQuery.of(context).size.height / 150,
-                right: MediaQuery.of(context).size.width / 150,
-                left: MediaQuery.of(context).size.width / 150,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        flex: 1,
-                        fit: FlexFit.tight,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height / 15,
-                          child: TextButton(
-                            style: TextButton.styleFrom(backgroundColor: Colors.green,),
-                            child: Text(
-                              "EVET".toUpperCase(),
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            onPressed: () async {
-                              try{
-                                if (registerFormKey.currentState.validate()) {
-                                  method(inputMessageControl.text);
-                                  Navigator.pop(context);
-                                }
-                              }
-                              catch(e) {
-
-                              }
-                            },
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                        flex: 1,
-                        fit: FlexFit.tight,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height / 15,
-                          child: TextButton(
-                            style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
-                            child: Text(
-                              "HAYIR".toUpperCase(),
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            onPressed: () async {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),),
+                ),
+              ),
             ],
           ),
         );
       },
     );
   }
+
 
   static showAlertMessage(BuildContext context, String title, String message) {
     // set up the button
@@ -663,7 +452,4 @@ class Dialogs {
       },
     );
   }
-
-
-
 }

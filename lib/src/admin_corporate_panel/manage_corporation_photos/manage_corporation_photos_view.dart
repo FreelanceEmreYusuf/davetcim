@@ -25,9 +25,23 @@ class _ManageCorporationPhotosViewState extends State<ManageCorporationPhotosVie
     getCorporationImages();
   }
 
-  Future<void>getCorporationImages() async{
-    ManageCorporationPhotosViewModel corporationPhotosViewModel = ManageCorporationPhotosViewModel();
+  Future<void> getCorporationImages() async {
+    ManageCorporationPhotosViewModel corporationPhotosViewModel =
+    ManageCorporationPhotosViewModel();
     list = await corporationPhotosViewModel.getCorporatePhotos(UserState.corporationId);
+
+    // isMainPhoto değeri true olan elemanı bulma
+    int mainPhotoIndex = list.indexWhere((element) => element.isMainPhoto);
+
+    // isMainPhoto değeri true olan elemanı listenin başına eklemek
+    if (mainPhotoIndex != -1) {
+      var mainPhoto = list.removeAt(mainPhotoIndex);
+      list.insert(0, mainPhoto);
+    }
+
+    // Geri kalan elemanları id'ye göre sıralamak
+    list.sort((a, b) => a.id.compareTo(b.id));
+
     setState(() {
       list = list;
       hasDataTaken = true;
@@ -35,11 +49,12 @@ class _ManageCorporationPhotosViewState extends State<ManageCorporationPhotosVie
   }
 
 
+
   @override
   Widget build(BuildContext contex) {
     if (!hasDataTaken) {
       return Scaffold(appBar:
-      AppBarMenu(isPopUpMenuActive: true, isNotificationsIconVisible: true, isHomnePageIconVisible: true, pageName: "Fotoğraf Yönetimi"),
+      AppBarMenu(isPopUpMenuActive: true, isNotificationsIconVisible: true, isHomnePageIconVisible: true, pageName: "Fotoğraf Yönetimi2"),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
               child: Center(child: CircularProgressIndicator())));
@@ -103,51 +118,51 @@ class _ManageCorporationPhotosViewState extends State<ManageCorporationPhotosVie
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: const EdgeInsets.all(10.0),
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(40),
-                              bottomRight: Radius.circular(40)),
-                          color: Colors.redAccent),
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Card(
-                          margin: const EdgeInsets.all(10.0),
-                          elevation: 30,
-                          shadowColor: Colors.redAccent,
-                          child: Column(
-                            children: [
-                              Container(
-                                  margin: const EdgeInsets.all(10.0),
-                                  child: Stack(children: <Widget>[
-                                    Image.network(
-                                      list[index].imageUrl,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ])),
-                              CheckboxListTile(
-                                value: list[index].isMainPhoto,
-                                title: Text("Salon ana resmi olarak belirle"),
-                                onChanged: (bool value) {
-                                  list[index].isMainPhoto = value;
-                                  setState(() {
-                                    list = list;
-                                  });
-                                },
-                              ),
-                              CheckboxListTile(
-                                value: list[index].isActivePhoto,
-                                title: Text("Resmi ekle/kaldır"),
-                                onChanged: (bool value) {
-                                  list[index].isActivePhoto = value;
-                                  setState(() {
-                                    list = list;
-                                  });
-                                },
+                    child: Card(
+                      margin: const EdgeInsets.all(10.0),
+                      elevation: 30,
+                      shadowColor: Colors.redAccent,
+                      child: Column(
+                        children: [
+                          Stack(
+                            children: <Widget>[
+                              Image.network(
+                                list[index].imageUrl,
+                                fit: BoxFit.fill,
                               ),
                             ],
                           ),
-                        ),
+                          CheckboxListTile(
+                            value: list[index].isMainPhoto,
+                            title: Text("Salon ana resmi olarak belirle"),
+                            onChanged: (bool value) {
+                              setState(() {
+                                // Durumu değişen CheckboxListTile'ın index değerini saklayın
+                                int changedIndex = index;
+
+                                // Tüm diğer CheckboxListTile'ların durumunu sıfırlayın
+                                for (int i = 0; i < list.length; i++) {
+                                  if (i != changedIndex) {
+                                    list[i].isMainPhoto = false;
+                                  }
+                                }
+
+                                // Belirtilen index'e sahip CheckboxListTile'ın durumunu güncelleyin
+                                list[changedIndex].isMainPhoto = value;
+                              });
+                            },
+                          ),
+                          CheckboxListTile(
+                            value: list[index].isActivePhoto,
+                            title: Text("Resmi ekle/kaldır"),
+                            onChanged: (bool value) {
+                              list[index].isActivePhoto = value;
+                              setState(() {
+                                list = list;
+                              });
+                            },
+                          ),
+                        ],
                       ),
                     ),
                   );
@@ -156,13 +171,18 @@ class _ManageCorporationPhotosViewState extends State<ManageCorporationPhotosVie
             ),
           ),
           Visibility(
-              visible: validationVisibility,
-              child: Container(
-                  child: Text(validationMessage, style: TextStyle(color: Colors.red)),
-                  padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
-              )),//E
+            visible: validationVisibility,
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("Lütfen sadece 1 tane salon ana resmi seçiniz!"),
+              ),
+            ),
+          ),
         ],
       ),
+
+
     );
   }
 }

@@ -26,7 +26,6 @@ class _JoinViewState extends State<JoinView>
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, initialIndex: 0, length: 3);
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
 
   @override
@@ -43,7 +42,7 @@ class _JoinViewState extends State<JoinView>
         ),
         elevation: 8.0,
         title: IconButton(
-          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/1.4),
+          padding: EdgeInsets.only(left: MediaQuery.of(context).size.width/1.5),
           icon: Icon(
             Icons.home,
           ),

@@ -17,7 +17,6 @@ class _ForgotPasswdViewState extends State<ForgotPasswdView>
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, initialIndex: 0, length: 1);
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
   }
 
   @override
