@@ -10,20 +10,53 @@ class ProductsViewDetailModel extends ChangeNotifier {
 
   Future<List<String>> getImagesList(int corporationId) async {
     var response = await db
-        .getCollectionRef("Images")
+        .getCollectionRef(DBConstants.imagesDb)
         .where('corporationId', isEqualTo: corporationId)
         .get();
 
+
+    var response2 = await db
+        .getCollectionRef(DBConstants.corporationDb)
+        .where('id', isEqualTo: corporationId)
+        .get();
+
     List<String> imageList = [];
+    List<int> idList = [];
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
       for (int i = 0; i < list.length; i++) {
         Map item = list[i].data();
         imageList.add(item["imageUrl"]);
+        idList.add(item["id"]);
       }
     }
 
-    return imageList;
+    List<String> sortedImageList = [];
+    List<int> reversedIdList = List.from(idList.reversed); // idList'i tersine çevirerek bir kopyasını oluşturuyoruz
+    for (int id in reversedIdList) {
+      int index = idList.indexOf(id);
+      sortedImageList.add(imageList[index]);
+    }
+
+    String imgUrl = "";
+    if (response2.docs != null && response2.docs.length > 0) {
+      var list2 = response2.docs;
+      for (int i = 0; i < list2.length; i++) {
+        Map item = list2[i].data();
+        imgUrl = item["imageUrl"];
+
+        // imgUrl değeri sortedImageList'in ilk elemanı ise, listeden çıkar
+        if (sortedImageList.contains(imgUrl)) {
+          sortedImageList.remove(imgUrl);
+        }
+
+        // imgUrl değerini listede ilk eleman yap
+        sortedImageList.insert(0, imgUrl);
+      }
+    }
+
+    return sortedImageList;
+
   }
 
   Future<List<String>> getHashtagList(int corporationId) async {
