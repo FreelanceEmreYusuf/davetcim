@@ -42,6 +42,12 @@
 @import image_picker_ios;
 #endif
 
+#if __has_include(<path_provider_foundation/PathProviderPlugin.h>)
+#import <path_provider_foundation/PathProviderPlugin.h>
+#else
+@import path_provider_foundation;
+#endif
+
 #if __has_include(<shared_preferences/FLTSharedPreferencesPlugin.h>)
 #import <shared_preferences/FLTSharedPreferencesPlugin.h>
 #else
@@ -63,6 +69,7 @@
   [FLTFirebaseStoragePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseStoragePlugin"]];
   [FLTGoogleSignInPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTGoogleSignInPlugin"]];
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
+  [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
   [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [FLTURLLauncherPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTURLLauncherPlugin"]];
 }
