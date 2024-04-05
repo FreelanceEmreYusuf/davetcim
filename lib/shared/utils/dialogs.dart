@@ -85,7 +85,7 @@ class Dialogs {
   }
 
   static void showDialogModalContentWithInputBox(BuildContext context, String title, String cancelButtonText,
-      String okButtonText, String labelText, int maxLines, Function method, DailogInmputValidatorTypeEnum validationType) {
+      String okButtonText, String labelText, int maxLines, Function method, DailogInmputValidatorTypeEnum validationType, {int lineCount = 1}) {
     final TextEditingController inputMessageControl = new TextEditingController();
     final registerFormKey = GlobalKey<FormState>();
     final FocusNode _focusNode = FocusNode();
@@ -120,64 +120,71 @@ class Dialogs {
 
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true, // Klavye açıldığında alt sayfanın boyutunu otomatik ayarlar
       builder: (BuildContext context) {
-        return Form(
-          key: registerFormKey,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  focusNode: _focusNode,
-                  validator: validator,
-                  keyboardType: inputType,
-                  decoration: InputDecoration(
-                    labelText: labelText,
-                    icon: Icon(Icons.update),
+        return SingleChildScrollView(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Form(
+            key: registerFormKey,
+            child: Container(
+              padding: EdgeInsets.all(20.0),
+              height: MediaQuery.of(context).size.height * 0.4, // Ekranın 2/3'ü kadar
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
                   ),
-                  controller: inputMessageControl,
-                  onTap: () {}, // Klavyenin açılmasını engeller
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.3,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.green),
-                      onPressed: () {
-                        if (registerFormKey.currentState.validate()) {
-                          method(inputMessageControl.text);
+                  SizedBox(height: 10),
+                  TextFormField(
+                    focusNode: _focusNode,
+                    validator: validator,
+                    keyboardType: inputType,
+                    decoration: InputDecoration(
+                      labelText: labelText,
+                      icon: Icon(Icons.update),
+                    ),
+                    controller: inputMessageControl,
+                    maxLines: lineCount, // Çok satırlı girişi etkinleştirir, istediğiniz satır sayısını belirtebilirsiniz
+                    onTap: () {}, // Klavyenin açılmasını engeller
+                  ),
+
+                  SizedBox(height: 10), // Boşluk ekleyin
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: Colors.green),
+                        onPressed: () {
+                          if (registerFormKey.currentState.validate()) {
+                            method(inputMessageControl.text);
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: Text(okButtonText),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: Colors.redAccent),
+                        onPressed: () {
                           Navigator.pop(context);
-                        }
-                      },
-                      child: Text(okButtonText),
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.redAccent),
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(cancelButtonText),
-                    ),
-                  ],
-                ),
-              ],
+                        },
+                        child: Text(cancelButtonText),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );
       },
     );
+
   }
 
 

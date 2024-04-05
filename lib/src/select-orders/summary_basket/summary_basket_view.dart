@@ -488,7 +488,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
 
             if (minReservationAmount < calculateTotalPrice()) {
               Dialogs.showDialogModalContentWithInputBox(context, "Sepet Mesajı", "İptal", "Sepeti Onayla", "Mesajınızı Girin", 10,
-                  createReservationRequest, DailogInmputValidatorTypeEnum.richText);
+                  createReservationRequest, DailogInmputValidatorTypeEnum.richText, lineCount: 2);
             } else {
               Dialogs.showInfoModalContent(
                   context,
