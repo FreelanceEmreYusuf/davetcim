@@ -92,4 +92,12 @@ class GeneralHelper {
     return formattedAmount;
   }
 
+  static String removeLeadingHyphens(String text) {
+    // Metnin sol başındaki boşlukları temizle
+    String trimmedText = text.trimLeft();
+
+    // Tire işaretlerini sil
+    return trimmedText.replaceAll(RegExp('-'), '');
+  }
+
 }

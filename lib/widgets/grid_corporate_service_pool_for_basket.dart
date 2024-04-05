@@ -70,92 +70,86 @@ class _GridCorporateServicePoolForBasketState
           priceChangeForCount = "Hayır";
         }
 
-        row = Container(
-          color: Colors.white24,
-          child: Row(
-            children: [
-              Text(
-                  widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 18, color: textColor, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
-              Spacer(),
-              SizedBox.fromSize(
-                size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
-                child: ClipPath(
-                  child: Material(
-                    borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
-                    color: Colors.grey, // button color
-                    child: InkWell(
-                      splashColor: Colors.deepOrangeAccent, // splash color
-                      onTap: () async {
-                        Dialogs.showInfoModalContent(
-                            context,
-                            widget.servicePoolModel.serviceName,
-                            //TODO: hizmet için fiyat bilgileri girilecek
-                            "Belirtmiş olduğunuz davetli sayısı : "+ UserBasketState.userBasket.orderBasketModel.count.toString()
-                                +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
-                                +"\n\nHizmetin birim ücreti : "+ GeneralHelper.formatMoney(widget.servicePoolModel.corporateDetail.price.toString())+ "TL"
-                                "\n\nToplam ücret : "+
-                            GeneralHelper.formatMoney(totalPrice.toString()) + "TL",
-                            null);
-                      }, // button pressed
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(child: Icon(Icons.info_outline, color: Colors.white)), // icon
-                          Expanded(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
-                        ],
+        row = InkWell(
+          onTap: () async {
+            Dialogs.showInfoModalContent(
+                context,
+                widget.servicePoolModel.serviceName,
+                //TODO: hizmet için fiyat bilgileri girilecek
+                "Belirtmiş olduğunuz davetli sayısı : "+ UserBasketState.userBasket.orderBasketModel.count.toString()
+                    +"\n\nÜcret kişi sayısına bağlı değişir mi? : "+ priceChangeForCount
+                    +"\n\nHizmetin birim ücreti : "+ GeneralHelper.formatMoney(widget.servicePoolModel.corporateDetail.price.toString())+ "TL"
+                    "\n\nToplam ücret : "+
+                    GeneralHelper.formatMoney(totalPrice.toString()) + "TL",
+                null);
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(3.0),
+            child: Container(
+              color: Colors.white24,
+              child: Row(
+                children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(Icons.info, color: Colors.orange),
                       ),
-                    ),
+                      Text(
+                        GeneralHelper.removeLeadingHyphens(widget.servicePoolModel.serviceName), style: TextStyle(fontSize: 18, color: textColor, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+                    ],
                   ),
-                ),
-              ),
-              SizedBox.fromSize(
-                size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
-                child: ClipPath(
-                  child: Material(
-                    color: buttonColor, // button color
-                    child: InkWell(
-                      splashColor: Colors.deepOrangeAccent, // splash color
-                      onTap: () async {
-                        //TODO: ekle çıkar butonlarının onclik işlemleri burada yapılacak
-                        setState(() {
-                          if(buffer==true){
-                            //hizmet sepete eklenmiş, hizmeti sepetten çıkardığımız if durumu
-                            buttonText= "Çıkar";
-                            buttonColor = Colors.red;
-                            buttonIcon = Icons.delete_rounded;
-                            textColor = Colors.green;
-                            UserBasketState.servicePoolModel.add(widget.servicePoolModel);
-                          }else{
-                            //hizmet sepete eklenmemiş, hizmeti sepete eklediğimiz if durumu
-                            buttonText= "Ekle";
-                            buttonColor = Colors.green;
-                            buttonIcon = Icons.add;
-                            textColor = Colors.red;
-                            //UserBasketSession.servicePoolModel.remove(widget.servicePoolModel);
-                            List<ServicePoolModel> listTemp = [];
-                            for (int i = 0; i < UserBasketState.servicePoolModel.length; i++) {
-                              if (UserBasketState.servicePoolModel[i].id != widget.servicePoolModel.id) {
-                                listTemp.add(UserBasketState.servicePoolModel[i]);
+                  Spacer(),
+                  SizedBox.fromSize(
+                    size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
+                    child: ClipPath(
+                      child: Material(
+                        color: buttonColor, // button color
+                        child: InkWell(
+                          splashColor: Colors.deepOrangeAccent, // splash color
+                          onTap: () async {
+                            //TODO: ekle çıkar butonlarının onclik işlemleri burada yapılacak
+                            setState(() {
+                              if(buffer==true){
+                                //hizmet sepete eklenmiş, hizmeti sepetten çıkardığımız if durumu
+                                buttonText= "Çıkar";
+                                buttonColor = Colors.red;
+                                buttonIcon = Icons.delete_rounded;
+                                textColor = Colors.green;
+                                UserBasketState.servicePoolModel.add(widget.servicePoolModel);
+                              }else{
+                                //hizmet sepete eklenmemiş, hizmeti sepete eklediğimiz if durumu
+                                buttonText= "Ekle";
+                                buttonColor = Colors.green;
+                                buttonIcon = Icons.add;
+                                textColor = Colors.red;
+                                //UserBasketSession.servicePoolModel.remove(widget.servicePoolModel);
+                                List<ServicePoolModel> listTemp = [];
+                                for (int i = 0; i < UserBasketState.servicePoolModel.length; i++) {
+                                  if (UserBasketState.servicePoolModel[i].id != widget.servicePoolModel.id) {
+                                    listTemp.add(UserBasketState.servicePoolModel[i]);
+                                  }
+                                }
+                                UserBasketState.servicePoolModel = listTemp;
                               }
-                            }
-                            UserBasketState.servicePoolModel = listTemp;
-                          }
-                          buffer = !buffer;
-                        });
+                              buffer = !buffer;
+                            });
 
-                      }, // button pressed
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(child: Icon(buttonIcon, color: Colors.white)), // icon
-                          Expanded(child: Text(buttonText, style: TextStyle(color: Colors.white))),
-                        ],
+                          }, // button pressed
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(child: Icon(buttonIcon, color: Colors.white)), // icon
+                              Expanded(child: Text(buttonText, style: TextStyle(color: Colors.white))),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         );
       }

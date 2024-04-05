@@ -1,6 +1,7 @@
 import 'package:davetcim/src/admin_corporate_panel/service/service_landing_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../shared/helpers/general_helper.dart';
 import '../shared/models/service_corporate_pool_model.dart';
 import '../shared/models/service_pool_model.dart';
 import '../shared/utils/dialogs.dart';
@@ -42,69 +43,72 @@ class _GridCorporateServicePoolState
       _paddingLeftValue = MediaQuery.of(context).size.height / 20;
     }
 
-    Row row;
+    Widget row;
     if(!widget.servicePoolModel.hasChild){
       if (widget.servicePoolModel.companyHasService) {
-        row = Row(
-          children: [
-            Expanded(
-              child: Text(
-                  widget.servicePoolModel.serviceName, style: TextStyle(fontSize: 18, color: Colors.green, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
-            ),
-            Spacer(),
-            SizedBox.fromSize(
-              size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
-              child: ClipPath(
-                child: Material(
-                  color: Colors.blue, // button color
-                  child: InkWell(
-                    splashColor: Colors.deepOrangeAccent, // splash color
-                    onTap: () async{
-                      //getServiceCorporateObject
-                      ServiceCorporatePoolViewModel service = ServiceCorporatePoolViewModel();
-                      ServiceCorporatePoolModel model = await service.getServiceCorporateObject(widget.servicePoolModel.id);
-                      Utils.navigateToPage(context, ServiceCorporateUpdateView(serviceCorporatePoolModel : model));
-                    }, // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(child: Icon(Icons.update, color: Colors.white)), // icon
-                        Expanded(child: Text("Güncelle", style: TextStyle(color: Colors.white))),
-                      ],
+        row = Container(
+          color: Colors.white24,
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  GeneralHelper.removeLeadingHyphens(widget.servicePoolModel.serviceName), style: TextStyle(fontSize: 18, color: Colors.green, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+              ),
+              Spacer(),
+              SizedBox.fromSize(
+                size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
+                child: ClipPath(
+                  child: Material(
+                    color: Colors.blue, // button color
+                    child: InkWell(
+                      splashColor: Colors.deepOrangeAccent, // splash color
+                      onTap: () async{
+                        //getServiceCorporateObject
+                        ServiceCorporatePoolViewModel service = ServiceCorporatePoolViewModel();
+                        ServiceCorporatePoolModel model = await service.getServiceCorporateObject(widget.servicePoolModel.id);
+                        Utils.navigateToPage(context, ServiceCorporateUpdateView(serviceCorporatePoolModel : model));
+                      }, // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(child: Icon(Icons.update, color: Colors.white)), // icon
+                          Expanded(child: Text("Güncelle", style: TextStyle(color: Colors.white))),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            SizedBox.fromSize(
-              size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
-              child: ClipPath(
-                child: Material(
-                  color: Colors.red, // button color
-                  child: InkWell(
-                    splashColor: Colors.deepOrangeAccent, // splash color
-                    onTap: () async{
-                      await Dialogs.showDialogMessage(
-                          context,
-                          LanguageConstants
-                              .processApproveHeader[LanguageConstants.languageFlag],
-                          LanguageConstants.processApproveDeleteMessage[
-                          LanguageConstants.languageFlag],
-                          deleteService, '');
+              SizedBox.fromSize(
+                size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
+                child: ClipPath(
+                  child: Material(
+                    color: Colors.red, // button color
+                    child: InkWell(
+                      splashColor: Colors.deepOrangeAccent, // splash color
+                      onTap: () async{
+                        await Dialogs.showDialogMessage(
+                            context,
+                            LanguageConstants
+                                .processApproveHeader[LanguageConstants.languageFlag],
+                            LanguageConstants.processApproveDeleteMessage[
+                            LanguageConstants.languageFlag],
+                            deleteService, '');
 
-                    }, // button pressed
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Expanded(child: Icon(Icons.delete, color: Colors.white)), // icon
-                        Expanded(child: Text("Sil", style: TextStyle(color: Colors.white))),
-                      ],
+                      }, // button pressed
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Expanded(child: Icon(Icons.delete, color: Colors.white)), // icon
+                          Expanded(child: Text("Sil", style: TextStyle(color: Colors.white))),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       } else {
         row = Row(
@@ -149,27 +153,9 @@ class _GridCorporateServicePoolState
       );
     }
 
-    return Container(
-      padding: EdgeInsets.only(left: _paddingLeftValue),
-      decoration: BoxDecoration(
-          color: Colors.white,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height / 13,
-            child: Card(
-              color: Colors.white54,
-              semanticContainer: true,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: row,
-              elevation: 10,
-            ),
-          ),
-        ],
-      ),
+    return Padding(
+      padding: const EdgeInsets.all(3.0),
+      child: row,
     );
   }
   Future<void> deleteService() async {
