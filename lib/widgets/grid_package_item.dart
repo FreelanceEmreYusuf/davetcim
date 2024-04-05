@@ -30,6 +30,7 @@ class _GridPackageItemState
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Expanded(
+          flex: 3,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
@@ -42,9 +43,10 @@ class _GridPackageItemState
         ),
         Spacer(),
         Expanded(
+          flex: 1,
             child: ClipPath(
               child: Material(
-                borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
+                borderRadius: BorderRadius.horizontal(left: Radius.circular(5.0)),
                 color: Colors.green, // button color
                 child: InkWell(
                   splashColor: Colors.deepOrangeAccent, // splash color
@@ -65,6 +67,7 @@ class _GridPackageItemState
             ),
           ),
         Expanded(
+          flex: 1,
           child: ClipPath(
             child: Material(
               color: Colors.red, // button color
@@ -90,30 +93,19 @@ class _GridPackageItemState
     );
 
     return Container(
-      decoration: BoxDecoration(
-          color: Colors.white,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height / 13,
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20.0),
-                  bottomRight: Radius.circular(20.0),
-                ),
-              ),
-              color: Colors.white54,
-              semanticContainer: true,
-              clipBehavior: Clip.antiAliasWithSaveLayer,
-              child: row,
-              elevation: 10,
-            ),
+      child: Card(
+        color: Colors.white54,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(5.0),
+            bottomRight: Radius.circular(5.0),
+            topLeft: Radius.circular(5.0),
+            bottomLeft: Radius.circular(5.0),
           ),
-        ],
+        ),
+        child: row, // Burada row widgetını kullanmalısınız.
+        elevation: 10,
       ),
     );
   }
