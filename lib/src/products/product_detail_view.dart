@@ -5,6 +5,7 @@ import 'package:davetcim/src/products/product_detail_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../shared/enums/corporation_event_log_enum.dart';
 import 'package:url_launcher/url_launcher.dart' as launcher;
@@ -191,6 +192,11 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   @override
   Widget build(BuildContext context) {
+    void openGallery(final List<String> imglist, final int index) => Navigator.of(context).push(MaterialPageRoute(builder: (_) => GalleryWidget(
+      imageList: imglist,
+      index: index,
+    ),));
+
     if (!hasDataTaken || !hasFillOrderViewParamsTaken || !hasDistrictsAndRegionTaken) {
       return Scaffold(appBar:
       AppBarMenu(pageName: widget.corporationModel.corporationName, isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
@@ -264,7 +270,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                 return GestureDetector(
                     child: Image.network(imageList[index],fit: BoxFit.fill,),
                   onTap: (){
-                    Utils.navigateToPage(context, ImageDetailScreen(corporationModel: widget.corporationModel, image: imageList[index],));
+                    openGallery(imageList, index);
+                    //Utils.navigateToPage(context, ImageDetailScreen(corporationModel: widget.corporationModel, image: imageList[index],));
                   },
                 );
               },
@@ -843,6 +850,46 @@ class _ImageDetailScreenState extends State<ImageDetailScreen> {
         onTap: () {
           Navigator.of(context, rootNavigator: true).pop();
         },
+      ),
+    );
+  }
+}
+
+class GalleryWidget extends StatefulWidget {
+  final PageController pageController;
+  final List<String> imageList;
+  final int index;
+
+  GalleryWidget({Key key, @required this.imageList, @required this.index = 0})
+      : pageController = PageController(initialPage: index),
+        super(key: key);
+
+  @override
+  State<GalleryWidget> createState() => _GalleryWidget();
+}
+
+class _GalleryWidget extends State<GalleryWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        onVerticalDragEnd: (details){
+            Navigator.of(context).pop();
+          },
+        onTapUp: (details){
+          Navigator.of(context).pop();
+        },
+
+        child: PhotoViewGallery.builder(
+          pageController: widget.pageController,
+          itemCount: widget.imageList.length,
+          builder: (context, index) {
+            final urlImage = widget.imageList[index];
+            return PhotoViewGalleryPageOptions(
+              imageProvider: NetworkImage(urlImage),
+            );
+          },
+        ),
       ),
     );
   }
