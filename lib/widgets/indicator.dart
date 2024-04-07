@@ -12,9 +12,9 @@ class _IndicatorState extends State<Indicator> {
       child: Container(
         padding: EdgeInsets.all(20.0),
         child: Image.asset(
-          'assets/wait.gif',
-          width: MediaQuery.of(context).size.width * 0.4,
-          height: MediaQuery.of(context).size.width * 0.3,
+          'assets/indicator.gif',
+          width: MediaQuery.of(context).size.width * 0.6,
+          height: MediaQuery.of(context).size.height * 0.2,
         ),
       ),
     );

@@ -16,7 +16,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   startTimeout() {
-    return Timer(Duration(milliseconds: 1500), changeScreen);
+    return Timer(Duration(milliseconds: 2400), changeScreen);
   }
 
   changeScreen() async {
@@ -51,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen> {
       body: Container(
         margin: EdgeInsets.only(left: 25.0, right: 25.0),
         child: Center(
-            child: Image.asset('assets/2.png',
+            child: Image.asset('assets/Davetcim.gif',
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width
             )),

@@ -189,17 +189,19 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  CupertinoButton(
-                                    child: Text(
-                                      "Mekan Türü",
-                                      style: kStyle,
-                                      textAlign: TextAlign.center,
+                                  FittedBox(
+                                    child: CupertinoButton(
+                                      child: Text(
+                                        "Mekan Türü",
+                                        style: kStyle,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          MediaQuery.of(context).size.height / _cardDivisionSize,
+                                          MediaQuery.of(context).size.height / _cardDivisionSize,
+                                          MediaQuery.of(context).size.height / _cardDivisionSize,
+                                          MediaQuery.of(context).size.height / _cardDivisionSize),
                                     ),
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        MediaQuery.of(context).size.height / _cardDivisionSize,
-                                        MediaQuery.of(context).size.height / _cardDivisionSize,
-                                        MediaQuery.of(context).size.height / _cardDivisionSize,
-                                        MediaQuery.of(context).size.height / _cardDivisionSize),
                                   ),
                                   Expanded(
                                     child: Text(
@@ -233,21 +235,23 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
-                                        CupertinoButton(
-                                          child: Text(
-                                            "İl",
-                                            style: kStyle,
-                                            textAlign: TextAlign.center,
+                                        FittedBox(
+                                          child: CupertinoButton( 
+                                            child: Text(
+                                              "İl",
+                                              style: kStyle,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                MediaQuery.of(context).size.height /
+                                                    _cardDivisionSize,
+                                                MediaQuery.of(context).size.height /
+                                                    _cardDivisionSize,
+                                                MediaQuery.of(context).size.height /
+                                                    _cardDivisionSize,
+                                                MediaQuery.of(context).size.height /
+                                                    _cardDivisionSize),
                                           ),
-                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                              MediaQuery.of(context).size.height /
-                                                  _cardDivisionSize,
-                                              MediaQuery.of(context).size.height /
-                                                  _cardDivisionSize,
-                                              MediaQuery.of(context).size.height /
-                                                  _cardDivisionSize,
-                                              MediaQuery.of(context).size.height /
-                                                  _cardDivisionSize),
                                         ),
                                         Expanded(
                                           child: Text(
@@ -304,20 +308,22 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                     child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
-                                        CupertinoButton(
-                                          child: Text(
-                                            "İlçe",
-                                            style: kStyle,
+                                        FittedBox(
+                                          child: CupertinoButton(
+                                            child: Text(
+                                              "İlçe",
+                                              style: kStyle,
+                                            ),
+                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                MediaQuery.of(context).size.height /
+                                                    _cardDivisionSize,
+                                                MediaQuery.of(context).size.height /
+                                                    _cardDivisionSize,
+                                                MediaQuery.of(context).size.height /
+                                                    _cardDivisionSize,
+                                                MediaQuery.of(context).size.height /
+                                                    _cardDivisionSize),
                                           ),
-                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                              MediaQuery.of(context).size.height /
-                                                  _cardDivisionSize,
-                                              MediaQuery.of(context).size.height /
-                                                  _cardDivisionSize,
-                                              MediaQuery.of(context).size.height /
-                                                  _cardDivisionSize,
-                                              MediaQuery.of(context).size.height /
-                                                  _cardDivisionSize),
                                         ),
                                         Expanded(
                                           child: Text(

@@ -339,54 +339,56 @@ class _ProductDetailsState extends State<ProductDetails> {
                       shadowColor: Colors.redAccent,
                       child: Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Column(
-                              children: [
-                                SmoothStarRating(
-                                  starCount: 5,
-                                  color: Constants.ratingBG,
-                                  allowHalfRating: true,
-                                  rating: widget.corporationModel.averageRating,
-                                  size: 30,
-                                  borderColor: Constants.ratingBG,
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      "("+GeneralHelper.formatMoney(widget.corporationModel.ratingCount.toString())  + ' Değerlendirme)',
-                                      style: TextStyle(
-                                          fontSize: 15,
-                                          color: Colors.redAccent
+                        child: FittedBox(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Column(
+                                children: [
+                                  SmoothStarRating(
+                                    starCount: 5,
+                                    color: Constants.ratingBG,
+                                    allowHalfRating: true,
+                                    rating: widget.corporationModel.averageRating,
+                                    size: 30,
+                                    borderColor: Constants.ratingBG,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        "("+GeneralHelper.formatMoney(widget.corporationModel.ratingCount.toString())  + ' Değerlendirme)',
+                                        style: TextStyle(
+                                            fontSize: 15,
+                                            color: Colors.redAccent
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
+                                    ],
+                                  ),
 
-                              ],
-                            ),
-                            Column(
-                              children: [
-                                Text(
-                                  "Maximum Kapasite",
-                                  style: TextStyle(
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.deepOrange
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  Text(
+                                    "Maximum Kapasite",
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.deepOrange
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  GeneralHelper.formatMoney(widget.corporationModel.maxPopulation.toString()) ,
-                                  style: TextStyle(
-                                    fontSize: 15.0,
-                                    color: Colors.deepOrangeAccent
+                                  Text(
+                                    GeneralHelper.formatMoney(widget.corporationModel.maxPopulation.toString()) ,
+                                    style: TextStyle(
+                                      fontSize: 15.0,
+                                      color: Colors.deepOrangeAccent
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ],
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),
