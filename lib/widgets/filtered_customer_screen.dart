@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:davetcim/shared/utils/utils.dart';
 
+import 'indicator.dart';
 import 'on_error/somethingWentWrong.dart';
 
 class FilteredCustomersScreenState extends StatefulWidget {
@@ -71,7 +72,7 @@ class _FilteredProductsScreenState extends State<FilteredCustomersScreenState> {
             );
           } else {
             return Center(
-              child: CircularProgressIndicator(),
+              child: Indicator(),
             );
           }
         });

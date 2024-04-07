@@ -4,6 +4,7 @@ import '../../../shared/environments/const.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/sessions/user_state.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/indicator.dart';
 import '../../../widgets/no_found_notification_screen.dart';
 import '../../../widgets/reservation_corporate_card_widget.dart';
 
@@ -40,7 +41,7 @@ class _State extends State<ReservationCorporateView> {
       AppBarMenu(pageName: "Aktif Talepler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
     if(reservationList.length>0 && reservationList.isNotEmpty){
       return Scaffold(

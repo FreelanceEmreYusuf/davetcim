@@ -7,6 +7,7 @@ import '../../../shared/models/service_pool_model.dart';
 import '../../../shared/sessions/user_basket_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/indicator.dart';
 import '../../../widgets/user_reservation_update_grid_corporate_service_pool_for_basket.dart';
 import '../../admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
 import '../../admin_corporate_panel/service/service_corporate_user_choose/service-corporate_view_model.dart';
@@ -75,7 +76,7 @@ class _UserReservationUpdateServicesScreenState extends State<UserReservationUpd
       AppBarMenu(pageName: "Hizmetler",  isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     return Scaffold(

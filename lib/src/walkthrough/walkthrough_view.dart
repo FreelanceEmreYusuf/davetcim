@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
 import '../../shared/models/application_image_model.dart';
+import '../../widgets/indicator.dart';
 
 class Walkthrough extends StatefulWidget {
   @override
@@ -46,7 +47,7 @@ class _WalkthroughState extends State<Walkthrough> {
       return Scaffold(
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     List pageInfos = [

@@ -6,6 +6,7 @@ import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/indicator.dart';
 import 'admin_change_reservation_order_view.dart';
 import 'all_reservation_corporate_view_model.dart';
 
@@ -72,7 +73,7 @@ class _AllReservationCorporateDelayDateScreenState extends State<AllReservationC
       AppBarMenu(pageName: "Yeni Rezervasyon Tarihi Seçin", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     DateTime _firsDate = DateTime.now();

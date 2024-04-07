@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../shared/models/image_model.dart';
 import '../../../shared/sessions/user_state.dart';
+import '../../../widgets/indicator.dart';
 import 'manage_corporation_photos_view_model.dart.dart';
 
 
@@ -57,7 +58,7 @@ class _ManageCorporationPhotosViewState extends State<ManageCorporationPhotosVie
       AppBarMenu(isPopUpMenuActive: true, isNotificationsIconVisible: true, isHomnePageIconVisible: true, pageName: "Fotoğraf Yönetimi2"),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     return Scaffold(

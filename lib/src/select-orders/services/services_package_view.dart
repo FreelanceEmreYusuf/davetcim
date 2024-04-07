@@ -8,6 +8,7 @@ import '../../../shared/sessions/user_basket_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_service_package_item.dart';
+import '../../../widgets/indicator.dart';
 import '../summary_basket/summary_basket_view.dart';
 
 class ServicesPackageView extends StatefulWidget {
@@ -62,7 +63,7 @@ class _ServicesPackageViewState extends State<ServicesPackageView> {
       AppBarMenu(pageName: "Paketler",  isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     return Scaffold(

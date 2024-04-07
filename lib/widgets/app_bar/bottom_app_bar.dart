@@ -11,6 +11,7 @@ import '../../shared/sessions/user_state.dart';
 import '../../shared/utils/utils.dart';
 import '../../src/profile/profile_view_with_app_bar.dart';
 import '../bounce_button.dart';
+import '../indicator.dart';
 import '../on_error/somethingWentWrong.dart';
 import 'app_bar_view_model.dart';
 
@@ -187,7 +188,7 @@ class _BottomAppBarMenu extends State<BottomAppBarMenu> {
                 );
               } else {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Indicator(),
                 );
               }
             })

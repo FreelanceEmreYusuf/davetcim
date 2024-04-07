@@ -14,6 +14,7 @@ import '../../../shared/utils/language.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
+import '../../../widgets/indicator.dart';
 import '../../notifications/notifications_view_model.dart';
 import 'manage_comment_corporate_view.dart';
 
@@ -49,7 +50,7 @@ class _ManageCommentCorporateDetailScreenState extends State<ManageCommentCorpor
       AppBarMenu(pageName: "Yorum Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     Color color = Colors.green;

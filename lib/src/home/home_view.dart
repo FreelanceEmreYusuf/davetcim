@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:davetcim/widgets/grid_product.dart';
 import 'package:provider/provider.dart';
 import '../../shared/sessions/user_state.dart';
+import '../../widgets/indicator.dart';
 import '../../widgets/on_error/somethingWentWrong.dart';
 import '../../widgets/soft_filter.dart';
 
@@ -181,7 +182,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
               );
             } else {
               return Center(
-                child: CircularProgressIndicator(),
+                child: Indicator(),
               );
             }
           }),

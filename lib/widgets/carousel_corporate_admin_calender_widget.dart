@@ -8,6 +8,7 @@ import '../shared/sessions/user_state.dart';
 import '../shared/utils/utils.dart';
 import '../src/admin_corporate_panel/all_reservation/all_reservation_corporate_view_model.dart';
 import '../src/admin_corporate_panel/reservation/reservation_only_for_corporate_view.dart';
+import 'indicator.dart';
 
 class CalenderCorporateAdminCarousel extends StatefulWidget {
 
@@ -68,7 +69,7 @@ class _CalenderCorporateAdminCarouselState extends State<CalenderCorporateAdminC
     if (!hasDataTaken) {
       return Scaffold(body: Padding(
           padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-          child: Center(child: CircularProgressIndicator())));
+          child: Center(child: Indicator())));
     }
 
     return Container(

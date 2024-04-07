@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/sessions/user_state.dart';
+import '../../../widgets/indicator.dart';
 import '../../../widgets/reservation_all_corporate_card_widget.dart';
 import 'all_reservation_corporate_view_model.dart';
 
@@ -37,7 +38,7 @@ class _State extends State<AllReservationCorporateView> {
     if (!hasDataTaken) {
       return Scaffold(body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     return Scaffold(

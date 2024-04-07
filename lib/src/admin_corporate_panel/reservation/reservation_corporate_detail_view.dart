@@ -15,6 +15,7 @@ import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_package_summary.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
+import '../../../widgets/indicator.dart';
 import '../../notifications/notifications_view.dart';
 import '../../notifications/notifications_view_model.dart';
 import '../../user_reservations/user_reservations_view_model.dart';
@@ -82,7 +83,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
         AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     bool isFromNotification = false;

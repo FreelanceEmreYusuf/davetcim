@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/cart_only_reservation_item.dart';
+import '../../widgets/indicator.dart';
 import '../../widgets/on_error/somethingWentWrong.dart';
 
 class ReservationViewScreen extends StatefulWidget {
@@ -66,7 +67,7 @@ class _ReservationViewScreenState extends State<ReservationViewScreen>  {
 
               } else {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: Indicator(),
                 );
               }
             })

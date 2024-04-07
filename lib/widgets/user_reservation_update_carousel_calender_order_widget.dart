@@ -9,6 +9,7 @@ import '../shared/models/reservation_model.dart';
 import '../shared/utils/utils.dart';
 import '../src/admin_corporate_panel/all_reservation/all_reservation_corporate_view_model.dart';
 import '../src/user_reservations/update/user_reservation_update_reservation_order_view.dart';
+import 'indicator.dart';
 
 class UserReservationUpdateCalenderOrderCarousel extends StatefulWidget {
   @override
@@ -69,7 +70,7 @@ class _UserReservationUpdateCalenderOrderCarouselState extends State<UserReserva
     if (!hasDataTaken) {
       return Padding(
           padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-          child: Center(child: CircularProgressIndicator()));
+          child: Center(child: Indicator()));
     }
 
     return Container(

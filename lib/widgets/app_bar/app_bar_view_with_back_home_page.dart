@@ -12,6 +12,7 @@ import '../../shared/utils/utils.dart';
 import '../../src/join/join_view.dart';
 import '../../src/notifications/notifications_view.dart';
 import '../bounce_button.dart';
+import '../indicator.dart';
 import '../on_error/somethingWentWrong.dart';
 import '../popup_menu/popup_menu.dart';
 import 'app_bar_view_model.dart';
@@ -146,7 +147,7 @@ class _AppBarMenu extends State<AppBarMenuBackToHomePage> {
                     );
                   } else {
                     return Center(
-                      child: CircularProgressIndicator(),
+                      child: Indicator(),
                     );
                   }
                 })

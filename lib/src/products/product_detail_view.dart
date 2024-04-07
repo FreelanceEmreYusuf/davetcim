@@ -21,6 +21,7 @@ import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/bounce_button.dart';
 import '../../widgets/carousel_calender_widget.dart';
 import '../../widgets/hashtag_widget.dart';
+import '../../widgets/indicator.dart';
 import '../../widgets/launch_button.dart';
 import '../../widgets/map_page.dart';
 import '../../widgets/star_and_comment.dart';
@@ -202,7 +203,7 @@ class _ProductDetailsState extends State<ProductDetails> {
       AppBarMenu(pageName: widget.corporationModel.corporationName, isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     Widget corpNameWidget = Text(

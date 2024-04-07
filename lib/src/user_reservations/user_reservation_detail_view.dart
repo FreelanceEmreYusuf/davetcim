@@ -15,6 +15,7 @@ import '../../shared/helpers/general_helper.dart';
 import '../../shared/models/corporation_package_services_model.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../widgets/grid_corporate_detail_package_summary.dart';
+import '../../widgets/indicator.dart';
 import '../notifications/notifications_view.dart';
 
 class UserResevationDetailScreen extends StatefulWidget {
@@ -63,7 +64,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
         AppBarMenu(pageName: "Rezervasyon Detayı", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-          child: Center(child: CircularProgressIndicator())));
+          child: Center(child: Indicator())));
     }
 
     String addressRemaining = detailResponse.corporateModel.address;

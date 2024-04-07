@@ -8,6 +8,7 @@ import '../../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/enums/corporation_service_selection_enum.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/indicator.dart';
 import '../../../widgets/user_reservation_update_grid_service_package_item.dart';
 
 
@@ -62,7 +63,7 @@ class _UserReservationUpdateServicesPackageViewState extends State<UserReservati
       AppBarMenu(pageName: "Paketler",  isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     return Scaffold(

@@ -6,6 +6,7 @@ import 'package:davetcim/widgets/grid_product.dart';
 
 import '../../shared/sessions/user_state.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
+import '../../widgets/indicator.dart';
 
 class ProductsScreen extends StatefulWidget {
   @override
@@ -46,7 +47,7 @@ class _ProductsScreenState extends State<ProductsScreen>  {
       AppBarMenu(pageName: "Salonlar", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
       return Scaffold(

@@ -8,6 +8,7 @@ import '../../../shared/utils/form_control.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/expanded_card_widget.dart';
+import '../../../widgets/indicator.dart';
 import '../services/services_package_view.dart';
 import '../services/services_view.dart';
 
@@ -66,7 +67,7 @@ class _OrderScreenState extends State<OrderScreen>
       AppBarMenu(pageName: "Salon Özellikleri", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     return Scaffold(

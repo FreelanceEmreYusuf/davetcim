@@ -9,6 +9,7 @@ import '../../../shared/dto/order_basket_dto.dart';
 import '../../../shared/utils/form_control.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/indicator.dart';
 import '../../select-orders/calender/calendar_view_model.dart';
 
 class UserReservationUpdateOrderScreen extends StatefulWidget {
@@ -99,7 +100,7 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
       AppBarMenu(pageName: "Salon Özellikleri", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     return Scaffold(

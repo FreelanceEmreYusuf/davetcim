@@ -6,6 +6,7 @@ import '../../../shared/models/corporation_event_log_model.dart';
 import '../../../shared/sessions/user_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/indicator.dart';
 import 'corporation_analysis_view_model.dart';
 
 class CorporationAnalysisBetweenTwoDateView extends StatefulWidget {
@@ -50,7 +51,7 @@ class _CorporationAnalysisBetweenTwoDateViewState extends State<CorporationAnaly
       AppBarMenu(pageName: date, isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     return Scaffold(

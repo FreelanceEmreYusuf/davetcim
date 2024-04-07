@@ -5,6 +5,7 @@ import '../../../shared/sessions/user_basket_state.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_service_pool_for_basket.dart';
+import '../../../widgets/indicator.dart';
 import '../../admin_corporate_panel/service/service_corporate_user_choose/service-corporate_view_model.dart';
 import '../summary_basket/summary_basket_view.dart';
 
@@ -60,7 +61,7 @@ class _ServicesScreenState extends State<ServicesScreen>
       AppBarMenu(pageName: "Hizmetler",  isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
 
     return Scaffold(

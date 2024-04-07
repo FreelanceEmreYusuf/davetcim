@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../shared/helpers/general_helper.dart';
 import '../../shared/models/general_data_model.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
+import '../../widgets/indicator.dart';
 
 class AboutUsPage extends StatefulWidget {
   @override
@@ -44,7 +45,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
       AppBarMenu(pageName: "Hakkımızda / İletişim",  isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-              child: Center(child: CircularProgressIndicator())));
+              child: Center(child: Indicator())));
     }
     return Scaffold(
 
