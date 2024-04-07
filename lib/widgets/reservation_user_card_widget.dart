@@ -61,79 +61,95 @@ class _ReservationUserCardWidgetState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    DateConversionUtils.convertIntTimeToViewString(widget.model.date),
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: textColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 5,
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Davet Türü:',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: textColor,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 5),
-                  Text(
-                    widget.model.invitationType,
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: textColor,
-                    ),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
+                  Row(
+                    children: [
+                      Text(
+                        DateConversionUtils.convertIntTimeToViewString(widget.model.date),
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: textColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 5,
+                      ),
+                    ],
                   ),
                   SizedBox(height: 10),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Davetli Sayısı:',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: textColor,
-                              fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              'Davet Türü',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: textColor,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            widget.model.invitationCount.toString(),
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: textColor,
+                            SizedBox(height: 5),
+                            Text(
+                              widget.model.invitationType,
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: textColor,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Toplam Ücret:',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: textColor,
-                              fontWeight: FontWeight.bold,
+                      Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Davetli Sayısı',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: textColor,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            '${GeneralHelper.formatMoney(widget.model.cost.toString())} TL',
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: textColor,
+                            SizedBox(height: 5),
+                            Text(
+                              widget.model.invitationCount.toString(),
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: textColor,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Toplam Ücret',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: textColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              '${GeneralHelper.formatMoney(widget.model.cost.toString())} TL',
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: textColor,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

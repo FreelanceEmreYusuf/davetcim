@@ -59,12 +59,14 @@ class _GridCorporateDetailServicesSummaryState
                           +"\n\nHizmetin birim ücreti : "+ GeneralHelper.formatMoney(widget.detailRowModel.price.toString()),
                       null);
                 }, // button pressed
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.info_outline, color: Colors.white), // icon
-                    Text("Bilgi", style: TextStyle(color: Colors.white)),
-                  ],
+                child: FittedBox(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      FittedBox(child: Icon(Icons.info_outline, color: Colors.white)), // icon
+                      FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
+                    ],
+                  ),
                 ),
               ),
             ),
