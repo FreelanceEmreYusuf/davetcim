@@ -46,12 +46,16 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Brightness brightness = Theme.of(context).brightness;
+    String assetPath = brightness == Brightness.dark
+        ? 'assets/DavetcimDark.gif'
+        : 'assets/Davetcim.gif';
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       body: Container(
         margin: EdgeInsets.only(left: 25.0, right: 25.0),
         child: Center(
-            child: Image.asset('assets/Davetcim.gif',
+            child: Image.asset(assetPath,
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width
             )),

@@ -73,7 +73,9 @@ flutter:
     - soft_filter_background.jpg
     - filter_page_background.jpg
     - Davetcim.gif
+    - DavetcimDark.gif
     - indicator.gif
+    - indicatorDark.gif
 
   #   - images/a_dot_ham.jpeg
 
