@@ -23,61 +23,64 @@ class Dialogs {
         Color textColor = isDarkMode ? Colors.white : Colors.black;
         Color buttonColor = isDarkMode ? Colors.blue : Colors.blue;
 
-        return Container(
-          padding: EdgeInsets.all(20.0),
-          decoration: BoxDecoration(
-            color: backgroundColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
+        return SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Container(
+            padding: EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
             ),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                header,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                  color: textColor,
-                ),
-              ),
-              SizedBox(height: 20),
-              Text(
-                text,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16,
-                  color: textColor,
-                ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  if (method != null) {
-                    method(context);
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  primary: buttonColor,
-                  onPrimary: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                ),
-                child: Text(
-                  "Tamam",
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  header,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontSize: 16.0,
                     fontWeight: FontWeight.bold,
+                    fontSize: 20.0,
+                    color: textColor,
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: 20),
+                Text(
+                  text,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: textColor,
+                  ),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    if (method != null) {
+                      method(context);
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    primary: buttonColor,
+                    onPrimary: Colors.white,
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
+                  ),
+                  child: Text(
+                    "Tamam",
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

@@ -7,8 +7,8 @@ class ExpandableCard extends StatefulWidget {
   final Color collapsedColor;
 
   ExpandableCard({
-    this.expandedContent,
-    this.collapsedContent,
+    @required this.expandedContent,
+    @required this.collapsedContent,
     this.expandedColor = Colors.redAccent,
     this.collapsedColor = Colors.white,
   });

@@ -3,6 +3,7 @@ import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/user_reservations/update/user_reservation_update_calendar_view.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_view_model.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_with_app_bar_view.dart';
+import 'package:davetcim/widgets/expanded_card_widget.dart';
 import 'package:flutter/material.dart';
 import '../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/models/reservation_detail_model.dart';
@@ -150,31 +151,13 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                 ),
               ),
             ),
-            Divider(),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Card(
-                  elevation: 10,
-                  color: Colors.white54,
-                  child: Row(
-                    children: [
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                            detailResponse.corporateModel.corporationName
-                                +"\n\nGsm No : "+detailResponse.corporateModel.telephoneNo
-                                +"\n\nAdres : "+createdAddress,
-                            style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-
+            ExpandableCard(
+                collapsedContent: Text(
+                detailResponse.corporateModel.corporationName
+                    +"\n\nGsm No : "+detailResponse.corporateModel.telephoneNo
+                    +"\n\nAdres bilgisi için detayı inceleyin",
+                style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
+                expandedContent: Text("Adres : "+createdAddress)),
             SizedBox(height: 10.0),
             Container(
               height: MediaQuery.of(context).size.height / 13,
@@ -197,59 +180,14 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                 ),
               ),
             ),
-            Divider(),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: Card(
-                  elevation: 10,
-                  color: Colors.white54,
-                  child: Row(
-                    children: [
-                      FittedBox(
-                        fit: BoxFit.scaleDown,
-                        child: Text(
-                            "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
-                                +"\n\nSeans : "+detailResponse.reservationModel.sessionName,
-                            style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
-                        ),
-                      ),
-                      Spacer(),
-                      SizedBox.fromSize(
-                        size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 10), // button width and height
-                        child: ClipPath(
-                          child: Material(
-                            color: Colors.grey, // button color
-                            child: InkWell(
-                              splashColor: Colors.deepOrangeAccent, // splash color
-                              onTap: () async {
-                                //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
-                                Dialogs.showInfoModalContent(
-                                    context,
-                                    detailResponse.reservationModel.sessionName,
-                                    "Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
-                                        +"\n\nSeans : "+ detailResponse.reservationModel.sessionName
-                                        +"\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : "+ GeneralHelper.formatMoney(detailResponse.reservationModel.sessionCost.toString())+ "TL",
-                                    null);
-                              }, // button pressed
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(Icons.info_outline, color: Colors.white), // icon
-                                  Text("Bilgi", style: TextStyle(color: Colors.white)),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            ExpandableCard(collapsedContent: Text(
+                "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
+                    +"\n\nSeans bilgisi için detayı inceleyin",
+                style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
+              expandedContent: Text("Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
+                  +"\n\nSeans : "+ detailResponse.reservationModel.sessionName
+                  +"\n\nBu seans için alınan hizmetler hariç salon kullanımı için ödenecek ücret : "+ GeneralHelper.formatMoney(detailResponse.reservationModel.sessionCost.toString())+ "TL"),
             ),
-
             //order list
             SizedBox(height: 10.0),
             Container(
@@ -273,55 +211,13 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                 ),
               ),
             ),
-            Divider(),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Card(
-                elevation: 10,
-                color: Colors.white54,
-                child: Row(
-                  children: [
-                    FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                          "Davetli Sayısı :" + detailResponse.reservationModel.invitationCount.toString()
-                           +"\n\nDavet türü : "+ detailResponse.reservationModel.invitationType
-                           +"\n\nOturma düzeni : "+ detailResponse.reservationModel.seatingArrangement,
-                          style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
-                      ),
-                    ),
-                    Spacer(),
-                    SizedBox.fromSize(
-                      size: Size(MediaQuery.of(context).size.height / 10, MediaQuery.of(context).size.height / 7), // button width and height
-                      child: ClipPath(
-                        child: Material(
-                          color: Colors.grey, // button color
-                          child: InkWell(
-                            splashColor: Colors.deepOrangeAccent, // splash color
-                            onTap: () async {
-                              //TODO: widget.basketModel.sessionModel doğru gelmiyor ne seçersek seçelim Gece Seansı - 23:00 - 03:00
-                              Dialogs.showInfoModalContent(
-                                  context,
-                                  "Bilgi",
-                                  "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",
-                                  null);
-                            }, // button pressed
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(Icons.info_outline, color: Colors.white), // icon
-                                Text("Bilgi", style: TextStyle(color: Colors.white)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-
+            ExpandableCard(
+                collapsedContent: Text(
+                "Davetli Sayısı :" + detailResponse.reservationModel.invitationCount.toString()
+                    +"\n\nDavet türü : "+ detailResponse.reservationModel.invitationType
+                    +"\n\nOturma düzeni : "+ detailResponse.reservationModel.seatingArrangement,
+                style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
+                expandedContent: Text("Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.")),
             SizedBox(height: 10.0),
             Container(
               height: MediaQuery.of(context).size.height / 13,
@@ -344,7 +240,6 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                 ),
               ),
             ),
-            Divider(),
             GridView.builder(
               shrinkWrap: true,
               primary: false,
@@ -362,8 +257,6 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                 return GridCorporateDetailPackageSummary(packageModel: item);
               },
             ),
-
-            //paketler
             SizedBox(height: 10.0),
             Container(
               height: MediaQuery.of(context).size.height / 13,
@@ -386,7 +279,6 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                 ),
               ),
             ),
-            Divider(),
             GridView.builder(
               shrinkWrap: true,
               primary: false,
@@ -417,16 +309,19 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
-                child:  Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                        "Toplam Tutar", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
-                    SizedBox(width: MediaQuery.of(context).size.width /4),
-                    Text(
-                        detailResponse.reservationModel.cost.toString() +" TL ", style: TextStyle(fontSize: 20, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
-                  ],
+                child:  Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                          "Toplam Tutar", style: TextStyle(fontSize: 15, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                      SizedBox(width: MediaQuery.of(context).size.width /4),
+                      Text(
+                          GeneralHelper.formatMoney(detailResponse.reservationModel.cost.toString()) + " TL ", style: TextStyle(fontSize: 17, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -437,7 +332,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
       floatingActionButton: Visibility(
         visible: detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.newRecord,
         child: Container(
-          height: MediaQuery.of(context).size.height / 13,
+          height: MediaQuery.of(context).size.height / 10,
           child: Card(
             color: Colors.white54,
             shadowColor: Colors.black,
@@ -448,7 +343,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
               borderRadius: BorderRadius.circular(10),
             ),
             child:  Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(3.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,

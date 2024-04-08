@@ -56,12 +56,14 @@ class _GridCorporateDetailPackageSummaryState
                               ReservationEditState.reservationDetail.reservationModel.invitationCount).toString()),
                       null);
                 }, // button pressed
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Icon(Icons.info_outline, color: Colors.white), // icon
-                    Text("Bilgi", style: TextStyle(color: Colors.white)),
-                  ],
+                child: FittedBox(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(Icons.info_outline, color: Colors.white), // icon
+                      Text("Bilgi", style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
                 ),
               ),
             ),

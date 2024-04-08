@@ -257,7 +257,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                                         "Organizasyon tarihi : " +
                                             DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0, 10) +
                                             "\n\nSeans : " + UserBasketState.userBasket.selectedSessionModel.name +
-                                            "\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : " +
+                                            "\n\nBu seans için alınan hizmetler hariç salon kullanımı için ödenecek ücret : " +
                                             GeneralHelper.formatMoney(calculateSessionPrice()) +
                                             "TL", null);
                                   },

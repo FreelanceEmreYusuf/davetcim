@@ -126,7 +126,7 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
         icon: const Icon(Icons.filter_list),
         backgroundColor: Colors.redAccent,
       ),
-      appBar: AppBarMenu(pageName: "Salon Özellikleri", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: "Salon Özellikleri", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true), 
       body: Container(
         child: SingleChildScrollView(
           child: Column(
@@ -137,28 +137,29 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      CupertinoButton(
-                        child: Text(
-                          "Davet Türü",
-                          style: kStyle,
-                          textAlign: TextAlign.center,
+                      Expanded(
+                        child: CupertinoButton(
+                          child: Text(
+                            "Davet Türü",
+                            style: kStyle,
+                            textAlign: TextAlign.center,
+                          ),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize,
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize,
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize,
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize),
                         ),
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize),
                       ),
-                      Text(
-                        ReservationEditState.reservationDetail.invitationList[selectedInvitationIndex].text,
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      SizedBox(
-                        height: 20.0,
+                      Expanded(
+                        child: Text(
+                          ReservationEditState.reservationDetail.invitationList[selectedInvitationIndex].text,
+                          style: TextStyle(fontSize: 18.0),
+                        ),
                       ),
                     ],
                   ),
@@ -193,33 +194,34 @@ class _UserReservationUpdateOrderScreenState extends State<UserReservationUpdate
                       });
                 },
               ),
-              GestureDetector(
+              GestureDetector( 
                 child: Card(
                   elevation: 3.0,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      CupertinoButton(
-                        child: Text(
-                          "Oturma Düzeni",
-                          style: kStyle,
+                      Expanded(
+                        child: CupertinoButton(
+                          child: Text(
+                            "Oturma Düzeni",
+                            style: kStyle,
+                          ),
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize,
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize,
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize,
+                              MediaQuery.of(context).size.height /
+                                  _cardDivisionSize),
                         ),
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize,
-                            MediaQuery.of(context).size.height /
-                                _cardDivisionSize),
                       ),
-                      Text(
-                        ReservationEditState.reservationDetail.sequenceOrderList[selectedSeatingArrangement].text,
-                        style: TextStyle(fontSize: 18.0),
-                      ),
-                      SizedBox(
-                        height: 20.0,
+                      Expanded(
+                        child: Text(
+                          ReservationEditState.reservationDetail.sequenceOrderList[selectedSeatingArrangement].text,
+                          style: TextStyle(fontSize: 18.0),
+                        ),
                       ),
                     ],
                   ),

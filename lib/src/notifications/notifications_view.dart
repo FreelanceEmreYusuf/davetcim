@@ -1,14 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/shared/environments/db_constants.dart';
-import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:flutter/material.dart';
-
-import '../../shared/sessions/reservation_edit_state.dart';
-import '../../shared/utils/language.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
-import '../../widgets/list_tile_notifications_editing.dart';
-import '../../widgets/no_found_notification_screen.dart';
-import '../../widgets/popup_menu/popup_menu.dart';
 import 'notifications_view_model.dart';
 
 

@@ -133,7 +133,7 @@ class _ReservationUserCardWidgetState
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Toplam Ücret',
+                              'Ücret',
                               style: TextStyle(
                                 fontSize: 15,
                                 color: textColor,

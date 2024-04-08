@@ -1,5 +1,6 @@
 import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
+import 'package:davetcim/widgets/expanded_card_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../../shared/helpers/general_helper.dart';
@@ -113,12 +114,14 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
                   ReservationEditState.reservationDetail.orderBasketModel.count).toString())+" TL",
               null);
             },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
-                FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
-              ],
+            child: FittedBox(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
+                  FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
+                ],
+              ),
             ),
             ),
             ),
@@ -201,70 +204,20 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
                 ),
               ),
             ),
-            Divider(),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width-MediaQuery.of(context).size.width /20,
-                child: Card(
-                  elevation: 10,
-                  color: Colors.white54,
-                  child: Row(
-                    children: [
-                      FittedBox(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                              "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(
-                                  ReservationEditState.reservationDetail.reservationModel.date).toString().substring(0,10)
-                                  +"\n\nSeans : "+
-                                  ReservationEditState.reservationDetail.selectedSessionModel.name,
-                              style: TextStyle(fontSize: 16, color: Colors.black,
-                                fontStyle: FontStyle.normal,fontWeight: FontWeight.bold)
-                          ),
-                        ),
-                      ),
-                      Spacer(),
-                      SizedBox.fromSize(
-                        size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
-                          //circular(30.0), // Yuvarlak köşe için bir değer belirtin
-                          child: Material(
-                            color: Colors.grey,
-                            child: InkWell(
-                              splashColor: Colors.deepOrangeAccent,
-                              onTap: () async {
-                                Dialogs.showInfoModalContent(
-                                  context,
-                                  ReservationEditState.reservationDetail.selectedSessionModel.name,
-                                  "Organizasyon tarihi : " +
-                                      DateConversionUtils.getDateTimeFromIntDate(
-                                          ReservationEditState.reservationDetail.reservationModel.date).toString().substring(0, 10) +
-                                      "\n\nSeans : " + ReservationEditState.reservationDetail.selectedSessionModel.name +
-                                      "\n\nBu tarih için alınan hizmetler hariç salon kullanımı için ödenecek seans ücreti : " +
-                                    GeneralHelper.formatMoney(calculateSessionPrice()) +
-                                      "TL",
-                                  null,
-                                );
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
-                                  FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-
+            ExpandableCard(expandedContent: Text("Organizasyon tarihi : " +
+                DateConversionUtils.getDateTimeFromIntDate(
+                    ReservationEditState.reservationDetail.reservationModel.date).toString().substring(0, 10) +
+                "\n\nSeans : " + ReservationEditState.reservationDetail.selectedSessionModel.name +
+                "\n\nBu seans için alınan hizmetler hariç salon kullanımı için ödenecek ücret : " +
+                GeneralHelper.formatMoney(calculateSessionPrice()) +
+                "TL",),
+              collapsedContent: Text(
+                "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(
+                    ReservationEditState.reservationDetail.reservationModel.date).toString().substring(0,10)
+                    +"\n\nSeans bilgisi için detayı inceleyin",
+                style: TextStyle(fontSize: 16, color: Colors.black,
+                    fontStyle: FontStyle.normal,fontWeight: FontWeight.bold)
+            ),),
             //order list
             SizedBox(height: 10.0),
             Container(
@@ -293,59 +246,12 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
                 ),
               ),
             ),
-            Divider(),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              child: Card(
-                elevation: 10,
-                color: Colors.white54,
-                child: Row(
-                  children: [
-                    FittedBox(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                            "Davetli Sayısı :" + ReservationEditState.reservationDetail.orderBasketModel.count.toString()
-                             +"\n\nDavet türü : "+ ReservationEditState.reservationDetail.orderBasketModel.invitationType
-                             +"\n\nOturma düzeni : "+ ReservationEditState.reservationDetail.orderBasketModel.sequenceOrder,
-                            style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    SizedBox.fromSize(
-                      size: Size(MediaQuery.of(context).size.height / 13, MediaQuery.of(context).size.height / 13),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.horizontal(left: Radius.circular(30.0)),
-                        //circular(30.0), // Yuvarlak köşe için bir değer belirtin
-                        child: Material(
-                          color: Colors.grey,
-                          child: InkWell(
-                            splashColor: Colors.deepOrangeAccent,
-                            onTap: () async {
-                              Dialogs.showInfoModalContent(
-                                  context,
-                                  "Bilgi",
-                                  "Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir.",
-                                  null);
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                FittedBox(child: Icon(Icons.info_outline, color: Colors.white)),
-                                FittedBox(child: Text("Bilgi", style: TextStyle(color: Colors.white))),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            //paket seçimi
-            Divider(),
+            ExpandableCard(expandedContent: Text("Organizsayon ücretini oluşturan birçok hizmet kalemi, davetli sayısına bağlı olarak artabilmektedir."), collapsedContent: Text(
+                "Davetli Sayısı :" + ReservationEditState.reservationDetail.orderBasketModel.count.toString()
+                    +"\n\nDavet türü : "+ ReservationEditState.reservationDetail.orderBasketModel.invitationType
+                    +"\n\nOturma düzeni : "+ ReservationEditState.reservationDetail.orderBasketModel.sequenceOrder,
+                style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
+            ),),
             Container(
               height: MediaQuery.of(context).size.height / 13,
               child: Card(
@@ -407,7 +313,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
         ),
       ),
       floatingActionButton: Container(
-        height: MediaQuery.of(context).size.height / 13,
+        height: MediaQuery.of(context).size.height / 10,
         child: Card(
           color: Colors.redAccent,
           semanticContainer: true,
@@ -418,14 +324,20 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
             borderRadius: BorderRadius.circular(10),
           ),
           child:  Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                  "Toplam Tutar :", style: TextStyle(fontSize: 20, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
-              SizedBox(width: MediaQuery.of(context).size.width /4),
-              Text(
-                  " "+calculateTotalPrice().toString()+" TL ", style: TextStyle(fontSize: 20, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 18, 0, 0, 0),
+                  child: Text(
+                      "Toplam Tutar :", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                    GeneralHelper.formatMoney(calculateTotalPrice().toString()) +" TL ", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
+              ),
             ],
           ),
         ),
