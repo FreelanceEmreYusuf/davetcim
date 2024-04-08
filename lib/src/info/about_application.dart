@@ -50,38 +50,44 @@ class _AboutApplicationPageState extends State<AboutApplicationPage> {
     }
     return Scaffold(
         appBar: AppBarMenu(pageName: LanguageConstants.uygulamaHakkinda[LanguageConstants.languageFlag], isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
-        body: Padding(
-            padding: EdgeInsets.all(10),
-            child: ListView(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                      GeneralHelper.generateText(getSpesificData(2)),
-                    softWrap: true,
+        body: ListView(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.blueGrey[700],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    Constants.appName,
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Versiyon: 1.0.0',
                     style: TextStyle(
                       fontSize: 15,
-                      color: Colors.white60,
-                      fontStyle: FontStyle.italic,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(10.0, 10.0),
-                          blurRadius: 2.0,
-                          color: Colors.black54,
-                        ),
-                        Shadow(
-                          offset: Offset(10.0, 10.0),
-                          blurRadius: 1.0,
-                          color: Colors.black54,
-                        ),
-                      ],
-                      fontFamily: 'RobotoMono',
+                      color: Colors.white54,
                     ),
-                    overflow: TextOverflow.clip,
                   ),
-                  color: Constants.lightPrimary,
-                ),
-              ],
-            )));
+                  SizedBox(height: 20),
+                  Text(
+                    GeneralHelper.generateText(getSpesificData(2)),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[200],
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),);
   }
 }

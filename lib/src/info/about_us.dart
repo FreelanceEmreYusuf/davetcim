@@ -1,7 +1,9 @@
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/app_provider.dart';
 import '../../shared/helpers/general_helper.dart';
 import '../../shared/models/general_data_model.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
@@ -50,38 +52,37 @@ class _AboutUsPageState extends State<AboutUsPage> {
     return Scaffold(
 
         appBar: AppBarMenu(pageName: LanguageConstants.hakkinda[LanguageConstants.languageFlag], isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
-        body: Padding(
-            padding: EdgeInsets.all(10),
-            child: ListView(
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(10),
-                  child: Text(
-                    GeneralHelper.generateText(getSpesificData(1)),
-                    softWrap: true,
+        body: ListView(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.blueGrey[700],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    Constants.appName,
                     style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.white60,
-                      fontStyle: FontStyle.italic,
-                      shadows: <Shadow>[
-                        Shadow(
-                          offset: Offset(10.0, 10.0),
-                          blurRadius: 2.0,
-                          color: Colors.black54,
-                        ),
-                        Shadow(
-                          offset: Offset(10.0, 10.0),
-                          blurRadius: 1.0,
-                          color: Colors.black54,
-                        ),
-                      ],
-                      fontFamily: 'RobotoMono',
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
-                    overflow: TextOverflow.clip,
                   ),
-                  color: Constants.lightPrimary,
-                ),
-              ],
-            )));
+                  SizedBox(height: 20),
+                  Text(
+                    GeneralHelper.generateText(getSpesificData(1)),
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.grey[200],
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),);
   }
 }
