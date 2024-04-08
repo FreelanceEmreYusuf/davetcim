@@ -193,7 +193,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                 +"\n\nSeans : "+ detailResponse.reservationModel.sessionName
                 +"\n\nBu seans için alınan hizmetler hariç salon kullanımı için ödenecek ücret : "+ GeneralHelper.formatMoney(detailResponse.reservationModel.sessionCost.toString())+ "TL",), collapsedContent: Text(
                 "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
-                    +"\n\nSeans bilgisi için detayı inceleyin",
+                    +"\n\nSeans bilgisi için dokunun",
                 style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
             ),),
             //order list

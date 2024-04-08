@@ -155,7 +155,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                 collapsedContent: Text(
                 detailResponse.corporateModel.corporationName
                     +"\n\nGsm No : "+detailResponse.corporateModel.telephoneNo
-                    +"\n\nAdres bilgisi için detayı inceleyin",
+                    +"\n\nAdres bilgisi için dokunun",
                 style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
                 expandedContent: Text("Adres : "+createdAddress)),
             SizedBox(height: 10.0),
@@ -182,7 +182,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
             ),
             ExpandableCard(collapsedContent: Text(
                 "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
-                    +"\n\nSeans bilgisi için detayı inceleyin",
+                    +"\n\nSeans bilgisi için dokunun",
                 style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
               expandedContent: Text("Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
                   +"\n\nSeans : "+ detailResponse.reservationModel.sessionName

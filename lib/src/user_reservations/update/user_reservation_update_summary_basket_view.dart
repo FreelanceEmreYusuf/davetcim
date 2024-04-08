@@ -214,7 +214,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
               collapsedContent: Text(
                 "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(
                     ReservationEditState.reservationDetail.reservationModel.date).toString().substring(0,10)
-                    +"\n\nSeans bilgisi için detayı inceleyin",
+                    +"\n\nSeans bilgisi için dokunun",
                 style: TextStyle(fontSize: 16, color: Colors.black,
                     fontStyle: FontStyle.normal,fontWeight: FontWeight.bold)
             ),),
