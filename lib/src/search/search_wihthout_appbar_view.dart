@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/sessions/organization_type_state.dart';
+import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/filter_items/invitation_modal_content.dart';
 import '../../widgets/filter_items/organization_modal_content.dart';
 

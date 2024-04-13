@@ -140,7 +140,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 3.0),
+      padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 1.0),
       child: ClipPath(
         clipper: BottomClipper(),
         child: Container(
@@ -177,7 +177,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                   ),
                   color: Colors.white60,
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -220,7 +220,6 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                             },
                           ),
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height / 200,),
                         Expanded(
                           flex: 1,
                           child: Row(
@@ -236,7 +235,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: <Widget>[
                                         FittedBox(
-                                          child: CupertinoButton( 
+                                          child: CupertinoButton(
                                             child: Text(
                                               "İl",
                                               style: kStyle,
@@ -274,7 +273,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                               Navigator.pop(context, regionList[selectedRegion]); // Seçilen öğeyi geri döndürür
                                             },
                                             child: Container(
-                                              height: 200.0,
+                                              height: MediaQuery.of(context).size.height / 4.0,
                                               child: CupertinoPicker(
                                                   itemExtent: 32.0,
                                                   scrollController: FixedExtentScrollController(initialItem: selectedRegion),
@@ -345,11 +344,10 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                             ],
                           ),
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height / 100,),
                         Expanded(
                           flex: 1,
                           child: Padding(
-                            padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.height / 25, 0, MediaQuery.of(context).size.height / 25, 0),
+                            padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.height / 15, 0, MediaQuery.of(context).size.height / 15, 0),
                             child: Row(
                               children: [
                                 Expanded(
@@ -371,9 +369,9 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                     ),
                                     child: Padding(
                                       //padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0),
-                                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 10, MediaQuery.of(context).size.height / 50, MediaQuery.of(context).size.width / 10, MediaQuery.of(context).size.height / 35),
+                                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, MediaQuery.of(context).size.width / 50, MediaQuery.of(context).size.width / 50, MediaQuery.of(context).size.width / 50),
                                       child: Text(
-                                        'Filtrele', // Buton metni
+                                        'Ara', // Buton metni
                                         style: TextStyle(
                                           fontSize: MediaQuery.of(context).size.height / 35,
                                           letterSpacing: 1.0,
@@ -404,9 +402,9 @@ class BottomClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final path = Path();
-    path.lineTo(0, size.height - 50); // Sol alt köşe
+    path.lineTo(0, size.height - 25); // Sol alt köşe
     path.quadraticBezierTo(
-        size.width / 2, size.height, size.width, size.height - 50); // Alt kenar
+        size.width / 2, size.height, size.width, size.height - 25); // Alt kenar
     path.lineTo(size.width, 0); // Sağ alt köşe
     path.close();
     return path;

@@ -6,11 +6,14 @@ import 'package:davetcim/src/home/home_view_model.dart';
 import 'package:davetcim/widgets/slider_item.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/widgets/grid_product.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import '../../shared/sessions/user_state.dart';
 import '../../widgets/indicator.dart';
 import '../../widgets/on_error/somethingWentWrong.dart';
 import '../../widgets/soft_filter.dart';
+import '../search/search_view.dart';
+import '../search/search_wihthout_appbar_view.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -73,10 +76,36 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                 body: ListView(
                   children: <Widget>[
                     SoftFilterWidget(),
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onVerticalDragUpdate: (details) {
+                        // Aşağı kaydırma hassasiyeti
+                        int sensitivity = 8;
+                        // Aşağı kaydırma hareketi kontrolü
+                        if (details.delta.dy > sensitivity) {
+                          // Aşağı kaydırma işlemi algılandı, SearchScreen açılıyor
+                          Navigator.push(context, PageTransition(type: PageTransitionType.topToBottom, child: SearchScreen(),));
+                        }
+                      },
+                      child: Container(
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8),
+                              child: Image.asset(
+                                "assets/uprow.gif",
+                                width: MediaQuery.of(context).size.width * 0.12,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 10),
+                        SizedBox(height: 6),
                         Padding(
                           padding: EdgeInsets.symmetric(horizontal: 10),
                           child: Row(
