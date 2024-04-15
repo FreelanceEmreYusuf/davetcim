@@ -8,6 +8,7 @@ import '../../shared/sessions/state_management.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/app_bar/bottom_app_bar.dart';
 import '../../widgets/bounce_button.dart';
+import '../../widgets/filter_items/search_box.dart';
 import '../../widgets/home_page_filter_screen.dart';
 import 'main_screen_view_model.dart';
 
@@ -35,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
           children: <Widget>[
             Home(),
             FavoriteScreen(),
-            SearchWithoutAppBarScreen(),
+            SearchBox(),//SearchWithoutAppBarScreen(),
           //  SearchScreen(),
             UserReservationsScreen(),
             Profile(),
