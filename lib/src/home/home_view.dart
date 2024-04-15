@@ -87,6 +87,9 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                           Navigator.push(context, PageTransition(type: PageTransitionType.topToBottom, child: SearchScreen(),));
                         }
                       },
+                      onTap: () {
+                        Navigator.push(context, PageTransition(type: PageTransitionType.topToBottom, child: SearchScreen(),));
+                      },
                       child: Container(
                         child: Column(
                           children: [

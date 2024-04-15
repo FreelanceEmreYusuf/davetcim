@@ -361,7 +361,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                       );
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      primary: Colors.blue, // Buton rengi
+                                      primary: Colors.redAccent, // Buton rengi
                                       onPrimary: Colors.white,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(25), // Kenar yarıçapı
@@ -371,7 +371,7 @@ class _SoftFilterWidgetState extends State<SoftFilterWidget> {
                                       //padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 24.0),
                                       padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, MediaQuery.of(context).size.width / 50, MediaQuery.of(context).size.width / 50, MediaQuery.of(context).size.width / 50),
                                       child: Text(
-                                        'Ara', // Buton metni
+                                        'Filtrele', // Buton metni
                                         style: TextStyle(
                                           fontSize: MediaQuery.of(context).size.height / 35,
                                           letterSpacing: 1.0,
