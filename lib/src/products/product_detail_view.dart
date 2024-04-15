@@ -5,6 +5,7 @@ import 'package:davetcim/src/products/product_detail_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../shared/enums/corporation_event_log_enum.dart';
@@ -876,23 +877,50 @@ class _GalleryWidget extends State<GalleryWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-        onVerticalDragEnd: (details){
+        /*onVerticalDragEnd: (details){
             Navigator.of(context).pop();
           },
         onTapUp: (details){
           Navigator.of(context).pop();
+        },*/
+        behavior: HitTestBehavior.translucent,
+        onVerticalDragUpdate: (details) {
+          // Aşağı kaydırma hassasiyeti
+          int sensitivity = 8;
+          // Aşağı kaydırma hareketi kontrolü
+          if (details.delta.dy > sensitivity) {
+            // Aşağı kaydırma işlemi algılandı, SearchScreen açılıyor
+            Navigator.pop(context, PageTransition(type: PageTransitionType.topToBottom, ));
+          }
         },
 
-        child: PhotoViewGallery.builder(
-          pageController: widget.pageController,
-          itemCount: widget.imageList.length,
-          builder: (context, index) {
-            final urlImage = widget.imageList[index];
-            return PhotoViewGalleryPageOptions(
-              imageProvider: NetworkImage(urlImage),
-            );
-          },
+        child: Stack(
+          children: [
+            PhotoViewGallery.builder(
+              pageController: widget.pageController,
+              itemCount: widget.imageList.length,
+              builder: (context, index) {
+                final urlImage = widget.imageList[index];
+                return PhotoViewGalleryPageOptions(
+                  imageProvider: NetworkImage(urlImage),
+                );
+              },
+            ),
+            Center(
+              child: Text(
+                "Davetcim",
+                style: TextStyle(
+                  color: Colors.white.withOpacity(0.3), // Metnin rengi ve şeffaflığı
+                  fontSize: 40, // Metnin boyutu
+                  fontWeight: FontWeight.bold, // Metnin kalınlığı
+                ),
+              ),
+            ),
+          ],
         ),
+
+
+
       ),
     );
   }
