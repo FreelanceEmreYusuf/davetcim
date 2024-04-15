@@ -62,7 +62,7 @@ class _State extends State<ServiceAddView> {
                   Container(
                     height: MediaQuery.of(context).size.height / 15,
                     child: CheckboxListTile(
-                      title: Expanded(child: Text("Alt kırılımı olacak mı?")),
+                      title: Text("Alt kırılımı olacak mı?"),
                       value: checkedValue,
                       onChanged: (newValue) {
                         setState(() {

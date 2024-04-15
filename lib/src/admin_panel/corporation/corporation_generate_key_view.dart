@@ -83,11 +83,9 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
                   return new DropdownMenuItem<CompanyModel>(
                     value: company,
                     child: FittedBox(
-                      child: Expanded(
-                        child: new Text(
-                          company.name,
-                          style: new TextStyle(color: Colors.black),
-                        ),
+                      child: new Text(
+                        company.name,
+                        style: new TextStyle(color: Colors.black),
                       ),
                     ),
                   );
