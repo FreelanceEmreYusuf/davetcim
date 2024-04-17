@@ -50,8 +50,9 @@ class ConversionHelper {
       for (int i = 0; i < list.length; i++) {
         Map item = list[i].data();
         CorporationModel corporationModel = CorporationModel.fromMap(item);
-        corporationModel.latitude = 41.0082;
-        corporationModel.longitude = 28.9784;
+        //corporationModel.latitude = 41.0082;
+        //corporationModel.longitude = 28.9784;
+        corporationModel.point = 1000 + i;
 
         db.editCollectionRef(DBConstants.corporationDb, corporationModel.toMap());
       }

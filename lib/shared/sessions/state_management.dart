@@ -1,4 +1,5 @@
 import 'package:davetcim/shared/sessions/product_filterer_state.dart';
+import 'package:davetcim/shared/sessions/prooduct_view_state.dart';
 import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/shared/sessions/user_basket_state.dart';
 
@@ -14,5 +15,6 @@ class StateManagement {
     ProductFiltererState.setAsNull();
     OrganizationTypeState.setAsNull();
     OrganizationItemsState.resetItems();
+    ProductsViewState.setAsNull();
   }
 }

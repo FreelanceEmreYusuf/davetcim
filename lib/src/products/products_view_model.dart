@@ -165,6 +165,11 @@ class ProductsViewModel extends ChangeNotifier {
       }
     }
 
+    corpModelList.sort((a, b) => b.point.compareTo(a.point));
+    for(int i = 0; i < corpModelList.length; i++) {
+      corpModelList[i].sortingIndex = i;
+    }
+
     return corpModelList;
   }
 
@@ -216,6 +221,11 @@ class ProductsViewModel extends ChangeNotifier {
           corpModelList.add(corporationModel);
         }
       }
+    }
+
+    corpModelList.sort((a, b) => b.point.compareTo(a.point));
+    for(int i = 0; i < corpModelList.length; i++) {
+      corpModelList[i].sortingIndex = i;
     }
 
     return corpModelList;

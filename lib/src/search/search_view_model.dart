@@ -15,6 +15,7 @@ import 'package:flutter/cupertino.dart';
 import '../../shared/sessions/organization_items_state.dart';
 import '../../shared/sessions/organization_type_state.dart';
 import '../../shared/sessions/product_filterer_state.dart';
+import '../../widgets/pagination/products_view.dart';
 
 List<RegionModel> regionList =
     OrganizationItemsState.regionModelList;

@@ -19,6 +19,8 @@ class CorporationModel {
   int ratingCount;
   int minReservationAmount;
   int minReservationAmountWeekend;
+  int point;
+  int sortingIndex;
   String region;
   String telephoneNo;
   String email;
@@ -45,6 +47,8 @@ class CorporationModel {
     this.ratingCount,
     this.minReservationAmount,
     this.minReservationAmountWeekend,
+    this.point,
+    this.sortingIndex,
     this.region,
     this.telephoneNo,
     this.email,
@@ -73,6 +77,7 @@ class CorporationModel {
     'ratingCount': ratingCount,
     'minReservationAmount': minReservationAmount,
     'minReservationAmountWeekend': minReservationAmountWeekend,
+    'point': point,
     'region': region,
     'telephoneNo': telephoneNo,
     'email': email,
@@ -101,6 +106,7 @@ class CorporationModel {
     ratingCount: map['ratingCount'],
     minReservationAmount: map['minReservationAmount'],
     minReservationAmountWeekend: map['minReservationAmountWeekend'],
+    point: map['point'],
     region: map['region'],
     telephoneNo: map['telephoneNo'],
     email: map['email'],
