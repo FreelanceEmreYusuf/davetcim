@@ -167,7 +167,7 @@ class ProductsViewModel extends ChangeNotifier {
 
     corpModelList.sort((a, b) => b.point.compareTo(a.point));
     for(int i = 0; i < corpModelList.length; i++) {
-      corpModelList[i].sortingIndex = i;
+      corpModelList[i].sortingIndex = i + 1;
     }
 
     return corpModelList;
@@ -225,7 +225,7 @@ class ProductsViewModel extends ChangeNotifier {
 
     corpModelList.sort((a, b) => b.point.compareTo(a.point));
     for(int i = 0; i < corpModelList.length; i++) {
-      corpModelList[i].sortingIndex = i;
+      corpModelList[i].sortingIndex = i + 1;
     }
 
     return corpModelList;
