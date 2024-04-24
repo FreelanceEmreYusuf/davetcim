@@ -789,11 +789,16 @@ class _ProductDetailsState extends State<ProductDetails> {
               ),
             ),
             onPressed: ()  {
-              if (UserState.isPresent()) {
+              if (UserState.isPresent() && UserState.corporationId != widget.corporationModel.corporationId) {
                 UserBasketState.set(widget.corporationModel, sequenceOrderList, invitationList, reservationList);
                 Utils.navigateToPage(context, CalendarScreen());
-              }
-              else{
+              } else  if (UserState.isPresent() && UserState.corporationId == widget.corporationModel.corporationId) {
+                Dialogs.showInfoModalContent(
+                    context,
+                    "Rezervasyon Uyarısı",
+                    "Kullanıcısı olduğunuz salona rezervasyon yapamazsınız.",
+                    null);
+              } else {
                 Dialogs.showInfoModalContent(
                     context,
                     "Üye girişi uyarısı",
