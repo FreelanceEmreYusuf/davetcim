@@ -43,7 +43,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
               TextFormField(
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.black,
+                  //color: Colors.black,
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -73,7 +73,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
               TextFormField(
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.black,
+                  //color: Colors.black,
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -103,7 +103,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
               TextFormField(
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.black,
+                  //color: Colors.black,
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -133,7 +133,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
               TextFormField(
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.black,
+                  //color: Colors.black,
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -169,7 +169,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
               TextFormField(
                   style: TextStyle(
                     fontSize: 15.0,
-                    color: Colors.black,
+                    //color: Colors.black,
                   ),
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -205,7 +205,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
               TextFormField(
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.black,
+                  //color: Colors.black,
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -236,7 +236,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
               TextFormField(
                 style: TextStyle(
                   fontSize: 15.0,
-                  color: Colors.black,
+                  //color: Colors.black,
                 ),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
