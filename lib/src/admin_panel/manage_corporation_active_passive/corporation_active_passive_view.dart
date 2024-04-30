@@ -60,11 +60,11 @@ class _CorporationActivePassiveViewState extends State<CorporationActivePassiveV
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                 labelText: "Firma Seçiniz",
                 filled: true,
-                fillColor: Colors.white,
-                focusColor: Colors.blue,
+                //fillColor: Colors.white,
+                //focusColor: Colors.blue,
                 prefixIcon: Icon(
                   Icons.search,
-                  color: Colors.black,
+                  color: Colors.redAccent,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0),
@@ -89,7 +89,7 @@ class _CorporationActivePassiveViewState extends State<CorporationActivePassiveV
                   child: FittedBox(
                     child: new Text(
                       company.name,
-                      style: new TextStyle(color: Colors.black),
+                      style: new TextStyle(color: Colors.redAccent),
                     ),
                   ),
                 );

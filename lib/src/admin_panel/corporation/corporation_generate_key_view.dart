@@ -3,7 +3,10 @@ import 'package:davetcim/shared/utils/form_control.dart';
 import 'package:davetcim/src/join/register/register_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
+import '../../../providers/app_provider.dart';
+import '../../../shared/environments/const.dart';
 import '../../../shared/models/company_model.dart';
 import '../../../shared/utils/language.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
@@ -59,7 +62,7 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Firma Seçiniz",
                   filled: true,
-                  fillColor: Colors.white,
+                  //fillColor: Colors.white,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
                     Icons.search,
@@ -85,7 +88,7 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
                     child: FittedBox(
                       child: new Text(
                         company.name,
-                        style: new TextStyle(color: Colors.black),
+                        style: new TextStyle(color: Colors.redAccent),
                       ),
                     ),
                   );

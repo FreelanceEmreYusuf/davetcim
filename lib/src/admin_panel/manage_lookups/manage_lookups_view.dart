@@ -61,22 +61,22 @@ class _ManageLookupsViewState extends State<ManageLookupsView> {
             DropdownButtonFormField(
               style: TextStyle(
                 fontSize: 15.0,
-                color: Colors.black,
+                color: Colors.redAccent,
               ),
               decoration: InputDecoration(
                 contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                 labelText: "Özellik Seçiniz",
                 filled: true,
-                fillColor: Colors.white,
-                focusColor: Colors.blue,
+                //fillColor: Colors.white,
+                //focusColor: Colors.blue,
                 prefixIcon: Icon(
                   Icons.search,
-                  color: Colors.black,
+                  //color: Colors.black,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0),
                   borderSide: BorderSide(
-                    color: Colors.white,
+                    //color: Colors.white,
                   ),
                 ),
               ),
@@ -96,7 +96,7 @@ class _ManageLookupsViewState extends State<ManageLookupsView> {
                   child: FittedBox(
                     child: new Text(
                       item.text,
-                      style: new TextStyle(color: Colors.black),
+                      //style: new TextStyle(color: Colors.black),
                     ),
                   ),
                 );

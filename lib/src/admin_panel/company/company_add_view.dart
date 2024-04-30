@@ -49,7 +49,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Firma İsmi",
                   filled: true,
-                  fillColor: Colors.white,
+                  //fillColor: Colors.white,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
                     Icons.perm_identity,
@@ -79,7 +79,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "İsim",
                   filled: true,
-                  fillColor: Colors.white,
+                  //fillColor: Colors.white,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
                     Icons.perm_identity,
@@ -109,7 +109,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Soyisim",
                   filled: true,
-                  fillColor: Colors.white,
+                  //fillColor: Colors.white,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
                     Icons.perm_identity,
@@ -139,7 +139,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Kullanıcı Adı",
                   filled: true,
-                  fillColor: Colors.white,
+                  //fillColor: Colors.white,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
                     Icons.perm_identity,
@@ -175,7 +175,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                     contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                     labelText: "E-Posta",
                     filled: true,
-                    fillColor: Colors.white,
+                    //fillColor: Colors.white,
                     focusColor: Colors.blue,
                     prefixIcon: Icon(
                       Icons.mail_outline,
@@ -211,7 +211,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Telefon Numarası (5XXXXXXXXX)",
                   filled: true,
-                  fillColor: Colors.white,
+                  //fillColor: Colors.white,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
                     Icons.mail_outline,
@@ -242,7 +242,7 @@ class _CompanyAddViewState extends State<CompanyAddView> {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
                   labelText: "Şifre",
                   filled: true,
-                  fillColor: Colors.white,
+                  //fillColor: Colors.white,
                   focusColor: Colors.blue,
                   prefixIcon: Icon(
                     Icons.mail_outline,
