@@ -36,31 +36,50 @@ class _CorporationAnalysisSecondDatePickerViewState extends State<CorporationAna
     return Scaffold(
       appBar: AppBarMenu(pageName: "Bitiş Tarihi Seçin", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body: Container(
-        margin: EdgeInsets.symmetric(horizontal: 10.0),
-        child: CalendarCarousel<Event>(
-          onDayPressed: (DateTime date, List<Event> events) {
-            this.setState(() => _secondDate = date);
-            Utils.navigateToPage(context, CorporationAnalysisBetweenTwoDateView(firstDate: widget.startDate, secondDate: _secondDate,));
-          },
-          weekendTextStyle: TextStyle(
-            color: Colors.red,
+        height: MediaQuery.of(context).size.height,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/filter_page_background.jpg'),
+            fit: BoxFit.cover,
           ),
-          locale:  "tr",
-          thisMonthDayBorderColor: Colors.transparent,
-          daysTextStyle: TextStyle(color: Colors.redAccent),
-          headerTextStyle: TextStyle(color: Colors.redAccent, fontSize: 20),
-          leftButtonIcon: Icon(Icons.arrow_left, color: Colors.redAccent),
-          rightButtonIcon: Icon(Icons.arrow_right, color: Colors.redAccent),
-          selectedDayButtonColor: Colors.redAccent,
-          selectedDayTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 15),
-          selectedDayBorderColor: Colors.redAccent,
-          weekFormat: false,
-          markedDatesMap: _markedDateMap,
-          height:  MediaQuery.of(context).size.height / 1.6,
-          isScrollable: true,
-          selectedDateTime: _secondDate,
+        ),
+        foregroundDecoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.transparent,
+              Colors.black.withOpacity(0.1), // Filtre yoğunluğu
+            ],
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: CalendarCarousel<Event>(
+            onDayPressed: (DateTime date, List<Event> events) {
+              this.setState(() => _secondDate = date);
+              Utils.navigateToPage(context, CorporationAnalysisBetweenTwoDateView(firstDate: widget.startDate, secondDate: _secondDate,));
+            },
+            weekendTextStyle: TextStyle(
+              color: Colors.red,
+            ),
+            locale:  "tr",
+            thisMonthDayBorderColor: Colors.transparent,
+            daysTextStyle: TextStyle(color: Colors.redAccent),
+            headerTextStyle: TextStyle(color: Colors.redAccent, fontSize: 20),
+            leftButtonIcon: Icon(Icons.arrow_left, color: Colors.redAccent),
+            rightButtonIcon: Icon(Icons.arrow_right, color: Colors.redAccent),
+            selectedDayButtonColor: Colors.redAccent,
+            selectedDayTextStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 15),
+            selectedDayBorderColor: Colors.redAccent,
+            weekFormat: false,
+            markedDatesMap: _markedDateMap,
+            height:  MediaQuery.of(context).size.height / 1.6,
+            isScrollable: true,
+            selectedDateTime: _secondDate,
 
-          daysHaveCircularBorder: true, /// null for not rendering any border, true for circular border, false for rectangular border
+            daysHaveCircularBorder: true, /// null for not rendering any border, true for circular border, false for rectangular border
+          ),
         ),
       ),
     );

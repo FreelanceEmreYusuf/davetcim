@@ -45,76 +45,86 @@ class _CorporationActivePassiveViewState extends State<CorporationActivePassiveV
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarMenu(pageName: "Firma Aktif/Pasif Yönet", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-        child: ListView(
-          children: <Widget>[
-            Divider(),
-            SizedBox(height: 10.0),
-            DropdownButtonFormField(
-              style: TextStyle(
-                fontSize: 15.0,
-                color: Colors.black,
-              ),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                labelText: "Firma Seçiniz",
-                filled: true,
-                //fillColor: Colors.white,
-                //focusColor: Colors.blue,
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.redAccent,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.centerRight,
+              colors:[Color.fromRGBO(233, 211, 98, 1.0),Color.fromARGB(203, 173, 109, 99),Color.fromARGB(51, 51, 51, 1),]
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+          child: ListView(
+            children: <Widget>[
+              Divider(),
+              SizedBox(height: 10.0),
+              DropdownButtonFormField(
+                dropdownColor: Colors.white70,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(
-                    color: Colors.white,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  labelText: "Firma Seçiniz",
+                  filled: true,
+                  //fillColor: Colors.white,
+                  //focusColor: Colors.blue,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Colors.black,
                   ),
-                ),
-              ),
-              isExpanded: true,
-              value: selectedCompany,
-              onChanged: (CompanyModel newValue) async {
-                CorporateHelper corporateHelper = CorporateHelper();
-                corporationList = await corporateHelper.getCorporateByCompany(newValue.id);
-                setState(() {
-                  selectedCompany = newValue;
-                  corporationList = corporationList;
-                });
-              },
-              items: companyList.map((CompanyModel company) {
-                return new DropdownMenuItem<CompanyModel>(
-                  value: company,
-                  child: FittedBox(
-                    child: new Text(
-                      company.name,
-                      style: new TextStyle(color: Colors.redAccent),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      color: Colors.white,
                     ),
                   ),
-                );
-              }).toList(),
-            ),
-            SizedBox(height: 20.0),
-            GridView.builder(
-              shrinkWrap: true,
-              primary: false,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 12),
+                ),
+                isExpanded: true,
+                value: selectedCompany,
+                onChanged: (CompanyModel newValue) async {
+                  CorporateHelper corporateHelper = CorporateHelper();
+                  corporationList = await corporateHelper.getCorporateByCompany(newValue.id);
+                  setState(() {
+                    selectedCompany = newValue;
+                    corporationList = corporationList;
+                  });
+                },
+                items: companyList.map((CompanyModel company) {
+                  return new DropdownMenuItem<CompanyModel>(
+                    value: company,
+                    child: FittedBox(
+                      child: new Text(
+                        company.name,
+                        style: new TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
-              itemCount: corporationList == null
-                  ? 0
-                  : corporationList.length,
-              itemBuilder: (BuildContext context, int index) {
-                CorporationModel item = corporationList[index];
+              SizedBox(height: 20.0),
+              GridView.builder(
+                shrinkWrap: true,
+                primary: false,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  childAspectRatio: MediaQuery.of(context).size.width /
+                      (MediaQuery.of(context).size.height / 12),
+                ),
+                itemCount: corporationList == null
+                    ? 0
+                    : corporationList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  CorporationModel item = corporationList[index];
 
-                return GridCorporateActivePassive(corporationModel: item);
-              },
-            ),
-          ],
+                  return GridCorporateActivePassive(corporationModel: item);
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

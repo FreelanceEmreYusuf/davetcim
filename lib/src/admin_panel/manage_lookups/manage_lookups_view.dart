@@ -52,77 +52,87 @@ class _ManageLookupsViewState extends State<ManageLookupsView> {
         backgroundColor: Colors.redAccent,
       ),
       appBar: AppBarMenu(pageName: "Salon Özelliklerini Yönet", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-        child: ListView(
-          children: <Widget>[
-            Divider(),
-            SizedBox(height: 10.0),
-            DropdownButtonFormField(
-              style: TextStyle(
-                fontSize: 15.0,
-                color: Colors.redAccent,
-              ),
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                labelText: "Özellik Seçiniz",
-                filled: true,
-                //fillColor: Colors.white,
-                //focusColor: Colors.blue,
-                prefixIcon: Icon(
-                  Icons.search,
-                  //color: Colors.black,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.centerRight,
+              colors:[Color.fromRGBO(233, 211, 98, 1.0),Color.fromARGB(203, 173, 109, 99),Color.fromARGB(51, 51, 51, 1),]
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+          child: ListView(
+            children: <Widget>[
+              Divider(),
+              SizedBox(height: 10.0),
+              DropdownButtonFormField(
+                dropdownColor: Colors.white70,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.black,
                 ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5.0),
-                  borderSide: BorderSide(
-                    //color: Colors.white,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  labelText: "Özellik Seçiniz",
+                  filled: true,
+                  //fillColor: Colors.white,
+                  //focusColor: Colors.blue,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    //color: Colors.black,
                   ),
-                ),
-              ),
-              isExpanded: true,
-              value: selectedLookup,
-              onChanged: (ComboGenericIdentifierModel newValue) async {
-                ManageLookupsViewModel lookupHelper = ManageLookupsViewModel();
-                itemList = await lookupHelper.getLookupTableList(newValue.id);
-                setState(() {
-                  selectedLookup = newValue;
-                  itemList = itemList;
-                });
-              },
-              items: lookupList.map((ComboGenericIdentifierModel item) {
-                return new DropdownMenuItem<ComboGenericIdentifierModel>(
-                  value: item,
-                  child: FittedBox(
-                    child: new Text(
-                      item.text,
-                      //style: new TextStyle(color: Colors.black),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    borderSide: BorderSide(
+                      //color: Colors.white,
                     ),
                   ),
-                );
-              }).toList(),
-            ),
-            SizedBox(height: 20.0),
-            GridView.builder(
-              shrinkWrap: true,
-              primary: false,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 12),
+                ),
+                isExpanded: true,
+                value: selectedLookup,
+                onChanged: (ComboGenericIdentifierModel newValue) async {
+                  ManageLookupsViewModel lookupHelper = ManageLookupsViewModel();
+                  itemList = await lookupHelper.getLookupTableList(newValue.id);
+                  setState(() {
+                    selectedLookup = newValue;
+                    itemList = itemList;
+                  });
+                },
+                items: lookupList.map((ComboGenericIdentifierModel item) {
+                  return new DropdownMenuItem<ComboGenericIdentifierModel>(
+                    value: item,
+                    child: FittedBox(
+                      child: new Text(
+                        item.text,
+                        //style: new TextStyle(color: Colors.black),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
-              itemCount: itemList == null
-                  ? 0
-                  : itemList.length,
-              itemBuilder: (BuildContext context, int index) {
-                GenericLookupItemModel item = itemList[index];
+              SizedBox(height: 20.0),
+              GridView.builder(
+                shrinkWrap: true,
+                primary: false,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  childAspectRatio: MediaQuery.of(context).size.width /
+                      (MediaQuery.of(context).size.height / 12),
+                ),
+                itemCount: itemList == null
+                    ? 0
+                    : itemList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  GenericLookupItemModel item = itemList[index];
 
-                return GridLookupItem(lookupModel: item, dbTable: selectedLookup.id);
-              },
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height / 11,),
-          ],
+                  return GridLookupItem(lookupModel: item, dbTable: selectedLookup.id);
+                },
+              ),
+              SizedBox(height: MediaQuery.of(context).size.height / 11,),
+            ],
+          ),
         ),
       ),
     );

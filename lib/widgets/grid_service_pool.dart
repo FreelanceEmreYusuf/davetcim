@@ -150,7 +150,7 @@ class _GridServicePoolState
     return Container(
       padding: EdgeInsets.only(left: _paddingLeftValue),
       decoration: BoxDecoration(
-        color: Colors.white,
+        //color: Colors.transparent,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -159,7 +159,7 @@ class _GridServicePoolState
           Container(
             height: MediaQuery.of(context).size.height / 13,
             child: Card(
-              color: Colors.white54,
+              color: Colors.white10,
               semanticContainer: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: row,

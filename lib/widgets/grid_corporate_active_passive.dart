@@ -41,18 +41,19 @@ class _GridCorporateActivePassiveState
     row = Row(
       children: [
         Expanded(
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
+          flex: 3,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(3.0,0,0,0),
             child: Text(
                 widget.corporationModel.corporationName, style: TextStyle(
                 fontSize: 18,
-                color: Colors.green,
+                color: Colors.black,
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.bold)),
           ),
         ),
-        Spacer(),
         Expanded(
+          flex: 1,
             child: ClipPath(
               child: Material(
                 color: buttonColor, // button color
@@ -73,6 +74,7 @@ class _GridCorporateActivePassiveState
             ),
           ),
         Expanded(
+          flex: 1,
           child: ClipPath(
             child: Material(
               color: buttonColorForPopular, // button color
@@ -99,7 +101,7 @@ class _GridCorporateActivePassiveState
 
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
+          //color: Colors.white,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -108,7 +110,7 @@ class _GridCorporateActivePassiveState
           Container(
             height: MediaQuery.of(context).size.height / 13,
             child: Card(
-              color: Colors.white54,
+              color: Colors.white12,
               semanticContainer: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: row,

@@ -36,31 +36,40 @@ class _AdminServicePoolManagerState extends State<AdminServicePoolManager> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarMenu(pageName: "Hizmet Havuzu", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
-      body: Padding(
-        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-        child: ListView(
-          children: <Widget>[
-            Divider(),
-            SizedBox(height: 10.0),
-            GridView.builder(
-              shrinkWrap: true,
-              primary: false,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 12),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.centerRight,
+              colors:[Color.fromRGBO(233, 211, 98, 1.0),Color.fromARGB(203, 173, 109, 99),Color.fromARGB(51, 51, 51, 1),]
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+          child: ListView(
+            children: <Widget>[
+              Divider(),
+              SizedBox(height: 10.0),
+              GridView.builder(
+                shrinkWrap: true,
+                primary: false,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  childAspectRatio: MediaQuery.of(context).size.width /
+                      (MediaQuery.of(context).size.height / 12),
+                ),
+                itemCount: serviceList == null
+                    ? 0
+                    : serviceList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  ServicePoolModel item = serviceList[index];
+                  return GridServicePool(servicePoolModel: item);
+                },
               ),
-              itemCount: serviceList == null
-                  ? 0
-                  : serviceList.length,
-              itemBuilder: (BuildContext context, int index) {
-                ServicePoolModel item = serviceList[index];
-                return GridServicePool(servicePoolModel: item);
-              },
-            ),
-            SizedBox(height: 10.0),
-          ],
+              SizedBox(height: 10.0),
+            ],
+          ),
         ),
       ),
     );

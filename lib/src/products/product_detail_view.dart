@@ -898,6 +898,9 @@ class _GalleryWidget extends State<GalleryWidget> {
             Navigator.pop(context, PageTransition(type: PageTransitionType.topToBottom, ));
           }
         },
+        onTap: (){
+          Navigator.pop(context, PageTransition(type: PageTransitionType.topToBottom, ));
+        },
 
         child: Stack(
           children: [

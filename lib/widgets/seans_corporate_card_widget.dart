@@ -39,8 +39,11 @@ class _SeansCorporateCardWidgetState
           children: [
             FittedBox(
               fit: BoxFit.scaleDown,
-              child: Text(
-                  widget.model.name, style: TextStyle(fontSize: 15, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(3.0,0,0,0),
+                child: Text(
+                    widget.model.name, style: TextStyle(fontSize: 15, color: Colors.black, fontStyle: FontStyle.italic,fontWeight: FontWeight.bold)),
+              ),
             ),
             Spacer(),
             SizedBox.fromSize(

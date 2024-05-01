@@ -41,7 +41,6 @@ class _GridPackageItemState
                 fontWeight: FontWeight.bold)),
           ),
         ),
-        Spacer(),
         Expanded(
           flex: 1,
             child: ClipPath(

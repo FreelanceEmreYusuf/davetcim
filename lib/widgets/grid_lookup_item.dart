@@ -29,18 +29,19 @@ class _GridLookupItemState
     row = Row(
       children: [
         Expanded(
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
+          flex: 4,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(3.0, 0, 0, 0),
             child: Text(
                 widget.lookupModel.name, style: TextStyle(
                 fontSize: 18,
-                color: Colors.green,
+                color: Colors.black,
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.bold)),
           ),
         ),
-        Spacer(),
         Expanded(
+          flex: 1,
             child: ClipPath(
               child: Material(
                 color: Colors.green, // button color
@@ -86,7 +87,7 @@ class _GridLookupItemState
 
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
+       // color: Colors.white24,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -95,7 +96,7 @@ class _GridLookupItemState
           Container(
             height: MediaQuery.of(context).size.height / 13,
             child: Card(
-              color: Colors.white54,
+              color: Colors.white12,
               semanticContainer: true,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child: row,

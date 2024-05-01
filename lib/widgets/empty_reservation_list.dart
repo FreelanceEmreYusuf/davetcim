@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../screens/notifications.dart';
 import 'app_bar/app_bar_view.dart';
 import 'badge.dart';
+import 'no_found_notification_screen.dart';
 
 class EmptyReservationList extends StatefulWidget {
   @override
@@ -23,31 +24,10 @@ class _EmptyReservationListState extends State<EmptyReservationList> {
           child: ListView(
             children: <Widget>[
               Container(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  'Bu tarih için rezervasyon bulunamadı',
-                  softWrap: true,
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.white60,
-                    fontStyle: FontStyle.italic,
-                    shadows: <Shadow>[
-                      Shadow(
-                        offset: Offset(10.0, 10.0),
-                        blurRadius: 2.0,
-                        color: Colors.black54,
-                      ),
-                      Shadow(
-                        offset: Offset(10.0, 10.0),
-                        blurRadius: 1.0,
-                        color: Colors.black54,
-                      ),
-                    ],
-                    fontFamily: 'RobotoMono',
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: NoFoundDataScreen(keyText: widget.dateTime.toString().substring(0,10)+" tarihi için kayıt bulunamadı"),
                   ),
-                  overflow: TextOverflow.clip,
-                ),
-                color: Constants.lightPrimary,
               ),
             ],
           ))

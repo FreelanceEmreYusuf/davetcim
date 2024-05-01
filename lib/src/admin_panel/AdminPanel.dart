@@ -20,86 +20,95 @@ class _State extends State<AdminPanelPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBarMenu(pageName: "Admin Paneli", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
-        body: Padding(
-            padding: EdgeInsets.all(10),
-            child: ListView(
-              children: <Widget>[
-                SizedBox(height: 30.0),
-                Container(
-                    height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    // ignore: deprecated_member_use
-                    child: TextButton(
-                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("YENİ FİRMA EKLE",
-                        style: TextStyle(
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.centerRight,
+                colors:[Color.fromRGBO(233, 211, 98, 1.0),Color.fromARGB(203, 173, 109, 99),Color.fromARGB(51, 51, 51, 1),]
+            ),
+          ),
+          child: Padding(
+              padding: EdgeInsets.all(10),
+              child: ListView(
+                children: <Widget>[
+                  SizedBox(height: 30.0),
+                  Container(
+                      height: 50,
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      // ignore: deprecated_member_use
+                      child: TextButton(
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
+                        child: Text("YENİ FİRMA EKLE",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                        onPressed: () {
+                          Utils.navigateToPage(context, CompanyAddView());
+                        },
+                      )),
+                  SizedBox(height: 30.0),
+                  Container(
+                      height: 50,
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      // ignore: deprecated_member_use
+                      child: TextButton(
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
+                        child: Text("YENİ SALON EKLE",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                        onPressed: () {
+                          Utils.navigateToPage(context, CorporationGenerateKeyView());
+                        },
+                      )),
+                  SizedBox(height: 30.0),
+                  Container(
+                      height: 50,
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      // ignore: deprecated_member_use
+                      child: TextButton(
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
+                        child: Text("SALON AKTİF/PASİF",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                        onPressed: () {
+                          Utils.navigateToPage(context, CorporationActivePassiveView());
+                        },
+                      )),
+                  SizedBox(height: 30.0),
+                  Container(
+                      height: 50,
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      // ignore: deprecated_member_use
+                      child: TextButton(
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                        child: Text("HİZMET HAVUZU",
+                          style: TextStyle(
                           color: Colors.white,
                         ),),
-                      onPressed: () {
-                        Utils.navigateToPage(context, CompanyAddView());
-                      },
-                    )),
-                SizedBox(height: 30.0),
-                Container(
-                    height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    // ignore: deprecated_member_use
-                    child: TextButton(
-                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("YENİ SALON EKLE",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),),
-                      onPressed: () {
-                        Utils.navigateToPage(context, CorporationGenerateKeyView());
-                      },
-                    )),
-                SizedBox(height: 30.0),
-                Container(
-                    height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    // ignore: deprecated_member_use
-                    child: TextButton(
-                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
-                      child: Text("SALON AKTİF/PASİF",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),),
-                      onPressed: () {
-                        Utils.navigateToPage(context, CorporationActivePassiveView());
-                      },
-                    )),
-                SizedBox(height: 30.0),
-                Container(
-                    height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    // ignore: deprecated_member_use
-                    child: TextButton(
-                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
-                      child: Text("HİZMET HAVUZU",
-                        style: TextStyle(
-                        color: Colors.white,
-                      ),),
-                      onPressed: () {
-                        Utils.navigateToPage(context, AdminServicePoolManager());
-                      },
-                    )),
-                SizedBox(height: 30.0),
-                Container(
-                    height: 50,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    // ignore: deprecated_member_use
-                    child: TextButton(
-                      style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
-                      child: Text("SALON ÖZELLİK YÖNET",
-                        style: TextStyle(
-                          color: Colors.white,
-                        ),),
-                      onPressed: () {
-                        Utils.navigateToPage(context, ManageLookupsView());
-                      },
-                    )),
-              ],
-            )));
+                        onPressed: () {
+                          Utils.navigateToPage(context, AdminServicePoolManager());
+                        },
+                      )),
+                  SizedBox(height: 30.0),
+                  Container(
+                      height: 50,
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      // ignore: deprecated_member_use
+                      child: TextButton(
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                        child: Text("SALON ÖZELLİK YÖNET",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                        onPressed: () {
+                          Utils.navigateToPage(context, ManageLookupsView());
+                        },
+                      )),
+                ],
+              )),
+        ));
   }
 }

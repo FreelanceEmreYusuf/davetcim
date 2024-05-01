@@ -46,30 +46,49 @@ class _State extends State<ReservationCorporateView> {
     if(reservationList.length>0 && reservationList.isNotEmpty){
       return Scaffold(
         appBar: AppBarMenu(pageName: "Aktif Talepler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
-        body: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-          child: ListView(
-            children: <Widget>[
-              Divider(),
-              SizedBox(height: 10.0),
-              GridView.builder(
-                shrinkWrap: true,
-                primary: false,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  childAspectRatio: MediaQuery.of(context).size.width /
-                      (MediaQuery.of(context).size.height / 5),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/filter_page_background.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          foregroundDecoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.transparent,
+                Colors.black.withOpacity(0.1), // Filtre yoğunluğu
+              ],
+            ),
+          ),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+            child: ListView(
+              children: <Widget>[
+                Divider(),
+                SizedBox(height: 10.0),
+                GridView.builder(
+                  shrinkWrap: true,
+                  primary: false,
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 1,
+                    childAspectRatio: MediaQuery.of(context).size.width /
+                        (MediaQuery.of(context).size.height / 5),
+                  ),
+                  itemCount: reservationList == null
+                      ? 0
+                      : reservationList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    ReservationModel item = reservationList[index];
+                    return ReservationCorporateCardWidget(model: item);
+                  },
                 ),
-                itemCount: reservationList == null
-                    ? 0
-                    : reservationList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  ReservationModel item = reservationList[index];
-                  return ReservationCorporateCardWidget(model: item);
-                },
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       );
@@ -77,9 +96,28 @@ class _State extends State<ReservationCorporateView> {
     else{
       return Scaffold(
         appBar: AppBarMenu(pageName: "Aktif Talepler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
-        body: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: NoFoundDataScreen(keyText: "Rezervasyon bulunamadı"),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/filter_page_background.jpg'),
+              fit: BoxFit.cover,
+            ),
+          ),
+          foregroundDecoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.transparent,
+                Colors.black.withOpacity(0.1), // Filtre yoğunluğu
+              ],
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: NoFoundDataScreen(keyText: "Rezervasyon bulunamadı"),
+          ),
         ),
       );
 
