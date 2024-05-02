@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:davetcim/shared/enums/reservation_status_enum.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/enums/customer_role_enum.dart';
@@ -85,7 +86,7 @@ class NotificationsViewModel extends ChangeNotifier {
 
   Future<void> sendNotificationToUser(BuildContext context,
       int corporationId, int customerId, int commentId, int reservationId,
-      bool isApproved, String text, String offerMessage) async {
+      int reservationStatus, bool isApproved, String text, String offerMessage) async {
     if (offerMessage.isEmpty) {
       if (commentId > 0) {
         if (isApproved) {
@@ -108,21 +109,49 @@ class NotificationsViewModel extends ChangeNotifier {
 
       } else if (reservationId > 0) {
         if (isApproved) {
-          offerMessage = "Konu: Rezervasyon Talebiniz Onaylandı" +
-              "\n" +
-              " Rezervasyon Talep Mesajı: " +
-              text +
-              "\n" +
-              " İşlem Tarihi :" +
-              DateTime.now().toString().substring(0, 10);
+          if (reservationStatus == ReservationStatusEnum.userOffer.index) {
+            offerMessage = "Konu: Teklifiniz Opsiyonlandı" +
+                "\n" +
+                " Teklif Mesajı: " +
+                text +
+                "\n" +
+                " İşlem Tarihi :" +
+                DateTime.now().toString().substring(0, 10);
+          } else if (reservationStatus == ReservationStatusEnum.preReservation.index) {
+            offerMessage = "Konu: Rezervasyonununz Oluşturuldu" +
+                "\n" +
+                " Rezervasyon Mesajı: " +
+                text +
+                "\n" +
+                " İşlem Tarihi :" +
+                DateTime.now().toString().substring(0, 10);
+          }
         } else {
-          offerMessage = "Konu: Rezervasyon Talebiniz İptal Edildi" +
-              "\n" +
-              " Rezervasyon Talep Mesajı: " +
-              text +
-              "\n" +
-              " İşlem Tarihi :" +
-              DateTime.now().toString().substring(0, 10);
+          if (reservationStatus == ReservationStatusEnum.userOffer.index) {
+            offerMessage = "Konu: Teklifiniz İptal Edildi" +
+                "\n" +
+                " Teklif Mesajı: " +
+                text +
+                "\n" +
+                " İşlem Tarihi :" +
+                DateTime.now().toString().substring(0, 10);
+          } else if (reservationStatus == ReservationStatusEnum.preReservation.index) {
+            offerMessage = "Konu: Opsiyonlanmış Rezervasyonununz Teklife Çevrildi" +
+                "\n" +
+                " İşlem Mesajı: " +
+                text +
+                "\n" +
+                " İşlem Tarihi :" +
+                DateTime.now().toString().substring(0, 10);
+          } else if (reservationStatus == ReservationStatusEnum.reservation.index) {
+            offerMessage = "Konu: Rezervasyonununz Opsiyona Çevrildi" +
+                "\n" +
+                " İşlem Mesajı: " +
+                text +
+                "\n" +
+                " İşlem Tarihi :" +
+                DateTime.now().toString().substring(0, 10);
+          }
         }
       }
     }

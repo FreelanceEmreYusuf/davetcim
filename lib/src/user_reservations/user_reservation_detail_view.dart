@@ -81,13 +81,18 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
 
     Color color = Colors.green;
     String textStr = 'ONAYLANMIŞ REZERVASYON';
-    if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.adminRejected) {
+    if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.adminRejectedOffer) {
       color = Colors.redAccent;
       textStr = 'RED EDİLMİŞ REZERVASYON';
-    }
-    else if(detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.newRecord){
-      color = Colors.grey;
-      textStr = 'ONAY BEKLEYEN REZERVASYON';
+    } else if(detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userOffer){
+      color = Colors.lightBlueAccent;
+      textStr = 'ONAY BEKLEYEN TEKLİF';
+    } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.preReservation){
+      color = Colors.blueAccent;
+      textStr = 'OPSİYONLANMIŞ REZERVASYON';
+    } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation){
+      color = Colors.green;
+      textStr = 'REZERVASYON OLUŞTURULDU';
     }
 
     bool isFromNotification = false;
@@ -330,7 +335,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
         ),
       ),
       floatingActionButton: Visibility(
-        visible: detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.newRecord,
+        visible: detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userOffer,
         child: Container(
           height: MediaQuery.of(context).size.height / 10,
           child: Card(

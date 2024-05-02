@@ -23,6 +23,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
         .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('sessionId', isEqualTo: basketModel.selectedSessionModel.id)
         .where('isActive', isEqualTo: true)
+        .where('reservationStatus', isNotEqualTo: ReservationStatusEnum.userOffer.index)
         .where('date', isEqualTo: basketModel.date)
         .get();
 
@@ -38,7 +39,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
         .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('id', isEqualTo: detailResponse.reservationModel.id)
         .where('isActive', isEqualTo: true)
-        .where('reservationStatus', isEqualTo: ReservationStatusEnum.newRecord.index)
+        .where('reservationStatus', isEqualTo: ReservationStatusEnum.userOffer.index)
         .get();
 
     if (response.docs != null && response.docs.length == 0) {
@@ -78,7 +79,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
       sessionId: basketModel.selectedSessionModel.id,
       sessionName: basketModel.selectedSessionModel.name,
       sessionCost: sessionCost,
-      reservationStatus: ReservationStatusEnum.newRecord,
+      reservationStatus: ReservationStatusEnum.userOffer,
       userReservationVersion: 0,
       isActive: true,
       invitationCount: basketModel.orderBasketModel.count,
@@ -88,7 +89,6 @@ class SummaryBasketViewModel extends ChangeNotifier {
 
     db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
     await createNewReservationDetail(basketModel, reservationId);
-    StateManagement.disposeStates();
     return reservationModel;
   }
 
@@ -155,7 +155,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
         sessionId: detailResponse.selectedSessionModel.id,
         sessionName: detailResponse.selectedSessionModel.name,
         sessionCost: sessionCost,
-        reservationStatus: ReservationStatusEnum.newRecord,
+        reservationStatus: ReservationStatusEnum.userOffer,
         userReservationVersion: detailResponse.reservationModel.userReservationVersion + 1,
         isActive: true,
         invitationCount: detailResponse.orderBasketModel.count,

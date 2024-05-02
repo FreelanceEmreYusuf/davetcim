@@ -26,8 +26,14 @@ class _ReservationAllCorporateCardWidgetState
   @override
   Widget build(BuildContext context) {
     Color color = Colors.green;
-    if (widget.model.reservationStatus == ReservationStatusEnum.adminRejected) {
+    if (widget.model.reservationStatus == ReservationStatusEnum.adminRejectedOffer) {
       color = Colors.redAccent;
+    } else if (widget.model.reservationStatus == ReservationStatusEnum.userOffer) {
+      color = Colors.lightBlueAccent;
+    } else if (widget.model.reservationStatus == ReservationStatusEnum.preReservation) {
+      color = Colors.blueAccent;
+    } else if (widget.model.reservationStatus == ReservationStatusEnum.reservation) {
+      color = Colors.green;
     }
 
     return Container(
@@ -58,13 +64,16 @@ class _ReservationAllCorporateCardWidgetState
                       maxLines: 5,
                     ),
                   ),
+
                   Expanded(
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Text("\n\n Davet Türü : " + widget.model.invitationType + "\n Davetli Sayısı : " + widget.model.invitationCount.toString() +
+                      child: Text("\n\n Geçen Gün Sayısı : " +  DateConversionUtils.getDayDifferenceFromToday(widget.model.recordDate).toString()  +
+                          "\n Davet Türü : " + widget.model.invitationType +
+                          "\n Davetli Sayısı : " + widget.model.invitationCount.toString() +
                           "\n Toplam Ücret : " + GeneralHelper.formatMoney(widget.model.cost.toString())+" TL",
                         style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold,),
-                        maxLines: 5,
+                        maxLines: 6,
                       ),
                     ),
                   ),
@@ -76,5 +85,4 @@ class _ReservationAllCorporateCardWidgetState
       )
     );
   }
-
 }

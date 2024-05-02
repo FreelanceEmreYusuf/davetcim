@@ -171,7 +171,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: AppBarMenu(pageName: "Sepet Özeti", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: "Teklif Özeti", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(

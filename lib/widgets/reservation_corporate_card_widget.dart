@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:davetcim/shared/enums/reservation_status_enum.dart';
 import 'package:flutter/material.dart';
 import '../shared/helpers/general_helper.dart';
 import '../shared/models/reservation_model.dart';
@@ -23,6 +23,17 @@ class _ReservationCorporateCardWidgetState
     extends State<ReservationCorporateCardWidget> {
   @override
   Widget build(BuildContext context) {
+    Color rowColor = Colors.white54;
+    if (widget.model.reservationStatus == ReservationStatusEnum.userOffer) {
+      rowColor = Colors.lightBlueAccent;
+    } else  if (widget.model.reservationStatus == ReservationStatusEnum.preReservation) {
+      rowColor = Colors.blueAccent;
+    } else  if (widget.model.reservationStatus == ReservationStatusEnum.reservation) {
+      rowColor = Colors.green;
+    } else  {
+      rowColor = Colors.redAccent;
+    }
+
     return Container(
       child: InkWell(
         onTap: (){
@@ -30,7 +41,7 @@ class _ReservationCorporateCardWidgetState
         },
         child: SingleChildScrollView(
           child: Card(
-            color: Colors.white54,
+            color: rowColor,
             semanticContainer: true,
             clipBehavior: Clip.antiAliasWithSaveLayer,
             shadowColor: Colors.black,
@@ -54,10 +65,12 @@ class _ReservationCorporateCardWidgetState
                   Expanded(
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      child: Text("\n\n Davet Türü : " + widget.model.invitationType + "\n Davetli Sayısı : " + widget.model.invitationCount.toString() +
+                      child: Text("\n\n Geçen Gün Sayısı : " +  DateConversionUtils.getDayDifferenceFromToday(widget.model.recordDate).toString()  +
+                          "\n Davet Türü : " + widget.model.invitationType +
+                          "\n Davetli Sayısı : " + widget.model.invitationCount.toString() +
                           "\n Toplam Ücret : " + GeneralHelper.formatMoney(widget.model.cost.toString())+" TL",
                         style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold,),
-                        maxLines: 5,
+                        maxLines: 6,
                       ),
                     ),
                   ),
@@ -69,5 +82,4 @@ class _ReservationCorporateCardWidgetState
       )
     );
   }
-
 }

@@ -58,4 +58,9 @@ class DateConversionUtils {
     return datetime;
   }
 
+  static int getDayDifferenceFromToday (Timestamp timestamp) {
+    DateTime tsdate = DateTime.fromMillisecondsSinceEpoch(timestamp.millisecondsSinceEpoch);
+    return DateTime.now().difference(tsdate).inDays;
+  }
+
 }

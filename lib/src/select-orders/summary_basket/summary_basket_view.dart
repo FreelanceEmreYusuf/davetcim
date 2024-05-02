@@ -168,7 +168,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
-      appBar: AppBarMenu(pageName: "Sepet Özeti", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: "Teklif Özeti", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Container(
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
@@ -475,7 +475,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
         child: TextButton(
           style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
           child: Text(
-            "SEPETİ ONAYLA",
+            "TEKLİFİ ONAYLA",
             style: TextStyle(
               color: Colors.white,
             ),
@@ -508,12 +508,13 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
     SummaryBasketViewModel model = SummaryBasketViewModel();
     ReservationModel reservationResponse = await model.createNewReservation(UserBasketState.userBasket, description);
     if (reservationResponse == null) {
-      Dialogs.showInfoModalContent(context, "Üzgünüz", "Siz rezervasyon yaparken başka bir kullanıcı tarafından bu tarihteki bu seans rezerve edildi.", null);
+      Dialogs.showInfoModalContent(context, "Üzgünüz", "Siz teklif oluştururken başka bir kullanıcı tarafından bu tarihteki bu seans rezerve edildi.", null);
     } else {
       NotificationsViewModel notificationViewModel = NotificationsViewModel();
       notificationViewModel.sendNotificationsToAdminCompanyUsers(context, UserBasketState.userBasket.corporationModel.corporationId,
           0, reservationResponse.id,  description);
-      Dialogs.showInfoModalContent(context, "İşlem Mesajı", "Rezervasyon talebiniz alınmıştır. Salon sahibine bildirim gönderilmiştir.", navigateToHomePage);
+      Dialogs.showInfoModalContent(context, "İşlem Mesajı", "Teklifiniz alınmıştır. Salon sahibine bildirim gönderilmiştir.", navigateToHomePage);
+      StateManagement.disposeStates();
     }
   }
 

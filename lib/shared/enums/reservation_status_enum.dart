@@ -1,8 +1,9 @@
 enum ReservationStatusEnum {
-  newRecord,
-  approved,
-  userRejected,
-  adminRejected,
+  userOffer,
+  preReservation,
+  userRejectedOffer,
+  adminRejectedOffer,
+  reservation
 }
 
 class ReservationStatusEnumConverter {
@@ -15,17 +16,34 @@ class ReservationStatusEnumConverter {
   }
 
   static List<int> userViewedReservationStatus() {
-    return [ReservationStatusEnum.newRecord.index,
-      ReservationStatusEnum.adminRejected.index,
-      ReservationStatusEnum.approved.index];
+    return [
+      ReservationStatusEnum.userOffer.index,
+      ReservationStatusEnum.adminRejectedOffer.index,
+      ReservationStatusEnum.preReservation.index,
+      ReservationStatusEnum.reservation.index
+    ];
   }
 
   static List<int> adminViewedReservationStatus() {
-    return [ReservationStatusEnum.newRecord.index];
+    return [
+      ReservationStatusEnum.userOffer.index,
+      ReservationStatusEnum.preReservation.index
+    ];
   }
 
   static List<int> adminHistoryViewedReservationStatus() {
-    return [ReservationStatusEnum.approved.index,
-      ReservationStatusEnum.adminRejected.index];
+    return [
+      ReservationStatusEnum.userOffer.index,
+      ReservationStatusEnum.preReservation.index,
+      ReservationStatusEnum.adminRejectedOffer.index,
+      ReservationStatusEnum.reservation.index
+    ];
+  }
+
+  static List<int> calenderReservationStatus() {
+    return [
+      ReservationStatusEnum.preReservation.index,
+      ReservationStatusEnum.reservation.index
+    ];
   }
 }

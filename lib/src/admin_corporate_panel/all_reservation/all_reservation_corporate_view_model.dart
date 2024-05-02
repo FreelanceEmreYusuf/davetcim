@@ -12,10 +12,11 @@ class AllReservationCorporateViewModel extends ChangeNotifier {
 
   Future<List<ReservationModel>> getAllReservationlist(int corporateId) async {
     var response = await db
-        .getCollectionRef("CorporationReservations")
+        .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('corporationId', isEqualTo: corporateId)
         .where('reservationStatus',
             whereIn: ReservationStatusEnumConverter.adminHistoryViewedReservationStatus())
+        .orderBy('date', descending: true)
         .get();
 
     List<ReservationModel> corpModelList = [];
@@ -34,7 +35,8 @@ class AllReservationCorporateViewModel extends ChangeNotifier {
     var response = await db
         .getCollectionRef("CorporationReservations")
         .where('corporationId', isEqualTo: corporateId)
-        .where('reservationStatus', isEqualTo: ReservationStatusEnum.approved.index)
+        .where('reservationStatus',
+            whereIn: ReservationStatusEnumConverter.calenderReservationStatus())
         .get();
 
     List<ReservationModel> corpModelList = [];
@@ -53,7 +55,16 @@ class AllReservationCorporateViewModel extends ChangeNotifier {
     await db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
     NotificationsViewModel notificationViewModel = NotificationsViewModel();
 
-    String offerMessage = "Konu: Rezervasyonunuz firma tarafından " +
+    String reservationStatusText = "";
+    if (reservationModel.reservationStatus == ReservationStatusEnum.userOffer)  {
+      reservationStatusText = "Teklifiniz ";
+    } else if (reservationModel.reservationStatus == ReservationStatusEnum.preReservation)  {
+      reservationStatusText = "Opsiyonlu rezervasyonunuz ";
+    } else if (reservationModel.reservationStatus == ReservationStatusEnum.reservation)  {
+      reservationStatusText = "Rezervasyonunuz ";
+    }
+
+    String offerMessage = "Konu: " + reservationStatusText + "firma tarafından " +
         DateConversionUtils.getDateTimeFromIntDate(reservationModel.date).toString().substring(0, 10)
         + " tarihine ertelendi." +
         "\n" +
@@ -62,8 +73,8 @@ class AllReservationCorporateViewModel extends ChangeNotifier {
 
     notificationViewModel.sendNotificationToUser(context, reservationModel.corporationId,
         reservationModel.customerId,
-        0, reservationModel.id, true, reservationModel.description, offerMessage);
-
+        0, reservationModel.id,
+        reservationModel.reservationStatus.index,
+        true, reservationModel.description, offerMessage);
   }
-
 }

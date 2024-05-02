@@ -1,3 +1,4 @@
+import 'package:davetcim/shared/enums/reservation_status_enum.dart';
 import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
@@ -75,6 +76,55 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
     return false;
   }
 
+  void approveReservation(bool isFromNotification) async {
+    if (await hasReservationChangedByUser()) {
+      Dialogs.showInfoModalContent(context, "Üzgünüz", "Bu teklif, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
+          navigateToReservationsPage);
+    } else {
+      ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+      NotificationsViewModel notificationViewModel = NotificationsViewModel();
+      await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
+      notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
+          widget.reservationModel.customerId,
+          0, widget.reservationModel.id,
+          widget.reservationModel.reservationStatus.index,
+          true, widget.reservationModel.description, "");
+      notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
+
+      CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
+      corporationAnalysisViewModel.editDailyLog(widget.reservationModel.corporationId,
+          CorporationEventLogEnum.newReservation.name, detailResponse.reservationModel.cost);
+
+      if (isFromNotification) {
+        Utils.navigateToPage(context, NotificationsView());
+      } else {
+        Utils.navigateToPage(context, ReservationCorporateView());
+      }
+    }
+  }
+
+  void rejectReservation(bool isFromNotification) async {
+    if (await hasReservationChangedByUser()) {
+      Dialogs.showInfoModalContent(context, "Üzgünüz", "Bu teklif, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
+          navigateToReservationsPage);
+    } else {
+      ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+      NotificationsViewModel notificationViewModel = NotificationsViewModel();
+      await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
+      notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
+          widget.reservationModel.customerId,
+          0, widget.reservationModel.id,
+          widget.reservationModel.reservationStatus.index,
+          false, widget.reservationModel.description, "");
+      notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
+      if (isFromNotification) {
+        Utils.navigateToPage(context, NotificationsView());
+      } else {
+        Utils.navigateToPage(context, ReservationCorporateView());
+      }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +140,14 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
     bool isFromNotification = false;
     if (widget.isFromNotification != null) {
       isFromNotification = widget.isFromNotification;
+    }
+
+    String buttonApproveText = "Teklifi Opsiyonla";
+    String buttonRejectText = "Teklifi Reddet";
+
+    if (widget.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
+      buttonApproveText = "Rezervasyon Oluştur";
+      buttonRejectText = "Teklife Çevir";
     }
 
     return Scaffold(
@@ -325,34 +383,13 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                     child: TextButton(
                       style: TextButton.styleFrom(backgroundColor: Colors.green,),
                       child: Text(
-                        "ONAYLA".toUpperCase(),
+                        buttonApproveText,
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
                       onPressed: () async {
-                        if (await hasReservationChangedByUser()) {
-                          Dialogs.showInfoModalContent(context, "Üzgünüz", "Bu rezervasyon, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
-                              navigateToReservationsPage);
-                        } else {
-                          ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
-                          NotificationsViewModel notificationViewModel = NotificationsViewModel();
-                          await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
-                          notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
-                              widget.reservationModel.customerId,
-                              0, widget.reservationModel.id, true, widget.reservationModel.description, "");
-                          notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
-
-                          CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
-                          corporationAnalysisViewModel.editDailyLog(widget.reservationModel.corporationId,
-                              CorporationEventLogEnum.newReservation.name, detailResponse.reservationModel.cost);
-
-                          if (isFromNotification) {
-                            Utils.navigateToPage(context, NotificationsView());
-                          } else {
-                            Utils.navigateToPage(context, ReservationCorporateView());
-                          }
-                        }
+                        approveReservation(isFromNotification);
                       },
                     ),
                   ),
@@ -365,29 +402,13 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                     child: TextButton(
                       style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
                       child: Text(
-                        "REDDET".toUpperCase(),
+                        buttonRejectText,
                         style: TextStyle(
                           color: Colors.white,
                         ),
                       ),
                       onPressed: () async {
-                        if (await hasReservationChangedByUser()) {
-                          Dialogs.showInfoModalContent(context, "Üzgünüz", "Bu rezervasyon, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
-                              navigateToReservationsPage);
-                        } else {
-                          ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
-                          NotificationsViewModel notificationViewModel = NotificationsViewModel();
-                          await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
-                          notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
-                              widget.reservationModel.customerId,
-                              0, widget.reservationModel.id, false, widget.reservationModel.description, "");
-                          notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
-                          if (isFromNotification) {
-                            Utils.navigateToPage(context, NotificationsView());
-                          } else {
-                            Utils.navigateToPage(context, ReservationCorporateView());
-                          }
-                        }
+                        rejectReservation(isFromNotification);
                       },
                     ),
                   ),

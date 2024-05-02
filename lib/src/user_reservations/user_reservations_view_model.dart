@@ -149,7 +149,7 @@ class UserReservationsViewModel extends ChangeNotifier {
 
   Future<void> rejectReservationForUser(ReservationModel model) async {
     Map reservationMap = model.toMap();
-    reservationMap["reservationStatus"] = ReservationStatusEnum.userRejected.index;
+    reservationMap["reservationStatus"] = ReservationStatusEnum.userRejectedOffer.index;
     reservationMap["isActive"] = false;
     db.editCollectionRef(DBConstants.corporationReservationsDb, reservationMap);
   }

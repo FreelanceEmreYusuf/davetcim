@@ -70,7 +70,7 @@ class _AllReservationCorporateDelayDateScreenState extends State<AllReservationC
   Widget build(BuildContext context) {
     if (!hasDataTaken ) {
       return Scaffold(appBar:
-      AppBarMenu(pageName: "Yeni Rezervasyon Tarihi Seçin", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
+      AppBarMenu(pageName: "Yeni Tarihi Belirleyin", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
           body: Padding(
               padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
               child: Center(child: Indicator())));
@@ -78,7 +78,7 @@ class _AllReservationCorporateDelayDateScreenState extends State<AllReservationC
 
     DateTime _firsDate = DateTime.now();
     return Scaffold(
-      appBar: AppBarMenu(pageName: "Yeni Rezervasyon Tarihi Seçin", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
+      appBar: AppBarMenu(pageName: "Yeni Tarihi Belirleyin", isHomnePageIconVisible: false, isNotificationsIconVisible: false, isPopUpMenuActive: true),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 10.0),
         child: CalendarCarousel<Event>(

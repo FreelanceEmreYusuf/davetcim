@@ -64,7 +64,8 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
     await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
     notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
         widget.reservationModel.customerId,
-        0, widget.reservationModel.id, false, widget.reservationModel.description, "");
+        0, widget.reservationModel.id, widget.reservationModel.reservationStatus.index,
+        false, widget.reservationModel.description, "");
     Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 1));
   }
 
@@ -81,16 +82,38 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
     }
 
     bool isAvailableForDelayOrCancel = false;
-    if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.approved &&
+    if ((detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userOffer
+        || detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.preReservation
+        || detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation) &&
         detailResponse.reservationModel.date >= DateConversionUtils.getTodayAsInt()) {
       isAvailableForDelayOrCancel = true;
     }
 
     Color color = Colors.green;
     String textStr = 'ONAYLANMIŞ REZERVASYON';
-    if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.adminRejected) {
+    String rejectButtonText = "REDDET";
+    String dialogText = "Daha önceden onaylanmış olan rezervasyonu, iptal etmek istediğinize emin misiniz?";
+
+    if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userOffer) {
+      color = Colors.lightBlueAccent;
+      textStr = 'GELEN TEKLİF';
+      dialogText = "Müşteri teklifini iptal etmek istediğinize emin misiniz?";
+    } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.adminRejectedOffer) {
       color = Colors.redAccent;
-      textStr = 'RED EDİLMİŞ REZERVASYON';
+      textStr = 'RED EDİLMİŞ TEKLİF';
+    } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userRejectedOffer) {
+      color = Colors.redAccent;
+      textStr = 'RED EDİLMİŞ TEKLİF';
+    } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
+      color = Colors.blueAccent;
+      textStr = 'OPSİYONLANMIŞ REZERVASYON';
+      rejectButtonText = "TEKLİFE ÇEVİR";
+      dialogText = "Opsiyonlanmış rezervasyonu tekrar teklife çevirmek istediğinizden emin misiniz?";
+    } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation) {
+      color = Colors.green;
+      textStr = 'ONAYLANMIŞ REZERVASYON';
+      rejectButtonText = "OPSİYONA ÇEVİR";
+      dialogText = "Rezervasyonu tekar opsiyona çevirmek istediğinizden emin misiniz?";
     }
 
     return Scaffold(
@@ -399,7 +422,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                       child: TextButton(
                         style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
                         child: Text(
-                          "REDDET".toUpperCase(),
+                          rejectButtonText.toUpperCase(),
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -409,7 +432,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                               context,
                               LanguageConstants
                                   .processApproveHeader[LanguageConstants.languageFlag],
-                              "Daha önceden onaylanmış olan rezervasyonu, iptal etmek istediğinize emin misiniz?",
+                              dialogText,
                               rejectReservation, '');
                         },
                       ),

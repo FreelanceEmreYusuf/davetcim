@@ -45,7 +45,7 @@ class _CartReservationItemState extends State<CartReservationItem> {
             Dialogs.showInfoModalContent(
                 context,
                 "Tarih Seçim Uyarısı",
-                "Geçmiş tarihli rezervasyon yapılamaz", null);
+                "Geçmiş tarihli teklif oluşturulamaz", null);
           } else {
             navigateToBasket();
            /* TODO : Dialogs.showDialogMessage(

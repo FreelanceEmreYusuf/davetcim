@@ -29,11 +29,17 @@ class _ReservationUserCardWidgetState
   Widget build(BuildContext context) {
     Color color = Colors.white54;
     Color textColor = Colors.black;
-    if (widget.model.reservationStatus == ReservationStatusEnum.adminRejected) {
+    if (widget.model.reservationStatus == ReservationStatusEnum.adminRejectedOffer) {
       color = Colors.redAccent;
       textColor = Colors.white;
-    } else if (widget.model.reservationStatus == ReservationStatusEnum.approved) {
+    } else if (widget.model.reservationStatus == ReservationStatusEnum.reservation) {
       color = Colors.green;
+      textColor = Colors.white;
+    } else if (widget.model.reservationStatus == ReservationStatusEnum.preReservation) {
+      color = Colors.blueAccent;
+      textColor = Colors.white;
+    } else if (widget.model.reservationStatus == ReservationStatusEnum.userOffer) {
+      color = Colors.lightBlueAccent;
       textColor = Colors.white;
     }
 

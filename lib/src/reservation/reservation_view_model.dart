@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../../shared/enums/reservation_status_enum.dart';
 import '../../shared/models/corporate_sessions_model.dart';
 import '../../shared/models/reservation_model.dart';
 import '../../shared/services/database.dart';
@@ -15,6 +16,7 @@ class ReservationViewModel extends ChangeNotifier {
         .getCollectionRef("CorporationReservations")
         .where('corporationId', isEqualTo: corporateId)
         .where('isActive', isEqualTo: true)
+        .where('reservationStatus', isGreaterThan: ReservationStatusEnum.userOffer)
         .get();
 
     List<ReservationModel> corpModelList = [];
@@ -170,6 +172,7 @@ class ReservationViewModel extends ChangeNotifier {
         .getCollectionRef("CorporationReservations")
         .where('corporationId', isEqualTo: corporateId)
         .where('isActive', isEqualTo: true)
+        .where('reservationStatus', isNotEqualTo: ReservationStatusEnum.userOffer.index)
         .where('date', isEqualTo: date)
         .get();
 

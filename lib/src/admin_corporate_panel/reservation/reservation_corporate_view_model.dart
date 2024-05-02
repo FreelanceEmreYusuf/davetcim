@@ -14,11 +14,12 @@ class ReservationCorporateViewModel extends ChangeNotifier {
 
   Future<List<ReservationModel>> getReservationlist(int corporateId) async {
     var response = await db
-        .getCollectionRef("CorporationReservations")
+        .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('corporationId', isEqualTo: corporateId)
         .where('isActive', isEqualTo: true)
         .where('date', isGreaterThanOrEqualTo: DateConversionUtils.getTodayAsInt())
         .where('reservationStatus', whereIn: ReservationStatusEnumConverter.adminViewedReservationStatus())
+        .orderBy('date', descending: true)
         .get();
 
     List<ReservationModel> corpModelList = [];
@@ -126,14 +127,23 @@ class ReservationCorporateViewModel extends ChangeNotifier {
   }
 
   Future<void> editReservationForAdmin(ReservationModel model, bool isApproved) async {
-    Map reservationMap = model.toMap();
-    isApproved ?
-        reservationMap["reservationStatus"] = ReservationStatusEnum.approved.index :
-        reservationMap["reservationStatus"] = ReservationStatusEnum.adminRejected.index;
+    if (isApproved) {
+      if (model.reservationStatus == ReservationStatusEnum.userOffer) {
+        model.reservationStatus =  ReservationStatusEnum.preReservation;
+      } else  if (model.reservationStatus == ReservationStatusEnum.preReservation) {
+        model.reservationStatus = ReservationStatusEnum.reservation;
+      }
+    } else {
+      if (model.reservationStatus == ReservationStatusEnum.reservation) {
+        model.reservationStatus = ReservationStatusEnum.preReservation;
+      } else if (model.reservationStatus == ReservationStatusEnum.preReservation) {
+        model.reservationStatus = ReservationStatusEnum.userOffer;
+      } else {
+        model.reservationStatus =  ReservationStatusEnum.adminRejectedOffer;
+        model.isActive = isApproved;
+      }
+    }
 
-    reservationMap["isActive"] = isApproved;
-    db.editCollectionRef(DBConstants.corporationReservationsDb, reservationMap);
+    db.editCollectionRef(DBConstants.corporationReservationsDb, model.toMap());
   }
-
-
 }
