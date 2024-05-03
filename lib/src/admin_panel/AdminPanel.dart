@@ -1,7 +1,6 @@
 import 'package:davetcim/src/admin_panel/service/service_view.dart';
 import 'package:davetcim/widgets/app_bar/app_bar_view.dart';
 import 'package:flutter/material.dart';
-
 import '../../shared/environments/const.dart';
 import '../../shared/utils/utils.dart';
 import 'company/company_add_view.dart';
@@ -32,13 +31,13 @@ class _State extends State<AdminPanelPage> {
               padding: EdgeInsets.all(10),
               child: ListView(
                 children: <Widget>[
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 20,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("YENİ FİRMA EKLE",
                           style: TextStyle(
                             color: Colors.white,
@@ -47,13 +46,13 @@ class _State extends State<AdminPanelPage> {
                           Utils.navigateToPage(context, CompanyAddView());
                         },
                       )),
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 25,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("YENİ SALON EKLE",
                           style: TextStyle(
                             color: Colors.white,
@@ -62,13 +61,13 @@ class _State extends State<AdminPanelPage> {
                           Utils.navigateToPage(context, CorporationGenerateKeyView());
                         },
                       )),
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 25,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, textStyle: TextStyle(color: Colors.white,)),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("SALON AKTİF/PASİF",
                           style: TextStyle(
                             color: Colors.white,
@@ -77,13 +76,13 @@ class _State extends State<AdminPanelPage> {
                           Utils.navigateToPage(context, CorporationActivePassiveView());
                         },
                       )),
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 25,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("HİZMET HAVUZU",
                           style: TextStyle(
                           color: Colors.white,
@@ -92,13 +91,13 @@ class _State extends State<AdminPanelPage> {
                           Utils.navigateToPage(context, AdminServicePoolManager());
                         },
                       )),
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 25,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("SALON ÖZELLİK YÖNET",
                           style: TextStyle(
                             color: Colors.white,
@@ -107,6 +106,7 @@ class _State extends State<AdminPanelPage> {
                           Utils.navigateToPage(context, ManageLookupsView());
                         },
                       )),
+                  SizedBox(height: MediaQuery.of(context).size.height / 20,),
                 ],
               )),
         ));

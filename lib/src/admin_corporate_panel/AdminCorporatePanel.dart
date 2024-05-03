@@ -39,13 +39,13 @@ class _State extends State<AdminCorporatePanelPage> {
               padding: EdgeInsets.all(10),
               child: ListView(
                 children: <Widget>[
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 20,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("SUNULAN HİZMET İŞLEMLERİ",
                           style: TextStyle(
                             color: Colors.white,
@@ -54,13 +54,13 @@ class _State extends State<AdminCorporatePanelPage> {
                           Utils.navigateToPage(context, ServiceLandingView(pageIndex: 0,));
                         },
                       )),
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("SEANS İŞLEMLERİ",
                           style: TextStyle(
                             color: Colors.white,
@@ -69,13 +69,13 @@ class _State extends State<AdminCorporatePanelPage> {
                           Utils.navigateToPage(context, SeansCorporateView());
                         },
                       )),
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("REZERVASYON İŞLEMLERİ",
                           style: TextStyle(
                             color: Colors.white,
@@ -84,13 +84,13 @@ class _State extends State<AdminCorporatePanelPage> {
                           Utils.navigateToPage(context, ReservationCorporateView());
                         },
                       )),
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("REZERVASYON GEÇMİŞİ",
                           style: TextStyle(
                             color: Colors.white,
@@ -99,13 +99,13 @@ class _State extends State<AdminCorporatePanelPage> {
                           Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 0));
                         },
                       )),
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("YORUMLARI DÜZENLE",
                           style: TextStyle(
                             color: Colors.white,
@@ -114,13 +114,13 @@ class _State extends State<AdminCorporatePanelPage> {
                           Utils.navigateToPage(context, ManageCommentCorporateView());
                         },
                       )),
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("SALON ANALİZİ",
                           style: TextStyle(
                             color: Colors.white,
@@ -129,13 +129,13 @@ class _State extends State<AdminCorporatePanelPage> {
                           Utils.navigateToPage(context, CorporationAnalysisView());
                         },
                       )),
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("SALON ÖZELLİKLERİNİ YÖNET",
                           style: TextStyle(
                             color: Colors.white,
@@ -144,13 +144,13 @@ class _State extends State<AdminCorporatePanelPage> {
                           Utils.navigateToPage(context, CorporationCommonPropertiesEditView());
                         },
                       )),
-                  SizedBox(height: 30.0),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30,),
                   Container(
-                      height: 50,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
                       // ignore: deprecated_member_use
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent),
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
                         child: Text("FOTOĞRAFLARI YÖNET",
                           style: TextStyle(
                             color: Colors.white,
@@ -159,6 +159,7 @@ class _State extends State<AdminCorporatePanelPage> {
                           Utils.navigateToPage(context, PickPageView());
                         },
                       )),
+                  SizedBox(height: MediaQuery.of(context).size.height / 20,),
 
                 ],
               )),
