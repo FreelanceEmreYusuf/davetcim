@@ -778,12 +778,12 @@ class _ProductDetailsState extends State<ProductDetails> {
         ),
       ),
         bottomNavigationBar: Container(
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 4.0),
-          height: 50.0,
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 10.0),
+          height: MediaQuery.of(context).size.height / 11,
           child: TextButton(
             style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
             child: Text(
-              "REZERVASYON OLUŞTUR",
+              "TEKLİF AL",
               style: TextStyle(
                 color: Colors.white,
               ),
