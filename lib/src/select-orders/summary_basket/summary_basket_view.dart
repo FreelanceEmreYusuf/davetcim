@@ -3,6 +3,7 @@ import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/select-orders/summary_basket/summary_basket_view_model.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/enums/dialog_input_validator_type_enum.dart';
+import '../../../shared/helpers/pdf_helper.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
 import '../../../shared/sessions/state_management.dart';
@@ -417,6 +418,29 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               ),
               Divider(),
               getServiceWidget(),
+              SizedBox(height: 10.0),
+              Positioned(
+                bottom: MediaQuery.of(context).size.height / 150,
+                right: MediaQuery.of(context).size.width / 150,
+                left: MediaQuery.of(context).size.width / 150,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: ElevatedButton(
+                    onPressed: ()  {
+                      PDFHelper pdfHelper = PDFHelper();
+                      pdfHelper.createAndShowOfferPDF(context);
+                    },
+                    child: Text(
+                      "TEKLİF İÇİN PDF GÖSTER".toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
               SizedBox(height: MediaQuery.of(context).size.height / 5,),
 
             ],

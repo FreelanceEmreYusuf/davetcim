@@ -3,6 +3,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
 class DateConversionUtils {
+  static String getCurrentViewTime() {
+    return new DateTime.now().day.toString().padLeft(2, '0') + "."
+        + DateTime.now().month.toString().padLeft(2, '0')  + "."
+        + DateTime.now().year.toString();
+  }
+
+  static String getCurrentViewTimeFromInt(int intDate) {
+    DateTime dt = getDateTimeFromIntDate(intDate);
+    return dt.day.toString().padLeft(2, '0') + "."
+        + dt.month.toString().padLeft(2, '0')  + "."
+        + dt.year.toString();
+  }
+
   static int getCurrentDateAsInt(DateTime dt) {
     return  int.parse(""  + dt.year.toString()  +
         dt.month.toString().padLeft(2, '0')  + dt.day.toString().padLeft(2, '0'));

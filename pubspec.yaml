@@ -45,6 +45,8 @@ dependencies:
   image: ^4.1.7
   path_provider: ^2.0.15
   intl: ^0.18.1
+  pdf: ^1.3.13
+  open_file: ^3.0.3
 
 
 
@@ -76,6 +78,11 @@ flutter:
     - indicator.gif
     - indicatorDark.gif
     - uprow.gif
+
+  fonts:
+    - family: MyCustomFont
+      fonts:
+        - asset: assets/fonts/Lato-Black.ttf
 
   #   - images/a_dot_ham.jpeg
 
