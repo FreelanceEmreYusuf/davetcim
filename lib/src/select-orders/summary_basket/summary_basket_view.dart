@@ -193,6 +193,20 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
           child: ListView(
             children: <Widget>[
               //Tarih ve seans
+              ElevatedButton(
+                onPressed: ()  {
+                  PDFHelper pdfHelper = PDFHelper();
+                  pdfHelper.createAndShowOfferPDF(context);
+                },
+                child: Text(
+                  "TEKLİF İÇİN PDF GÖSTER".toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
               SizedBox(height: 10.0),
               Container(
                 height: MediaQuery.of(context).size.height / 13,
@@ -419,20 +433,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               Divider(),
               getServiceWidget(),
               SizedBox(height: 10.0),
-              ElevatedButton(
-                onPressed: ()  {
-                  PDFHelper pdfHelper = PDFHelper();
-                  pdfHelper.createAndShowOfferPDF(context);
-                },
-                child: Text(
-                  "TEKLİF İÇİN PDF GÖSTER".toUpperCase(),
-                  style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
+
               SizedBox(height: MediaQuery.of(context).size.height / 5,),
 
             ],
