@@ -419,25 +419,17 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
               Divider(),
               getServiceWidget(),
               SizedBox(height: 10.0),
-              Positioned(
-                bottom: MediaQuery.of(context).size.height / 150,
-                right: MediaQuery.of(context).size.width / 150,
-                left: MediaQuery.of(context).size.width / 150,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: ElevatedButton(
-                    onPressed: ()  {
-                      PDFHelper pdfHelper = PDFHelper();
-                      pdfHelper.createAndShowOfferPDF(context);
-                    },
-                    child: Text(
-                      "TEKLİF İÇİN PDF GÖSTER".toUpperCase(),
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
+              ElevatedButton(
+                onPressed: ()  {
+                  PDFHelper pdfHelper = PDFHelper();
+                  pdfHelper.createAndShowOfferPDF(context);
+                },
+                child: Text(
+                  "TEKLİF İÇİN PDF GÖSTER".toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
                 ),
               ),
