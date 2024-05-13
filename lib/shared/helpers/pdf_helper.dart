@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:davetcim/shared/helpers/general_helper.dart';
 import 'package:davetcim/shared/models/service_pool_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -70,19 +71,24 @@ class PDFHelper {
     }
 
     if (UserBasketState.userBasket.servicePoolModel != null) {
+      String services ="";
       for (int i = 0; i < UserBasketState.userBasket.servicePoolModel.length; i++) {
         ServicePoolModel servicePoolModel = UserBasketState.userBasket.servicePoolModel[i];
         if (!servicePoolModel.hasChild && servicePoolModel.companyHasService) {
-          widgetList.add(
+          if(services.isEmpty)
+          services = servicePoolModel.serviceName.replaceAll("-", "") + " ";
+          else
+            services = services + "," + servicePoolModel.serviceName.replaceAll("-", "") + " ";
+        }
+      }
+      widgetList.add(
             addChildColumn(
-              servicePoolModel.serviceName.replaceAll("-", ""),
-              pw.TextAlign.right,
+              services,
+              pw.TextAlign.left,
               font,
               false,
             ),
           );
-        }
-      }
     }
 
     return pw.Container(
@@ -110,18 +116,38 @@ class PDFHelper {
         build: (pw.Context context) => pw.Column(
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
-            addChildColumn('Referans Kodu ' +
-                new DateTime.now().millisecondsSinceEpoch.toString(),
-                pw.TextAlign.left, latoFont, false),
-            addChildColumn('İşlem Tarihi: ' +
-                DateConversionUtils.getCurrentViewTime(),
-                pw.TextAlign.right, latoFont, false),
-            addChildColumn(UserBasketState.userBasket.corporationModel.address,
-                pw.TextAlign.right, latoFont, false),
-            addChildColumn(districtName,
-                pw.TextAlign.right, latoFont, false),
-            addChildColumn(UserBasketState.userBasket.corporationModel.email,
-                pw.TextAlign.right, latoFont, false),
+            pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Expanded(
+                    child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      mainAxisAlignment: pw.MainAxisAlignment.start,
+                      children: [
+                        addChildColumn('Referans Kodu ' +
+                            new DateTime.now().millisecondsSinceEpoch.toString(),
+                            pw.TextAlign.left, latoFont, false),
+                    ],),
+                  ),
+                  pw.Expanded(
+                    child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      mainAxisAlignment: pw.MainAxisAlignment.start,
+                      children: [
+                        addChildColumn('İşlem Tarihi: ' +
+                            DateConversionUtils.getCurrentViewTime(),
+                            pw.TextAlign.right, latoFont, false),
+                        addChildColumn(UserBasketState.userBasket.corporationModel.address,
+                            pw.TextAlign.right, latoFont, false),
+                        addChildColumn(districtName,
+                            pw.TextAlign.right, latoFont, false),
+                        addChildColumn(UserBasketState.userBasket.corporationModel.email,
+                            pw.TextAlign.right, latoFont, false),
+                        pw.SizedBox(height: 20),
+                      ],),
+                  ),
+            ]),
             pw.SizedBox(height: 20),
             addChildColumn(UserBasketState.userBasket.corporationModel.corporationName.toUpperCase() + " TEKLİF",
                 pw.TextAlign.center, latoFont, true),
@@ -129,204 +155,197 @@ class PDFHelper {
                 pw.TextAlign.center, latoFont, true),
             pw.SizedBox(height: 20),
 
-
-                pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Expanded(
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        mainAxisAlignment: pw.MainAxisAlignment.start,
-                        children: [
-                          addChildColumn(
-                            "MÜŞTERİ BİLGİLERİ",
-                            pw.TextAlign.right,
-                            latoFont,
-                            true,
-                          ),
-                          addChildColumn(
-                            "İsim :" + UserState.name,
-                            pw.TextAlign.right,
-                            latoFont,
-                            false,
-                          ),
-                          addChildColumn(
-                            "Soyisim :" + UserState.surname,
-                            pw.TextAlign.right,
-                            latoFont,
-                            false,
-                          ),
-                          addChildColumn(
-                            "Cep Telefonu :" + UserState.gsmNo,
-                            pw.TextAlign.right,
-                            latoFont,
-                            false,
-                          ),
-                          pw.SizedBox(height: 20),
-                        ],
-                      ),
-                    ),
-                    pw.SizedBox(width: 20),
-                    pw.Expanded(
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        mainAxisAlignment: pw.MainAxisAlignment.start,
-                        children: [
-                          addChildColumn(
-                            "ETKİNLİK BİLGİLERİ",
-                            pw.TextAlign.left,
-                            latoFont,
-                            true,
-                          ),
-                          addChildColumn(
-                            "Etkinlik Tarihi :" +
-                                DateConversionUtils.getCurrentViewTimeFromInt(
-                                  UserBasketState.userBasket.date,
-                                ),
-                            pw.TextAlign.left,
-                            latoFont,
-                            false,
-                          ),
-                          addChildColumn(
-                            "Etkinlik Saati :" +
-                                UserBasketState.userBasket.sessionModel.name,
-                            pw.TextAlign.left,
-                            latoFont,
-                            false,
-                          ),
-                          addChildColumn(
-                            "Etkinlik Türü :" +
-                                UserBasketState.userBasket.orderBasketModel.invitationType,
-                            pw.TextAlign.left,
-                            latoFont,
-                            false,
-                          ),
-                          addChildColumn(
-                            "Oturma Düzeni :" +
-                                UserBasketState.userBasket.orderBasketModel.sequenceOrder,
-                            pw.TextAlign.left,
-                            latoFont,
-                            false,
-                          ),
-                          addChildColumn(
-                            "Garanti Kişi Sayısı :" +
-                                UserBasketState.userBasket.orderBasketModel.count.toString(),
-                            pw.TextAlign.left,
-                            latoFont,
-                            false,
-                          ),
-                          addChildColumn(
-                            "Paketin Adı :" + packageTitle,
-                            pw.TextAlign.left,
-                            latoFont,
-                            false,
-                          ),
-                          pw.SizedBox(height: 20),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+            pw.Center(child:
             pw.Row(
-                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    pw.Expanded(
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        mainAxisAlignment: pw.MainAxisAlignment.start,
-                        children: [
-                          addChildColumn(
-                            "PAKET HARİCİ HİZMETLER",
-                            pw.TextAlign.right,
-                            latoFont,
-                            true,
-                          ),
-                          getServicesList(latoFont),
-                          pw.SizedBox(height: 20),
-                        ],
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Expanded(
+                  child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.center,
+                    mainAxisAlignment: pw.MainAxisAlignment.center,
+                    children: [
+                      addChildColumn(
+                        "MÜŞTERİ BİLGİLERİ",
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
                       ),
-                    ),
-                    pw.SizedBox(width: 20),
-                    pw.Expanded(
-                      child: pw.Column(
-                        crossAxisAlignment: pw.CrossAxisAlignment.start,
-                        children: [
-                          addChildColumn(
-                            "ETKİNLİK ÖDEME TÜRÜ PLANLAMA",
-                            pw.TextAlign.left,
-                            latoFont,
-                            true,
-                          ),
-                          addChildColumn(
-                            "Ödeme Türü: Kaporalı",
-                            pw.TextAlign.left,
-                            latoFont,
-                            false,
-                          ),
-                          addChildColumn(
-                            "Toplam:" +
-                                UserBasketState.userBasket.totalPrice.toString() +
-                                " TL",
-                            pw.TextAlign.left,
-                            latoFont,
-                            false,
-                          ),
-                          addChildColumn(
-                            "Önemli: Tahsilat makbuzu almadan yapılan ödemeler geçersizdir.",
-                            pw.TextAlign.left,
-                            latoFont,
-                            true,
-                          ),
-                          pw.SizedBox(height: 20),
-                        ],
+                      addChildColumn(
+                        "İsim :" + UserState.name,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
                       ),
-                    ),
-                  ],
+                      addChildColumn(
+                        "Soyisim :" + UserState.surname,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Cep Telefonu :" + UserState.gsmNo,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      pw.SizedBox(height: 20),
+                    ],
+                  ),
                 ),
+                pw.SizedBox(width: 20),
+                pw.Expanded(
+                  child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.center,
+                    mainAxisAlignment: pw.MainAxisAlignment.center,
+                    children: [
+                      addChildColumn(
+                        "ETKİNLİK BİLGİLERİ",
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
+                      ),
+                      addChildColumn(
+                        "Etkinlik Tarihi :" +
+                            DateConversionUtils.getCurrentViewTimeFromInt(
+                              UserBasketState.userBasket.date,
+                            ),
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Etkinlik Saati :" +
+                            UserBasketState.userBasket.sessionModel.name,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Etkinlik Türü :" +
+                            UserBasketState.userBasket.orderBasketModel.invitationType,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Oturma Düzeni :" +
+                            UserBasketState.userBasket.orderBasketModel.sequenceOrder,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Garanti Kişi Sayısı :" +
+                            UserBasketState.userBasket.orderBasketModel.count.toString(),
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Kişi Başı ÜCret : " +
+                            (UserBasketState.userBasket.totalPrice / UserBasketState.userBasket.orderBasketModel.count).toStringAsFixed(2)+" TL",
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Paketin Adı :" + packageTitle,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      pw.SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            ),
+
+            pw.SizedBox(width: 20),
+            pw.Expanded(
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                mainAxisAlignment: pw.MainAxisAlignment.start,
+                children: [
+                  addChildColumn(
+                    "ETKİNLİK ÖDEME TÜRÜ PLANLAMA",
+                    pw.TextAlign.left,
+                    latoFont,
+                    true,
+                  ),
+                  addChildColumn(
+                    "Ödeme Türü: Kaporalı",
+                    pw.TextAlign.left,
+                    latoFont,
+                    false,
+                  ),
+                  addChildColumn(
+                    "Toplam:" +
+                        UserBasketState.userBasket.totalPrice.toString() +
+                        " TL",
+                    pw.TextAlign.left,
+                    latoFont,
+                    false,
+                  ),
+                  addChildColumn(
+                    "Önemli: Tahsilat makbuzu almadan yapılan ödemeler geçersizdir.",
+                    pw.TextAlign.left,
+                    latoFont,
+                    true,
+                  ),
+                ],
+              ),
+            ),
+            addChildColumn(
+              "MADDELER :",
+              pw.TextAlign.left,
+              latoFont,
+              true,
+            ),
+            pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
                 addChildColumn(
-                  "MADDELER :",
+                  "1. Size ilettiğimiz teklif; ilgili gün ve tarih için verilmiştir.",
                   pw.TextAlign.left,
                   latoFont,
-                  true,
+                  false,
                 ),
-            pw.Column(
-                  crossAxisAlignment: pw.CrossAxisAlignment.start,
-                  children: [
-                    addChildColumn(
-                      "1. Size ilettiğimiz teklif; ilgili gün ve tarih için verilmiştir.",
-                      pw.TextAlign.left,
-                      latoFont,
-                      false,
-                    ),
-                    addChildColumn(
-                      "2. Teklif brlirtilen kişi kapasitesi ve menü için geçerlidir.",
-                      pw.TextAlign.left,
-                      latoFont,
-                      false,
-                    ),
-                    addChildColumn(
-                      "3. İlgili zaman aralığı ve ilgili paketimizi satın alabilmek için rezervasyon/satış işlemi yaptırmanız gerekmektedir.",
-                      pw.TextAlign.left,
-                      latoFont,
-                      false,
-                    ),
-                    addChildColumn(
-                      "4. Teklif geçerlilik süreci 10 gündür.",
-                      pw.TextAlign.left,
-                      latoFont,
-                      false,
-                    ),
-                    addChildColumn(
-                      "5. Bu belge sadece bir tekliftir.",
-                      pw.TextAlign.left,
-                      latoFont,
-                      false,
-                    ),
-                    pw.SizedBox(height: 20),
-                  ],
+                addChildColumn(
+                  "2. Teklif brlirtilen kişi kapasitesi ve menü için geçerlidir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
                 ),
+                addChildColumn(
+                  "3. İlgili zaman aralığı ve ilgili paketimizi satın alabilmek için rezervasyon/satış işlemi yaptırmanız gerekmektedir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "4. Teklif geçerlilik süreci 10 gündür.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "5. Bu belge sadece bir tekliftir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "6. Paket harici hizmetler EK 1 içerisinde listelenmektedir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                pw.SizedBox(height: 20),
+              ],
+            ),
 
 
             pw.Row(
@@ -356,6 +375,46 @@ class PDFHelper {
                 ),
               ],
             ),
+          ],
+        ),),
+    );
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Center(child:
+            addChildColumn(
+              "EK 1",
+              pw.TextAlign.left,
+              latoFont,
+              true,
+            ),),
+            pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: pw.CrossAxisAlignment.start,
+                  children: [
+                    pw.Expanded(
+                      child: pw.Column(
+                        crossAxisAlignment: pw.CrossAxisAlignment.start,
+                        mainAxisAlignment: pw.MainAxisAlignment.start,
+                        children: [
+                          addChildColumn(
+                            "PAKET HARİCİ HİZMETLER",
+                            pw.TextAlign.left,
+                            latoFont,
+                            true,
+                          ),
+                          pw.SizedBox(height: 20),
+                          getServicesList(latoFont),
+                          pw.SizedBox(height: 20),
+                        ],
+                      ),
+                    ),
+                    pw.SizedBox(width: 20),
+                  ],
+                ),
           ],
       ),),
     );
