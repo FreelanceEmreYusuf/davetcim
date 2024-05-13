@@ -160,7 +160,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
     }
 
     return Container(
-        child: Expanded(child: Text("Hizmet Seçimi Bulunmamaktadır.", style: TextStyle(color: Colors.red))),
+        child: Text("Hizmet Seçimi Bulunmamaktadır.", style: TextStyle(color: Colors.red)),
         padding: EdgeInsets.symmetric(horizontal: (MediaQuery.of(context).size.width / 25))
     );
   }

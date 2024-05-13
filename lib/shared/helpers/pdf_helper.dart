@@ -60,6 +60,15 @@ class PDFHelper {
   pw.Widget getServicesList(pw.Font font) {
     List<pw.Widget> widgetList = [];
 
+    if (UserBasketState.userBasket.servicePoolModel == null) {
+      return pw.Container(
+        height: 20.0,
+        child: pw.ListView(
+          children: widgetList,
+        ),
+      );
+    }
+
     if (UserBasketState.userBasket.servicePoolModel != null) {
       for (int i = 0; i < UserBasketState.userBasket.servicePoolModel.length; i++) {
         ServicePoolModel servicePoolModel = UserBasketState.userBasket.servicePoolModel[i];
