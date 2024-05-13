@@ -16,7 +16,7 @@ class ReservationViewModel extends ChangeNotifier {
         .getCollectionRef("CorporationReservations")
         .where('corporationId', isEqualTo: corporateId)
         .where('isActive', isEqualTo: true)
-        .where('reservationStatus', isGreaterThan: ReservationStatusEnum.userOffer)
+        .where('reservationStatus', isGreaterThan: ReservationStatusEnum.userOffer.index)
         .get();
 
     List<ReservationModel> corpModelList = [];
