@@ -61,7 +61,8 @@ class _OrderScreenState extends State<OrderScreen>
   Widget build(BuildContext context) {
     super.build(context);
 
-    if (UserBasketState.userBasket.sequenceOrderList.isEmpty ||
+    if (UserBasketState.userBasket == null  ||
+        UserBasketState.userBasket.sequenceOrderList.isEmpty ||
         UserBasketState.userBasket.invitationList.isEmpty) {
       return Scaffold(appBar:
       AppBarMenu(pageName: "Salon Özellikleri", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),

@@ -31,6 +31,9 @@ class _CalenderOrderCarouselState extends State<CalenderOrderCarousel> {
 
   void loadDates() {
     _markedDateMap.clear();
+    if (UserBasketState.userBasket == null || UserBasketState.userBasket.reservationList == null) {
+      return;
+    }
     for (int i = 0; i < UserBasketState.userBasket.reservationList.length; i++) {
       _markedDateMap.add(
           DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.reservationList[i].date),
@@ -57,9 +60,11 @@ class _CalenderOrderCarouselState extends State<CalenderOrderCarousel> {
       margin: EdgeInsets.symmetric(horizontal: 16.0),
       child: CalendarCarousel<Event>(
         onDayPressed: (DateTime date, List<Event> events) {
-          this.setState(() => _currentDate = date);
-          UserBasketState.userBasket.date = DateConversionUtils.getCurrentDateAsInt(date);
-          Utils.navigateToPage(context, ReservationOrderViewScreen());
+          if (date != null ) {
+            this.setState(() => _currentDate = date);
+            UserBasketState.userBasket.date = DateConversionUtils.getCurrentDateAsInt(date);
+            Utils.navigateToPage(context, ReservationOrderViewScreen());
+          }
         },
         weekendTextStyle: TextStyle(
           color: Colors.red,

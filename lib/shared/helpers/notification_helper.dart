@@ -1,22 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/helpers/reservation_helper.dart';
 import 'package:davetcim/shared/models/notification_model.dart';
 import 'package:davetcim/shared/models/reservation_model.dart';
-import 'package:davetcim/shared/services/database.dart';
-import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
-import 'package:davetcim/shared/utils/language.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../src/admin_corporate_panel/manage_comments/manage_comment_corporate_detail_view.dart';
 import '../../src/admin_corporate_panel/reservation/reservation_corporate_detail_view.dart';
 import '../../src/products/product_detail_view.dart';
 import '../../src/user_reservations/user_reservation_detail_view.dart';
-import '../environments/db_constants.dart';
 import '../models/comment_model.dart';
 import '../models/corporation_model.dart';
-import '../models/customer_model.dart';
 import '../utils/utils.dart';
 import 'comment_helper.dart';
 

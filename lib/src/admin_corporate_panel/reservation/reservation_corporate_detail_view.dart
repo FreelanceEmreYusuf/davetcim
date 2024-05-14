@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/corporation_event_log_enum.dart';
 import '../../../shared/helpers/general_helper.dart';
+import '../../../shared/helpers/pdf_helper.dart';
 import '../../../shared/helpers/reservation_helper.dart';
 import '../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
@@ -21,6 +22,7 @@ import '../../../widgets/indicator.dart';
 import '../../notifications/notifications_view.dart';
 import '../../notifications/notifications_view_model.dart';
 import '../../user_reservations/user_reservations_view_model.dart';
+import '../all_reservation/all_reservation_corporate_delay_date_view.dart';
 import '../corporation_analysis/corporation_analysis_view_model.dart';
 
 class ReservationCorporateDetailScreen extends StatefulWidget {
@@ -145,9 +147,32 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
     String buttonApproveText = "Teklifi Opsiyonla";
     String buttonRejectText = "Teklifi Reddet";
 
+    Color color = Colors.green;
+    String textStr = 'ONAYLANMIŞ REZERVASYON';
+    bool isPDFButtonVisible = true;
+
     if (widget.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
       buttonApproveText = "Rezervasyon Oluştur";
       buttonRejectText = "Teklife Çevir";
+    }
+
+    if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userOffer) {
+      color = Colors.lightBlueAccent;
+      textStr = 'GELEN TEKLİF';
+    } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.adminRejectedOffer) {
+      color = Colors.redAccent;
+      textStr = 'RED EDİLMİŞ TEKLİF';
+      isPDFButtonVisible = false;
+    } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userRejectedOffer) {
+      color = Colors.redAccent;
+      textStr = 'RED EDİLMİŞ TEKLİF';
+      isPDFButtonVisible = false;
+    } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
+      color = Colors.blueAccent;
+      textStr = 'OPSİYONLANMIŞ REZERVASYON';
+    } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation) {
+      color = Colors.green;
+      textStr = 'ONAYLANMIŞ REZERVASYON';
     }
 
     return Scaffold(
@@ -156,7 +181,48 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
         child: ListView(
           children: <Widget>[
-            //Müştreri
+            Container(
+              height: MediaQuery.of(context).size.height / 13,
+              child: Card(
+                color: color,
+                semanticContainer: true,
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                shadowColor: Colors.black,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child:  Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                          textStr, style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 10.0),
+            Visibility(
+              visible: isPDFButtonVisible,
+              child: ElevatedButton(
+                onPressed: ()  {
+                  PDFHelper pdfHelper = PDFHelper();
+                  pdfHelper.createAndShowOfferPDFFromReservationDetail(context, detailResponse);
+                },
+                child: Text(
+                  "TEKLİF İÇİN PDF GÖSTER".toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
             SizedBox(height: 10.0),
             Container(
               height: MediaQuery.of(context).size.height / 13,
@@ -375,6 +441,26 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Container(
+                    height: MediaQuery.of(context).size.height / 15,
+                    child: TextButton(
+                      style: TextButton.styleFrom(backgroundColor: Colors.deepOrangeAccent,),
+                      child: Text(
+                        "Ertele",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: () async {
+                        Utils.navigateToPage(context,
+                            AllReservationCorporateDelayDateScreen(reservationModel: widget.reservationModel,));
+                      },
+                    ),
+                  ),
+                ),
                 Flexible(
                   flex: 1,
                   fit: FlexFit.tight,

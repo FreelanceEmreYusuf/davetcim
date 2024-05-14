@@ -3,6 +3,7 @@ import 'package:davetcim/src/products/product_detail_view.dart';
 import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/widgets/smooth_star_rating.dart';
 
+import '../shared/enums/reservation_status_enum.dart';
 import '../shared/models/corporate_sessions_model.dart';
 import '../shared/models/reservation_model.dart';
 import '../src/reservation/reservation_view_model.dart';
@@ -40,6 +41,18 @@ class _CartOnlyReservationItemState extends State<CartOnlyReservationItem> {
 
   @override
   Widget build(BuildContext context) {
+    Color color = Colors.blueAccent;
+    String subtitleText = "Teklif Oluşturuldu";
+    if (widget.item.reservationStatus == ReservationStatusEnum.userOffer) {
+      color = Colors.lightBlueAccent;
+    } else if (widget.item.reservationStatus == ReservationStatusEnum.preReservation) {
+      subtitleText = "Opsiyonlandı";
+      color = Colors.blueAccent;
+    } else if (widget.item.reservationStatus == ReservationStatusEnum.reservation) {
+      subtitleText = "Rezerve Edilmiştir";
+      color = Colors.green;
+    }
+
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
       child: Card(
@@ -47,7 +60,8 @@ class _CartOnlyReservationItemState extends State<CartOnlyReservationItem> {
         child: ListView(
           children: <Widget>[
             ListTile(
-              subtitle: Text("Rezerve Edilmiştir"),
+              textColor: color,
+              subtitle: Text(subtitleText),
               title: Text(
                 sessionModel.name,
                 style: TextStyle(

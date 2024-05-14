@@ -13,6 +13,7 @@ import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
 import '../../shared/helpers/general_helper.dart';
+import '../../shared/helpers/pdf_helper.dart';
 import '../../shared/models/corporation_package_services_model.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../widgets/grid_corporate_detail_package_summary.dart';
@@ -68,6 +69,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
           child: Center(child: Indicator())));
     }
 
+    bool isPDFButtonVisible = true;
     String addressRemaining = detailResponse.corporateModel.address;
     String createdAddress = "";
     while (addressRemaining.length > 30) {
@@ -84,6 +86,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
     if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.adminRejectedOffer) {
       color = Colors.redAccent;
       textStr = 'RED EDİLMİŞ REZERVASYON';
+      isPDFButtonVisible = false;
     } else if(detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userOffer){
       color = Colors.lightBlueAccent;
       textStr = 'ONAY BEKLEYEN TEKLİF';
@@ -133,6 +136,23 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
               ),
             ),
             SizedBox(height: 15.0),
+            Visibility(
+             visible: isPDFButtonVisible,
+              child: ElevatedButton(
+                onPressed: ()  {
+                  PDFHelper pdfHelper = PDFHelper();
+                  pdfHelper.createAndShowOfferPDFFromReservationDetail(context, detailResponse);
+                },
+                child: Text(
+                  "TEKLİF İÇİN PDF GÖSTER".toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
             //Müştreri
             SizedBox(height: 10.0),
             Container(
