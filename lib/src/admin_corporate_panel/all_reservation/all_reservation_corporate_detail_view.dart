@@ -4,7 +4,10 @@ import 'package:davetcim/widgets/expanded_card_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../shared/dto/reservation_detail_view_dto.dart';
+import '../../../shared/enums/corporation_event_log_enum.dart';
 import '../../../shared/helpers/general_helper.dart';
+import '../../../shared/helpers/pdf_helper.dart';
+import '../../../shared/helpers/reservation_helper.dart';
 import '../../../shared/models/corporation_package_services_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
@@ -16,11 +19,15 @@ import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_package_summary.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
 import '../../../widgets/indicator.dart';
+import '../../notifications/notifications_view.dart';
 import '../../notifications/notifications_view_model.dart';
 import '../../user_reservations/user_reservations_view_model.dart';
+import '../corporation_analysis/corporation_analysis_view_model.dart';
+import '../reservation/reservation_corporate_view.dart';
 import '../reservation/reservation_corporate_view_model.dart';
 import 'all_reservation_corporate_delay_date_view.dart';
 import 'all_reservation_corporate_landing_view.dart';
+import 'all_reservation_corporate_view.dart';
 
 class AllReservationCorporateDetailScreen extends StatefulWidget {
   @override
@@ -58,6 +65,42 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
     getReservationDetail();
   }
 
+  void navigateToReservationsPage(BuildContext context) {
+    Utils.navigateToPage(context, ReservationCorporateView());
+  }
+
+  Future<bool> hasReservationChangedByUser() async {
+    ReservationHelper reservationHelper = ReservationHelper();
+    ReservationModel currentResModel = await reservationHelper.getReservation(widget.reservationModel.id);
+    if (currentResModel.userReservationVersion != widget.reservationModel.userReservationVersion) {
+      return true;
+    }
+    return false;
+  }
+
+  void approveReservation() async {
+    if (await hasReservationChangedByUser()) {
+      Dialogs.showInfoModalContent(context, "Üzgünüz", "Bu teklif, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
+          navigateToReservationsPage);
+    } else {
+      ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+      NotificationsViewModel notificationViewModel = NotificationsViewModel();
+      await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
+      notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
+          widget.reservationModel.customerId,
+          0, widget.reservationModel.id,
+          widget.reservationModel.reservationStatus.index,
+          true, widget.reservationModel.description, "");
+      notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
+
+      CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
+      corporationAnalysisViewModel.editDailyLog(widget.reservationModel.corporationId,
+          CorporationEventLogEnum.newReservation.name, detailResponse.reservationModel.cost);
+
+      Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 0));
+    }
+  }
+
   void rejectReservation() async {
     ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
     NotificationsViewModel notificationViewModel = NotificationsViewModel();
@@ -66,7 +109,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
         widget.reservationModel.customerId,
         0, widget.reservationModel.id, widget.reservationModel.reservationStatus.index,
         false, widget.reservationModel.description, "");
-    Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 1));
+    Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 0));
   }
 
 
@@ -91,29 +134,37 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
 
     Color color = Colors.green;
     String textStr = 'ONAYLANMIŞ REZERVASYON';
-    String rejectButtonText = "REDDET";
-    String dialogText = "Daha önceden onaylanmış olan rezervasyonu, iptal etmek istediğinize emin misiniz?";
+
+    bool isPDFButtonVisible = true;
+    String pdfButtonText = "TEKLİF İÇİN PDF GÖSTER";
+
+    String buttonApproveText = "Teklifi Opsiyonla";
+    String buttonRejectText = "Teklifi Reddet";
+
+    bool isApproveButtonEnable = true;
 
     if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userOffer) {
       color = Colors.lightBlueAccent;
       textStr = 'GELEN TEKLİF';
-      dialogText = "Müşteri teklifini iptal etmek istediğinize emin misiniz?";
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.adminRejectedOffer) {
       color = Colors.redAccent;
       textStr = 'RED EDİLMİŞ TEKLİF';
+      isPDFButtonVisible = false;
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userRejectedOffer) {
       color = Colors.redAccent;
       textStr = 'RED EDİLMİŞ TEKLİF';
+      isPDFButtonVisible = false;
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
       color = Colors.blueAccent;
       textStr = 'OPSİYONLANMIŞ REZERVASYON';
-      rejectButtonText = "TEKLİFE ÇEVİR";
-      dialogText = "Opsiyonlanmış rezervasyonu tekrar teklife çevirmek istediğinizden emin misiniz?";
+      buttonApproveText = "Rezervasyon Oluştur";
+      buttonRejectText = "Teklife Çevir";
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation) {
       color = Colors.green;
       textStr = 'ONAYLANMIŞ REZERVASYON';
-      rejectButtonText = "OPSİYONA ÇEVİR";
-      dialogText = "Rezervasyonu tekar opsiyona çevirmek istediğinizden emin misiniz?";
+      pdfButtonText = "REZERVASYON İÇİN PDF GÖSTER";
+      buttonRejectText = "Opsiyona Çevir";
+      isApproveButtonEnable = false;
     }
 
     return Scaffold(
@@ -149,6 +200,28 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
               ),
             ),
             SizedBox(height: 15.0),
+            Visibility(
+              visible: isPDFButtonVisible,
+              child: ElevatedButton(
+                onPressed: ()  {
+                  PDFHelper pdfHelper = PDFHelper();
+                  if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation) {
+                    pdfHelper.createAndShowReservationPDFFromReservationDetail(context, detailResponse);
+                  } else {
+                    pdfHelper.createAndShowOfferPDFFromReservationDetail(context, detailResponse);
+                  }
+                },
+                child: Text(
+                  pdfButtonText.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10.0),
             Container(
               height: MediaQuery.of(context).size.height / 13,
               child: Card(
@@ -400,9 +473,9 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                     child: Container(
                       height: MediaQuery.of(context).size.height / 15,
                       child: TextButton(
-                        style: TextButton.styleFrom(backgroundColor: Colors.green,),
+                        style: TextButton.styleFrom(backgroundColor: Colors.deepOrangeAccent,),
                         child: Text(
-                          "ERTELE".toUpperCase(),
+                          "Ertele",
                           style: TextStyle(
                             color: Colors.white,
                           ),
@@ -414,6 +487,28 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                       ),
                     ),
                   ),
+                  Visibility(
+                    visible: isApproveButtonEnable,
+                    child: Flexible(
+                      flex: 1,
+                      fit: FlexFit.tight,
+                      child: Container(
+                        height: MediaQuery.of(context).size.height / 15,
+                        child: TextButton(
+                          style: TextButton.styleFrom(backgroundColor: Colors.green,),
+                          child: Text(
+                            buttonApproveText,
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          onPressed: () async {
+                            approveReservation();
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
                   Flexible(
                     flex: 1,
                     fit: FlexFit.tight,
@@ -422,18 +517,13 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                       child: TextButton(
                         style: TextButton.styleFrom(backgroundColor: Colors.redAccent,),
                         child: Text(
-                          rejectButtonText.toUpperCase(),
+                          buttonRejectText,
                           style: TextStyle(
                             color: Colors.white,
                           ),
                         ),
                         onPressed: () async {
-                          await Dialogs.showDialogMessage(
-                              context,
-                              LanguageConstants
-                                  .processApproveHeader[LanguageConstants.languageFlag],
-                              dialogText,
-                              rejectReservation, '');
+                          rejectReservation();
                         },
                       ),
                     ),

@@ -807,4 +807,339 @@ class PDFHelper {
     OpenFile.open(pdfFile.path);
   }
 
+  Future<void> createAndShowReservationPDFFromReservationDetail(BuildContext context,
+      ReservationDetailViewDto reservationDetail) async {
+    final pdf = pw.Document();
+    pw.Font latoFont = await loadCustomFont('assets/fonts/Lato-Black.ttf');
+    ProductsViewDetailModel productsViewDetailModel = ProductsViewDetailModel();
+    String districtName = await productsViewDetailModel.getDistrict(
+        int.parse(reservationDetail.corporateModel.district));
+    String packageTitle = "";
+    String sessionName = "";
+    BuildContext buildContext;
+    if (reservationDetail.packageModel != null) {
+      packageTitle = reservationDetail.packageModel.title;
+    }
+    if (reservationDetail.selectedSessionModel != null) {
+      sessionName = reservationDetail.selectedSessionModel.name;
+    }
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Row(
+                mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                children: [
+                  pw.Expanded(
+                    child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      mainAxisAlignment: pw.MainAxisAlignment.start,
+                      children: [
+                        addChildColumn('Referans Kodu ' +
+                            new DateTime.now().millisecondsSinceEpoch.toString(),
+                            pw.TextAlign.left, latoFont, false),
+                      ],),
+                  ),
+                  pw.Expanded(
+                    child: pw.Column(
+                      crossAxisAlignment: pw.CrossAxisAlignment.start,
+                      mainAxisAlignment: pw.MainAxisAlignment.start,
+                      children: [
+                        addChildColumn('İşlem Tarihi: ' +
+                            DateConversionUtils.getCurrentViewTime(),
+                            pw.TextAlign.right, latoFont, false),
+                        addChildColumn(reservationDetail.corporateModel.address,
+                            pw.TextAlign.right, latoFont, false),
+                        addChildColumn(districtName,
+                            pw.TextAlign.right, latoFont, false),
+                        addChildColumn(reservationDetail.corporateModel.email,
+                            pw.TextAlign.right, latoFont, false),
+                        pw.SizedBox(height: 20),
+                      ],),
+                  ),
+                ]),
+            pw.SizedBox(height: 20),
+            addChildColumn(reservationDetail.corporateModel.corporationName.toUpperCase() + " REZERVASYON",
+                pw.TextAlign.center, latoFont, true),
+            pw.SizedBox(height: 20),
+
+            pw.Center(child:
+            pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Expanded(
+                  child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.center,
+                    mainAxisAlignment: pw.MainAxisAlignment.center,
+                    children: [
+                      addChildColumn(
+                        "MÜŞTERİ BİLGİLERİ",
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
+                      ),
+                      addChildColumn(
+                        "İsim :" + reservationDetail.customerModel.name,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Soyisim :" + reservationDetail.customerModel.surname,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Cep Telefonu :" + reservationDetail.customerModel.gsmNo,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      pw.SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+                pw.SizedBox(width: 20),
+                pw.Expanded(
+                  child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.center,
+                    mainAxisAlignment: pw.MainAxisAlignment.center,
+                    children: [
+                      addChildColumn(
+                        "ETKİNLİK BİLGİLERİ",
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
+                      ),
+                      addChildColumn(
+                        "Etkinlik Tarihi :" +
+                            DateConversionUtils.getCurrentViewTimeFromInt(
+                                reservationDetail.reservationModel.date
+                            ),
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Etkinlik Saati :" +
+                            sessionName,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Etkinlik Türü :" +
+                            reservationDetail.reservationModel.invitationType,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Oturma Düzeni :" +
+                            reservationDetail.reservationModel.seatingArrangement,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Garanti Kişi Sayısı :" +
+                            reservationDetail.reservationModel.invitationCount.toString(),
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Kişi Başı ÜCret : " +
+                            (reservationDetail.reservationModel.cost /
+                                reservationDetail.reservationModel.invitationCount).toStringAsFixed(2)+" TL",
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      addChildColumn(
+                        "Paketin Adı :" + packageTitle,
+                        pw.TextAlign.left,
+                        latoFont,
+                        false,
+                      ),
+                      pw.SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            ),
+
+            pw.SizedBox(width: 20),
+            pw.Expanded(
+              child: pw.Column(
+                crossAxisAlignment: pw.CrossAxisAlignment.start,
+                mainAxisAlignment: pw.MainAxisAlignment.start,
+                children: [
+                  addChildColumn(
+                    "ETKİNLİK ÖDEME TÜRÜ PLANLAMA",
+                    pw.TextAlign.left,
+                    latoFont,
+                    true,
+                  ),
+                  addChildColumn(
+                    "Ödeme Türü: Kaporalı",
+                    pw.TextAlign.left,
+                    latoFont,
+                    false,
+                  ),
+                  addChildColumn(
+                    "Toplam:" +
+                        reservationDetail.reservationModel.cost.toString() +
+                        " TL",
+                    pw.TextAlign.left,
+                    latoFont,
+                    false,
+                  ),
+                  addChildColumn(
+                    "Önemli: Tahsilat makbuzu almadan yapılan ödemeler geçersizdir.",
+                    pw.TextAlign.left,
+                    latoFont,
+                    true,
+                  ),
+                ],
+              ),
+            ),
+            addChildColumn(
+              "MADDELER :",
+              pw.TextAlign.left,
+              latoFont,
+              true,
+            ),
+            pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                addChildColumn(
+                  "1. Size ilettiğimiz teklif; ilgili gün ve tarih için verilmiştir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "2. Teklif brlirtilen kişi kapasitesi ve menü için geçerlidir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "3. İlgili zaman aralığı ve ilgili paketimizi satın alabilmek için rezervasyon/satış işlemi yaptırmanız gerekmektedir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "4. Teklif geçerlilik süreci 10 gündür.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "5. Bu belge sadece bir tekliftir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "6. Paket harici hizmetler EK 1 içerisinde listelenmektedir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                pw.SizedBox(height: 20),
+              ],
+            ),
+
+
+            pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              children: [
+                pw.SizedBox(width: 20),
+                pw.Expanded(
+                  child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      addChildColumn("İLGİLİ PERSONEL",
+                          pw.TextAlign.left, latoFont, true),
+                      pw.SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+                pw.SizedBox(width: 20),
+                pw.Expanded(
+                  child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    children: [
+                      addChildColumn("MÜŞTERİ",
+                          pw.TextAlign.right, latoFont, true),
+                      pw.SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),),
+    );
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Center(child:
+            addChildColumn(
+              "EK 1",
+              pw.TextAlign.left,
+              latoFont,
+              true,
+            ),),
+            pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Expanded(
+                  child: pw.Column(
+                    crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    mainAxisAlignment: pw.MainAxisAlignment.start,
+                    children: [
+                      addChildColumn(
+                        "PAKET HARİCİ HİZMETLER",
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
+                      ),
+                      pw.SizedBox(height: 20),
+                      getServicesListFromReservationDetail(latoFont, reservationDetail),
+                      pw.SizedBox(height: 20),
+                    ],
+                  ),
+                ),
+                pw.SizedBox(width: 20),
+              ],
+            ),
+          ],
+        ),),
+    );
+
+    String fileName = "reservation_" +
+        new DateTime.now().millisecondsSinceEpoch.toString() + ".pdf";
+
+    final tempDir = await getTemporaryDirectory();
+    final tempPath = tempDir.path;
+    final pdfFile = File('$tempPath/$fileName');
+    await pdfFile.writeAsBytes(await pdf.save());
+
+    OpenFile.open(pdfFile.path);
+  }
+
 }

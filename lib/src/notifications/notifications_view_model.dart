@@ -109,16 +109,16 @@ class NotificationsViewModel extends ChangeNotifier {
 
       } else if (reservationId > 0) {
         if (isApproved) {
-          if (reservationStatus == ReservationStatusEnum.userOffer.index) {
+          if (reservationStatus == ReservationStatusEnum.preReservation.index) {
             offerMessage = "Konu: Teklifiniz Opsiyonlandı" +
                 "\n" +
-                " Teklif Mesajı: " +
+                " Opsiyonlanma Mesajı: " +
                 text +
                 "\n" +
                 " İşlem Tarihi :" +
                 DateTime.now().toString().substring(0, 10);
-          } else if (reservationStatus == ReservationStatusEnum.preReservation.index) {
-            offerMessage = "Konu: Rezervasyonununz Oluşturuldu" +
+          } else if (reservationStatus == ReservationStatusEnum.reservation.index) {
+            offerMessage = "Konu: Rezervasyonunuz Onaylandı" +
                 "\n" +
                 " Rezervasyon Mesajı: " +
                 text +

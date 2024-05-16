@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:davetcim/src/products/product_detail_view.dart';
-import 'package:davetcim/shared/environments/const.dart';
-import 'package:davetcim/widgets/smooth_star_rating.dart';
 
 import '../shared/enums/reservation_status_enum.dart';
 import '../shared/models/corporate_sessions_model.dart';
 import '../shared/models/reservation_model.dart';
+import '../shared/utils/utils.dart';
+import '../src/admin_corporate_panel/all_reservation/all_reservation_corporate_detail_view.dart';
 import '../src/reservation/reservation_view_model.dart';
 
 class CartOnlyReservationItem extends StatefulWidget {
@@ -53,24 +52,40 @@ class _CartOnlyReservationItemState extends State<CartOnlyReservationItem> {
       color = Colors.green;
     }
 
-    return Padding(
-      padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
-      child: Card(
-        elevation: 8.0,
-        child: ListView(
-          children: <Widget>[
-            ListTile(
-              textColor: color,
-              subtitle: Text(subtitleText),
-              title: Text(
-                sessionModel.name,
-                style: TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w900,
+    final currentContext = context;
+
+    return Container(
+      child: InkWell(
+        child: Padding(
+          padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
+          child: Scaffold(
+            body: Column(
+              children: <Widget>[
+                Card(
+                  elevation: 8.0,
+                  child: ListTile(
+                    title: Text(
+                      sessionModel.name,
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                    subtitle: Text(subtitleText),
+                    trailing: ElevatedButton(
+                      onPressed: () {
+                        Utils.navigateToPage(
+                          currentContext,
+                          AllReservationCorporateDetailScreen(reservationModel: widget.item),
+                        );
+                      },
+                      child: Text('Detay'),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

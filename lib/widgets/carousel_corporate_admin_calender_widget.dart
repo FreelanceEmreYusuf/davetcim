@@ -1,5 +1,4 @@
 import 'package:davetcim/shared/enums/reservation_status_enum.dart';
-import 'package:davetcim/shared/helpers/reservation_helper.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
@@ -9,7 +8,6 @@ import '../shared/models/reservation_model.dart';
 import '../shared/sessions/user_state.dart';
 import '../shared/utils/utils.dart';
 import '../src/admin_corporate_panel/all_reservation/all_reservation_corporate_view_model.dart';
-import '../src/admin_corporate_panel/reservation/reservation_corporate_detail_view.dart';
 import '../src/admin_corporate_panel/reservation/reservation_only_for_corporate_view.dart';
 import 'indicator.dart';
 

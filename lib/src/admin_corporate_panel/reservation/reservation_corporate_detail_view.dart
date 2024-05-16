@@ -149,6 +149,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
 
     Color color = Colors.green;
     String textStr = 'ONAYLANMIŞ REZERVASYON';
+    String pdfButtonText = "TEKLİF İÇİN PDF GÖSTER";
     bool isPDFButtonVisible = true;
 
     if (widget.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
@@ -173,6 +174,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation) {
       color = Colors.green;
       textStr = 'ONAYLANMIŞ REZERVASYON';
+      pdfButtonText = "REZERVASYON İÇİN PDF GÖSTER";
     }
 
     return Scaffold(
@@ -211,10 +213,14 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
               child: ElevatedButton(
                 onPressed: ()  {
                   PDFHelper pdfHelper = PDFHelper();
-                  pdfHelper.createAndShowOfferPDFFromReservationDetail(context, detailResponse);
+                  if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation) {
+                    pdfHelper.createAndShowReservationPDFFromReservationDetail(context, detailResponse);
+                  } else {
+                    pdfHelper.createAndShowOfferPDFFromReservationDetail(context, detailResponse);
+                  }
                 },
                 child: Text(
-                  "TEKLİF İÇİN PDF GÖSTER".toUpperCase(),
+                  pdfButtonText.toUpperCase(),
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,

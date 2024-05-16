@@ -83,6 +83,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
 
     Color color = Colors.green;
     String textStr = 'ONAYLANMIŞ REZERVASYON';
+    String pdfButtonText = "TEKLİF İÇİN PDF GÖSTER";
     if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.adminRejectedOffer) {
       color = Colors.redAccent;
       textStr = 'RED EDİLMİŞ REZERVASYON';
@@ -96,6 +97,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation){
       color = Colors.green;
       textStr = 'REZERVASYON OLUŞTURULDU';
+      pdfButtonText = "REZERVASYON İÇİN PDF GÖSTER";
     }
 
     bool isFromNotification = false;
@@ -141,10 +143,14 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
               child: ElevatedButton(
                 onPressed: ()  {
                   PDFHelper pdfHelper = PDFHelper();
-                  pdfHelper.createAndShowOfferPDFFromReservationDetail(context, detailResponse);
+                  if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation) {
+                    pdfHelper.createAndShowReservationPDFFromReservationDetail(context, detailResponse);
+                  } else {
+                    pdfHelper.createAndShowOfferPDFFromReservationDetail(context, detailResponse);
+                  }
                 },
                 child: Text(
-                  "TEKLİF İÇİN PDF GÖSTER".toUpperCase(),
+                  pdfButtonText.toUpperCase(),
                   style: TextStyle(
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold,
