@@ -34,6 +34,10 @@ class _ReservationOrderViewScreenState extends State<ReservationOrderViewScreen>
 
   @override
   Widget build(BuildContext context) {
+    if (!UserBasketState.isPresent()) {
+      return Scaffold();
+    }
+
     double fontSize = 20;
     if (reservationList == null || reservationList.length == 0) {
       return Scaffold(

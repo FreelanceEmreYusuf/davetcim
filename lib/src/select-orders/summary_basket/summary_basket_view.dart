@@ -168,6 +168,10 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    if (!UserBasketState.isPresent()) {
+      return Scaffold();
+    }
+
     return Scaffold(
       appBar: AppBarMenu(pageName: "Teklif Özeti", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Container(

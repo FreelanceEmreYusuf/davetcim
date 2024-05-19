@@ -128,7 +128,7 @@ class NotificationsViewModel extends ChangeNotifier {
           }
         } else {
           if (reservationStatus == ReservationStatusEnum.userOffer.index) {
-            offerMessage = "Konu: Teklifiniz İptal Edildi" +
+            offerMessage = "Konu: Opsiyonunuz Teklife Çevrildi" +
                 "\n" +
                 " Teklif Mesajı: " +
                 text +
@@ -136,15 +136,15 @@ class NotificationsViewModel extends ChangeNotifier {
                 " İşlem Tarihi :" +
                 DateTime.now().toString().substring(0, 10);
           } else if (reservationStatus == ReservationStatusEnum.preReservation.index) {
-            offerMessage = "Konu: Opsiyonlanmış Rezervasyonununz Teklife Çevrildi" +
+            offerMessage = "Konu: Reservasyonunuz Tekar Opsiyon Statüsüne Alındı" +
                 "\n" +
                 " İşlem Mesajı: " +
                 text +
                 "\n" +
                 " İşlem Tarihi :" +
                 DateTime.now().toString().substring(0, 10);
-          } else if (reservationStatus == ReservationStatusEnum.reservation.index) {
-            offerMessage = "Konu: Rezervasyonununz Opsiyona Çevrildi" +
+          } else {
+            offerMessage = "Konu: Teklifiniz İptal Edildi." +
                 "\n" +
                 " İşlem Mesajı: " +
                 text +

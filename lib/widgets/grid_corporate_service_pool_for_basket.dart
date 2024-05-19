@@ -32,6 +32,10 @@ class _GridCorporateServicePoolForBasketState
   IconData buttonIcon = Icons.add;
   @override
   Widget build(BuildContext context) {
+    if (!UserBasketState.isPresent()) {
+      return Scaffold();
+    }
+
     if (!widget.servicePoolModel.hasChild) {
       for(int i = 0; i < UserBasketState.servicePoolModel.length; i++) {
         if (widget.servicePoolModel.id == UserBasketState.servicePoolModel[i].id) {
