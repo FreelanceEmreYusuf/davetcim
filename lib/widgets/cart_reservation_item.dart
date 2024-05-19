@@ -1,6 +1,7 @@
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 
+import '../shared/enums/reservation_status_enum.dart';
 import '../shared/sessions/user_basket_state.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
@@ -12,6 +13,7 @@ class CartReservationItem extends StatefulWidget {
 }
 
 class _CartReservationItemState extends State<CartReservationItem> {
+
   void navigateToBasket()  {
     Utils.navigateToPage(context, OrderScreen());
   }
@@ -22,9 +24,20 @@ class _CartReservationItemState extends State<CartReservationItem> {
     String reserveInfo = "Bu Seans Müsait";
     int reservationStatusFlag = 0;
     if (UserBasketState.userBasket.sessionModel.hasReservation) {
-      color = Colors.red;
-      reserveInfo = "Rezerve Edilmiştir";
       reservationStatusFlag = 1;
+      if (UserBasketState.userBasket.sessionModel.reservationStatus ==
+          ReservationStatusEnum.userOffer) {
+        reserveInfo = "Teklif Oluşturuldu";
+        color = Colors.lightBlueAccent;
+      } else if (UserBasketState.userBasket.sessionModel.reservationStatus ==
+          ReservationStatusEnum.preReservation) {
+        reserveInfo = "Opsiyonlandı";
+        color = Colors.blueAccent;
+      } else if (UserBasketState.userBasket.sessionModel.reservationStatus ==
+          ReservationStatusEnum.reservation) {
+        reserveInfo = "Rezervasyon Oluşturuldu";
+        color = Colors.green;
+      }
     } else if (DateConversionUtils.isOldDate(DateConversionUtils.getDateTimeFromIntDate(
         UserBasketState.userBasket.date))) {
       color = Colors.grey;
@@ -48,13 +61,6 @@ class _CartReservationItemState extends State<CartReservationItem> {
                 "Geçmiş tarihli teklif oluşturulamaz", null);
           } else {
             navigateToBasket();
-           /* TODO : Dialogs.showDialogMessage(
-                context,
-                "Tarih Seçimi",
-                DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0, 10) +
-                    " Tarihi ve " + widget.basketModel.sessionModel.name + " Seansı için rezervasyon " +
-                    "yapmak istediğinizden emin misiniz?",
-                navigateToBasket, '');*/
           }
         },
         child: Card(

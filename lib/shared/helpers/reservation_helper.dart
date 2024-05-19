@@ -20,4 +20,20 @@ class ReservationHelper {
 
     return null;
   }
+
+  Future<ReservationModel> getReservationBySessionId(int sessionId) async {
+    Database db = Database();
+    var response = await db
+        .getCollectionRef(DBConstants.corporationReservationsDb)
+        .where('sessionId', isEqualTo: sessionId)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      ReservationModel reservationModel = ReservationModel.fromMap(list[0].data());
+      return reservationModel;
+    }
+
+    return null;
+  }
 }

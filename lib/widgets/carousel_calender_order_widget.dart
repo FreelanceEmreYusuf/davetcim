@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
+import '../shared/enums/reservation_status_enum.dart';
 import '../shared/sessions/user_basket_state.dart';
 import '../shared/utils/utils.dart';
 import '../src/reservation/reservation_order_view.dart';
@@ -35,6 +36,18 @@ class _CalenderOrderCarouselState extends State<CalenderOrderCarousel> {
       return;
     }
     for (int i = 0; i < UserBasketState.userBasket.reservationList.length; i++) {
+      Color color = Colors.blueAccent;
+      if (UserBasketState.userBasket.reservationList[i].reservationStatus ==
+          ReservationStatusEnum.userOffer) {
+        color = Colors.lightBlueAccent;
+      } else if (UserBasketState.userBasket.reservationList[i].reservationStatus ==
+          ReservationStatusEnum.preReservation) {
+        color = Colors.blueAccent;
+      } else if (UserBasketState.userBasket.reservationList[i].reservationStatus ==
+          ReservationStatusEnum.reservation) {
+        color = Colors.green;
+      }
+
       _markedDateMap.add(
           DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.reservationList[i].date),
           new Event(
@@ -44,7 +57,7 @@ class _CalenderOrderCarouselState extends State<CalenderOrderCarousel> {
             //icon: Icon(Icons.access_alarms, color: Colors.blueAccent),
             dot: Container(
               margin: EdgeInsets.symmetric(horizontal: 1.0),
-              color: Colors.blueAccent,
+              color: color,
               height: 5.0,
               width: 5.0,
             ),

@@ -1,7 +1,6 @@
 import 'package:davetcim/shared/sessions/user_basket_state.dart';
 import 'package:davetcim/src/reservation/reservation_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import '../../shared/models/corporate_sessions_model.dart';
 import '../../shared/utils/date_utils.dart';
 import '../../widgets/app_bar/app_bar_view.dart';

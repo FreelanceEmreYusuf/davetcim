@@ -77,6 +77,7 @@ class ReservationViewModel extends ChangeNotifier {
 
         if (sessionModel.id == reservationModel.sessionId) {
           sessionModel.hasReservation = true;
+          sessionModel.reservationStatus = reservationModel.reservationStatus;
         }
       }
     }

@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
+import '../shared/enums/reservation_status_enum.dart';
 import '../shared/models/reservation_model.dart';
 import '../shared/utils/utils.dart';
 import '../src/reservation/reservation_all_order_view.dart';
-import '../src/reservation/reservation_view.dart';
 
 class CalenderCarousel extends StatefulWidget {
 
@@ -41,6 +41,18 @@ class _CalenderCarouselState extends State<CalenderCarousel> {
   void loadDates() {
     _markedDateMap.clear();
     for (int i = 0; i < widget.reservationList.length; i++) {
+      Color color = Colors.blueAccent;
+      if (widget.reservationList[i].reservationStatus ==
+          ReservationStatusEnum.userOffer) {
+        color = Colors.lightBlueAccent;
+      } else if (widget.reservationList[i].reservationStatus ==
+          ReservationStatusEnum.preReservation) {
+        color = Colors.blueAccent;
+      } else if (widget.reservationList[i].reservationStatus ==
+          ReservationStatusEnum.reservation) {
+        color = Colors.green;
+      }
+
       _markedDateMap.add(
           DateConversionUtils.getDateTimeFromIntDate(widget.reservationList[i].date),
           new Event(

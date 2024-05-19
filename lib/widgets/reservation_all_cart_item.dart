@@ -1,11 +1,8 @@
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 
-import '../shared/dto/reservation_detail_view_dto.dart';
+import '../shared/enums/reservation_status_enum.dart';
 import '../shared/models/corporate_sessions_model.dart';
-import '../shared/utils/dialogs.dart';
-import '../shared/utils/utils.dart';
-import '../src/user_reservations/update/user_reservation_update_order_view.dart';
 
 class ReservationSessionsAllCartItem extends StatefulWidget {
   final List<CorporateSessionsModel> sessionList;
@@ -30,15 +27,27 @@ class _ReservationSessionsAllCartItemState extends State<ReservationSessionsAllC
   Widget build(BuildContext context) {
     Color color = Colors.green;
     String reserveInfo = "Bu Seans Müsait";
-    int reservationStatusFlag = 0;
+
     if (widget.sessionList[widget.index].hasReservation) {
       color = Colors.red;
       reserveInfo = "Rezerve Edilmiştir";
-      reservationStatusFlag = 1;
+
+      if (widget.sessionList[widget.index].reservationStatus ==
+          ReservationStatusEnum.userOffer) {
+        reserveInfo = "Teklif Oluşturuldu";
+        color = Colors.lightBlueAccent;
+      } else if (widget.sessionList[widget.index].reservationStatus ==
+          ReservationStatusEnum.preReservation) {
+        reserveInfo = "Opsiyonlandı";
+        color = Colors.blueAccent;
+      } else if (widget.sessionList[widget.index].reservationStatus ==
+          ReservationStatusEnum.reservation) {
+        reserveInfo = "Rezervasyon Oluşturuldu";
+        color = Colors.green;
+      }
     } else if (DateConversionUtils.isOldDate(widget.date)) {
       color = Colors.grey;
       reserveInfo = "Bu seansın süresi doldu";
-      reservationStatusFlag = 2;
     }
 
       return Padding(
@@ -65,6 +74,4 @@ class _ReservationSessionsAllCartItemState extends State<ReservationSessionsAllC
       ),
     );
   }
-
-
 }

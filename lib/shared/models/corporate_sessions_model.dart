@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import '../enums/reservation_status_enum.dart';
+
 class CorporateSessionsModel {
   final int id;
   final int corporationId;
@@ -7,6 +9,7 @@ class CorporateSessionsModel {
   final int midweekPrice;
   final int weekendPrice;
   bool hasReservation;
+  ReservationStatusEnum reservationStatus;
 
   CorporateSessionsModel({
     this.id,
@@ -14,7 +17,8 @@ class CorporateSessionsModel {
     this.name,
     this.midweekPrice,
     this.weekendPrice,
-    this.hasReservation
+    this.hasReservation,
+    this.reservationStatus
   });
 
   ///Object to map
