@@ -2,6 +2,7 @@ import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 
+import '../shared/enums/reservation_status_enum.dart';
 import '../shared/models/corporate_sessions_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
@@ -25,6 +26,8 @@ class UserReservationUpdateCartReservationItem extends StatefulWidget {
 class _UserReservationUpdateCartReservationItemState extends State<UserReservationUpdateCartReservationItem> {
   void navigateToBasket()  {
     ReservationEditState.reservationDetail.selectedSessionModel = widget.sessionList[widget.index];
+    ReservationEditState.reservationDetail.reservationModel.date =
+        ReservationEditState.reservationDetail.reservationModel.tempDate;
     Utils.navigateToPage(context, UserReservationUpdateOrderScreen());
   }
 
@@ -34,9 +37,17 @@ class _UserReservationUpdateCartReservationItemState extends State<UserReservati
     String reserveInfo = "Bu Seans Müsait";
     int reservationStatusFlag = 0;
     if (widget.sessionList[widget.index].hasReservation) {
-      color = Colors.red;
-      reserveInfo = "Rezerve Edilmiştir";
       reservationStatusFlag = 1;
+      if (widget.sessionList[widget.index].reservationStatus == ReservationStatusEnum.userOffer) {
+        reserveInfo = "Teklif Oluşturuldu";
+        color = Colors.lightBlueAccent;
+      } else if (widget.sessionList[widget.index].reservationStatus == ReservationStatusEnum.preReservation) {
+        reserveInfo = "Opsiyonlandı";
+        color = Colors.blueAccent;
+      } else if (widget.sessionList[widget.index].reservationStatus == ReservationStatusEnum.reservation) {
+        reserveInfo = "Satış Oluşturuldu";
+        color = Colors.redAccent;
+      }
     } else if (DateConversionUtils.isOldDate(DateConversionUtils.getDateTimeFromIntDate(
         ReservationEditState.reservationDetail.reservationModel.date))) {
       color = Colors.grey;
@@ -60,13 +71,6 @@ class _UserReservationUpdateCartReservationItemState extends State<UserReservati
                 "Geçmiş tarihli rezervasyon yapılamaz", null);
           } else {
             navigateToBasket();
-           /* TODO : Dialogs.showDialogMessage(
-                context,
-                "Tarih Seçimi",
-                DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0, 10) +
-                    " Tarihi ve " + widget.basketModel.sessionModel.name + " Seansı için rezervasyon " +
-                    "yapmak istediğinizden emin misiniz?",
-                navigateToBasket, '');*/
           }
         },
         child: Card(

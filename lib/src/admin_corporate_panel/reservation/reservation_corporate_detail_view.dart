@@ -69,20 +69,33 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
 
 
 
-  Future<bool> hasReservationChangedByUser() async {
+  Future<bool> reservationControl() async {
     ReservationHelper reservationHelper = ReservationHelper();
     ReservationModel currentResModel = await reservationHelper.getReservation(widget.reservationModel.id);
     if (currentResModel.userReservationVersion != widget.reservationModel.userReservationVersion) {
-      return true;
+      Dialogs.showInfoModalContent(context, "Üzgünüz", "Bu teklif, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
+          navigateToReservationsPage);
+      return false;
     }
-    return false;
+
+    List<ReservationModel> reservationList =
+    await reservationHelper.getReservationListBySessionIdAndDate(
+        widget.reservationModel.sessionId, widget.reservationModel.date);
+    for (int i = 0; i < reservationList.length; i++)  {
+      ReservationModel reservationRowModel = reservationList[i];
+      if (reservationRowModel.id != widget.reservationModel.id &&
+          reservationRowModel.reservationStatus != ReservationStatusEnum.userOffer) {
+        Dialogs.showInfoModalContent(context, "Üzgünüz",
+            "Bu seans; bir başkası için opsiyonlanmış ya da satış işlemi yapılmıştır.",
+            navigateToReservationsPage);
+        return false;
+      }
+    }
+    return true;
   }
 
   void approveReservation(bool isFromNotification) async {
-    if (await hasReservationChangedByUser()) {
-      Dialogs.showInfoModalContent(context, "Üzgünüz", "Bu teklif, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
-          navigateToReservationsPage);
-    } else {
+    if (await reservationControl()) {
       ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
       NotificationsViewModel notificationViewModel = NotificationsViewModel();
       await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
@@ -106,24 +119,19 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
   }
 
   void rejectReservation(bool isFromNotification) async {
-    if (await hasReservationChangedByUser()) {
-      Dialogs.showInfoModalContent(context, "Üzgünüz", "Bu teklif, kullanıcı tarafından güncellendi. Güncel rezervasyonu görmek için tamam button'una basınız",
-          navigateToReservationsPage);
+    ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+    NotificationsViewModel notificationViewModel = NotificationsViewModel();
+    await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
+    notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
+        widget.reservationModel.customerId,
+        0, widget.reservationModel.id,
+        widget.reservationModel.reservationStatus.index,
+        false, widget.reservationModel.description, "");
+    notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
+    if (isFromNotification) {
+      Utils.navigateToPage(context, NotificationsView());
     } else {
-      ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
-      NotificationsViewModel notificationViewModel = NotificationsViewModel();
-      await rcm.editReservationForAdmin(detailResponse.reservationModel, false);
-      notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
-          widget.reservationModel.customerId,
-          0, widget.reservationModel.id,
-          widget.reservationModel.reservationStatus.index,
-          false, widget.reservationModel.description, "");
-      notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
-      if (isFromNotification) {
-        Utils.navigateToPage(context, NotificationsView());
-      } else {
-        Utils.navigateToPage(context, ReservationCorporateView());
-      }
+      Utils.navigateToPage(context, ReservationCorporateView());
     }
   }
 

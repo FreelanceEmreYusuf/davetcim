@@ -21,19 +21,22 @@ class ReservationHelper {
     return null;
   }
 
-  Future<ReservationModel> getReservationBySessionId(int sessionId) async {
+  Future<List<ReservationModel>> getReservationListBySessionIdAndDate(int sessionId, int date) async {
     Database db = Database();
+    List<ReservationModel> reservationList = [];
     var response = await db
         .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('sessionId', isEqualTo: sessionId)
+        .where('date', isEqualTo: date)
         .get();
 
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
-      ReservationModel reservationModel = ReservationModel.fromMap(list[0].data());
-      return reservationModel;
+      for (int i = 0; i < list.length; i++) {
+        reservationList.add(ReservationModel.fromMap(list[i].data()));
+      }
     }
 
-    return null;
+    return reservationList;
   }
 }

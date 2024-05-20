@@ -42,8 +42,8 @@ class _ReservationSessionsAllCartItemState extends State<ReservationSessionsAllC
         color = Colors.blueAccent;
       } else if (widget.sessionList[widget.index].reservationStatus ==
           ReservationStatusEnum.reservation) {
-        reserveInfo = "Rezervasyon Oluşturuldu";
-        color = Colors.green;
+        reserveInfo = "Satış Oluşturuldu";
+        color = Colors.redAccent;
       }
     } else if (DateConversionUtils.isOldDate(widget.date)) {
       color = Colors.grey;

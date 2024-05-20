@@ -23,7 +23,6 @@ class _AdminChangeReservationOrderViewScreenState extends State<AdminChangeReser
   @override
   void initState() {
     callGetReservationList();
-
   }
 
   void callGetReservationList() async {
@@ -65,13 +64,11 @@ class _AdminChangeReservationOrderViewScreenState extends State<AdminChangeReser
               ? 0
               : sessionList.length,
           itemBuilder: (BuildContext context, int index) {
-            widget.reservationModel.date = widget.date;
             return CartReservationAdminUpdateItem(reservationModel: widget.reservationModel,
-                sessionList: sessionList, index: index);
+                sessionList: sessionList, index: index, date: widget.date,);
           },
         ),
       ),
-
     );
   }
 }

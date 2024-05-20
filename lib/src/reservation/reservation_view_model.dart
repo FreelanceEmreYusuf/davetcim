@@ -96,11 +96,9 @@ class ReservationViewModel extends ChangeNotifier {
 
       for(int j = 0; j < reservationList.length; j++) {
         ReservationModel reservationModel = reservationList[j];
-        if (reservationModel.customerId == customerId && reservationModel.sessionId == sessionId) {
-          continue;
-        }
         if (sessionModel.id == reservationModel.sessionId) {
           sessionModel.hasReservation = true;
+          sessionModel.reservationStatus = reservationModel.reservationStatus;
         }
       }
     }
@@ -122,6 +120,7 @@ class ReservationViewModel extends ChangeNotifier {
         if (sessionModel.id == reservationModel.sessionId
           && sessionModel.corporationId == reservationModel.corporationId) {
           sessionModel.hasReservation = true;
+          sessionModel.reservationStatus = reservationModel.reservationStatus;
         }
       }
     }

@@ -78,7 +78,8 @@ class _UserReservationUpdateCalenderOrderCarouselState extends State<UserReserva
       child: CalendarCarousel<Event>(
         onDayPressed: (DateTime date, List<Event> events) {
           this.setState(() => _currentDate = date);
-          ReservationEditState.reservationDetail.reservationModel.date = DateConversionUtils.getCurrentDateAsInt(date);
+          ReservationEditState.reservationDetail.reservationModel.tempDate =
+              DateConversionUtils.getCurrentDateAsInt(date);
           Utils.navigateToPage(context, UserReservationUpdateReservationOrderViewScreen());
         },
         weekendTextStyle: TextStyle(

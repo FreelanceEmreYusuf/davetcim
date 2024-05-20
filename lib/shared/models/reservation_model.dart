@@ -23,6 +23,7 @@ class ReservationModel {
   String seatingArrangement;
   Timestamp recordDate;
   ReservationDetailModel detailModel;
+  int tempDate;
 
   ReservationModel({
     this.id,
@@ -42,6 +43,7 @@ class ReservationModel {
     this.seatingArrangement,
     this.recordDate,
     this.detailModel,
+    this.tempDate,
   });
 
   ///Object to map

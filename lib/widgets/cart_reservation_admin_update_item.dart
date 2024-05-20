@@ -2,6 +2,7 @@ import 'package:davetcim/shared/models/reservation_model.dart';
 import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 
+import '../shared/enums/reservation_status_enum.dart';
 import '../shared/models/corporate_sessions_model.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
@@ -12,12 +13,14 @@ class CartReservationAdminUpdateItem extends StatefulWidget {
   final ReservationModel reservationModel;
   final List<CorporateSessionsModel> sessionList;
   final int index;
+  final int date;
 
   CartReservationAdminUpdateItem(
       {Key key,
       @required this.reservationModel,
       @required this.sessionList,
-      @required this.index
+      @required this.index,
+      @required this.date
       })
       : super(key: key);
 
@@ -33,9 +36,17 @@ class _CartReservationAdminUpdateItemState extends State<CartReservationAdminUpd
     String reserveInfo = "Bu Seans Müsait";
     int reservationStatusFlag = 0;
     if (widget.sessionList[widget.index].hasReservation) {
-      color = Colors.red;
-      reserveInfo = "Rezerve Edilmiştir";
       reservationStatusFlag = 1;
+      if (widget.reservationModel.reservationStatus == ReservationStatusEnum.userOffer) {
+        reserveInfo = "Teklif Oluşturuldu";
+        color = Colors.lightBlueAccent;
+      } else if (widget.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
+        reserveInfo = "Opsiyonlandı";
+        color = Colors.blueAccent;
+      } else if (widget.reservationModel.reservationStatus == ReservationStatusEnum.reservation) {
+        reserveInfo = "Satış Oluşturuldu";
+        color = Colors.redAccent;
+      }
     } else if (DateConversionUtils.isOldDate(DateConversionUtils.getDateTimeFromIntDate(
         widget.reservationModel.date))) {
       color = Colors.grey;
@@ -61,6 +72,7 @@ class _CartReservationAdminUpdateItemState extends State<CartReservationAdminUpd
             widget.reservationModel.sessionId = widget.sessionList[widget.index].id;
             widget.reservationModel.sessionName = widget.sessionList[widget.index].name;
             widget.reservationModel.sessionCost = widget.sessionList[widget.index].midweekPrice;
+            widget.reservationModel.date = widget.date;
             if(DateConversionUtils.isWeekendFromIntDate(widget.reservationModel.date) ){
               widget.reservationModel.sessionCost = widget.sessionList[widget.index].weekendPrice;
             }
@@ -68,14 +80,6 @@ class _CartReservationAdminUpdateItemState extends State<CartReservationAdminUpd
             AllReservationCorporateViewModel allReservationCorporateViewModel = AllReservationCorporateViewModel();
             allReservationCorporateViewModel.delayReservation(context, widget.reservationModel);
             Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 1));
-
-           /* TODO : Dialogs.showDialogMessage(
-                context,
-                "Tarih Seçimi",
-                DateConversionUtils.getDateTimeFromIntDate(widget.basketModel.date).toString().substring(0, 10) +
-                    " Tarihi ve " + widget.basketModel.sessionModel.name + " Seansı için rezervasyon " +
-                    "yapmak istediğinizden emin misiniz?",
-                navigateToBasket, '');*/
           }
         },
         child: Card(
@@ -99,6 +103,4 @@ class _CartReservationAdminUpdateItemState extends State<CartReservationAdminUpd
       ),
     );
   }
-
-
 }

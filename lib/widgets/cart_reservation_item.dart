@@ -35,8 +35,8 @@ class _CartReservationItemState extends State<CartReservationItem> {
         color = Colors.blueAccent;
       } else if (UserBasketState.userBasket.sessionModel.reservationStatus ==
           ReservationStatusEnum.reservation) {
-        reserveInfo = "Rezervasyon Oluşturuldu";
-        color = Colors.green;
+        reserveInfo = "Satış Oluşturuldu";
+        color = Colors.redAccent;
       }
     } else if (DateConversionUtils.isOldDate(DateConversionUtils.getDateTimeFromIntDate(
         UserBasketState.userBasket.date))) {
