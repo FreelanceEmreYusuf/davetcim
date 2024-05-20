@@ -33,10 +33,12 @@ class AllReservationCorporateDetailScreen extends StatefulWidget {
   @override
   _AllReservationCorporateDetailScreenState createState() => _AllReservationCorporateDetailScreenState();
   final ReservationModel reservationModel;
+  final int pageIndex;
 
   AllReservationCorporateDetailScreen(
       {Key key,
         @required this.reservationModel,
+        @required this.pageIndex,
       })
       : super(key: key);
 
@@ -110,7 +112,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
       corporationAnalysisViewModel.editDailyLog(widget.reservationModel.corporationId,
           CorporationEventLogEnum.newReservation.name, detailResponse.reservationModel.cost);
 
-      Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 0));
+      Utils.navigateToPage(context, AllReservationLandingView(pageIndex: widget.pageIndex));
     }
   }
 
@@ -122,7 +124,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
         widget.reservationModel.customerId,
         0, widget.reservationModel.id, widget.reservationModel.reservationStatus.index,
         false, widget.reservationModel.description, "");
-    Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 0));
+    Utils.navigateToPage(context, AllReservationLandingView(pageIndex: widget.pageIndex));
   }
 
 
@@ -169,14 +171,14 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
       isPDFButtonVisible = false;
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
       color = Colors.blueAccent;
-      textStr = 'OPSİYONLANMIŞ REZERVASYON';
-      buttonApproveText = "Rezervasyon Oluştur";
+      textStr = 'OPSİYONLANMIŞ';
+      buttonApproveText = "Satış";
       buttonRejectText = "Teklife Çevir";
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation) {
-      color = Colors.green;
-      textStr = 'ONAYLANMIŞ REZERVASYON';
-      pdfButtonText = "REZERVASYON İÇİN PDF GÖSTER";
-      buttonRejectText = "Opsiyona Çevir";
+      color = Colors.redAccent;
+      textStr = 'SATIŞ';
+      pdfButtonText = "SATIŞ İÇİN PDF GÖSTER";
+      buttonRejectText = "Opsiyonla";
       isApproveButtonEnable = false;
     }
 

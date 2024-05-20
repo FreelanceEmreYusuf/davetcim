@@ -39,7 +39,8 @@ class _ReservationAllCorporateCardWidgetState
     return Container(
       child: InkWell(
         onTap: (){
-          Utils.navigateToPage(context, AllReservationCorporateDetailScreen(reservationModel : widget.model));
+          Utils.navigateToPage(context, AllReservationCorporateDetailScreen(
+              reservationModel : widget.model, pageIndex: 1));
         },
         child: SingleChildScrollView(
           child: Card(

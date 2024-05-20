@@ -17,7 +17,6 @@ class BasketUserDto {
   List<ComboGenericModel> sequenceOrderList;
   List<ReservationModel> reservationList;
   CorporateSessionsModel sessionModel;
-  CorporateSessionsModel selectedSessionModel;
   OrderBasketDto orderBasketModel;
   CorporationPackageServicesModel packageModel;
   List<ServicePoolModel> servicePoolModel;

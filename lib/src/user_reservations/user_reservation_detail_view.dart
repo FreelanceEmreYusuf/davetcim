@@ -93,11 +93,11 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
       textStr = 'ONAY BEKLEYEN TEKLİF';
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.preReservation){
       color = Colors.blueAccent;
-      textStr = 'OPSİYONLANMIŞ REZERVASYON';
+      textStr = 'OPSİYONLANMIŞ';
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation){
-      color = Colors.green;
-      textStr = 'REZERVASYON OLUŞTURULDU';
-      pdfButtonText = "REZERVASYON İÇİN PDF GÖSTER";
+      color = Colors.redAccent;
+      textStr = 'SATIŞ';
+      pdfButtonText = "SATIŞ İÇİN PDF GÖSTER";
     }
 
     bool isFromNotification = false;

@@ -55,10 +55,10 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
   String calculateSessionPrice(){
     int sessionCost = 0;
       if(DateConversionUtils.isWeekendFromIntDate(UserBasketState.userBasket.date) ){
-        sessionCost = UserBasketState.userBasket.selectedSessionModel.weekendPrice;
+        sessionCost = UserBasketState.userBasket.sessionModel.weekendPrice;
       }
       else{
-        sessionCost = UserBasketState.userBasket.selectedSessionModel.midweekPrice;
+        sessionCost = UserBasketState.userBasket.sessionModel.midweekPrice;
       }
 
       return sessionCost.toString();
@@ -254,7 +254,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                                 "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0,10)
-                                    +"\n\nSeans : "+UserBasketState.userBasket.selectedSessionModel.name,
+                                    +"\n\nSeans : "+UserBasketState.userBasket.sessionModel.name,
                                 style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
                             ),
                           ),
@@ -272,10 +272,10 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
                                   splashColor: Colors.deepOrangeAccent,
                                   onTap: () async {
                                     Dialogs.showInfoModalContent(context,
-                                        UserBasketState.userBasket.selectedSessionModel.name,
+                                        UserBasketState.userBasket.sessionModel.name,
                                         "Organizasyon tarihi : " +
                                             DateConversionUtils.getDateTimeFromIntDate(UserBasketState.userBasket.date).toString().substring(0, 10) +
-                                            "\n\nSeans : " + UserBasketState.userBasket.selectedSessionModel.name +
+                                            "\n\nSeans : " + UserBasketState.userBasket.sessionModel.name +
                                             "\n\nBu seans için alınan hizmetler hariç salon kullanımı için ödenecek ücret : " +
                                             GeneralHelper.formatMoney(calculateSessionPrice()) +
                                             "TL", null);

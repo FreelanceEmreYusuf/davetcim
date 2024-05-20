@@ -59,9 +59,9 @@ class AllReservationCorporateViewModel extends ChangeNotifier {
     if (reservationModel.reservationStatus == ReservationStatusEnum.userOffer)  {
       reservationStatusText = "Teklifiniz ";
     } else if (reservationModel.reservationStatus == ReservationStatusEnum.preReservation)  {
-      reservationStatusText = "Opsiyonlu rezervasyonunuz ";
+      reservationStatusText = "Opsiyonunuz ";
     } else if (reservationModel.reservationStatus == ReservationStatusEnum.reservation)  {
-      reservationStatusText = "Rezervasyonunuz ";
+      reservationStatusText = "Satışınız ";
     }
 
     String offerMessage = "Konu: " + reservationStatusText + "firma tarafından " +

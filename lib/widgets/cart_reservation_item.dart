@@ -2,12 +2,16 @@ import 'package:davetcim/shared/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../shared/enums/reservation_status_enum.dart';
+import '../shared/models/corporate_sessions_model.dart';
 import '../shared/sessions/user_basket_state.dart';
 import '../shared/utils/dialogs.dart';
 import '../shared/utils/utils.dart';
 import '../src/select-orders/properties/order_view.dart';
 
 class CartReservationItem extends StatefulWidget {
+  final  CorporateSessionsModel sessionModel;
+  const CartReservationItem(this.sessionModel);
+
   @override
   State<CartReservationItem> createState() => _CartReservationItemState();
 }
@@ -23,17 +27,17 @@ class _CartReservationItemState extends State<CartReservationItem> {
     Color color = Colors.green;
     String reserveInfo = "Bu Seans Müsait";
     int reservationStatusFlag = 0;
-    if (UserBasketState.userBasket.sessionModel.hasReservation) {
+    if (widget.sessionModel.hasReservation) {
       reservationStatusFlag = 1;
-      if (UserBasketState.userBasket.sessionModel.reservationStatus ==
+      if (widget.sessionModel.reservationStatus ==
           ReservationStatusEnum.userOffer) {
         reserveInfo = "Teklif Oluşturuldu";
         color = Colors.lightBlueAccent;
-      } else if (UserBasketState.userBasket.sessionModel.reservationStatus ==
+      } else if (widget.sessionModel.reservationStatus ==
           ReservationStatusEnum.preReservation) {
         reserveInfo = "Opsiyonlandı";
         color = Colors.blueAccent;
-      } else if (UserBasketState.userBasket.sessionModel.reservationStatus ==
+      } else if (widget.sessionModel.reservationStatus ==
           ReservationStatusEnum.reservation) {
         reserveInfo = "Satış Oluşturuldu";
         color = Colors.redAccent;
@@ -60,6 +64,7 @@ class _CartReservationItemState extends State<CartReservationItem> {
                 "Tarih Seçim Uyarısı",
                 "Geçmiş tarihli teklif oluşturulamaz", null);
           } else {
+            UserBasketState.userBasket.sessionModel = widget.sessionModel;
             navigateToBasket();
           }
         },
@@ -70,7 +75,7 @@ class _CartReservationItemState extends State<CartReservationItem> {
               ListTile(
                 subtitle: Text(reserveInfo),
                 title: Text(
-                  UserBasketState.userBasket.sessionModel.name,
+                  widget.sessionModel.name,
                   style: TextStyle(
                     fontSize: 15,
                     color: color,

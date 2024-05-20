@@ -81,10 +81,7 @@ class _ReservationOrderViewScreenState extends State<ReservationOrderViewScreen>
                 ? 0
                 : reservationList.length,
             itemBuilder: (BuildContext context, int index) {
-              CorporateSessionsModel item = reservationList[index];
-              UserBasketState.userBasket.sessionModel = item;
-              UserBasketState.userBasket.selectedSessionModel = reservationList[index];
-              return CartReservationItem();
+              return CartReservationItem(reservationList[index]);
             },
           ),
         ),

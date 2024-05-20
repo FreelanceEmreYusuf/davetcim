@@ -161,7 +161,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
     bool isPDFButtonVisible = true;
 
     if (widget.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
-      buttonApproveText = "Rezervasyon Oluştur";
+      buttonApproveText = "Satış";
       buttonRejectText = "Teklife Çevir";
     }
 
@@ -178,11 +178,11 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
       isPDFButtonVisible = false;
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
       color = Colors.blueAccent;
-      textStr = 'OPSİYONLANMIŞ REZERVASYON';
+      textStr = 'OPSİYONLANMIŞ';
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.reservation) {
-      color = Colors.green;
-      textStr = 'ONAYLANMIŞ REZERVASYON';
-      pdfButtonText = "REZERVASYON İÇİN PDF GÖSTER";
+      color = Colors.redAccent;
+      textStr = 'SATIŞ';
+      pdfButtonText = "SATIŞ İÇİN PDF GÖSTER";
     }
 
     return Scaffold(

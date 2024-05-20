@@ -21,7 +21,7 @@ class SummaryBasketViewModel extends ChangeNotifier {
   Future<bool> controReeservation(BasketUserDto basketModel) async {
     var response = await db
         .getCollectionRef(DBConstants.corporationReservationsDb)
-        .where('sessionId', isEqualTo: basketModel.selectedSessionModel.id)
+        .where('sessionId', isEqualTo: basketModel.sessionModel.id)
         .where('isActive', isEqualTo: true)
         .where('reservationStatus', isNotEqualTo: ReservationStatusEnum.userOffer.index)
         .where('date', isEqualTo: basketModel.date)
@@ -63,9 +63,9 @@ class SummaryBasketViewModel extends ChangeNotifier {
 
     int reservationId = new DateTime.now().millisecondsSinceEpoch;
 
-    int sessionCost = basketModel.selectedSessionModel.midweekPrice;
+    int sessionCost = basketModel.sessionModel.midweekPrice;
     if(DateConversionUtils.isWeekendFromIntDate(basketModel.date) ){
-      sessionCost = basketModel.selectedSessionModel.weekendPrice;
+      sessionCost = basketModel.sessionModel.weekendPrice;
     }
 
     ReservationModel reservationModel = new ReservationModel(
@@ -76,8 +76,8 @@ class SummaryBasketViewModel extends ChangeNotifier {
       date: basketModel.date,
       recordDate: Timestamp.now(),
       description: description,
-      sessionId: basketModel.selectedSessionModel.id,
-      sessionName: basketModel.selectedSessionModel.name,
+      sessionId: basketModel.sessionModel.id,
+      sessionName: basketModel.sessionModel.name,
       sessionCost: sessionCost,
       reservationStatus: ReservationStatusEnum.userOffer,
       userReservationVersion: 0,

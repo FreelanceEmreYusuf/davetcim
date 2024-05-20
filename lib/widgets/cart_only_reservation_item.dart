@@ -48,8 +48,8 @@ class _CartOnlyReservationItemState extends State<CartOnlyReservationItem> {
       subtitleText = "Opsiyonlandı";
       color = Colors.blueAccent;
     } else if (widget.item.reservationStatus == ReservationStatusEnum.reservation) {
-      subtitleText = "Rezerve Edilmiştir";
-      color = Colors.green;
+      subtitleText = "Satışı Yapılmıştır";
+      color = Colors.redAccent;
     }
 
     final currentContext = context;
@@ -76,7 +76,7 @@ class _CartOnlyReservationItemState extends State<CartOnlyReservationItem> {
                       onPressed: () {
                         Utils.navigateToPage(
                           currentContext,
-                          AllReservationCorporateDetailScreen(reservationModel: widget.item),
+                          AllReservationCorporateDetailScreen(reservationModel: widget.item, pageIndex: 0),
                         );
                       },
                       child: Text('Detay'),
