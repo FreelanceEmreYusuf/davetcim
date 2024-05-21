@@ -6,8 +6,11 @@ import '../../../../shared/environments/const.dart';
 import '../../../../shared/models/corporation_package_services_model.dart';
 import '../../../../shared/utils/form_control.dart';
 import '../../../../widgets/app_bar/app_bar_view.dart';
+import '../../../shared/sessions/user_state.dart';
 import '../../../widgets/expanded_card_widget.dart';
+import '../../../widgets/indicator.dart';
 import '../service/service_landing_view.dart';
+import 'corporate_contract_management_view_model.dart';
 
 class ServiceCorporatePackageAddView extends StatefulWidget {
   final CorporationPackageServicesModel packageModel;
@@ -22,13 +25,40 @@ class ServiceCorporatePackageAddView extends StatefulWidget {
 }
 
 class _State extends State<ServiceCorporatePackageAddView> {
-  TextEditingController titleController = TextEditingController();
   TextEditingController bodyController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
   final registerFormKey = GlobalKey<FormState>();
+
+  String contractBody = "";
+  bool hasDataTaken = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getContractBody();
+  }
+
+  void getContractBody() async {
+    CorporateContractManagementViewModel model = CorporateContractManagementViewModel();
+    contractBody = await model.getContract(UserState.corporationId);
+    bodyController.text = contractBody;
+
+    setState(() {
+      contractBody = contractBody;
+      bodyController.text = contractBody;
+      hasDataTaken = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (!hasDataTaken) {
+      return Scaffold(appBar:
+      AppBarMenu(pageName: "Sözleşme Yönetimi", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+          body: Padding(
+              padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+              child: Center(child: Indicator())));
+    }
+
     return Scaffold(
       appBar: AppBarMenu(
         pageName: "Sözleşme Yönetimi",
@@ -74,14 +104,9 @@ class _State extends State<ServiceCorporatePackageAddView> {
                     primary: Constants.darkAccent,
                   ),
                   onPressed: () async {
-                    if (registerFormKey.currentState.validate()) {
-                      ServiceCorporatePackageViewModel packageService = ServiceCorporatePackageViewModel();
-                      await packageService.addPackageItem(
-                        titleController.text,
-                        bodyController.text,
-                        int.parse(priceController.text),
-                      );
-                      Utils.navigateToPage(context, ServiceLandingView(pageIndex: 1));
+                    if (bodyController.text.isNotEmpty) {
+                      CorporateContractManagementViewModel model = CorporateContractManagementViewModel();
+                      model.editContract(context, UserState.corporationId, bodyController.text);
                     }
                   },
                   child: Text("Sözleşmeyi Ekle / Güncelle", style: TextStyle(fontSize: 18)),

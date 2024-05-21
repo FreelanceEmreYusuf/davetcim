@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../../src/admin_corporate_panel/corporation_contract_management/corporate_contract_management_view_model.dart';
 import '../../src/products/product_detail_view_model.dart';
 import '../dto/reservation_detail_view_dto.dart';
 import '../models/reservation_detail_model.dart';
@@ -469,6 +470,14 @@ class PDFHelper {
     );
   }
 
+  Future<String> getExtraContract() async {
+    List<pw.Widget> widgetList = [];
+
+    CorporateContractManagementViewModel model = CorporateContractManagementViewModel();
+    String contractBody = await model.getContract(UserState.corporationId);
+    return contractBody;
+  }
+
   Future<void> createAndShowOfferPDFFromReservationDetail(BuildContext context,
       ReservationDetailViewDto reservationDetail) async {
     final pdf = pw.Document();
@@ -816,6 +825,7 @@ class PDFHelper {
     String packageTitle = "";
     String packageBody = "";
     String sessionName = "";
+    String contractBody = await getExtraContract();
     BuildContext buildContext;
     if (reservationDetail.packageModel != null) {
       packageTitle = reservationDetail.packageModel.title;
@@ -1307,7 +1317,12 @@ class PDFHelper {
                         true,
                       ),
                       pw.SizedBox(height: 20),
-                      getServicesListFromReservationDetail(latoFont, reservationDetail),
+                      addChildColumn(
+                        contractBody,
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
+                      ),
                       pw.SizedBox(height: 20),
                     ],
                   ),

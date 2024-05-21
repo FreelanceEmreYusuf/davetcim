@@ -14,7 +14,7 @@ import '../../shared/utils/utils.dart';
 import 'all_reservation/all_reservation_corporate_landing_view.dart';
 import 'corporation_analysis/corporation_analysis_view.dart';
 import 'corporation_common_properties_edit/corporation_common_properties_edit_view.dart';
-import 'corporation_contract_management/corporate_contract_management_page.dart';
+import 'corporation_contract_management/corporate_contract_management_view.dart';
 import 'manage_corporation_photos/pick_page.dart';
 
 
