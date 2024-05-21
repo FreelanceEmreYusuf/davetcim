@@ -14,6 +14,7 @@ import '../../shared/utils/utils.dart';
 import 'all_reservation/all_reservation_corporate_landing_view.dart';
 import 'corporation_analysis/corporation_analysis_view.dart';
 import 'corporation_common_properties_edit/corporation_common_properties_edit_view.dart';
+import 'corporation_contract_management/corporate_contract_management_page.dart';
 import 'manage_corporation_photos/pick_page.dart';
 
 
@@ -142,6 +143,21 @@ class _State extends State<AdminCorporatePanelPage> {
                           ),),
                         onPressed: () {
                           Utils.navigateToPage(context, CorporationCommonPropertiesEditView());
+                        },
+                      )),
+                  SizedBox(height: MediaQuery.of(context).size.height / 30,),
+                  Container(
+                      height: MediaQuery.of(context).size.height / 13,
+                      padding: EdgeInsets.fromLTRB(MediaQuery.of(context).size.width / 50, 0, MediaQuery.of(context).size.width / 50, 0),
+                      // ignore: deprecated_member_use
+                      child: TextButton(
+                        style: TextButton.styleFrom(backgroundColor: Constants.darkAccent, elevation: 10, shadowColor: Colors.redAccent),
+                        child: Text("SÖZLEŞMELERİ YÖNET",
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),),
+                        onPressed: () {
+                          Utils.navigateToPage(context, ServiceCorporatePackageAddView());
                         },
                       )),
                   SizedBox(height: MediaQuery.of(context).size.height / 30,),
