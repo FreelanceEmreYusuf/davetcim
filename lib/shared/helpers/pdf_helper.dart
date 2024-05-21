@@ -861,7 +861,7 @@ class PDFHelper {
                   ),
                 ]),
             pw.SizedBox(height: 20),
-            addChildColumn(reservationDetail.corporateModel.corporationName.toUpperCase() + " REZERVASYON",
+            addChildColumn(reservationDetail.corporateModel.corporationName.toUpperCase() + " SATIŞ SÖZLEŞMESİ",
                 pw.TextAlign.center, latoFont, true),
             pw.SizedBox(height: 20),
 
@@ -1009,47 +1009,158 @@ class PDFHelper {
                 ],
               ),
             ),
-            addChildColumn(
-              "MADDELER :",
-              pw.TextAlign.left,
+          ],
+        ),),
+    );
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Center(child: addChildColumn(
+              "MADDELER",
+              pw.TextAlign.center,
               latoFont,
               true,
-            ),
+            ),),
+            pw.Center(child:
             pw.Column(
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
                 addChildColumn(
-                  "1. Size ilettiğimiz teklif; ilgili gün ve tarih için verilmiştir.",
+                  "1. İş bu sözleşme bedelinin en az 1/3 ü cayma bedeli olarak nakit alınır.Peşin Ödeme Türünde toplam tutar alınır.",
                   pw.TextAlign.left,
                   latoFont,
                   false,
                 ),
                 addChildColumn(
-                  "2. Teklif brlirtilen kişi kapasitesi ve menü için geçerlidir.",
+                  "2. Kalan bakiye tören günü takı merasiminden sonra nakden ve defaten ödenir.",
                   pw.TextAlign.left,
                   latoFont,
                   false,
                 ),
                 addChildColumn(
-                  "3. İlgili zaman aralığı ve ilgili paketimizi satın alabilmek için rezervasyon/satış işlemi yaptırmanız gerekmektedir.",
+                  "3. Alınan cayma bedeli borçlar kanunun 156/2 maddesine göre tören sahibinin sözleşmeyi iptal etmesi durumunda iade edilmez.Peşin Ödeme Türünde 1/3 Cayma Bedeli düşülerek,kalan tutar iade edilir.",
                   pw.TextAlign.left,
                   latoFont,
                   false,
                 ),
                 addChildColumn(
-                  "4. Teklif geçerlilik süreci 10 gündür.",
+                  "4. Etkinlik sahibi herhangi bir sebeple törenini iptal veya ileri bir tarihe ertelemek isterse 45 gün önceden yazılı olarak bildirmediği takdirde sözleşme tutarının tamamını ödemeyi kabul ve taahhüt eder.",
                   pw.TextAlign.left,
                   latoFont,
                   false,
                 ),
                 addChildColumn(
-                  "5. Bu belge sadece bir tekliftir.",
+                  "5. Etkinlik sahibi veya davetlilerin dışarıdan alkollü veya alkolsüz içecek ile her türlü yiyecek getirmeleri yasaktır.",
                   pw.TextAlign.left,
                   latoFont,
                   false,
                 ),
                 addChildColumn(
-                  "6. Paket harici hizmetler EK 1 içerisinde listelenmektedir.",
+                  "6. Etkinlik sırasında fotoğraf ve video çekimi hakkı salon müdüriyetinde ve yetkisindedir. Dışarıdan fotoğraf ve video kamerası getirilip çekim yapılamaz.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "7. Etkinlik anında salon müdüriyetinin idaresine müdahale edilemez. Organizasyon sahibi özel program ve sanatçı getirmek istediğinde salon müdüriyetine 1 gün önceden muafakat alarak haber vermek zorundadır. Sanatçı ve gruplar kendi ses tesisatlarını getireceklerdir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "8. Etkinlik süresince icra edilecek müzik seçimi ve yayını müşteri tarafından belirlenir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "9. İzine tabi organizasyonlarda mülki amirden izin alınması mecburi olup iş bu izini, organizasyon sahibi alacaktır. İzinin alınması ve organizasyon sırasında icra edilecek müziklere ait her türlü hukuki sorumluluk müşteriye aittir. Davetlilerin banner, flama, afiş vb. asması işletmemizin onayı ile yapılabilir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "10. Hesap kesimi sözleşmede belirtilen garanti kişi sayısı üzerinden alınır.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "11. Sözleşmede belirtilen garanti kişi sayısından fazla kişi gelir ise gelen her kişiye servis açılır ve ikram yapılır. Organizasyon sonunda organizasyon sahibinden doğacak fark tahsil edilir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "12. Misafirler etkinlik saatinden 30 dakika önce salona alınır.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),
+                addChildColumn(
+                  "13. Davete katılan herkes salon güvenliği tarafından kontrol edilir, hiçbir şekilde silah vb. malzemeler salona girişe müsaade edilmez.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "14. Müdüriyete teslim edilmeyen özel eşyaların kayıp ve çalıntısından işletmemiz sorumlu değildir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "15. Promosyon hizmetlerinin rezervasyonu etkinlik tarihinden 1 ay önce yapılmalıdır.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "16. Etkinlik tarihindan itibaren 1 ay içinde alınmayan fotoğraf ve video görüntülerinden firma fotoğraf servisimiz sorumlu değildir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "17. İş bu sözleşmeden kaynaklanan her türlü hukuki sorumluluk müşteriye aittir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "18. İş bu anlaşmadan doğacak ihtilaflardan Bakırköy Mahkemeleri yetkilidir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "19. İş bu sözleşme tarafların imzasıyla yürürlüğe girer.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "İş bu sözleşme esnek sözleşmedir. Pandemi vb tarafların dışında bir olayların olması durumunda",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "20. Kısıtlama durumunda ve yapmak isterseniz yapılamayan hizmet ve ikramların bedelleri ets sisteminden düşülerek satış fiyatı revize edilir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "21. İleri tarihe hiç bir fiyat farkı yansıtılmadan erteleme yapabilirsiniz.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "22. Töreninizi yapmak istemez iseniz 1/3 kapora badeliniz. Yanmaz. Ancak nakit olarak iade edilmez. Cari hesabınızda bulunan bu miktarı dilediğiniz zaman kullanabilirsiniz.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "23. Varsa Paket harici alınan hizmetler ve varsa paket içeriği EK 1 içerisinde listelenmektedir.",
+                  pw.TextAlign.left,
+                  latoFont,
+                  false,
+                ),addChildColumn(
+                  "24. Bu maddeler davetcimin her iki tarafı korumak için belirlediği standart maddelerdir, hizmet veren tarafın belirttiği sözleşme var ise EK 2'de yer alacaktır, EK 2'de belirtilen maddeler ile ilk 23 madde arasında bir çelişki oluşursa EK 2 deki madde baz alınacaktır. ",
                   pw.TextAlign.left,
                   latoFont,
                   false,
@@ -1057,33 +1168,88 @@ class PDFHelper {
                 pw.SizedBox(height: 20),
               ],
             ),
-
-
+            ),
             pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
-                pw.SizedBox(width: 20),
                 pw.Expanded(
                   child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    mainAxisAlignment: pw.MainAxisAlignment.start,
                     children: [
-                      addChildColumn("İLGİLİ PERSONEL",
-                          pw.TextAlign.left, latoFont, true),
+                      pw.Row(
+                        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                        children: [
+                          pw.SizedBox(width: 20),
+                          pw.Expanded(
+                            child: pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                addChildColumn("İLGİLİ PERSONEL",
+                                    pw.TextAlign.left, latoFont, true),
+                                pw.SizedBox(height: 20),
+                              ],
+                            ),
+                          ),
+                          pw.SizedBox(width: 20),
+                          pw.Expanded(
+                            child: pw.Column(
+                              crossAxisAlignment: pw.CrossAxisAlignment.start,
+                              children: [
+                                addChildColumn("MÜŞTERİ",
+                                    pw.TextAlign.right, latoFont, true),
+                                pw.SizedBox(height: 20),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                       pw.SizedBox(height: 20),
                     ],
                   ),
                 ),
                 pw.SizedBox(width: 20),
+              ],
+            ),
+          ],
+        ),),
+    );
+
+    pdf.addPage(
+      pw.Page(
+        build: (pw.Context context) => pw.Column(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            pw.Center(child:
+            addChildColumn(
+              "EK 1",
+              pw.TextAlign.left,
+              latoFont,
+              true,
+            ),),
+            pw.Row(
+              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
                 pw.Expanded(
                   child: pw.Column(
                     crossAxisAlignment: pw.CrossAxisAlignment.start,
+                    mainAxisAlignment: pw.MainAxisAlignment.start,
                     children: [
-                      addChildColumn("MÜŞTERİ",
-                          pw.TextAlign.right, latoFont, true),
+                      addChildColumn(
+                        "PAKET HARİCİ HİZMETLER",
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
+                      ),
+                      pw.SizedBox(height: 20),
+                      getServicesListFromReservationDetail(latoFont, reservationDetail),
                       pw.SizedBox(height: 20),
                     ],
                   ),
                 ),
+                pw.SizedBox(width: 20),
               ],
             ),
           ],

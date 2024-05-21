@@ -75,8 +75,10 @@ class _State extends State<ReservationCorporateView> {
                   physics: NeverScrollableScrollPhysics(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 1,
-                    childAspectRatio: MediaQuery.of(context).size.width /
-                        (MediaQuery.of(context).size.height / 5),
+                    childAspectRatio: 1.0,
+                    crossAxisSpacing: 0.0,
+                    mainAxisSpacing: 5,
+                    mainAxisExtent: MediaQuery.of(context).size.height / 4.7,
                   ),
                   itemCount: reservationList == null
                       ? 0

@@ -39,17 +39,15 @@ class _ReservationOnlyForCorporateViewScreenState extends State<ReservationOnlyF
                   return Scaffold(
                     appBar: AppBarMenu(pageName: widget.dateTime.toString().substring(0,10), isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
                     body: Padding(
-                      padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+                      padding: EdgeInsets.fromLTRB(10.0, 10, 10.0, 0),
                       child: GridView.builder(
                         shrinkWrap: true,
                         primary: false,
                         physics: NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 1,
-                          childAspectRatio: 1.0,
-                          crossAxisSpacing: 0.0,
-                          mainAxisSpacing: 5,
-                          mainAxisExtent: MediaQuery.of(context).size.height / 8,
+                          childAspectRatio: MediaQuery.of(context).size.width /
+                              (MediaQuery.of(context).size.height / 7),
                         ),
                         itemCount: reservationList == null
                             ? 0

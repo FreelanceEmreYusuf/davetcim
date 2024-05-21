@@ -466,7 +466,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
       floatingActionButton: Visibility(
         visible: isAvailableForDelayOrCancel,
         child: Container(
-          height: MediaQuery.of(context).size.height / 13,
+          height: MediaQuery.of(context).size.height / 10,
           child: Card(
             color: Colors.white54,
             shadowColor: Colors.black,

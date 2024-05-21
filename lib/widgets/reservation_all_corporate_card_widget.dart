@@ -37,49 +37,48 @@ class _ReservationAllCorporateCardWidgetState
     }
 
     return Container(
+      padding: EdgeInsets.fromLTRB(3.0, 1, 3, 10),
       child: InkWell(
         onTap: (){
           Utils.navigateToPage(context, AllReservationCorporateDetailScreen(
               reservationModel : widget.model, pageIndex: 1));
         },
-        child: SingleChildScrollView(
-          child: Card(
-            color: color,
-            semanticContainer: true,
-            clipBehavior: Clip.antiAliasWithSaveLayer,
-            shadowColor: Colors.black,
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(DateConversionUtils.convertIntTimeToViewString(widget.model.date),
-                      style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,),
-                      maxLines: 5,
-                    ),
+        child: Card(
+          color: color,
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          shadowColor: Colors.black,
+          elevation: 10,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(DateConversionUtils.convertIntTimeToViewString(widget.model.date),
+                    style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,),
+                    maxLines: 5,
                   ),
+                ),
 
-                  Expanded(
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text("\n\n Geçen Gün Sayısı : " +  DateConversionUtils.getDayDifferenceFromToday(widget.model.recordDate).toString()  +
-                          "\n Davet Türü : " + widget.model.invitationType +
-                          "\n Davetli Sayısı : " + widget.model.invitationCount.toString() +
-                          "\n Toplam Ücret : " + GeneralHelper.formatMoney(widget.model.cost.toString())+" TL",
-                        style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold,),
-                        maxLines: 6,
-                      ),
+                Expanded(
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text("\n\n Geçen Gün Sayısı : " +  DateConversionUtils.getDayDifferenceFromToday(widget.model.recordDate).toString()  +
+                        "\n Davet Türü : " + widget.model.invitationType +
+                        "\n Davetli Sayısı : " + widget.model.invitationCount.toString() +
+                        "\n Toplam Ücret : " + GeneralHelper.formatMoney(widget.model.cost.toString())+" TL",
+                      style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold,),
+                      maxLines: 6,
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
