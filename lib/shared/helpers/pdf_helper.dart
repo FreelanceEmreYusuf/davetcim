@@ -1246,6 +1246,15 @@ class PDFHelper {
                       pw.SizedBox(height: 20),
                       getServicesListFromReservationDetail(latoFont, reservationDetail),
                       pw.SizedBox(height: 20),
+                      addChildColumn(
+                        "PAKET İÇERİĞİ",
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
+                      ),
+                      pw.SizedBox(height: 20),
+                      getServicesListFromReservationDetail(latoFont, reservationDetail),
+                      pw.SizedBox(height: 20),
                     ],
                   ),
                 ),
@@ -1263,7 +1272,7 @@ class PDFHelper {
           children: [
             pw.Center(child:
             addChildColumn(
-              "EK 1",
+              "EK 2",
               pw.TextAlign.left,
               latoFont,
               true,
@@ -1278,7 +1287,7 @@ class PDFHelper {
                     mainAxisAlignment: pw.MainAxisAlignment.start,
                     children: [
                       addChildColumn(
-                        "PAKET HARİCİ HİZMETLER",
+                        "HİZMET VEREN TARAFIN BELİRTTİĞİ SÖZLEŞME MADDELERİ",
                         pw.TextAlign.left,
                         latoFont,
                         true,
