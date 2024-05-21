@@ -45,7 +45,7 @@ class _CalenderOrderCarouselState extends State<CalenderOrderCarousel> {
         color = Colors.blueAccent;
       } else if (UserBasketState.userBasket.reservationList[i].reservationStatus ==
           ReservationStatusEnum.reservation) {
-        color = Colors.green;
+        color = Colors.redAccent;
       }
 
       _markedDateMap.add(

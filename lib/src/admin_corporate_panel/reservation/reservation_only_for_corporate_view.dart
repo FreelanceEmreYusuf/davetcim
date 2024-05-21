@@ -49,7 +49,7 @@ class _ReservationOnlyForCorporateViewScreenState extends State<ReservationOnlyF
                           childAspectRatio: 1.0,
                           crossAxisSpacing: 0.0,
                           mainAxisSpacing: 5,
-                          mainAxisExtent: MediaQuery.of(context).size.height / 4.7,
+                          mainAxisExtent: MediaQuery.of(context).size.height / 8,
                         ),
                         itemCount: reservationList == null
                             ? 0

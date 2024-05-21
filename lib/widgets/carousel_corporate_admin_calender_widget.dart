@@ -47,7 +47,7 @@ class _CalenderCorporateAdminCarouselState extends State<CalenderCorporateAdminC
       } else if (reservationList[i].reservationStatus == ReservationStatusEnum.preReservation) {
         color = Colors.blueAccent;
       } else if (reservationList[i].reservationStatus == ReservationStatusEnum.reservation) {
-        color = Colors.green;
+        color = Colors.redAccent;
       }
 
       _markedDateMap.add(

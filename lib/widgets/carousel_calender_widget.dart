@@ -50,7 +50,7 @@ class _CalenderCarouselState extends State<CalenderCarousel> {
         color = Colors.blueAccent;
       } else if (widget.reservationList[i].reservationStatus ==
           ReservationStatusEnum.reservation) {
-        color = Colors.green;
+        color = Colors.redAccent;
       }
 
       _markedDateMap.add(
@@ -61,7 +61,7 @@ class _CalenderCarouselState extends State<CalenderCarousel> {
             //icon: Icon(Icons.access_alarms, color: Colors.blueAccent),
             dot: Container(
               margin: EdgeInsets.symmetric(horizontal: 1.0),
-              color: Colors.blueAccent,
+              color: color,
               height: 5.0,
               width: 5.0,
             ),
