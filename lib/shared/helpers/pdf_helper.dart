@@ -814,10 +814,12 @@ class PDFHelper {
     String districtName = await productsViewDetailModel.getDistrict(
         int.parse(reservationDetail.corporateModel.district));
     String packageTitle = "";
+    String packageBody = "";
     String sessionName = "";
     BuildContext buildContext;
     if (reservationDetail.packageModel != null) {
       packageTitle = reservationDetail.packageModel.title;
+      packageBody = reservationDetail.packageModel.body;
     }
     if (reservationDetail.selectedSessionModel != null) {
       sessionName = reservationDetail.selectedSessionModel.name;
@@ -1243,17 +1245,29 @@ class PDFHelper {
                         latoFont,
                         true,
                       ),
-                      pw.SizedBox(height: 20),
+                      pw.SizedBox(height: 10),
                       getServicesListFromReservationDetail(latoFont, reservationDetail),
-                      pw.SizedBox(height: 20),
+                      pw.SizedBox(height: 10),
                       addChildColumn(
-                        "PAKET İÇERİĞİ",
+                        "PAKET BİLGİLERİ",
                         pw.TextAlign.left,
                         latoFont,
                         true,
                       ),
-                      pw.SizedBox(height: 20),
-                      getServicesListFromReservationDetail(latoFont, reservationDetail),
+                      pw.SizedBox(height: 10),
+                      addChildColumn(
+                        packageTitle,
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
+                      ),
+                      pw.SizedBox(height: 10),
+                      addChildColumn(
+                        packageBody,
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
+                      ),
                       pw.SizedBox(height: 20),
                     ],
                   ),
