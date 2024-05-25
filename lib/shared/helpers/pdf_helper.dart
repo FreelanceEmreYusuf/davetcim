@@ -38,6 +38,7 @@ class PDFHelper {
       fontSize: 10,
       font: font,
       color: PdfColor.fromInt(0xff000000),
+      lineSpacing: 5,
     );
 
     if (isBold) {
@@ -58,7 +59,38 @@ class PDFHelper {
     );
   }
 
+  pw.Widget addChildColumnForExtraContract(
+      String text,
+      pw.TextAlign textAlign,
+      pw.Font font,
+      bool isBold,
+      {double spacing = 10.0, lineSpacing = 6.0}
+      ) {
 
+    pw.TextStyle textStyle = pw.TextStyle(
+      fontSize: 10,
+      font: font,
+      color: PdfColor.fromInt(0xff000000),
+      lineSpacing: lineSpacing,
+    );
+
+    if (isBold) {
+      textStyle = textStyle.copyWith(
+        fontWeight: pw.FontWeight.bold,
+      );
+    }
+
+    pw.Text textWidget = pw.Text(
+      text,
+      textAlign: textAlign,
+      style: textStyle,
+    );
+
+    return pw.Container(
+      padding: pw.EdgeInsets.only(bottom: spacing),
+      child: textWidget,
+    );
+  }
 
   pw.Widget getServicesList(pw.Font font) {
     List<pw.Widget> widgetList = [];
@@ -108,9 +140,10 @@ class PDFHelper {
     ProductsViewDetailModel productsViewDetailModel = ProductsViewDetailModel();
     String districtName = await productsViewDetailModel.getDistrict(int.parse(UserBasketState.userBasket.corporationModel.district));
     String packageTitle = "";
-    BuildContext buildContext;
+    String packageBody = "";
     if (UserBasketState.userBasket.packageModel != null) {
       packageTitle = UserBasketState.userBasket.packageModel.title;
+      packageBody = UserBasketState.userBasket.packageModel.body;
     }
 
     pdf.addPage(
@@ -340,7 +373,7 @@ class PDFHelper {
                   false,
                 ),
                 addChildColumn(
-                  "6. Paket harici hizmetler EK 1 içerisinde listelenmektedir.",
+                  "6. Paket ve paket harici hizmetlerin bilgileri EK 1 içerisinde belirtilmiştir.",
                   pw.TextAlign.left,
                   latoFont,
                   false,
@@ -408,9 +441,29 @@ class PDFHelper {
                             latoFont,
                             true,
                           ),
-                          pw.SizedBox(height: 20),
+                          pw.SizedBox(height: 10),
                           getServicesList(latoFont),
-                          pw.SizedBox(height: 20),
+                          pw.SizedBox(height: 10),
+                          addChildColumn(
+                            "PAKET BİLGİLERİ",
+                            pw.TextAlign.left,
+                            latoFont,
+                            true,
+                          ),
+                          pw.SizedBox(height: 10),
+                          addChildColumn(
+                            packageTitle,
+                            pw.TextAlign.left,
+                            latoFont,
+                            true,
+                          ),
+                          pw.SizedBox(height: 10),
+                          addChildColumn(
+                            packageBody,
+                            pw.TextAlign.left,
+                            latoFont,
+                            true,
+                          ),
                         ],
                       ),
                     ),
@@ -487,9 +540,10 @@ class PDFHelper {
         int.parse(reservationDetail.corporateModel.district));
     String packageTitle = "";
     String sessionName = "";
-    BuildContext buildContext;
+    String packageBody = "";
     if (reservationDetail.packageModel != null) {
       packageTitle = reservationDetail.packageModel.title;
+      packageBody = reservationDetail.packageModel.body;
     }
     if (reservationDetail.selectedSessionModel != null) {
       sessionName = reservationDetail.selectedSessionModel.name;
@@ -723,7 +777,7 @@ class PDFHelper {
                   false,
                 ),
                 addChildColumn(
-                  "6. Paket harici hizmetler EK 1 içerisinde listelenmektedir.",
+                  "6. Paket ve paket harici hizmetlerin bilgileri EK 1 içerisinde belirtilmiştir.",
                   pw.TextAlign.left,
                   latoFont,
                   false,
@@ -791,8 +845,29 @@ class PDFHelper {
                         latoFont,
                         true,
                       ),
-                      pw.SizedBox(height: 20),
+                      pw.SizedBox(height: 10),
                       getServicesListFromReservationDetail(latoFont, reservationDetail),
+                      pw.SizedBox(height: 10),
+                      addChildColumn(
+                        "PAKET BİLGİLERİ",
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
+                      ),
+                      pw.SizedBox(height: 10),
+                      addChildColumn(
+                        packageTitle,
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
+                      ),
+                      pw.SizedBox(height: 10),
+                      addChildColumn(
+                        packageBody,
+                        pw.TextAlign.left,
+                        latoFont,
+                        true,
+                      ),
                       pw.SizedBox(height: 20),
                     ],
                   ),
@@ -826,7 +901,6 @@ class PDFHelper {
     String packageBody = "";
     String sessionName = "";
     String contractBody = await getExtraContract();
-    BuildContext buildContext;
     if (reservationDetail.packageModel != null) {
       packageTitle = reservationDetail.packageModel.title;
       packageBody = reservationDetail.packageModel.body;
@@ -1177,7 +1251,6 @@ class PDFHelper {
                   latoFont,
                   false,
                 ),
-                pw.SizedBox(height: 20),
               ],
             ),
             ),
@@ -1317,7 +1390,7 @@ class PDFHelper {
                         true,
                       ),
                       pw.SizedBox(height: 20),
-                      addChildColumn(
+                      addChildColumnForExtraContract(
                         contractBody,
                         pw.TextAlign.left,
                         latoFont,

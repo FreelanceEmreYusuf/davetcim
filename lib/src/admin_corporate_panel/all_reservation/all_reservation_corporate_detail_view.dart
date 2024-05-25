@@ -447,8 +447,11 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: Text(
-                            "Toplam Tutar", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                        child: Padding(
+                          padding: EdgeInsets.all(3.0),
+                          child: Text(
+                              "Toplam Tutar", style: TextStyle(fontSize: 18, color: Colors.white, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold,)),
+                        ),
                       ),
                       Expanded(
                         child: Text(

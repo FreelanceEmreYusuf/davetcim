@@ -32,13 +32,16 @@ class _GridCorporateDetailServicesSummaryState
     if (!widget.detailRowModel.priceChangedForCount) {
       priceChangeForCount = "Hayır";
     }
-
+    double textLeftPadding = MediaQuery.of(context).size.width / 50;
     row = Row(
       children: [
         FittedBox(
           fit: BoxFit.scaleDown,
-          child: Text(
-              widget.detailRowModel.serviceName.replaceAll("-", ""), style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(textLeftPadding,0,0.0,0),
+            child: Text(
+                widget.detailRowModel.serviceName.replaceAll("-", ""), style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic, fontWeight: FontWeight.bold)),
+          ),
         ),
         Spacer(),
         SizedBox.fromSize(
