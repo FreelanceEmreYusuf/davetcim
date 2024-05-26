@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
+import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/utils/dialogs.dart';
 import 'package:davetcim/shared/utils/language.dart';
 import 'package:davetcim/src/notifications/notifications_view_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../shared/environments/const.dart';
 import '../../shared/models/comment_model.dart';
 import '../../shared/models/corporation_model.dart';
 import '../../shared/sessions/user_state.dart';
@@ -151,8 +153,9 @@ class CommentsViewModel extends ChangeNotifier {
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
       Map item = list[0].data();
-      double averageRating = double.parse(item["averageRating"].toString());
-      int ratingCount = item["ratingCount"];
+      CorporationModel corporationModel = CorporationModel.fromMap(item);
+      double averageRating = corporationModel.averageRating;
+      int ratingCount = corporationModel.ratingCount;
 
       if (oldRating != -1) {
         double totalRating = averageRating * ratingCount;
@@ -164,63 +167,62 @@ class CommentsViewModel extends ChangeNotifier {
           averageRating = 0.0;
         }
 
-        CorporationModel corporationModel = CorporationModel.fromMap(item);
-        Map<String, dynamic> corporationMap = corporationModel.toMap();
-        corporationMap['ratingCount'] = ratingCount;
-        corporationMap['averageRating'] = averageRating;
-        db.editCollectionRef(DBConstants.corporationDb, corporationMap);
-        corporationModel = CorporationModel.fromMap(corporationMap);
+        corporationModel.ratingCount = ratingCount;
+        corporationModel.averageRating = averageRating;
+        db.editCollectionRef(DBConstants.corporationDb, corporationModel.toMap());
         Utils.navigateToPage(context, ProductDetails(corporationModel: corporationModel));
       }
     }
   }
 
   Future<void> approveProductRating(int corporationId, int newRating) async {
-    CollectionReference docsRef = db.getCollectionRef(DBConstants.corporationDb);
-    var response = await docsRef.where('id', isEqualTo: corporationId).get();
+    CorporateHelper corporateHelper = CorporateHelper();
+    CorporationModel corporationModel = await corporateHelper.getCorporate(corporationId);
+    double averageRating = corporationModel.averageRating;
+    int ratingCount = corporationModel.ratingCount;
 
-    if (response.docs != null && response.docs.length > 0) {
-      var list = response.docs;
-      Map item = list[0].data();
-      double averageRating = double.parse(item["averageRating"].toString());
-      int ratingCount = item["ratingCount"];
+    double totalRating = (averageRating * ratingCount) + newRating;
+    ratingCount += 1;
+    averageRating = totalRating / ratingCount;
 
-      double totalRating = (averageRating * ratingCount) + newRating;
-      ratingCount += 1;
-      averageRating = totalRating / ratingCount;
+    corporationModel.ratingCount = ratingCount;
+    corporationModel.averageRating = averageRating;
 
-      CorporationModel corporationModel = CorporationModel.fromMap(item);
-      Map<String, dynamic> corporationMap = corporationModel.toMap();
-      corporationMap['ratingCount'] = ratingCount;
-      corporationMap['averageRating'] = averageRating;
-      db.editCollectionRef(DBConstants.corporationDb, corporationMap);
-    }
+    if (newRating == 3)
+      corporationModel.point = corporationModel.point + Constants.threeStarAdditionPoint;
+    if (newRating == 4)
+      corporationModel.point = corporationModel.point + Constants.fourStarAdditionPoint;
+    if (newRating == 5)
+      corporationModel.point = corporationModel.point + Constants.fiveStarAdditionPoint;
+
+    db.editCollectionRef(DBConstants.corporationDb, corporationModel.toMap());
   }
 
   Future<void> deleteProductRating(int corporationId, int deletedRating) async {
-    CollectionReference docsRef = db.getCollectionRef(DBConstants.corporationDb);
-    var response = await docsRef.where('id', isEqualTo: corporationId).get();
+    CorporateHelper corporateHelper = CorporateHelper();
+    CorporationModel corporationModel = await corporateHelper.getCorporate(corporationId);
+    double averageRating = corporationModel.averageRating;
+    int ratingCount = corporationModel.ratingCount;
 
-    if (response.docs != null && response.docs.length > 0) {
-      var list = response.docs;
-      Map item = list[0].data();
-      double averageRating = double.parse(item["averageRating"].toString());
-      int ratingCount = item["ratingCount"];
-
-      double totalRating = (averageRating * ratingCount) - deletedRating;
-      ratingCount -= 1;
-      if (ratingCount <= 0) {
-        averageRating = 0.0;
-      } else {
-        averageRating = totalRating / ratingCount;
-      }
-
-      CorporationModel corporationModel = CorporationModel.fromMap(item);
-      Map<String, dynamic> corporationMap = corporationModel.toMap();
-      corporationMap['ratingCount'] = ratingCount;
-      corporationMap['averageRating'] = averageRating;
-      db.editCollectionRef(DBConstants.corporationDb, corporationMap);
+    double totalRating = (averageRating * ratingCount) - deletedRating;
+    ratingCount -= 1;
+    if (ratingCount <= 0) {
+      averageRating = 0.0;
+    } else {
+      averageRating = totalRating / ratingCount;
     }
+
+    corporationModel.ratingCount = ratingCount;
+    corporationModel.averageRating = averageRating;
+
+    if (deletedRating == 3)
+      corporationModel.point = corporationModel.point - Constants.threeStarAdditionPoint;
+    if (deletedRating == 4)
+      corporationModel.point = corporationModel.point - Constants.fourStarAdditionPoint;
+    if (deletedRating == 5)
+      corporationModel.point = corporationModel.point - Constants.fiveStarAdditionPoint;
+
+    db.editCollectionRef(DBConstants.corporationDb, corporationModel.toMap());
   }
 
   Future<int> getOldRating(int corporationId) async {

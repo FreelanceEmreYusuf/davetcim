@@ -3,7 +3,9 @@ import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../shared/enums/corporation_event_log_enum.dart';
+import '../../shared/environments/const.dart';
 import '../../shared/environments/db_constants.dart';
+import '../../shared/helpers/corporate_helper.dart';
 import '../../shared/models/user_fav_products.dart';
 import '../../shared/services/database.dart';
 import '../../shared/sessions/user_state.dart';
@@ -65,6 +67,11 @@ class FavProductsViewModel extends ChangeNotifier {
 
       if (list.length > 0) {
         await list[0].reference.delete();
+        CorporateHelper corporateHelper = CorporateHelper();
+        CorporationModel corporateModel = await corporateHelper.getCorporate(corporationId);
+        corporateModel.point = corporateModel.point -
+            Constants.favoriteAdditionPoint;
+        db.editCollectionRef(DBConstants.corporationDb, corporateModel.toMap());
       } else {
         UserFavProductsModel favProductsModel = new UserFavProductsModel(
             id: new DateTime.now().millisecondsSinceEpoch,
@@ -74,6 +81,13 @@ class FavProductsViewModel extends ChangeNotifier {
             recordDate: Timestamp.now());
 
        db.editCollectionRef(DBConstants.favProductsDb, favProductsModel.toMap());
+
+        CorporateHelper corporateHelper = CorporateHelper();
+        CorporationModel corporateModel = await corporateHelper.getCorporate(corporationId);
+        corporateModel.point = corporateModel.point +
+            Constants.favoriteAdditionPoint;
+        db.editCollectionRef(DBConstants.corporationDb, corporateModel.toMap());
+
        CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
        await corporationAnalysisViewModel.editDailyLog(corporationId, CorporationEventLogEnum.newFavorite.name, 0);
       }

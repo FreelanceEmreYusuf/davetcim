@@ -1,9 +1,12 @@
 import 'package:davetcim/shared/environments/db_constants.dart';
+import 'package:davetcim/shared/helpers/corporate_helper.dart';
+import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/models/service_corporate_pool_model.dart';
 import 'package:davetcim/shared/models/service_pool_model.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../shared/enums/reservation_status_enum.dart';
+import '../../../shared/environments/const.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/services/database.dart';
@@ -132,10 +135,20 @@ class ReservationCorporateViewModel extends ChangeNotifier {
         model.reservationStatus =  ReservationStatusEnum.preReservation;
       } else  if (model.reservationStatus == ReservationStatusEnum.preReservation) {
         model.reservationStatus = ReservationStatusEnum.reservation;
+        CorporateHelper corporateHelper = CorporateHelper();
+        CorporationModel corporateModel = await corporateHelper.getCorporate(model.corporationId);
+        corporateModel.point = corporateModel.point +
+            Constants.reservationAdditionPoint;
+        db.editCollectionRef(DBConstants.corporationDb, corporateModel.toMap());
       }
     } else {
       if (model.reservationStatus == ReservationStatusEnum.reservation) {
         model.reservationStatus = ReservationStatusEnum.preReservation;
+        CorporateHelper corporateHelper = CorporateHelper();
+        CorporationModel corporateModel = await corporateHelper.getCorporate(model.corporationId);
+        corporateModel.point = corporateModel.point -
+            Constants.reservationAdditionPoint;
+        db.editCollectionRef(DBConstants.corporationDb, corporateModel.toMap());
       } else if (model.reservationStatus == ReservationStatusEnum.preReservation) {
         model.reservationStatus = ReservationStatusEnum.userOffer;
       } else {

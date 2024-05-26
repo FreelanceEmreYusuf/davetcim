@@ -5,6 +5,14 @@ class Constants {
   static String appName = "Davetcim";
   static String errorImg = "assets/errorimage.jpeg";
 
+  static int vipCorporationAdditionPoint = 1000;
+  static int reservationAdditionPoint = 10;
+  static int favoriteAdditionPoint = 2;
+  static int threeStarAdditionPoint = 3;
+  static int fourStarAdditionPoint = 4;
+  static int fiveStarAdditionPoint = 5;
+
+
   //Colors for theme
 //  Color(0xfffcfcff);
   static Color lightPrimary = Color(0xfffcfcff);

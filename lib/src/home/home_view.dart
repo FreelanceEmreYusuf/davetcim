@@ -2,18 +2,14 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:davetcim/shared/sessions/state_management.dart';
-import 'package:davetcim/src/home/home_view_model.dart';
 import 'package:davetcim/widgets/slider_item.dart';
 import 'package:flutter/material.dart';
 import 'package:davetcim/widgets/grid_product.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 import '../../shared/sessions/user_state.dart';
 import '../../widgets/indicator.dart';
-import '../../widgets/on_error/somethingWentWrong.dart';
 import '../../widgets/soft_filter.dart';
 import '../search/search_view.dart';
-import '../search/search_wihthout_appbar_view.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -30,194 +26,180 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
   }
 
   String sliderCorporationName = "";
-  List<int> orderedCorporationList =[];
+  List<CorporationModel> corporationList =[];
   List<CorporationModel> popularCorporationModelList =[];
   IconData iconData = Icons.favorite_border_outlined;
+  bool hasDataTaken = false;
 
   @override
   void initState() {
     StateManagement.disposeStates();
-    getOrderedCorporationList();
-    getHomeSliderCorporationList();
+    getCorporationList();
     super.initState();
   }
 
-  void getOrderedCorporationList() async{
-    HomeViewModel homeViewModel = new HomeViewModel();
-    orderedCorporationList = await homeViewModel.getMountLogs(50);
-    setState(() {
-      orderedCorporationList = orderedCorporationList;
-    });
-  }
-
-  void getHomeSliderCorporationList() async{
+  void getCorporationList() async{
     CorporateHelper corporateModel = new CorporateHelper();
-    popularCorporationModelList = await corporateModel.getPopularCorporate();
+    corporationList = await corporateModel.getPopularCorporate();
+    popularCorporationModelList = await corporateModel.getPopularCorporateForSlider();
     setState(() {
+      corporationList = corporationList;
       popularCorporationModelList = popularCorporationModelList;
+      hasDataTaken = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    HomeViewModel mdl = new HomeViewModel();
-    super.build(context);
-    return ChangeNotifierProvider<HomeViewModel>(
-      create: (_) => HomeViewModel(),
-      builder: (context, child) => StreamBuilder<List<CorporationModel>>(
-          stream: Provider.of<HomeViewModel>(context, listen: false)
-              .getHomeCorporationList(orderedCorporationList),
-          builder: (context, asyncSnapshot) {
-            if (asyncSnapshot.hasError) {
-              return SomethingWentWrongScreen();
-            } else if (asyncSnapshot.hasData) {
-              List<CorporationModel> corporationList = asyncSnapshot.data;
-              return Scaffold(
-                body: ListView(
+    if (!hasDataTaken) {
+      return Scaffold(
+        body: Padding(
+          padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+          child: Center(
+            child: Indicator(),
+          ),
+        ),
+      );
+    }
+
+    return Scaffold(
+      body: ListView(
+        children: <Widget>[
+          SoftFilterWidget(),
+          GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onVerticalDragUpdate: (details) {
+              // Aşağı kaydırma hassasiyeti
+              int sensitivity = 8;
+              // Aşağı kaydırma hareketi kontrolü
+              if (details.delta.dy > sensitivity) {
+                // Aşağı kaydırma işlemi algılandı, SearchScreen açılıyor
+                Navigator.push(context, PageTransition(type: PageTransitionType.topToBottom, child: SearchScreen(),));
+              }
+            },
+            onTap: () {
+              Navigator.push(context, PageTransition(type: PageTransitionType.topToBottom, child: SearchScreen(),));
+            },
+            child: Container(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Image.asset(
+                      "assets/uprow.gif",
+                      width: MediaQuery.of(context).size.width * 0.12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 6),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    SoftFilterWidget(),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
-                      onVerticalDragUpdate: (details) {
-                        // Aşağı kaydırma hassasiyeti
-                        int sensitivity = 8;
-                        // Aşağı kaydırma hareketi kontrolü
-                        if (details.delta.dy > sensitivity) {
-                          // Aşağı kaydırma işlemi algılandı, SearchScreen açılıyor
-                          Navigator.push(context, PageTransition(type: PageTransitionType.topToBottom, child: SearchScreen(),));
-                        }
-                      },
-                      onTap: () {
-                        Navigator.push(context, PageTransition(type: PageTransitionType.topToBottom, child: SearchScreen(),));
-                      },
-                      child: Container(
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: Image.asset(
-                                "assets/uprow.gif",
-                                width: MediaQuery.of(context).size.width * 0.12,
-                              ),
-                            ),
-                          ],
+                    Expanded(
+                      child: Text(
+                        "Davetcim Sponsorları",
+                        style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.w800,
                         ),
                       ),
                     ),
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 6),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Expanded(
-                                child: Text(
-                                  "Davetcim Sponsorları",
-                                  style: TextStyle(
-                                    fontSize: 23,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 3),
-                          child: Container(
-                            height: MediaQuery.of(context).size.height / 2.4,
-                            width: MediaQuery.of(context).size.width,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8.0),
-                              child: Swiper(
-                                duration: 1500,
-                                autoplayDelay: 5000,
-                                itemBuilder: (BuildContext context, int index) {
-                                  CorporationModel model = popularCorporationModelList[index];
-                                  return SliderItem(
-                                    corporationId: model.corporationId,
-                                    img: model.imageUrl,
-                                    isFav: UserState.isCorporationFavorite(model.corporationId),
-                                    name: model.corporationName,
-                                    rating: model.averageRating,
-                                    raters: model.ratingCount,
-                                    description: model.description,
-                                    maxPopulation: model.maxPopulation,
-                                    callerPage: null,
-                                  );
-                                },
-                                itemCount: popularCorporationModelList.length,
-                                pagination: SwiperPagination(),
-                                control: SwiperControl(),
-                                autoplay: true,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Expanded(
-                                child: Text(
-                                  "Son Zamanlarda Popüler",
-                                  style: TextStyle(
-                                    fontSize: 23,
-                                    fontWeight: FontWeight.w800,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 5),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 10),
-                          child: GridView.builder(
-                            shrinkWrap: true,
-                            primary: false,
-                            physics: NeverScrollableScrollPhysics(),
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: MediaQuery.of(context).size.width /
-                                  (MediaQuery.of(context).size.height / 1.15),
-                            ),
-                            itemCount: corporationList == null ? 0 : corporationList.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              CorporationModel item = corporationList[index];
-                              return GridProduct(
-                                corporationId: item.corporationId,
-                                description: item.description,
-                                maxPopulation: item.maxPopulation,
-                                img: item.imageUrl,
-                                isFav: UserState.isCorporationFavorite(item.corporationId),
-                                name: item.corporationName,
-                                rating: item.averageRating,
-                                raters: item.ratingCount
-                              );
-                            },
-                          ),
-                        ),
-                        SizedBox(height: 30),
-                      ],
-                    ),
-
                   ],
                 ),
-              );
-            } else {
-              return Center(
-                child: Indicator(),
-              );
-            }
-          }),
+              ),
+              SizedBox(height: 5),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 3),
+                child: Container(
+                  height: MediaQuery.of(context).size.height / 2.4,
+                  width: MediaQuery.of(context).size.width,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Swiper(
+                      duration: 1500,
+                      autoplayDelay: 5000,
+                      itemBuilder: (BuildContext context, int index) {
+                        CorporationModel model = popularCorporationModelList[index];
+                        return SliderItem(
+                          corporationId: model.corporationId,
+                          img: model.imageUrl,
+                          isFav: UserState.isCorporationFavorite(model.corporationId),
+                          name: model.corporationName,
+                          rating: model.averageRating,
+                          raters: model.ratingCount,
+                          description: model.description,
+                          maxPopulation: model.maxPopulation,
+                          callerPage: null,
+                        );
+                      },
+                      itemCount: popularCorporationModelList.length,
+                      pagination: SwiperPagination(),
+                      control: SwiperControl(),
+                      autoplay: true,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 5),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Expanded(
+                      child: Text(
+                        "Son Zamanlarda Popüler",
+                        style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 5),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: GridView.builder(
+                  shrinkWrap: true,
+                  primary: false,
+                  physics: NeverScrollableScrollPhysics(),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    childAspectRatio: MediaQuery.of(context).size.width /
+                        (MediaQuery.of(context).size.height / 1.15),
+                  ),
+                  itemCount: corporationList == null ? 0 : corporationList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    CorporationModel item = corporationList[index];
+                    return GridProduct(
+                        corporationId: item.corporationId,
+                        description: item.description,
+                        maxPopulation: item.maxPopulation,
+                        img: item.imageUrl,
+                        isFav: UserState.isCorporationFavorite(item.corporationId),
+                        name: item.corporationName,
+                        rating: item.averageRating,
+                        raters: item.ratingCount
+                    );
+                  },
+                ),
+              ),
+              SizedBox(height: 30),
+            ],
+          ),
+        ],
+      ),
     );
   }
 

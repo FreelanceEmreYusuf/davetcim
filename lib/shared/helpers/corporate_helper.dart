@@ -1,7 +1,10 @@
+import 'package:davetcim/shared/helpers/parameters_helper.dart';
+import 'package:davetcim/shared/models/paramters_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 
 import '../environments/db_constants.dart';
 import '../models/corporation_model.dart';
+import '../sessions/home_items_state.dart';
 
 class CorporateHelper {
 
@@ -22,20 +25,59 @@ class CorporateHelper {
   }
 
   Future<List<CorporationModel>> getPopularCorporate() async {
+    if (HomeItemsState.isPresentForCorporationList()) {
+      return HomeItemsState.corporationList;
+    }
+
     Database db = Database();
-    List<CorporationModel> corporationList =[];
+    ParametersHelper parametersHelper = ParametersHelper();
+    ParametersModel parametersModel = await parametersHelper.getParametersData();
+    List<CorporationModel> corpModelList =[];
     var response = await db
         .getCollectionRef(DBConstants.corporationDb)
         .where('isActive', isEqualTo: true)
-        .where('isPopularCorporation', isEqualTo: true)
+        .orderBy('point', descending: true)
+        .limit(parametersModel.homeItemSize)
         .get();
 
     if (response.docs != null && response.docs.length > 0) {
       var list = response.docs;
       for (int i = 0; i < list.length; i++) {
-        corporationList.add(CorporationModel.fromMap(list[i].data()));
+        corpModelList.add(CorporationModel.fromMap(list[i].data()));
       }
-      return corporationList;
+
+      HomeItemsState.corporationList = corpModelList;
+      return corpModelList;
+    }
+
+    return null;
+  }
+
+  Future<List<CorporationModel>> getPopularCorporateForSlider() async {
+    if (HomeItemsState.isPresentForPopularCorporationList()) {
+      return HomeItemsState.popularCorporationModelList;
+    }
+
+    Database db = Database();
+    ParametersHelper parametersHelper = ParametersHelper();
+    ParametersModel parametersModel = await parametersHelper.getParametersData();
+    List<CorporationModel> corpModelList =[];
+    var response = await db
+        .getCollectionRef(DBConstants.corporationDb)
+        .where('isActive', isEqualTo: true)
+        .where('isPopularCorporation', isEqualTo: true)
+        .orderBy('point', descending: true)
+        .limit(parametersModel.homeSliderItemSize)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        corpModelList.add(CorporationModel.fromMap(list[i].data()));
+      }
+
+      HomeItemsState.popularCorporationModelList = corpModelList;
+      return corpModelList;
     }
 
     return null;

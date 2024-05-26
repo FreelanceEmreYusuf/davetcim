@@ -16,7 +16,7 @@ class ManageCommentCorporateViewModel extends ChangeNotifier {
 
   Future<List<CommentModel>> getCorporateComments(int corporateId) async {
     var response = await db
-        .getCollectionRef("Comments")
+        .getCollectionRef(DBConstants.productCommentsDb)
         .where('corporationId', isEqualTo: corporateId)
         .orderBy('date', descending: true)
         .get();

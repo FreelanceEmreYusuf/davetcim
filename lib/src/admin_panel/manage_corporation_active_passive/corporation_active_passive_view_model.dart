@@ -4,6 +4,7 @@ import 'package:davetcim/shared/services/database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../../shared/environments/const.dart';
 import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/paramters_model.dart';
 
@@ -21,16 +22,14 @@ class CorporationActivePassiveViewModel extends ChangeNotifier {
   }
 
   Future<void> editCorporationPopularity(CorporationModel corporationModel) async {
-    ParametersHelper parametersHelper = ParametersHelper();
-    ParametersModel parametersModel = await parametersHelper.getParametersData();
     if (corporationModel.isPopularCorporation) {
       corporationModel.isPopularCorporation = false;
       corporationModel.point = corporationModel.point -
-          parametersModel.vipCorporationAdditionPoint;
+          Constants.vipCorporationAdditionPoint;
     } else {
       corporationModel.isPopularCorporation = true;
       corporationModel.point = corporationModel.point +
-          parametersModel.vipCorporationAdditionPoint;
+          Constants.vipCorporationAdditionPoint;
     }
 
     db.editCollectionRef(DBConstants.corporationDb, corporationModel.toMap());
