@@ -2,11 +2,31 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../shared/environments/db_constants.dart';
 import '../../../shared/models/corporation_extra_contract_model.dart';
+import '../../../shared/models/corporation_main_contract_model.dart';
 import '../../../shared/services/database.dart';
 import '../../../shared/utils/dialogs.dart';
 
 class CorporateContractManagementViewModel extends ChangeNotifier {
   Database db = Database();
+
+  Future<List<CorporationMainContractModel>> getMainContractList(bool isSell) async {
+    List<CorporationMainContractModel> contractList = [];
+    var response = await db
+        .getCollectionRef(DBConstants.corporationMainContractDb)
+        .where('isSell', isEqualTo: isSell)
+        .orderBy('id', descending: false)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        contractList.add(CorporationMainContractModel.fromMap(item));
+      }
+    }
+
+    return contractList;
+  }
 
   Future<String> getContract(int corporationId) async {
     var response = await db

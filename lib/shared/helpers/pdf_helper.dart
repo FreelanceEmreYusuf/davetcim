@@ -13,6 +13,7 @@ import 'package:pdf/widgets.dart' as pw;
 import '../../src/admin_corporate_panel/corporation_contract_management/corporate_contract_management_view_model.dart';
 import '../../src/products/product_detail_view_model.dart';
 import '../dto/reservation_detail_view_dto.dart';
+import '../models/corporation_main_contract_model.dart';
 import '../models/reservation_detail_model.dart';
 import '../sessions/user_basket_state.dart';
 import '../sessions/user_state.dart';
@@ -134,6 +135,30 @@ class PDFHelper {
   }
 
 
+
+  pw.Widget getMainContractList(pw.Font font, List<CorporationMainContractModel> contractList) {
+    List<pw.Widget> widgetList = [];
+    for (int i = 0; i < contractList.length; i++) {
+      CorporationMainContractModel contractModel = contractList[i];
+      widgetList.add(
+        addChildColumn(
+          contractModel.contractRow,
+          pw.TextAlign.left,
+          font,
+          false,
+        ),
+      );
+    }
+
+    return pw.Container(
+      height: contractList.length * 20.0,
+      child: pw.ListView(
+        children: widgetList,
+      ),
+    );
+  }
+
+
   Future<void> createAndShowOfferPDF(BuildContext context) async {
     final pdf = pw.Document();
     pw.Font latoFont = await loadCustomFont('assets/fonts/Lato-Black.ttf');
@@ -141,6 +166,9 @@ class PDFHelper {
     String districtName = await productsViewDetailModel.getDistrict(int.parse(UserBasketState.userBasket.corporationModel.district));
     String packageTitle = "";
     String packageBody = "";
+    CorporateContractManagementViewModel contractManagementViewModel = CorporateContractManagementViewModel();
+    List<CorporationMainContractModel> contractList = await contractManagementViewModel.getMainContractList(false);
+
     if (UserBasketState.userBasket.packageModel != null) {
       packageTitle = UserBasketState.userBasket.packageModel.title;
       packageBody = UserBasketState.userBasket.packageModel.body;
@@ -339,50 +367,7 @@ class PDFHelper {
               latoFont,
               true,
             ),
-            pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                addChildColumn(
-                  "1. Size ilettiğimiz teklif; ilgili gün ve tarih için verilmiştir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "2. Teklif brlirtilen kişi kapasitesi ve menü için geçerlidir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "3. İlgili zaman aralığı ve ilgili paketimizi satın alabilmek için rezervasyon/satış işlemi yaptırmanız gerekmektedir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "4. Teklif geçerlilik süreci 10 gündür.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "5. Bu belge sadece bir tekliftir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "6. Paket ve paket harici hizmetlerin bilgileri EK 1 içerisinde belirtilmiştir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                pw.SizedBox(height: 20),
-              ],
-            ),
-
-
+            getMainContractList(latoFont, contractList),
             pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               children: [
@@ -531,6 +516,9 @@ class PDFHelper {
     return contractBody;
   }
 
+
+
+
   Future<void> createAndShowOfferPDFFromReservationDetail(BuildContext context,
       ReservationDetailViewDto reservationDetail) async {
     final pdf = pw.Document();
@@ -548,6 +536,9 @@ class PDFHelper {
     if (reservationDetail.selectedSessionModel != null) {
       sessionName = reservationDetail.selectedSessionModel.name;
     }
+
+    CorporateContractManagementViewModel contractManagementViewModel = CorporateContractManagementViewModel();
+    List<CorporationMainContractModel> contractList = await contractManagementViewModel.getMainContractList(false);
 
     pdf.addPage(
       pw.Page(
@@ -743,48 +734,7 @@ class PDFHelper {
               latoFont,
               true,
             ),
-            pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                addChildColumn(
-                  "1. Size ilettiğimiz teklif; ilgili gün ve tarih için verilmiştir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "2. Teklif brlirtilen kişi kapasitesi ve menü için geçerlidir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "3. İlgili zaman aralığı ve ilgili paketimizi satın alabilmek için rezervasyon/satış işlemi yaptırmanız gerekmektedir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "4. Teklif geçerlilik süreci 10 gündür.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "5. Bu belge sadece bir tekliftir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "6. Paket ve paket harici hizmetlerin bilgileri EK 1 içerisinde belirtilmiştir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                pw.SizedBox(height: 20),
-              ],
-            ),
+            getMainContractList(latoFont, contractList),
 
 
             pw.Row(
@@ -908,6 +858,9 @@ class PDFHelper {
     if (reservationDetail.selectedSessionModel != null) {
       sessionName = reservationDetail.selectedSessionModel.name;
     }
+
+    CorporateContractManagementViewModel contractManagementViewModel = CorporateContractManagementViewModel();
+    List<CorporationMainContractModel> contractList = await contractManagementViewModel.getMainContractList(true);
 
     pdf.addPage(
       pw.Page(
@@ -1110,150 +1063,7 @@ class PDFHelper {
               latoFont,
               true,
             ),),
-            pw.Center(child:
-            pw.Column(
-              crossAxisAlignment: pw.CrossAxisAlignment.start,
-              children: [
-                addChildColumn(
-                  "1. İş bu sözleşme bedelinin en az 1/3 ü cayma bedeli olarak nakit alınır.Peşin Ödeme Türünde toplam tutar alınır.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "2. Kalan bakiye tören günü takı merasiminden sonra nakden ve defaten ödenir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "3. Alınan cayma bedeli borçlar kanunun 156/2 maddesine göre tören sahibinin sözleşmeyi iptal etmesi durumunda iade edilmez.Peşin Ödeme Türünde 1/3 Cayma Bedeli düşülerek,kalan tutar iade edilir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "4. Etkinlik sahibi herhangi bir sebeple törenini iptal veya ileri bir tarihe ertelemek isterse 45 gün önceden yazılı olarak bildirmediği takdirde sözleşme tutarının tamamını ödemeyi kabul ve taahhüt eder.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "5. Etkinlik sahibi veya davetlilerin dışarıdan alkollü veya alkolsüz içecek ile her türlü yiyecek getirmeleri yasaktır.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "6. Etkinlik sırasında fotoğraf ve video çekimi hakkı salon müdüriyetinde ve yetkisindedir. Dışarıdan fotoğraf ve video kamerası getirilip çekim yapılamaz.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "7. Etkinlik anında salon müdüriyetinin idaresine müdahale edilemez. Organizasyon sahibi özel program ve sanatçı getirmek istediğinde salon müdüriyetine 1 gün önceden muafakat alarak haber vermek zorundadır. Sanatçı ve gruplar kendi ses tesisatlarını getireceklerdir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "8. Etkinlik süresince icra edilecek müzik seçimi ve yayını müşteri tarafından belirlenir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "9. İzine tabi organizasyonlarda mülki amirden izin alınması mecburi olup iş bu izini, organizasyon sahibi alacaktır. İzinin alınması ve organizasyon sırasında icra edilecek müziklere ait her türlü hukuki sorumluluk müşteriye aittir. Davetlilerin banner, flama, afiş vb. asması işletmemizin onayı ile yapılabilir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "10. Hesap kesimi sözleşmede belirtilen garanti kişi sayısı üzerinden alınır.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "11. Sözleşmede belirtilen garanti kişi sayısından fazla kişi gelir ise gelen her kişiye servis açılır ve ikram yapılır. Organizasyon sonunda organizasyon sahibinden doğacak fark tahsil edilir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "12. Misafirler etkinlik saatinden 30 dakika önce salona alınır.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-                addChildColumn(
-                  "13. Davete katılan herkes salon güvenliği tarafından kontrol edilir, hiçbir şekilde silah vb. malzemeler salona girişe müsaade edilmez.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "14. Müdüriyete teslim edilmeyen özel eşyaların kayıp ve çalıntısından işletmemiz sorumlu değildir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "15. Promosyon hizmetlerinin rezervasyonu etkinlik tarihinden 1 ay önce yapılmalıdır.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "16. Etkinlik tarihindan itibaren 1 ay içinde alınmayan fotoğraf ve video görüntülerinden firma fotoğraf servisimiz sorumlu değildir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "17. İş bu sözleşmeden kaynaklanan her türlü hukuki sorumluluk müşteriye aittir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "18. İş bu anlaşmadan doğacak ihtilaflardan Bakırköy Mahkemeleri yetkilidir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "19. İş bu sözleşme tarafların imzasıyla yürürlüğe girer.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "İş bu sözleşme esnek sözleşmedir. Pandemi vb tarafların dışında bir olayların olması durumunda",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "20. Kısıtlama durumunda ve yapmak isterseniz yapılamayan hizmet ve ikramların bedelleri ets sisteminden düşülerek satış fiyatı revize edilir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "21. İleri tarihe hiç bir fiyat farkı yansıtılmadan erteleme yapabilirsiniz.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "22. Töreninizi yapmak istemez iseniz 1/3 kapora badeliniz. Yanmaz. Ancak nakit olarak iade edilmez. Cari hesabınızda bulunan bu miktarı dilediğiniz zaman kullanabilirsiniz.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "23. Varsa Paket harici alınan hizmetler ve varsa paket içeriği EK 1 içerisinde listelenmektedir.",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),addChildColumn(
-                  "24. Bu maddeler davetcimin her iki tarafı korumak için belirlediği standart maddelerdir, hizmet veren tarafın belirttiği sözleşme var ise EK 2'de yer alacaktır, EK 2'de belirtilen maddeler ile ilk 23 madde arasında bir çelişki oluşursa EK 2 deki madde baz alınacaktır. ",
-                  pw.TextAlign.left,
-                  latoFont,
-                  false,
-                ),
-              ],
-            ),
-            ),
+            getMainContractList(latoFont, contractList),
             pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               crossAxisAlignment: pw.CrossAxisAlignment.start,
