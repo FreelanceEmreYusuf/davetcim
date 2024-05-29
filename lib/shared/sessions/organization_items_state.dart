@@ -40,4 +40,13 @@ class OrganizationItemsState {
       sequenceOrderList[i].isChecked = false;
     }
   }
+
+  static String getRegionName(String region){
+    for(int i=0; i<regionModelList.length; i++){
+      if(regionModelList[i].id.toString() == region){
+        return regionModelList[i].name;
+      }
+    }
+    return "";
+  }
 }

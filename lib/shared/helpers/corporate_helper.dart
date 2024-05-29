@@ -53,6 +53,54 @@ class CorporateHelper {
     return null;
   }
 
+  Future<List<CorporationModel>> getPopularFirst100Corporate() async {
+    Database db = Database();
+    ParametersHelper parametersHelper = ParametersHelper();
+    ParametersModel parametersModel = await parametersHelper.getParametersData();
+    List<CorporationModel> corpModelList =[];
+    var response = await db
+        .getCollectionRef(DBConstants.corporationDb)
+        .where('isActive', isEqualTo: true)
+        .orderBy('point', descending: true)
+        .limit(100)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        corpModelList.add(CorporationModel.fromMap(list[i].data()));
+      }
+      return corpModelList;
+    }
+
+    return null;
+  }
+
+  Future<List<CorporationModel>> getPopularFirst100CorporateWithCity(String region) async {
+
+    Database db = Database();
+    ParametersHelper parametersHelper = ParametersHelper();
+    ParametersModel parametersModel = await parametersHelper.getParametersData();
+    List<CorporationModel> corpModelList =[];
+    var response = await db
+        .getCollectionRef(DBConstants.corporationDb)
+        .where('isActive', isEqualTo: true)
+        .where('region', isEqualTo: region)
+        .orderBy('point', descending: true)
+        .limit(100)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        corpModelList.add(CorporationModel.fromMap(list[i].data()));
+      }
+      return corpModelList;
+    }
+
+    return null;
+  }
+
   Future<List<CorporationModel>> getPopularCorporateForSlider() async {
     if (HomeItemsState.isPresentForPopularCorporationList()) {
       return HomeItemsState.popularCorporationModelList;
