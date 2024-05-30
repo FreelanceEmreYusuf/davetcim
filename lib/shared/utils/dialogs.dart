@@ -248,14 +248,14 @@ class Dialogs {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
                   ),
                   SizedBox(height: 10),
-                  Text("Teklifi onayladığınız takdirde mekan sahibi tarafından aranacaksınız, arandığınızda iskonto yaptırabilir fiyatı düşürebilirsiniz, teklif aşamasında hesaplanan fiyat iskontosuz fiyattır, "+
+                  Text("Teklifi onayladığınız takdirde mekan sahibi tarafından aranacaksınız, arandığınızda indirim yaptırabilirsiniz, teklif aşamasında hesaplanan fiyat indirimsiz fiyattır, "+
                       "mekan sahibiyle anlaşmanız durumunda önce teklifiniz opsiyon aşamasına çekilecektir "+
                       "ve sizden belirli bir süre içerisinde kapora göndermeniz istenecektir, teklifiniz opsiyon aşamasına alındıktan sonra size bildirim gelecektir ayrıca bir başkası davetcim uygulaması üzerinden "+
                       "sizin anlaştığınız tarih ve seans için teklifte bulunamayacaktır, mekan sahibine kaporayı göndermeniz sonrasında işleminiz satışa çevrilmiş olacaktır. "+
                   "Finansal hiçbir işlem davetcim uygulaması üzerinden gerçekleşmez, para transferleri mekan sahibi ve müşteri arasında gerçekleşir, bu süreçte "+
                   "iki tarafıda korumak için davetcim uygulaması üzerinden oluşturulan teklif ve satış sözleşmeleri iki tarafın kendi arasında birbirlerine gönderdikleri okudum onayladım mesajlarıyla "+
                   "hukuksal geçerlilik kazanır ve bu şekilde dileyen müşteriler mekana hiç gitmeden sözleşmeli bir şekilde mekanı uzaktan rezerve edebilir, "+
-                      "sözleşmeler davetcim tarafından saklanmaz, iki taraf onayladım mesajlarını ve sözleşmeleri saklamakla mükelleftir."),
+                      "sözleşmeler davetcim tarafından saklanmaz, iki taraf onayladım mesajlarını ve sözleşmeleri saklamakla mükelleftir.", textAlign: TextAlign.justify,),
                   TextFormField(
                     focusNode: _focusNode,
                     validator: validator,
