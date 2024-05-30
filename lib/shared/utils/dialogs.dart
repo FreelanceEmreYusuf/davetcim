@@ -190,7 +190,116 @@ class Dialogs {
 
   }
 
+  static void showDialogModalContentWithInputBoxForOffer(BuildContext context, String title, String cancelButtonText,
+      String okButtonText, String labelText, int maxLines, Function method, DailogInmputValidatorTypeEnum validationType, {int lineCount = 1}) {
+    final TextEditingController inputMessageControl = new TextEditingController();
+    final registerFormKey = GlobalKey<FormState>();
+    final FocusNode _focusNode = FocusNode();
 
+    FormFieldValidator<String> validator;
+    TextInputType inputType = TextInputType.text;
+    if (validationType == DailogInmputValidatorTypeEnum.name) {
+      validator = (name) {
+        return FormControlUtil.getErrorControl(
+            FormControlUtil.getStringLenghtBetweenMinandMaxControl(name, 3, 15));
+      };
+    } else if (validationType == DailogInmputValidatorTypeEnum.surname) {
+      validator = (surname) {
+        return FormControlUtil.getErrorControl(
+            FormControlUtil.getStringLenghtBetweenMinandMaxControl(surname, 2, 15));
+      };
+    } else if (validationType == DailogInmputValidatorTypeEnum.telephone) {
+      inputType = TextInputType.number;
+      validator = (phoneNumber) {
+        return FormControlUtil.getErrorControl(FormControlUtil.getPhoneNumberControl(phoneNumber));
+      };
+    } else if (validationType == DailogInmputValidatorTypeEnum.email) {
+      validator = (email) {
+        return FormControlUtil.getErrorControl(FormControlUtil.getEmailAdressControl(email));
+      };
+    } else {
+      validator = (anything) {
+        return FormControlUtil.getErrorControl(
+            FormControlUtil.getStringLenghtBetweenMinandMaxControl(anything, 0, 1500));
+      };
+    }
+
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true, // Klavye açıldığında alt sayfanın boyutunu otomatik ayarlar
+      builder: (BuildContext context) {
+        return SingleChildScrollView(
+        physics: AlwaysScrollableScrollPhysics(),
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: Form(
+            key: registerFormKey,
+            child: Container(
+              padding: EdgeInsets.all(20.0),
+             // height: MediaQuery.of(context).size.height * 0.4, // Ekranın 2/3'ü kadar
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    title,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
+                  ),
+                  SizedBox(height: 10),
+                  Text("Teklifi onayladığınız takdirde mekan sahibi tarafından aranacaksınız, anlaşmanız durumunda önce teklifiniz opsiyon aşamasına çekilecektir "+
+                      "ve sizden belirli bir süre içerisinde kapora göndermeniz istenecektir, teklifiniz opsiyon aşamasına alındıktan sonra size bildirim gelecektir ayrıca bir başkası davetcim uygulaması üzerinden "+
+                      "sizin anlaştığınız tarih ve seans için teklifte bulunamayacaktır, mekan sahibine kaporayı göndermeniz sonrasında işleminiz satışa çevrilmiş olacaktır. "+
+                  "Finansal hiçbir işlem davetcim uygulaması üzerinden gerçekleşmez, para transferleri mekan sahibi ve müşteri arasında gerçekleşir, bu süreçte "+
+                  "iki tarafıda korumak için davetcim uygulaması üzerinden oluşturulan teklif ve satış sözleşmeleri iki tarafın kendi arasında birbirlerine gönderdikleri okudum onayladım mesajlarıyla "+
+                  "hukuksal geçerlilik kazanır ve bu şekilde dileyen müşteriler mekana hiç gitmeden sözleşmeli bir şekilde mekanı uzaktan rezerve edebilir, "+
+                      "sözleşmeler davetcim tarafından saklanmaz, iki taraf onayladım mesajlarını ve sözleşmeleri saklamakla mükelleftir."),
+                  TextFormField(
+                    focusNode: _focusNode,
+                    validator: validator,
+                    keyboardType: inputType,
+                    decoration: InputDecoration(
+                      labelText: labelText,
+                      icon: Icon(Icons.update),
+                    ),
+                    controller: inputMessageControl,
+                    maxLines: lineCount, // Çok satırlı girişi etkinleştirir, istediğiniz satır sayısını belirtebilirsiniz
+                    onTap: () {}, // Klavyenin açılmasını engeller
+                  ),
+
+                  SizedBox(height: 10), // Boşluk ekleyin
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: Colors.green),
+                        onPressed: () {
+                          if (registerFormKey.currentState.validate()) {
+                            method(inputMessageControl.text);
+                            Navigator.pop(context);
+                          }
+                        },
+                        child: Text(okButtonText),
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(primary: Colors.redAccent),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(cancelButtonText),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+
+  }
 
   static showAlertMessage(BuildContext context, String title, String message) {
     // set up the button
