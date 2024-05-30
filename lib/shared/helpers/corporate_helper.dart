@@ -55,8 +55,6 @@ class CorporateHelper {
 
   Future<List<CorporationModel>> getPopularFirst100Corporate() async {
     Database db = Database();
-    ParametersHelper parametersHelper = ParametersHelper();
-    ParametersModel parametersModel = await parametersHelper.getParametersData();
     List<CorporationModel> corpModelList =[];
     var response = await db
         .getCollectionRef(DBConstants.corporationDb)
@@ -77,10 +75,7 @@ class CorporateHelper {
   }
 
   Future<List<CorporationModel>> getPopularFirst100CorporateWithCity(String region) async {
-
     Database db = Database();
-    ParametersHelper parametersHelper = ParametersHelper();
-    ParametersModel parametersModel = await parametersHelper.getParametersData();
     List<CorporationModel> corpModelList =[];
     var response = await db
         .getCollectionRef(DBConstants.corporationDb)

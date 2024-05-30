@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../shared/sessions/user_state.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/expanded_card_widget.dart';
 import '../../../widgets/indicator.dart';
-import 'corporate_contract_management_view_model.dart';
 
 class CorporationPopularityRankView extends StatefulWidget {
   @override
@@ -43,24 +43,6 @@ class _CorporationPopularityRankViewState extends State<CorporationPopularityRan
       hasDataTaken = true;
     });
   }
-/*
-  void getCorporationList() async{
-    CorporateHelper corporateModel = new CorporateHelper();
-    corporationList = await corporateModel.getPopularFirst100Corporate();
-    setState(() {
-      corporationList = corporationList;
-      hasDataTaken = true;
-    });
-  }
-
-  void getCorporationListWithCity() async{
-    CorporateHelper corporateModel = new CorporateHelper();
-    corporationListWithCity = await corporateModel.getPopularFirst100CorporateWithCity(corporationModel.region);
-    setState(() {
-      corporationListWithCity = corporationListWithCity;
-      hasDataTaken = true;
-    });
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -143,20 +125,116 @@ class _CorporationPopularityRankViewState extends State<CorporationPopularityRan
                             ),),
                           ),
                         ),
+                        Card(
+                          elevation: 10.0,
+                          child: ListTile(
+                            title: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text( "Popülerlik puanı arama/filtreleme sonuçlarında mekanınızın üst sıralarda/önlerde listelenmesini, davetcim uygulamasının "+
+                                  "müşterilere mekanınızı ve organizasyonunuzu tavsiye etmesini ve davetcim uygulamasının ana sayfasında bulunan "+
+                                  "En Popüler Salonlar başlığı altında mekanınızın listelenmesini sağlar. \n\nPuanınız ne kadar yüksekse o kadar öne çıkarsınız, kullanıcı "+
+                                  "etkileşiminiz, kurumsal prestijiniz, müşteriye verdiğiniz güven poplerlik puanınıza paralel olarak artar, popülerlik puanınızı artırmak için aşağıdaki faktörleri inceleyebilirsiniz.", style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w900,
+                                color: Colors.black54,
+                              ),textAlign: TextAlign.center,),
+                            ),
+                          ),
+                        ),
+                        ExpandableCard(
+                            collapsedContent: Text(
+                                "Popülerlik puanını etkileyen faktörleri görmek için TIKLAYIN!",
+                                style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold), textAlign: TextAlign.center),
+                            expandedContent: Column(
+                              children: [
+                                ListTile(
+                                  title: Text( "VIP üyelik satın almanız durumunda 1000 popülerlik puanı kazanırsınız.", style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blueAccent,
+                                  ),),
+                                  trailing: Text( "+1000\nPuan", style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.blueAccent,
+                                  ),
+                                    textAlign: TextAlign.center,),
+                                  subtitle: Text( "VIP üyeliğinizi iptal etmeniz veya VIP üyelik sürenizin dolması durumunda verilen puan geri alınır. ", style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black54,
+                                  ),),
+                                ),
+                                SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                                ListTile(
+                                  title: Text( "Müşteriye yapılan her satış işlemi için 10 popülerlik puanı kazanırsınız.", style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blueAccent,
+                                  ),),
+                                  trailing: Text( "+10\nPuan", style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.blueAccent,
+                                  ),textAlign: TextAlign.center,),
+                                  subtitle: Text( "Satış iptal edilirse puan geri alınır.", style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black54,
+                                  ),),
+                                ),
+                                SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                                ListTile(
+                                  title: Text( "Mekanınız bir müşteri tarafından değerlendirildiğinde verilen 3 yıldız için 3, 4 yıldız için 4 ve 5 yıldız için 5 popülerlik puanı kazanırsınız.", style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blueAccent,
+                                  ),),
+                                  trailing: Text( "+5\nPuan", style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.blueAccent,
+                                  ),textAlign: TextAlign.center,),
+                                  subtitle: Text( "1 ve 2 yıldız verilen değerlendirmeler puanınızı etkilemez, değerlendirme geri alındığı takdirde verilen puanda geri alınır.", style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black54,
+                                  ),),
+                                ),
+                                SizedBox(height: MediaQuery.of(context).size.height / 50,),
+                                ListTile(
+                                  title: Text( "Mekanınız bir müşteri tarafından favoriye alındığında 2 popülerlik puanı kazanırsınız.", style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.blueAccent,
+                                  ),),
+                                  trailing: Text( "+2\nPuan", style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.blueAccent,
+                                  ),textAlign: TextAlign.center,),
+                                  subtitle: Text( "Müşteri favori mekanlardan sizi çıkardığı durumda verilen puan geri alınır.", style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black54,
+                                  ),),
+                                ),
+                              ],
+                            )),
                         SizedBox(height: MediaQuery.of(context).size.height / 20,),
                         ListTile(
                           title: Text( "En Populer 100 Salon", style: TextStyle(
                             fontSize: 15,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.w600,
                             color: Colors.redAccent,
                           ),),
                           trailing: Text( "Puan", style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 16,
                             fontWeight: FontWeight.w900,
                             color: Colors.redAccent,
                           ),),
                           subtitle: Text( "Tüm Şehirler", style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 13,
                             fontWeight: FontWeight.w600,
                             color: Colors.black54,
                           ),),
