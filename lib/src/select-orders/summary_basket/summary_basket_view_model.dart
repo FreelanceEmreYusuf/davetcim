@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/services/database.dart';
+import 'package:davetcim/shared/sessions/other_user_state.dart';
 import 'package:davetcim/shared/sessions/user_state.dart';
+import 'package:davetcim/src/join/register/register_view_model.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../../shared/dto/basket_user_dto.dart';
@@ -12,6 +14,7 @@ import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/reservation_detail_model.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
+import '../../../shared/sessions/other_user_state.dart';
 import '../../../shared/sessions/state_management.dart';
 import '../../../shared/utils/date_utils.dart';
 
@@ -85,6 +88,52 @@ class SummaryBasketViewModel extends ChangeNotifier {
       invitationCount: basketModel.orderBasketModel.count,
       invitationType: basketModel.orderBasketModel.invitationType,
       seatingArrangement: basketModel.orderBasketModel.sequenceOrder
+    );
+
+    db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
+    await createNewReservationDetail(basketModel, reservationId);
+    return reservationModel;
+  }
+
+  Future<ReservationModel> createNewReservationForCustomer(BasketUserDto basketModel, String description) async {
+    bool hasReservation = await controReeservation(basketModel);
+    if (hasReservation) {
+      return null;
+    }
+
+    int reservationId = new DateTime.now().millisecondsSinceEpoch;
+
+    int sessionCost = basketModel.sessionModel.midweekPrice;
+    if(DateConversionUtils.isWeekendFromIntDate(basketModel.date) ){
+      sessionCost = basketModel.sessionModel.weekendPrice;
+    }
+
+    RegisterViewModel registerViewModel = RegisterViewModel();
+    int customerId =
+    await registerViewModel.createCustomer(OtherUserState.username,
+        OtherUserState.eMail, OtherUserState.password, OtherUserState.gsmNo,
+        OtherUserState.name, OtherUserState.surname, OtherUserState.secretQuestionId,
+        OtherUserState.secretQuestionAnswer);
+
+    OtherUserState.id =  customerId;
+
+    ReservationModel reservationModel = new ReservationModel(
+        id: reservationId,
+        corporationId: basketModel.corporationModel.corporationId,
+        customerId: customerId,
+        cost: basketModel.totalPrice,
+        date: basketModel.date,
+        recordDate: Timestamp.now(),
+        description: description,
+        sessionId: basketModel.sessionModel.id,
+        sessionName: basketModel.sessionModel.name,
+        sessionCost: sessionCost,
+        reservationStatus: ReservationStatusEnum.userOffer,
+        userReservationVersion: 0,
+        isActive: true,
+        invitationCount: basketModel.orderBasketModel.count,
+        invitationType: basketModel.orderBasketModel.invitationType,
+        seatingArrangement: basketModel.orderBasketModel.sequenceOrder
     );
 
     db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());

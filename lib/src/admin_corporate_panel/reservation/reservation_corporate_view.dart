@@ -1,11 +1,18 @@
+import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/src/admin_corporate_panel/reservation/reservation_corporate_view_model.dart';
 import 'package:flutter/material.dart';
+import '../../../shared/models/combo_generic_model.dart';
+import '../../../shared/models/corporation_model.dart';
 import '../../../shared/models/reservation_model.dart';
+import '../../../shared/sessions/user_basket_state.dart';
 import '../../../shared/sessions/user_state.dart';
+import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/indicator.dart';
 import '../../../widgets/no_found_notification_screen.dart';
 import '../../../widgets/reservation_corporate_card_widget.dart';
+import '../../select-orders/calender/calendar_view_model.dart';
+import '../other_user_reservation/search_user_box.dart';
 
 class ReservationCorporateView extends StatefulWidget {
   @override
@@ -44,6 +51,26 @@ class _State extends State<ReservationCorporateView> {
     }
     if(reservationList.length>0 && reservationList.isNotEmpty){
       return Scaffold(
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: () async {
+            OrderViewModel rm = OrderViewModel();
+            List<ComboGenericModel> organizationTypeList =
+              await rm.getOrganizationUniqueIdentifiers(UserState.corporationId);
+            List<ComboGenericModel> invitationList =
+              await rm.getInvitationIdentifiers(UserState.corporationId);
+            List<ComboGenericModel> sequenceOrderList =
+              await rm.getSequenceOrderIdentifiers(UserState.corporationId);
+
+            CorporateHelper corporationHelper = CorporateHelper();
+            CorporationModel corporationModel = await corporationHelper.getCorporate(UserState.corporationId);
+            UserBasketState.set(corporationModel, sequenceOrderList, invitationList, reservationList);
+
+            Utils.navigateToPage(context, SearchUserBox());
+          },
+          label: Text('Kullanıcı Adına Rezervasyon Oluştur', style: TextStyle(fontSize: 15), maxLines: 2),
+          icon: Icon(Icons.add_circle),
+          backgroundColor: Colors.redAccent,
+        ),
         appBar: AppBarMenu(pageName: "Aktif Talepler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
         body: Container(
           height: MediaQuery.of(context).size.height,

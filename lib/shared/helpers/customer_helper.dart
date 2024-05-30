@@ -70,4 +70,24 @@ class CustomerHelper {
 
     return errorMessage;
   }
+
+  Future<List<CustomerModel>> getActiveCustomers() async {
+    Database db = Database();
+    List<CustomerModel> customerList =[];
+    var response = await db
+        .getCollectionRef(DBConstants.customerDB)
+        .where('isActive', isEqualTo: true)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        customerList.add(CustomerModel.fromMap(list[i].data()));
+      }
+      return customerList;
+    }
+
+    return null;
+  }
+
 }

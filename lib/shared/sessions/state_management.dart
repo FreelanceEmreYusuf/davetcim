@@ -1,3 +1,4 @@
+import 'package:davetcim/shared/sessions/other_user_state.dart';
 import 'package:davetcim/shared/sessions/product_filterer_state.dart';
 import 'package:davetcim/shared/sessions/prooduct_view_state.dart';
 import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
@@ -10,6 +11,7 @@ import 'organization_type_state.dart';
 class StateManagement {
   static void disposeStates() {
     UserBasketState.setAsNull();
+    OtherUserState.setAsNull();
     CorporationRegistrationState.setAsNull();
     ReservationEditState.setAsNull();
     ProductFiltererState.setAsNull();

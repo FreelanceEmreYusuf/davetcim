@@ -109,7 +109,12 @@ class NotificationsViewModel extends ChangeNotifier {
 
       } else if (reservationId > 0) {
         if (isApproved) {
-          if (reservationStatus == ReservationStatusEnum.preReservation.index) {
+          if (reservationStatus == ReservationStatusEnum.userOffer.index) {
+            offerMessage = "Konu: Tekliifiniz Oluşturuldu" +
+                "\n" +
+                " İşlem Tarihi :" +
+                DateTime.now().toString().substring(0, 10);
+          } else if (reservationStatus == ReservationStatusEnum.preReservation.index) {
             offerMessage = "Konu: Teklifiniz Opsiyonlandı" +
                 "\n" +
                 " Opsiyonlanma Mesajı: " +

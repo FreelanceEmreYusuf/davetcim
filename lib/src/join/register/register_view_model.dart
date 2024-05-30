@@ -26,18 +26,18 @@ class RegisterViewModel extends ChangeNotifier {
       SecretQuestionsModel selectedQuestion) async {
 
     await createCustomer(username, email, password, phoneNumber, name,
-        surname, selectedQuestion, questionAnswer);
+        surname, selectedQuestion.id, questionAnswer);
     showSucessMessage(context);
   }
 
-  Future<void> createCustomer(
+  Future<int> createCustomer(
       String _usernameControl,
       String _emailControl,
       String _passwordControl,
       String _phoneControl,
       String _nameControl,
       String _surnameControl,
-      SecretQuestionsModel selectedQuestion,
+      int questionId,
       String selectedQuestionAnswer) async {
     CustomerModel _customer = new CustomerModel(
         username: _usernameControl,
@@ -51,12 +51,13 @@ class RegisterViewModel extends ChangeNotifier {
         recordDate: Timestamp.now(),
         surname: _surnameControl,
         eMail: _emailControl,
-        secretQuestionId: selectedQuestion.id,
+        secretQuestionId: questionId,
         secretQuestionAnswer: selectedQuestionAnswer,
         notificationCount: 0,
         basketCount: 0);
 
     db.editCollectionRef("Customer", _customer.toMap());
+    return _customer.id;
   }
 
   void showSucessMessage(BuildContext context) {
