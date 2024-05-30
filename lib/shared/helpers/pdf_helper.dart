@@ -99,7 +99,9 @@ class PDFHelper {
     if (UserBasketState.userBasket.servicePoolModel == null) {
       return pw.Container(
         height: 20.0,
-        child: pw.ListView(
+        child: pw.Column(
+          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: widgetList,
         ),
       );
@@ -128,7 +130,9 @@ class PDFHelper {
 
     return pw.Container(
       height: UserBasketState.userBasket.servicePoolModel.length * 20.0,
-      child: pw.ListView(
+      child: pw.Column(
+        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: widgetList,
       ),
     );
@@ -152,7 +156,9 @@ class PDFHelper {
 
     return pw.Container(
       height: contractList.length * 20.0,
-      child: pw.ListView(
+      child: pw.Column(
+        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: widgetList,
       ),
     );
@@ -368,8 +374,10 @@ class PDFHelper {
               true,
             ),
             getMainContractList(latoFont, contractList),
+            pw.SizedBox(height: 20),
             pw.Row(
-              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              mainAxisAlignment: pw.MainAxisAlignment.start,
               children: [
                 pw.SizedBox(width: 20),
                 pw.Expanded(
@@ -477,7 +485,9 @@ class PDFHelper {
     if (reservationDetail.detailList == null) {
       return pw.Container(
         height: 20.0,
-        child: pw.ListView(
+        child: pw.Column(
+          mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: widgetList,
         ),
       );
@@ -502,7 +512,9 @@ class PDFHelper {
 
     return pw.Container(
       height: reservationDetail.detailList.length * 20.0,
-      child: pw.ListView(
+      child: pw.Column(
+        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: widgetList,
       ),
     );
@@ -735,10 +747,10 @@ class PDFHelper {
               true,
             ),
             getMainContractList(latoFont, contractList),
-
-
+            pw.SizedBox(height: 20),
             pw.Row(
-              mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: pw.MainAxisAlignment.start,
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
                 pw.SizedBox(width: 20),
                 pw.Expanded(
@@ -747,7 +759,6 @@ class PDFHelper {
                     children: [
                       addChildColumn("İLGİLİ PERSONEL",
                           pw.TextAlign.left, latoFont, true),
-                      pw.SizedBox(height: 20),
                     ],
                   ),
                 ),
@@ -758,7 +769,6 @@ class PDFHelper {
                     children: [
                       addChildColumn("MÜŞTERİ",
                           pw.TextAlign.right, latoFont, true),
-                      pw.SizedBox(height: 20),
                     ],
                   ),
                 ),
@@ -1058,13 +1068,15 @@ class PDFHelper {
           crossAxisAlignment: pw.CrossAxisAlignment.start,
           children: [
             pw.Center(child: addChildColumn(
-              "MADDELER",
+              "MADDELER2",
               pw.TextAlign.center,
               latoFont,
               true,
             ),),
+
             getMainContractList(latoFont, contractList),
-            pw.Row(
+
+            /*pw.Row(
               mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
               crossAxisAlignment: pw.CrossAxisAlignment.start,
               children: [
@@ -1106,7 +1118,7 @@ class PDFHelper {
                 ),
                 pw.SizedBox(width: 20),
               ],
-            ),
+            ),*/
           ],
         ),),
     );
