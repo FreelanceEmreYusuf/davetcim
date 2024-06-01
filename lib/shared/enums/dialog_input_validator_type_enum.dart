@@ -3,5 +3,6 @@ enum DailogInmputValidatorTypeEnum {
   surname,
   telephone,
   email,
-  richText
+  richText,
+  jutNumber
 }

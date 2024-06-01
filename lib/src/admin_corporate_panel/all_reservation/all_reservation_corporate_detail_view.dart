@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/corporation_event_log_enum.dart';
+import '../../../shared/enums/dialog_input_validator_type_enum.dart';
 import '../../../shared/helpers/general_helper.dart';
 import '../../../shared/helpers/pdf_helper.dart';
 import '../../../shared/helpers/reservation_helper.dart';
@@ -100,6 +101,30 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
     if (await reservationControl()) {
       ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
       NotificationsViewModel notificationViewModel = NotificationsViewModel();
+      await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
+      notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
+          widget.reservationModel.customerId,
+          0, widget.reservationModel.id,
+          widget.reservationModel.reservationStatus.index,
+          true, widget.reservationModel.description, "");
+      notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
+
+      CorporationAnalysisViewModel corporationAnalysisViewModel = CorporationAnalysisViewModel();
+      corporationAnalysisViewModel.editDailyLog(widget.reservationModel.corporationId,
+          CorporationEventLogEnum.newReservation.name, detailResponse.reservationModel.cost);
+
+      Utils.navigateToPage(context, AllReservationLandingView(pageIndex: widget.pageIndex));
+    }
+  }
+
+  void approveReservationForSell(int newCost) async {
+    if (await reservationControl()) {
+      ReservationCorporateViewModel rcm = ReservationCorporateViewModel();
+      NotificationsViewModel notificationViewModel = NotificationsViewModel();
+      if (newCost != null && newCost > 0) {
+        detailResponse.reservationModel.cost = newCost;
+      }
+
       await rcm.editReservationForAdmin(detailResponse.reservationModel, true);
       notificationViewModel.sendNotificationToUser(context, widget.reservationModel.corporationId,
           widget.reservationModel.customerId,
@@ -521,7 +546,13 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                             ),
                           ),
                           onPressed: () async {
-                            approveReservation();
+                            if (detailResponse.reservationModel.reservationStatus ==
+                                ReservationStatusEnum.preReservation) {
+                              Dialogs.showDialogModalContentWithInputBoxForOffer(context, "Satış", "", "İptal", "Satış", "İndirimli Teklif Tutarı", 1,
+                                  approveReservationForSell, DailogInmputValidatorTypeEnum.jutNumber, lineCount: 1);
+                            } else {
+                              approveReservation();
+                            }
                           },
                         ),
                       ),

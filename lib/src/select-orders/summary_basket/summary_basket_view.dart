@@ -3,6 +3,7 @@ import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/select-orders/summary_basket/summary_basket_view_model.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/enums/dialog_input_validator_type_enum.dart';
+import '../../../shared/environments/const.dart';
 import '../../../shared/helpers/pdf_helper.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/models/service_pool_model.dart';
@@ -508,7 +509,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
             }
 
             if (minReservationAmount < calculateTotalPrice()) {
-              Dialogs.showDialogModalContentWithInputBoxForOffer(context, "Teklif Mesajı", "İptal", "Teklifi Gönder", "Varsa teklif mesajınızı girin", 10,
+              Dialogs.showDialogModalContentWithInputBoxForOffer(context, "Teklif Mesajı",Constants.orderMessage,  "İptal", "Teklifi Gönder", "Varsa teklif mesajınızı girin", 10,
                   createReservationRequest, DailogInmputValidatorTypeEnum.richText, lineCount: 2);
             } else {
               Dialogs.showInfoModalContent(

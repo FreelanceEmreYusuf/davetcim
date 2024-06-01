@@ -190,7 +190,7 @@ class Dialogs {
 
   }
 
-  static void showDialogModalContentWithInputBoxForOffer(BuildContext context, String title, String cancelButtonText,
+  static void showDialogModalContentWithInputBoxForOffer(BuildContext context, String title, String bodyText, String cancelButtonText,
       String okButtonText, String labelText, int maxLines, Function method, DailogInmputValidatorTypeEnum validationType, {int lineCount = 1}) {
     final TextEditingController inputMessageControl = new TextEditingController();
     final registerFormKey = GlobalKey<FormState>();
@@ -216,6 +216,11 @@ class Dialogs {
     } else if (validationType == DailogInmputValidatorTypeEnum.email) {
       validator = (email) {
         return FormControlUtil.getErrorControl(FormControlUtil.getEmailAdressControl(email));
+      };
+    } else if (validationType == DailogInmputValidatorTypeEnum.jutNumber) {
+      inputType = TextInputType.number;
+      validator = (anything) {
+        return FormControlUtil.getErrorControl(FormControlUtil.getDefaultFormValueControl(anything));
       };
     } else {
       validator = (anything) {
@@ -248,14 +253,7 @@ class Dialogs {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17.5),
                   ),
                   SizedBox(height: 10),
-                  Text("Teklifi onayladığınız takdirde mekan sahibi tarafından aranacaksınız, arandığınızda indirim yaptırabilirsiniz, teklif aşamasında hesaplanan fiyat indirimsiz fiyattır, "+
-                      "mekan sahibiyle anlaşmanız durumunda önce teklifiniz opsiyon aşamasına çekilecektir "+
-                      "ve sizden belirli bir süre içerisinde kapora göndermeniz istenecektir, teklifiniz opsiyon aşamasına alındıktan sonra size bildirim gelecektir ayrıca bir başkası davetcim uygulaması üzerinden "+
-                      "sizin anlaştığınız tarih ve seans için teklifte bulunamayacaktır, mekan sahibine kaporayı göndermeniz sonrasında işleminiz satışa çevrilmiş olacaktır. "+
-                  "Finansal hiçbir işlem davetcim uygulaması üzerinden gerçekleşmez, para transferleri mekan sahibi ve müşteri arasında gerçekleşir, bu süreçte "+
-                  "iki tarafıda korumak için davetcim uygulaması üzerinden oluşturulan teklif ve satış sözleşmeleri iki tarafın kendi arasında birbirlerine gönderdikleri okudum onayladım mesajlarıyla "+
-                  "hukuksal geçerlilik kazanır ve bu şekilde dileyen müşteriler mekana hiç gitmeden sözleşmeli bir şekilde mekanı uzaktan rezerve edebilir, "+
-                      "sözleşmeler davetcim tarafından saklanmaz, iki taraf onayladım mesajlarını ve sözleşmeleri saklamakla mükelleftir.", textAlign: TextAlign.justify,),
+                  Text(bodyText, textAlign: TextAlign.justify,),
                   TextFormField(
                     focusNode: _focusNode,
                     validator: validator,
@@ -277,7 +275,11 @@ class Dialogs {
                         style: ElevatedButton.styleFrom(primary: Colors.green),
                         onPressed: () {
                           if (registerFormKey.currentState.validate()) {
-                            method(inputMessageControl.text);
+                            if (validationType == DailogInmputValidatorTypeEnum.jutNumber) {
+                              method(int.tryParse(inputMessageControl.text));
+                            } else {
+                              method(inputMessageControl.text);
+                            }
                             Navigator.pop(context);
                           }
                         },
