@@ -68,5 +68,6 @@ class _EntrancePageState extends State<EntrancePage> {
   void callFillFilterScreenSession() async {
     EntrancePageModel rm = EntrancePageModel();
     await rm.fillFilterScreenSession();
+    await rm.controlAndFillUserSession();
   }
 }

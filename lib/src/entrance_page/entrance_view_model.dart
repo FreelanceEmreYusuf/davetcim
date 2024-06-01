@@ -1,13 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
+import 'package:davetcim/shared/helpers/corporate_helper.dart';
+import 'package:davetcim/shared/models/customer_model.dart';
 import 'package:davetcim/shared/models/invitation_type_model.dart';
 import 'package:davetcim/shared/models/organization_type_model.dart';
 import 'package:davetcim/shared/models/sequence_order_model.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/sessions/organization_items_state.dart';
 import 'package:flutter/cupertino.dart';
+import '../../shared/helpers/customer_helper.dart';
 import '../../shared/helpers/region_district_helper.dart';
+import '../../shared/helpers/remember_me_helper.dart';
 import '../../shared/models/region_model.dart';
+import '../../shared/models/remember_me_model.dart';
+import '../../shared/utils/device_info.dart';
 
 class EntrancePageModel extends ChangeNotifier {
   Database db = Database();
@@ -24,6 +30,19 @@ class EntrancePageModel extends ChangeNotifier {
           invitationTypeList,
           sequenceOrderList,
           regionList);
+    }
+  }
+
+  Future<void> controlAndFillUserSession() async {
+    RememberMeHelper rememberMeHelper = RememberMeHelper();
+    String imeiNumber = await DeviceInfo.getDeviceImeiNumber();
+    RememberMeModel rememberMeModel = await rememberMeHelper.getByUserImeiCode(imeiNumber);
+
+    if (rememberMeModel != null) {
+      CustomerHelper customerHelper = CustomerHelper();
+      CustomerModel customerModel =
+        await customerHelper.getCustomerByUserName(rememberMeModel.userName);
+      await customerHelper.fillUserSession(customerModel);
     }
   }
 

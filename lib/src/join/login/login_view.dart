@@ -23,6 +23,7 @@ class _LoginViewState extends State<LoginView> {
 
   bool loginErrorVisibility = false;
   bool isObscure = true; // State for password visibility
+  bool rememberMeChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -100,6 +101,17 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               SizedBox(height: 20.0),
+              CheckboxListTile(
+                value: rememberMeChecked,
+                title: Text("Beni Hatırla"),
+                onChanged: (bool value) {
+                  rememberMeChecked = value;
+                  setState(() {
+                    rememberMeChecked = rememberMeChecked;
+                  });
+                },
+              ),
+              SizedBox(height: 20.0),
               TextButton(
                 onPressed: () {
                   // Navigate to forgot password view
@@ -133,6 +145,7 @@ class _LoginViewState extends State<LoginView> {
                       widget.childPage == null ? MainScreen() : widget.childPage,
                       _usernameControl.text,
                       _passwordControl.text,
+                      rememberMeChecked
                     );
 
                     if (!isRegistered) {

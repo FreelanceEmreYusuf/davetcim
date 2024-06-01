@@ -3,6 +3,7 @@ import 'package:davetcim/shared/environments/const.dart';
 import 'package:davetcim/shared/services/database.dart';
 import 'package:davetcim/shared/utils/language.dart';
 
+import '../../src/fav_products/fav_products_view_model.dart';
 import '../environments/db_constants.dart';
 import '../models/customer_model.dart';
 import '../sessions/user_state.dart';
@@ -23,6 +24,28 @@ class CustomerHelper {
     }
 
     return null;
+  }
+
+  Future<CustomerModel> getCustomerByUserName(String userName) async {
+    Database db = Database();
+    var response = await db
+        .getCollectionRef(DBConstants.customerDB)
+        .where('username', isEqualTo: userName)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      CustomerModel customer = CustomerModel.fromMap(list[0].data());
+      return customer;
+    }
+
+    return null;
+  }
+
+  Future<void> fillUserSession(CustomerModel customer) async {
+    UserState.setFromCustomer(customer);
+    FavProductsViewModel favMdl = FavProductsViewModel();
+    UserState.favoriteCorporationList = await favMdl.getFavProductsList();
   }
 
   Future<void> editCustomer(String name, String surname, String email, String gsmNo) async {

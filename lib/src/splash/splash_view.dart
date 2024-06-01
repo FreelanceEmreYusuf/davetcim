@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:davetcim/shared/utils/utils.dart';
-import 'package:davetcim/src/entrance_page/entrance_view.dart';
 import 'package:davetcim/src/main/main_screen_view.dart';
 import 'package:davetcim/src/walkthrough/walkthrough_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:davetcim/src/walkthrough/walkthrough_view.dart';
 
 import '../entrance_page/entrance_view_model.dart';
@@ -38,6 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void callFillFilterScreenSession() async {
     EntrancePageModel rm = EntrancePageModel();
     await rm.fillFilterScreenSession();
+    await rm.controlAndFillUserSession();
   }
 
   void callNextFlow() async {
