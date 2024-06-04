@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../shared/dto/reservation_detail_view_dto.dart';
 import '../../../shared/enums/corporation_event_log_enum.dart';
 import '../../../shared/enums/dialog_input_validator_type_enum.dart';
+import '../../../shared/environments/const.dart';
 import '../../../shared/helpers/general_helper.dart';
 import '../../../shared/helpers/pdf_helper.dart';
 import '../../../shared/helpers/reservation_helper.dart';
@@ -80,7 +81,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
     }
 
     List<ReservationModel> reservationList =
-    await reservationHelper.getReservationListBySessionIdAndDate(
+    await reservationHelper.getReservationListBySessionIdAndDateForApproveControl(
         widget.reservationModel.sessionId, widget.reservationModel.date);
     for (int i = 0; i < reservationList.length; i++)  {
       ReservationModel reservationRowModel = reservationList[i];
@@ -516,7 +517,8 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                       onPressed: () async {
                         if (detailResponse.reservationModel.reservationStatus ==
                             ReservationStatusEnum.preReservation) {
-                          Dialogs.showDialogModalContentWithInputBoxForOffer(context, "Satış", "", "İptal", "Satış", "İndirimli Teklif Tutarı", 1,
+                          Dialogs.showDialogModalContentWithInputBoxForOffer(context,detailResponse.reservationModel.cost.toString(),
+                              "Satış", Constants.reservationDiscountMessage, "İptal", "Satış", "Son Teklif Tutarı", 1,
                               approveReservationForSell, DailogInmputValidatorTypeEnum.jutNumber, lineCount: 1);
                         } else {
                           approveReservation(isFromNotification);

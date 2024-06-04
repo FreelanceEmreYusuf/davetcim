@@ -108,14 +108,15 @@ class SummaryBasketViewModel extends ChangeNotifier {
       sessionCost = basketModel.sessionModel.weekendPrice;
     }
 
+    int customerId = OtherUserState.id;
     RegisterViewModel registerViewModel = RegisterViewModel();
-    int customerId =
-    await registerViewModel.createCustomer(OtherUserState.username,
+    if (OtherUserState.isNewUser) {
+      customerId = await registerViewModel.createCustomer(OtherUserState.username,
         OtherUserState.eMail, OtherUserState.password, OtherUserState.gsmNo,
         OtherUserState.name, OtherUserState.surname, OtherUserState.secretQuestionId,
         OtherUserState.secretQuestionAnswer);
-
-    OtherUserState.id =  customerId;
+      OtherUserState.id =  customerId;
+    }
 
     ReservationModel reservationModel = new ReservationModel(
         id: reservationId,

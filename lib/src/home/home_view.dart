@@ -157,7 +157,7 @@ class _HomeState extends State<Home> with AutomaticKeepAliveClientMixin<Home> {
                   children: <Widget>[
                     Expanded(
                       child: Text(
-                        "Son Zamanlarda Popüler",
+                        "Popüler Salonlar",
                         style: TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.w800,

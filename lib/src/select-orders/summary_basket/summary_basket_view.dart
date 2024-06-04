@@ -509,7 +509,7 @@ class _SummaryBasketScreenState extends State<SummaryBasketScreen>
             }
 
             if (minReservationAmount < calculateTotalPrice()) {
-              Dialogs.showDialogModalContentWithInputBoxForOffer(context, "Teklif Mesajı",Constants.orderMessage,  "İptal", "Teklifi Gönder", "Varsa teklif mesajınızı girin", 10,
+              Dialogs.showDialogModalContentWithInputBoxForOffer(context, "", "Teklif Mesajı",Constants.orderMessage,  "İptal", "Teklifi Gönder", "Varsa teklif mesajınızı girin", 10,
                   createReservationRequest, DailogInmputValidatorTypeEnum.richText, lineCount: 2);
             } else {
               Dialogs.showInfoModalContent(

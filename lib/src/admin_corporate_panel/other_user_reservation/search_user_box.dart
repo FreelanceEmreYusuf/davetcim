@@ -42,7 +42,8 @@ class _SearchUserBoxState extends State<SearchUserBox> {
   List<String> _search(String value) {
     List<String> searchList = [];
     for (int i = 0; i < activeCustomerList.length; i++) {
-      String name = activeCustomerList[i].name + ' ' + activeCustomerList[i].surname;
+      String name = activeCustomerList[i].name + ' ' + activeCustomerList[i].surname +
+          ' (' + activeCustomerList[i].username + ")";
       if (name.toLowerCase().contains(value.toLowerCase())) {
         searchList.add(name);
       }

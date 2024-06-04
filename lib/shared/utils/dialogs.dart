@@ -190,9 +190,11 @@ class Dialogs {
 
   }
 
-  static void showDialogModalContentWithInputBoxForOffer(BuildContext context, String title, String bodyText, String cancelButtonText,
-      String okButtonText, String labelText, int maxLines, Function method, DailogInmputValidatorTypeEnum validationType, {int lineCount = 1}) {
+  static void showDialogModalContentWithInputBoxForOffer(BuildContext context, String inputText, String title, String bodyText, String cancelButtonText,
+      String okButtonText, String labelText, int maxLines, Function method, DailogInmputValidatorTypeEnum validationType,
+      {int lineCount = 1}) {
     final TextEditingController inputMessageControl = new TextEditingController();
+    inputMessageControl.text = inputText;
     final registerFormKey = GlobalKey<FormState>();
     final FocusNode _focusNode = FocusNode();
 

@@ -510,7 +510,7 @@ class _SummaryBasketNewUserScreenState extends State<SummaryBasketNewUserScreen>
             }
 
             if (minReservationAmount < calculateTotalPrice()) {
-              Dialogs.showDialogModalContentWithInputBoxForOffer(context, "Teklif Mesajı", "", "İptal", "Teklifi Gönder", "Varsa teklif mesajınızı girin", 10,
+              Dialogs.showDialogModalContentWithInputBoxForOffer(context, "", "Teklif Mesajı", "", "İptal", "Teklifi Gönder", "Varsa teklif mesajınızı girin", 10,
                   createReservationRequest, DailogInmputValidatorTypeEnum.richText, lineCount: 2);
             } else {
               Dialogs.showInfoModalContent(
@@ -539,7 +539,23 @@ class _SummaryBasketNewUserScreenState extends State<SummaryBasketNewUserScreen>
           0, reservationResponse.id,
           reservationResponse.reservationStatus.index,
           true, reservationResponse.description, "");
-      Dialogs.showInfoModalContent(context, "İşlem Mesajı", "Teklifiniz oluşturuldu. Yeni oluşturulan kullanıcı bilgileri; Kullanıcı Adı : " + OtherUserState.username + " Parola : " + OtherUserState.password, navigateToAdminPanelPage);
+
+      if (OtherUserState.isNewUser)  {
+        Dialogs.showInfoModalContent(context, "İşlem Mesajı",
+            "Teklifiniz oluşturuldu. Yeni oluşturulan kullanıcı bilgileri; "
+                "Kullanıcı Adı : " + OtherUserState.username +
+                " Parola : " + OtherUserState.password, navigateToAdminPanelPage);
+
+        notificationViewModel.sendNotificationsToAdminCompanyUsers(context, UserBasketState.userBasket.corporationModel.corporationId,
+            0, reservationResponse.id,   "Girmiş olduğunuz rezervasyon sonucunda oluşturulan kullanıcı bilgileri : "
+                "Kullanıcı Adı : " + OtherUserState.username +
+                " Parola : " + OtherUserState.password);
+      } else {
+        Dialogs.showInfoModalContent(context, "İşlem Mesajı",
+            OtherUserState.username + " kullanıcısı için teklifiniz oluşturuldu. Kullanıcıya bildirim gönderildi.",
+            navigateToAdminPanelPage);
+      }
+
       StateManagement.disposeStates();
     }
   }

@@ -31,10 +31,11 @@ class LoginViewModel extends ChangeNotifier {
       CustomerHelper customerHelper = CustomerHelper();
       await customerHelper.fillUserSession(customer);
 
+      RememberMeHelper rememberMeHelper = RememberMeHelper();
+      String imeiNumber = await DeviceInfo.getDeviceImeiNumber();
+      RememberMeModel rememberMeModel = await rememberMeHelper.getByUserImeiCode(imeiNumber);
+
       if (rememberMe) {
-        RememberMeHelper rememberMeHelper = RememberMeHelper();
-        String imeiNumber = await DeviceInfo.getDeviceImeiNumber();
-        RememberMeModel rememberMeModel = await rememberMeHelper.getByUserImeiCode(imeiNumber);
         if (rememberMeModel == null) {
           rememberMeModel = new RememberMeModel(
             id: new DateTime.now().millisecondsSinceEpoch,
@@ -47,6 +48,10 @@ class LoginViewModel extends ChangeNotifier {
           rememberMeModel.password = password;
         }
         db.editCollectionRef(DBConstants.rememberMeDb, rememberMeModel.toMap());
+      } else  {
+        if (rememberMeModel != null) {
+          db.deleteDocument(DBConstants.rememberMeDb, rememberMeModel.id.toString());
+        }
       }
 
      if (customer.roleId == CustomerRoleEnum.organizationOwner && customer.corporationId == 0) {

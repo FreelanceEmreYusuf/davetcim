@@ -21,6 +21,8 @@ class Constants {
       "hukuksal geçerlilik kazanır ve bu şekilde dileyen müşteriler mekana hiç gitmeden sözleşmeli bir şekilde mekanı uzaktan rezerve edebilir, "+
       "sözleşmeler davetcim tarafından saklanmaz, iki taraf onayladım mesajlarını ve sözleşmeleri saklamakla mükelleftir.";
 
+  static String reservationDiscountMessage = "Bu işlem için indirim yaptıysanız; indirimli tutarı giriniz.";
+
 
   //Colors for theme
 //  Color(0xfffcfcff);
