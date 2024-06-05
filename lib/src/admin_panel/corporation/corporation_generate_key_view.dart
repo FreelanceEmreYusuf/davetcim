@@ -10,6 +10,7 @@ import '../../../shared/environments/const.dart';
 import '../../../shared/models/company_model.dart';
 import '../../../shared/utils/language.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/filter_items/search_company_box.dart';
 import 'corporation_generate_key_view_model.dart';
 
 class CorporationGenerateKeyView extends StatefulWidget {
@@ -40,8 +41,15 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
     });
   }
 
+  void onCompanyChanged(CompanyModel newValue) async {
+    setState(() {
+      selectedCompany = newValue;
+    });
+  }
+
   @override
   Widget build(BuildContext contex){
+    String selectedCompanyName =  selectedCompany == null ? "" : selectedCompany.name;
     return Scaffold(
       appBar: AppBarMenu(pageName: "Yeni Salon Ekle", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body:Container(
@@ -61,57 +69,9 @@ class _CorporationGenerateKeyViewState extends State<CorporationGenerateKeyView>
               shrinkWrap: true,
               children: <Widget>[
                 SizedBox(height: 30.0),
-                DropdownButtonFormField(
-                  dropdownColor: Colors.white70,
-                  style: TextStyle(
-                    fontSize: 15.0,
-                    color: Colors.black,
-                  ),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    labelText: "Firma Seçiniz",
-                    filled: true,
-                    //fillColor: Colors.white,
-                    focusColor: Colors.blue,
-                    prefixIcon: Icon(
-                      Icons.search,
-                      color: Colors.black,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                  isExpanded: true,
-                  value: selectedCompany,
-                  onChanged: (CompanyModel newValue) {
-                    setState(() {
-                      selectedCompany = newValue;
-                    });
-                  },
-                  items: companyList.map((CompanyModel company) {
-                    return new DropdownMenuItem<CompanyModel>(
-                      value: company,
-                      child: FittedBox(
-                        child: new Text(
-                          company.name,
-                          style: new TextStyle(color: Colors.black),
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                  validator: (selectedQuestionValue){
-                    if(selectedQuestionValue == null)
-                    {
-                      return FormControlUtil.getErrorControl(LanguageConstants.formElementNullValueMessage[LanguageConstants.languageFlag]);
-                    }
-                    else{
-                      return null;
-                    }
-                  },
-                ),
+                CompanySearchBox(companyList: companyList, method: onCompanyChanged),
+                SizedBox(height: 15.0),
+                Text('Seçilen Firma : ' + selectedCompanyName),
                 SizedBox(height: 15.0),
                 Container(
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 4.0),
