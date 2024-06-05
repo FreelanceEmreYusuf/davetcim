@@ -36,7 +36,7 @@ class _MainScreenState extends State<MainScreen> {
           children: <Widget>[
             Home(),
             FavoriteScreen(),
-            SearchBox(),//SearchWithoutAppBarScreen(),
+            CorporateSearchBox(),//SearchWithoutAppBarScreen(),
           //  SearchScreen(),
             UserReservationsScreen(),
             Profile(),

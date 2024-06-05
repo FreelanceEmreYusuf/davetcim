@@ -3,6 +3,7 @@ import 'package:davetcim/shared/models/corporation_model.dart';
 import 'package:flutter/material.dart';
 import '../../../shared/models/company_model.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/filter_items/search_company_box.dart';
 import '../../../widgets/grid_corporate_active_passive.dart';
 import '../corporation/corporation_generate_key_view_model.dart';
 
@@ -30,13 +31,17 @@ class _CorporationActivePassiveViewState extends State<CorporationActivePassiveV
   void callCompanyList() async {
     CorporationGenerateKeyViewModel rm = CorporationGenerateKeyViewModel();
     companyList = await rm.fillCompanyList();
-    if (companyList.length > 0) {
-      CorporateHelper corporateHelper = CorporateHelper();
-      corporationList = await corporateHelper.getCorporateByCompany(companyList[0].id);
-    }
 
     setState(() {
       companyList = companyList;
+    });
+  }
+
+  void onCompanyChanged(CompanyModel newValue) async {
+    CorporateHelper corporateHelper = CorporateHelper();
+    corporationList = await corporateHelper.getCorporateByCompany(newValue.id);
+    setState(() {
+      selectedCompany = newValue;
       corporationList = corporationList;
     });
   }
@@ -59,51 +64,7 @@ class _CorporationActivePassiveViewState extends State<CorporationActivePassiveV
             children: <Widget>[
               Divider(),
               SizedBox(height: 10.0),
-              DropdownButtonFormField(
-                dropdownColor: Colors.white70,
-                style: TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                ),
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  labelText: "Firma Seçiniz",
-                  filled: true,
-                  //fillColor: Colors.white,
-                  //focusColor: Colors.blue,
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.black,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                    borderSide: BorderSide(
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                isExpanded: true,
-                value: selectedCompany,
-                onChanged: (CompanyModel newValue) async {
-                  CorporateHelper corporateHelper = CorporateHelper();
-                  corporationList = await corporateHelper.getCorporateByCompany(newValue.id);
-                  setState(() {
-                    selectedCompany = newValue;
-                    corporationList = corporationList;
-                  });
-                },
-                items: companyList.map((CompanyModel company) {
-                  return new DropdownMenuItem<CompanyModel>(
-                    value: company,
-                    child: FittedBox(
-                      child: new Text(
-                        company.name,
-                        style: new TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
+              CompanySearchBox(companyList: companyList, method: onCompanyChanged),
               SizedBox(height: 20.0),
               GridView.builder(
                 shrinkWrap: true,

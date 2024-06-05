@@ -3,40 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../shared/helpers/corporate_helper.dart';
+import '../../shared/models/company_model.dart';
 import '../../src/products/product_detail_view.dart';
 
 
-class CorporateSearchBox extends StatefulWidget {
+class CompanySearchBox extends StatefulWidget {
+
+  final List<CompanyModel> companyList;
+  final Function method;
+
+  CompanySearchBox(
+      {Key key,
+        @required this.companyList, this.method})
+      : super(key: key);
 
   @override
-  State<CorporateSearchBox> createState() => _CorporateSearchBoxState();
+  State<CompanySearchBox> createState() => _CompanySearchBoxState();
 }
 
-class _CorporateSearchBoxState extends State<CorporateSearchBox> {
+class _CompanySearchBoxState extends State<CompanySearchBox> {
   bool _isOpened = false;
   bool _isSearching = false;
   final TextEditingController _controller = TextEditingController();
-  List<CorporationModel> activeCorporationList =[];
-
-  void getAllActiveCorporations() async{
-    CorporateHelper corporateModel = new CorporateHelper();
-    activeCorporationList = await corporateModel.getActiveCorporates();
-    setState(() {
-      activeCorporationList = activeCorporationList;
-      activeCorporationList.sort((a, b) => a.corporationName.compareTo(b.corporationName));
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getAllActiveCorporations();
-  }
 
   List<String> _search(String value) {
     List<String> searchList = [];
-    for (int i = 0; i < activeCorporationList.length; i++) {
-      String name = activeCorporationList[i].corporationName;
+    for (int i = 0; i < widget.companyList.length; i++) {
+      String name = widget.companyList[i].name;
       if (name.toLowerCase().contains(value.toLowerCase())) {
         searchList.add(name);
       }
@@ -44,12 +37,12 @@ class _CorporateSearchBoxState extends State<CorporateSearchBox> {
     return searchList;
   }
 
-  List<CorporationModel> _corporateSearch(String value) {
-    List<CorporationModel> searchList = [];
-    for (int i = 0; i < activeCorporationList.length; i++) {
-      String name = activeCorporationList[i].corporationName;
+  List<CompanyModel> companySearch(String value) {
+    List<CompanyModel> searchList = [];
+    for (int i = 0; i < widget.companyList.length; i++) {
+      String name = widget.companyList[i].name;
       if (name.toLowerCase().contains(value.toLowerCase())) {
-        searchList.add(activeCorporationList[i]);
+        searchList.add(widget.companyList[i]);
       }
     }
     return searchList;
@@ -57,13 +50,12 @@ class _CorporateSearchBoxState extends State<CorporateSearchBox> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0.0),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 800),
           curve: Curves.easeInOut,
-          height: _isOpened ? MediaQuery.of(context).size.height * 0.8  : MediaQuery.of(context).size.height * 0.09,
+      //    height: _isOpened ? MediaQuery.of(context).size.height * 0.8  : MediaQuery.of(context).size.height * 0.09,
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
@@ -180,7 +172,7 @@ class _CorporateSearchBoxState extends State<CorporateSearchBox> {
                   Column(
                     children: [
                       SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.7 ,
+                        height: MediaQuery.of(context).size.height * 0.25 ,
                         child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: _search(_controller.text).length,
@@ -189,8 +181,7 @@ class _CorporateSearchBoxState extends State<CorporateSearchBox> {
                           itemBuilder: (context, index) {
                             return ListTile(
                               onTap: () {
-                                Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft,
-                                    child: ProductDetails(corporationModel: _corporateSearch(_controller.text)[index])));
+                                widget.method(companySearch(_controller.text)[index]);
                               },
                               title: AnimatedOpacity(
                                 duration: const Duration(milliseconds: 700),
@@ -236,7 +227,6 @@ class _CorporateSearchBoxState extends State<CorporateSearchBox> {
             ),
           ),
         ),
-      ),
-    );
+      );
   }
 }

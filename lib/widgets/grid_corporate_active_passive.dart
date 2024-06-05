@@ -66,7 +66,10 @@ class _GridCorporateActivePassiveState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Icon(Icons.update, color: Colors.white), // icon
-                      Text(buttonText, style: TextStyle(color: Colors.white)),
+                      Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: FittedBox (child: Text(buttonText, style: TextStyle(color: Colors.white))),
+                      ),
                     ],
                   ),
                 ),
@@ -87,7 +90,10 @@ class _GridCorporateActivePassiveState
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Icon(Icons.whatshot, color: Colors.white), // icon
-                    Text(buttonTextForPopular, style: TextStyle(color: Colors.white)),
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: FittedBox (child: Text(buttonTextForPopular, style: TextStyle(color: Colors.white,))),
+                    ),
                   ],
                 ),
               ),
