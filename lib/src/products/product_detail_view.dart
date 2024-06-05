@@ -21,9 +21,11 @@ import '../../shared/utils/utils.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/bounce_button.dart';
 import '../../widgets/carousel_calender_widget.dart';
+import '../../widgets/communication_card_panel.dart';
 import '../../widgets/hashtag_widget.dart';
 import '../../widgets/indicator.dart';
 import '../../widgets/launch_button.dart';
+import '../../widgets/map_card_panel.dart';
 import '../../widgets/map_page.dart';
 import '../../widgets/star_and_comment.dart';
 import '../admin_corporate_panel/corporation_analysis/corporation_analysis_view_model.dart';
@@ -179,15 +181,6 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   void pushToJoinPage(BuildContext context) {
     Utils.navigateToPage(context, JoinView(childPage: new ProductDetails(corporationModel: widget.corporationModel)));
-  }
-
-  void _launchMapsUrl(double latitude, double longitude) async {
-    String url = 'https://www.google.com/maps/search/?api=1&query=$latitude,$longitude';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
   }
 
   int _current = 0;
@@ -503,55 +496,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height/50,),
-                  Padding(
-                    padding: EdgeInsets.only(bottom: 5.0, top: 2.0),
-                    child: Card(
-                      elevation: 10,
-                      shadowColor: Colors.redAccent,
-                      child: FittedBox(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              LaunchButton(
-                                title: 'Telefon',
-                                value: widget.corporationModel.telephoneNo,
-                                icon: Icons.phone,
-                                color: Colors.green,
-                                context: context,
-                                onPressed: () async {
-                                  Uri uri = Uri.parse('tel:' + widget.corporationModel.telephoneNo);
-                                  if (!await launcher.launchUrl(uri)) {
-                                    debugPrint(
-                                        "Could not launch the uri"); // because the simulator doesn't has the phone app
-                                  }
-                                },
-                              ),
-                              SizedBox(width: 16.0), // İkinci düğme ile arasında boşluk bırakın
-                              LaunchButton(
-                                title: 'Email',
-                                value: widget.corporationModel.email,
-                                icon: Icons.mail,
-                                color: Colors.blueAccent,
-                                context: context,
-                                onPressed: () async {
-                                  Uri uri = Uri.parse(
-                                    'mailto:' + widget.corporationModel.email + '?subject=Davetcim Rezervasyonu HK.&body=Merhaba,',
-                                  );
-                                  if (!await launcher.launchUrl(uri)) {
-                                    debugPrint(
-                                        "Could not launch the uri"); // because the simulator doesn't has the email app
-                                  }
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-
+                  CommunicationCardPanel(widget.corporationModel.telephoneNo,widget.corporationModel.email),
                   SizedBox(height: MediaQuery.of(context).size.height/30),
                   Card(
                     elevation: 10,
@@ -592,41 +537,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height/30),
-                  Container(
-                    height: 300,
-                    width: double.infinity,
-                    child: Column(
-                      children: [
-                        Expanded(
-                          child: SelectLocationPage(widget.corporationModel.latitude, widget.corporationModel.longitude),
-                        ),
-                        SizedBox(height: 3), // İstenilen boşluk miktarına göre ayarlayın
-                        Container(
-                          width: double.infinity,
-                          child: ElevatedButton.icon(
-                            onPressed: () {
-                              double latitude = widget.corporationModel.latitude;
-                              double longitude = widget.corporationModel.longitude;
-
-                              // Google Haritalar'a belirli bir latitude ve longitude ile bir yönlendirme yapmak için
-                              _launchMapsUrl(latitude, longitude);
-                            },
-                            icon: Icon(Icons.navigation), // Navigasyon ikonu ekleyin
-                            label: Text('Haritada Görüntüle'), // Düğme metni
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.blue, // Düğme arka plan rengi
-                              onPrimary: Colors.white, // Düğme metin rengi
-                              shape: RoundedRectangleBorder( // Düğme şekli
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              elevation: 4, // Yükseltme
-                            ),
-                          ),
-                        ),
-
-                      ],
-                    ),
-                  ),
+                  MapCardPanel(widget.corporationModel.latitude, widget.corporationModel.longitude),
                   SizedBox(height: MediaQuery.of(context).size.height/30),
                   Card(
                     elevation: 10,

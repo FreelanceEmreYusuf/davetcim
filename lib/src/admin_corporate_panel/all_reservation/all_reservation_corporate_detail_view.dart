@@ -18,6 +18,7 @@ import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/language.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/communication_card_panel.dart';
 import '../../../widgets/grid_corporate_detail_package_summary.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
 import '../../../widgets/indicator.dart';
@@ -288,16 +289,9 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
               ),
             ),
             InkWell(
-              onTap: (){
-                Clipboard.setData(ClipboardData(text: detailResponse.customerModel.gsmNo)).then((_) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: FittedBox(child: Text("Telefon numarası panoya kopyalandı("+detailResponse.customerModel.gsmNo+")")), duration: Duration(seconds: 1),));
-                });
-              },
-              child: ExpandableCard(expandedContent: Text("Rezervasyon talebinde bulunan müşteriyle iletişim kurabilmeniz için gerekli iletişim bilgilerini içerir\n\n(Telefon numarasını kopyalamak için dokunun)"), collapsedContent: Text(
-                  detailResponse.customerModel.name + " " + detailResponse.customerModel.surname
-                      +"\n\nGsm No : "+detailResponse.customerModel.gsmNo
-                      +"\n\nemail : "+detailResponse.customerModel.eMail,
+              child: ExpandableCard(expandedContent: CommunicationCardPanel(detailResponse.customerModel.gsmNo,detailResponse.customerModel.eMail), collapsedContent: Text(
+                  "Müşteri Adı: "+detailResponse.customerModel.name + " " + detailResponse.customerModel.surname
+                      +"\n\nMüşteriyle iletişime geçmek için dokunun.",
                   style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
               ),),
             ),

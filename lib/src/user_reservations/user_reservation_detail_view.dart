@@ -16,8 +16,10 @@ import '../../shared/helpers/general_helper.dart';
 import '../../shared/helpers/pdf_helper.dart';
 import '../../shared/models/corporation_package_services_model.dart';
 import '../../shared/utils/dialogs.dart';
+import '../../widgets/communication_card_panel.dart';
 import '../../widgets/grid_corporate_detail_package_summary.dart';
 import '../../widgets/indicator.dart';
+import '../../widgets/map_card_panel.dart';
 import '../notifications/notifications_view.dart';
 
 class UserResevationDetailScreen extends StatefulWidget {
@@ -186,9 +188,23 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                 collapsedContent: Text(
                 detailResponse.corporateModel.corporationName
                     +"\n\nGsm No : "+detailResponse.corporateModel.telephoneNo
-                    +"\n\nAdres bilgisi için dokunun",
+                    +"\n\nFirma ile iletişime geçmek veya adres bilgisini öğrenmek için dokunun.",
                 style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )),
-                expandedContent: Text("Adres : "+createdAddress)),
+                expandedContent: Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: CommunicationCardPanel(detailResponse.corporateModel.telephoneNo ,detailResponse.corporateModel.email),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: MapCardPanel(detailResponse.corporateModel.latitude, detailResponse.corporateModel.longitude),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Text("Adres : "+createdAddress),
+                  ),
+                ],),),
+                //Text("Adres : "+createdAddress)),
             SizedBox(height: 10.0),
             Container(
               height: MediaQuery.of(context).size.height / 13,

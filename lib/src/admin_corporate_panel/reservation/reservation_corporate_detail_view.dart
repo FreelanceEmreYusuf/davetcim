@@ -18,6 +18,7 @@ import '../../../shared/utils/date_utils.dart';
 import '../../../shared/utils/dialogs.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
+import '../../../widgets/communication_card_panel.dart';
 import '../../../widgets/grid_corporate_detail_package_summary.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
 import '../../../widgets/indicator.dart';
@@ -285,10 +286,9 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                 ),
               ),
             ),
-            ExpandableCard(expandedContent: Text("Rezervasyon talebinde bulunan müşteriyle iletişim kurabilmeniz için gerekli iletişim bilgilerini içerir"), collapsedContent: Text(
-                detailResponse.customerModel.name + " " + detailResponse.customerModel.surname
-                    +"\n\nGsm No : "+detailResponse.customerModel.gsmNo
-                    +"\n\nemail : "+detailResponse.customerModel.eMail,
+            ExpandableCard(expandedContent: CommunicationCardPanel(detailResponse.customerModel.gsmNo,detailResponse.customerModel.eMail), collapsedContent: Text(
+                "Müşteri Adı: "+detailResponse.customerModel.name + " " + detailResponse.customerModel.surname
+                    +"\n\nMüşteriyle iletişime geçmek için dokunun.",
                 style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
             ),),
             SizedBox(height: 10.0),
