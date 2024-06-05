@@ -123,9 +123,9 @@ class NotificationsViewModel extends ChangeNotifier {
                 " İşlem Tarihi :" +
                 DateTime.now().toString().substring(0, 10);
           } else if (reservationStatus == ReservationStatusEnum.reservation.index) {
-            offerMessage = "Konu: Rezervasyonunuz Onaylandı" +
+            offerMessage = "Konu: Opsiyonunuz Satışa Dönüştürüldü." +
                 "\n" +
-                " Rezervasyon Mesajı: " +
+                " Satış Mesajı: " +
                 text +
                 "\n" +
                 " İşlem Tarihi :" +
@@ -141,7 +141,7 @@ class NotificationsViewModel extends ChangeNotifier {
                 " İşlem Tarihi :" +
                 DateTime.now().toString().substring(0, 10);
           } else if (reservationStatus == ReservationStatusEnum.preReservation.index) {
-            offerMessage = "Konu: Reservasyonunuz Tekar Opsiyon Statüsüne Alındı" +
+            offerMessage = "Konu: Satışınız Tekar Opsiyon Statüsüne Alındı" +
                 "\n" +
                 " İşlem Mesajı: " +
                 text +
@@ -198,9 +198,9 @@ class NotificationsViewModel extends ChangeNotifier {
           " İşlem Tarihi :" +
           DateTime.now().toString().substring(0, 10);
     } else if (reservationId > 0) {
-      offerMessage = "Konu: Yeni bir rezervasyon talebi var" +
+      offerMessage = "Konu: Yeni bir teklif talebiniz var" +
           "\n" +
-          " Rezervasyon Talep Mesajı: " +
+          " Teklif Talep Mesajı: " +
           text +
           "\n" +
           " Gönderen: " +
