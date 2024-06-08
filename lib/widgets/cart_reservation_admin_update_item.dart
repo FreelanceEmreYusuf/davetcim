@@ -39,7 +39,7 @@ class _CartReservationAdminUpdateItemState extends State<CartReservationAdminUpd
       reservationStatusFlag = 1;
       if (widget.reservationModel.reservationStatus == ReservationStatusEnum.userOffer) {
         reserveInfo = "Teklif Oluşturuldu";
-        color = Colors.lightBlueAccent;
+        color = Colors.yellowAccent;
       } else if (widget.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
         reserveInfo = "Opsiyonlandı";
         color = Colors.blueAccent;

@@ -35,7 +35,7 @@ class _ReservationSessionsAllCartItemState extends State<ReservationSessionsAllC
       if (widget.sessionList[widget.index].reservationStatus ==
           ReservationStatusEnum.userOffer) {
         reserveInfo = "Teklif Oluşturuldu";
-        color = Colors.lightBlueAccent;
+        color = Colors.yellowAccent;
       } else if (widget.sessionList[widget.index].reservationStatus ==
           ReservationStatusEnum.preReservation) {
         reserveInfo = "Opsiyonlandı";

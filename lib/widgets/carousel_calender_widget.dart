@@ -44,7 +44,7 @@ class _CalenderCarouselState extends State<CalenderCarousel> {
       Color color = Colors.blueAccent;
       if (widget.reservationList[i].reservationStatus ==
           ReservationStatusEnum.userOffer) {
-        color = Colors.lightBlueAccent;
+        color = Colors.yellowAccent;
       } else if (widget.reservationList[i].reservationStatus ==
           ReservationStatusEnum.preReservation) {
         color = Colors.blueAccent;

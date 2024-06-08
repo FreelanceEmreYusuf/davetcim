@@ -6,14 +6,12 @@ class InvitationTypeModel {
   final int id;
   final String name;
   final int filteringStatus;
-  final int sortingIndex;
   bool  isChecked;
 
   InvitationTypeModel({
     this.id,
     this.name,
     this.filteringStatus,
-    this.sortingIndex,
     this.isChecked
   });
 
@@ -22,7 +20,6 @@ class InvitationTypeModel {
     'id': id,
     'name': name,
     'filteringStatus': filteringStatus,
-    'sortingIndex': sortingIndex,
   };
 
   ///Map to object
@@ -30,6 +27,5 @@ class InvitationTypeModel {
     id: map['id'],
     name: map['name'],
     filteringStatus: map['filteringStatus'],
-    sortingIndex: map['sortingIndex'],
   );
 }

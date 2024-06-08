@@ -80,7 +80,7 @@ class CommentsViewModel extends ChangeNotifier {
         userName: UserState.username,
        );
 
-    db.editCollectionRef("Comments", commentModel.toMap());
+    db.editCollectionRef(DBConstants.productCommentsDb, commentModel.toMap());
 
     NotificationsViewModel notificationViewModel = NotificationsViewModel();
     notificationViewModel.sendNotificationsToAdminCompanyUsers(context, corporationId, commentId, 0, comment);
@@ -169,6 +169,14 @@ class CommentsViewModel extends ChangeNotifier {
 
         corporationModel.ratingCount = ratingCount;
         corporationModel.averageRating = averageRating;
+
+        if (oldRating == 3)
+          corporationModel.point = corporationModel.point - Constants.threeStarAdditionPoint;
+        if (oldRating == 4)
+          corporationModel.point = corporationModel.point - Constants.fourStarAdditionPoint;
+        if (oldRating == 5)
+          corporationModel.point = corporationModel.point - Constants.fiveStarAdditionPoint;
+
         db.editCollectionRef(DBConstants.corporationDb, corporationModel.toMap());
         Utils.navigateToPage(context, ProductDetails(corporationModel: corporationModel));
       }

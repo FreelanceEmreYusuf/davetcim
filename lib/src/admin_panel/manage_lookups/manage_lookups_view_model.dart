@@ -59,9 +59,8 @@ class ManageLookupsViewModel extends ChangeNotifier {
     db.editCollectionRef(dbTable, model.toMap());
   }
 
-  Future<void> editLookupItem(GenericLookupItemModel model, String dbTable, String name, int sortingIndex) {
+  Future<void> editLookupItem(GenericLookupItemModel model, String dbTable, String name) {
     model.name = name;
-    model.sortingIndex = sortingIndex;
     db.editCollectionRef(dbTable, model.toMap());
   }
 }

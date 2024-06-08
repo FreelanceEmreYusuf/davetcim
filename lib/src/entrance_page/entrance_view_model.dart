@@ -49,7 +49,7 @@ class EntrancePageModel extends ChangeNotifier {
   Future<List<OrganizationTypeModel>> fillOrganizationTypeList() async {
     CollectionReference docsRef =
         db.getCollectionRef(DBConstants.organizationTypeDb);
-    var response = await docsRef.orderBy('sortingIndex').get();
+    var response = await docsRef.orderBy('name').get();
 
     var list = response.docs;
     List<OrganizationTypeModel> organizationList = [];
@@ -66,7 +66,7 @@ class EntrancePageModel extends ChangeNotifier {
   Future<List<InvitationTypeModel>> fillInvitationTypeList() async {
     CollectionReference docsRef =
         db.getCollectionRef(DBConstants.invitationTypeDb);
-    var response = await docsRef.orderBy('sortingIndex').get();
+    var response = await docsRef.orderBy('name').get();
 
     var list = response.docs;
     List<InvitationTypeModel> invitationTypeList = [];
@@ -83,7 +83,7 @@ class EntrancePageModel extends ChangeNotifier {
   Future<List<SequenceOrderModel>> fillSequenceOrderList() async {
     CollectionReference docsRef =
         db.getCollectionRef(DBConstants.sequenceOrderDb);
-    var response = await docsRef.orderBy('sortingIndex').get();
+    var response = await docsRef.orderBy('name').get();
 
     var list = response.docs;
     List<SequenceOrderModel> sequenceOrderList = [];

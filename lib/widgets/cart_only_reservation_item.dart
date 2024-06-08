@@ -43,7 +43,7 @@ class _CartOnlyReservationItemState extends State<CartOnlyReservationItem> {
     Color color = Colors.blueAccent;
     String subtitleText = "Teklif Oluşturuldu";
     if (widget.item.reservationStatus == ReservationStatusEnum.userOffer) {
-      color = Colors.lightBlueAccent;
+      color = Colors.yellowAccent;
     } else if (widget.item.reservationStatus == ReservationStatusEnum.preReservation) {
       subtitleText = "Opsiyonlandı";
       color = Colors.blueAccent;

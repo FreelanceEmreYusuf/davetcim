@@ -193,7 +193,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
     }
 
     if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userOffer) {
-      color = Colors.lightBlueAccent;
+      color = Colors.yellowAccent;
       textStr = 'GELEN TEKLİF';
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.adminRejectedOffer) {
       color = Colors.redAccent;

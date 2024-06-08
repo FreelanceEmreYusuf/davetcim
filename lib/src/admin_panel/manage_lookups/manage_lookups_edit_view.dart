@@ -60,21 +60,6 @@ class _State extends State<LookupUpdateView> {
                   ),
                   SizedBox(height: 20.0),
                   Container(
-                    padding: EdgeInsets.all(10),
-                    child: TextFormField(
-                      controller: sortingIndexController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Özellik Sıra Bilgisi",
-                      ),
-                      validator: (value) {
-                        return FormControlUtil.getErrorControl(FormControlUtil.getStringEmptyValueControl(value));
-                      },
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  Container(
                       height: 50,
                       padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                       // ignore: deprecated_member_use
@@ -86,7 +71,7 @@ class _State extends State<LookupUpdateView> {
                           if (registerFormKey.currentState.validate()) {
                             ManageLookupsViewModel manageLookupEditService = ManageLookupsViewModel();
                             await manageLookupEditService.editLookupItem(widget.genericLookupItemModel, widget.dbTable,
-                                nameController.text, int.parse(sortingIndexController.text));
+                                nameController.text);
                             Utils.navigateToPage(context, ManageLookupsView());
                           }
                         },

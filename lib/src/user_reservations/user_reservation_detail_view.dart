@@ -91,7 +91,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
       textStr = 'RED EDİLMİŞ REZERVASYON';
       isPDFButtonVisible = false;
     } else if(detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userOffer){
-      color = Colors.lightBlueAccent;
+      color = Colors.yellowAccent;
       textStr = 'ONAY BEKLEYEN TEKLİF';
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.preReservation){
       color = Colors.blueAccent;
