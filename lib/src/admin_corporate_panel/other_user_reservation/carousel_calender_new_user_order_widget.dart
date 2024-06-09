@@ -39,7 +39,7 @@ class _CalenderOrderNewUserCarouselState extends State<CalenderOrderNewUserCarou
       Color color = Colors.blueAccent;
       if (UserBasketState.userBasket.reservationList[i].reservationStatus ==
           ReservationStatusEnum.userOffer) {
-        color = Colors.yellowAccent;
+        color = Colors.blueGrey;
       } else if (UserBasketState.userBasket.reservationList[i].reservationStatus ==
           ReservationStatusEnum.preReservation) {
         color = Colors.blueAccent;

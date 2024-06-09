@@ -32,7 +32,7 @@ class _CartReservationItemState extends State<CartReservationItem> {
       if (widget.sessionModel.reservationStatus ==
           ReservationStatusEnum.userOffer) {
         reserveInfo = "Teklif Oluşturuldu";
-        color = Colors.yellowAccent;
+        color = Colors.blueGrey;
       } else if (widget.sessionModel.reservationStatus ==
           ReservationStatusEnum.preReservation) {
         reserveInfo = "Opsiyonlandı";

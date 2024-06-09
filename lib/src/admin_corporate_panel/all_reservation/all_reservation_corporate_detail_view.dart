@@ -186,7 +186,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
     bool isApproveButtonEnable = true;
 
     if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.userOffer) {
-      color = Colors.yellowAccent;
+      color = Colors.blueGrey;
       textStr = 'GELEN TEKLİF';
     } else if (detailResponse.reservationModel.reservationStatus == ReservationStatusEnum.adminRejectedOffer) {
       color = Colors.redAccent;

@@ -43,7 +43,7 @@ class _CalenderCorporateAdminCarouselState extends State<CalenderCorporateAdminC
     for (int i = 0; i < reservationList.length; i++) {
       Color color = Colors.blueAccent;
       if (reservationList[i].reservationStatus == ReservationStatusEnum.userOffer) {
-        color = Colors.yellowAccent;
+        color = Colors.blueGrey;
       } else if (reservationList[i].reservationStatus == ReservationStatusEnum.preReservation) {
         color = Colors.blueAccent;
       } else if (reservationList[i].reservationStatus == ReservationStatusEnum.reservation) {

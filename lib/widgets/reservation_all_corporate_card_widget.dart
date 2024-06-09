@@ -29,7 +29,7 @@ class _ReservationAllCorporateCardWidgetState
     if (widget.model.reservationStatus == ReservationStatusEnum.adminRejectedOffer) {
       color = Colors.redAccent;
     } else if (widget.model.reservationStatus == ReservationStatusEnum.userOffer) {
-      color = Colors.yellowAccent;
+      color = Colors.blueGrey;
     } else if (widget.model.reservationStatus == ReservationStatusEnum.preReservation) {
       color = Colors.blueAccent;
     } else if (widget.model.reservationStatus == ReservationStatusEnum.reservation) {

@@ -25,7 +25,7 @@ class _ReservationCorporateCardWidgetState
   Widget build(BuildContext context) {
     Color rowColor = Colors.white54;
     if (widget.model.reservationStatus == ReservationStatusEnum.userOffer) {
-      rowColor = Colors.yellowAccent;
+      rowColor = Colors.blueGrey;
     } else  if (widget.model.reservationStatus == ReservationStatusEnum.preReservation) {
       rowColor = Colors.blueAccent;
     } else  if (widget.model.reservationStatus == ReservationStatusEnum.reservation) {

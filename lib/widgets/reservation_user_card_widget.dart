@@ -39,7 +39,7 @@ class _ReservationUserCardWidgetState
       color = Colors.blueAccent;
       textColor = Colors.white;
     } else if (widget.model.reservationStatus == ReservationStatusEnum.userOffer) {
-      color = Colors.yellowAccent;
+      color = Colors.blueGrey;
       textColor = Colors.white;
     }
 

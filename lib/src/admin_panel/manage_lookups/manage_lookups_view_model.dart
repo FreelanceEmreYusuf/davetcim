@@ -49,12 +49,11 @@ class ManageLookupsViewModel extends ChangeNotifier {
     return typesList;
   }
 
-  Future<void> addLookupItem(String dbTable, String name, int sortingIndex) {
+  Future<void> addLookupItem(String dbTable, String name) {
     GenericLookupItemModel model = new GenericLookupItemModel(
         id: new DateTime.now().millisecondsSinceEpoch,
         filteringStatus: 1,
-        name : name,
-        sortingIndex: sortingIndex);
+        name : name);
 
     db.editCollectionRef(dbTable, model.toMap());
   }

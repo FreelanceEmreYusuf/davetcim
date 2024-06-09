@@ -2,13 +2,11 @@ class GenericLookupItemModel {
   int id;
   String name;
   int filteringStatus;
-  int sortingIndex;
 
   GenericLookupItemModel({
     this.id,
     this.name,
     this.filteringStatus,
-    this.sortingIndex,
   });
 
   ///Object to map
@@ -16,7 +14,6 @@ class GenericLookupItemModel {
     'id': id,
     'name': name,
     'filteringStatus': filteringStatus,
-    'sortingIndex': sortingIndex
   };
 
   ///Map to object
@@ -24,6 +21,5 @@ class GenericLookupItemModel {
     id: map['id'],
     name: map['name'],
     filteringStatus: map['filteringStatus'],
-    sortingIndex: map['sortingIndex'],
   );
 }

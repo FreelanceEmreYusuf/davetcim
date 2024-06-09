@@ -39,9 +39,16 @@ class CommentsViewModel extends ChangeNotifier {
       CollectionReference docsRef =
         db.getCollectionRef(DBConstants.productCommentsDb);
       var response = await docsRef
-          .where('userId', isEqualTo: UserState.id)
+          .where('customerId', isEqualTo: UserState.id)
           .where('corporationId', isEqualTo: corporationId)
           .get();
+      if (UserState.corporationId == corporationId) {
+        Dialogs.showInfoModalContent(
+            context,
+            "Uyarı",
+            "Firmanıza ait salon için yorum yapamazsınız.", null);
+        return;
+      }
       if (response.docs != null && response.docs.length > 0) {
         Dialogs.showInfoModalContent(
             context,

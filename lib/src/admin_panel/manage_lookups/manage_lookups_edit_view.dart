@@ -25,13 +25,11 @@ class LookupUpdateView extends StatefulWidget {
 
 class _State extends State<LookupUpdateView> {
   TextEditingController nameController = TextEditingController();
-  TextEditingController sortingIndexController = TextEditingController();
   final registerFormKey = GlobalKey <FormState> ();
 
   @override
   void initState() {
     nameController.text = widget.genericLookupItemModel.name;
-    sortingIndexController.text =  widget.genericLookupItemModel.sortingIndex.toString();
   }
 
   @override
@@ -80,6 +78,4 @@ class _State extends State<LookupUpdateView> {
               ),
             )));
   }
-
-
 }
