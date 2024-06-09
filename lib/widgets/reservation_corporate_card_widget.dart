@@ -59,7 +59,7 @@ class _ReservationCorporateCardWidgetState
                 FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(DateConversionUtils.convertIntTimeToViewString(widget.model.date),
-                    style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 16, color: Colors.redAccent, fontWeight: FontWeight.bold,),
+                    style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,),
                     maxLines: 5,
                   ),
                 ),
@@ -70,7 +70,7 @@ class _ReservationCorporateCardWidgetState
                         "\n Davet Türü : " + widget.model.invitationType +
                         "\n Davetli Sayısı : " + widget.model.invitationCount.toString() +
                         "\n Toplam Ücret : " + GeneralHelper.formatMoney(widget.model.cost.toString())+" TL",
-                      style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold,),
+                      style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold,),
                       maxLines: 6,
                     ),
                   ),
