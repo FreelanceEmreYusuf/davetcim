@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:davetcim/shared/environments/db_constants.dart';
 import 'package:davetcim/shared/helpers/corporate_helper.dart';
 import 'package:davetcim/shared/models/corporation_model.dart';
@@ -35,6 +36,23 @@ class ReservationCorporateViewModel extends ChangeNotifier {
     }
 
     return corpModelList;
+  }
+
+  Stream<List<ReservationModel>> getOnlineReservationlist(int corporateId) {
+    Stream<List<DocumentSnapshot>> reservationStreamList =  db
+        .getCollectionRef(DBConstants.corporationReservationsDb)
+        .where('corporationId', isEqualTo: corporateId)
+        .where('isActive', isEqualTo: true)
+        .where('date', isGreaterThanOrEqualTo: DateConversionUtils.getTodayAsInt())
+        .where('reservationStatus', whereIn: ReservationStatusEnumConverter.adminViewedReservationStatus())
+        .orderBy('date', descending: true)
+        .snapshots()
+        .map((event) => event.docs);
+
+    Stream<List<ReservationModel>> reservationList = reservationStreamList
+        .map((event) => event.map((e) => ReservationModel.fromMap(e.data())).toList());
+
+    return reservationList;
   }
 
   Future<List<ServicePoolModel>> getServicePoolModelList(List<int> selectedServicesIds) async {
