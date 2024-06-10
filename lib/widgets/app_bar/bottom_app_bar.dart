@@ -1,6 +1,5 @@
 import 'package:davetcim/src/fav_products/favorite_screen_with_appbar.dart';
 import 'package:davetcim/src/join/join_view.dart';
-import 'package:davetcim/src/profile/profile_view.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_with_app_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

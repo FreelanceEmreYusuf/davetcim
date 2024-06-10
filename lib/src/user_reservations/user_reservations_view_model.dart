@@ -22,7 +22,7 @@ class UserReservationsViewModel extends ChangeNotifier {
 
   Future<List<ReservationModel>> getReservationlist() async {
     var response = await db
-        .getCollectionRef("CorporationReservations")
+        .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('customerId', isEqualTo: UserState.id)
         .where('reservationStatus', whereIn: ReservationStatusEnumConverter.userViewedReservationStatus()) 
         .orderBy('recordDate', descending: true)
@@ -38,6 +38,21 @@ class UserReservationsViewModel extends ChangeNotifier {
     }
 
     return corpModelList;
+  }
+
+  Stream<List<ReservationModel>> getOnlineReservationlist() {
+    Stream<List<DocumentSnapshot>> reservationStreamList =  db
+        .getCollectionRef(DBConstants.corporationReservationsDb)
+        .where('customerId', isEqualTo: UserState.id)
+        .where('reservationStatus', whereIn: ReservationStatusEnumConverter.userViewedReservationStatus())
+        .orderBy('recordDate', descending: true)
+        .snapshots()
+        .map((event) => event.docs);
+
+    Stream<List<ReservationModel>> reservationList = reservationStreamList
+        .map((event) => event.map((e) => ReservationModel.fromMap(e.data())).toList());
+
+    return reservationList;
   }
 
   Future<ReservationDetailViewDto> getReservationDetail(ReservationModel model) async {
