@@ -61,7 +61,7 @@ class _State extends State<ReservationCorporateView> {
                     icon: Icon(Icons.add_circle),
                     backgroundColor: Colors.redAccent,
                   ),
-                  appBar: AppBarMenu(pageName: "Aktif Talepler Online", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+                  appBar: AppBarMenu(pageName: "Aktif Talepler", isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
                   body: Container(
                     height: MediaQuery.of(context).size.height,
                     decoration: BoxDecoration(
