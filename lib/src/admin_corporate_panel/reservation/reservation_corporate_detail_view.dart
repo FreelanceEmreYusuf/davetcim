@@ -162,6 +162,10 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
     }
   }
 
+  void navigateToViewPage() {
+    Utils.navigateToPage(context, ReservationCorporateView());
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -495,8 +499,18 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                         ),
                       ),
                       onPressed: () async {
-                        Utils.navigateToPage(context,
-                            AllReservationCorporateDelayDateScreen(reservationModel: widget.reservationModel,));
+                        ReservationHelper reservationHelper = ReservationHelper();
+                        if (await reservationHelper.isReservationVersionChanged(
+                            widget.reservationModel.id, widget.reservationModel.version)) {
+                          Dialogs.showInfoModalContent(
+                              context,
+                              "Uyarı",
+                              "Bu işlemde değişiklik yapıldı.Sayfayı tekrar yüklemelisiniz.",
+                              navigateToViewPage);
+                        } else {
+                          Utils.navigateToPage(context,
+                              AllReservationCorporateDelayDateScreen(reservationModel: widget.reservationModel,));
+                        }
                       },
                     ),
                   ),
@@ -515,13 +529,23 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                         ),
                       ),
                       onPressed: () async {
-                        if (detailResponse.reservationModel.reservationStatus ==
-                            ReservationStatusEnum.preReservation) {
-                          Dialogs.showDialogModalContentWithInputBoxForOffer(context,detailResponse.reservationModel.cost.toString(),
-                              "Satış", Constants.reservationDiscountMessage, "İptal", "Satış", "Son Teklif Tutarı", 1,
-                              approveReservationForSell, DailogInmputValidatorTypeEnum.jutNumber, lineCount: 1);
+                        ReservationHelper reservationHelper = ReservationHelper();
+                        if (await reservationHelper.isReservationVersionChanged(
+                            widget.reservationModel.id, widget.reservationModel.version)) {
+                          Dialogs.showInfoModalContent(
+                              context,
+                              "Uyarı",
+                              "Bu işlemde değişiklik yapıldı.Sayfayı tekrar yüklemelisiniz.",
+                              navigateToViewPage);
                         } else {
-                          approveReservation(isFromNotification);
+                          if (detailResponse.reservationModel.reservationStatus ==
+                              ReservationStatusEnum.preReservation) {
+                            Dialogs.showDialogModalContentWithInputBoxForOffer(context,detailResponse.reservationModel.cost.toString(),
+                                "Satış", Constants.reservationDiscountMessage, "İptal", "Satış", "Son Teklif Tutarı", 1,
+                                approveReservationForSell, DailogInmputValidatorTypeEnum.jutNumber, lineCount: 1);
+                          } else {
+                            approveReservation(isFromNotification);
+                          }
                         }
                       },
                     ),
@@ -541,7 +565,17 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
                         ),
                       ),
                       onPressed: () async {
-                        rejectReservation(isFromNotification);
+                        ReservationHelper reservationHelper = ReservationHelper();
+                        if (await reservationHelper.isReservationVersionChanged(
+                            widget.reservationModel.id, widget.reservationModel.version)) {
+                          Dialogs.showInfoModalContent(
+                              context,
+                              "Uyarı",
+                              "Bu işlemde değişiklik yapıldı.Sayfayı tekrar yüklemelisiniz.",
+                              navigateToViewPage);
+                        } else {
+                          rejectReservation(isFromNotification);
+                        }
                       },
                     ),
                   ),

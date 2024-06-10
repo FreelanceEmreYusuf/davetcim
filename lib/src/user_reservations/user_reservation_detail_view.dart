@@ -1,6 +1,7 @@
 import 'package:davetcim/shared/enums/reservation_status_enum.dart';
 import 'package:davetcim/shared/sessions/reservation_edit_state.dart';
 import 'package:davetcim/src/user_reservations/update/user_reservation_update_calendar_view.dart';
+import 'package:davetcim/src/user_reservations/user_reservations_view.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_view_model.dart';
 import 'package:davetcim/src/user_reservations/user_reservations_with_app_bar_view.dart';
 import 'package:davetcim/widgets/expanded_card_widget.dart';
@@ -14,6 +15,7 @@ import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../../widgets/grid_corporate_detail_services_summary.dart';
 import '../../shared/helpers/general_helper.dart';
 import '../../shared/helpers/pdf_helper.dart';
+import '../../shared/helpers/reservation_helper.dart';
 import '../../shared/models/corporation_package_services_model.dart';
 import '../../shared/utils/dialogs.dart';
 import '../../widgets/communication_card_panel.dart';
@@ -58,6 +60,10 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
   void initState() {
     super.initState();
     getReservationDetail();
+  }
+
+  void navigateToViewPage() {
+    Utils.navigateToPage(context, UserReservationsScreen());
   }
 
   @override
@@ -409,8 +415,18 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                           ),
                         ),
                         onPressed: () async {
-                          ReservationEditState.reservationDetail = detailResponse;
-                          Utils.navigateToPage(context, UserReservationUpdateCalendarScreen());
+                          ReservationHelper reservationHelper = ReservationHelper();
+                          if (await reservationHelper.isReservationVersionChanged(
+                              widget.reservationModel.id, widget.reservationModel.version)) {
+                            Dialogs.showInfoModalContent(
+                                context,
+                                "Uyarı",
+                                "Bu işlemde değişiklik yapıldı.Sayfayı tekrar yüklemelisiniz.",
+                                navigateToViewPage);
+                          } else {
+                            ReservationEditState.reservationDetail = detailResponse;
+                            Utils.navigateToPage(context, UserReservationUpdateCalendarScreen());
+                          }
                         },
                       ),
                     ),
@@ -429,12 +445,22 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                           ),
                         ),
                         onPressed: () async {
-                          UserReservationsViewModel rcm = UserReservationsViewModel();
-                          await rcm.rejectReservationForUser(detailResponse.reservationModel);
-                          if (isFromNotification) {
-                            Utils.navigateToPage(context, NotificationsView());
+                          ReservationHelper reservationHelper = ReservationHelper();
+                          if (await reservationHelper.isReservationVersionChanged(
+                              widget.reservationModel.id, widget.reservationModel.version)) {
+                            Dialogs.showInfoModalContent(
+                                context,
+                                "Uyarı",
+                                "Bu işlemde değişiklik yapıldı.Sayfayı tekrar yüklemelisiniz.",
+                                navigateToViewPage);
                           } else {
-                            Utils.navigateToPage(context, UserReservationsWithAppBarScreen());
+                            UserReservationsViewModel rcm = UserReservationsViewModel();
+                            await rcm.rejectReservationForUser(detailResponse.reservationModel);
+                            if (isFromNotification) {
+                              Utils.navigateToPage(context, NotificationsView());
+                            } else {
+                              Utils.navigateToPage(context, UserReservationsWithAppBarScreen());
+                            }
                           }
                         },
                       ),

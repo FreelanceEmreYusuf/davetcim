@@ -22,6 +22,15 @@ class ReservationHelper {
     return null;
   }
 
+  Future<bool> isReservationVersionChanged(int reservationId, currentVersion) async {
+    ReservationModel reservationModel = await getReservation(reservationId);
+    if (reservationModel.version == currentVersion) {
+      return false;
+    }
+
+    return true;
+  }
+
   Future<List<ReservationModel>> getReservationListBySessionIdAndDateForApproveControl(int sessionId, int date) async {
     Database db = Database();
     List<ReservationModel> reservationList = [];

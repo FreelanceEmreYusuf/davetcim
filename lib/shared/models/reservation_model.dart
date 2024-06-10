@@ -24,6 +24,7 @@ class ReservationModel {
   Timestamp recordDate;
   ReservationDetailModel detailModel;
   int tempDate;
+  int version;
 
   ReservationModel({
     this.id,
@@ -44,6 +45,7 @@ class ReservationModel {
     this.recordDate,
     this.detailModel,
     this.tempDate,
+    this.version,
   });
 
   ///Object to map
@@ -64,6 +66,7 @@ class ReservationModel {
     'invitationType': invitationType,
     'recordDate': recordDate,
     'seatingArrangement': seatingArrangement,
+    'version': version,
   };
 
   ///Map to object
@@ -84,5 +87,6 @@ class ReservationModel {
     invitationType: map['invitationType'],
     recordDate: map['recordDate'],
     seatingArrangement: map['seatingArrangement'],
+    version: map['version'],
   );
 }

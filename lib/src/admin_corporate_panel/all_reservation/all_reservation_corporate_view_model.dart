@@ -50,7 +50,7 @@ class AllReservationCorporateViewModel extends ChangeNotifier {
 
   Future<List<ReservationModel>> getAllReservationlistForCalendar(int corporateId) async {
     var response = await db
-        .getCollectionRef("CorporationReservations")
+        .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('corporationId', isEqualTo: corporateId)
         .where('reservationStatus',
             whereIn: ReservationStatusEnumConverter.calenderReservationStatus())
@@ -69,6 +69,7 @@ class AllReservationCorporateViewModel extends ChangeNotifier {
   }
 
   Future<void> delayReservation(BuildContext context, ReservationModel reservationModel) async {
+    reservationModel.version = reservationModel.version + 1;
     await db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
     NotificationsViewModel notificationViewModel = NotificationsViewModel();
 

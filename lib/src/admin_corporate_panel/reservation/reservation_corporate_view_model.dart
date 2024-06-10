@@ -175,6 +175,7 @@ class ReservationCorporateViewModel extends ChangeNotifier {
       }
     }
 
+    model.version = model.version + 1;
     db.editCollectionRef(DBConstants.corporationReservationsDb, model.toMap());
   }
 }

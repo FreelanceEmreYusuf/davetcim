@@ -5,6 +5,7 @@ import 'package:davetcim/shared/services/database.dart';
 import '../environments/db_constants.dart';
 import '../models/region_model.dart';
 import '../models/reservation_detail_model.dart';
+import '../models/reservation_model.dart';
 
 class ConversionHelper {
 
@@ -55,6 +56,23 @@ class ConversionHelper {
         corporationModel.point = 1000 + i;
 
         db.editCollectionRef(DBConstants.corporationDb, corporationModel.toMap());
+      }
+    }
+  }
+
+  Future<void> editReservationVersion() async {
+    var response = await db
+        .getCollectionRef(DBConstants.corporationReservationsDb)
+        .get();
+
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        ReservationModel reservationModel = ReservationModel.fromMap(item);
+        reservationModel.version = 1;
+
+        db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
       }
     }
   }

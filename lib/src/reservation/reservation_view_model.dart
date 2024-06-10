@@ -13,7 +13,7 @@ class ReservationViewModel extends ChangeNotifier {
 
   Future<List<ReservationModel>> getReservationlist(int corporateId) async {
     var response = await db
-        .getCollectionRef("CorporationReservations")
+        .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('corporationId', isEqualTo: corporateId)
         .where('isActive', isEqualTo: true)
         .where('reservationStatus', isGreaterThan: ReservationStatusEnum.userOffer.index)
@@ -34,7 +34,7 @@ class ReservationViewModel extends ChangeNotifier {
 
   Stream<List<ReservationModel>> getReservationStreamlist(int corporateId, DateTime dateTime) {
     Stream<List<DocumentSnapshot>> reservationListInfo = db
-        .getCollectionRef("CorporationReservations")
+        .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('corporationId', isEqualTo: corporateId)
         .where('isActive', isEqualTo: true)
         .where('date', isEqualTo: DateConversionUtils.getCurrentDateAsInt(dateTime))
@@ -169,7 +169,7 @@ class ReservationViewModel extends ChangeNotifier {
 
   Future<List<ReservationModel>> getReservationWithDatelist(int corporateId, int date) async {
     var response = await db
-        .getCollectionRef("CorporationReservations")
+        .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('corporationId', isEqualTo: corporateId)
         .where('isActive', isEqualTo: true)
         .where('reservationStatus', isNotEqualTo: ReservationStatusEnum.userOffer.index)
@@ -190,7 +190,7 @@ class ReservationViewModel extends ChangeNotifier {
 
   Future<List<ReservationModel>> getReservationAllWithDatelist(int date) async {
     var response = await db
-        .getCollectionRef("CorporationReservations")
+        .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('isActive', isEqualTo: true)
         .where('date', isEqualTo: date)
         .get();

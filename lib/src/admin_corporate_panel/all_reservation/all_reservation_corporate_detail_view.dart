@@ -154,6 +154,10 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
     Utils.navigateToPage(context, AllReservationLandingView(pageIndex: widget.pageIndex));
   }
 
+  void navigateToViewPage() {
+    Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 1));
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -519,8 +523,18 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                           ),
                         ),
                         onPressed: () async {
-                          Utils.navigateToPage(context,
-                              AllReservationCorporateDelayDateScreen(reservationModel: widget.reservationModel,));
+                          ReservationHelper reservationHelper = ReservationHelper();
+                          if (await reservationHelper.isReservationVersionChanged(
+                              widget.reservationModel.id, widget.reservationModel.version)) {
+                            Dialogs.showInfoModalContent(
+                                context,
+                                "Uyarı",
+                                "Bu işlemde değişiklik yapıldı.Sayfayı tekrar yüklemelisiniz.",
+                                navigateToViewPage);
+                          } else {
+                            Utils.navigateToPage(context,
+                                AllReservationCorporateDelayDateScreen(reservationModel: widget.reservationModel));
+                          }
                         },
                       ),
                     ),
@@ -541,13 +555,23 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                             ),
                           ),
                           onPressed: () async {
-                            if (detailResponse.reservationModel.reservationStatus ==
-                                ReservationStatusEnum.preReservation) {
-                              Dialogs.showDialogModalContentWithInputBoxForOffer(context, detailResponse.reservationModel.cost.toString(),
-                                  "Satış", Constants.reservationDiscountMessage, "İptal", "Satış", "Son Teklif Tutarı", 1,
-                                  approveReservationForSell, DailogInmputValidatorTypeEnum.jutNumber, lineCount: 1);
+                            ReservationHelper reservationHelper = ReservationHelper();
+                            if (await reservationHelper.isReservationVersionChanged(
+                                widget.reservationModel.id, widget.reservationModel.version)) {
+                              Dialogs.showInfoModalContent(
+                                  context,
+                                  "Uyarı",
+                                  "Bu işlemde değişiklik yapıldı.Sayfayı tekrar yüklemelisiniz.",
+                                  navigateToViewPage);
                             } else {
-                              approveReservation();
+                              if (detailResponse.reservationModel.reservationStatus ==
+                                  ReservationStatusEnum.preReservation) {
+                                Dialogs.showDialogModalContentWithInputBoxForOffer(context, detailResponse.reservationModel.cost.toString(),
+                                    "Satış", Constants.reservationDiscountMessage, "İptal", "Satış", "Son Teklif Tutarı", 1,
+                                    approveReservationForSell, DailogInmputValidatorTypeEnum.jutNumber, lineCount: 1);
+                              } else {
+                                approveReservation();
+                              }
                             }
                           },
                         ),
@@ -568,7 +592,17 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                           ),
                         ),
                         onPressed: () async {
-                          rejectReservation();
+                          ReservationHelper reservationHelper = ReservationHelper();
+                          if (await reservationHelper.isReservationVersionChanged(
+                              widget.reservationModel.id, widget.reservationModel.version)) {
+                            Dialogs.showInfoModalContent(
+                                context,
+                                "Uyarı",
+                                "Bu işlemde değişiklik yapıldı.Sayfayı tekrar yüklemelisiniz.",
+                                navigateToViewPage);
+                          } else {
+                            rejectReservation();
+                          }
                         },
                       ),
                     ),

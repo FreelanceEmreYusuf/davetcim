@@ -87,7 +87,8 @@ class SummaryBasketViewModel extends ChangeNotifier {
       isActive: true,
       invitationCount: basketModel.orderBasketModel.count,
       invitationType: basketModel.orderBasketModel.invitationType,
-      seatingArrangement: basketModel.orderBasketModel.sequenceOrder
+      seatingArrangement: basketModel.orderBasketModel.sequenceOrder,
+      version: 1
     );
 
     db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
@@ -134,7 +135,8 @@ class SummaryBasketViewModel extends ChangeNotifier {
         isActive: true,
         invitationCount: basketModel.orderBasketModel.count,
         invitationType: basketModel.orderBasketModel.invitationType,
-        seatingArrangement: basketModel.orderBasketModel.sequenceOrder
+        seatingArrangement: basketModel.orderBasketModel.sequenceOrder,
+        version: 1
     );
 
     db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
@@ -210,7 +212,8 @@ class SummaryBasketViewModel extends ChangeNotifier {
         isActive: true,
         invitationCount: detailResponse.orderBasketModel.count,
         invitationType: detailResponse.orderBasketModel.invitationType,
-        seatingArrangement: detailResponse.orderBasketModel.sequenceOrder
+        seatingArrangement: detailResponse.orderBasketModel.sequenceOrder,
+        version: detailResponse.reservationModel.version + 1
     );
 
     db.editCollectionRef(DBConstants.corporationReservationsDb, reservationModel.toMap());
