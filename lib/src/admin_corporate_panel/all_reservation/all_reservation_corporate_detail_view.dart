@@ -154,7 +154,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
     Utils.navigateToPage(context, AllReservationLandingView(pageIndex: widget.pageIndex));
   }
 
-  void navigateToViewPage() {
+  void navigateToViewPage(BuildContext context) {
     Utils.navigateToPage(context, AllReservationLandingView(pageIndex: 1));
   }
 

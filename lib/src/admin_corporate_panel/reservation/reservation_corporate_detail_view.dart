@@ -162,7 +162,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
     }
   }
 
-  void navigateToViewPage() {
+  void navigateToViewPage(BuildContext context) {
     Utils.navigateToPage(context, ReservationCorporateView());
   }
 

@@ -62,7 +62,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
     getReservationDetail();
   }
 
-  void navigateToViewPage() {
+  void navigateToViewPage(BuildContext context ) {
     Utils.navigateToPage(context, UserReservationsScreen());
   }
 
