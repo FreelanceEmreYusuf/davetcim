@@ -63,7 +63,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
   }
 
   void navigateToViewPage(BuildContext context ) {
-    Navigator.pop(context);
+    Utils.navigateToCallerPage(context);
   }
 
   @override

@@ -13,4 +13,8 @@ class Utils {
   static void navigateToPage(BuildContext context, Widget childPage) {
     Navigator.push(context, PageTransition(type: PageTransitionType.fade,  child: childPage));
   }
+
+  static void navigateToCallerPage(BuildContext context) {
+    Navigator.pop(context);
+  }
 }

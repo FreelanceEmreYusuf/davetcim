@@ -113,11 +113,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
       corporationAnalysisViewModel.editDailyLog(widget.reservationModel.corporationId,
           CorporationEventLogEnum.newReservation.name, detailResponse.reservationModel.cost);
 
-      if (isFromNotification) {
-        Utils.navigateToPage(context, NotificationsView());
-      } else {
-        Utils.navigateToPage(context, ReservationCorporateView());
-      }
+      navigateToCallerPage(context);
     }
   }
 
@@ -141,7 +137,7 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
       corporationAnalysisViewModel.editDailyLog(widget.reservationModel.corporationId,
           CorporationEventLogEnum.newReservation.name, detailResponse.reservationModel.cost);
 
-      Utils.navigateToPage(context, ReservationCorporateView());
+      navigateToCallerPage(context);
     }
   }
 
@@ -155,15 +151,15 @@ class _ReservationCorporateDetailScreenState extends State<ReservationCorporateD
         widget.reservationModel.reservationStatus.index,
         false, widget.reservationModel.description, "");
     notificationViewModel.deleteNotificationsFromAdminUsers(context, 0, widget.reservationModel.id);
-    if (isFromNotification) {
-      Utils.navigateToPage(context, NotificationsView());
-    } else {
-      Utils.navigateToPage(context, ReservationCorporateView());
-    }
+    navigateToCallerPage(context);
   }
 
   void navigateToViewPage(BuildContext context) {
     Utils.navigateToPage(context, ReservationCorporateView());
+  }
+
+  void navigateToCallerPage(BuildContext context) {
+    Utils.navigateToCallerPage(context);
   }
 
 

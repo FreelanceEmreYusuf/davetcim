@@ -74,6 +74,10 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
     Utils.navigateToPage(context, ReservationCorporateView());
   }
 
+  void navigateToCallerPage(BuildContext context) {
+    Utils.navigateToCallerPage(context);
+  }
+
   Future<bool> reservationControl() async {
     ReservationHelper reservationHelper = ReservationHelper();
     ReservationModel currentResModel = await reservationHelper.getReservation(widget.reservationModel.id);
@@ -115,7 +119,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
       corporationAnalysisViewModel.editDailyLog(widget.reservationModel.corporationId,
           CorporationEventLogEnum.newReservation.name, detailResponse.reservationModel.cost);
 
-      Utils.navigateToPage(context, AllReservationLandingView(pageIndex: widget.pageIndex));
+      navigateToCallerPage(context);
     }
   }
 
@@ -139,7 +143,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
       corporationAnalysisViewModel.editDailyLog(widget.reservationModel.corporationId,
           CorporationEventLogEnum.newReservation.name, detailResponse.reservationModel.cost);
 
-      Utils.navigateToPage(context, AllReservationLandingView(pageIndex: widget.pageIndex));
+      navigateToCallerPage(context);
     }
   }
 
@@ -151,7 +155,7 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
         widget.reservationModel.customerId,
         0, widget.reservationModel.id, widget.reservationModel.reservationStatus.index,
         false, widget.reservationModel.description, "");
-    Utils.navigateToPage(context, AllReservationLandingView(pageIndex: widget.pageIndex));
+    navigateToCallerPage(context);
   }
 
   void navigateToViewPage(BuildContext context) {
