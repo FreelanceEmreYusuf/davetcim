@@ -47,7 +47,7 @@ class _ReservationSessionsAllCartItemState extends State<ReservationSessionsAllC
       }
     } else if (DateConversionUtils.isOldDate(widget.date)) {
       color = Colors.grey;
-      reserveInfo = "Bu seansın süresi doldu";
+      reserveInfo = "Süresi dolmuş seans";
     }
 
       return Padding(

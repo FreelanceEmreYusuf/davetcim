@@ -266,7 +266,7 @@ class _ManageCommentCorporateDetailScreenState extends State<ManageCommentCorpor
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
-                            "Tarih : "+(DateConversionUtils.convertTimestampTString(int.parse(date.millisecondsSinceEpoch.toString())))
+                            "Tarih : "+(DateConversionUtils.convertTimestampToString(int.parse(date.millisecondsSinceEpoch.toString())))
                                 +"\n\nKullanıcı Adı : "+widget.commentModel.userName
                                 +"\n\nYıldız : "+widget.commentModel.star.toString(),
                             style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )

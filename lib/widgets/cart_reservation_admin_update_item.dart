@@ -34,23 +34,28 @@ class _CartReservationAdminUpdateItemState extends State<CartReservationAdminUpd
   Widget build(BuildContext context) {
     Color color = Colors.green;
     String reserveInfo = "Bu Seans Müsait";
+    String dialogInfo = "";
     int reservationStatusFlag = 0;
     if (widget.sessionList[widget.index].hasReservation) {
       reservationStatusFlag = 1;
       if (widget.reservationModel.reservationStatus == ReservationStatusEnum.userOffer) {
         reserveInfo = "Teklif Oluşturuldu";
+        dialogInfo = "Bu seans için teklif oluşturuldu.";
         color = Colors.blueGrey;
       } else if (widget.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
         reserveInfo = "Opsiyonlandı";
+        dialogInfo = "Bu seans opsiyonlandı.";
         color = Colors.blueAccent;
       } else if (widget.reservationModel.reservationStatus == ReservationStatusEnum.reservation) {
         reserveInfo = "Satış Oluşturuldu";
+        dialogInfo = "Bu seans için satış işlemi gerçekleşti.";
         color = Colors.redAccent;
       }
     } else if (DateConversionUtils.isOldDate(DateConversionUtils.getDateTimeFromIntDate(
         widget.reservationModel.date))) {
       color = Colors.grey;
-      reserveInfo = "Bu seansın süresi doldu";
+      reserveInfo = "Süresi dolmuş seans";
+      dialogInfo = "Geçmiş tarihli teklif oluşturulamaz.";
       reservationStatusFlag = 2;
     }
 
@@ -58,16 +63,11 @@ class _CartReservationAdminUpdateItemState extends State<CartReservationAdminUpd
       padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
       child: InkWell(
         onTap: ()  {
-          if (reservationStatusFlag == 1) {
+          if (reservationStatusFlag != 0) {
             Dialogs.showInfoModalContent(
                 context,
                 "Tarih Seçim Uyarısı",
-                "Bu seans rezerve edilmiştir", null);
-          } else if (reservationStatusFlag == 2) {
-            Dialogs.showInfoModalContent(
-                context,
-                "Tarih Seçim Uyarısı",
-                "Geçmiş tarihli rezervasyon yapılamaz", null);
+                dialogInfo, null);
           } else {
             widget.reservationModel.sessionId = widget.sessionList[widget.index].id;
             widget.reservationModel.sessionName = widget.sessionList[widget.index].name;

@@ -32,6 +32,27 @@ class AllReservationCorporateViewModel extends ChangeNotifier {
     return corpModelList;
   }
 
+  Future<List<ReservationModel>> getAllReservationlistForUserBasket(int corporateId) async {
+    var response = await db
+        .getCollectionRef(DBConstants.corporationReservationsDb)
+        .where('corporationId', isEqualTo: corporateId)
+        .where('reservationStatus',
+        whereIn: ReservationStatusEnumConverter.calenderUserBasketStatus())
+        .orderBy('date', descending: true)
+        .get();
+
+    List<ReservationModel> corpModelList = [];
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        corpModelList.add(ReservationModel.fromMap(item));
+      }
+    }
+
+    return corpModelList;
+  }
+
   Stream<List<ReservationModel>> getOnlineAllReservationlist(int corporateId) {
     Stream<List<DocumentSnapshot>> reservationStreamList =  db
         .getCollectionRef(DBConstants.corporationReservationsDb)

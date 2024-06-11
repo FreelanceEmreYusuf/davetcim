@@ -5,6 +5,7 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
 import '../shared/dto/reservation_detail_view_dto.dart';
+import '../shared/enums/reservation_status_enum.dart';
 import '../shared/models/reservation_model.dart';
 import '../shared/utils/utils.dart';
 import '../src/admin_corporate_panel/all_reservation/all_reservation_corporate_view_model.dart';
@@ -39,9 +40,20 @@ class _UserReservationUpdateCalenderOrderCarouselState extends State<UserReserva
 
   void getReservationDates(int corporationId) async {
     AllReservationCorporateViewModel model = AllReservationCorporateViewModel();
-    reservationList = await model.getAllReservationlist(corporationId);
+    reservationList = await model.getAllReservationlistForUserBasket(corporationId);
 
     for (int i = 0; i < reservationList.length; i++) {
+      Color color = Colors.blueAccent;
+      if (reservationList[i].reservationStatus ==
+          ReservationStatusEnum.userOffer) {
+        color = Colors.blueGrey;
+      } else if (reservationList[i].reservationStatus ==
+          ReservationStatusEnum.preReservation) {
+        color = Colors.blueAccent;
+      } else if (reservationList[i].reservationStatus ==
+          ReservationStatusEnum.reservation) {
+        color = Colors.redAccent;
+      }
       reservationDates.add(
           DateConversionUtils.getDateTimeFromIntDate(reservationList[i].date),
           new Event(
@@ -50,7 +62,7 @@ class _UserReservationUpdateCalenderOrderCarouselState extends State<UserReserva
             //icon: Icon(Icons.access_alarms, color: Colors.blueAccent),
             dot: Container(
               margin: EdgeInsets.symmetric(horizontal: 1.0),
-              color: Colors.blueAccent,
+              color: color,
               height: 5.0,
               width: 5.0,
             ),

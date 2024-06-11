@@ -38,7 +38,12 @@ class DateConversionUtils {
   }
 
   static String dateTimeToString(DateTime dateTime) {
-    return DateFormat('dd MMMM yyyy', 'tr_TR').format(dateTime);
+    return DateFormat('dd MM yyyy', 'tr_TR').format(dateTime);
+  }
+
+  static String intDateToString(int intDate) {
+    DateTime dt = getDateTimeFromIntDate(intDate);
+    return DateFormat('dd.MM.yyyy').format(dt);
   }
 
   static int getWeekDayFromIntDate(int intDate) {
@@ -65,10 +70,22 @@ class DateConversionUtils {
     return dt.isBefore(DateTime.now().add(const Duration(days: -1)));
   }
 
-  static String convertTimestampTString (int timestamp) {
+  static String convertTimestampToString (int timestamp) {
     DateTime tsdate = DateTime.fromMillisecondsSinceEpoch(timestamp);
-    String datetime = tsdate.year.toString() + "/" + tsdate.month.toString() + "/" + tsdate.day.toString();
+    String datetime = tsdate.day.toString() + "/" + tsdate.month.toString() + "/" + tsdate.year.toString();
     return datetime;
+  }
+
+  static String getTimestampToDateString (Timestamp timestamp) {
+    DateTime tsdate =  timestamp.toDate();
+    String datetime = tsdate.day.toString() + "/" + tsdate.month.toString() + "/" + tsdate.year.toString();
+    return datetime;
+  }
+
+  static String timestampToString(Timestamp timestamp) {
+    DateTime tsdate =  timestamp.toDate();
+    final DateFormat formatter = DateFormat('dd.MM.yyyy HH:mm:ss');
+    return formatter.format(tsdate);
   }
 
   static int getDayDifferenceFromToday (Timestamp timestamp) {

@@ -61,7 +61,7 @@ class _CorporateCommentsCardWidgetState
                 children: [
                   FittedBox(
                     fit: BoxFit.scaleDown,
-                    child: Text((DateConversionUtils.convertTimestampTString(int.parse(date.millisecondsSinceEpoch.toString()))),
+                    child: Text((DateConversionUtils.convertTimestampToString(int.parse(date.millisecondsSinceEpoch.toString()))),
                       style: TextStyle(overflow: TextOverflow.ellipsis,   fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold,),
                       maxLines: 5,
                     ),

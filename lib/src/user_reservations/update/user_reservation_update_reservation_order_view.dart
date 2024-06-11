@@ -27,7 +27,7 @@ class _UserReservationUpdateReservationOrderViewScreenState extends State<UserRe
     ReservationViewModel rvm = ReservationViewModel();
     sessionList = await rvm.getSessionReservationExtractionForUpdate(
         ReservationEditState.reservationDetail.corporateModel.corporationId,
-        ReservationEditState.reservationDetail.reservationModel.date,
+        ReservationEditState.reservationDetail.reservationModel.tempDate,
         ReservationEditState.reservationDetail.reservationModel.sessionId,
         ReservationEditState.reservationDetail.reservationModel.customerId
     );
@@ -43,13 +43,13 @@ class _UserReservationUpdateReservationOrderViewScreenState extends State<UserRe
     if (sessionList == null || sessionList.length == 0) {
       return Scaffold(
         appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(
-            ReservationEditState.reservationDetail.reservationModel.date).toString().substring(0,10),
+            ReservationEditState.reservationDetail.reservationModel.tempDate).toString().substring(0,10),
             isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       );
     }
     return Scaffold(
       appBar: AppBarMenu(pageName: DateConversionUtils.getDateTimeFromIntDate(
-          ReservationEditState.reservationDetail.reservationModel.date).toString().substring(0,10),
+          ReservationEditState.reservationDetail.reservationModel.tempDate).toString().substring(0,10),
           isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
       body: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),

@@ -48,6 +48,13 @@ class ReservationStatusEnumConverter {
     ];
   }
 
+  static List<int> calenderUserBasketStatus() {
+    return [
+      ReservationStatusEnum.preReservation.index,
+      ReservationStatusEnum.reservation.index
+    ];
+  }
+
   static List<int> approveControlReservationStatus() {
     return [
       ReservationStatusEnum.userOffer.index,

@@ -26,26 +26,31 @@ class _CartReservationNewUserItemState extends State<CartReservationNewUserItem>
   Widget build(BuildContext context) {
     Color color = Colors.green;
     String reserveInfo = "Bu Seans Müsait";
+    String dialogInfo = "";
     int reservationStatusFlag = 0;
     if (widget.sessionModel.hasReservation) {
       reservationStatusFlag = 1;
       if (widget.sessionModel.reservationStatus ==
           ReservationStatusEnum.userOffer) {
         reserveInfo = "Teklif Oluşturuldu";
+        dialogInfo = "Bu seans için teklif oluşturuldu.";
         color = Colors.blueGrey;
       } else if (widget.sessionModel.reservationStatus ==
           ReservationStatusEnum.preReservation) {
         reserveInfo = "Opsiyonlandı";
+        dialogInfo = "Bu seans opsiyonlandı.";
         color = Colors.blueAccent;
       } else if (widget.sessionModel.reservationStatus ==
           ReservationStatusEnum.reservation) {
         reserveInfo = "Satış Oluşturuldu";
+        dialogInfo = "Bu seans için satış işlemi gerçekleşti.";
         color = Colors.redAccent;
       }
     } else if (DateConversionUtils.isOldDate(DateConversionUtils.getDateTimeFromIntDate(
         UserBasketState.userBasket.date))) {
       color = Colors.grey;
-      reserveInfo = "Bu seansın süresi doldu";
+      dialogInfo = "Geçmiş tarihli teklif oluşturulamaz.";
+      reserveInfo = "Süresi dolmuş seans";
       reservationStatusFlag = 2;
     }
 
@@ -53,16 +58,11 @@ class _CartReservationNewUserItemState extends State<CartReservationNewUserItem>
       padding: EdgeInsets.fromLTRB(0, 4, 0, 4),
       child: InkWell(
         onTap: ()  {
-          if (reservationStatusFlag == 1) {
+          if (reservationStatusFlag != 0) {
             Dialogs.showInfoModalContent(
                 context,
                 "Tarih Seçim Uyarısı",
-                "Bu seans rezerve edilmiştir", null);
-          } else if (reservationStatusFlag == 2) {
-            Dialogs.showInfoModalContent(
-                context,
-                "Tarih Seçim Uyarısı",
-                "Geçmiş tarihli teklif oluşturulamaz", null);
+                dialogInfo, null);
           } else {
             UserBasketState.userBasket.sessionModel = widget.sessionModel;
             navigateToBasket();

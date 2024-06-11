@@ -328,10 +328,11 @@ class _AllReservationCorporateDetailScreenState extends State<AllReservationCorp
                 ),
               ),
             ),
-            ExpandableCard(expandedContent: Text("Organizasyon tarihi : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
+            ExpandableCard(expandedContent: Text("Organizasyon Tarihi : "+DateConversionUtils.intDateToString(detailResponse.reservationModel.date)
                 +"\n\nSeans : "+ detailResponse.reservationModel.sessionName
+                +"\n\nKayıt Tarihi : "+ DateConversionUtils.timestampToString(detailResponse.reservationModel.recordDate)
                 +"\n\nBu seans için alınan hizmetler hariç salon kullanımı için ödenecek ücret : "+ GeneralHelper.formatMoney(detailResponse.reservationModel.sessionCost.toString())+ "TL",), collapsedContent: Text(
-                "Tarih : "+DateConversionUtils.getDateTimeFromIntDate(detailResponse.reservationModel.date).toString().substring(0,10)
+                "Organizasyon Tarihi: "+DateConversionUtils.intDateToString(detailResponse.reservationModel.date)
                     +"\n\nSeans bilgisi için dokunun",
                 style: TextStyle(fontSize: 16, color: Colors.black, fontStyle: FontStyle.normal,fontWeight: FontWeight.bold, )
             ),),
