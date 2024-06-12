@@ -9,6 +9,7 @@ import '../../shared/sessions/prooduct_view_state.dart';
 import '../../shared/sessions/user_state.dart';
 import '../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/indicator.dart';
+import '../../widgets/no_found_notification_screen.dart';
 
 class ProductsScreen extends StatefulWidget {
   @override
@@ -81,7 +82,7 @@ class _ProductsScreenState extends State<ProductsScreen>  {
     if (!hasDataTaken) {
       return Scaffold(
         appBar: AppBarMenu(
-          pageName: "Salonlar",
+          pageName: "Mekanlar",
           isHomnePageIconVisible: true,
           isNotificationsIconVisible: true,
           isPopUpMenuActive: true,
@@ -95,49 +96,68 @@ class _ProductsScreenState extends State<ProductsScreen>  {
       );
     }
 
-    return Scaffold(
-      appBar: AppBarMenu(
-        pageName: "Salonlar",
-        isHomnePageIconVisible: true,
-        isNotificationsIconVisible: true,
-        isPopUpMenuActive: true,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(10.0),
-        child: ListView(
-          controller: _scrollController, // ScrollController'ı ListView'e atama
-          children: <Widget>[
-            GridView.builder(
-              shrinkWrap: true,
-              primary: false,
-              physics: NeverScrollableScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: MediaQuery.of(context).size.width /
-                    (MediaQuery.of(context).size.height / 1.15),
-              ),
-              itemCount: corporationViewList == null
-                  ? 0
-                  : corporationViewList.length,
-              itemBuilder: (BuildContext context, int index) {
-                CorporationModel item = corporationViewList[index];
-                return GridProduct(
-                  img: item.imageUrl,
-                  isFav: UserState.isCorporationFavorite(item.corporationId),
-                  name: item.corporationName,
-                  rating: item.averageRating,
-                  raters: item.ratingCount,
-                  description: item.description,
-                  corporationId: item.corporationId,
-                  maxPopulation: item.maxPopulation,
-                );
-              },
-            ),
-            // Burada ElevatedButton yerine bir yükleme göstergesi veya metin olabilir
-            // veya daha fazla veri yükleme işlemini otomatik olarak başlatmak için onPressed kullanılabilir
-          ],
+    Widget body = null;
+    if(corporationViewList.isEmpty || corporationViewList.length == 0){
+      body = Scaffold(
+        appBar: AppBarMenu(
+          pageName: "Mekanlar",
+          isHomnePageIconVisible: true,
+          isNotificationsIconVisible: true,
+          isPopUpMenuActive: true,
         ),
-      ),
-    );
+        body: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: Center(
+            child: NoFoundDataScreen(keyText: "Aradığınız kireterlere uygun mekan bulunamadı."),
+          )
+        ),
+      );
+    }
+    else{
+      body = Scaffold(
+        appBar: AppBarMenu(
+          pageName: "Mekanlar",
+          isHomnePageIconVisible: true,
+          isNotificationsIconVisible: true,
+          isPopUpMenuActive: true,
+        ),
+        body: Padding(
+          padding: EdgeInsets.all(10.0),
+          child: ListView(
+            controller: _scrollController, // ScrollController'ı ListView'e atama
+            children: <Widget>[
+              GridView.builder(
+                shrinkWrap: true,
+                primary: false,
+                physics: NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  childAspectRatio: MediaQuery.of(context).size.width /
+                      (MediaQuery.of(context).size.height / 1.15),
+                ),
+                itemCount: corporationViewList == null
+                    ? 0
+                    : corporationViewList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  CorporationModel item = corporationViewList[index];
+                  return GridProduct(
+                    img: item.imageUrl,
+                    isFav: UserState.isCorporationFavorite(item.corporationId),
+                    name: item.corporationName,
+                    rating: item.averageRating,
+                    raters: item.ratingCount,
+                    description: item.description,
+                    corporationId: item.corporationId,
+                    maxPopulation: item.maxPopulation,
+                  );
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+
+    return body;
   }
 }
