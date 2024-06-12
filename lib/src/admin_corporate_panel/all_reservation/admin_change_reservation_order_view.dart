@@ -27,9 +27,8 @@ class _AdminChangeReservationOrderViewScreenState extends State<AdminChangeReser
 
   void callGetReservationList() async {
     ReservationViewModel rvm = ReservationViewModel();
-    sessionList = await rvm.getSessionReservationExtractionForUpdate(widget.reservationModel.corporationId,
-        widget.date, widget.reservationModel.sessionId,
-        widget.reservationModel.customerId
+    sessionList = await rvm.getSessionReservationExtraction(widget.reservationModel.corporationId,
+        widget.date
     );
 
     setState(() {

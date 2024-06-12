@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 
+import '../../../shared/enums/reservation_status_enum.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../shared/utils/utils.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
@@ -44,6 +45,15 @@ class _AllReservationCorporateDelayDateScreenState extends State<AllReservationC
     reservationList = await model.getAllReservationlistForCalendar(reservationModel.corporationId);
 
     for (int i = 0; i < reservationList.length; i++) {
+      Color color = Colors.blueAccent;
+      if (reservationList[i].reservationStatus == ReservationStatusEnum.userOffer) {
+        color = Colors.blueGrey;
+      } else if (reservationList[i].reservationStatus == ReservationStatusEnum.preReservation) {
+        color = Colors.blueAccent;
+      } else if (reservationList[i].reservationStatus == ReservationStatusEnum.reservation) {
+        color = Colors.redAccent;
+      }
+
       reservationDates.add(
           DateConversionUtils.getDateTimeFromIntDate(reservationList[i].date),
           new Event(
@@ -52,7 +62,7 @@ class _AllReservationCorporateDelayDateScreenState extends State<AllReservationC
             //icon: Icon(Icons.access_alarms, color: Colors.blueAccent),
             dot: Container(
               margin: EdgeInsets.symmetric(horizontal: 1.0),
-              color: Colors.blueAccent,
+              color: color,
               height: 5.0,
               width: 5.0,
             ),

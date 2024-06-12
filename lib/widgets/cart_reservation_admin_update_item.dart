@@ -38,21 +38,20 @@ class _CartReservationAdminUpdateItemState extends State<CartReservationAdminUpd
     int reservationStatusFlag = 0;
     if (widget.sessionList[widget.index].hasReservation) {
       reservationStatusFlag = 1;
-      if (widget.reservationModel.reservationStatus == ReservationStatusEnum.userOffer) {
+      if (widget.sessionList[widget.index].reservationStatus == ReservationStatusEnum.userOffer) {
         reserveInfo = "Teklif Oluşturuldu";
         dialogInfo = "Bu seans için teklif oluşturuldu.";
         color = Colors.blueGrey;
-      } else if (widget.reservationModel.reservationStatus == ReservationStatusEnum.preReservation) {
+      } else if (widget.sessionList[widget.index].reservationStatus == ReservationStatusEnum.preReservation) {
         reserveInfo = "Opsiyonlandı";
         dialogInfo = "Bu seans opsiyonlandı.";
         color = Colors.blueAccent;
-      } else if (widget.reservationModel.reservationStatus == ReservationStatusEnum.reservation) {
+      } else if (widget.sessionList[widget.index].reservationStatus == ReservationStatusEnum.reservation) {
         reserveInfo = "Satış Oluşturuldu";
         dialogInfo = "Bu seans için satış işlemi gerçekleşti.";
         color = Colors.redAccent;
       }
-    } else if (DateConversionUtils.isOldDate(DateConversionUtils.getDateTimeFromIntDate(
-        widget.reservationModel.date))) {
+    } else if (DateConversionUtils.isOldDate(DateConversionUtils.getDateTimeFromIntDate(widget.date))) {
       color = Colors.grey;
       reserveInfo = "Süresi dolmuş seans";
       dialogInfo = "Geçmiş tarihli teklif oluşturulamaz.";

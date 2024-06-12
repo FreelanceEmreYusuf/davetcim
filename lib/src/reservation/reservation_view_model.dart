@@ -85,10 +85,10 @@ class ReservationViewModel extends ChangeNotifier {
     return sessionList;
   }
 
-  Future<List<CorporateSessionsModel>> getSessionReservationExtractionForUpdate
+  Future<List<CorporateSessionsModel>> getSessionReservationExtractionForUser
       (int corporateId, int date, int sessionId, int customerId) async {
     List<CorporateSessionsModel> sessionList = await getSessionList(corporateId);
-    List<ReservationModel> reservationList =  await getReservationWithDatelist(corporateId, date);
+    List<ReservationModel> reservationList =  await getReservationWithDatelistForUser(corporateId, date);
 
     for (int i = 0; i < sessionList.length; i++) {
       CorporateSessionsModel sessionModel = sessionList[i];
@@ -168,6 +168,26 @@ class ReservationViewModel extends ChangeNotifier {
   }
 
   Future<List<ReservationModel>> getReservationWithDatelist(int corporateId, int date) async {
+    var response = await db
+        .getCollectionRef(DBConstants.corporationReservationsDb)
+        .where('corporationId', isEqualTo: corporateId)
+        .where('isActive', isEqualTo: true)
+        .where('date', isEqualTo: date)
+        .get();
+
+    List<ReservationModel> corpModelList = [];
+    if (response.docs != null && response.docs.length > 0) {
+      var list = response.docs;
+      for (int i = 0; i < list.length; i++) {
+        Map item = list[i].data();
+        corpModelList.add(ReservationModel.fromMap(item));
+      }
+    }
+
+    return corpModelList;
+  }
+
+  Future<List<ReservationModel>> getReservationWithDatelistForUser(int corporateId, int date) async {
     var response = await db
         .getCollectionRef(DBConstants.corporationReservationsDb)
         .where('corporationId', isEqualTo: corporateId)
