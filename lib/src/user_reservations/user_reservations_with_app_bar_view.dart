@@ -1,9 +1,12 @@
 import 'package:davetcim/src/user_reservations/user_reservations_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../shared/models/reservation_model.dart';
 import '../../../widgets/app_bar/app_bar_view.dart';
 import '../../widgets/app_bar/app_bar_view_with_back_home_page.dart';
 import '../../widgets/app_bar/app_bar_without_previous_icon_view.dart';
+import '../../widgets/indicator.dart';
+import '../../widgets/on_error/somethingWentWrong.dart';
 import '../../widgets/reservation_user_card_widget.dart';
 import '../main/main_screen_view.dart';
 
@@ -15,65 +18,77 @@ class UserReservationsWithAppBarScreen extends StatefulWidget {
 }
 
 class _State extends State<UserReservationsWithAppBarScreen> {
-  List<ReservationModel> reservationList = [];
   final registerFormKey = GlobalKey <FormState> ();
 
   @override
-  void initState() {
-    callGetReservations();
-    super.initState();
-  }
-
-  void callGetReservations() async {
-    UserReservationsViewModel model = UserReservationsViewModel();
-    reservationList = await model.getReservationlist();
-
-    setState(() {
-      reservationList = reservationList;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        // Geri tuşuna basıldığında MainScreen'a git
-        Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => MainScreen()),
-              (Route<dynamic> route) => false,
-        );
-        return true; // Geri tuşunun işleme devam etmesini sağlar
-      },
-      child: Scaffold(
-        appBar: AppBarMenuBackToHomePage(pageName: 'Rezervasyonlar', isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
-        body: Padding(
-          padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
-          child: ListView(
-            children: <Widget>[
-              Divider(),
-              SizedBox(height: 10.0),
-              GridView.builder(
-                shrinkWrap: true,
-                primary: false,
-                physics: NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1,
-                  childAspectRatio: MediaQuery.of(context).size.width /
-                      (MediaQuery.of(context).size.height / 5),
-                ),
-                itemCount: reservationList == null
-                    ? 0
-                    : reservationList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  ReservationModel item = reservationList[index];
-                  return ReservationUserCardWidget(model: item);
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+      return ChangeNotifierProvider<UserReservationsViewModel>(
+          create: (_)=>UserReservationsViewModel(),
+          builder: (context,child) => StreamBuilder<List<ReservationModel>>(
+              stream: Provider.of<UserReservationsViewModel>(context, listen: false)
+                  .getOnlineReservationlist(),
+              builder: (BuildContext context, AsyncSnapshot asyncSnapshot) {
+                if (asyncSnapshot.hasError) {
+                  return SomethingWentWrongScreen();
+                } else if (asyncSnapshot.hasData) {
+                  List<ReservationModel> reservationList = asyncSnapshot.data;
+                  return Scaffold(
+                    appBar: AppBarMenuBackToHomePage(pageName: 'Rezervasyonlar', isHomnePageIconVisible: true, isNotificationsIconVisible: true, isPopUpMenuActive: true),
+                    body: Container(
+                      height: MediaQuery.of(context).size.height,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('assets/filter_page_background.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      foregroundDecoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.black.withOpacity(0.1), // Filtre yoğunluğu
+                          ],
+                        ),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(10.0, 0, 10.0, 0),
+                        child: ListView(
+                          children: <Widget>[
+                            Divider(),
+                            SizedBox(height: 10.0),
+                            GridView.builder(
+                              shrinkWrap: true,
+                              primary: false,
+                              physics: NeverScrollableScrollPhysics(),
+                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 1,
+                                childAspectRatio: 1.0,
+                                crossAxisSpacing: 0.0,
+                                mainAxisSpacing: 5,
+                                mainAxisExtent: MediaQuery.of(context).size.height / 6,
+                              ),
+                              itemCount: reservationList == null
+                                  ? 0
+                                  : reservationList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                ReservationModel item = reservationList[index];
+                                return ReservationUserCardWidget(model: item);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                } else {
+                  return Center(
+                    child: Indicator(),
+                  );
+                }
+              })
+      );
+    }
   }
-}
 

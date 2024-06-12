@@ -396,7 +396,7 @@ class _UserReservationUpdateSummaryBasketScreenState extends State<UserReservati
 
   void navigateToReservationsPage(BuildContext context) {
     UserBasketState.servicePoolModel = [];
-    Utils.navigateToPage(context, UserReservationsWithAppBarScreen());
+    Navigator.pop(context);
   }
 
   @override

@@ -457,11 +457,7 @@ class _UserResevationDetailScreenState extends State<UserResevationDetailScreen>
                           } else {
                             UserReservationsViewModel rcm = UserReservationsViewModel();
                             await rcm.rejectReservationForUser(detailResponse.reservationModel);
-                            if (isFromNotification) {
-                              Utils.navigateToPage(context, NotificationsView());
-                            } else {
-                              Utils.navigateToPage(context, UserReservationsWithAppBarScreen());
-                            }
+                            Navigator.pop(context);
                           }
                         },
                       ),
